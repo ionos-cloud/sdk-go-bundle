@@ -34,12 +34,13 @@ import (
     "os"
 
     cert "github.com/ionos-cloud/sdk-go-bundle/services/cert"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
     certificateId := "certificateId_example" // string | 
 
-    configuration := cert.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := cert.NewAPIClient(configuration)
     resource, resp, err := apiClient.CertificatesApi.CertificatesDelete(context.Background(), certificateId).Execute()
     if err != nil {
@@ -100,13 +101,14 @@ import (
     "os"
 
     cert "github.com/ionos-cloud/sdk-go-bundle/services/cert"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
     offset := "offset_example" // string | 'Limit' and 'Offset' are optional; you can use these filter parameters to retrieve only part of the results obtained by a request.  Offset is the first element (from the complete list of elements) to be included in the response. (optional)
     limit := "limit_example" // string | 'Limit' and 'Offset' are optional; you can use these filter parameters to retrieve only part of the results of a query.  If both 'Offset' and 'Limit'are specified, the offset lines are skipped before counting the returned limit lines. (optional)
 
-    configuration := cert.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := cert.NewAPIClient(configuration)
     resource, resp, err := apiClient.CertificatesApi.CertificatesGet(context.Background()).Offset(offset).Limit(limit).Execute()
     if err != nil {
@@ -165,12 +167,13 @@ import (
     "os"
 
     cert "github.com/ionos-cloud/sdk-go-bundle/services/cert"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
     certificateId := "certificateId_example" // string | 
 
-    configuration := cert.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := cert.NewAPIClient(configuration)
     resource, resp, err := apiClient.CertificatesApi.CertificatesGetById(context.Background(), certificateId).Execute()
     if err != nil {
@@ -232,13 +235,14 @@ import (
     "os"
 
     cert "github.com/ionos-cloud/sdk-go-bundle/services/cert"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
     certificateId := "certificateId_example" // string | 
     certificatePatchDto := *openapiclient.NewCertificatePatchDto(*openapiclient.NewCertificatePatchPropertiesDto("My Certificate")) // CertificatePatchDto | 
 
-    configuration := cert.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := cert.NewAPIClient(configuration)
     resource, resp, err := apiClient.CertificatesApi.CertificatesPatch(context.Background(), certificateId).CertificatePatchDto(certificatePatchDto).Execute()
     if err != nil {
@@ -301,12 +305,13 @@ import (
     "os"
 
     cert "github.com/ionos-cloud/sdk-go-bundle/services/cert"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
     certificatePostDto := *openapiclient.NewCertificatePostDto(*openapiclient.NewCertificatePostPropertiesDto("My Certificate", "-----BEGIN CERTIFICATE-----MIIE5TCCAs2gAwIBAgIBATANBgkqhkiG9w0BAQsFADA2MQswCQYDVQQGEwJSTzEK-----END CERTIFICATE-----", "-----BEGIN CERTIFICATE-----MIIDoTCCAokCFDrAUWffdxWJVz2Axl9lp/4xiUteMA0GCSqGSIb3DQEBCwUAMIGG-----END CERTIFICATE-----", "-----BEGIN RSA PRIVATE KEY-----MIIJKQIBAAKCAgEAzDehfqWBr+9q0pxwCDDRph7QSPiMbkDGaGKc+Fd2h3doT8Li-----END RSA PRIVATE KEY-----")) // CertificatePostDto | 
 
-    configuration := cert.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := cert.NewAPIClient(configuration)
     resource, resp, err := apiClient.CertificatesApi.CertificatesPost(context.Background()).CertificatePostDto(certificatePostDto).Execute()
     if err != nil {

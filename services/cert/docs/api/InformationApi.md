@@ -32,11 +32,12 @@ import (
     "os"
 
     cert "github.com/ionos-cloud/sdk-go-bundle/services/cert"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
 
-    configuration := cert.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := cert.NewAPIClient(configuration)
     resource, resp, err := apiClient.InformationApi.GetInfo(context.Background()).Execute()
     if err != nil {
@@ -90,11 +91,12 @@ import (
     "os"
 
     cert "github.com/ionos-cloud/sdk-go-bundle/services/cert"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
 
-    configuration := cert.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := cert.NewAPIClient(configuration)
     resource, resp, err := apiClient.InformationApi.GetJsonOpenApiSpec(context.Background()).Execute()
     if err != nil {
@@ -148,11 +150,12 @@ import (
     "os"
 
     cert "github.com/ionos-cloud/sdk-go-bundle/services/cert"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
 
-    configuration := cert.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := cert.NewAPIClient(configuration)
     resource, resp, err := apiClient.InformationApi.GetYamlOpenApiSpec(context.Background()).Execute()
     if err != nil {
