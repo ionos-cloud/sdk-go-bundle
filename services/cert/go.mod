@@ -1,4 +1,4 @@
-module github.com/ionos-cloud/sdk-go-bundle/bla/cert
+module github.com/ionos-cloud/sdk-go-bundle/services/cert
 
 go 1.19
 

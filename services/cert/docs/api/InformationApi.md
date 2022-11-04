@@ -31,7 +31,7 @@ import (
     "fmt"
     "os"
 
-    cert "github.com/ionos-cloud/sdk-go-bundle/bla/cert"
+    cert "github.com/ionos-cloud/sdk-go-bundle/services/cert"
 )
 
 func main() {
@@ -89,7 +89,7 @@ import (
     "fmt"
     "os"
 
-    cert "github.com/ionos-cloud/sdk-go-bundle/bla/cert"
+    cert "github.com/ionos-cloud/sdk-go-bundle/services/cert"
 )
 
 func main() {
@@ -147,7 +147,7 @@ import (
     "fmt"
     "os"
 
-    cert "github.com/ionos-cloud/sdk-go-bundle/bla/cert"
+    cert "github.com/ionos-cloud/sdk-go-bundle/services/cert"
 )
 
 func main() {
