@@ -1,0 +1,1593 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: support@cloud.ionos.com
+    name: IONOS Cloud Support
+    url: https://docs.ionos.com/faq/contact
+  description: Container Registry service enables IONOS clients to manage docker and
+    OCI compliant registries for use by their managed Kubernetes clusters. Use a Container
+    Registry to ensure you have a privately accessed registry to efficiently support
+    image pulls.
+  termsOfService: https://www.ionos.de/terms-gtc/terms-enterprise-cloud/enterprise-terms/
+  title: Container Registry service
+  version: "1.0"
+externalDocs:
+  description: More documentation
+  url: https://docs.ionos.com/cloud
+servers:
+- description: Production
+  url: https://api.ionos.com/containerregistries
+tags:
+- description: |-
+    Manage container registries for storage of docker images and OCI compliant artifacts.
+
+    This operation is restricted to contract owner, admin, and users with 'accessAndManageRegistries' and Share/Edit access permissions for the data center hosting the registry.
+  name: Registries
+- description: Define access permissions to registry resources
+  name: Tokens
+paths:
+  /locations:
+    get:
+      operationId: locationsGet
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationsResponse'
+          description: OK
+      security:
+      - basicAuth: []
+        tokenAuth: []
+      summary: Get container registry locations
+      tags:
+      - Locations
+  /names/{name}:
+    head:
+      description: |-
+        Validate that the name is suitable to use for a new registry:
+        - it uses only the characters "a-z", "0-9", or "-"
+        - and starts with a letter and ends with a letter or number
+        - and is between 3 to 63 characters in length
+        - and is available
+      operationId: namesCheckUsage
+      parameters:
+      - description: The desired registry name
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          description: The desired registry name
+          pattern: ^[a-z][-a-z0-9]{1,61}[a-z0-9]$
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: OK. The registry name is valid but already in use
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Not found. The registry name is available and valid
+      security:
+      - basicAuth: []
+        tokenAuth: []
+      summary: Get container registry name availability
+      tags:
+      - Names
+  /registries:
+    get:
+      description: List all managed container registries for your account
+      operationId: registriesGet
+      parameters:
+      - description: The registry name to search for
+        explode: true
+        in: query
+        name: filter.name
+        required: false
+        schema:
+          description: The registry name to search for
+          example: my-registry
+          type: string
+        style: form
+      - description: The maximum number of elements to return (used together with
+          nextPageToken for pagination)
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: "100"
+          description: The maximum number of elements to return (used together with
+            nextPageToken for pagination)
+          type: string
+        style: form
+      - description: The next page from the complete list of elements (used together
+          with limit for pagination)
+        explode: true
+        in: query
+        name: nextPageToken
+        required: false
+        schema:
+          description: The next page from the complete list of elements (used together
+            with limit for pagination)
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistriesResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Bad Request
+      security:
+      - basicAuth: []
+        tokenAuth: []
+      summary: List all container registries
+      tags:
+      - Registries
+    post:
+      description: |-
+        Create a registry to hold container images or OCI compliant artifacts
+        - "name" must have passed validation
+        - "location" must be one of the available location IDs
+        - "garbageCollectionSchedule" time and days of the week for runs
+      operationId: registriesPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostRegistryInput'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostRegistryOutput'
+          description: The created container registry is returned with 'metadata.status'
+            set to "BUSY".
+          headers:
+            Location:
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Bad Request
+      security:
+      - basicAuth: []
+        tokenAuth: []
+      summary: Create container registry
+      tags:
+      - Registries
+  /registries/{registryId}:
+    delete:
+      operationId: registriesDelete
+      parameters:
+      - description: The unique ID of the registry
+        explode: false
+        in: path
+        name: registryId
+        required: true
+        schema:
+          description: The unique ID of the registry
+          format: uuid
+          pattern: ^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Bad Request
+      security:
+      - basicAuth: []
+        tokenAuth: []
+      summary: Delete registry
+      tags:
+      - Registries
+    get:
+      description: Get all information for a specific container registry
+      operationId: registriesFindById
+      parameters:
+      - description: The unique ID of the registry
+        explode: false
+        in: path
+        name: registryId
+        required: true
+        schema:
+          description: The unique ID of the registry
+          format: uuid
+          pattern: ^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistryResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Not Found
+      security:
+      - basicAuth: []
+        tokenAuth: []
+      summary: Get a registry
+      tags:
+      - Registries
+    patch:
+      description: |-
+        Update the properties of a registry
+        - "garbageCollectionSchedule" time and days of the week for runs
+      operationId: registriesPatch
+      parameters:
+      - description: The unique ID of the registry
+        explode: false
+        in: path
+        name: registryId
+        required: true
+        schema:
+          description: The unique ID of the registry
+          format: uuid
+          pattern: ^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchRegistryInput'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistryResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Bad Request
+      security:
+      - basicAuth: []
+        tokenAuth: []
+      summary: Update the properties of a registry
+      tags:
+      - Registries
+    put:
+      description: |
+        Create/replace a registry to hold container images or OCI compliant
+        artifacts
+
+        **On create**
+        - "name" must have passed validation
+        - "location" must be one of the available location IDs
+
+        **On update**
+        - "name" cannot be changed
+        - "location" cannot be changed
+
+        **On create or update**
+        - "garbageCollectionSchedule": time and days of the week for runs
+      operationId: registriesPut
+      parameters:
+      - description: The unique ID of the registry
+        explode: false
+        in: path
+        name: registryId
+        required: true
+        schema:
+          description: The unique ID of the registry
+          format: uuid
+          pattern: ^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutRegistryInput'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PutRegistryOutput'
+          description: The created container registry is returned with 'metadata.status'
+            set to "BUSY".
+          headers:
+            Location:
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Bad Request
+      security:
+      - basicAuth: []
+        tokenAuth: []
+      summary: Create or replace a container registry
+      tags:
+      - Registries
+  /registries/{registryId}/repositories/{name}:
+    delete:
+      description: "Delete all repository contents\n\n\t\tThe registry V2 API allows\
+        \ manifests and blobs to be deleted individually but it is not possible to\
+        \ remove an entire repository.\n\t\tThis operation is provided for convenience"
+      operationId: registriesRepositoriesDelete
+      parameters:
+      - description: The unique ID of the registry
+        explode: false
+        in: path
+        name: registryId
+        required: true
+        schema:
+          description: The unique ID of the registry
+          format: uuid
+          pattern: ^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$
+          type: string
+        style: simple
+      - description: The name of the repository
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          description: The name of the repository
+          example: ubuntu
+          pattern: ^[a-z0-9]+(?:[._-][a-z0-9]+)*$
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+      security:
+      - basicAuth: []
+        tokenAuth: []
+      summary: Delete repository
+      tags:
+      - Repositories
+  /registries/{registryId}/tokens:
+    get:
+      operationId: registriesTokensGet
+      parameters:
+      - description: The first element (from the complete list of the elements) to
+          include in the response (used together with limit for pagination)
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: "0"
+          description: The first element (from the complete list of the elements)
+            to include in the response (used together with limit for pagination)
+          type: string
+        style: form
+      - description: The maximum number of elements to return (used together with
+          offset for pagination)
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: "100"
+          description: The maximum number of elements to return (used together with
+            offset for pagination)
+          type: string
+        style: form
+      - description: The unique ID of the registry
+        explode: false
+        in: path
+        name: registryId
+        required: true
+        schema:
+          description: The unique ID of the registry
+          format: uuid
+          pattern: ^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokensResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Bad Request
+      security:
+      - basicAuth: []
+        tokenAuth: []
+      summary: List all tokens for the container registry
+      tags:
+      - Tokens
+    post:
+      description: |-
+        Create a token
+        - password is only available once in the POST response
+      operationId: registriesTokensPost
+      parameters:
+      - description: The unique ID of the registry
+        explode: false
+        in: path
+        name: registryId
+        required: true
+        schema:
+          description: The unique ID of the registry
+          format: uuid
+          pattern: ^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostTokenInput'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostTokenOutput'
+          description: Created
+          headers:
+            Location:
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Bad Request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Conflict
+      security:
+      - basicAuth: []
+        tokenAuth: []
+      summary: Create token
+      tags:
+      - Tokens
+  /registries/{registryId}/tokens/{tokenId}:
+    delete:
+      operationId: registriesTokensDelete
+      parameters:
+      - description: The unique ID of the registry
+        explode: false
+        in: path
+        name: registryId
+        required: true
+        schema:
+          description: The unique ID of the registry
+          format: uuid
+          pattern: ^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$
+          type: string
+        style: simple
+      - description: The unique ID of the token
+        explode: false
+        in: path
+        name: tokenId
+        required: true
+        schema:
+          description: The unique ID of the token
+          format: uuid
+          pattern: ^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Bad Request
+      security:
+      - basicAuth: []
+        tokenAuth: []
+      summary: Delete token
+      tags:
+      - Tokens
+    get:
+      description: Gets all information for a specific token used to access a container
+        registry
+      operationId: registriesTokensFindById
+      parameters:
+      - description: The unique ID of the registry
+        explode: false
+        in: path
+        name: registryId
+        required: true
+        schema:
+          description: The unique ID of the registry
+          format: uuid
+          pattern: ^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$
+          type: string
+        style: simple
+      - description: The unique ID of the token
+        explode: false
+        in: path
+        name: tokenId
+        required: true
+        schema:
+          description: The unique ID of the token
+          format: uuid
+          pattern: ^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Not Found
+      security:
+      - basicAuth: []
+        tokenAuth: []
+      summary: Get token information
+      tags:
+      - Tokens
+    patch:
+      description: |-
+        Update token properties, for example:
+        - change status to 'enabled' or 'disabled'
+        - change expiry date
+      operationId: registriesTokensPatch
+      parameters:
+      - description: The unique ID of the registry
+        explode: false
+        in: path
+        name: registryId
+        required: true
+        schema:
+          description: The unique ID of the registry
+          format: uuid
+          pattern: ^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$
+          type: string
+        style: simple
+      - description: The unique ID of the token
+        explode: false
+        in: path
+        name: tokenId
+        required: true
+        schema:
+          description: The unique ID of the token
+          format: uuid
+          pattern: ^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchTokenInput'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Bad Request
+      security:
+      - basicAuth: []
+        tokenAuth: []
+      summary: Update token
+      tags:
+      - Tokens
+    put:
+      description: |-
+        Create/replace a token
+        - password is only available once in the create response
+        - "name" cannot be changed
+      operationId: registriesTokensPut
+      parameters:
+      - description: The unique ID of the registry
+        explode: false
+        in: path
+        name: registryId
+        required: true
+        schema:
+          description: The unique ID of the registry
+          format: uuid
+          pattern: ^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$
+          type: string
+        style: simple
+      - description: The unique ID of the token
+        explode: false
+        in: path
+        name: tokenId
+        required: true
+        schema:
+          description: The unique ID of the token
+          pattern: ^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutTokenInput'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PutTokenOutput'
+          description: Created
+          headers:
+            Location:
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Bad Request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Conflict
+      security:
+      - basicAuth: []
+        tokenAuth: []
+      summary: Create or replace token
+      tags:
+      - Tokens
+components:
+  schemas:
+    ApiErrorMessage:
+      properties:
+        errorCode:
+          example: "123"
+          type: string
+        message:
+          type: string
+      required:
+      - errorCode
+      - message
+      type: object
+    ApiErrorResponse:
+      properties:
+        httpStatus:
+          example: 400
+          type: integer
+        messages:
+          items:
+            $ref: '#/components/schemas/ApiErrorMessage'
+          nullable: true
+          type: array
+      required:
+      - httpStatus
+      - messages
+      type: object
+    ApiResourceMetadata:
+      example:
+        createdByUserId: createdByUserId
+        createdDate: 2000-01-23T04:56:07.000+00:00
+        createdBy: createdBy
+        lastModifiedDate: 2000-01-23T04:56:07.000+00:00
+        lastModifiedBy: lastModifiedBy
+        state: state
+        lastModifiedByUserId: lastModifiedByUserId
+      nullable: true
+      properties:
+        createdBy:
+          type: string
+        createdByUserId:
+          type: string
+        createdDate:
+          format: date-time
+          type: string
+        lastModifiedBy:
+          type: string
+        lastModifiedByUserId:
+          type: string
+        lastModifiedDate:
+          format: date-time
+          nullable: true
+          type: string
+        state:
+          type: string
+      required:
+      - createdBy
+      - createdByUserId
+      - createdDate
+      - state
+      title: Metadata
+      type: object
+    Credentials:
+      example:
+        password: ""
+        username: push-token
+      nullable: true
+      properties:
+        password:
+          example: ""
+          type: string
+        username:
+          example: push-token
+          type: string
+      required:
+      - password
+      - username
+      type: object
+    Day:
+      enum:
+      - Monday
+      - Tuesday
+      - Wednesday
+      - Thursday
+      - Friday
+      - Saturday
+      - Sunday
+      type: string
+    Location:
+      example:
+        id: de/txl
+      properties:
+        id:
+          example: de/txl
+          type: string
+      type: object
+    LocationsResponse:
+      example:
+        href: href
+        id: id
+        type: type
+        items:
+        - id: de/txl
+        - id: de/txl
+      properties:
+        href:
+          type: string
+        id:
+          type: string
+        items:
+          items:
+            $ref: '#/components/schemas/Location'
+          nullable: true
+          type: array
+        type:
+          type: string
+      type: object
+    PaginationLinks:
+      example:
+        next: next
+        previous: previous
+        self: self
+      properties:
+        next:
+          type: string
+        previous:
+          type: string
+        self:
+          type: string
+      required:
+      - next
+      - previous
+      - self
+      type: object
+    PatchRegistryInput:
+      example:
+        garbageCollectionSchedule:
+          days:
+          - null
+          - null
+          time: 01:23:00+00:00
+      properties:
+        garbageCollectionSchedule:
+          $ref: '#/components/schemas/WeeklySchedule'
+      type: object
+    PatchTokenInput:
+      example:
+        expiryDate: 2000-01-23T04:56:07.000+00:00
+        scopes:
+        - name: '*'
+          type: repository
+          actions: '["pull", "push", "delete"]'
+        - name: '*'
+          type: repository
+          actions: '["pull", "push", "delete"]'
+        status: enabled
+      properties:
+        expiryDate:
+          format: date-time
+          nullable: true
+          type: string
+        scopes:
+          items:
+            $ref: '#/components/schemas/Scope'
+          nullable: true
+          type: array
+        status:
+          enum:
+          - enabled
+          - disabled
+          type: string
+      type: object
+    PostRegistryInput:
+      example:
+        properties:
+          name: my-registry
+          location: de/txl
+          garbageCollectionSchedule:
+            days:
+            - null
+            - null
+            time: 01:23:00+00:00
+      properties:
+        properties:
+          $ref: '#/components/schemas/PostRegistryProperties'
+      required:
+      - properties
+      type: object
+    PostRegistryOutput:
+      example:
+        metadata:
+          createdByUserId: createdByUserId
+          createdDate: 2000-01-23T04:56:07.000+00:00
+          createdBy: createdBy
+          lastModifiedDate: 2000-01-23T04:56:07.000+00:00
+          lastModifiedBy: lastModifiedBy
+          state: state
+          lastModifiedByUserId: lastModifiedByUserId
+        href: href
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        type: type
+        properties:
+          hostname: my-registry.cr.ionos.com
+          storageUsage:
+            bytes: 0
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          name: my-registry
+          location: de/txl
+          garbageCollectionSchedule:
+            days:
+            - null
+            - null
+            time: 01:23:00+00:00
+      properties:
+        href:
+          type: string
+        id:
+          format: uuid
+          type: string
+        metadata:
+          $ref: '#/components/schemas/ApiResourceMetadata'
+        properties:
+          $ref: '#/components/schemas/RegistryProperties'
+        type:
+          type: string
+      required:
+      - metadata
+      - properties
+      type: object
+    PostRegistryProperties:
+      example:
+        name: my-registry
+        location: de/txl
+        garbageCollectionSchedule:
+          days:
+          - null
+          - null
+          time: 01:23:00+00:00
+      properties:
+        garbageCollectionSchedule:
+          $ref: '#/components/schemas/WeeklySchedule'
+        location:
+          example: de/txl
+          type: string
+        name:
+          example: my-registry
+          pattern: ^[a-z][-a-z0-9]{1,61}[a-z0-9]$
+          type: string
+      required:
+      - location
+      - name
+      type: object
+    PostTokenInput:
+      example:
+        properties:
+          expiryDate: 2000-01-23T04:56:07.000+00:00
+          name: push-token
+          scopes:
+          - name: '*'
+            type: repository
+            actions: '["pull", "push", "delete"]'
+          - name: '*'
+            type: repository
+            actions: '["pull", "push", "delete"]'
+          status: enabled
+      properties:
+        properties:
+          $ref: '#/components/schemas/PostTokenProperties'
+      required:
+      - properties
+      type: object
+    PostTokenOutput:
+      example:
+        metadata:
+          createdByUserId: createdByUserId
+          createdDate: 2000-01-23T04:56:07.000+00:00
+          createdBy: createdBy
+          lastModifiedDate: 2000-01-23T04:56:07.000+00:00
+          lastModifiedBy: lastModifiedBy
+          state: state
+          lastModifiedByUserId: lastModifiedByUserId
+        href: href
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        type: type
+        properties:
+          expiryDate: 2000-01-23T04:56:07.000+00:00
+          credentials:
+            password: ""
+            username: push-token
+          name: push-token
+          scopes:
+          - name: '*'
+            type: repository
+            actions: '["pull", "push", "delete"]'
+          - name: '*'
+            type: repository
+            actions: '["pull", "push", "delete"]'
+          status: enabled
+      properties:
+        href:
+          type: string
+        id:
+          format: uuid
+          type: string
+        metadata:
+          $ref: '#/components/schemas/ApiResourceMetadata'
+        properties:
+          $ref: '#/components/schemas/TokenProperties'
+        type:
+          type: string
+      required:
+      - metadata
+      - properties
+      type: object
+    PostTokenProperties:
+      example:
+        expiryDate: 2000-01-23T04:56:07.000+00:00
+        name: push-token
+        scopes:
+        - name: '*'
+          type: repository
+          actions: '["pull", "push", "delete"]'
+        - name: '*'
+          type: repository
+          actions: '["pull", "push", "delete"]'
+        status: enabled
+      properties:
+        expiryDate:
+          format: date-time
+          nullable: true
+          type: string
+        name:
+          example: push-token
+          minLength: 1
+          pattern: ^[A-Za-z][-A-Za-z0-9]{0,61}[A-Za-z0-9]$
+          type: string
+        scopes:
+          items:
+            $ref: '#/components/schemas/Scope'
+          nullable: true
+          type: array
+        status:
+          enum:
+          - enabled
+          - disabled
+          type: string
+      required:
+      - name
+      type: object
+    PutRegistryInput:
+      example:
+        properties:
+          name: my-registry
+          location: de/txl
+          garbageCollectionSchedule:
+            days:
+            - null
+            - null
+            time: 01:23:00+00:00
+      properties:
+        properties:
+          $ref: '#/components/schemas/PostRegistryProperties'
+      required:
+      - properties
+      type: object
+    PutRegistryOutput:
+      example:
+        metadata:
+          createdByUserId: createdByUserId
+          createdDate: 2000-01-23T04:56:07.000+00:00
+          createdBy: createdBy
+          lastModifiedDate: 2000-01-23T04:56:07.000+00:00
+          lastModifiedBy: lastModifiedBy
+          state: state
+          lastModifiedByUserId: lastModifiedByUserId
+        href: href
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        type: type
+        properties:
+          hostname: my-registry.cr.ionos.com
+          storageUsage:
+            bytes: 0
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          name: my-registry
+          location: de/txl
+          garbageCollectionSchedule:
+            days:
+            - null
+            - null
+            time: 01:23:00+00:00
+      properties:
+        href:
+          type: string
+        id:
+          format: uuid
+          type: string
+        metadata:
+          $ref: '#/components/schemas/ApiResourceMetadata'
+        properties:
+          $ref: '#/components/schemas/RegistryProperties'
+        type:
+          type: string
+      required:
+      - metadata
+      - properties
+      type: object
+    PutTokenInput:
+      example:
+        properties:
+          expiryDate: 2000-01-23T04:56:07.000+00:00
+          name: push-token
+          scopes:
+          - name: '*'
+            type: repository
+            actions: '["pull", "push", "delete"]'
+          - name: '*'
+            type: repository
+            actions: '["pull", "push", "delete"]'
+          status: enabled
+      properties:
+        properties:
+          $ref: '#/components/schemas/PostTokenProperties'
+      required:
+      - properties
+      type: object
+    PutTokenOutput:
+      example:
+        metadata:
+          createdByUserId: createdByUserId
+          createdDate: 2000-01-23T04:56:07.000+00:00
+          createdBy: createdBy
+          lastModifiedDate: 2000-01-23T04:56:07.000+00:00
+          lastModifiedBy: lastModifiedBy
+          state: state
+          lastModifiedByUserId: lastModifiedByUserId
+        href: href
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        type: type
+        properties:
+          expiryDate: 2000-01-23T04:56:07.000+00:00
+          credentials:
+            password: ""
+            username: push-token
+          name: push-token
+          scopes:
+          - name: '*'
+            type: repository
+            actions: '["pull", "push", "delete"]'
+          - name: '*'
+            type: repository
+            actions: '["pull", "push", "delete"]'
+          status: enabled
+      properties:
+        href:
+          type: string
+        id:
+          format: uuid
+          type: string
+        metadata:
+          $ref: '#/components/schemas/ApiResourceMetadata'
+        properties:
+          $ref: '#/components/schemas/TokenProperties'
+        type:
+          type: string
+      required:
+      - metadata
+      - properties
+      type: object
+    RegistriesResponse:
+      example:
+        _links:
+          next: next
+          previous: previous
+          self: self
+        nextPageToken: nextPageToken
+        limit: 6
+        href: href
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        type: type
+        items:
+        - metadata:
+            createdByUserId: createdByUserId
+            createdDate: 2000-01-23T04:56:07.000+00:00
+            createdBy: createdBy
+            lastModifiedDate: 2000-01-23T04:56:07.000+00:00
+            lastModifiedBy: lastModifiedBy
+            state: state
+            lastModifiedByUserId: lastModifiedByUserId
+          href: href
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          type: type
+          properties:
+            hostname: my-registry.cr.ionos.com
+            storageUsage:
+              bytes: 0
+              updatedAt: 2000-01-23T04:56:07.000+00:00
+            name: my-registry
+            location: de/txl
+            garbageCollectionSchedule:
+              days:
+              - null
+              - null
+              time: 01:23:00+00:00
+        - metadata:
+            createdByUserId: createdByUserId
+            createdDate: 2000-01-23T04:56:07.000+00:00
+            createdBy: createdBy
+            lastModifiedDate: 2000-01-23T04:56:07.000+00:00
+            lastModifiedBy: lastModifiedBy
+            state: state
+            lastModifiedByUserId: lastModifiedByUserId
+          href: href
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          type: type
+          properties:
+            hostname: my-registry.cr.ionos.com
+            storageUsage:
+              bytes: 0
+              updatedAt: 2000-01-23T04:56:07.000+00:00
+            name: my-registry
+            location: de/txl
+            garbageCollectionSchedule:
+              days:
+              - null
+              - null
+              time: 01:23:00+00:00
+      properties:
+        _links:
+          $ref: '#/components/schemas/PaginationLinks'
+        href:
+          type: string
+        id:
+          format: uuid
+          type: string
+        items:
+          items:
+            $ref: '#/components/schemas/RegistryResponse'
+          nullable: true
+          type: array
+        limit:
+          type: integer
+        nextPageToken:
+          type: string
+        type:
+          type: string
+      required:
+      - _links
+      - limit
+      - nextPageToken
+      type: object
+    RegistryProperties:
+      example:
+        hostname: my-registry.cr.ionos.com
+        storageUsage:
+          bytes: 0
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        name: my-registry
+        location: de/txl
+        garbageCollectionSchedule:
+          days:
+          - null
+          - null
+          time: 01:23:00+00:00
+      nullable: true
+      properties:
+        garbageCollectionSchedule:
+          $ref: '#/components/schemas/WeeklySchedule'
+        hostname:
+          example: my-registry.cr.ionos.com
+          type: string
+        location:
+          example: de/txl
+          type: string
+        name:
+          example: my-registry
+          pattern: ^[a-z][-a-z0-9]{1,61}[a-z0-9]$
+          type: string
+        storageUsage:
+          $ref: '#/components/schemas/StorageUsage'
+      required:
+      - location
+      - name
+      type: object
+    RegistryResponse:
+      example:
+        metadata:
+          createdByUserId: createdByUserId
+          createdDate: 2000-01-23T04:56:07.000+00:00
+          createdBy: createdBy
+          lastModifiedDate: 2000-01-23T04:56:07.000+00:00
+          lastModifiedBy: lastModifiedBy
+          state: state
+          lastModifiedByUserId: lastModifiedByUserId
+        href: href
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        type: type
+        properties:
+          hostname: my-registry.cr.ionos.com
+          storageUsage:
+            bytes: 0
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          name: my-registry
+          location: de/txl
+          garbageCollectionSchedule:
+            days:
+            - null
+            - null
+            time: 01:23:00+00:00
+      properties:
+        href:
+          type: string
+        id:
+          format: uuid
+          type: string
+        metadata:
+          $ref: '#/components/schemas/ApiResourceMetadata'
+        properties:
+          $ref: '#/components/schemas/RegistryProperties'
+        type:
+          type: string
+      required:
+      - metadata
+      - properties
+      type: object
+    Scope:
+      example:
+        name: '*'
+        type: repository
+        actions: '["pull", "push", "delete"]'
+      properties:
+        actions:
+          example: '["pull", "push", "delete"]'
+          items:
+            type: string
+          nullable: true
+          type: array
+        name:
+          example: '*'
+          type: string
+        type:
+          example: repository
+          type: string
+      required:
+      - actions
+      - name
+      - type
+      type: object
+    StorageUsage:
+      example:
+        bytes: 0
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      nullable: true
+      properties:
+        bytes:
+          nullable: true
+          type: integer
+        updatedAt:
+          format: date-time
+          nullable: true
+          type: string
+      required:
+      - bytes
+      type: object
+    TokenProperties:
+      example:
+        expiryDate: 2000-01-23T04:56:07.000+00:00
+        credentials:
+          password: ""
+          username: push-token
+        name: push-token
+        scopes:
+        - name: '*'
+          type: repository
+          actions: '["pull", "push", "delete"]'
+        - name: '*'
+          type: repository
+          actions: '["pull", "push", "delete"]'
+        status: enabled
+      nullable: true
+      properties:
+        credentials:
+          $ref: '#/components/schemas/Credentials'
+        expiryDate:
+          format: date-time
+          nullable: true
+          type: string
+        name:
+          example: push-token
+          minLength: 1
+          pattern: ^[A-Za-z][-A-Za-z0-9]{0,61}[A-Za-z0-9]$
+          type: string
+        scopes:
+          items:
+            $ref: '#/components/schemas/Scope'
+          nullable: true
+          type: array
+        status:
+          enum:
+          - enabled
+          - disabled
+          type: string
+      required:
+      - credentials
+      - name
+      type: object
+    TokenResponse:
+      example:
+        metadata:
+          createdByUserId: createdByUserId
+          createdDate: 2000-01-23T04:56:07.000+00:00
+          createdBy: createdBy
+          lastModifiedDate: 2000-01-23T04:56:07.000+00:00
+          lastModifiedBy: lastModifiedBy
+          state: state
+          lastModifiedByUserId: lastModifiedByUserId
+        href: href
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        type: type
+        properties:
+          expiryDate: 2000-01-23T04:56:07.000+00:00
+          credentials:
+            password: ""
+            username: push-token
+          name: push-token
+          scopes:
+          - name: '*'
+            type: repository
+            actions: '["pull", "push", "delete"]'
+          - name: '*'
+            type: repository
+            actions: '["pull", "push", "delete"]'
+          status: enabled
+      properties:
+        href:
+          type: string
+        id:
+          format: uuid
+          type: string
+        metadata:
+          $ref: '#/components/schemas/ApiResourceMetadata'
+        properties:
+          $ref: '#/components/schemas/TokenProperties'
+        type:
+          type: string
+      required:
+      - metadata
+      - properties
+      type: object
+    TokensResponse:
+      example:
+        total: 5
+        offset: 1
+        _links:
+          next: next
+          previous: previous
+          self: self
+        count: 0
+        limit: 6
+        href: href
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        type: type
+        items:
+        - metadata:
+            createdByUserId: createdByUserId
+            createdDate: 2000-01-23T04:56:07.000+00:00
+            createdBy: createdBy
+            lastModifiedDate: 2000-01-23T04:56:07.000+00:00
+            lastModifiedBy: lastModifiedBy
+            state: state
+            lastModifiedByUserId: lastModifiedByUserId
+          href: href
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          type: type
+          properties:
+            expiryDate: 2000-01-23T04:56:07.000+00:00
+            credentials:
+              password: ""
+              username: push-token
+            name: push-token
+            scopes:
+            - name: '*'
+              type: repository
+              actions: '["pull", "push", "delete"]'
+            - name: '*'
+              type: repository
+              actions: '["pull", "push", "delete"]'
+            status: enabled
+        - metadata:
+            createdByUserId: createdByUserId
+            createdDate: 2000-01-23T04:56:07.000+00:00
+            createdBy: createdBy
+            lastModifiedDate: 2000-01-23T04:56:07.000+00:00
+            lastModifiedBy: lastModifiedBy
+            state: state
+            lastModifiedByUserId: lastModifiedByUserId
+          href: href
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          type: type
+          properties:
+            expiryDate: 2000-01-23T04:56:07.000+00:00
+            credentials:
+              password: ""
+              username: push-token
+            name: push-token
+            scopes:
+            - name: '*'
+              type: repository
+              actions: '["pull", "push", "delete"]'
+            - name: '*'
+              type: repository
+              actions: '["pull", "push", "delete"]'
+            status: enabled
+      properties:
+        _links:
+          $ref: '#/components/schemas/PaginationLinks'
+        count:
+          type: integer
+        href:
+          type: string
+        id:
+          format: uuid
+          type: string
+        items:
+          items:
+            $ref: '#/components/schemas/TokenResponse'
+          nullable: true
+          type: array
+        limit:
+          type: integer
+        offset:
+          type: integer
+        total:
+          type: integer
+        type:
+          type: string
+      required:
+      - _links
+      - count
+      - limit
+      - offset
+      - total
+      type: object
+    WeeklySchedule:
+      example:
+        days:
+        - null
+        - null
+        time: 01:23:00+00:00
+      nullable: true
+      properties:
+        days:
+          items:
+            $ref: '#/components/schemas/Day'
+          nullable: true
+          type: array
+        time:
+          description: UTC time of day e.g. 01:00:00 - as defined by partial-time
+            - RFC3339
+          example: 01:23:00+00:00
+          format: time
+          type: string
+      required:
+      - days
+      - time
+      type: object
+  securitySchemes:
+    basicAuth:
+      description: 'You will need to base64 encode the string containing your credentials.
+        Separate your username and password with a colon, i.e., username:password
+        and send it as ''Authorization'' request header. More details: https://en.wikipedia.org/wiki/Basic_access_authentication'
+      scheme: basic
+      type: http
+    tokenAuth:
+      description: Please provide header value as 'Bearer ' and don't forget to add
+        'Bearer' HTTP Authorization Scheme before the token
+      in: header
+      name: Authorization
+      type: apiKey
