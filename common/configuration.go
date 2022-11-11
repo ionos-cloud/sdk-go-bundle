@@ -140,13 +140,8 @@ func NewConfiguration(username, password, token, hostUrl string) *Configuration 
 		WaitTime:           defaultWaitTime,
 		Logger:             NewDefaultLogger(),
 		LogLevel:           getLogLevelFromEnv(),
-		Servers: ServerConfigurations{
-			{
-				URL:         getServerUrl(hostUrl),
-				Description: "Production",
-			},
-		},
-		OperationServers: map[string]ServerConfigurations{},
+		Servers:            ServerConfigurations{},
+		OperationServers:   map[string]ServerConfigurations{},
 	}
 	return cfg
 }
