@@ -129,4 +129,3 @@ SetRequestStatus sets RequestStatus field to given value.
 HasRequestStatus returns a boolean if a field has been set.
 
 
-

@@ -145,4 +145,3 @@ SetValue sets Value field to given value.
 HasValue returns a boolean if a field has been set.
 
 
-

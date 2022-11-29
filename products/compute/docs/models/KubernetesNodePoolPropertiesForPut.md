@@ -254,4 +254,3 @@ SetPublicIps sets PublicIps field to given value.
 HasPublicIps returns a boolean if a field has been set.
 
 
-

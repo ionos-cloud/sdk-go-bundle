@@ -77,4 +77,3 @@ SetFlowlogs sets Flowlogs field to given value.
 HasFlowlogs returns a boolean if a field has been set.
 
 
-

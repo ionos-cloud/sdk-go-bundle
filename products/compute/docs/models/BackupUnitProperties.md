@@ -98,4 +98,3 @@ SetEmail sets Email field to given value.
 HasEmail returns a boolean if a field has been set.
 
 
-

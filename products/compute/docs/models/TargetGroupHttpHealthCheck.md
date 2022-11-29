@@ -171,4 +171,3 @@ SetNegate sets Negate field to given value.
 HasNegate returns a boolean if a field has been set.
 
 
-

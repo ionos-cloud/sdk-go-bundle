@@ -181,4 +181,3 @@ SetNatgateways sets Natgateways field to given value.
 HasNatgateways returns a boolean if a field has been set.
 
 
-

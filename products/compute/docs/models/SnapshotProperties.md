@@ -441,4 +441,3 @@ SetLicenceType sets LicenceType field to given value.
 HasLicenceType returns a boolean if a field has been set.
 
 
-

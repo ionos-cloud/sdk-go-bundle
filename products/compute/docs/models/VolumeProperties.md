@@ -592,4 +592,3 @@ SetBootOrder sets BootOrder field to given value.
 HasBootOrder returns a boolean if a field has been set.
 
 
-

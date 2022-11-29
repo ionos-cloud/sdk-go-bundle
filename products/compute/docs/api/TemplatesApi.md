@@ -30,22 +30,24 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
     templateId := "templateId_example" // string | The unique Template ID.
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TemplatesApi.TemplatesFindById(context.Background(), templateId).Depth(depth).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.TemplatesApi.TemplatesFindById(context.Background(), templateId).Depth(depth).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TemplatesApi.TemplatesFindById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `TemplatesFindById`: Template
-    fmt.Fprintf(os.Stdout, "Response from `TemplatesApi.TemplatesFindById`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `TemplatesApi.TemplatesFindById`: %v\n", resource)
 }
 ```
 
@@ -59,7 +61,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiTemplatesFindByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiTemplatesFindByIdRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -68,7 +70,7 @@ Other parameters are passed through a pointer to a apiTemplatesFindByIdRequest s
 
 ### Return type
 
-[**Template**](../models/Template.md)
+[**Template**](Template.md)
 
 ### HTTP request headers
 
@@ -98,21 +100,23 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TemplatesApi.TemplatesGet(context.Background()).Depth(depth).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.TemplatesApi.TemplatesGet(context.Background()).Depth(depth).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TemplatesApi.TemplatesGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `TemplatesGet`: Templates
-    fmt.Fprintf(os.Stdout, "Response from `TemplatesApi.TemplatesGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `TemplatesApi.TemplatesGet`: %v\n", resource)
 }
 ```
 
@@ -122,7 +126,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiTemplatesGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiTemplatesGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -131,7 +135,7 @@ Other parameters are passed through a pointer to a apiTemplatesGetRequest struct
 
 ### Return type
 
-[**Templates**](../models/Templates.md)
+[**Templates**](Templates.md)
 
 ### HTTP request headers
 

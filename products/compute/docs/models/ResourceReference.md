@@ -98,4 +98,3 @@ SetHref sets Href field to given value.
 HasHref returns a boolean if a field has been set.
 
 
-

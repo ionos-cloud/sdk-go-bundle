@@ -52,7 +52,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -63,12 +65,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.DatacentersServersCdromsDelete(context.Background(), datacenterId, serverId, cdromId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.ServersApi.DatacentersServersCdromsDelete(context.Background(), datacenterId, serverId, cdromId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.DatacentersServersCdromsDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -85,7 +87,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersCdromsDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersCdromsDeleteRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -128,7 +130,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -139,15 +143,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.DatacentersServersCdromsFindById(context.Background(), datacenterId, serverId, cdromId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.ServersApi.DatacentersServersCdromsFindById(context.Background(), datacenterId, serverId, cdromId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.DatacentersServersCdromsFindById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersServersCdromsFindById`: Image
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersCdromsFindById`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersCdromsFindById`: %v\n", resource)
 }
 ```
 
@@ -163,7 +167,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersCdromsFindByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersCdromsFindByIdRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -174,7 +178,7 @@ Other parameters are passed through a pointer to a apiDatacentersServersCdromsFi
 
 ### Return type
 
-[**Image**](../models/Image.md)
+[**Image**](Image.md)
 
 ### HTTP request headers
 
@@ -208,7 +212,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -220,15 +226,15 @@ func main() {
     offset := int32(56) // int32 | The first element (from the complete list of the elements) to include in the response (used together with <b><i>limit</i></b> for pagination). (optional) (default to 0)
     limit := int32(56) // int32 | The maximum number of elements to return (use together with offset for pagination). (optional) (default to 1000)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.DatacentersServersCdromsGet(context.Background(), datacenterId, serverId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Offset(offset).Limit(limit).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.ServersApi.DatacentersServersCdromsGet(context.Background(), datacenterId, serverId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Offset(offset).Limit(limit).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.DatacentersServersCdromsGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersServersCdromsGet`: Cdroms
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersCdromsGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersCdromsGet`: %v\n", resource)
 }
 ```
 
@@ -243,7 +249,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersCdromsGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersCdromsGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -256,7 +262,7 @@ Other parameters are passed through a pointer to a apiDatacentersServersCdromsGe
 
 ### Return type
 
-[**Cdroms**](../models/Cdroms.md)
+[**Cdroms**](Cdroms.md)
 
 ### HTTP request headers
 
@@ -289,7 +295,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -300,15 +308,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.DatacentersServersCdromsPost(context.Background(), datacenterId, serverId).Cdrom(cdrom).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.ServersApi.DatacentersServersCdromsPost(context.Background(), datacenterId, serverId).Cdrom(cdrom).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.DatacentersServersCdromsPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersServersCdromsPost`: Image
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersCdromsPost`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersCdromsPost`: %v\n", resource)
 }
 ```
 
@@ -323,19 +331,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersCdromsPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersCdromsPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **cdrom** | [**Image**](../models/Image.md) | The CD-ROM to be attached. | |
+| **cdrom** | [**Image**](Image.md) | The CD-ROM to be attached. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Image**](../models/Image.md)
+[**Image**](Image.md)
 
 ### HTTP request headers
 
@@ -368,7 +376,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -379,12 +389,12 @@ func main() {
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
     deleteVolumes := true // bool | If true, all attached storage volumes will also be deleted. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.DatacentersServersDelete(context.Background(), datacenterId, serverId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).DeleteVolumes(deleteVolumes).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.ServersApi.DatacentersServersDelete(context.Background(), datacenterId, serverId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).DeleteVolumes(deleteVolumes).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.DatacentersServersDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -400,7 +410,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersDeleteRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -444,7 +454,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -454,15 +466,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.DatacentersServersFindById(context.Background(), datacenterId, serverId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.ServersApi.DatacentersServersFindById(context.Background(), datacenterId, serverId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.DatacentersServersFindById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersServersFindById`: Server
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersFindById`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersFindById`: %v\n", resource)
 }
 ```
 
@@ -477,7 +489,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersFindByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersFindByIdRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -488,7 +500,7 @@ Other parameters are passed through a pointer to a apiDatacentersServersFindById
 
 ### Return type
 
-[**Server**](../models/Server.md)
+[**Server**](Server.md)
 
 ### HTTP request headers
 
@@ -523,7 +535,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -535,15 +549,15 @@ func main() {
     offset := int32(56) // int32 | The first element (from the complete list of the elements) to include in the response (used together with <b><i>limit</i></b> for pagination). (optional) (default to 0)
     limit := int32(56) // int32 | The maximum number of elements to return (use together with offset for pagination). (optional) (default to 1000)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.DatacentersServersGet(context.Background(), datacenterId).Pretty(pretty).Depth(depth).UpgradeNeeded(upgradeNeeded).XContractNumber(xContractNumber).Offset(offset).Limit(limit).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.ServersApi.DatacentersServersGet(context.Background(), datacenterId).Pretty(pretty).Depth(depth).UpgradeNeeded(upgradeNeeded).XContractNumber(xContractNumber).Offset(offset).Limit(limit).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.DatacentersServersGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersServersGet`: Servers
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersGet`: %v\n", resource)
 }
 ```
 
@@ -557,7 +571,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -571,7 +585,7 @@ Other parameters are passed through a pointer to a apiDatacentersServersGetReque
 
 ### Return type
 
-[**Servers**](../models/Servers.md)
+[**Servers**](Servers.md)
 
 ### HTTP request headers
 
@@ -604,7 +618,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -615,15 +631,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.DatacentersServersPatch(context.Background(), datacenterId, serverId).Server(server).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.ServersApi.DatacentersServersPatch(context.Background(), datacenterId, serverId).Server(server).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.DatacentersServersPatch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersServersPatch`: Server
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersPatch`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersPatch`: %v\n", resource)
 }
 ```
 
@@ -638,19 +654,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersPatchRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersPatchRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **server** | [**ServerProperties**](../models/ServerProperties.md) | The properties of the server to be updated. | |
+| **server** | [**ServerProperties**](ServerProperties.md) | The properties of the server to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Server**](../models/Server.md)
+[**Server**](Server.md)
 
 ### HTTP request headers
 
@@ -683,7 +699,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -693,15 +711,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.DatacentersServersPost(context.Background(), datacenterId).Server(server).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.ServersApi.DatacentersServersPost(context.Background(), datacenterId).Server(server).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.DatacentersServersPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersServersPost`: Server
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersPost`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersPost`: %v\n", resource)
 }
 ```
 
@@ -715,19 +733,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **server** | [**Server**](../models/Server.md) | The server to create. | |
+| **server** | [**Server**](Server.md) | The server to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Server**](../models/Server.md)
+[**Server**](Server.md)
 
 ### HTTP request headers
 
@@ -760,7 +778,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -771,15 +791,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.DatacentersServersPut(context.Background(), datacenterId, serverId).Server(server).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.ServersApi.DatacentersServersPut(context.Background(), datacenterId, serverId).Server(server).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.DatacentersServersPut``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersServersPut`: Server
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersPut`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersPut`: %v\n", resource)
 }
 ```
 
@@ -794,19 +814,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersPutRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersPutRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **server** | [**Server**](../models/Server.md) | The modified server | |
+| **server** | [**Server**](Server.md) | The modified server | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Server**](../models/Server.md)
+[**Server**](Server.md)
 
 ### HTTP request headers
 
@@ -838,7 +858,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -848,12 +870,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.DatacentersServersRebootPost(context.Background(), datacenterId, serverId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.ServersApi.DatacentersServersRebootPost(context.Background(), datacenterId, serverId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.DatacentersServersRebootPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -869,7 +891,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersRebootPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersRebootPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -912,7 +934,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -922,15 +946,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.DatacentersServersRemoteConsoleGet(context.Background(), datacenterId, serverId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.ServersApi.DatacentersServersRemoteConsoleGet(context.Background(), datacenterId, serverId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.DatacentersServersRemoteConsoleGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersServersRemoteConsoleGet`: RemoteConsoleUrl
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersRemoteConsoleGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersRemoteConsoleGet`: %v\n", resource)
 }
 ```
 
@@ -945,7 +969,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersRemoteConsoleGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersRemoteConsoleGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -956,7 +980,7 @@ Other parameters are passed through a pointer to a apiDatacentersServersRemoteCo
 
 ### Return type
 
-[**RemoteConsoleUrl**](../models/RemoteConsoleUrl.md)
+[**RemoteConsoleUrl**](RemoteConsoleUrl.md)
 
 ### HTTP request headers
 
@@ -988,7 +1012,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -998,12 +1024,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.DatacentersServersResumePost(context.Background(), datacenterId, serverId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.ServersApi.DatacentersServersResumePost(context.Background(), datacenterId, serverId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.DatacentersServersResumePost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -1019,7 +1045,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersResumePostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersResumePostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -1062,7 +1088,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1072,12 +1100,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.DatacentersServersStartPost(context.Background(), datacenterId, serverId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.ServersApi.DatacentersServersStartPost(context.Background(), datacenterId, serverId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.DatacentersServersStartPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -1093,7 +1121,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersStartPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersStartPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -1136,7 +1164,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1146,12 +1176,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.DatacentersServersStopPost(context.Background(), datacenterId, serverId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.ServersApi.DatacentersServersStopPost(context.Background(), datacenterId, serverId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.DatacentersServersStopPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -1167,7 +1197,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersStopPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersStopPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -1210,7 +1240,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1220,12 +1252,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.DatacentersServersSuspendPost(context.Background(), datacenterId, serverId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.ServersApi.DatacentersServersSuspendPost(context.Background(), datacenterId, serverId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.DatacentersServersSuspendPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -1241,7 +1273,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersSuspendPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersSuspendPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -1284,7 +1316,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1294,15 +1328,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.DatacentersServersTokenGet(context.Background(), datacenterId, serverId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.ServersApi.DatacentersServersTokenGet(context.Background(), datacenterId, serverId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.DatacentersServersTokenGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersServersTokenGet`: Token
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersTokenGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersTokenGet`: %v\n", resource)
 }
 ```
 
@@ -1317,7 +1351,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersTokenGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersTokenGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -1328,7 +1362,7 @@ Other parameters are passed through a pointer to a apiDatacentersServersTokenGet
 
 ### Return type
 
-[**Token**](../models/Token.md)
+[**Token**](Token.md)
 
 ### HTTP request headers
 
@@ -1360,7 +1394,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1370,12 +1406,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.DatacentersServersUpgradePost(context.Background(), datacenterId, serverId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.ServersApi.DatacentersServersUpgradePost(context.Background(), datacenterId, serverId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.DatacentersServersUpgradePost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -1391,7 +1427,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersUpgradePostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersUpgradePostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -1434,7 +1470,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1445,12 +1483,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.DatacentersServersVolumesDelete(context.Background(), datacenterId, serverId, volumeId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.ServersApi.DatacentersServersVolumesDelete(context.Background(), datacenterId, serverId, volumeId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.DatacentersServersVolumesDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -1467,7 +1505,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersVolumesDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersVolumesDeleteRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -1510,7 +1548,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1521,15 +1561,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.DatacentersServersVolumesFindById(context.Background(), datacenterId, serverId, volumeId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.ServersApi.DatacentersServersVolumesFindById(context.Background(), datacenterId, serverId, volumeId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.DatacentersServersVolumesFindById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersServersVolumesFindById`: Volume
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersVolumesFindById`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersVolumesFindById`: %v\n", resource)
 }
 ```
 
@@ -1545,7 +1585,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersVolumesFindByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersVolumesFindByIdRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -1556,7 +1596,7 @@ Other parameters are passed through a pointer to a apiDatacentersServersVolumesF
 
 ### Return type
 
-[**Volume**](../models/Volume.md)
+[**Volume**](Volume.md)
 
 ### HTTP request headers
 
@@ -1590,7 +1630,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1602,15 +1644,15 @@ func main() {
     offset := int32(56) // int32 | The first element (from the complete list of the elements) to include in the response (used together with <b><i>limit</i></b> for pagination). (optional) (default to 0)
     limit := int32(56) // int32 | The maximum number of elements to return (use together with offset for pagination). (optional) (default to 1000)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.DatacentersServersVolumesGet(context.Background(), datacenterId, serverId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Offset(offset).Limit(limit).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.ServersApi.DatacentersServersVolumesGet(context.Background(), datacenterId, serverId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Offset(offset).Limit(limit).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.DatacentersServersVolumesGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersServersVolumesGet`: AttachedVolumes
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersVolumesGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersVolumesGet`: %v\n", resource)
 }
 ```
 
@@ -1625,7 +1667,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersVolumesGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersVolumesGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -1638,7 +1680,7 @@ Other parameters are passed through a pointer to a apiDatacentersServersVolumesG
 
 ### Return type
 
-[**AttachedVolumes**](../models/AttachedVolumes.md)
+[**AttachedVolumes**](AttachedVolumes.md)
 
 ### HTTP request headers
 
@@ -1671,7 +1713,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1682,15 +1726,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServersApi.DatacentersServersVolumesPost(context.Background(), datacenterId, serverId).Volume(volume).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.ServersApi.DatacentersServersVolumesPost(context.Background(), datacenterId, serverId).Volume(volume).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ServersApi.DatacentersServersVolumesPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersServersVolumesPost`: Volume
-    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersVolumesPost`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ServersApi.DatacentersServersVolumesPost`: %v\n", resource)
 }
 ```
 
@@ -1705,19 +1749,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersVolumesPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersVolumesPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **volume** | [**Volume**](../models/Volume.md) | The volume to be attached (or created and attached). | |
+| **volume** | [**Volume**](Volume.md) | The volume to be attached (or created and attached). | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Volume**](../models/Volume.md)
+[**Volume**](Volume.md)
 
 ### HTTP request headers
 

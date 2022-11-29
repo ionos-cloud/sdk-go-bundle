@@ -48,7 +48,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -58,12 +60,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersDelete(context.Background(), datacenterId, networkLoadBalancerId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersDelete(context.Background(), datacenterId, networkLoadBalancerId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -79,7 +81,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNetworkloadbalancersDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNetworkloadbalancersDeleteRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -122,7 +124,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -132,15 +136,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFindByNetworkLoadBalancerId(context.Background(), datacenterId, networkLoadBalancerId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFindByNetworkLoadBalancerId(context.Background(), datacenterId, networkLoadBalancerId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFindByNetworkLoadBalancerId``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNetworkloadbalancersFindByNetworkLoadBalancerId`: NetworkLoadBalancer
-    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFindByNetworkLoadBalancerId`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFindByNetworkLoadBalancerId`: %v\n", resource)
 }
 ```
 
@@ -155,7 +159,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNetworkloadbalancersFindByNetworkLoadBalancerIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNetworkloadbalancersFindByNetworkLoadBalancerIdRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -166,7 +170,7 @@ Other parameters are passed through a pointer to a apiDatacentersNetworkloadbala
 
 ### Return type
 
-[**NetworkLoadBalancer**](../models/NetworkLoadBalancer.md)
+[**NetworkLoadBalancer**](NetworkLoadBalancer.md)
 
 ### HTTP request headers
 
@@ -198,7 +202,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -209,12 +215,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsDelete(context.Background(), datacenterId, networkLoadBalancerId, flowLogId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsDelete(context.Background(), datacenterId, networkLoadBalancerId, flowLogId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -231,7 +237,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNetworkloadbalancersFlowlogsDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNetworkloadbalancersFlowlogsDeleteRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -274,7 +280,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -285,15 +293,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsFindByFlowLogId(context.Background(), datacenterId, networkLoadBalancerId, flowLogId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsFindByFlowLogId(context.Background(), datacenterId, networkLoadBalancerId, flowLogId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsFindByFlowLogId``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNetworkloadbalancersFlowlogsFindByFlowLogId`: FlowLog
-    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsFindByFlowLogId`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsFindByFlowLogId`: %v\n", resource)
 }
 ```
 
@@ -309,7 +317,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNetworkloadbalancersFlowlogsFindByFlowLogIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNetworkloadbalancersFlowlogsFindByFlowLogIdRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -320,7 +328,7 @@ Other parameters are passed through a pointer to a apiDatacentersNetworkloadbala
 
 ### Return type
 
-[**FlowLog**](../models/FlowLog.md)
+[**FlowLog**](FlowLog.md)
 
 ### HTTP request headers
 
@@ -352,7 +360,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -362,15 +372,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsGet(context.Background(), datacenterId, networkLoadBalancerId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsGet(context.Background(), datacenterId, networkLoadBalancerId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNetworkloadbalancersFlowlogsGet`: FlowLogs
-    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsGet`: %v\n", resource)
 }
 ```
 
@@ -385,7 +395,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNetworkloadbalancersFlowlogsGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNetworkloadbalancersFlowlogsGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -396,7 +406,7 @@ Other parameters are passed through a pointer to a apiDatacentersNetworkloadbala
 
 ### Return type
 
-[**FlowLogs**](../models/FlowLogs.md)
+[**FlowLogs**](FlowLogs.md)
 
 ### HTTP request headers
 
@@ -429,7 +439,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -441,15 +453,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsPatch(context.Background(), datacenterId, networkLoadBalancerId, flowLogId).NetworkLoadBalancerFlowLogProperties(networkLoadBalancerFlowLogProperties).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsPatch(context.Background(), datacenterId, networkLoadBalancerId, flowLogId).NetworkLoadBalancerFlowLogProperties(networkLoadBalancerFlowLogProperties).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsPatch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNetworkloadbalancersFlowlogsPatch`: FlowLog
-    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsPatch`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsPatch`: %v\n", resource)
 }
 ```
 
@@ -465,19 +477,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNetworkloadbalancersFlowlogsPatchRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNetworkloadbalancersFlowlogsPatchRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **networkLoadBalancerFlowLogProperties** | [**FlowLogProperties**](../models/FlowLogProperties.md) | The properties of the Flow Log to be updated. | |
+| **networkLoadBalancerFlowLogProperties** | [**FlowLogProperties**](FlowLogProperties.md) | The properties of the Flow Log to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**FlowLog**](../models/FlowLog.md)
+[**FlowLog**](FlowLog.md)
 
 ### HTTP request headers
 
@@ -510,7 +522,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -521,15 +535,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsPost(context.Background(), datacenterId, networkLoadBalancerId).NetworkLoadBalancerFlowLog(networkLoadBalancerFlowLog).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsPost(context.Background(), datacenterId, networkLoadBalancerId).NetworkLoadBalancerFlowLog(networkLoadBalancerFlowLog).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNetworkloadbalancersFlowlogsPost`: FlowLog
-    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsPost`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsPost`: %v\n", resource)
 }
 ```
 
@@ -544,19 +558,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNetworkloadbalancersFlowlogsPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNetworkloadbalancersFlowlogsPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **networkLoadBalancerFlowLog** | [**FlowLog**](../models/FlowLog.md) | The Flow Log to create. | |
+| **networkLoadBalancerFlowLog** | [**FlowLog**](FlowLog.md) | The Flow Log to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**FlowLog**](../models/FlowLog.md)
+[**FlowLog**](FlowLog.md)
 
 ### HTTP request headers
 
@@ -589,7 +603,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -601,15 +617,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsPut(context.Background(), datacenterId, networkLoadBalancerId, flowLogId).NetworkLoadBalancerFlowLog(networkLoadBalancerFlowLog).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsPut(context.Background(), datacenterId, networkLoadBalancerId, flowLogId).NetworkLoadBalancerFlowLog(networkLoadBalancerFlowLog).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsPut``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNetworkloadbalancersFlowlogsPut`: FlowLog
-    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsPut`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersFlowlogsPut`: %v\n", resource)
 }
 ```
 
@@ -625,19 +641,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNetworkloadbalancersFlowlogsPutRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNetworkloadbalancersFlowlogsPutRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **networkLoadBalancerFlowLog** | [**FlowLogPut**](../models/FlowLogPut.md) | The modified NLB Flow Log. | |
+| **networkLoadBalancerFlowLog** | [**FlowLogPut**](FlowLogPut.md) | The modified NLB Flow Log. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**FlowLog**](../models/FlowLog.md)
+[**FlowLog**](FlowLog.md)
 
 ### HTTP request headers
 
@@ -669,7 +685,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -680,12 +698,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesDelete(context.Background(), datacenterId, networkLoadBalancerId, forwardingRuleId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesDelete(context.Background(), datacenterId, networkLoadBalancerId, forwardingRuleId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -702,7 +720,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNetworkloadbalancersForwardingrulesDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNetworkloadbalancersForwardingrulesDeleteRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -745,7 +763,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -756,15 +776,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesFindByForwardingRuleId(context.Background(), datacenterId, networkLoadBalancerId, forwardingRuleId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesFindByForwardingRuleId(context.Background(), datacenterId, networkLoadBalancerId, forwardingRuleId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesFindByForwardingRuleId``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNetworkloadbalancersForwardingrulesFindByForwardingRuleId`: NetworkLoadBalancerForwardingRule
-    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesFindByForwardingRuleId`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesFindByForwardingRuleId`: %v\n", resource)
 }
 ```
 
@@ -780,7 +800,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNetworkloadbalancersForwardingrulesFindByForwardingRuleIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNetworkloadbalancersForwardingrulesFindByForwardingRuleIdRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -791,7 +811,7 @@ Other parameters are passed through a pointer to a apiDatacentersNetworkloadbala
 
 ### Return type
 
-[**NetworkLoadBalancerForwardingRule**](../models/NetworkLoadBalancerForwardingRule.md)
+[**NetworkLoadBalancerForwardingRule**](NetworkLoadBalancerForwardingRule.md)
 
 ### HTTP request headers
 
@@ -823,7 +843,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -833,15 +855,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesGet(context.Background(), datacenterId, networkLoadBalancerId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesGet(context.Background(), datacenterId, networkLoadBalancerId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNetworkloadbalancersForwardingrulesGet`: NetworkLoadBalancerForwardingRules
-    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesGet`: %v\n", resource)
 }
 ```
 
@@ -856,7 +878,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNetworkloadbalancersForwardingrulesGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNetworkloadbalancersForwardingrulesGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -867,7 +889,7 @@ Other parameters are passed through a pointer to a apiDatacentersNetworkloadbala
 
 ### Return type
 
-[**NetworkLoadBalancerForwardingRules**](../models/NetworkLoadBalancerForwardingRules.md)
+[**NetworkLoadBalancerForwardingRules**](NetworkLoadBalancerForwardingRules.md)
 
 ### HTTP request headers
 
@@ -900,7 +922,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -912,15 +936,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesPatch(context.Background(), datacenterId, networkLoadBalancerId, forwardingRuleId).NetworkLoadBalancerForwardingRuleProperties(networkLoadBalancerForwardingRuleProperties).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesPatch(context.Background(), datacenterId, networkLoadBalancerId, forwardingRuleId).NetworkLoadBalancerForwardingRuleProperties(networkLoadBalancerForwardingRuleProperties).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesPatch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNetworkloadbalancersForwardingrulesPatch`: NetworkLoadBalancerForwardingRule
-    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesPatch`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesPatch`: %v\n", resource)
 }
 ```
 
@@ -936,19 +960,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNetworkloadbalancersForwardingrulesPatchRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNetworkloadbalancersForwardingrulesPatchRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **networkLoadBalancerForwardingRuleProperties** | [**NetworkLoadBalancerForwardingRuleProperties**](../models/NetworkLoadBalancerForwardingRuleProperties.md) | The properties of the forwarding rule to be updated. | |
+| **networkLoadBalancerForwardingRuleProperties** | [**NetworkLoadBalancerForwardingRuleProperties**](NetworkLoadBalancerForwardingRuleProperties.md) | The properties of the forwarding rule to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**NetworkLoadBalancerForwardingRule**](../models/NetworkLoadBalancerForwardingRule.md)
+[**NetworkLoadBalancerForwardingRule**](NetworkLoadBalancerForwardingRule.md)
 
 ### HTTP request headers
 
@@ -981,7 +1005,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -992,15 +1018,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesPost(context.Background(), datacenterId, networkLoadBalancerId).NetworkLoadBalancerForwardingRule(networkLoadBalancerForwardingRule).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesPost(context.Background(), datacenterId, networkLoadBalancerId).NetworkLoadBalancerForwardingRule(networkLoadBalancerForwardingRule).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNetworkloadbalancersForwardingrulesPost`: NetworkLoadBalancerForwardingRule
-    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesPost`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesPost`: %v\n", resource)
 }
 ```
 
@@ -1015,19 +1041,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNetworkloadbalancersForwardingrulesPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNetworkloadbalancersForwardingrulesPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **networkLoadBalancerForwardingRule** | [**NetworkLoadBalancerForwardingRule**](../models/NetworkLoadBalancerForwardingRule.md) | The forwarding rule to create. | |
+| **networkLoadBalancerForwardingRule** | [**NetworkLoadBalancerForwardingRule**](NetworkLoadBalancerForwardingRule.md) | The forwarding rule to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**NetworkLoadBalancerForwardingRule**](../models/NetworkLoadBalancerForwardingRule.md)
+[**NetworkLoadBalancerForwardingRule**](NetworkLoadBalancerForwardingRule.md)
 
 ### HTTP request headers
 
@@ -1060,7 +1086,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1072,15 +1100,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesPut(context.Background(), datacenterId, networkLoadBalancerId, forwardingRuleId).NetworkLoadBalancerForwardingRule(networkLoadBalancerForwardingRule).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesPut(context.Background(), datacenterId, networkLoadBalancerId, forwardingRuleId).NetworkLoadBalancerForwardingRule(networkLoadBalancerForwardingRule).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesPut``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNetworkloadbalancersForwardingrulesPut`: NetworkLoadBalancerForwardingRule
-    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesPut`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersForwardingrulesPut`: %v\n", resource)
 }
 ```
 
@@ -1096,19 +1124,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNetworkloadbalancersForwardingrulesPutRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNetworkloadbalancersForwardingrulesPutRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **networkLoadBalancerForwardingRule** | [**NetworkLoadBalancerForwardingRulePut**](../models/NetworkLoadBalancerForwardingRulePut.md) | The modified NLB forwarding rule. | |
+| **networkLoadBalancerForwardingRule** | [**NetworkLoadBalancerForwardingRulePut**](NetworkLoadBalancerForwardingRulePut.md) | The modified NLB forwarding rule. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**NetworkLoadBalancerForwardingRule**](../models/NetworkLoadBalancerForwardingRule.md)
+[**NetworkLoadBalancerForwardingRule**](NetworkLoadBalancerForwardingRule.md)
 
 ### HTTP request headers
 
@@ -1142,7 +1170,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1153,15 +1183,15 @@ func main() {
     offset := int32(56) // int32 | The first element (from the complete list of the elements) to include in the response (used together with <b><i>limit</i></b> for pagination). (optional) (default to 0)
     limit := int32(56) // int32 | The maximum number of elements to return (use together with offset for pagination). (optional) (default to 1000)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersGet(context.Background(), datacenterId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Offset(offset).Limit(limit).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersGet(context.Background(), datacenterId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Offset(offset).Limit(limit).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNetworkloadbalancersGet`: NetworkLoadBalancers
-    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersGet`: %v\n", resource)
 }
 ```
 
@@ -1175,7 +1205,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNetworkloadbalancersGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNetworkloadbalancersGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -1188,7 +1218,7 @@ Other parameters are passed through a pointer to a apiDatacentersNetworkloadbala
 
 ### Return type
 
-[**NetworkLoadBalancers**](../models/NetworkLoadBalancers.md)
+[**NetworkLoadBalancers**](NetworkLoadBalancers.md)
 
 ### HTTP request headers
 
@@ -1221,7 +1251,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1232,15 +1264,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersPatch(context.Background(), datacenterId, networkLoadBalancerId).NetworkLoadBalancerProperties(networkLoadBalancerProperties).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersPatch(context.Background(), datacenterId, networkLoadBalancerId).NetworkLoadBalancerProperties(networkLoadBalancerProperties).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersPatch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNetworkloadbalancersPatch`: NetworkLoadBalancer
-    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersPatch`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersPatch`: %v\n", resource)
 }
 ```
 
@@ -1255,19 +1287,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNetworkloadbalancersPatchRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNetworkloadbalancersPatchRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **networkLoadBalancerProperties** | [**NetworkLoadBalancerProperties**](../models/NetworkLoadBalancerProperties.md) | The properties of the Network Load Balancer to be updated. | |
+| **networkLoadBalancerProperties** | [**NetworkLoadBalancerProperties**](NetworkLoadBalancerProperties.md) | The properties of the Network Load Balancer to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**NetworkLoadBalancer**](../models/NetworkLoadBalancer.md)
+[**NetworkLoadBalancer**](NetworkLoadBalancer.md)
 
 ### HTTP request headers
 
@@ -1300,7 +1332,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1310,15 +1344,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersPost(context.Background(), datacenterId).NetworkLoadBalancer(networkLoadBalancer).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersPost(context.Background(), datacenterId).NetworkLoadBalancer(networkLoadBalancer).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNetworkloadbalancersPost`: NetworkLoadBalancer
-    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersPost`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersPost`: %v\n", resource)
 }
 ```
 
@@ -1332,19 +1366,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNetworkloadbalancersPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNetworkloadbalancersPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **networkLoadBalancer** | [**NetworkLoadBalancer**](../models/NetworkLoadBalancer.md) | The Network Load Balancer to create. | |
+| **networkLoadBalancer** | [**NetworkLoadBalancer**](NetworkLoadBalancer.md) | The Network Load Balancer to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**NetworkLoadBalancer**](../models/NetworkLoadBalancer.md)
+[**NetworkLoadBalancer**](NetworkLoadBalancer.md)
 
 ### HTTP request headers
 
@@ -1377,7 +1411,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1388,15 +1424,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersPut(context.Background(), datacenterId, networkLoadBalancerId).NetworkLoadBalancer(networkLoadBalancer).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NetworkLoadBalancersApi.DatacentersNetworkloadbalancersPut(context.Background(), datacenterId, networkLoadBalancerId).NetworkLoadBalancer(networkLoadBalancer).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersPut``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNetworkloadbalancersPut`: NetworkLoadBalancer
-    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersPut`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NetworkLoadBalancersApi.DatacentersNetworkloadbalancersPut`: %v\n", resource)
 }
 ```
 
@@ -1411,19 +1447,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNetworkloadbalancersPutRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNetworkloadbalancersPutRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **networkLoadBalancer** | [**NetworkLoadBalancerPut**](../models/NetworkLoadBalancerPut.md) | The modified Network Load Balancer. | |
+| **networkLoadBalancer** | [**NetworkLoadBalancerPut**](NetworkLoadBalancerPut.md) | The modified Network Load Balancer. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**NetworkLoadBalancer**](../models/NetworkLoadBalancer.md)
+[**NetworkLoadBalancer**](NetworkLoadBalancer.md)
 
 ### HTTP request headers
 

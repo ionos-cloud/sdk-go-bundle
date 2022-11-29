@@ -77,4 +77,3 @@ SetSecAuthProtection sets SecAuthProtection field to given value.
 HasSecAuthProtection returns a boolean if a field has been set.
 
 
-

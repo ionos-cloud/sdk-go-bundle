@@ -77,4 +77,3 @@ SetEnd sets End field to given value.
 HasEnd returns a boolean if a field has been set.
 
 
-

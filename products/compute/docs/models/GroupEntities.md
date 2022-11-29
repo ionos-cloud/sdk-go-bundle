@@ -77,4 +77,3 @@ SetResources sets Resources field to given value.
 HasResources returns a boolean if a field has been set.
 
 
-

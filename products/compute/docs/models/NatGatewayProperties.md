@@ -93,4 +93,3 @@ SetLans sets Lans field to given value.
 HasLans returns a boolean if a field has been set.
 
 
-

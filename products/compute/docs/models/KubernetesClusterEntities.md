@@ -51,4 +51,3 @@ SetNodepools sets Nodepools field to given value.
 HasNodepools returns a boolean if a field has been set.
 
 
-

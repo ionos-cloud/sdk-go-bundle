@@ -77,4 +77,3 @@ SetSharePrivilege sets SharePrivilege field to given value.
 HasSharePrivilege returns a boolean if a field has been set.
 
 
-

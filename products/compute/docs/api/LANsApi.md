@@ -39,7 +39,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -49,12 +51,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LANsApi.DatacentersLansDelete(context.Background(), datacenterId, lanId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.LANsApi.DatacentersLansDelete(context.Background(), datacenterId, lanId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `LANsApi.DatacentersLansDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -70,7 +72,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersLansDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersLansDeleteRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -113,7 +115,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -123,15 +127,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LANsApi.DatacentersLansFindById(context.Background(), datacenterId, lanId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.LANsApi.DatacentersLansFindById(context.Background(), datacenterId, lanId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `LANsApi.DatacentersLansFindById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersLansFindById`: Lan
-    fmt.Fprintf(os.Stdout, "Response from `LANsApi.DatacentersLansFindById`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `LANsApi.DatacentersLansFindById`: %v\n", resource)
 }
 ```
 
@@ -146,7 +150,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersLansFindByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersLansFindByIdRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -157,7 +161,7 @@ Other parameters are passed through a pointer to a apiDatacentersLansFindByIdReq
 
 ### Return type
 
-[**Lan**](../models/Lan.md)
+[**Lan**](Lan.md)
 
 ### HTTP request headers
 
@@ -191,7 +195,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -202,15 +208,15 @@ func main() {
     offset := int32(56) // int32 | The first element (from the complete list of the elements) to include in the response (used together with <b><i>limit</i></b> for pagination). (optional) (default to 0)
     limit := int32(56) // int32 | The maximum number of elements to return (use together with offset for pagination). (optional) (default to 1000)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LANsApi.DatacentersLansGet(context.Background(), datacenterId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Offset(offset).Limit(limit).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.LANsApi.DatacentersLansGet(context.Background(), datacenterId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Offset(offset).Limit(limit).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `LANsApi.DatacentersLansGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersLansGet`: Lans
-    fmt.Fprintf(os.Stdout, "Response from `LANsApi.DatacentersLansGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `LANsApi.DatacentersLansGet`: %v\n", resource)
 }
 ```
 
@@ -224,7 +230,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersLansGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersLansGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -237,7 +243,7 @@ Other parameters are passed through a pointer to a apiDatacentersLansGetRequest 
 
 ### Return type
 
-[**Lans**](../models/Lans.md)
+[**Lans**](Lans.md)
 
 ### HTTP request headers
 
@@ -269,7 +275,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -280,15 +288,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LANsApi.DatacentersLansNicsFindById(context.Background(), datacenterId, lanId, nicId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.LANsApi.DatacentersLansNicsFindById(context.Background(), datacenterId, lanId, nicId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `LANsApi.DatacentersLansNicsFindById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersLansNicsFindById`: Nic
-    fmt.Fprintf(os.Stdout, "Response from `LANsApi.DatacentersLansNicsFindById`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `LANsApi.DatacentersLansNicsFindById`: %v\n", resource)
 }
 ```
 
@@ -304,7 +312,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersLansNicsFindByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersLansNicsFindByIdRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -315,7 +323,7 @@ Other parameters are passed through a pointer to a apiDatacentersLansNicsFindByI
 
 ### Return type
 
-[**Nic**](../models/Nic.md)
+[**Nic**](Nic.md)
 
 ### HTTP request headers
 
@@ -349,7 +357,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -361,15 +371,15 @@ func main() {
     offset := int32(56) // int32 | The first element (from the complete list of the elements) to include in the response (used together with <b><i>limit</i></b> for pagination). (optional) (default to 0)
     limit := int32(56) // int32 | The maximum number of elements to return (use together with offset for pagination). (optional) (default to 1000)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LANsApi.DatacentersLansNicsGet(context.Background(), datacenterId, lanId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Offset(offset).Limit(limit).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.LANsApi.DatacentersLansNicsGet(context.Background(), datacenterId, lanId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Offset(offset).Limit(limit).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `LANsApi.DatacentersLansNicsGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersLansNicsGet`: LanNics
-    fmt.Fprintf(os.Stdout, "Response from `LANsApi.DatacentersLansNicsGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `LANsApi.DatacentersLansNicsGet`: %v\n", resource)
 }
 ```
 
@@ -384,7 +394,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersLansNicsGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersLansNicsGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -397,7 +407,7 @@ Other parameters are passed through a pointer to a apiDatacentersLansNicsGetRequ
 
 ### Return type
 
-[**LanNics**](../models/LanNics.md)
+[**LanNics**](LanNics.md)
 
 ### HTTP request headers
 
@@ -430,7 +440,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -441,15 +453,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LANsApi.DatacentersLansNicsPost(context.Background(), datacenterId, lanId).Nic(nic).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.LANsApi.DatacentersLansNicsPost(context.Background(), datacenterId, lanId).Nic(nic).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `LANsApi.DatacentersLansNicsPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersLansNicsPost`: Nic
-    fmt.Fprintf(os.Stdout, "Response from `LANsApi.DatacentersLansNicsPost`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `LANsApi.DatacentersLansNicsPost`: %v\n", resource)
 }
 ```
 
@@ -464,19 +476,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersLansNicsPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersLansNicsPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **nic** | [**Nic**](../models/Nic.md) | The NIC to be attached. | |
+| **nic** | [**Nic**](Nic.md) | The NIC to be attached. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Nic**](../models/Nic.md)
+[**Nic**](Nic.md)
 
 ### HTTP request headers
 
@@ -509,7 +521,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -520,15 +534,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LANsApi.DatacentersLansPatch(context.Background(), datacenterId, lanId).Lan(lan).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.LANsApi.DatacentersLansPatch(context.Background(), datacenterId, lanId).Lan(lan).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `LANsApi.DatacentersLansPatch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersLansPatch`: Lan
-    fmt.Fprintf(os.Stdout, "Response from `LANsApi.DatacentersLansPatch`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `LANsApi.DatacentersLansPatch`: %v\n", resource)
 }
 ```
 
@@ -543,19 +557,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersLansPatchRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersLansPatchRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **lan** | [**LanProperties**](../models/LanProperties.md) | The properties of the LAN to be updated. | |
+| **lan** | [**LanProperties**](LanProperties.md) | The properties of the LAN to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Lan**](../models/Lan.md)
+[**Lan**](Lan.md)
 
 ### HTTP request headers
 
@@ -588,7 +602,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -598,15 +614,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LANsApi.DatacentersLansPost(context.Background(), datacenterId).Lan(lan).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.LANsApi.DatacentersLansPost(context.Background(), datacenterId).Lan(lan).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `LANsApi.DatacentersLansPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersLansPost`: LanPost
-    fmt.Fprintf(os.Stdout, "Response from `LANsApi.DatacentersLansPost`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `LANsApi.DatacentersLansPost`: %v\n", resource)
 }
 ```
 
@@ -620,19 +636,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersLansPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersLansPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **lan** | [**LanPost**](../models/LanPost.md) | The LAN to create. | |
+| **lan** | [**LanPost**](LanPost.md) | The LAN to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**LanPost**](../models/LanPost.md)
+[**LanPost**](LanPost.md)
 
 ### HTTP request headers
 
@@ -665,7 +681,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -676,15 +694,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LANsApi.DatacentersLansPut(context.Background(), datacenterId, lanId).Lan(lan).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.LANsApi.DatacentersLansPut(context.Background(), datacenterId, lanId).Lan(lan).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `LANsApi.DatacentersLansPut``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersLansPut`: Lan
-    fmt.Fprintf(os.Stdout, "Response from `LANsApi.DatacentersLansPut`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `LANsApi.DatacentersLansPut`: %v\n", resource)
 }
 ```
 
@@ -699,19 +717,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersLansPutRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersLansPutRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **lan** | [**Lan**](../models/Lan.md) | The modified LAN | |
+| **lan** | [**Lan**](Lan.md) | The modified LAN | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Lan**](../models/Lan.md)
+[**Lan**](Lan.md)
 
 ### HTTP request headers
 

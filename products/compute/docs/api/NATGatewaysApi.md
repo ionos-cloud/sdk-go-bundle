@@ -48,7 +48,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -58,12 +60,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysDelete(context.Background(), datacenterId, natGatewayId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysDelete(context.Background(), datacenterId, natGatewayId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NATGatewaysApi.DatacentersNatgatewaysDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -79,7 +81,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNatgatewaysDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNatgatewaysDeleteRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -122,7 +124,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -132,15 +136,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysFindByNatGatewayId(context.Background(), datacenterId, natGatewayId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysFindByNatGatewayId(context.Background(), datacenterId, natGatewayId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NATGatewaysApi.DatacentersNatgatewaysFindByNatGatewayId``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNatgatewaysFindByNatGatewayId`: NatGateway
-    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysFindByNatGatewayId`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysFindByNatGatewayId`: %v\n", resource)
 }
 ```
 
@@ -155,7 +159,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNatgatewaysFindByNatGatewayIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNatgatewaysFindByNatGatewayIdRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -166,7 +170,7 @@ Other parameters are passed through a pointer to a apiDatacentersNatgatewaysFind
 
 ### Return type
 
-[**NatGateway**](../models/NatGateway.md)
+[**NatGateway**](NatGateway.md)
 
 ### HTTP request headers
 
@@ -197,7 +201,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -207,12 +213,12 @@ func main() {
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysFlowlogsDelete(context.Background(), datacenterId, natGatewayId, flowLogId).Pretty(pretty).Depth(depth).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysFlowlogsDelete(context.Background(), datacenterId, natGatewayId, flowLogId).Pretty(pretty).Depth(depth).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NATGatewaysApi.DatacentersNatgatewaysFlowlogsDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -229,7 +235,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNatgatewaysFlowlogsDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNatgatewaysFlowlogsDeleteRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -270,7 +276,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -280,15 +288,15 @@ func main() {
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysFlowlogsFindByFlowLogId(context.Background(), datacenterId, natGatewayId, flowLogId).Pretty(pretty).Depth(depth).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysFlowlogsFindByFlowLogId(context.Background(), datacenterId, natGatewayId, flowLogId).Pretty(pretty).Depth(depth).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NATGatewaysApi.DatacentersNatgatewaysFlowlogsFindByFlowLogId``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNatgatewaysFlowlogsFindByFlowLogId`: FlowLog
-    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysFlowlogsFindByFlowLogId`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysFlowlogsFindByFlowLogId`: %v\n", resource)
 }
 ```
 
@@ -304,7 +312,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNatgatewaysFlowlogsFindByFlowLogIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNatgatewaysFlowlogsFindByFlowLogIdRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -314,7 +322,7 @@ Other parameters are passed through a pointer to a apiDatacentersNatgatewaysFlow
 
 ### Return type
 
-[**FlowLog**](../models/FlowLog.md)
+[**FlowLog**](FlowLog.md)
 
 ### HTTP request headers
 
@@ -347,7 +355,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -358,15 +368,15 @@ func main() {
     offset := int32(56) // int32 | The first element (from the complete list of the elements) to include in the response (used together with <b><i>limit</i></b> for pagination). (optional) (default to 0)
     limit := int32(56) // int32 | The maximum number of elements to return (use together with offset for pagination). (optional) (default to 1000)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysFlowlogsGet(context.Background(), datacenterId, natGatewayId).Pretty(pretty).Depth(depth).Offset(offset).Limit(limit).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysFlowlogsGet(context.Background(), datacenterId, natGatewayId).Pretty(pretty).Depth(depth).Offset(offset).Limit(limit).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NATGatewaysApi.DatacentersNatgatewaysFlowlogsGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNatgatewaysFlowlogsGet`: FlowLogs
-    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysFlowlogsGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysFlowlogsGet`: %v\n", resource)
 }
 ```
 
@@ -381,7 +391,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNatgatewaysFlowlogsGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNatgatewaysFlowlogsGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -393,7 +403,7 @@ Other parameters are passed through a pointer to a apiDatacentersNatgatewaysFlow
 
 ### Return type
 
-[**FlowLogs**](../models/FlowLogs.md)
+[**FlowLogs**](FlowLogs.md)
 
 ### HTTP request headers
 
@@ -425,7 +435,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -436,15 +448,15 @@ func main() {
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysFlowlogsPatch(context.Background(), datacenterId, natGatewayId, flowLogId).NatGatewayFlowLogProperties(natGatewayFlowLogProperties).Pretty(pretty).Depth(depth).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysFlowlogsPatch(context.Background(), datacenterId, natGatewayId, flowLogId).NatGatewayFlowLogProperties(natGatewayFlowLogProperties).Pretty(pretty).Depth(depth).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NATGatewaysApi.DatacentersNatgatewaysFlowlogsPatch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNatgatewaysFlowlogsPatch`: FlowLog
-    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysFlowlogsPatch`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysFlowlogsPatch`: %v\n", resource)
 }
 ```
 
@@ -460,18 +472,18 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNatgatewaysFlowlogsPatchRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNatgatewaysFlowlogsPatchRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **natGatewayFlowLogProperties** | [**FlowLogProperties**](../models/FlowLogProperties.md) | The properties of the Flow Log to be updated. | |
+| **natGatewayFlowLogProperties** | [**FlowLogProperties**](FlowLogProperties.md) | The properties of the Flow Log to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 
 ### Return type
 
-[**FlowLog**](../models/FlowLog.md)
+[**FlowLog**](FlowLog.md)
 
 ### HTTP request headers
 
@@ -503,7 +515,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -513,15 +527,15 @@ func main() {
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysFlowlogsPost(context.Background(), datacenterId, natGatewayId).NatGatewayFlowLog(natGatewayFlowLog).Pretty(pretty).Depth(depth).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysFlowlogsPost(context.Background(), datacenterId, natGatewayId).NatGatewayFlowLog(natGatewayFlowLog).Pretty(pretty).Depth(depth).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NATGatewaysApi.DatacentersNatgatewaysFlowlogsPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNatgatewaysFlowlogsPost`: FlowLog
-    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysFlowlogsPost`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysFlowlogsPost`: %v\n", resource)
 }
 ```
 
@@ -536,18 +550,18 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNatgatewaysFlowlogsPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNatgatewaysFlowlogsPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **natGatewayFlowLog** | [**FlowLog**](../models/FlowLog.md) | The Flow Log to create. | |
+| **natGatewayFlowLog** | [**FlowLog**](FlowLog.md) | The Flow Log to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 
 ### Return type
 
-[**FlowLog**](../models/FlowLog.md)
+[**FlowLog**](FlowLog.md)
 
 ### HTTP request headers
 
@@ -579,7 +593,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -590,15 +606,15 @@ func main() {
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysFlowlogsPut(context.Background(), datacenterId, natGatewayId, flowLogId).NatGatewayFlowLog(natGatewayFlowLog).Pretty(pretty).Depth(depth).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysFlowlogsPut(context.Background(), datacenterId, natGatewayId, flowLogId).NatGatewayFlowLog(natGatewayFlowLog).Pretty(pretty).Depth(depth).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NATGatewaysApi.DatacentersNatgatewaysFlowlogsPut``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNatgatewaysFlowlogsPut`: FlowLog
-    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysFlowlogsPut`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysFlowlogsPut`: %v\n", resource)
 }
 ```
 
@@ -614,18 +630,18 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNatgatewaysFlowlogsPutRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNatgatewaysFlowlogsPutRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **natGatewayFlowLog** | [**FlowLogPut**](../models/FlowLogPut.md) | The modified NAT Gateway Flow Log. | |
+| **natGatewayFlowLog** | [**FlowLogPut**](FlowLogPut.md) | The modified NAT Gateway Flow Log. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 
 ### Return type
 
-[**FlowLog**](../models/FlowLog.md)
+[**FlowLog**](FlowLog.md)
 
 ### HTTP request headers
 
@@ -657,7 +673,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -666,15 +684,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysGet(context.Background(), datacenterId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysGet(context.Background(), datacenterId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NATGatewaysApi.DatacentersNatgatewaysGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNatgatewaysGet`: NatGateways
-    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysGet`: %v\n", resource)
 }
 ```
 
@@ -688,7 +706,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNatgatewaysGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNatgatewaysGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -699,7 +717,7 @@ Other parameters are passed through a pointer to a apiDatacentersNatgatewaysGetR
 
 ### Return type
 
-[**NatGateways**](../models/NatGateways.md)
+[**NatGateways**](NatGateways.md)
 
 ### HTTP request headers
 
@@ -732,7 +750,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -743,15 +763,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysPatch(context.Background(), datacenterId, natGatewayId).NatGatewayProperties(natGatewayProperties).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysPatch(context.Background(), datacenterId, natGatewayId).NatGatewayProperties(natGatewayProperties).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NATGatewaysApi.DatacentersNatgatewaysPatch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNatgatewaysPatch`: NatGateway
-    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysPatch`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysPatch`: %v\n", resource)
 }
 ```
 
@@ -766,19 +786,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNatgatewaysPatchRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNatgatewaysPatchRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **natGatewayProperties** | [**NatGatewayProperties**](../models/NatGatewayProperties.md) | The properties of the NAT Gateway to be updated. | |
+| **natGatewayProperties** | [**NatGatewayProperties**](NatGatewayProperties.md) | The properties of the NAT Gateway to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**NatGateway**](../models/NatGateway.md)
+[**NatGateway**](NatGateway.md)
 
 ### HTTP request headers
 
@@ -811,7 +831,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -821,15 +843,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysPost(context.Background(), datacenterId).NatGateway(natGateway).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysPost(context.Background(), datacenterId).NatGateway(natGateway).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NATGatewaysApi.DatacentersNatgatewaysPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNatgatewaysPost`: NatGateway
-    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysPost`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysPost`: %v\n", resource)
 }
 ```
 
@@ -843,19 +865,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNatgatewaysPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNatgatewaysPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **natGateway** | [**NatGateway**](../models/NatGateway.md) | The NAT Gateway to create. | |
+| **natGateway** | [**NatGateway**](NatGateway.md) | The NAT Gateway to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**NatGateway**](../models/NatGateway.md)
+[**NatGateway**](NatGateway.md)
 
 ### HTTP request headers
 
@@ -888,7 +910,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -899,15 +923,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysPut(context.Background(), datacenterId, natGatewayId).NatGateway(natGateway).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysPut(context.Background(), datacenterId, natGatewayId).NatGateway(natGateway).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NATGatewaysApi.DatacentersNatgatewaysPut``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNatgatewaysPut`: NatGateway
-    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysPut`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysPut`: %v\n", resource)
 }
 ```
 
@@ -922,19 +946,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNatgatewaysPutRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNatgatewaysPutRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **natGateway** | [**NatGatewayPut**](../models/NatGatewayPut.md) | The modified NAT Gateway. | |
+| **natGateway** | [**NatGatewayPut**](NatGatewayPut.md) | The modified NAT Gateway. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**NatGateway**](../models/NatGateway.md)
+[**NatGateway**](NatGateway.md)
 
 ### HTTP request headers
 
@@ -966,7 +990,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -977,12 +1003,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysRulesDelete(context.Background(), datacenterId, natGatewayId, natGatewayRuleId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysRulesDelete(context.Background(), datacenterId, natGatewayId, natGatewayRuleId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NATGatewaysApi.DatacentersNatgatewaysRulesDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -999,7 +1025,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNatgatewaysRulesDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNatgatewaysRulesDeleteRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -1042,7 +1068,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1053,15 +1081,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysRulesFindByNatGatewayRuleId(context.Background(), datacenterId, natGatewayId, natGatewayRuleId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysRulesFindByNatGatewayRuleId(context.Background(), datacenterId, natGatewayId, natGatewayRuleId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NATGatewaysApi.DatacentersNatgatewaysRulesFindByNatGatewayRuleId``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNatgatewaysRulesFindByNatGatewayRuleId`: NatGatewayRule
-    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysRulesFindByNatGatewayRuleId`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysRulesFindByNatGatewayRuleId`: %v\n", resource)
 }
 ```
 
@@ -1077,7 +1105,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNatgatewaysRulesFindByNatGatewayRuleIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNatgatewaysRulesFindByNatGatewayRuleIdRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -1088,7 +1116,7 @@ Other parameters are passed through a pointer to a apiDatacentersNatgatewaysRule
 
 ### Return type
 
-[**NatGatewayRule**](../models/NatGatewayRule.md)
+[**NatGatewayRule**](NatGatewayRule.md)
 
 ### HTTP request headers
 
@@ -1120,7 +1148,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1130,15 +1160,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysRulesGet(context.Background(), datacenterId, natGatewayId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysRulesGet(context.Background(), datacenterId, natGatewayId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NATGatewaysApi.DatacentersNatgatewaysRulesGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNatgatewaysRulesGet`: NatGatewayRules
-    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysRulesGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysRulesGet`: %v\n", resource)
 }
 ```
 
@@ -1153,7 +1183,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNatgatewaysRulesGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNatgatewaysRulesGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -1164,7 +1194,7 @@ Other parameters are passed through a pointer to a apiDatacentersNatgatewaysRule
 
 ### Return type
 
-[**NatGatewayRules**](../models/NatGatewayRules.md)
+[**NatGatewayRules**](NatGatewayRules.md)
 
 ### HTTP request headers
 
@@ -1197,7 +1227,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1209,15 +1241,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysRulesPatch(context.Background(), datacenterId, natGatewayId, natGatewayRuleId).NatGatewayRuleProperties(natGatewayRuleProperties).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysRulesPatch(context.Background(), datacenterId, natGatewayId, natGatewayRuleId).NatGatewayRuleProperties(natGatewayRuleProperties).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NATGatewaysApi.DatacentersNatgatewaysRulesPatch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNatgatewaysRulesPatch`: NatGatewayRule
-    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysRulesPatch`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysRulesPatch`: %v\n", resource)
 }
 ```
 
@@ -1233,19 +1265,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNatgatewaysRulesPatchRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNatgatewaysRulesPatchRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **natGatewayRuleProperties** | [**NatGatewayRuleProperties**](../models/NatGatewayRuleProperties.md) | The properties of the NAT Gateway rule to be updated. | |
+| **natGatewayRuleProperties** | [**NatGatewayRuleProperties**](NatGatewayRuleProperties.md) | The properties of the NAT Gateway rule to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**NatGatewayRule**](../models/NatGatewayRule.md)
+[**NatGatewayRule**](NatGatewayRule.md)
 
 ### HTTP request headers
 
@@ -1278,7 +1310,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1289,15 +1323,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysRulesPost(context.Background(), datacenterId, natGatewayId).NatGatewayRule(natGatewayRule).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysRulesPost(context.Background(), datacenterId, natGatewayId).NatGatewayRule(natGatewayRule).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NATGatewaysApi.DatacentersNatgatewaysRulesPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNatgatewaysRulesPost`: NatGatewayRule
-    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysRulesPost`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysRulesPost`: %v\n", resource)
 }
 ```
 
@@ -1312,19 +1346,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNatgatewaysRulesPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNatgatewaysRulesPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **natGatewayRule** | [**NatGatewayRule**](../models/NatGatewayRule.md) | The NAT Gateway rule to create. | |
+| **natGatewayRule** | [**NatGatewayRule**](NatGatewayRule.md) | The NAT Gateway rule to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**NatGatewayRule**](../models/NatGatewayRule.md)
+[**NatGatewayRule**](NatGatewayRule.md)
 
 ### HTTP request headers
 
@@ -1357,7 +1391,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1369,15 +1405,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysRulesPut(context.Background(), datacenterId, natGatewayId, natGatewayRuleId).NatGatewayRule(natGatewayRule).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysRulesPut(context.Background(), datacenterId, natGatewayId, natGatewayRuleId).NatGatewayRule(natGatewayRule).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NATGatewaysApi.DatacentersNatgatewaysRulesPut``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersNatgatewaysRulesPut`: NatGatewayRule
-    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysRulesPut`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `NATGatewaysApi.DatacentersNatgatewaysRulesPut`: %v\n", resource)
 }
 ```
 
@@ -1393,19 +1429,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersNatgatewaysRulesPutRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersNatgatewaysRulesPutRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **natGatewayRule** | [**NatGatewayRulePut**](../models/NatGatewayRulePut.md) | The modified NAT Gateway rule. | |
+| **natGatewayRule** | [**NatGatewayRulePut**](NatGatewayRulePut.md) | The modified NAT Gateway rule. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**NatGatewayRule**](../models/NatGatewayRule.md)
+[**NatGatewayRule**](NatGatewayRule.md)
 
 ### HTTP request headers
 

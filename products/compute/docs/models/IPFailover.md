@@ -77,4 +77,3 @@ SetNicUuid sets NicUuid field to given value.
 HasNicUuid returns a boolean if a field has been set.
 
 
-

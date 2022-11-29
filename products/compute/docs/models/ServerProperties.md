@@ -275,4 +275,3 @@ SetType sets Type field to given value.
 HasType returns a boolean if a field has been set.
 
 
-

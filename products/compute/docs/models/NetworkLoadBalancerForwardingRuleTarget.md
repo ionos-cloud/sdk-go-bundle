@@ -114,4 +114,3 @@ SetHealthCheck sets HealthCheck field to given value.
 HasHealthCheck returns a boolean if a field has been set.
 
 
-

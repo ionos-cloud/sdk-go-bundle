@@ -77,4 +77,3 @@ SetStatus sets Status field to given value.
 HasStatus returns a boolean if a field has been set.
 
 
-

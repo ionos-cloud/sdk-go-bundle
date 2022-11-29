@@ -155,4 +155,3 @@ SetLocation sets Location field to given value.
 HasLocation returns a boolean if a field has been set.
 
 
-

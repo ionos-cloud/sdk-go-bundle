@@ -51,4 +51,3 @@ SetSsoUrl sets SsoUrl field to given value.
 HasSsoUrl returns a boolean if a field has been set.
 
 
-

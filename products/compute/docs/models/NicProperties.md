@@ -264,4 +264,3 @@ SetPciSlot sets PciSlot field to given value.
 HasPciSlot returns a boolean if a field has been set.
 
 
-

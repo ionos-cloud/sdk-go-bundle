@@ -103,4 +103,3 @@ SetNics sets Nics field to given value.
 HasNics returns a boolean if a field has been set.
 
 
-

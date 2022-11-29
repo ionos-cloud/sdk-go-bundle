@@ -514,4 +514,3 @@ SetCloudInit sets CloudInit field to given value.
 HasCloudInit returns a boolean if a field has been set.
 
 
-

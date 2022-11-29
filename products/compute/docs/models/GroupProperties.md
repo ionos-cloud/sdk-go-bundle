@@ -389,4 +389,3 @@ SetManageDBaaS sets ManageDBaaS field to given value.
 HasManageDBaaS returns a boolean if a field has been set.
 
 
-

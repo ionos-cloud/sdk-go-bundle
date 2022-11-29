@@ -36,7 +36,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -45,12 +47,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TargetGroupsApi.TargetGroupsDelete(context.Background(), targetGroupId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.TargetGroupsApi.TargetGroupsDelete(context.Background(), targetGroupId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TargetGroupsApi.TargetGroupsDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -65,7 +67,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiTargetGroupsDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiTargetGroupsDeleteRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -108,7 +110,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -117,15 +121,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TargetGroupsApi.TargetgroupsFindByTargetGroupId(context.Background(), targetGroupId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.TargetGroupsApi.TargetgroupsFindByTargetGroupId(context.Background(), targetGroupId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TargetGroupsApi.TargetgroupsFindByTargetGroupId``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `TargetgroupsFindByTargetGroupId`: TargetGroup
-    fmt.Fprintf(os.Stdout, "Response from `TargetGroupsApi.TargetgroupsFindByTargetGroupId`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `TargetGroupsApi.TargetgroupsFindByTargetGroupId`: %v\n", resource)
 }
 ```
 
@@ -139,7 +143,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiTargetgroupsFindByTargetGroupIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiTargetgroupsFindByTargetGroupIdRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -150,7 +154,7 @@ Other parameters are passed through a pointer to a apiTargetgroupsFindByTargetGr
 
 ### Return type
 
-[**TargetGroup**](../models/TargetGroup.md)
+[**TargetGroup**](TargetGroup.md)
 
 ### HTTP request headers
 
@@ -184,7 +188,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -194,15 +200,15 @@ func main() {
     offset := int32(56) // int32 | The first element (from the complete list of the elements) to include in the response (used together with <b><i>limit</i></b> for pagination). (optional) (default to 0)
     limit := int32(56) // int32 | The maximum number of elements to return (used together with <b><i>offset</i></b> for pagination). It must not exceed <b><i>200</i></b>. (optional) (default to 100)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TargetGroupsApi.TargetgroupsGet(context.Background()).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Offset(offset).Limit(limit).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.TargetGroupsApi.TargetgroupsGet(context.Background()).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Offset(offset).Limit(limit).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TargetGroupsApi.TargetgroupsGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `TargetgroupsGet`: TargetGroups
-    fmt.Fprintf(os.Stdout, "Response from `TargetGroupsApi.TargetgroupsGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `TargetGroupsApi.TargetgroupsGet`: %v\n", resource)
 }
 ```
 
@@ -212,7 +218,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiTargetgroupsGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiTargetgroupsGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -225,7 +231,7 @@ Other parameters are passed through a pointer to a apiTargetgroupsGetRequest str
 
 ### Return type
 
-[**TargetGroups**](../models/TargetGroups.md)
+[**TargetGroups**](TargetGroups.md)
 
 ### HTTP request headers
 
@@ -258,7 +264,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -268,15 +276,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TargetGroupsApi.TargetgroupsPatch(context.Background(), targetGroupId).TargetGroupProperties(targetGroupProperties).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.TargetGroupsApi.TargetgroupsPatch(context.Background(), targetGroupId).TargetGroupProperties(targetGroupProperties).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TargetGroupsApi.TargetgroupsPatch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `TargetgroupsPatch`: TargetGroup
-    fmt.Fprintf(os.Stdout, "Response from `TargetGroupsApi.TargetgroupsPatch`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `TargetGroupsApi.TargetgroupsPatch`: %v\n", resource)
 }
 ```
 
@@ -290,19 +298,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiTargetgroupsPatchRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiTargetgroupsPatchRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **targetGroupProperties** | [**TargetGroupProperties**](../models/TargetGroupProperties.md) | The target group properties to be updated. | |
+| **targetGroupProperties** | [**TargetGroupProperties**](TargetGroupProperties.md) | The target group properties to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**TargetGroup**](../models/TargetGroup.md)
+[**TargetGroup**](TargetGroup.md)
 
 ### HTTP request headers
 
@@ -335,7 +343,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -344,15 +354,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TargetGroupsApi.TargetgroupsPost(context.Background()).TargetGroup(targetGroup).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.TargetGroupsApi.TargetgroupsPost(context.Background()).TargetGroup(targetGroup).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TargetGroupsApi.TargetgroupsPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `TargetgroupsPost`: TargetGroup
-    fmt.Fprintf(os.Stdout, "Response from `TargetGroupsApi.TargetgroupsPost`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `TargetGroupsApi.TargetgroupsPost`: %v\n", resource)
 }
 ```
 
@@ -362,19 +372,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiTargetgroupsPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiTargetgroupsPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **targetGroup** | [**TargetGroup**](../models/TargetGroup.md) | The target group to create. | |
+| **targetGroup** | [**TargetGroup**](TargetGroup.md) | The target group to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**TargetGroup**](../models/TargetGroup.md)
+[**TargetGroup**](TargetGroup.md)
 
 ### HTTP request headers
 
@@ -407,7 +417,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -417,15 +429,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TargetGroupsApi.TargetgroupsPut(context.Background(), targetGroupId).TargetGroup(targetGroup).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.TargetGroupsApi.TargetgroupsPut(context.Background(), targetGroupId).TargetGroup(targetGroup).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TargetGroupsApi.TargetgroupsPut``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `TargetgroupsPut`: TargetGroup
-    fmt.Fprintf(os.Stdout, "Response from `TargetGroupsApi.TargetgroupsPut`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `TargetGroupsApi.TargetgroupsPut`: %v\n", resource)
 }
 ```
 
@@ -439,19 +451,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiTargetgroupsPutRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiTargetgroupsPutRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **targetGroup** | [**TargetGroupPut**](../models/TargetGroupPut.md) | The modified target group. | |
+| **targetGroup** | [**TargetGroupPut**](TargetGroupPut.md) | The modified target group. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**TargetGroup**](../models/TargetGroup.md)
+[**TargetGroup**](TargetGroup.md)
 
 ### HTTP request headers
 

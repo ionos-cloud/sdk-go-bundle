@@ -155,4 +155,3 @@ SetLastSoftwareUpdatedDate sets LastSoftwareUpdatedDate field to given value.
 HasLastSoftwareUpdatedDate returns a boolean if a field has been set.
 
 
-

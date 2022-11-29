@@ -129,4 +129,3 @@ SetPublic sets Public field to given value.
 HasPublic returns a boolean if a field has been set.
 
 
-

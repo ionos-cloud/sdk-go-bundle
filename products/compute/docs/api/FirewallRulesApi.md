@@ -36,7 +36,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -48,12 +50,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FirewallRulesApi.DatacentersServersNicsFirewallrulesDelete(context.Background(), datacenterId, serverId, nicId, firewallruleId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.FirewallRulesApi.DatacentersServersNicsFirewallrulesDelete(context.Background(), datacenterId, serverId, nicId, firewallruleId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FirewallRulesApi.DatacentersServersNicsFirewallrulesDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -71,7 +73,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersNicsFirewallrulesDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersNicsFirewallrulesDeleteRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -114,7 +116,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -126,15 +130,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FirewallRulesApi.DatacentersServersNicsFirewallrulesFindById(context.Background(), datacenterId, serverId, nicId, firewallruleId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.FirewallRulesApi.DatacentersServersNicsFirewallrulesFindById(context.Background(), datacenterId, serverId, nicId, firewallruleId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FirewallRulesApi.DatacentersServersNicsFirewallrulesFindById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersServersNicsFirewallrulesFindById`: FirewallRule
-    fmt.Fprintf(os.Stdout, "Response from `FirewallRulesApi.DatacentersServersNicsFirewallrulesFindById`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `FirewallRulesApi.DatacentersServersNicsFirewallrulesFindById`: %v\n", resource)
 }
 ```
 
@@ -151,7 +155,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersNicsFirewallrulesFindByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersNicsFirewallrulesFindByIdRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -162,7 +166,7 @@ Other parameters are passed through a pointer to a apiDatacentersServersNicsFire
 
 ### Return type
 
-[**FirewallRule**](../models/FirewallRule.md)
+[**FirewallRule**](FirewallRule.md)
 
 ### HTTP request headers
 
@@ -196,7 +200,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -209,15 +215,15 @@ func main() {
     offset := int32(56) // int32 | The first element (from the complete list of the elements) to include in the response (used together with <b><i>limit</i></b> for pagination). (optional) (default to 0)
     limit := int32(56) // int32 | The maximum number of elements to return (use together with offset for pagination). (optional) (default to 1000)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FirewallRulesApi.DatacentersServersNicsFirewallrulesGet(context.Background(), datacenterId, serverId, nicId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Offset(offset).Limit(limit).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.FirewallRulesApi.DatacentersServersNicsFirewallrulesGet(context.Background(), datacenterId, serverId, nicId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Offset(offset).Limit(limit).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FirewallRulesApi.DatacentersServersNicsFirewallrulesGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersServersNicsFirewallrulesGet`: FirewallRules
-    fmt.Fprintf(os.Stdout, "Response from `FirewallRulesApi.DatacentersServersNicsFirewallrulesGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `FirewallRulesApi.DatacentersServersNicsFirewallrulesGet`: %v\n", resource)
 }
 ```
 
@@ -233,7 +239,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersNicsFirewallrulesGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersNicsFirewallrulesGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -246,7 +252,7 @@ Other parameters are passed through a pointer to a apiDatacentersServersNicsFire
 
 ### Return type
 
-[**FirewallRules**](../models/FirewallRules.md)
+[**FirewallRules**](FirewallRules.md)
 
 ### HTTP request headers
 
@@ -279,7 +285,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -292,15 +300,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FirewallRulesApi.DatacentersServersNicsFirewallrulesPatch(context.Background(), datacenterId, serverId, nicId, firewallruleId).Firewallrule(firewallrule).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.FirewallRulesApi.DatacentersServersNicsFirewallrulesPatch(context.Background(), datacenterId, serverId, nicId, firewallruleId).Firewallrule(firewallrule).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FirewallRulesApi.DatacentersServersNicsFirewallrulesPatch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersServersNicsFirewallrulesPatch`: FirewallRule
-    fmt.Fprintf(os.Stdout, "Response from `FirewallRulesApi.DatacentersServersNicsFirewallrulesPatch`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `FirewallRulesApi.DatacentersServersNicsFirewallrulesPatch`: %v\n", resource)
 }
 ```
 
@@ -317,19 +325,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersNicsFirewallrulesPatchRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersNicsFirewallrulesPatchRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **firewallrule** | [**FirewallruleProperties**](../models/FirewallruleProperties.md) | The properties of the firewall rule to be updated. | |
+| **firewallrule** | [**FirewallruleProperties**](FirewallruleProperties.md) | The properties of the firewall rule to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**FirewallRule**](../models/FirewallRule.md)
+[**FirewallRule**](FirewallRule.md)
 
 ### HTTP request headers
 
@@ -362,7 +370,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -374,15 +384,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FirewallRulesApi.DatacentersServersNicsFirewallrulesPost(context.Background(), datacenterId, serverId, nicId).Firewallrule(firewallrule).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.FirewallRulesApi.DatacentersServersNicsFirewallrulesPost(context.Background(), datacenterId, serverId, nicId).Firewallrule(firewallrule).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FirewallRulesApi.DatacentersServersNicsFirewallrulesPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersServersNicsFirewallrulesPost`: FirewallRule
-    fmt.Fprintf(os.Stdout, "Response from `FirewallRulesApi.DatacentersServersNicsFirewallrulesPost`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `FirewallRulesApi.DatacentersServersNicsFirewallrulesPost`: %v\n", resource)
 }
 ```
 
@@ -398,19 +408,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersNicsFirewallrulesPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersNicsFirewallrulesPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **firewallrule** | [**FirewallRule**](../models/FirewallRule.md) | The firewall rule to create. | |
+| **firewallrule** | [**FirewallRule**](FirewallRule.md) | The firewall rule to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**FirewallRule**](../models/FirewallRule.md)
+[**FirewallRule**](FirewallRule.md)
 
 ### HTTP request headers
 
@@ -443,7 +453,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -456,15 +468,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FirewallRulesApi.DatacentersServersNicsFirewallrulesPut(context.Background(), datacenterId, serverId, nicId, firewallruleId).Firewallrule(firewallrule).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.FirewallRulesApi.DatacentersServersNicsFirewallrulesPut(context.Background(), datacenterId, serverId, nicId, firewallruleId).Firewallrule(firewallrule).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FirewallRulesApi.DatacentersServersNicsFirewallrulesPut``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `DatacentersServersNicsFirewallrulesPut`: FirewallRule
-    fmt.Fprintf(os.Stdout, "Response from `FirewallRulesApi.DatacentersServersNicsFirewallrulesPut`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `FirewallRulesApi.DatacentersServersNicsFirewallrulesPut`: %v\n", resource)
 }
 ```
 
@@ -481,19 +493,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDatacentersServersNicsFirewallrulesPutRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiDatacentersServersNicsFirewallrulesPutRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **firewallrule** | [**FirewallRule**](../models/FirewallRule.md) | The modified firewall rule. | |
+| **firewallrule** | [**FirewallRule**](FirewallRule.md) | The modified firewall rule. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**FirewallRule**](../models/FirewallRule.md)
+[**FirewallRule**](FirewallRule.md)
 
 ### HTTP request headers
 

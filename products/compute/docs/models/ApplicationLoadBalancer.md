@@ -176,4 +176,3 @@ SetEntities sets Entities field to given value.
 HasEntities returns a boolean if a field has been set.
 
 
-

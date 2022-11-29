@@ -187,4 +187,3 @@ SetHttpRules sets HttpRules field to given value.
 HasHttpRules returns a boolean if a field has been set.
 
 
-

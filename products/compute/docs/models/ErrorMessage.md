@@ -77,4 +77,3 @@ SetMessage sets Message field to given value.
 HasMessage returns a boolean if a field has been set.
 
 
-

@@ -249,4 +249,3 @@ SetConditions sets Conditions field to given value.
 HasConditions returns a boolean if a field has been set.
 
 
-

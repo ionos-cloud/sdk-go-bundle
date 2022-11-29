@@ -51,4 +51,3 @@ SetToken sets Token field to given value.
 HasToken returns a boolean if a field has been set.
 
 
-

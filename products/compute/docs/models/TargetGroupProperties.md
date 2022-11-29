@@ -166,4 +166,3 @@ SetHttpHealthCheck sets HttpHealthCheck field to given value.
 HasHttpHealthCheck returns a boolean if a field has been set.
 
 
-

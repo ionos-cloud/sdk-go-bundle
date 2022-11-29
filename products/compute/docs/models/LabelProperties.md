@@ -155,4 +155,3 @@ SetResourceHref sets ResourceHref field to given value.
 HasResourceHref returns a boolean if a field has been set.
 
 
-

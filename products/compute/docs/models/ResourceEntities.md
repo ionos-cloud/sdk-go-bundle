@@ -51,4 +51,3 @@ SetGroups sets Groups field to given value.
 HasGroups returns a boolean if a field has been set.
 
 
-

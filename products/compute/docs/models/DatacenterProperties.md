@@ -202,4 +202,3 @@ SetCpuArchitecture sets CpuArchitecture field to given value.
 HasCpuArchitecture returns a boolean if a field has been set.
 
 
-

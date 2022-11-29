@@ -77,4 +77,3 @@ SetFirewallrules sets Firewallrules field to given value.
 HasFirewallrules returns a boolean if a field has been set.
 
 
-

@@ -47,7 +47,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -56,12 +58,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.KubernetesApi.K8sDelete(context.Background(), k8sClusterId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.KubernetesApi.K8sDelete(context.Background(), k8sClusterId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `KubernetesApi.K8sDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -76,7 +78,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiK8sDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiK8sDeleteRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -119,7 +121,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -128,15 +132,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.KubernetesApi.K8sFindByClusterId(context.Background(), k8sClusterId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.KubernetesApi.K8sFindByClusterId(context.Background(), k8sClusterId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `KubernetesApi.K8sFindByClusterId``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `K8sFindByClusterId`: KubernetesCluster
-    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sFindByClusterId`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sFindByClusterId`: %v\n", resource)
 }
 ```
 
@@ -150,7 +154,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiK8sFindByClusterIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiK8sFindByClusterIdRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -161,7 +165,7 @@ Other parameters are passed through a pointer to a apiK8sFindByClusterIdRequest 
 
 ### Return type
 
-[**KubernetesCluster**](../models/KubernetesCluster.md)
+[**KubernetesCluster**](KubernetesCluster.md)
 
 ### HTTP request headers
 
@@ -193,7 +197,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -201,15 +207,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.KubernetesApi.K8sGet(context.Background()).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.KubernetesApi.K8sGet(context.Background()).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `KubernetesApi.K8sGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `K8sGet`: KubernetesClusters
-    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sGet`: %v\n", resource)
 }
 ```
 
@@ -219,7 +225,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiK8sGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiK8sGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -230,7 +236,7 @@ Other parameters are passed through a pointer to a apiK8sGetRequest struct via t
 
 ### Return type
 
-[**KubernetesClusters**](../models/KubernetesClusters.md)
+[**KubernetesClusters**](KubernetesClusters.md)
 
 ### HTTP request headers
 
@@ -262,7 +268,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -271,15 +279,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.KubernetesApi.K8sKubeconfigGet(context.Background(), k8sClusterId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.KubernetesApi.K8sKubeconfigGet(context.Background(), k8sClusterId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `KubernetesApi.K8sKubeconfigGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `K8sKubeconfigGet`: string
-    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sKubeconfigGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sKubeconfigGet`: %v\n", resource)
 }
 ```
 
@@ -293,7 +301,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiK8sKubeconfigGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiK8sKubeconfigGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -336,7 +344,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -346,12 +356,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.KubernetesApi.K8sNodepoolsDelete(context.Background(), k8sClusterId, nodepoolId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.KubernetesApi.K8sNodepoolsDelete(context.Background(), k8sClusterId, nodepoolId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `KubernetesApi.K8sNodepoolsDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -367,7 +377,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiK8sNodepoolsDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiK8sNodepoolsDeleteRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -410,7 +420,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -420,15 +432,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.KubernetesApi.K8sNodepoolsFindById(context.Background(), k8sClusterId, nodepoolId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.KubernetesApi.K8sNodepoolsFindById(context.Background(), k8sClusterId, nodepoolId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `KubernetesApi.K8sNodepoolsFindById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `K8sNodepoolsFindById`: KubernetesNodePool
-    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sNodepoolsFindById`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sNodepoolsFindById`: %v\n", resource)
 }
 ```
 
@@ -443,7 +455,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiK8sNodepoolsFindByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiK8sNodepoolsFindByIdRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -454,7 +466,7 @@ Other parameters are passed through a pointer to a apiK8sNodepoolsFindByIdReques
 
 ### Return type
 
-[**KubernetesNodePool**](../models/KubernetesNodePool.md)
+[**KubernetesNodePool**](KubernetesNodePool.md)
 
 ### HTTP request headers
 
@@ -486,7 +498,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -495,15 +509,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.KubernetesApi.K8sNodepoolsGet(context.Background(), k8sClusterId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.KubernetesApi.K8sNodepoolsGet(context.Background(), k8sClusterId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `KubernetesApi.K8sNodepoolsGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `K8sNodepoolsGet`: KubernetesNodePools
-    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sNodepoolsGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sNodepoolsGet`: %v\n", resource)
 }
 ```
 
@@ -517,7 +531,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiK8sNodepoolsGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiK8sNodepoolsGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -528,7 +542,7 @@ Other parameters are passed through a pointer to a apiK8sNodepoolsGetRequest str
 
 ### Return type
 
-[**KubernetesNodePools**](../models/KubernetesNodePools.md)
+[**KubernetesNodePools**](KubernetesNodePools.md)
 
 ### HTTP request headers
 
@@ -560,7 +574,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -571,12 +587,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.KubernetesApi.K8sNodepoolsNodesDelete(context.Background(), k8sClusterId, nodepoolId, nodeId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.KubernetesApi.K8sNodepoolsNodesDelete(context.Background(), k8sClusterId, nodepoolId, nodeId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `KubernetesApi.K8sNodepoolsNodesDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -593,7 +609,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiK8sNodepoolsNodesDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiK8sNodepoolsNodesDeleteRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -636,7 +652,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -647,15 +665,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.KubernetesApi.K8sNodepoolsNodesFindById(context.Background(), k8sClusterId, nodepoolId, nodeId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.KubernetesApi.K8sNodepoolsNodesFindById(context.Background(), k8sClusterId, nodepoolId, nodeId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `KubernetesApi.K8sNodepoolsNodesFindById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `K8sNodepoolsNodesFindById`: KubernetesNode
-    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sNodepoolsNodesFindById`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sNodepoolsNodesFindById`: %v\n", resource)
 }
 ```
 
@@ -671,7 +689,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiK8sNodepoolsNodesFindByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiK8sNodepoolsNodesFindByIdRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -682,7 +700,7 @@ Other parameters are passed through a pointer to a apiK8sNodepoolsNodesFindByIdR
 
 ### Return type
 
-[**KubernetesNode**](../models/KubernetesNode.md)
+[**KubernetesNode**](KubernetesNode.md)
 
 ### HTTP request headers
 
@@ -714,7 +732,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -724,15 +744,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.KubernetesApi.K8sNodepoolsNodesGet(context.Background(), k8sClusterId, nodepoolId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.KubernetesApi.K8sNodepoolsNodesGet(context.Background(), k8sClusterId, nodepoolId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `KubernetesApi.K8sNodepoolsNodesGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `K8sNodepoolsNodesGet`: KubernetesNodes
-    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sNodepoolsNodesGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sNodepoolsNodesGet`: %v\n", resource)
 }
 ```
 
@@ -747,7 +767,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiK8sNodepoolsNodesGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiK8sNodepoolsNodesGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -758,7 +778,7 @@ Other parameters are passed through a pointer to a apiK8sNodepoolsNodesGetReques
 
 ### Return type
 
-[**KubernetesNodes**](../models/KubernetesNodes.md)
+[**KubernetesNodes**](KubernetesNodes.md)
 
 ### HTTP request headers
 
@@ -790,7 +810,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -801,12 +823,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.KubernetesApi.K8sNodepoolsNodesReplacePost(context.Background(), k8sClusterId, nodepoolId, nodeId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.KubernetesApi.K8sNodepoolsNodesReplacePost(context.Background(), k8sClusterId, nodepoolId, nodeId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `KubernetesApi.K8sNodepoolsNodesReplacePost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -823,7 +845,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiK8sNodepoolsNodesReplacePostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiK8sNodepoolsNodesReplacePostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -867,7 +889,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -877,15 +901,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.KubernetesApi.K8sNodepoolsPost(context.Background(), k8sClusterId).KubernetesNodePool(kubernetesNodePool).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.KubernetesApi.K8sNodepoolsPost(context.Background(), k8sClusterId).KubernetesNodePool(kubernetesNodePool).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `KubernetesApi.K8sNodepoolsPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `K8sNodepoolsPost`: KubernetesNodePool
-    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sNodepoolsPost`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sNodepoolsPost`: %v\n", resource)
 }
 ```
 
@@ -899,19 +923,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiK8sNodepoolsPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiK8sNodepoolsPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **kubernetesNodePool** | [**KubernetesNodePoolForPost**](../models/KubernetesNodePoolForPost.md) | The Kubernetes node pool to create. | |
+| **kubernetesNodePool** | [**KubernetesNodePoolForPost**](KubernetesNodePoolForPost.md) | The Kubernetes node pool to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**KubernetesNodePool**](../models/KubernetesNodePool.md)
+[**KubernetesNodePool**](KubernetesNodePool.md)
 
 ### HTTP request headers
 
@@ -944,7 +968,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -955,15 +981,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.KubernetesApi.K8sNodepoolsPut(context.Background(), k8sClusterId, nodepoolId).KubernetesNodePool(kubernetesNodePool).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.KubernetesApi.K8sNodepoolsPut(context.Background(), k8sClusterId, nodepoolId).KubernetesNodePool(kubernetesNodePool).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `KubernetesApi.K8sNodepoolsPut``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `K8sNodepoolsPut`: KubernetesNodePool
-    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sNodepoolsPut`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sNodepoolsPut`: %v\n", resource)
 }
 ```
 
@@ -978,19 +1004,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiK8sNodepoolsPutRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiK8sNodepoolsPutRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **kubernetesNodePool** | [**KubernetesNodePoolForPut**](../models/KubernetesNodePoolForPut.md) | Details of the Kubernetes Node Pool | |
+| **kubernetesNodePool** | [**KubernetesNodePoolForPut**](KubernetesNodePoolForPut.md) | Details of the Kubernetes Node Pool | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**KubernetesNodePool**](../models/KubernetesNodePool.md)
+[**KubernetesNodePool**](KubernetesNodePool.md)
 
 ### HTTP request headers
 
@@ -1023,7 +1049,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1032,15 +1060,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.KubernetesApi.K8sPost(context.Background()).KubernetesCluster(kubernetesCluster).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.KubernetesApi.K8sPost(context.Background()).KubernetesCluster(kubernetesCluster).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `KubernetesApi.K8sPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `K8sPost`: KubernetesCluster
-    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sPost`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sPost`: %v\n", resource)
 }
 ```
 
@@ -1050,19 +1078,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiK8sPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiK8sPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **kubernetesCluster** | [**KubernetesClusterForPost**](../models/KubernetesClusterForPost.md) | The Kubernetes cluster to create. | |
+| **kubernetesCluster** | [**KubernetesClusterForPost**](KubernetesClusterForPost.md) | The Kubernetes cluster to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**KubernetesCluster**](../models/KubernetesCluster.md)
+[**KubernetesCluster**](KubernetesCluster.md)
 
 ### HTTP request headers
 
@@ -1095,7 +1123,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1105,15 +1135,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.KubernetesApi.K8sPut(context.Background(), k8sClusterId).KubernetesCluster(kubernetesCluster).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.KubernetesApi.K8sPut(context.Background(), k8sClusterId).KubernetesCluster(kubernetesCluster).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `KubernetesApi.K8sPut``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `K8sPut`: KubernetesCluster
-    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sPut`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sPut`: %v\n", resource)
 }
 ```
 
@@ -1127,19 +1157,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiK8sPutRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiK8sPutRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **kubernetesCluster** | [**KubernetesClusterForPut**](../models/KubernetesClusterForPut.md) | The modified Kubernetes cluster. | |
+| **kubernetesCluster** | [**KubernetesClusterForPut**](KubernetesClusterForPut.md) | The modified Kubernetes cluster. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**KubernetesCluster**](../models/KubernetesCluster.md)
+[**KubernetesCluster**](KubernetesCluster.md)
 
 ### HTTP request headers
 
@@ -1168,20 +1198,22 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.KubernetesApi.K8sVersionsDefaultGet(context.Background()).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.KubernetesApi.K8sVersionsDefaultGet(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `KubernetesApi.K8sVersionsDefaultGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `K8sVersionsDefaultGet`: string
-    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sVersionsDefaultGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sVersionsDefaultGet`: %v\n", resource)
 }
 ```
 
@@ -1191,7 +1223,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiK8sVersionsDefaultGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiK8sVersionsDefaultGetRequest struct via the builder pattern
 
 
 ### Return type
@@ -1225,20 +1257,22 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.KubernetesApi.K8sVersionsGet(context.Background()).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.KubernetesApi.K8sVersionsGet(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `KubernetesApi.K8sVersionsGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `K8sVersionsGet`: []string
-    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sVersionsGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `KubernetesApi.K8sVersionsGet`: %v\n", resource)
 }
 ```
 
@@ -1248,7 +1282,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiK8sVersionsGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiK8sVersionsGetRequest struct via the builder pattern
 
 
 ### Return type

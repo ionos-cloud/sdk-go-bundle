@@ -36,7 +36,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -46,12 +48,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserS3KeysApi.UmUsersS3keysDelete(context.Background(), userId, keyId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserS3KeysApi.UmUsersS3keysDelete(context.Background(), userId, keyId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserS3KeysApi.UmUsersS3keysDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -67,7 +69,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmUsersS3keysDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmUsersS3keysDeleteRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -110,7 +112,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -120,15 +124,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserS3KeysApi.UmUsersS3keysFindByKeyId(context.Background(), userId, keyId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserS3KeysApi.UmUsersS3keysFindByKeyId(context.Background(), userId, keyId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserS3KeysApi.UmUsersS3keysFindByKeyId``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `UmUsersS3keysFindByKeyId`: S3Key
-    fmt.Fprintf(os.Stdout, "Response from `UserS3KeysApi.UmUsersS3keysFindByKeyId`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserS3KeysApi.UmUsersS3keysFindByKeyId`: %v\n", resource)
 }
 ```
 
@@ -143,7 +147,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmUsersS3keysFindByKeyIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmUsersS3keysFindByKeyIdRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -154,7 +158,7 @@ Other parameters are passed through a pointer to a apiUmUsersS3keysFindByKeyIdRe
 
 ### Return type
 
-[**S3Key**](../models/S3Key.md)
+[**S3Key**](S3Key.md)
 
 ### HTTP request headers
 
@@ -186,7 +190,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -195,15 +201,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserS3KeysApi.UmUsersS3keysGet(context.Background(), userId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserS3KeysApi.UmUsersS3keysGet(context.Background(), userId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserS3KeysApi.UmUsersS3keysGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `UmUsersS3keysGet`: S3Keys
-    fmt.Fprintf(os.Stdout, "Response from `UserS3KeysApi.UmUsersS3keysGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserS3KeysApi.UmUsersS3keysGet`: %v\n", resource)
 }
 ```
 
@@ -217,7 +223,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmUsersS3keysGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmUsersS3keysGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -228,7 +234,7 @@ Other parameters are passed through a pointer to a apiUmUsersS3keysGetRequest st
 
 ### Return type
 
-[**S3Keys**](../models/S3Keys.md)
+[**S3Keys**](S3Keys.md)
 
 ### HTTP request headers
 
@@ -260,7 +266,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -269,15 +277,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserS3KeysApi.UmUsersS3keysPost(context.Background(), userId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserS3KeysApi.UmUsersS3keysPost(context.Background(), userId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserS3KeysApi.UmUsersS3keysPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `UmUsersS3keysPost`: S3Key
-    fmt.Fprintf(os.Stdout, "Response from `UserS3KeysApi.UmUsersS3keysPost`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserS3KeysApi.UmUsersS3keysPost`: %v\n", resource)
 }
 ```
 
@@ -291,7 +299,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmUsersS3keysPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmUsersS3keysPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -302,7 +310,7 @@ Other parameters are passed through a pointer to a apiUmUsersS3keysPostRequest s
 
 ### Return type
 
-[**S3Key**](../models/S3Key.md)
+[**S3Key**](S3Key.md)
 
 ### HTTP request headers
 
@@ -335,7 +343,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -346,15 +356,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserS3KeysApi.UmUsersS3keysPut(context.Background(), userId, keyId).S3Key(s3Key).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserS3KeysApi.UmUsersS3keysPut(context.Background(), userId, keyId).S3Key(s3Key).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserS3KeysApi.UmUsersS3keysPut``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `UmUsersS3keysPut`: S3Key
-    fmt.Fprintf(os.Stdout, "Response from `UserS3KeysApi.UmUsersS3keysPut`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserS3KeysApi.UmUsersS3keysPut`: %v\n", resource)
 }
 ```
 
@@ -369,19 +379,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmUsersS3keysPutRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmUsersS3keysPutRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **s3Key** | [**S3Key**](../models/S3Key.md) | The modified S3 key. | |
+| **s3Key** | [**S3Key**](S3Key.md) | The modified S3 key. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**S3Key**](../models/S3Key.md)
+[**S3Key**](S3Key.md)
 
 ### HTTP request headers
 
@@ -412,7 +422,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -420,15 +432,15 @@ func main() {
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserS3KeysApi.UmUsersS3ssourlGet(context.Background(), userId).Pretty(pretty).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserS3KeysApi.UmUsersS3ssourlGet(context.Background(), userId).Pretty(pretty).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserS3KeysApi.UmUsersS3ssourlGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `UmUsersS3ssourlGet`: S3ObjectStorageSSO
-    fmt.Fprintf(os.Stdout, "Response from `UserS3KeysApi.UmUsersS3ssourlGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserS3KeysApi.UmUsersS3ssourlGet`: %v\n", resource)
 }
 ```
 
@@ -442,7 +454,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmUsersS3ssourlGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmUsersS3ssourlGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -452,7 +464,7 @@ Other parameters are passed through a pointer to a apiUmUsersS3ssourlGetRequest 
 
 ### Return type
 
-[**S3ObjectStorageSSO**](../models/S3ObjectStorageSSO.md)
+[**S3ObjectStorageSSO**](S3ObjectStorageSSO.md)
 
 ### HTTP request headers
 

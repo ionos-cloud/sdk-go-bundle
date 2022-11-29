@@ -36,7 +36,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -45,12 +47,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IPBlocksApi.IpblocksDelete(context.Background(), ipblockId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.IPBlocksApi.IpblocksDelete(context.Background(), ipblockId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpblocksDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -65,7 +67,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiIpblocksDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiIpblocksDeleteRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -108,7 +110,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -117,15 +121,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IPBlocksApi.IpblocksFindById(context.Background(), ipblockId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.IPBlocksApi.IpblocksFindById(context.Background(), ipblockId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpblocksFindById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `IpblocksFindById`: IpBlock
-    fmt.Fprintf(os.Stdout, "Response from `IPBlocksApi.IpblocksFindById`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `IPBlocksApi.IpblocksFindById`: %v\n", resource)
 }
 ```
 
@@ -139,7 +143,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiIpblocksFindByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiIpblocksFindByIdRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -150,7 +154,7 @@ Other parameters are passed through a pointer to a apiIpblocksFindByIdRequest st
 
 ### Return type
 
-[**IpBlock**](../models/IpBlock.md)
+[**IpBlock**](IpBlock.md)
 
 ### HTTP request headers
 
@@ -184,7 +188,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -194,15 +200,15 @@ func main() {
     offset := int32(56) // int32 | The first element (from the complete list of the elements) to include in the response (used together with <b><i>limit</i></b> for pagination). (optional) (default to 0)
     limit := int32(56) // int32 | The maximum number of elements to return (use together with offset for pagination). (optional) (default to 100)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IPBlocksApi.IpblocksGet(context.Background()).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Offset(offset).Limit(limit).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.IPBlocksApi.IpblocksGet(context.Background()).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Offset(offset).Limit(limit).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpblocksGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `IpblocksGet`: IpBlocks
-    fmt.Fprintf(os.Stdout, "Response from `IPBlocksApi.IpblocksGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `IPBlocksApi.IpblocksGet`: %v\n", resource)
 }
 ```
 
@@ -212,7 +218,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiIpblocksGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiIpblocksGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -225,7 +231,7 @@ Other parameters are passed through a pointer to a apiIpblocksGetRequest struct 
 
 ### Return type
 
-[**IpBlocks**](../models/IpBlocks.md)
+[**IpBlocks**](IpBlocks.md)
 
 ### HTTP request headers
 
@@ -258,7 +264,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -268,15 +276,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IPBlocksApi.IpblocksPatch(context.Background(), ipblockId).Ipblock(ipblock).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.IPBlocksApi.IpblocksPatch(context.Background(), ipblockId).Ipblock(ipblock).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpblocksPatch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `IpblocksPatch`: IpBlock
-    fmt.Fprintf(os.Stdout, "Response from `IPBlocksApi.IpblocksPatch`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `IPBlocksApi.IpblocksPatch`: %v\n", resource)
 }
 ```
 
@@ -290,19 +298,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiIpblocksPatchRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiIpblocksPatchRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **ipblock** | [**IpBlockProperties**](../models/IpBlockProperties.md) | The properties of the IP block to be updated. | |
+| **ipblock** | [**IpBlockProperties**](IpBlockProperties.md) | The properties of the IP block to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**IpBlock**](../models/IpBlock.md)
+[**IpBlock**](IpBlock.md)
 
 ### HTTP request headers
 
@@ -335,7 +343,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -344,15 +354,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IPBlocksApi.IpblocksPost(context.Background()).Ipblock(ipblock).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.IPBlocksApi.IpblocksPost(context.Background()).Ipblock(ipblock).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpblocksPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `IpblocksPost`: IpBlock
-    fmt.Fprintf(os.Stdout, "Response from `IPBlocksApi.IpblocksPost`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `IPBlocksApi.IpblocksPost`: %v\n", resource)
 }
 ```
 
@@ -362,19 +372,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiIpblocksPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiIpblocksPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **ipblock** | [**IpBlock**](../models/IpBlock.md) | The IP block to be reserved. | |
+| **ipblock** | [**IpBlock**](IpBlock.md) | The IP block to be reserved. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**IpBlock**](../models/IpBlock.md)
+[**IpBlock**](IpBlock.md)
 
 ### HTTP request headers
 
@@ -407,7 +417,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -417,15 +429,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IPBlocksApi.IpblocksPut(context.Background(), ipblockId).Ipblock(ipblock).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.IPBlocksApi.IpblocksPut(context.Background(), ipblockId).Ipblock(ipblock).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpblocksPut``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `IpblocksPut`: IpBlock
-    fmt.Fprintf(os.Stdout, "Response from `IPBlocksApi.IpblocksPut`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `IPBlocksApi.IpblocksPut`: %v\n", resource)
 }
 ```
 
@@ -439,19 +451,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiIpblocksPutRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiIpblocksPutRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **ipblock** | [**IpBlock**](../models/IpBlock.md) | The modified IP block. | |
+| **ipblock** | [**IpBlock**](IpBlock.md) | The modified IP block. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**IpBlock**](../models/IpBlock.md)
+[**IpBlock**](IpBlock.md)
 
 ### HTTP request headers
 

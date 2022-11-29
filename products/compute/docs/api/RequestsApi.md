@@ -33,7 +33,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -42,15 +44,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RequestsApi.RequestsFindById(context.Background(), requestId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.RequestsApi.RequestsFindById(context.Background(), requestId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RequestsApi.RequestsFindById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `RequestsFindById`: Request
-    fmt.Fprintf(os.Stdout, "Response from `RequestsApi.RequestsFindById`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `RequestsApi.RequestsFindById`: %v\n", resource)
 }
 ```
 
@@ -64,7 +66,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiRequestsFindByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiRequestsFindByIdRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -75,7 +77,7 @@ Other parameters are passed through a pointer to a apiRequestsFindByIdRequest st
 
 ### Return type
 
-[**Request**](../models/Request.md)
+[**Request**](Request.md)
 
 ### HTTP request headers
 
@@ -120,7 +122,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -141,15 +145,15 @@ func main() {
     offset := int32(56) // int32 | The first element (from the complete list of the elements) to include in the response (used together with <b><i>limit</i></b> for pagination). (optional) (default to 0)
     limit := int32(56) // int32 | The maximum number of elements to return (use together with offset for pagination). (optional) (default to 1000)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RequestsApi.RequestsGet(context.Background()).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).FilterStatus(filterStatus).FilterCreatedAfter(filterCreatedAfter).FilterCreatedBefore(filterCreatedBefore).FilterCreatedDate(filterCreatedDate).FilterCreatedBy(filterCreatedBy).FilterEtag(filterEtag).FilterRequestStatus(filterRequestStatus).FilterMethod(filterMethod).FilterHeaders(filterHeaders).FilterBody(filterBody).FilterUrl(filterUrl).Offset(offset).Limit(limit).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.RequestsApi.RequestsGet(context.Background()).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).FilterStatus(filterStatus).FilterCreatedAfter(filterCreatedAfter).FilterCreatedBefore(filterCreatedBefore).FilterCreatedDate(filterCreatedDate).FilterCreatedBy(filterCreatedBy).FilterEtag(filterEtag).FilterRequestStatus(filterRequestStatus).FilterMethod(filterMethod).FilterHeaders(filterHeaders).FilterBody(filterBody).FilterUrl(filterUrl).Offset(offset).Limit(limit).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RequestsApi.RequestsGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `RequestsGet`: Requests
-    fmt.Fprintf(os.Stdout, "Response from `RequestsApi.RequestsGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `RequestsApi.RequestsGet`: %v\n", resource)
 }
 ```
 
@@ -159,7 +163,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiRequestsGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiRequestsGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -183,7 +187,7 @@ Other parameters are passed through a pointer to a apiRequestsGetRequest struct 
 
 ### Return type
 
-[**Requests**](../models/Requests.md)
+[**Requests**](Requests.md)
 
 ### HTTP request headers
 
@@ -215,7 +219,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -224,15 +230,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RequestsApi.RequestsStatusGet(context.Background(), requestId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.RequestsApi.RequestsStatusGet(context.Background(), requestId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RequestsApi.RequestsStatusGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `RequestsStatusGet`: RequestStatus
-    fmt.Fprintf(os.Stdout, "Response from `RequestsApi.RequestsStatusGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `RequestsApi.RequestsStatusGet`: %v\n", resource)
 }
 ```
 
@@ -246,7 +252,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiRequestsStatusGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiRequestsStatusGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -257,7 +263,7 @@ Other parameters are passed through a pointer to a apiRequestsStatusGetRequest s
 
 ### Return type
 
-[**RequestStatus**](../models/RequestStatus.md)
+[**RequestStatus**](RequestStatus.md)
 
 ### HTTP request headers
 

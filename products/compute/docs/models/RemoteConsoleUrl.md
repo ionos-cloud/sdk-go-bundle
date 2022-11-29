@@ -51,4 +51,3 @@ SetUrl sets Url field to given value.
 HasUrl returns a boolean if a field has been set.
 
 
-

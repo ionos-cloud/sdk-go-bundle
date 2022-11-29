@@ -113,4 +113,3 @@ SetDhcp sets Dhcp field to given value.
 HasDhcp returns a boolean if a field has been set.
 
 
-

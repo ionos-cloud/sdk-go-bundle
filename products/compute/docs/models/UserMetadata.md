@@ -103,4 +103,3 @@ SetLastLogin sets LastLogin field to given value.
 HasLastLogin returns a boolean if a field has been set.
 
 
-

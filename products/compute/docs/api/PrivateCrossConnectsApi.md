@@ -35,7 +35,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -44,12 +46,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PrivateCrossConnectsApi.PccsDelete(context.Background(), pccId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.PrivateCrossConnectsApi.PccsDelete(context.Background(), pccId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PrivateCrossConnectsApi.PccsDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -64,7 +66,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPccsDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiPccsDeleteRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -107,7 +109,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -116,15 +120,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PrivateCrossConnectsApi.PccsFindById(context.Background(), pccId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.PrivateCrossConnectsApi.PccsFindById(context.Background(), pccId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PrivateCrossConnectsApi.PccsFindById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `PccsFindById`: PrivateCrossConnect
-    fmt.Fprintf(os.Stdout, "Response from `PrivateCrossConnectsApi.PccsFindById`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `PrivateCrossConnectsApi.PccsFindById`: %v\n", resource)
 }
 ```
 
@@ -138,7 +142,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPccsFindByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiPccsFindByIdRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -149,7 +153,7 @@ Other parameters are passed through a pointer to a apiPccsFindByIdRequest struct
 
 ### Return type
 
-[**PrivateCrossConnect**](../models/PrivateCrossConnect.md)
+[**PrivateCrossConnect**](PrivateCrossConnect.md)
 
 ### HTTP request headers
 
@@ -181,7 +185,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -189,15 +195,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PrivateCrossConnectsApi.PccsGet(context.Background()).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.PrivateCrossConnectsApi.PccsGet(context.Background()).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PrivateCrossConnectsApi.PccsGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `PccsGet`: PrivateCrossConnects
-    fmt.Fprintf(os.Stdout, "Response from `PrivateCrossConnectsApi.PccsGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `PrivateCrossConnectsApi.PccsGet`: %v\n", resource)
 }
 ```
 
@@ -207,7 +213,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPccsGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiPccsGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -218,7 +224,7 @@ Other parameters are passed through a pointer to a apiPccsGetRequest struct via 
 
 ### Return type
 
-[**PrivateCrossConnects**](../models/PrivateCrossConnects.md)
+[**PrivateCrossConnects**](PrivateCrossConnects.md)
 
 ### HTTP request headers
 
@@ -251,7 +257,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -261,15 +269,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PrivateCrossConnectsApi.PccsPatch(context.Background(), pccId).Pcc(pcc).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.PrivateCrossConnectsApi.PccsPatch(context.Background(), pccId).Pcc(pcc).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PrivateCrossConnectsApi.PccsPatch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `PccsPatch`: PrivateCrossConnect
-    fmt.Fprintf(os.Stdout, "Response from `PrivateCrossConnectsApi.PccsPatch`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `PrivateCrossConnectsApi.PccsPatch`: %v\n", resource)
 }
 ```
 
@@ -283,19 +291,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPccsPatchRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiPccsPatchRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **pcc** | [**PrivateCrossConnectProperties**](../models/PrivateCrossConnectProperties.md) | The properties of the private Cross-Connect to be updated. | |
+| **pcc** | [**PrivateCrossConnectProperties**](PrivateCrossConnectProperties.md) | The properties of the private Cross-Connect to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**PrivateCrossConnect**](../models/PrivateCrossConnect.md)
+[**PrivateCrossConnect**](PrivateCrossConnect.md)
 
 ### HTTP request headers
 
@@ -328,7 +336,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -337,15 +347,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PrivateCrossConnectsApi.PccsPost(context.Background()).Pcc(pcc).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.PrivateCrossConnectsApi.PccsPost(context.Background()).Pcc(pcc).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PrivateCrossConnectsApi.PccsPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `PccsPost`: PrivateCrossConnect
-    fmt.Fprintf(os.Stdout, "Response from `PrivateCrossConnectsApi.PccsPost`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `PrivateCrossConnectsApi.PccsPost`: %v\n", resource)
 }
 ```
 
@@ -355,19 +365,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPccsPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiPccsPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **pcc** | [**PrivateCrossConnect**](../models/PrivateCrossConnect.md) | The private Cross-Connect to create. | |
+| **pcc** | [**PrivateCrossConnect**](PrivateCrossConnect.md) | The private Cross-Connect to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**PrivateCrossConnect**](../models/PrivateCrossConnect.md)
+[**PrivateCrossConnect**](PrivateCrossConnect.md)
 
 ### HTTP request headers
 

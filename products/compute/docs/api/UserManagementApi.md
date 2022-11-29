@@ -54,7 +54,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -63,12 +65,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UmGroupsDelete(context.Background(), groupId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserManagementApi.UmGroupsDelete(context.Background(), groupId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UmGroupsDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -83,7 +85,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmGroupsDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmGroupsDeleteRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -126,7 +128,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -135,15 +139,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UmGroupsFindById(context.Background(), groupId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserManagementApi.UmGroupsFindById(context.Background(), groupId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UmGroupsFindById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `UmGroupsFindById`: Group
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmGroupsFindById`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmGroupsFindById`: %v\n", resource)
 }
 ```
 
@@ -157,7 +161,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmGroupsFindByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmGroupsFindByIdRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -168,7 +172,7 @@ Other parameters are passed through a pointer to a apiUmGroupsFindByIdRequest st
 
 ### Return type
 
-[**Group**](../models/Group.md)
+[**Group**](Group.md)
 
 ### HTTP request headers
 
@@ -200,7 +204,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -208,15 +214,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UmGroupsGet(context.Background()).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserManagementApi.UmGroupsGet(context.Background()).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UmGroupsGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `UmGroupsGet`: Groups
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmGroupsGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmGroupsGet`: %v\n", resource)
 }
 ```
 
@@ -226,7 +232,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmGroupsGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmGroupsGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -237,7 +243,7 @@ Other parameters are passed through a pointer to a apiUmGroupsGetRequest struct 
 
 ### Return type
 
-[**Groups**](../models/Groups.md)
+[**Groups**](Groups.md)
 
 ### HTTP request headers
 
@@ -270,7 +276,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -279,15 +287,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UmGroupsPost(context.Background()).Group(group).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserManagementApi.UmGroupsPost(context.Background()).Group(group).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UmGroupsPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `UmGroupsPost`: Group
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmGroupsPost`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmGroupsPost`: %v\n", resource)
 }
 ```
 
@@ -297,19 +305,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmGroupsPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmGroupsPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **group** | [**Group**](../models/Group.md) | The group to create. | |
+| **group** | [**Group**](Group.md) | The group to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Group**](../models/Group.md)
+[**Group**](Group.md)
 
 ### HTTP request headers
 
@@ -342,7 +350,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -352,15 +362,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UmGroupsPut(context.Background(), groupId).Group(group).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserManagementApi.UmGroupsPut(context.Background(), groupId).Group(group).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UmGroupsPut``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `UmGroupsPut`: Group
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmGroupsPut`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmGroupsPut`: %v\n", resource)
 }
 ```
 
@@ -374,19 +384,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmGroupsPutRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmGroupsPutRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **group** | [**Group**](../models/Group.md) | The modified group. | |
+| **group** | [**Group**](Group.md) | The modified group. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Group**](../models/Group.md)
+[**Group**](Group.md)
 
 ### HTTP request headers
 
@@ -418,7 +428,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -427,15 +439,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UmGroupsResourcesGet(context.Background(), groupId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserManagementApi.UmGroupsResourcesGet(context.Background(), groupId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UmGroupsResourcesGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `UmGroupsResourcesGet`: ResourceGroups
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmGroupsResourcesGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmGroupsResourcesGet`: %v\n", resource)
 }
 ```
 
@@ -449,7 +461,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmGroupsResourcesGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmGroupsResourcesGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -460,7 +472,7 @@ Other parameters are passed through a pointer to a apiUmGroupsResourcesGetReques
 
 ### Return type
 
-[**ResourceGroups**](../models/ResourceGroups.md)
+[**ResourceGroups**](ResourceGroups.md)
 
 ### HTTP request headers
 
@@ -492,7 +504,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -502,12 +516,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UmGroupsSharesDelete(context.Background(), groupId, resourceId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserManagementApi.UmGroupsSharesDelete(context.Background(), groupId, resourceId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UmGroupsSharesDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -523,7 +537,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmGroupsSharesDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmGroupsSharesDeleteRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -566,7 +580,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -576,15 +592,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UmGroupsSharesFindByResourceId(context.Background(), groupId, resourceId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserManagementApi.UmGroupsSharesFindByResourceId(context.Background(), groupId, resourceId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UmGroupsSharesFindByResourceId``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `UmGroupsSharesFindByResourceId`: GroupShare
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmGroupsSharesFindByResourceId`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmGroupsSharesFindByResourceId`: %v\n", resource)
 }
 ```
 
@@ -599,7 +615,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmGroupsSharesFindByResourceIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmGroupsSharesFindByResourceIdRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -610,7 +626,7 @@ Other parameters are passed through a pointer to a apiUmGroupsSharesFindByResour
 
 ### Return type
 
-[**GroupShare**](../models/GroupShare.md)
+[**GroupShare**](GroupShare.md)
 
 ### HTTP request headers
 
@@ -642,7 +658,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -651,15 +669,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UmGroupsSharesGet(context.Background(), groupId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserManagementApi.UmGroupsSharesGet(context.Background(), groupId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UmGroupsSharesGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `UmGroupsSharesGet`: GroupShares
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmGroupsSharesGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmGroupsSharesGet`: %v\n", resource)
 }
 ```
 
@@ -673,7 +691,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmGroupsSharesGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmGroupsSharesGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -684,7 +702,7 @@ Other parameters are passed through a pointer to a apiUmGroupsSharesGetRequest s
 
 ### Return type
 
-[**GroupShares**](../models/GroupShares.md)
+[**GroupShares**](GroupShares.md)
 
 ### HTTP request headers
 
@@ -717,7 +735,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -728,15 +748,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UmGroupsSharesPost(context.Background(), groupId, resourceId).Resource(resource).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserManagementApi.UmGroupsSharesPost(context.Background(), groupId, resourceId).Resource(resource).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UmGroupsSharesPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `UmGroupsSharesPost`: GroupShare
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmGroupsSharesPost`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmGroupsSharesPost`: %v\n", resource)
 }
 ```
 
@@ -751,19 +771,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmGroupsSharesPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmGroupsSharesPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **resource** | [**GroupShare**](../models/GroupShare.md) | The resource to add. | |
+| **resource** | [**GroupShare**](GroupShare.md) | The resource to add. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**GroupShare**](../models/GroupShare.md)
+[**GroupShare**](GroupShare.md)
 
 ### HTTP request headers
 
@@ -796,7 +816,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -807,15 +829,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UmGroupsSharesPut(context.Background(), groupId, resourceId).Resource(resource).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserManagementApi.UmGroupsSharesPut(context.Background(), groupId, resourceId).Resource(resource).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UmGroupsSharesPut``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `UmGroupsSharesPut`: GroupShare
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmGroupsSharesPut`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmGroupsSharesPut`: %v\n", resource)
 }
 ```
 
@@ -830,19 +852,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmGroupsSharesPutRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmGroupsSharesPutRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **resource** | [**GroupShare**](../models/GroupShare.md) | The modified resource | |
+| **resource** | [**GroupShare**](GroupShare.md) | The modified resource | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**GroupShare**](../models/GroupShare.md)
+[**GroupShare**](GroupShare.md)
 
 ### HTTP request headers
 
@@ -874,7 +896,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -884,12 +908,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UmGroupsUsersDelete(context.Background(), groupId, userId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserManagementApi.UmGroupsUsersDelete(context.Background(), groupId, userId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UmGroupsUsersDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -905,7 +929,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmGroupsUsersDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmGroupsUsersDeleteRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -948,7 +972,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -957,15 +983,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UmGroupsUsersGet(context.Background(), groupId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserManagementApi.UmGroupsUsersGet(context.Background(), groupId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UmGroupsUsersGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `UmGroupsUsersGet`: GroupMembers
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmGroupsUsersGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmGroupsUsersGet`: %v\n", resource)
 }
 ```
 
@@ -979,7 +1005,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmGroupsUsersGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmGroupsUsersGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -990,7 +1016,7 @@ Other parameters are passed through a pointer to a apiUmGroupsUsersGetRequest st
 
 ### Return type
 
-[**GroupMembers**](../models/GroupMembers.md)
+[**GroupMembers**](GroupMembers.md)
 
 ### HTTP request headers
 
@@ -1023,7 +1049,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1033,15 +1061,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UmGroupsUsersPost(context.Background(), groupId).User(user).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserManagementApi.UmGroupsUsersPost(context.Background(), groupId).User(user).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UmGroupsUsersPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `UmGroupsUsersPost`: User
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmGroupsUsersPost`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmGroupsUsersPost`: %v\n", resource)
 }
 ```
 
@@ -1055,19 +1083,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmGroupsUsersPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmGroupsUsersPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **user** | [**User**](../models/User.md) | The user to add. | |
+| **user** | [**User**](User.md) | The user to add. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**User**](../models/User.md)
+[**User**](User.md)
 
 ### HTTP request headers
 
@@ -1099,7 +1127,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1108,15 +1138,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UmResourcesFindByType(context.Background(), resourceType).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserManagementApi.UmResourcesFindByType(context.Background(), resourceType).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UmResourcesFindByType``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `UmResourcesFindByType`: Resources
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmResourcesFindByType`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmResourcesFindByType`: %v\n", resource)
 }
 ```
 
@@ -1130,7 +1160,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmResourcesFindByTypeRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmResourcesFindByTypeRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -1141,7 +1171,7 @@ Other parameters are passed through a pointer to a apiUmResourcesFindByTypeReque
 
 ### Return type
 
-[**Resources**](../models/Resources.md)
+[**Resources**](Resources.md)
 
 ### HTTP request headers
 
@@ -1173,7 +1203,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1183,15 +1215,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UmResourcesFindByTypeAndId(context.Background(), resourceType, resourceId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserManagementApi.UmResourcesFindByTypeAndId(context.Background(), resourceType, resourceId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UmResourcesFindByTypeAndId``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `UmResourcesFindByTypeAndId`: Resource
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmResourcesFindByTypeAndId`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmResourcesFindByTypeAndId`: %v\n", resource)
 }
 ```
 
@@ -1206,7 +1238,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmResourcesFindByTypeAndIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmResourcesFindByTypeAndIdRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -1217,7 +1249,7 @@ Other parameters are passed through a pointer to a apiUmResourcesFindByTypeAndId
 
 ### Return type
 
-[**Resource**](../models/Resource.md)
+[**Resource**](Resource.md)
 
 ### HTTP request headers
 
@@ -1249,7 +1281,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1257,15 +1291,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UmResourcesGet(context.Background()).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserManagementApi.UmResourcesGet(context.Background()).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UmResourcesGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `UmResourcesGet`: Resources
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmResourcesGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmResourcesGet`: %v\n", resource)
 }
 ```
 
@@ -1275,7 +1309,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmResourcesGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmResourcesGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -1286,7 +1320,7 @@ Other parameters are passed through a pointer to a apiUmResourcesGetRequest stru
 
 ### Return type
 
-[**Resources**](../models/Resources.md)
+[**Resources**](Resources.md)
 
 ### HTTP request headers
 
@@ -1318,7 +1352,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1327,12 +1363,12 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UmUsersDelete(context.Background(), userId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserManagementApi.UmUsersDelete(context.Background(), userId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UmUsersDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
 }
 ```
@@ -1347,7 +1383,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmUsersDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmUsersDeleteRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -1390,7 +1426,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1399,15 +1437,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UmUsersFindById(context.Background(), userId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserManagementApi.UmUsersFindById(context.Background(), userId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UmUsersFindById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `UmUsersFindById`: User
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmUsersFindById`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmUsersFindById`: %v\n", resource)
 }
 ```
 
@@ -1421,7 +1459,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmUsersFindByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmUsersFindByIdRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -1432,7 +1470,7 @@ Other parameters are passed through a pointer to a apiUmUsersFindByIdRequest str
 
 ### Return type
 
-[**User**](../models/User.md)
+[**User**](User.md)
 
 ### HTTP request headers
 
@@ -1466,7 +1504,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1476,15 +1516,15 @@ func main() {
     offset := int32(56) // int32 | The first element (from the complete list of the elements) to include in the response (used together with <b><i>limit</i></b> for pagination). (optional) (default to 0)
     limit := int32(56) // int32 | The maximum number of elements to return (use together with <code>offset</code> for pagination). (optional) (default to 100)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UmUsersGet(context.Background()).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Offset(offset).Limit(limit).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserManagementApi.UmUsersGet(context.Background()).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Offset(offset).Limit(limit).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UmUsersGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `UmUsersGet`: Users
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmUsersGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmUsersGet`: %v\n", resource)
 }
 ```
 
@@ -1494,7 +1534,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmUsersGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmUsersGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -1507,7 +1547,7 @@ Other parameters are passed through a pointer to a apiUmUsersGetRequest struct v
 
 ### Return type
 
-[**Users**](../models/Users.md)
+[**Users**](Users.md)
 
 ### HTTP request headers
 
@@ -1539,7 +1579,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1548,15 +1590,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UmUsersGroupsGet(context.Background(), userId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserManagementApi.UmUsersGroupsGet(context.Background(), userId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UmUsersGroupsGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `UmUsersGroupsGet`: ResourceGroups
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmUsersGroupsGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmUsersGroupsGet`: %v\n", resource)
 }
 ```
 
@@ -1570,7 +1612,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmUsersGroupsGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmUsersGroupsGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -1581,7 +1623,7 @@ Other parameters are passed through a pointer to a apiUmUsersGroupsGetRequest st
 
 ### Return type
 
-[**ResourceGroups**](../models/ResourceGroups.md)
+[**ResourceGroups**](ResourceGroups.md)
 
 ### HTTP request headers
 
@@ -1613,7 +1655,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1622,15 +1666,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UmUsersOwnsGet(context.Background(), userId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserManagementApi.UmUsersOwnsGet(context.Background(), userId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UmUsersOwnsGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `UmUsersOwnsGet`: ResourcesUsers
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmUsersOwnsGet`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmUsersOwnsGet`: %v\n", resource)
 }
 ```
 
@@ -1644,7 +1688,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmUsersOwnsGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmUsersOwnsGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
@@ -1655,7 +1699,7 @@ Other parameters are passed through a pointer to a apiUmUsersOwnsGetRequest stru
 
 ### Return type
 
-[**ResourcesUsers**](../models/ResourcesUsers.md)
+[**ResourcesUsers**](ResourcesUsers.md)
 
 ### HTTP request headers
 
@@ -1688,7 +1732,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1697,15 +1743,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UmUsersPost(context.Background()).User(user).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserManagementApi.UmUsersPost(context.Background()).User(user).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UmUsersPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `UmUsersPost`: User
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmUsersPost`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmUsersPost`: %v\n", resource)
 }
 ```
 
@@ -1715,19 +1761,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmUsersPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmUsersPostRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **user** | [**UserPost**](../models/UserPost.md) | The user to create. | |
+| **user** | [**UserPost**](UserPost.md) | The user to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**User**](../models/User.md)
+[**User**](User.md)
 
 ### HTTP request headers
 
@@ -1760,7 +1806,9 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/common"
 )
 
 func main() {
@@ -1770,15 +1818,15 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UmUsersPut(context.Background(), userId).User(user).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.UserManagementApi.UmUsersPut(context.Background(), userId).User(user).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UmUsersPut``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
     // response from `UmUsersPut`: User
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmUsersPut`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UmUsersPut`: %v\n", resource)
 }
 ```
 
@@ -1792,19 +1840,19 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUmUsersPutRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiUmUsersPutRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **user** | [**UserPut**](../models/UserPut.md) | The modified user | |
+| **user** | [**UserPut**](UserPut.md) | The modified user | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**User**](../models/User.md)
+[**User**](User.md)
 
 ### HTTP request headers
 

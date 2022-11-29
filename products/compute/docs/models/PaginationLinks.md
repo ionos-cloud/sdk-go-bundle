@@ -103,4 +103,3 @@ SetNext sets Next field to given value.
 HasNext returns a boolean if a field has been set.
 
 
-

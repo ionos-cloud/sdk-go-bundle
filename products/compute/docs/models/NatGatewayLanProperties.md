@@ -72,4 +72,3 @@ SetGatewayIps sets GatewayIps field to given value.
 HasGatewayIps returns a boolean if a field has been set.
 
 
-
