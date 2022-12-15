@@ -1,0 +1,855 @@
+openapi: 3.0.1
+info:
+  description: Use the Auth API to manage tokens for secure access to IONOS Cloud  APIs
+    (Auth API, Cloud API, Reseller API, Activity Log API, and others).
+  title: Auth API
+  version: "1.0"
+  x-sdk-patch-level: 3
+servers:
+- url: https://api.ionos.com/auth/v1
+tags:
+- description: Everything about tokens
+  name: tokens
+paths:
+  /tokens/generate:
+    get:
+      description: "Users can generate new tokens ([JWT](https://jwt.io/) or [JSON\
+        \ Web Token](https://tools.ietf.org/html/rfc7519)). By default, new tokens\
+        \ are linked to the user’s contract. Users with multiple contracts must provide\
+        \ the contract number, for which the token is generated, in the `X-Contract-Number`\
+        \ header; otherwise, an error response is returned.\n\nTo access this endpoint,\
+        \ 'Basic Authentication' or 'Token Authentication' tokens with valid credentials\
+        \ must be encapsulated in the header, by users with one or with multiple contracts.\
+        \ \n\nThe response will contain a newly-generated token for accessing any\
+        \ IONOS Cloud APIs (Auth API, Cloud API, Reseller API, Activity Log API, and\
+        \ others). The token can be used to access the APIs without providing the\
+        \ contract number in the `X-Contract-Number` header, by users with one or\
+        \ with multiple contracts. However, a valid contract number must be provided\
+        \ in the `X-Contract-Number` header to access the Auth API. By default, generated\
+        \ access tokens will expire after one year (subject to change)."
+      operationId: tokensGenerate
+      parameters:
+      - description: Users with multiple contracts must provide the contract number,
+          for which the token is generated.
+        in: header
+        name: X-Contract-Number
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Jwt'
+          description: The JSON Web Token, associated with user credentials.
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of requests that can still be made without triggering
+                a failure response.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Limit:
+              description: The average number of requests per minute allowed.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Burst:
+              description: The maximum number of concurrent API requests allowed.
+              schema:
+                format: int32
+                type: integer
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An invalid username/password or token provided, or the User
+            or the Contract is not valid for endpoint access.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The User or the Contract is not valid for endpoint access.
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of requests that can still be made without triggering
+                a failure response.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Limit:
+              description: The average number of requests per minute allowed.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Burst:
+              description: The maximum number of concurrent API requests allowed.
+              schema:
+                format: int32
+                type: integer
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The User or the Contract is not valid for endpoint access.
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of requests that can still be made without triggering
+                a failure response.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Limit:
+              description: The average number of requests per minute allowed.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Burst:
+              description: The maximum number of concurrent API requests allowed.
+              schema:
+                format: int32
+                type: integer
+      security:
+      - Basic Authentication: []
+      - Token Authentication: []
+      summary: Create new tokens
+      tags:
+      - tokens
+  /tokens:
+    delete:
+      description: 'Delete one or multiple tokens by the required `criteria` parameter
+        values: `ALL`, `EXPIRED` and `CURRENT`. With parameter values `ALL` and `EXPIRED`,
+        ''Basic Authentication'' or ''Token Authentication'' tokens with valid credentials
+        must be encapsulated in the header. With value `CURRENT`, only the ''Token
+        Authentication'' with valid credentials is required. Users with multiple contracts
+        must also provide a valid contract number in the `X-Contract-Number` header.'
+      operationId: tokensDeleteByCriteria
+      parameters:
+      - description: Delete tokens by criteria EXPIRED, ALL, or CURRENT. The tokens
+          are deleted for the specified contract.
+        in: query
+        name: criteria
+        required: true
+        schema:
+          type: string
+      - description: Users with multiple contracts must provide the contract number,
+          for which the token is generated.
+        in: header
+        name: X-Contract-Number
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+          description: Token successfully deleted
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An invalid username/password or token provided, or the User
+            or the Contract is not valid for endpoint access.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The User or the Contract is not valid for endpoint access.
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of requests that can still be made without triggering
+                a failure response.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Limit:
+              description: The average number of requests per minute allowed.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Burst:
+              description: The maximum number of concurrent API requests allowed.
+              schema:
+                format: int32
+                type: integer
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Token not found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of requests that can still be made without triggering
+                a failure response.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Limit:
+              description: The average number of requests per minute allowed.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Burst:
+              description: The maximum number of concurrent API requests allowed.
+              schema:
+                format: int32
+                type: integer
+        "422":
+          content: {}
+          description: The token could not be deleted because of <reason>
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of requests that can still be made without triggering
+                a failure response.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Limit:
+              description: The average number of requests per minute allowed.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Burst:
+              description: The maximum number of concurrent API requests allowed.
+              schema:
+                format: int32
+                type: integer
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The User or the Contract is not valid for endpoint access.
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of requests that can still be made without triggering
+                a failure response.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Limit:
+              description: The average number of requests per minute allowed.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Burst:
+              description: The maximum number of concurrent API requests allowed.
+              schema:
+                format: int32
+                type: integer
+      security:
+      - Basic Authentication: []
+      - Token Authentication: []
+      summary: Delete tokens by criteria
+      tags:
+      - tokens
+    get:
+      description: List  the details of all tokens, generated by the user. To access
+        this endpoint, 'Basic Authentication' or 'Token Authentication' tokens with
+        valid credentials must be encapsulated in the header. Users with multiple
+        contracts must also provide a valid contract number in the `X-Contract-Number`
+        header.
+      operationId: tokensGet
+      parameters:
+      - description: Users with multiple contracts must provide the contract number,
+          for which the token is generated.
+        in: header
+        name: X-Contract-Number
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokens'
+          description: The list of all tokens.
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of requests that can still be made without triggering
+                a failure response.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Limit:
+              description: The average number of requests per minute allowed.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Burst:
+              description: The maximum number of concurrent API requests allowed.
+              schema:
+                format: int32
+                type: integer
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An invalid username/password or token provided, or the User
+            or the Contract is not valid for endpoint access.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The User or the Contract is not valid for endpoint access.
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of requests that can still be made without triggering
+                a failure response.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Limit:
+              description: The average number of requests per minute allowed.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Burst:
+              description: The maximum number of concurrent API requests allowed.
+              schema:
+                format: int32
+                type: integer
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: List tokens request failed due to a validation error.
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of requests that can still be made without triggering
+                a failure response.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Limit:
+              description: The average number of requests per minute allowed.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Burst:
+              description: The maximum number of concurrent API requests allowed.
+              schema:
+                format: int32
+                type: integer
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The User or the Contract is not valid for endpoint access.
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of requests that can still be made without triggering
+                a failure response.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Limit:
+              description: The average number of requests per minute allowed.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Burst:
+              description: The maximum number of concurrent API requests allowed.
+              schema:
+                format: int32
+                type: integer
+      security:
+      - Basic Authentication: []
+      - Token Authentication: []
+      summary: List all tokens
+      tags:
+      - tokens
+  /tokens/{tokenId}:
+    delete:
+      description: Delete a token by Key ID (`tokenId`). To access the endpoint, 'Basic
+        Authentication' or 'Token Authentication' tokens with valid credentials must
+        be encapsulated in the header. Users with multiple contracts must also provide
+        a valid contract number in the `X-Contract-Number` header.
+      operationId: tokensDeleteById
+      parameters:
+      - description: Users with multiple contracts must provide the contract number,
+          for which the token is generated.
+        in: header
+        name: X-Contract-Number
+        schema:
+          format: int32
+          type: integer
+      - description: The Key ID of the token (can be retrieved from the header section
+          of the token).
+        in: path
+        name: tokenId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+          description: Token successfully deleted
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An invalid username/password or token provided, or the User
+            or the Contract is not valid for endpoint access.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The User or the Contract is not valid for endpoint access.
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of requests that can still be made without triggering
+                a failure response.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Limit:
+              description: The average number of requests per minute allowed.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Burst:
+              description: The maximum number of concurrent API requests allowed.
+              schema:
+                format: int32
+                type: integer
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Token not found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of requests that can still be made without triggering
+                a failure response.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Limit:
+              description: The average number of requests per minute allowed.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Burst:
+              description: The maximum number of concurrent API requests allowed.
+              schema:
+                format: int32
+                type: integer
+        "422":
+          content: {}
+          description: The token could not be deleted because of <reason>
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of requests that can still be made without triggering
+                a failure response.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Limit:
+              description: The average number of requests per minute allowed.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Burst:
+              description: The maximum number of concurrent API requests allowed.
+              schema:
+                format: int32
+                type: integer
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The User or the Contract is not valid for endpoint access.
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of requests that can still be made without triggering
+                a failure response.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Limit:
+              description: The average number of requests per minute allowed.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Burst:
+              description: The maximum number of concurrent API requests allowed.
+              schema:
+                format: int32
+                type: integer
+      security:
+      - Basic Authentication: []
+      - Token Authentication: []
+      summary: Delete tokens
+      tags:
+      - tokens
+    get:
+      description: Retrieve the details for a token by the Key ID (`tokenId`). To
+        access this endpoint, 'Basic Authentication' or 'Token Authentication' tokens
+        with valid credentials must be encapsulated in the header. Users with multiple
+        contracts must also provide a valid contract number in the `X-Contract-Number`
+        header.
+      operationId: tokensFindById
+      parameters:
+      - description: Users with multiple contracts must provide the contract number,
+          for which the token is generated.
+        in: header
+        name: X-Contract-Number
+        schema:
+          format: int32
+          type: integer
+      - description: The Key ID of the token (can be retrieved from the header section
+          of the token).
+        in: path
+        name: tokenId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+          description: Token successfully retrieved
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of requests that can still be made without triggering
+                a failure response.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Limit:
+              description: The average number of requests per minute allowed.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Burst:
+              description: The maximum number of concurrent API requests allowed.
+              schema:
+                format: int32
+                type: integer
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An invalid username/password or token provided, or the User
+            or the Contract is not valid for endpoint access.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The User or the Contract is not valid for endpoint access.
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of requests that can still be made without triggering
+                a failure response.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Limit:
+              description: The average number of requests per minute allowed.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Burst:
+              description: The maximum number of concurrent API requests allowed.
+              schema:
+                format: int32
+                type: integer
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Token not found
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of requests that can still be made without triggering
+                a failure response.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Limit:
+              description: The average number of requests per minute allowed.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Burst:
+              description: The maximum number of concurrent API requests allowed.
+              schema:
+                format: int32
+                type: integer
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The token could not be retrieved because of a validation error.
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of requests that can still be made without triggering
+                a failure response.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Limit:
+              description: The average number of requests per minute allowed.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Burst:
+              description: The maximum number of concurrent API requests allowed.
+              schema:
+                format: int32
+                type: integer
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The User or the Contract is not valid for endpoint access.
+          headers:
+            X-RateLimit-Remaining:
+              description: The number of requests that can still be made without triggering
+                a failure response.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Limit:
+              description: The average number of requests per minute allowed.
+              schema:
+                format: int32
+                type: integer
+            X-RateLimit-Burst:
+              description: The maximum number of concurrent API requests allowed.
+              schema:
+                format: int32
+                type: integer
+      security:
+      - Basic Authentication: []
+      - Token Authentication: []
+      summary: Get tokens by Key ID
+      tags:
+      - tokens
+components:
+  parameters:
+    contractNumber:
+      description: Users with multiple contracts must provide the contract number,
+        for which the token is generated.
+      in: header
+      name: X-Contract-Number
+      schema:
+        format: int32
+        type: integer
+    tokenId:
+      description: The Key ID of the token (can be retrieved from the header section
+        of the token).
+      in: path
+      name: tokenId
+      required: true
+      schema:
+        type: string
+    deleteByCriteria:
+      description: Delete tokens by criteria EXPIRED, ALL, or CURRENT. The tokens
+        are deleted for the specified contract.
+      in: query
+      name: criteria
+      required: true
+      schema:
+        type: string
+  responses:
+    "401UnAuthorized":
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An invalid username/password or token provided, or the User or
+        the Contract is not valid for endpoint access.
+    "403Forbidden":
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The User or the Contract is not valid for endpoint access.
+      headers:
+        X-RateLimit-Remaining:
+          description: The number of requests that can still be made without triggering
+            a failure response.
+          schema:
+            format: int32
+            type: integer
+        X-RateLimit-Limit:
+          description: The average number of requests per minute allowed.
+          schema:
+            format: int32
+            type: integer
+        X-RateLimit-Burst:
+          description: The maximum number of concurrent API requests allowed.
+          schema:
+            format: int32
+            type: integer
+    "404NotFound":
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: Token not found
+      headers:
+        X-RateLimit-Remaining:
+          description: The number of requests that can still be made without triggering
+            a failure response.
+          schema:
+            format: int32
+            type: integer
+        X-RateLimit-Limit:
+          description: The average number of requests per minute allowed.
+          schema:
+            format: int32
+            type: integer
+        X-RateLimit-Burst:
+          description: The maximum number of concurrent API requests allowed.
+          schema:
+            format: int32
+            type: integer
+    "500Unexpected":
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The User or the Contract is not valid for endpoint access.
+      headers:
+        X-RateLimit-Remaining:
+          description: The number of requests that can still be made without triggering
+            a failure response.
+          schema:
+            format: int32
+            type: integer
+        X-RateLimit-Limit:
+          description: The average number of requests per minute allowed.
+          schema:
+            format: int32
+            type: integer
+        X-RateLimit-Burst:
+          description: The maximum number of concurrent API requests allowed.
+          schema:
+            format: int32
+            type: integer
+  schemas:
+    Jwt:
+      example:
+        token: token
+      properties:
+        token:
+          description: JSON Web Token (JWT) Base64url strings separated by dots
+          type: string
+      type: object
+    Token:
+      example:
+        createdDate: createdDate
+        id: id
+        href: href
+        expirationDate: expirationDate
+      properties:
+        id:
+          description: Identifier of the token.
+          type: string
+        href:
+          description: Hypertext REFerence for the specified token.
+          type: string
+        createdDate:
+          description: The date the token was generated.
+          type: string
+        expirationDate:
+          description: The date the token will expire.
+          type: string
+      required:
+      - createdDate
+      - expirationDate
+      - href
+      - id
+      type: object
+    Tokens:
+      example:
+        tokens:
+        - createdDate: createdDate
+          id: id
+          href: href
+          expirationDate: expirationDate
+        - createdDate: createdDate
+          id: id
+          href: href
+          expirationDate: expirationDate
+      properties:
+        tokens:
+          description: Array of items in that collection.
+          items:
+            $ref: '#/components/schemas/Token'
+          readOnly: true
+          type: array
+      type: object
+    DeleteResponse:
+      example:
+        success: true
+      properties:
+        success:
+          readOnly: true
+          type: boolean
+      type: object
+    Error:
+      properties:
+        httpStatus:
+          description: HTTP Response Code
+          format: int32
+          type: integer
+        messages:
+          items:
+            $ref: '#/components/schemas/Error_messages'
+          type: array
+      type: object
+    Error_messages:
+      properties:
+        errorCode:
+          description: Numeric error code of error message.
+          type: string
+        message:
+          description: Error message.
+          type: string
+      type: object
+  securitySchemes:
+    Basic Authentication:
+      description: 'You will need to base64 encode the string containing your credentials.
+        Separate your username and password with a colon, i.e., username:password
+        and send it as ''Authorization'' request header. More details: https://en.wikipedia.org/wiki/Basic_access_authentication'
+      scheme: basic
+      type: http
+    Token Authentication:
+      description: Please provide header value as 'Bearer <token>' and don't forget
+        to add 'Bearer' HTTP Authorization Scheme before the token.
+      in: header
+      name: Authorization
+      type: apiKey
+x-original-swagger-version: "2.0"
