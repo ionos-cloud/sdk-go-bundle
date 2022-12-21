@@ -111,7 +111,6 @@ type Configuration struct {
 	DefaultHeader      map[string]string `json:"defaultHeader,omitempty"`
 	DefaultQueryParams url.Values        `json:"defaultQueryParams,omitempty"`
 	UserAgent          string            `json:"userAgent,omitempty"`
-	Debug              bool              `json:"debug,omitempty"`
 	Servers            ServerConfigurations
 	OperationServers   map[string]ServerConfigurations
 	HTTPClient         *http.Client
@@ -131,7 +130,6 @@ func NewConfiguration(username, password, token, hostUrl string) *Configuration 
 		DefaultHeader:      make(map[string]string),
 		DefaultQueryParams: url.Values{},
 		UserAgent:          "ionos-cloud-sdk-go/v1.0.4",
-		Debug:              false,
 		Username:           username,
 		Password:           password,
 		Token:              token,

@@ -267,7 +267,7 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, time.Duratio
 			}
 		}
 
-		if c.cfg.Debug || c.cfg.LogLevel.Satisfies(common.Trace) {
+		if c.cfg.LogLevel.Satisfies(common.Trace) {
 			dump, err := httputil.DumpRequestOut(clonedRequest, true)
 			if err == nil {
 				c.cfg.Logger.Printf(" DumpRequestOut : %s\n", string(dump))
@@ -285,7 +285,7 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, time.Duratio
 			return resp, httpRequestTime, err
 		}
 
-		if c.cfg.Debug || c.cfg.LogLevel.Satisfies(common.Trace) {
+		if c.cfg.LogLevel.Satisfies(common.Trace) {
 			dump, err := httputil.DumpResponse(resp, true)
 			if err == nil {
 				c.cfg.Logger.Printf("\n DumpResponse : %s\n", string(dump))
@@ -318,7 +318,7 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, time.Duratio
 		}
 
 		if retryCount >= c.GetConfig().MaxRetries {
-			if c.cfg.Debug || c.cfg.LogLevel.Satisfies(common.Debug) {
+			if c.cfg.LogLevel.Satisfies(common.Debug) {
 				c.cfg.Logger.Printf(" Number of maximum retries exceeded (%d retries)\n", c.cfg.MaxRetries)
 			}
 			break
@@ -334,7 +334,7 @@ func (c *APIClient) backOff(t time.Duration) {
 	if t > c.GetConfig().MaxWaitTime {
 		t = c.GetConfig().MaxWaitTime
 	}
-	if c.cfg.Debug || c.cfg.LogLevel.Satisfies(common.Debug) {
+	if c.cfg.LogLevel.Satisfies(common.Debug) {
 		c.cfg.Logger.Printf(" Sleeping %s before retrying request\n", t.String())
 	}
 	time.Sleep(t)
