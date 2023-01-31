@@ -83,7 +83,7 @@ func NewAPIClient(cfg *common.Configuration) *APIClient {
 		cfg.HTTPClient = http.DefaultClient
 	}
 
-	if cfg.Servers != nil && len(cfg.Servers) == 0 {
+	if len(cfg.Servers) == 0 {
 		cfg.Servers = common.ServerConfigurations{
 			{
 				URL:         "https://api.ionos.com/databases/postgresql",
