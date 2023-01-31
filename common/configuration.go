@@ -141,6 +141,14 @@ func NewConfiguration(username, password, token, hostUrl string) *Configuration 
 		Servers:            ServerConfigurations{},
 		OperationServers:   map[string]ServerConfigurations{},
 	}
+	if hostUrl != "" {
+		cfg.Servers = ServerConfigurations{
+			{
+				URL:         getServerUrl(hostUrl),
+				Description: "Production",
+			},
+		}
+	}
 	return cfg
 }
 
