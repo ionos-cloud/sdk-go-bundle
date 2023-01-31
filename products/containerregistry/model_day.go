@@ -22,13 +22,13 @@ type Day string
 
 // List of Day
 const (
-	MONDAY    Day = "Monday"
-	TUESDAY   Day = "Tuesday"
-	WEDNESDAY Day = "Wednesday"
-	THURSDAY  Day = "Thursday"
-	FRIDAY    Day = "Friday"
-	SATURDAY  Day = "Saturday"
-	SUNDAY    Day = "Sunday"
+	DAY_MONDAY    Day = "Monday"
+	DAY_TUESDAY   Day = "Tuesday"
+	DAY_WEDNESDAY Day = "Wednesday"
+	DAY_THURSDAY  Day = "Thursday"
+	DAY_FRIDAY    Day = "Friday"
+	DAY_SATURDAY  Day = "Saturday"
+	DAY_SUNDAY    Day = "Sunday"
 )
 
 func (v *Day) UnmarshalJSON(src []byte) error {
