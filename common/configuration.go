@@ -28,7 +28,7 @@ const (
 	IonosTokenEnvVar      = "IONOS_TOKEN"
 	IonosApiUrlEnvVar     = "IONOS_API_URL"
 	IonosPinnedCertEnvVar = "IONOS_PINNED_CERT"
-	IonosLogLevel         = "IONOS_LOGLEVEL"
+	IonosLogLevel         = "IONOS_LOG_LEVEL"
 	DefaultIonosServerUrl = "https://api.ionos.com/"
 
 	defaultMaxRetries  = 3
