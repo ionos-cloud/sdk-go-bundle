@@ -170,7 +170,7 @@ Other parameters are passed through a pointer to an apiDatacentersNatgatewaysFin
 
 ### Return type
 
-[**NatGateway**](NatGateway.md)
+[**NatGateway**](../models/NatGateway.md)
 
 ### HTTP request headers
 
@@ -322,7 +322,7 @@ Other parameters are passed through a pointer to an apiDatacentersNatgatewaysFlo
 
 ### Return type
 
-[**FlowLog**](FlowLog.md)
+[**FlowLog**](../models/FlowLog.md)
 
 ### HTTP request headers
 
@@ -403,7 +403,7 @@ Other parameters are passed through a pointer to an apiDatacentersNatgatewaysFlo
 
 ### Return type
 
-[**FlowLogs**](FlowLogs.md)
+[**FlowLogs**](../models/FlowLogs.md)
 
 ### HTTP request headers
 
@@ -477,13 +477,13 @@ Other parameters are passed through a pointer to an apiDatacentersNatgatewaysFlo
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **natGatewayFlowLogProperties** | [**FlowLogProperties**](FlowLogProperties.md) | The properties of the Flow Log to be updated. | |
+| **natGatewayFlowLogProperties** | [**FlowLogProperties**](../models/FlowLogProperties.md) | The properties of the Flow Log to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 
 ### Return type
 
-[**FlowLog**](FlowLog.md)
+[**FlowLog**](../models/FlowLog.md)
 
 ### HTTP request headers
 
@@ -555,13 +555,13 @@ Other parameters are passed through a pointer to an apiDatacentersNatgatewaysFlo
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **natGatewayFlowLog** | [**FlowLog**](FlowLog.md) | The Flow Log to create. | |
+| **natGatewayFlowLog** | [**FlowLog**](../models/FlowLog.md) | The Flow Log to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 
 ### Return type
 
-[**FlowLog**](FlowLog.md)
+[**FlowLog**](../models/FlowLog.md)
 
 ### HTTP request headers
 
@@ -635,13 +635,13 @@ Other parameters are passed through a pointer to an apiDatacentersNatgatewaysFlo
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **natGatewayFlowLog** | [**FlowLogPut**](FlowLogPut.md) | The modified NAT Gateway Flow Log. | |
+| **natGatewayFlowLog** | [**FlowLogPut**](../models/FlowLogPut.md) | The modified NAT Gateway Flow Log. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 
 ### Return type
 
-[**FlowLog**](FlowLog.md)
+[**FlowLog**](../models/FlowLog.md)
 
 ### HTTP request headers
 
@@ -717,7 +717,7 @@ Other parameters are passed through a pointer to an apiDatacentersNatgatewaysGet
 
 ### Return type
 
-[**NatGateways**](NatGateways.md)
+[**NatGateways**](../models/NatGateways.md)
 
 ### HTTP request headers
 
@@ -791,14 +791,14 @@ Other parameters are passed through a pointer to an apiDatacentersNatgatewaysPat
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **natGatewayProperties** | [**NatGatewayProperties**](NatGatewayProperties.md) | The properties of the NAT Gateway to be updated. | |
+| **natGatewayProperties** | [**NatGatewayProperties**](../models/NatGatewayProperties.md) | The properties of the NAT Gateway to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**NatGateway**](NatGateway.md)
+[**NatGateway**](../models/NatGateway.md)
 
 ### HTTP request headers
 
@@ -870,14 +870,14 @@ Other parameters are passed through a pointer to an apiDatacentersNatgatewaysPos
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **natGateway** | [**NatGateway**](NatGateway.md) | The NAT Gateway to create. | |
+| **natGateway** | [**NatGateway**](../models/NatGateway.md) | The NAT Gateway to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**NatGateway**](NatGateway.md)
+[**NatGateway**](../models/NatGateway.md)
 
 ### HTTP request headers
 
@@ -951,14 +951,14 @@ Other parameters are passed through a pointer to an apiDatacentersNatgatewaysPut
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **natGateway** | [**NatGatewayPut**](NatGatewayPut.md) | The modified NAT Gateway. | |
+| **natGateway** | [**NatGatewayPut**](../models/NatGatewayPut.md) | The modified NAT Gateway. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**NatGateway**](NatGateway.md)
+[**NatGateway**](../models/NatGateway.md)
 
 ### HTTP request headers
 
@@ -1116,7 +1116,7 @@ Other parameters are passed through a pointer to an apiDatacentersNatgatewaysRul
 
 ### Return type
 
-[**NatGatewayRule**](NatGatewayRule.md)
+[**NatGatewayRule**](../models/NatGatewayRule.md)
 
 ### HTTP request headers
 
@@ -1194,7 +1194,7 @@ Other parameters are passed through a pointer to an apiDatacentersNatgatewaysRul
 
 ### Return type
 
-[**NatGatewayRules**](NatGatewayRules.md)
+[**NatGatewayRules**](../models/NatGatewayRules.md)
 
 ### HTTP request headers
 
@@ -1270,14 +1270,14 @@ Other parameters are passed through a pointer to an apiDatacentersNatgatewaysRul
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **natGatewayRuleProperties** | [**NatGatewayRuleProperties**](NatGatewayRuleProperties.md) | The properties of the NAT Gateway rule to be updated. | |
+| **natGatewayRuleProperties** | [**NatGatewayRuleProperties**](../models/NatGatewayRuleProperties.md) | The properties of the NAT Gateway rule to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**NatGatewayRule**](NatGatewayRule.md)
+[**NatGatewayRule**](../models/NatGatewayRule.md)
 
 ### HTTP request headers
 
@@ -1351,14 +1351,14 @@ Other parameters are passed through a pointer to an apiDatacentersNatgatewaysRul
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **natGatewayRule** | [**NatGatewayRule**](NatGatewayRule.md) | The NAT Gateway rule to create. | |
+| **natGatewayRule** | [**NatGatewayRule**](../models/NatGatewayRule.md) | The NAT Gateway rule to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**NatGatewayRule**](NatGatewayRule.md)
+[**NatGatewayRule**](../models/NatGatewayRule.md)
 
 ### HTTP request headers
 
@@ -1434,14 +1434,14 @@ Other parameters are passed through a pointer to an apiDatacentersNatgatewaysRul
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **natGatewayRule** | [**NatGatewayRulePut**](NatGatewayRulePut.md) | The modified NAT Gateway rule. | |
+| **natGatewayRule** | [**NatGatewayRulePut**](../models/NatGatewayRulePut.md) | The modified NAT Gateway rule. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**NatGatewayRule**](NatGatewayRule.md)
+[**NatGatewayRule**](../models/NatGatewayRule.md)
 
 ### HTTP request headers
 

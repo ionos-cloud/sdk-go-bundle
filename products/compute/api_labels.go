@@ -105,6 +105,7 @@ func (a *LabelsApiService) DatacentersLabelsDeleteExecute(r ApiDatacentersLabels
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -262,6 +263,7 @@ func (a *LabelsApiService) DatacentersLabelsFindByKeyExecute(r ApiDatacentersLab
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -350,9 +352,11 @@ func (a *LabelsApiService) DatacentersLabelsFindByKeyExecute(r ApiDatacentersLab
 }
 
 type ApiDatacentersLabelsGetRequest struct {
-	ctx        _context.Context
-	ApiService *LabelsApiService
-	Params
+	ctx             _context.Context
+	ApiService      *LabelsApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	datacenterId    string
 	pretty          *bool
 	depth           *int32
@@ -372,6 +376,25 @@ func (r ApiDatacentersLabelsGetRequest) XContractNumber(xContractNumber int32) A
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiDatacentersLabelsGetRequest) Filter(key string, value string) ApiDatacentersLabelsGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiDatacentersLabelsGetRequest) OrderBy(orderBy string) ApiDatacentersLabelsGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiDatacentersLabelsGetRequest) MaxResults(maxResults int32) ApiDatacentersLabelsGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiDatacentersLabelsGetRequest) Execute() (LabelResources, *common.APIResponse, error) {
 	return r.ApiService.DatacentersLabelsGetExecute(r)
 }
@@ -388,6 +411,7 @@ func (a *LabelsApiService) DatacentersLabelsGet(ctx _context.Context, datacenter
 		ApiService:   a,
 		ctx:          ctx,
 		datacenterId: datacenterId,
+		filters:      _neturl.Values{},
 	}
 }
 
@@ -425,6 +449,20 @@ func (a *LabelsApiService) DatacentersLabelsGetExecute(r ApiDatacentersLabelsGet
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -595,6 +633,7 @@ func (a *LabelsApiService) DatacentersLabelsPostExecute(r ApiDatacentersLabelsPo
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -771,6 +810,7 @@ func (a *LabelsApiService) DatacentersLabelsPutExecute(r ApiDatacentersLabelsPut
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -941,6 +981,7 @@ func (a *LabelsApiService) DatacentersServersLabelsDeleteExecute(r ApiDatacenter
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1102,6 +1143,7 @@ func (a *LabelsApiService) DatacentersServersLabelsFindByKeyExecute(r ApiDatacen
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1190,9 +1232,11 @@ func (a *LabelsApiService) DatacentersServersLabelsFindByKeyExecute(r ApiDatacen
 }
 
 type ApiDatacentersServersLabelsGetRequest struct {
-	ctx        _context.Context
-	ApiService *LabelsApiService
-	Params
+	ctx             _context.Context
+	ApiService      *LabelsApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	datacenterId    string
 	serverId        string
 	pretty          *bool
@@ -1210,6 +1254,25 @@ func (r ApiDatacentersServersLabelsGetRequest) Depth(depth int32) ApiDatacenters
 }
 func (r ApiDatacentersServersLabelsGetRequest) XContractNumber(xContractNumber int32) ApiDatacentersServersLabelsGetRequest {
 	r.xContractNumber = &xContractNumber
+	return r
+}
+
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiDatacentersServersLabelsGetRequest) Filter(key string, value string) ApiDatacentersServersLabelsGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiDatacentersServersLabelsGetRequest) OrderBy(orderBy string) ApiDatacentersServersLabelsGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiDatacentersServersLabelsGetRequest) MaxResults(maxResults int32) ApiDatacentersServersLabelsGetRequest {
+	r.maxResults = &maxResults
 	return r
 }
 
@@ -1231,6 +1294,7 @@ func (a *LabelsApiService) DatacentersServersLabelsGet(ctx _context.Context, dat
 		ctx:          ctx,
 		datacenterId: datacenterId,
 		serverId:     serverId,
+		filters:      _neturl.Values{},
 	}
 }
 
@@ -1269,6 +1333,20 @@ func (a *LabelsApiService) DatacentersServersLabelsGetExecute(r ApiDatacentersSe
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1443,6 +1521,7 @@ func (a *LabelsApiService) DatacentersServersLabelsPostExecute(r ApiDatacentersS
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -1623,6 +1702,7 @@ func (a *LabelsApiService) DatacentersServersLabelsPutExecute(r ApiDatacentersSe
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -1793,6 +1873,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsDeleteExecute(r ApiDatacenter
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1954,6 +2035,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsFindByKeyExecute(r ApiDatacen
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -2042,9 +2124,11 @@ func (a *LabelsApiService) DatacentersVolumesLabelsFindByKeyExecute(r ApiDatacen
 }
 
 type ApiDatacentersVolumesLabelsGetRequest struct {
-	ctx        _context.Context
-	ApiService *LabelsApiService
-	Params
+	ctx             _context.Context
+	ApiService      *LabelsApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	datacenterId    string
 	volumeId        string
 	pretty          *bool
@@ -2062,6 +2146,25 @@ func (r ApiDatacentersVolumesLabelsGetRequest) Depth(depth int32) ApiDatacenters
 }
 func (r ApiDatacentersVolumesLabelsGetRequest) XContractNumber(xContractNumber int32) ApiDatacentersVolumesLabelsGetRequest {
 	r.xContractNumber = &xContractNumber
+	return r
+}
+
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiDatacentersVolumesLabelsGetRequest) Filter(key string, value string) ApiDatacentersVolumesLabelsGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiDatacentersVolumesLabelsGetRequest) OrderBy(orderBy string) ApiDatacentersVolumesLabelsGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiDatacentersVolumesLabelsGetRequest) MaxResults(maxResults int32) ApiDatacentersVolumesLabelsGetRequest {
+	r.maxResults = &maxResults
 	return r
 }
 
@@ -2083,6 +2186,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsGet(ctx _context.Context, dat
 		ctx:          ctx,
 		datacenterId: datacenterId,
 		volumeId:     volumeId,
+		filters:      _neturl.Values{},
 	}
 }
 
@@ -2121,6 +2225,20 @@ func (a *LabelsApiService) DatacentersVolumesLabelsGetExecute(r ApiDatacentersVo
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -2295,6 +2413,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsPostExecute(r ApiDatacentersV
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -2475,6 +2594,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsPutExecute(r ApiDatacentersVo
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -2641,6 +2761,7 @@ func (a *LabelsApiService) IpblocksLabelsDeleteExecute(r ApiIpblocksLabelsDelete
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -2798,6 +2919,7 @@ func (a *LabelsApiService) IpblocksLabelsFindByKeyExecute(r ApiIpblocksLabelsFin
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -2886,9 +3008,11 @@ func (a *LabelsApiService) IpblocksLabelsFindByKeyExecute(r ApiIpblocksLabelsFin
 }
 
 type ApiIpblocksLabelsGetRequest struct {
-	ctx        _context.Context
-	ApiService *LabelsApiService
-	Params
+	ctx             _context.Context
+	ApiService      *LabelsApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	ipblockId       string
 	pretty          *bool
 	depth           *int32
@@ -2908,6 +3032,25 @@ func (r ApiIpblocksLabelsGetRequest) XContractNumber(xContractNumber int32) ApiI
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiIpblocksLabelsGetRequest) Filter(key string, value string) ApiIpblocksLabelsGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiIpblocksLabelsGetRequest) OrderBy(orderBy string) ApiIpblocksLabelsGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiIpblocksLabelsGetRequest) MaxResults(maxResults int32) ApiIpblocksLabelsGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiIpblocksLabelsGetRequest) Execute() (LabelResources, *common.APIResponse, error) {
 	return r.ApiService.IpblocksLabelsGetExecute(r)
 }
@@ -2924,6 +3067,7 @@ func (a *LabelsApiService) IpblocksLabelsGet(ctx _context.Context, ipblockId str
 		ApiService: a,
 		ctx:        ctx,
 		ipblockId:  ipblockId,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -2961,6 +3105,20 @@ func (a *LabelsApiService) IpblocksLabelsGetExecute(r ApiIpblocksLabelsGetReques
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -3131,6 +3289,7 @@ func (a *LabelsApiService) IpblocksLabelsPostExecute(r ApiIpblocksLabelsPostRequ
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -3307,6 +3466,7 @@ func (a *LabelsApiService) IpblocksLabelsPutExecute(r ApiIpblocksLabelsPutReques
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -3475,6 +3635,7 @@ func (a *LabelsApiService) LabelsFindByUrnExecute(r ApiLabelsFindByUrnRequest) (
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -3563,9 +3724,11 @@ func (a *LabelsApiService) LabelsFindByUrnExecute(r ApiLabelsFindByUrnRequest) (
 }
 
 type ApiLabelsGetRequest struct {
-	ctx        _context.Context
-	ApiService *LabelsApiService
-	Params
+	ctx             _context.Context
+	ApiService      *LabelsApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	pretty          *bool
 	depth           *int32
 	xContractNumber *int32
@@ -3584,6 +3747,25 @@ func (r ApiLabelsGetRequest) XContractNumber(xContractNumber int32) ApiLabelsGet
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiLabelsGetRequest) Filter(key string, value string) ApiLabelsGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiLabelsGetRequest) OrderBy(orderBy string) ApiLabelsGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiLabelsGetRequest) MaxResults(maxResults int32) ApiLabelsGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiLabelsGetRequest) Execute() (Labels, *common.APIResponse, error) {
 	return r.ApiService.LabelsGetExecute(r)
 }
@@ -3598,6 +3780,7 @@ func (a *LabelsApiService) LabelsGet(ctx _context.Context) ApiLabelsGetRequest {
 	return ApiLabelsGetRequest{
 		ApiService: a,
 		ctx:        ctx,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -3634,6 +3817,20 @@ func (a *LabelsApiService) LabelsGetExecute(r ApiLabelsGetRequest) (Labels, *com
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -3798,6 +3995,7 @@ func (a *LabelsApiService) SnapshotsLabelsDeleteExecute(r ApiSnapshotsLabelsDele
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -3955,6 +4153,7 @@ func (a *LabelsApiService) SnapshotsLabelsFindByKeyExecute(r ApiSnapshotsLabelsF
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -4043,9 +4242,11 @@ func (a *LabelsApiService) SnapshotsLabelsFindByKeyExecute(r ApiSnapshotsLabelsF
 }
 
 type ApiSnapshotsLabelsGetRequest struct {
-	ctx        _context.Context
-	ApiService *LabelsApiService
-	Params
+	ctx             _context.Context
+	ApiService      *LabelsApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	snapshotId      string
 	pretty          *bool
 	depth           *int32
@@ -4065,6 +4266,25 @@ func (r ApiSnapshotsLabelsGetRequest) XContractNumber(xContractNumber int32) Api
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiSnapshotsLabelsGetRequest) Filter(key string, value string) ApiSnapshotsLabelsGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiSnapshotsLabelsGetRequest) OrderBy(orderBy string) ApiSnapshotsLabelsGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiSnapshotsLabelsGetRequest) MaxResults(maxResults int32) ApiSnapshotsLabelsGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiSnapshotsLabelsGetRequest) Execute() (LabelResources, *common.APIResponse, error) {
 	return r.ApiService.SnapshotsLabelsGetExecute(r)
 }
@@ -4081,6 +4301,7 @@ func (a *LabelsApiService) SnapshotsLabelsGet(ctx _context.Context, snapshotId s
 		ApiService: a,
 		ctx:        ctx,
 		snapshotId: snapshotId,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -4118,6 +4339,20 @@ func (a *LabelsApiService) SnapshotsLabelsGetExecute(r ApiSnapshotsLabelsGetRequ
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -4288,6 +4523,7 @@ func (a *LabelsApiService) SnapshotsLabelsPostExecute(r ApiSnapshotsLabelsPostRe
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -4464,6 +4700,7 @@ func (a *LabelsApiService) SnapshotsLabelsPutExecute(r ApiSnapshotsLabelsPutRequ
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 

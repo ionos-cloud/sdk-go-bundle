@@ -101,6 +101,7 @@ func (a *KubernetesApiService) K8sDeleteExecute(r ApiK8sDeleteRequest) (*common.
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -254,6 +255,7 @@ func (a *KubernetesApiService) K8sFindByClusterIdExecute(r ApiK8sFindByClusterId
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -342,9 +344,11 @@ func (a *KubernetesApiService) K8sFindByClusterIdExecute(r ApiK8sFindByClusterId
 }
 
 type ApiK8sGetRequest struct {
-	ctx        _context.Context
-	ApiService *KubernetesApiService
-	Params
+	ctx             _context.Context
+	ApiService      *KubernetesApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	pretty          *bool
 	depth           *int32
 	xContractNumber *int32
@@ -363,6 +367,25 @@ func (r ApiK8sGetRequest) XContractNumber(xContractNumber int32) ApiK8sGetReques
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiK8sGetRequest) Filter(key string, value string) ApiK8sGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiK8sGetRequest) OrderBy(orderBy string) ApiK8sGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiK8sGetRequest) MaxResults(maxResults int32) ApiK8sGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiK8sGetRequest) Execute() (KubernetesClusters, *common.APIResponse, error) {
 	return r.ApiService.K8sGetExecute(r)
 }
@@ -377,6 +400,7 @@ func (a *KubernetesApiService) K8sGet(ctx _context.Context) ApiK8sGetRequest {
 	return ApiK8sGetRequest{
 		ApiService: a,
 		ctx:        ctx,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -413,6 +437,20 @@ func (a *KubernetesApiService) K8sGetExecute(r ApiK8sGetRequest) (KubernetesClus
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -501,9 +539,11 @@ func (a *KubernetesApiService) K8sGetExecute(r ApiK8sGetRequest) (KubernetesClus
 }
 
 type ApiK8sKubeconfigGetRequest struct {
-	ctx        _context.Context
-	ApiService *KubernetesApiService
-	Params
+	ctx             _context.Context
+	ApiService      *KubernetesApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	k8sClusterId    string
 	pretty          *bool
 	depth           *int32
@@ -523,6 +563,25 @@ func (r ApiK8sKubeconfigGetRequest) XContractNumber(xContractNumber int32) ApiK8
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiK8sKubeconfigGetRequest) Filter(key string, value string) ApiK8sKubeconfigGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiK8sKubeconfigGetRequest) OrderBy(orderBy string) ApiK8sKubeconfigGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiK8sKubeconfigGetRequest) MaxResults(maxResults int32) ApiK8sKubeconfigGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiK8sKubeconfigGetRequest) Execute() (string, *common.APIResponse, error) {
 	return r.ApiService.K8sKubeconfigGetExecute(r)
 }
@@ -539,6 +598,7 @@ func (a *KubernetesApiService) K8sKubeconfigGet(ctx _context.Context, k8sCluster
 		ApiService:   a,
 		ctx:          ctx,
 		k8sClusterId: k8sClusterId,
+		filters:      _neturl.Values{},
 	}
 }
 
@@ -576,6 +636,20 @@ func (a *KubernetesApiService) K8sKubeconfigGetExecute(r ApiK8sKubeconfigGetRequ
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -740,6 +814,7 @@ func (a *KubernetesApiService) K8sNodepoolsDeleteExecute(r ApiK8sNodepoolsDelete
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -897,6 +972,7 @@ func (a *KubernetesApiService) K8sNodepoolsFindByIdExecute(r ApiK8sNodepoolsFind
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -985,9 +1061,11 @@ func (a *KubernetesApiService) K8sNodepoolsFindByIdExecute(r ApiK8sNodepoolsFind
 }
 
 type ApiK8sNodepoolsGetRequest struct {
-	ctx        _context.Context
-	ApiService *KubernetesApiService
-	Params
+	ctx             _context.Context
+	ApiService      *KubernetesApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	k8sClusterId    string
 	pretty          *bool
 	depth           *int32
@@ -1007,6 +1085,25 @@ func (r ApiK8sNodepoolsGetRequest) XContractNumber(xContractNumber int32) ApiK8s
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiK8sNodepoolsGetRequest) Filter(key string, value string) ApiK8sNodepoolsGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiK8sNodepoolsGetRequest) OrderBy(orderBy string) ApiK8sNodepoolsGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiK8sNodepoolsGetRequest) MaxResults(maxResults int32) ApiK8sNodepoolsGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiK8sNodepoolsGetRequest) Execute() (KubernetesNodePools, *common.APIResponse, error) {
 	return r.ApiService.K8sNodepoolsGetExecute(r)
 }
@@ -1023,6 +1120,7 @@ func (a *KubernetesApiService) K8sNodepoolsGet(ctx _context.Context, k8sClusterI
 		ApiService:   a,
 		ctx:          ctx,
 		k8sClusterId: k8sClusterId,
+		filters:      _neturl.Values{},
 	}
 }
 
@@ -1060,6 +1158,20 @@ func (a *KubernetesApiService) K8sNodepoolsGetExecute(r ApiK8sNodepoolsGetReques
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1228,6 +1340,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesDeleteExecute(r ApiK8sNodepoolsN
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1389,6 +1502,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesFindByIdExecute(r ApiK8sNodepool
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1477,9 +1591,11 @@ func (a *KubernetesApiService) K8sNodepoolsNodesFindByIdExecute(r ApiK8sNodepool
 }
 
 type ApiK8sNodepoolsNodesGetRequest struct {
-	ctx        _context.Context
-	ApiService *KubernetesApiService
-	Params
+	ctx             _context.Context
+	ApiService      *KubernetesApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	k8sClusterId    string
 	nodepoolId      string
 	pretty          *bool
@@ -1497,6 +1613,25 @@ func (r ApiK8sNodepoolsNodesGetRequest) Depth(depth int32) ApiK8sNodepoolsNodesG
 }
 func (r ApiK8sNodepoolsNodesGetRequest) XContractNumber(xContractNumber int32) ApiK8sNodepoolsNodesGetRequest {
 	r.xContractNumber = &xContractNumber
+	return r
+}
+
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiK8sNodepoolsNodesGetRequest) Filter(key string, value string) ApiK8sNodepoolsNodesGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiK8sNodepoolsNodesGetRequest) OrderBy(orderBy string) ApiK8sNodepoolsNodesGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiK8sNodepoolsNodesGetRequest) MaxResults(maxResults int32) ApiK8sNodepoolsNodesGetRequest {
+	r.maxResults = &maxResults
 	return r
 }
 
@@ -1518,6 +1653,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesGet(ctx _context.Context, k8sClu
 		ctx:          ctx,
 		k8sClusterId: k8sClusterId,
 		nodepoolId:   nodepoolId,
+		filters:      _neturl.Values{},
 	}
 }
 
@@ -1556,6 +1692,20 @@ func (a *KubernetesApiService) K8sNodepoolsNodesGetExecute(r ApiK8sNodepoolsNode
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1726,6 +1876,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesReplacePostExecute(r ApiK8sNodep
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1887,6 +2038,7 @@ func (a *KubernetesApiService) K8sNodepoolsPostExecute(r ApiK8sNodepoolsPostRequ
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -2063,6 +2215,7 @@ func (a *KubernetesApiService) K8sNodepoolsPutExecute(r ApiK8sNodepoolsPutReques
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -2231,6 +2384,7 @@ func (a *KubernetesApiService) K8sPostExecute(r ApiK8sPostRequest) (KubernetesCl
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -2403,6 +2557,7 @@ func (a *KubernetesApiService) K8sPutExecute(r ApiK8sPutRequest) (KubernetesClus
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -2495,7 +2650,28 @@ func (a *KubernetesApiService) K8sPutExecute(r ApiK8sPutRequest) (KubernetesClus
 type ApiK8sVersionsDefaultGetRequest struct {
 	ctx        _context.Context
 	ApiService *KubernetesApiService
-	Params
+	filters    _neturl.Values
+	orderBy    *string
+	maxResults *int32
+}
+
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiK8sVersionsDefaultGetRequest) Filter(key string, value string) ApiK8sVersionsDefaultGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiK8sVersionsDefaultGetRequest) OrderBy(orderBy string) ApiK8sVersionsDefaultGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiK8sVersionsDefaultGetRequest) MaxResults(maxResults int32) ApiK8sVersionsDefaultGetRequest {
+	r.maxResults = &maxResults
+	return r
 }
 
 func (r ApiK8sVersionsDefaultGetRequest) Execute() (string, *common.APIResponse, error) {
@@ -2512,6 +2688,7 @@ func (a *KubernetesApiService) K8sVersionsDefaultGet(ctx _context.Context) ApiK8
 	return ApiK8sVersionsDefaultGetRequest{
 		ApiService: a,
 		ctx:        ctx,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -2541,6 +2718,20 @@ func (a *KubernetesApiService) K8sVersionsDefaultGetExecute(r ApiK8sVersionsDefa
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
+
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2629,7 +2820,28 @@ func (a *KubernetesApiService) K8sVersionsDefaultGetExecute(r ApiK8sVersionsDefa
 type ApiK8sVersionsGetRequest struct {
 	ctx        _context.Context
 	ApiService *KubernetesApiService
-	Params
+	filters    _neturl.Values
+	orderBy    *string
+	maxResults *int32
+}
+
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiK8sVersionsGetRequest) Filter(key string, value string) ApiK8sVersionsGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiK8sVersionsGetRequest) OrderBy(orderBy string) ApiK8sVersionsGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiK8sVersionsGetRequest) MaxResults(maxResults int32) ApiK8sVersionsGetRequest {
+	r.maxResults = &maxResults
+	return r
 }
 
 func (r ApiK8sVersionsGetRequest) Execute() ([]string, *common.APIResponse, error) {
@@ -2646,6 +2858,7 @@ func (a *KubernetesApiService) K8sVersionsGet(ctx _context.Context) ApiK8sVersio
 	return ApiK8sVersionsGetRequest{
 		ApiService: a,
 		ctx:        ctx,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -2675,6 +2888,20 @@ func (a *KubernetesApiService) K8sVersionsGetExecute(r ApiK8sVersionsGetRequest)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
+
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

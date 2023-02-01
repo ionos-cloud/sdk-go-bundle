@@ -172,7 +172,7 @@ Other parameters are passed through a pointer to an apiUmGroupsFindByIdRequest s
 
 ### Return type
 
-[**Group**](Group.md)
+[**Group**](../models/Group.md)
 
 ### HTTP request headers
 
@@ -243,7 +243,7 @@ Other parameters are passed through a pointer to an apiUmGroupsGetRequest struct
 
 ### Return type
 
-[**Groups**](Groups.md)
+[**Groups**](../models/Groups.md)
 
 ### HTTP request headers
 
@@ -310,14 +310,14 @@ Other parameters are passed through a pointer to an apiUmGroupsPostRequest struc
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **group** | [**Group**](Group.md) | The group to create. | |
+| **group** | [**Group**](../models/Group.md) | The group to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Group**](Group.md)
+[**Group**](../models/Group.md)
 
 ### HTTP request headers
 
@@ -389,14 +389,14 @@ Other parameters are passed through a pointer to an apiUmGroupsPutRequest struct
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **group** | [**Group**](Group.md) | The modified group. | |
+| **group** | [**Group**](../models/Group.md) | The modified group. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Group**](Group.md)
+[**Group**](../models/Group.md)
 
 ### HTTP request headers
 
@@ -472,7 +472,7 @@ Other parameters are passed through a pointer to an apiUmGroupsResourcesGetReque
 
 ### Return type
 
-[**ResourceGroups**](ResourceGroups.md)
+[**ResourceGroups**](../models/ResourceGroups.md)
 
 ### HTTP request headers
 
@@ -626,7 +626,7 @@ Other parameters are passed through a pointer to an apiUmGroupsSharesFindByResou
 
 ### Return type
 
-[**GroupShare**](GroupShare.md)
+[**GroupShare**](../models/GroupShare.md)
 
 ### HTTP request headers
 
@@ -702,7 +702,7 @@ Other parameters are passed through a pointer to an apiUmGroupsSharesGetRequest 
 
 ### Return type
 
-[**GroupShares**](GroupShares.md)
+[**GroupShares**](../models/GroupShares.md)
 
 ### HTTP request headers
 
@@ -776,14 +776,14 @@ Other parameters are passed through a pointer to an apiUmGroupsSharesPostRequest
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **resource** | [**GroupShare**](GroupShare.md) | The resource to add. | |
+| **resource** | [**GroupShare**](../models/GroupShare.md) | The resource to add. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**GroupShare**](GroupShare.md)
+[**GroupShare**](../models/GroupShare.md)
 
 ### HTTP request headers
 
@@ -857,14 +857,14 @@ Other parameters are passed through a pointer to an apiUmGroupsSharesPutRequest 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **resource** | [**GroupShare**](GroupShare.md) | The modified resource | |
+| **resource** | [**GroupShare**](../models/GroupShare.md) | The modified resource | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**GroupShare**](GroupShare.md)
+[**GroupShare**](../models/GroupShare.md)
 
 ### HTTP request headers
 
@@ -1016,7 +1016,7 @@ Other parameters are passed through a pointer to an apiUmGroupsUsersGetRequest s
 
 ### Return type
 
-[**GroupMembers**](GroupMembers.md)
+[**GroupMembers**](../models/GroupMembers.md)
 
 ### HTTP request headers
 
@@ -1088,14 +1088,14 @@ Other parameters are passed through a pointer to an apiUmGroupsUsersPostRequest 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **user** | [**User**](User.md) | The user to add. | |
+| **user** | [**User**](../models/User.md) | The user to add. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**User**](User.md)
+[**User**](../models/User.md)
 
 ### HTTP request headers
 
@@ -1171,7 +1171,7 @@ Other parameters are passed through a pointer to an apiUmResourcesFindByTypeRequ
 
 ### Return type
 
-[**Resources**](Resources.md)
+[**Resources**](../models/Resources.md)
 
 ### HTTP request headers
 
@@ -1249,7 +1249,7 @@ Other parameters are passed through a pointer to an apiUmResourcesFindByTypeAndI
 
 ### Return type
 
-[**Resource**](Resource.md)
+[**Resource**](../models/Resource.md)
 
 ### HTTP request headers
 
@@ -1320,7 +1320,7 @@ Other parameters are passed through a pointer to an apiUmResourcesGetRequest str
 
 ### Return type
 
-[**Resources**](Resources.md)
+[**Resources**](../models/Resources.md)
 
 ### HTTP request headers
 
@@ -1470,7 +1470,7 @@ Other parameters are passed through a pointer to an apiUmUsersFindByIdRequest st
 
 ### Return type
 
-[**User**](User.md)
+[**User**](../models/User.md)
 
 ### HTTP request headers
 
@@ -1547,7 +1547,7 @@ Other parameters are passed through a pointer to an apiUmUsersGetRequest struct 
 
 ### Return type
 
-[**Users**](Users.md)
+[**Users**](../models/Users.md)
 
 ### HTTP request headers
 
@@ -1623,7 +1623,7 @@ Other parameters are passed through a pointer to an apiUmUsersGroupsGetRequest s
 
 ### Return type
 
-[**ResourceGroups**](ResourceGroups.md)
+[**ResourceGroups**](../models/ResourceGroups.md)
 
 ### HTTP request headers
 
@@ -1699,7 +1699,7 @@ Other parameters are passed through a pointer to an apiUmUsersOwnsGetRequest str
 
 ### Return type
 
-[**ResourcesUsers**](ResourcesUsers.md)
+[**ResourcesUsers**](../models/ResourcesUsers.md)
 
 ### HTTP request headers
 
@@ -1766,14 +1766,14 @@ Other parameters are passed through a pointer to an apiUmUsersPostRequest struct
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **user** | [**UserPost**](UserPost.md) | The user to create. | |
+| **user** | [**UserPost**](../models/UserPost.md) | The user to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**User**](User.md)
+[**User**](../models/User.md)
 
 ### HTTP request headers
 
@@ -1845,14 +1845,14 @@ Other parameters are passed through a pointer to an apiUmUsersPutRequest struct 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **user** | [**UserPut**](UserPut.md) | The modified user | |
+| **user** | [**UserPut**](../models/UserPut.md) | The modified user | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**User**](User.md)
+[**User**](../models/User.md)
 
 ### HTTP request headers
 

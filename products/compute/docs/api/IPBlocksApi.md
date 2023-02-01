@@ -154,7 +154,7 @@ Other parameters are passed through a pointer to an apiIpblocksFindByIdRequest s
 
 ### Return type
 
-[**IpBlock**](IpBlock.md)
+[**IpBlock**](../models/IpBlock.md)
 
 ### HTTP request headers
 
@@ -231,7 +231,7 @@ Other parameters are passed through a pointer to an apiIpblocksGetRequest struct
 
 ### Return type
 
-[**IpBlocks**](IpBlocks.md)
+[**IpBlocks**](../models/IpBlocks.md)
 
 ### HTTP request headers
 
@@ -303,14 +303,14 @@ Other parameters are passed through a pointer to an apiIpblocksPatchRequest stru
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **ipblock** | [**IpBlockProperties**](IpBlockProperties.md) | The properties of the IP block to be updated. | |
+| **ipblock** | [**IpBlockProperties**](../models/IpBlockProperties.md) | The properties of the IP block to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**IpBlock**](IpBlock.md)
+[**IpBlock**](../models/IpBlock.md)
 
 ### HTTP request headers
 
@@ -377,14 +377,14 @@ Other parameters are passed through a pointer to an apiIpblocksPostRequest struc
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **ipblock** | [**IpBlock**](IpBlock.md) | The IP block to be reserved. | |
+| **ipblock** | [**IpBlock**](../models/IpBlock.md) | The IP block to be reserved. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**IpBlock**](IpBlock.md)
+[**IpBlock**](../models/IpBlock.md)
 
 ### HTTP request headers
 
@@ -456,14 +456,14 @@ Other parameters are passed through a pointer to an apiIpblocksPutRequest struct
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **ipblock** | [**IpBlock**](IpBlock.md) | The modified IP block. | |
+| **ipblock** | [**IpBlock**](../models/IpBlock.md) | The modified IP block. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**IpBlock**](IpBlock.md)
+[**IpBlock**](../models/IpBlock.md)
 
 ### HTTP request headers
 

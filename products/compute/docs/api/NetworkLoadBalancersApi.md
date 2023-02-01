@@ -170,7 +170,7 @@ Other parameters are passed through a pointer to an apiDatacentersNetworkloadbal
 
 ### Return type
 
-[**NetworkLoadBalancer**](NetworkLoadBalancer.md)
+[**NetworkLoadBalancer**](../models/NetworkLoadBalancer.md)
 
 ### HTTP request headers
 
@@ -328,7 +328,7 @@ Other parameters are passed through a pointer to an apiDatacentersNetworkloadbal
 
 ### Return type
 
-[**FlowLog**](FlowLog.md)
+[**FlowLog**](../models/FlowLog.md)
 
 ### HTTP request headers
 
@@ -406,7 +406,7 @@ Other parameters are passed through a pointer to an apiDatacentersNetworkloadbal
 
 ### Return type
 
-[**FlowLogs**](FlowLogs.md)
+[**FlowLogs**](../models/FlowLogs.md)
 
 ### HTTP request headers
 
@@ -482,14 +482,14 @@ Other parameters are passed through a pointer to an apiDatacentersNetworkloadbal
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **networkLoadBalancerFlowLogProperties** | [**FlowLogProperties**](FlowLogProperties.md) | The properties of the Flow Log to be updated. | |
+| **networkLoadBalancerFlowLogProperties** | [**FlowLogProperties**](../models/FlowLogProperties.md) | The properties of the Flow Log to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**FlowLog**](FlowLog.md)
+[**FlowLog**](../models/FlowLog.md)
 
 ### HTTP request headers
 
@@ -563,14 +563,14 @@ Other parameters are passed through a pointer to an apiDatacentersNetworkloadbal
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **networkLoadBalancerFlowLog** | [**FlowLog**](FlowLog.md) | The Flow Log to create. | |
+| **networkLoadBalancerFlowLog** | [**FlowLog**](../models/FlowLog.md) | The Flow Log to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**FlowLog**](FlowLog.md)
+[**FlowLog**](../models/FlowLog.md)
 
 ### HTTP request headers
 
@@ -646,14 +646,14 @@ Other parameters are passed through a pointer to an apiDatacentersNetworkloadbal
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **networkLoadBalancerFlowLog** | [**FlowLogPut**](FlowLogPut.md) | The modified NLB Flow Log. | |
+| **networkLoadBalancerFlowLog** | [**FlowLogPut**](../models/FlowLogPut.md) | The modified NLB Flow Log. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**FlowLog**](FlowLog.md)
+[**FlowLog**](../models/FlowLog.md)
 
 ### HTTP request headers
 
@@ -811,7 +811,7 @@ Other parameters are passed through a pointer to an apiDatacentersNetworkloadbal
 
 ### Return type
 
-[**NetworkLoadBalancerForwardingRule**](NetworkLoadBalancerForwardingRule.md)
+[**NetworkLoadBalancerForwardingRule**](../models/NetworkLoadBalancerForwardingRule.md)
 
 ### HTTP request headers
 
@@ -889,7 +889,7 @@ Other parameters are passed through a pointer to an apiDatacentersNetworkloadbal
 
 ### Return type
 
-[**NetworkLoadBalancerForwardingRules**](NetworkLoadBalancerForwardingRules.md)
+[**NetworkLoadBalancerForwardingRules**](../models/NetworkLoadBalancerForwardingRules.md)
 
 ### HTTP request headers
 
@@ -965,14 +965,14 @@ Other parameters are passed through a pointer to an apiDatacentersNetworkloadbal
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **networkLoadBalancerForwardingRuleProperties** | [**NetworkLoadBalancerForwardingRuleProperties**](NetworkLoadBalancerForwardingRuleProperties.md) | The properties of the forwarding rule to be updated. | |
+| **networkLoadBalancerForwardingRuleProperties** | [**NetworkLoadBalancerForwardingRuleProperties**](../models/NetworkLoadBalancerForwardingRuleProperties.md) | The properties of the forwarding rule to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**NetworkLoadBalancerForwardingRule**](NetworkLoadBalancerForwardingRule.md)
+[**NetworkLoadBalancerForwardingRule**](../models/NetworkLoadBalancerForwardingRule.md)
 
 ### HTTP request headers
 
@@ -1046,14 +1046,14 @@ Other parameters are passed through a pointer to an apiDatacentersNetworkloadbal
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **networkLoadBalancerForwardingRule** | [**NetworkLoadBalancerForwardingRule**](NetworkLoadBalancerForwardingRule.md) | The forwarding rule to create. | |
+| **networkLoadBalancerForwardingRule** | [**NetworkLoadBalancerForwardingRule**](../models/NetworkLoadBalancerForwardingRule.md) | The forwarding rule to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**NetworkLoadBalancerForwardingRule**](NetworkLoadBalancerForwardingRule.md)
+[**NetworkLoadBalancerForwardingRule**](../models/NetworkLoadBalancerForwardingRule.md)
 
 ### HTTP request headers
 
@@ -1129,14 +1129,14 @@ Other parameters are passed through a pointer to an apiDatacentersNetworkloadbal
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **networkLoadBalancerForwardingRule** | [**NetworkLoadBalancerForwardingRulePut**](NetworkLoadBalancerForwardingRulePut.md) | The modified NLB forwarding rule. | |
+| **networkLoadBalancerForwardingRule** | [**NetworkLoadBalancerForwardingRulePut**](../models/NetworkLoadBalancerForwardingRulePut.md) | The modified NLB forwarding rule. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**NetworkLoadBalancerForwardingRule**](NetworkLoadBalancerForwardingRule.md)
+[**NetworkLoadBalancerForwardingRule**](../models/NetworkLoadBalancerForwardingRule.md)
 
 ### HTTP request headers
 
@@ -1218,7 +1218,7 @@ Other parameters are passed through a pointer to an apiDatacentersNetworkloadbal
 
 ### Return type
 
-[**NetworkLoadBalancers**](NetworkLoadBalancers.md)
+[**NetworkLoadBalancers**](../models/NetworkLoadBalancers.md)
 
 ### HTTP request headers
 
@@ -1292,14 +1292,14 @@ Other parameters are passed through a pointer to an apiDatacentersNetworkloadbal
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **networkLoadBalancerProperties** | [**NetworkLoadBalancerProperties**](NetworkLoadBalancerProperties.md) | The properties of the Network Load Balancer to be updated. | |
+| **networkLoadBalancerProperties** | [**NetworkLoadBalancerProperties**](../models/NetworkLoadBalancerProperties.md) | The properties of the Network Load Balancer to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**NetworkLoadBalancer**](NetworkLoadBalancer.md)
+[**NetworkLoadBalancer**](../models/NetworkLoadBalancer.md)
 
 ### HTTP request headers
 
@@ -1371,14 +1371,14 @@ Other parameters are passed through a pointer to an apiDatacentersNetworkloadbal
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **networkLoadBalancer** | [**NetworkLoadBalancer**](NetworkLoadBalancer.md) | The Network Load Balancer to create. | |
+| **networkLoadBalancer** | [**NetworkLoadBalancer**](../models/NetworkLoadBalancer.md) | The Network Load Balancer to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**NetworkLoadBalancer**](NetworkLoadBalancer.md)
+[**NetworkLoadBalancer**](../models/NetworkLoadBalancer.md)
 
 ### HTTP request headers
 
@@ -1452,14 +1452,14 @@ Other parameters are passed through a pointer to an apiDatacentersNetworkloadbal
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **networkLoadBalancer** | [**NetworkLoadBalancerPut**](NetworkLoadBalancerPut.md) | The modified Network Load Balancer. | |
+| **networkLoadBalancer** | [**NetworkLoadBalancerPut**](../models/NetworkLoadBalancerPut.md) | The modified Network Load Balancer. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**NetworkLoadBalancer**](NetworkLoadBalancer.md)
+[**NetworkLoadBalancer**](../models/NetworkLoadBalancer.md)
 
 ### HTTP request headers
 

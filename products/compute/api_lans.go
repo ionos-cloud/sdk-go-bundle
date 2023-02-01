@@ -105,6 +105,7 @@ func (a *LANsApiService) DatacentersLansDeleteExecute(r ApiDatacentersLansDelete
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -262,6 +263,7 @@ func (a *LANsApiService) DatacentersLansFindByIdExecute(r ApiDatacentersLansFind
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -350,9 +352,11 @@ func (a *LANsApiService) DatacentersLansFindByIdExecute(r ApiDatacentersLansFind
 }
 
 type ApiDatacentersLansGetRequest struct {
-	ctx        _context.Context
-	ApiService *LANsApiService
-	Params
+	ctx             _context.Context
+	ApiService      *LANsApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	datacenterId    string
 	pretty          *bool
 	depth           *int32
@@ -382,6 +386,25 @@ func (r ApiDatacentersLansGetRequest) Limit(limit int32) ApiDatacentersLansGetRe
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiDatacentersLansGetRequest) Filter(key string, value string) ApiDatacentersLansGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiDatacentersLansGetRequest) OrderBy(orderBy string) ApiDatacentersLansGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiDatacentersLansGetRequest) MaxResults(maxResults int32) ApiDatacentersLansGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiDatacentersLansGetRequest) Execute() (Lans, *common.APIResponse, error) {
 	return r.ApiService.DatacentersLansGetExecute(r)
 }
@@ -398,6 +421,7 @@ func (a *LANsApiService) DatacentersLansGet(ctx _context.Context, datacenterId s
 		ApiService:   a,
 		ctx:          ctx,
 		datacenterId: datacenterId,
+		filters:      _neturl.Values{},
 	}
 }
 
@@ -441,6 +465,20 @@ func (a *LANsApiService) DatacentersLansGetExecute(r ApiDatacentersLansGetReques
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -611,6 +649,7 @@ func (a *LANsApiService) DatacentersLansNicsFindByIdExecute(r ApiDatacentersLans
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -699,9 +738,11 @@ func (a *LANsApiService) DatacentersLansNicsFindByIdExecute(r ApiDatacentersLans
 }
 
 type ApiDatacentersLansNicsGetRequest struct {
-	ctx        _context.Context
-	ApiService *LANsApiService
-	Params
+	ctx             _context.Context
+	ApiService      *LANsApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	datacenterId    string
 	lanId           string
 	pretty          *bool
@@ -732,6 +773,25 @@ func (r ApiDatacentersLansNicsGetRequest) Limit(limit int32) ApiDatacentersLansN
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiDatacentersLansNicsGetRequest) Filter(key string, value string) ApiDatacentersLansNicsGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiDatacentersLansNicsGetRequest) OrderBy(orderBy string) ApiDatacentersLansNicsGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiDatacentersLansNicsGetRequest) MaxResults(maxResults int32) ApiDatacentersLansNicsGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiDatacentersLansNicsGetRequest) Execute() (LanNics, *common.APIResponse, error) {
 	return r.ApiService.DatacentersLansNicsGetExecute(r)
 }
@@ -750,6 +810,7 @@ func (a *LANsApiService) DatacentersLansNicsGet(ctx _context.Context, datacenter
 		ctx:          ctx,
 		datacenterId: datacenterId,
 		lanId:        lanId,
+		filters:      _neturl.Values{},
 	}
 }
 
@@ -794,6 +855,20 @@ func (a *LANsApiService) DatacentersLansNicsGetExecute(r ApiDatacentersLansNicsG
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -968,6 +1043,7 @@ func (a *LANsApiService) DatacentersLansNicsPostExecute(r ApiDatacentersLansNics
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -1144,6 +1220,7 @@ func (a *LANsApiService) DatacentersLansPatchExecute(r ApiDatacentersLansPatchRe
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -1316,6 +1393,7 @@ func (a *LANsApiService) DatacentersLansPostExecute(r ApiDatacentersLansPostRequ
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -1492,6 +1570,7 @@ func (a *LANsApiService) DatacentersLansPutExecute(r ApiDatacentersLansPutReques
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 

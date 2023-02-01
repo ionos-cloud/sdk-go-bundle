@@ -108,6 +108,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsDeleteExecute(r ApiDa
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -265,6 +266,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsFindByIdExecute(r Api
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -350,9 +352,11 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsFindByIdExecute(r Api
 }
 
 type ApiDatacentersServersNicsFlowlogsGetRequest struct {
-	ctx        _context.Context
-	ApiService *FlowLogsApiService
-	Params
+	ctx          _context.Context
+	ApiService   *FlowLogsApiService
+	filters      _neturl.Values
+	orderBy      *string
+	maxResults   *int32
 	datacenterId string
 	serverId     string
 	nicId        string
@@ -379,6 +383,25 @@ func (r ApiDatacentersServersNicsFlowlogsGetRequest) Limit(limit int32) ApiDatac
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiDatacentersServersNicsFlowlogsGetRequest) Filter(key string, value string) ApiDatacentersServersNicsFlowlogsGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiDatacentersServersNicsFlowlogsGetRequest) OrderBy(orderBy string) ApiDatacentersServersNicsFlowlogsGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiDatacentersServersNicsFlowlogsGetRequest) MaxResults(maxResults int32) ApiDatacentersServersNicsFlowlogsGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiDatacentersServersNicsFlowlogsGetRequest) Execute() (FlowLogs, *common.APIResponse, error) {
 	return r.ApiService.DatacentersServersNicsFlowlogsGetExecute(r)
 }
@@ -399,6 +422,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsGet(ctx _context.Cont
 		datacenterId: datacenterId,
 		serverId:     serverId,
 		nicId:        nicId,
+		filters:      _neturl.Values{},
 	}
 }
 
@@ -444,6 +468,20 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsGetExecute(r ApiDatac
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -618,6 +656,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPatchExecute(r ApiDat
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -790,6 +829,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPostExecute(r ApiData
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -966,6 +1006,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPutExecute(r ApiDatac
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 

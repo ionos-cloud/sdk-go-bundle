@@ -101,6 +101,7 @@ func (a *TargetGroupsApiService) TargetGroupsDeleteExecute(r ApiTargetGroupsDele
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -254,6 +255,7 @@ func (a *TargetGroupsApiService) TargetgroupsFindByTargetGroupIdExecute(r ApiTar
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -342,9 +344,11 @@ func (a *TargetGroupsApiService) TargetgroupsFindByTargetGroupIdExecute(r ApiTar
 }
 
 type ApiTargetgroupsGetRequest struct {
-	ctx        _context.Context
-	ApiService *TargetGroupsApiService
-	Params
+	ctx             _context.Context
+	ApiService      *TargetGroupsApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	pretty          *bool
 	depth           *int32
 	xContractNumber *int32
@@ -373,6 +377,25 @@ func (r ApiTargetgroupsGetRequest) Limit(limit int32) ApiTargetgroupsGetRequest 
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiTargetgroupsGetRequest) Filter(key string, value string) ApiTargetgroupsGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiTargetgroupsGetRequest) OrderBy(orderBy string) ApiTargetgroupsGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiTargetgroupsGetRequest) MaxResults(maxResults int32) ApiTargetgroupsGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiTargetgroupsGetRequest) Execute() (TargetGroups, *common.APIResponse, error) {
 	return r.ApiService.TargetgroupsGetExecute(r)
 }
@@ -387,6 +410,7 @@ func (a *TargetGroupsApiService) TargetgroupsGet(ctx _context.Context) ApiTarget
 	return ApiTargetgroupsGetRequest{
 		ApiService: a,
 		ctx:        ctx,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -429,6 +453,20 @@ func (a *TargetGroupsApiService) TargetgroupsGetExecute(r ApiTargetgroupsGetRequ
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -599,6 +637,7 @@ func (a *TargetGroupsApiService) TargetgroupsPatchExecute(r ApiTargetgroupsPatch
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -767,6 +806,7 @@ func (a *TargetGroupsApiService) TargetgroupsPostExecute(r ApiTargetgroupsPostRe
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -939,6 +979,7 @@ func (a *TargetGroupsApiService) TargetgroupsPutExecute(r ApiTargetgroupsPutRequ
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 

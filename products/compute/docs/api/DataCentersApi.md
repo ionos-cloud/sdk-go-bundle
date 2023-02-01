@@ -154,7 +154,7 @@ Other parameters are passed through a pointer to an apiDatacentersFindByIdReques
 
 ### Return type
 
-[**Datacenter**](Datacenter.md)
+[**Datacenter**](../models/Datacenter.md)
 
 ### HTTP request headers
 
@@ -231,7 +231,7 @@ Other parameters are passed through a pointer to an apiDatacentersGetRequest str
 
 ### Return type
 
-[**Datacenters**](Datacenters.md)
+[**Datacenters**](../models/Datacenters.md)
 
 ### HTTP request headers
 
@@ -303,14 +303,14 @@ Other parameters are passed through a pointer to an apiDatacentersPatchRequest s
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **datacenter** | [**DatacenterProperties**](DatacenterProperties.md) | The properties of the data center to be updated. | |
+| **datacenter** | [**DatacenterProperties**](../models/DatacenterProperties.md) | The properties of the data center to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Datacenter**](Datacenter.md)
+[**Datacenter**](../models/Datacenter.md)
 
 ### HTTP request headers
 
@@ -377,14 +377,14 @@ Other parameters are passed through a pointer to an apiDatacentersPostRequest st
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **datacenter** | [**Datacenter**](Datacenter.md) | The data center to create. | |
+| **datacenter** | [**Datacenter**](../models/Datacenter.md) | The data center to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Datacenter**](Datacenter.md)
+[**Datacenter**](../models/Datacenter.md)
 
 ### HTTP request headers
 
@@ -456,14 +456,14 @@ Other parameters are passed through a pointer to an apiDatacentersPutRequest str
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **datacenter** | [**Datacenter**](Datacenter.md) | The modified data center. | |
+| **datacenter** | [**Datacenter**](../models/Datacenter.md) | The modified data center. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Datacenter**](Datacenter.md)
+[**Datacenter**](../models/Datacenter.md)
 
 ### HTTP request headers
 

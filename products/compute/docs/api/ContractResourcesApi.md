@@ -70,7 +70,7 @@ Other parameters are passed through a pointer to an apiContractsGetRequest struc
 
 ### Return type
 
-[**Contracts**](Contracts.md)
+[**Contracts**](../models/Contracts.md)
 
 ### HTTP request headers
 

@@ -70,7 +70,7 @@ Other parameters are passed through a pointer to an apiTemplatesFindByIdRequest 
 
 ### Return type
 
-[**Template**](Template.md)
+[**Template**](../models/Template.md)
 
 ### HTTP request headers
 
@@ -135,7 +135,7 @@ Other parameters are passed through a pointer to an apiTemplatesGetRequest struc
 
 ### Return type
 
-[**Templates**](Templates.md)
+[**Templates**](../models/Templates.md)
 
 ### HTTP request headers
 

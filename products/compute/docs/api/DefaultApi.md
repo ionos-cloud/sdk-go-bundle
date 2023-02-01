@@ -70,7 +70,7 @@ Other parameters are passed through a pointer to an apiApiInfoGetRequest struct 
 
 ### Return type
 
-[**Info**](Info.md)
+[**Info**](../models/Info.md)
 
 ### HTTP request headers
 

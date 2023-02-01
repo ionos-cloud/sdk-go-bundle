@@ -77,7 +77,7 @@ Other parameters are passed through a pointer to an apiRequestsFindByIdRequest s
 
 ### Return type
 
-[**Request**](Request.md)
+[**Request**](../models/Request.md)
 
 ### HTTP request headers
 
@@ -187,7 +187,7 @@ Other parameters are passed through a pointer to an apiRequestsGetRequest struct
 
 ### Return type
 
-[**Requests**](Requests.md)
+[**Requests**](../models/Requests.md)
 
 ### HTTP request headers
 
@@ -263,7 +263,7 @@ Other parameters are passed through a pointer to an apiRequestsStatusGetRequest 
 
 ### Return type
 
-[**RequestStatus**](RequestStatus.md)
+[**RequestStatus**](../models/RequestStatus.md)
 
 ### HTTP request headers
 

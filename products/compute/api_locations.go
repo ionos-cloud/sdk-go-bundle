@@ -103,6 +103,7 @@ func (a *LocationsApiService) LocationsFindByRegionIdExecute(r ApiLocationsFindB
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -269,6 +270,7 @@ func (a *LocationsApiService) LocationsFindByRegionIdAndIdExecute(r ApiLocations
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -357,9 +359,11 @@ func (a *LocationsApiService) LocationsFindByRegionIdAndIdExecute(r ApiLocations
 }
 
 type ApiLocationsGetRequest struct {
-	ctx        _context.Context
-	ApiService *LocationsApiService
-	Params
+	ctx             _context.Context
+	ApiService      *LocationsApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	pretty          *bool
 	depth           *int32
 	xContractNumber *int32
@@ -378,6 +382,25 @@ func (r ApiLocationsGetRequest) XContractNumber(xContractNumber int32) ApiLocati
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiLocationsGetRequest) Filter(key string, value string) ApiLocationsGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiLocationsGetRequest) OrderBy(orderBy string) ApiLocationsGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiLocationsGetRequest) MaxResults(maxResults int32) ApiLocationsGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiLocationsGetRequest) Execute() (Locations, *common.APIResponse, error) {
 	return r.ApiService.LocationsGetExecute(r)
 }
@@ -392,6 +415,7 @@ func (a *LocationsApiService) LocationsGet(ctx _context.Context) ApiLocationsGet
 	return ApiLocationsGetRequest{
 		ApiService: a,
 		ctx:        ctx,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -428,6 +452,20 @@ func (a *LocationsApiService) LocationsGetExecute(r ApiLocationsGetRequest) (Loc
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

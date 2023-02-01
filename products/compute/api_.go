@@ -28,9 +28,11 @@ var (
 type DefaultApiService service
 
 type ApiApiInfoGetRequest struct {
-	ctx        _context.Context
-	ApiService *DefaultApiService
-	Params
+	ctx             _context.Context
+	ApiService      *DefaultApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	pretty          *bool
 	depth           *int32
 	xContractNumber *int32
@@ -49,6 +51,25 @@ func (r ApiApiInfoGetRequest) XContractNumber(xContractNumber int32) ApiApiInfoG
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiApiInfoGetRequest) Filter(key string, value string) ApiApiInfoGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiApiInfoGetRequest) OrderBy(orderBy string) ApiApiInfoGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiApiInfoGetRequest) MaxResults(maxResults int32) ApiApiInfoGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiApiInfoGetRequest) Execute() (Info, *common.APIResponse, error) {
 	return r.ApiService.ApiInfoGetExecute(r)
 }
@@ -63,6 +84,7 @@ func (a *DefaultApiService) ApiInfoGet(ctx _context.Context) ApiApiInfoGetReques
 	return ApiApiInfoGetRequest{
 		ApiService: a,
 		ctx:        ctx,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -99,6 +121,20 @@ func (a *DefaultApiService) ApiInfoGetExecute(r ApiApiInfoGetRequest) (Info, *co
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

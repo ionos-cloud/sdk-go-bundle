@@ -101,6 +101,7 @@ func (a *UserManagementApiService) UmGroupsDeleteExecute(r ApiUmGroupsDeleteRequ
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -254,6 +255,7 @@ func (a *UserManagementApiService) UmGroupsFindByIdExecute(r ApiUmGroupsFindById
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -342,9 +344,11 @@ func (a *UserManagementApiService) UmGroupsFindByIdExecute(r ApiUmGroupsFindById
 }
 
 type ApiUmGroupsGetRequest struct {
-	ctx        _context.Context
-	ApiService *UserManagementApiService
-	Params
+	ctx             _context.Context
+	ApiService      *UserManagementApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	pretty          *bool
 	depth           *int32
 	xContractNumber *int32
@@ -363,6 +367,25 @@ func (r ApiUmGroupsGetRequest) XContractNumber(xContractNumber int32) ApiUmGroup
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiUmGroupsGetRequest) Filter(key string, value string) ApiUmGroupsGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiUmGroupsGetRequest) OrderBy(orderBy string) ApiUmGroupsGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiUmGroupsGetRequest) MaxResults(maxResults int32) ApiUmGroupsGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiUmGroupsGetRequest) Execute() (Groups, *common.APIResponse, error) {
 	return r.ApiService.UmGroupsGetExecute(r)
 }
@@ -377,6 +400,7 @@ func (a *UserManagementApiService) UmGroupsGet(ctx _context.Context) ApiUmGroups
 	return ApiUmGroupsGetRequest{
 		ApiService: a,
 		ctx:        ctx,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -413,6 +437,20 @@ func (a *UserManagementApiService) UmGroupsGetExecute(r ApiUmGroupsGetRequest) (
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -579,6 +617,7 @@ func (a *UserManagementApiService) UmGroupsPostExecute(r ApiUmGroupsPostRequest)
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -751,6 +790,7 @@ func (a *UserManagementApiService) UmGroupsPutExecute(r ApiUmGroupsPutRequest) (
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -841,9 +881,11 @@ func (a *UserManagementApiService) UmGroupsPutExecute(r ApiUmGroupsPutRequest) (
 }
 
 type ApiUmGroupsResourcesGetRequest struct {
-	ctx        _context.Context
-	ApiService *UserManagementApiService
-	Params
+	ctx             _context.Context
+	ApiService      *UserManagementApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	groupId         string
 	pretty          *bool
 	depth           *int32
@@ -863,6 +905,25 @@ func (r ApiUmGroupsResourcesGetRequest) XContractNumber(xContractNumber int32) A
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiUmGroupsResourcesGetRequest) Filter(key string, value string) ApiUmGroupsResourcesGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiUmGroupsResourcesGetRequest) OrderBy(orderBy string) ApiUmGroupsResourcesGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiUmGroupsResourcesGetRequest) MaxResults(maxResults int32) ApiUmGroupsResourcesGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiUmGroupsResourcesGetRequest) Execute() (ResourceGroups, *common.APIResponse, error) {
 	return r.ApiService.UmGroupsResourcesGetExecute(r)
 }
@@ -879,6 +940,7 @@ func (a *UserManagementApiService) UmGroupsResourcesGet(ctx _context.Context, gr
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -916,6 +978,20 @@ func (a *UserManagementApiService) UmGroupsResourcesGetExecute(r ApiUmGroupsReso
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1080,6 +1156,7 @@ func (a *UserManagementApiService) UmGroupsSharesDeleteExecute(r ApiUmGroupsShar
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1237,6 +1314,7 @@ func (a *UserManagementApiService) UmGroupsSharesFindByResourceIdExecute(r ApiUm
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1325,9 +1403,11 @@ func (a *UserManagementApiService) UmGroupsSharesFindByResourceIdExecute(r ApiUm
 }
 
 type ApiUmGroupsSharesGetRequest struct {
-	ctx        _context.Context
-	ApiService *UserManagementApiService
-	Params
+	ctx             _context.Context
+	ApiService      *UserManagementApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	groupId         string
 	pretty          *bool
 	depth           *int32
@@ -1347,6 +1427,25 @@ func (r ApiUmGroupsSharesGetRequest) XContractNumber(xContractNumber int32) ApiU
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiUmGroupsSharesGetRequest) Filter(key string, value string) ApiUmGroupsSharesGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiUmGroupsSharesGetRequest) OrderBy(orderBy string) ApiUmGroupsSharesGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiUmGroupsSharesGetRequest) MaxResults(maxResults int32) ApiUmGroupsSharesGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiUmGroupsSharesGetRequest) Execute() (GroupShares, *common.APIResponse, error) {
 	return r.ApiService.UmGroupsSharesGetExecute(r)
 }
@@ -1363,6 +1462,7 @@ func (a *UserManagementApiService) UmGroupsSharesGet(ctx _context.Context, group
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -1400,6 +1500,20 @@ func (a *UserManagementApiService) UmGroupsSharesGetExecute(r ApiUmGroupsSharesG
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1574,6 +1688,7 @@ func (a *UserManagementApiService) UmGroupsSharesPostExecute(r ApiUmGroupsShares
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1750,6 +1865,7 @@ func (a *UserManagementApiService) UmGroupsSharesPutExecute(r ApiUmGroupsSharesP
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -1916,6 +2032,7 @@ func (a *UserManagementApiService) UmGroupsUsersDeleteExecute(r ApiUmGroupsUsers
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1995,9 +2112,11 @@ func (a *UserManagementApiService) UmGroupsUsersDeleteExecute(r ApiUmGroupsUsers
 }
 
 type ApiUmGroupsUsersGetRequest struct {
-	ctx        _context.Context
-	ApiService *UserManagementApiService
-	Params
+	ctx             _context.Context
+	ApiService      *UserManagementApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	groupId         string
 	pretty          *bool
 	depth           *int32
@@ -2017,6 +2136,25 @@ func (r ApiUmGroupsUsersGetRequest) XContractNumber(xContractNumber int32) ApiUm
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiUmGroupsUsersGetRequest) Filter(key string, value string) ApiUmGroupsUsersGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiUmGroupsUsersGetRequest) OrderBy(orderBy string) ApiUmGroupsUsersGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiUmGroupsUsersGetRequest) MaxResults(maxResults int32) ApiUmGroupsUsersGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiUmGroupsUsersGetRequest) Execute() (GroupMembers, *common.APIResponse, error) {
 	return r.ApiService.UmGroupsUsersGetExecute(r)
 }
@@ -2033,6 +2171,7 @@ func (a *UserManagementApiService) UmGroupsUsersGet(ctx _context.Context, groupI
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -2070,6 +2209,20 @@ func (a *UserManagementApiService) UmGroupsUsersGetExecute(r ApiUmGroupsUsersGet
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -2240,6 +2393,7 @@ func (a *UserManagementApiService) UmGroupsUsersPostExecute(r ApiUmGroupsUsersPo
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -2408,6 +2562,7 @@ func (a *UserManagementApiService) UmResourcesFindByTypeExecute(r ApiUmResources
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -2578,6 +2733,7 @@ func (a *UserManagementApiService) UmResourcesFindByTypeAndIdExecute(r ApiUmReso
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -2666,9 +2822,11 @@ func (a *UserManagementApiService) UmResourcesFindByTypeAndIdExecute(r ApiUmReso
 }
 
 type ApiUmResourcesGetRequest struct {
-	ctx        _context.Context
-	ApiService *UserManagementApiService
-	Params
+	ctx             _context.Context
+	ApiService      *UserManagementApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	pretty          *bool
 	depth           *int32
 	xContractNumber *int32
@@ -2687,6 +2845,25 @@ func (r ApiUmResourcesGetRequest) XContractNumber(xContractNumber int32) ApiUmRe
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiUmResourcesGetRequest) Filter(key string, value string) ApiUmResourcesGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiUmResourcesGetRequest) OrderBy(orderBy string) ApiUmResourcesGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiUmResourcesGetRequest) MaxResults(maxResults int32) ApiUmResourcesGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiUmResourcesGetRequest) Execute() (Resources, *common.APIResponse, error) {
 	return r.ApiService.UmResourcesGetExecute(r)
 }
@@ -2701,6 +2878,7 @@ func (a *UserManagementApiService) UmResourcesGet(ctx _context.Context) ApiUmRes
 	return ApiUmResourcesGetRequest{
 		ApiService: a,
 		ctx:        ctx,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -2737,6 +2915,20 @@ func (a *UserManagementApiService) UmResourcesGetExecute(r ApiUmResourcesGetRequ
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -2897,6 +3089,7 @@ func (a *UserManagementApiService) UmUsersDeleteExecute(r ApiUmUsersDeleteReques
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -3050,6 +3243,7 @@ func (a *UserManagementApiService) UmUsersFindByIdExecute(r ApiUmUsersFindByIdRe
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -3138,9 +3332,11 @@ func (a *UserManagementApiService) UmUsersFindByIdExecute(r ApiUmUsersFindByIdRe
 }
 
 type ApiUmUsersGetRequest struct {
-	ctx        _context.Context
-	ApiService *UserManagementApiService
-	Params
+	ctx             _context.Context
+	ApiService      *UserManagementApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	pretty          *bool
 	depth           *int32
 	xContractNumber *int32
@@ -3169,6 +3365,25 @@ func (r ApiUmUsersGetRequest) Limit(limit int32) ApiUmUsersGetRequest {
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiUmUsersGetRequest) Filter(key string, value string) ApiUmUsersGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiUmUsersGetRequest) OrderBy(orderBy string) ApiUmUsersGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiUmUsersGetRequest) MaxResults(maxResults int32) ApiUmUsersGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiUmUsersGetRequest) Execute() (Users, *common.APIResponse, error) {
 	return r.ApiService.UmUsersGetExecute(r)
 }
@@ -3183,6 +3398,7 @@ func (a *UserManagementApiService) UmUsersGet(ctx _context.Context) ApiUmUsersGe
 	return ApiUmUsersGetRequest{
 		ApiService: a,
 		ctx:        ctx,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -3225,6 +3441,20 @@ func (a *UserManagementApiService) UmUsersGetExecute(r ApiUmUsersGetRequest) (Us
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -3313,9 +3543,11 @@ func (a *UserManagementApiService) UmUsersGetExecute(r ApiUmUsersGetRequest) (Us
 }
 
 type ApiUmUsersGroupsGetRequest struct {
-	ctx        _context.Context
-	ApiService *UserManagementApiService
-	Params
+	ctx             _context.Context
+	ApiService      *UserManagementApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	userId          string
 	pretty          *bool
 	depth           *int32
@@ -3335,6 +3567,25 @@ func (r ApiUmUsersGroupsGetRequest) XContractNumber(xContractNumber int32) ApiUm
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiUmUsersGroupsGetRequest) Filter(key string, value string) ApiUmUsersGroupsGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiUmUsersGroupsGetRequest) OrderBy(orderBy string) ApiUmUsersGroupsGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiUmUsersGroupsGetRequest) MaxResults(maxResults int32) ApiUmUsersGroupsGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiUmUsersGroupsGetRequest) Execute() (ResourceGroups, *common.APIResponse, error) {
 	return r.ApiService.UmUsersGroupsGetExecute(r)
 }
@@ -3351,6 +3602,7 @@ func (a *UserManagementApiService) UmUsersGroupsGet(ctx _context.Context, userId
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -3388,6 +3640,20 @@ func (a *UserManagementApiService) UmUsersGroupsGetExecute(r ApiUmUsersGroupsGet
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -3476,9 +3742,11 @@ func (a *UserManagementApiService) UmUsersGroupsGetExecute(r ApiUmUsersGroupsGet
 }
 
 type ApiUmUsersOwnsGetRequest struct {
-	ctx        _context.Context
-	ApiService *UserManagementApiService
-	Params
+	ctx             _context.Context
+	ApiService      *UserManagementApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	userId          string
 	pretty          *bool
 	depth           *int32
@@ -3498,6 +3766,25 @@ func (r ApiUmUsersOwnsGetRequest) XContractNumber(xContractNumber int32) ApiUmUs
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiUmUsersOwnsGetRequest) Filter(key string, value string) ApiUmUsersOwnsGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiUmUsersOwnsGetRequest) OrderBy(orderBy string) ApiUmUsersOwnsGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiUmUsersOwnsGetRequest) MaxResults(maxResults int32) ApiUmUsersOwnsGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiUmUsersOwnsGetRequest) Execute() (ResourcesUsers, *common.APIResponse, error) {
 	return r.ApiService.UmUsersOwnsGetExecute(r)
 }
@@ -3514,6 +3801,7 @@ func (a *UserManagementApiService) UmUsersOwnsGet(ctx _context.Context, userId s
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -3551,6 +3839,20 @@ func (a *UserManagementApiService) UmUsersOwnsGetExecute(r ApiUmUsersOwnsGetRequ
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -3717,6 +4019,7 @@ func (a *UserManagementApiService) UmUsersPostExecute(r ApiUmUsersPostRequest) (
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -3889,6 +4192,7 @@ func (a *UserManagementApiService) UmUsersPutExecute(r ApiUmUsersPutRequest) (Us
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 

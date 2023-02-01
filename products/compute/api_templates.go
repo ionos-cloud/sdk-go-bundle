@@ -92,6 +92,7 @@ func (a *TemplatesApiService) TemplatesFindByIdExecute(r ApiTemplatesFindByIdReq
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -179,12 +180,33 @@ func (a *TemplatesApiService) TemplatesFindByIdExecute(r ApiTemplatesFindByIdReq
 type ApiTemplatesGetRequest struct {
 	ctx        _context.Context
 	ApiService *TemplatesApiService
-	Params
-	depth *int32
+	filters    _neturl.Values
+	orderBy    *string
+	maxResults *int32
+	depth      *int32
 }
 
 func (r ApiTemplatesGetRequest) Depth(depth int32) ApiTemplatesGetRequest {
 	r.depth = &depth
+	return r
+}
+
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiTemplatesGetRequest) Filter(key string, value string) ApiTemplatesGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiTemplatesGetRequest) OrderBy(orderBy string) ApiTemplatesGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiTemplatesGetRequest) MaxResults(maxResults int32) ApiTemplatesGetRequest {
+	r.maxResults = &maxResults
 	return r
 }
 
@@ -204,6 +226,7 @@ func (a *TemplatesApiService) TemplatesGet(ctx _context.Context) ApiTemplatesGet
 	return ApiTemplatesGetRequest{
 		ApiService: a,
 		ctx:        ctx,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -237,6 +260,20 @@ func (a *TemplatesApiService) TemplatesGetExecute(r ApiTemplatesGetRequest) (Tem
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

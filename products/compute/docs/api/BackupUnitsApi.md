@@ -155,7 +155,7 @@ Other parameters are passed through a pointer to an apiBackupunitsFindByIdReques
 
 ### Return type
 
-[**BackupUnit**](BackupUnit.md)
+[**BackupUnit**](../models/BackupUnit.md)
 
 ### HTTP request headers
 
@@ -226,7 +226,7 @@ Other parameters are passed through a pointer to an apiBackupunitsGetRequest str
 
 ### Return type
 
-[**BackupUnits**](BackupUnits.md)
+[**BackupUnits**](../models/BackupUnits.md)
 
 ### HTTP request headers
 
@@ -298,14 +298,14 @@ Other parameters are passed through a pointer to an apiBackupunitsPatchRequest s
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **backupUnit** | [**BackupUnitProperties**](BackupUnitProperties.md) | The properties of the backup unit to be updated. | |
+| **backupUnit** | [**BackupUnitProperties**](../models/BackupUnitProperties.md) | The properties of the backup unit to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**BackupUnit**](BackupUnit.md)
+[**BackupUnit**](../models/BackupUnit.md)
 
 ### HTTP request headers
 
@@ -372,14 +372,14 @@ Other parameters are passed through a pointer to an apiBackupunitsPostRequest st
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **backupUnit** | [**BackupUnit**](BackupUnit.md) | The backup unit to create. | |
+| **backupUnit** | [**BackupUnit**](../models/BackupUnit.md) | The backup unit to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**BackupUnit**](BackupUnit.md)
+[**BackupUnit**](../models/BackupUnit.md)
 
 ### HTTP request headers
 
@@ -451,14 +451,14 @@ Other parameters are passed through a pointer to an apiBackupunitsPutRequest str
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **backupUnit** | [**BackupUnit**](BackupUnit.md) | The modified backup unit. | |
+| **backupUnit** | [**BackupUnit**](../models/BackupUnit.md) | The modified backup unit. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**BackupUnit**](BackupUnit.md)
+[**BackupUnit**](../models/BackupUnit.md)
 
 ### HTTP request headers
 
@@ -531,7 +531,7 @@ Other parameters are passed through a pointer to an apiBackupunitsSsourlGetReque
 
 ### Return type
 
-[**BackupUnitSSO**](BackupUnitSSO.md)
+[**BackupUnitSSO**](../models/BackupUnitSSO.md)
 
 ### HTTP request headers
 

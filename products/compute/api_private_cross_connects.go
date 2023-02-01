@@ -101,6 +101,7 @@ func (a *PrivateCrossConnectsApiService) PccsDeleteExecute(r ApiPccsDeleteReques
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -254,6 +255,7 @@ func (a *PrivateCrossConnectsApiService) PccsFindByIdExecute(r ApiPccsFindByIdRe
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -342,9 +344,11 @@ func (a *PrivateCrossConnectsApiService) PccsFindByIdExecute(r ApiPccsFindByIdRe
 }
 
 type ApiPccsGetRequest struct {
-	ctx        _context.Context
-	ApiService *PrivateCrossConnectsApiService
-	Params
+	ctx             _context.Context
+	ApiService      *PrivateCrossConnectsApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	pretty          *bool
 	depth           *int32
 	xContractNumber *int32
@@ -363,6 +367,25 @@ func (r ApiPccsGetRequest) XContractNumber(xContractNumber int32) ApiPccsGetRequ
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiPccsGetRequest) Filter(key string, value string) ApiPccsGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiPccsGetRequest) OrderBy(orderBy string) ApiPccsGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiPccsGetRequest) MaxResults(maxResults int32) ApiPccsGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiPccsGetRequest) Execute() (PrivateCrossConnects, *common.APIResponse, error) {
 	return r.ApiService.PccsGetExecute(r)
 }
@@ -377,6 +400,7 @@ func (a *PrivateCrossConnectsApiService) PccsGet(ctx _context.Context) ApiPccsGe
 	return ApiPccsGetRequest{
 		ApiService: a,
 		ctx:        ctx,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -413,6 +437,20 @@ func (a *PrivateCrossConnectsApiService) PccsGetExecute(r ApiPccsGetRequest) (Pr
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -583,6 +621,7 @@ func (a *PrivateCrossConnectsApiService) PccsPatchExecute(r ApiPccsPatchRequest)
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -751,6 +790,7 @@ func (a *PrivateCrossConnectsApiService) PccsPostExecute(r ApiPccsPostRequest) (
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 

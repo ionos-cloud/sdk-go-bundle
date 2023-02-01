@@ -127,6 +127,7 @@ func (a *VolumesApiService) DatacentersVolumesCreateSnapshotPostExecute(r ApiDat
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
 
@@ -303,6 +304,7 @@ func (a *VolumesApiService) DatacentersVolumesDeleteExecute(r ApiDatacentersVolu
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -460,6 +462,7 @@ func (a *VolumesApiService) DatacentersVolumesFindByIdExecute(r ApiDatacentersVo
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -548,9 +551,11 @@ func (a *VolumesApiService) DatacentersVolumesFindByIdExecute(r ApiDatacentersVo
 }
 
 type ApiDatacentersVolumesGetRequest struct {
-	ctx        _context.Context
-	ApiService *VolumesApiService
-	Params
+	ctx             _context.Context
+	ApiService      *VolumesApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	datacenterId    string
 	pretty          *bool
 	depth           *int32
@@ -580,6 +585,25 @@ func (r ApiDatacentersVolumesGetRequest) Limit(limit int32) ApiDatacentersVolume
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiDatacentersVolumesGetRequest) Filter(key string, value string) ApiDatacentersVolumesGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiDatacentersVolumesGetRequest) OrderBy(orderBy string) ApiDatacentersVolumesGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiDatacentersVolumesGetRequest) MaxResults(maxResults int32) ApiDatacentersVolumesGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiDatacentersVolumesGetRequest) Execute() (Volumes, *common.APIResponse, error) {
 	return r.ApiService.DatacentersVolumesGetExecute(r)
 }
@@ -596,6 +620,7 @@ func (a *VolumesApiService) DatacentersVolumesGet(ctx _context.Context, datacent
 		ApiService:   a,
 		ctx:          ctx,
 		datacenterId: datacenterId,
+		filters:      _neturl.Values{},
 	}
 }
 
@@ -639,6 +664,20 @@ func (a *VolumesApiService) DatacentersVolumesGetExecute(r ApiDatacentersVolumes
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -813,6 +852,7 @@ func (a *VolumesApiService) DatacentersVolumesPatchExecute(r ApiDatacentersVolum
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -985,6 +1025,7 @@ func (a *VolumesApiService) DatacentersVolumesPostExecute(r ApiDatacentersVolume
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -1161,6 +1202,7 @@ func (a *VolumesApiService) DatacentersVolumesPutExecute(r ApiDatacentersVolumes
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -1332,6 +1374,7 @@ func (a *VolumesApiService) DatacentersVolumesRestoreSnapshotPostExecute(r ApiDa
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
 

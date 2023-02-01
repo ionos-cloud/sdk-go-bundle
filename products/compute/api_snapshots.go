@@ -101,6 +101,7 @@ func (a *SnapshotsApiService) SnapshotsDeleteExecute(r ApiSnapshotsDeleteRequest
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -254,6 +255,7 @@ func (a *SnapshotsApiService) SnapshotsFindByIdExecute(r ApiSnapshotsFindByIdReq
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -342,9 +344,11 @@ func (a *SnapshotsApiService) SnapshotsFindByIdExecute(r ApiSnapshotsFindByIdReq
 }
 
 type ApiSnapshotsGetRequest struct {
-	ctx        _context.Context
-	ApiService *SnapshotsApiService
-	Params
+	ctx             _context.Context
+	ApiService      *SnapshotsApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	pretty          *bool
 	depth           *int32
 	xContractNumber *int32
@@ -363,6 +367,25 @@ func (r ApiSnapshotsGetRequest) XContractNumber(xContractNumber int32) ApiSnapsh
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiSnapshotsGetRequest) Filter(key string, value string) ApiSnapshotsGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiSnapshotsGetRequest) OrderBy(orderBy string) ApiSnapshotsGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiSnapshotsGetRequest) MaxResults(maxResults int32) ApiSnapshotsGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiSnapshotsGetRequest) Execute() (Snapshots, *common.APIResponse, error) {
 	return r.ApiService.SnapshotsGetExecute(r)
 }
@@ -377,6 +400,7 @@ func (a *SnapshotsApiService) SnapshotsGet(ctx _context.Context) ApiSnapshotsGet
 	return ApiSnapshotsGetRequest{
 		ApiService: a,
 		ctx:        ctx,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -413,6 +437,20 @@ func (a *SnapshotsApiService) SnapshotsGetExecute(r ApiSnapshotsGetRequest) (Sna
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -583,6 +621,7 @@ func (a *SnapshotsApiService) SnapshotsPatchExecute(r ApiSnapshotsPatchRequest) 
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -755,6 +794,7 @@ func (a *SnapshotsApiService) SnapshotsPutExecute(r ApiSnapshotsPutRequest) (Sna
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 

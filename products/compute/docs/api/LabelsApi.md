@@ -179,7 +179,7 @@ Other parameters are passed through a pointer to an apiDatacentersLabelsFindByKe
 
 ### Return type
 
-[**LabelResource**](LabelResource.md)
+[**LabelResource**](../models/LabelResource.md)
 
 ### HTTP request headers
 
@@ -255,7 +255,7 @@ Other parameters are passed through a pointer to an apiDatacentersLabelsGetReque
 
 ### Return type
 
-[**LabelResources**](LabelResources.md)
+[**LabelResources**](../models/LabelResources.md)
 
 ### HTTP request headers
 
@@ -327,14 +327,14 @@ Other parameters are passed through a pointer to an apiDatacentersLabelsPostRequ
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **label** | [**LabelResource**](LabelResource.md) | The label to create. | |
+| **label** | [**LabelResource**](../models/LabelResource.md) | The label to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**LabelResource**](LabelResource.md)
+[**LabelResource**](../models/LabelResource.md)
 
 ### HTTP request headers
 
@@ -408,14 +408,14 @@ Other parameters are passed through a pointer to an apiDatacentersLabelsPutReque
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **label** | [**LabelResource**](LabelResource.md) | The modified label | |
+| **label** | [**LabelResource**](../models/LabelResource.md) | The modified label | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**LabelResource**](LabelResource.md)
+[**LabelResource**](../models/LabelResource.md)
 
 ### HTTP request headers
 
@@ -573,7 +573,7 @@ Other parameters are passed through a pointer to an apiDatacentersServersLabelsF
 
 ### Return type
 
-[**LabelResource**](LabelResource.md)
+[**LabelResource**](../models/LabelResource.md)
 
 ### HTTP request headers
 
@@ -651,7 +651,7 @@ Other parameters are passed through a pointer to an apiDatacentersServersLabelsG
 
 ### Return type
 
-[**LabelResources**](LabelResources.md)
+[**LabelResources**](../models/LabelResources.md)
 
 ### HTTP request headers
 
@@ -725,14 +725,14 @@ Other parameters are passed through a pointer to an apiDatacentersServersLabelsP
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **label** | [**LabelResource**](LabelResource.md) | The label to create. | |
+| **label** | [**LabelResource**](../models/LabelResource.md) | The label to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**LabelResource**](LabelResource.md)
+[**LabelResource**](../models/LabelResource.md)
 
 ### HTTP request headers
 
@@ -808,14 +808,14 @@ Other parameters are passed through a pointer to an apiDatacentersServersLabelsP
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **label** | [**LabelResource**](LabelResource.md) | The modified label | |
+| **label** | [**LabelResource**](../models/LabelResource.md) | The modified label | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**LabelResource**](LabelResource.md)
+[**LabelResource**](../models/LabelResource.md)
 
 ### HTTP request headers
 
@@ -973,7 +973,7 @@ Other parameters are passed through a pointer to an apiDatacentersVolumesLabelsF
 
 ### Return type
 
-[**LabelResource**](LabelResource.md)
+[**LabelResource**](../models/LabelResource.md)
 
 ### HTTP request headers
 
@@ -1051,7 +1051,7 @@ Other parameters are passed through a pointer to an apiDatacentersVolumesLabelsG
 
 ### Return type
 
-[**LabelResources**](LabelResources.md)
+[**LabelResources**](../models/LabelResources.md)
 
 ### HTTP request headers
 
@@ -1125,14 +1125,14 @@ Other parameters are passed through a pointer to an apiDatacentersVolumesLabelsP
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **label** | [**LabelResource**](LabelResource.md) | The label to create. | |
+| **label** | [**LabelResource**](../models/LabelResource.md) | The label to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**LabelResource**](LabelResource.md)
+[**LabelResource**](../models/LabelResource.md)
 
 ### HTTP request headers
 
@@ -1208,14 +1208,14 @@ Other parameters are passed through a pointer to an apiDatacentersVolumesLabelsP
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **label** | [**LabelResource**](LabelResource.md) | The modified label | |
+| **label** | [**LabelResource**](../models/LabelResource.md) | The modified label | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**LabelResource**](LabelResource.md)
+[**LabelResource**](../models/LabelResource.md)
 
 ### HTTP request headers
 
@@ -1369,7 +1369,7 @@ Other parameters are passed through a pointer to an apiIpblocksLabelsFindByKeyRe
 
 ### Return type
 
-[**LabelResource**](LabelResource.md)
+[**LabelResource**](../models/LabelResource.md)
 
 ### HTTP request headers
 
@@ -1445,7 +1445,7 @@ Other parameters are passed through a pointer to an apiIpblocksLabelsGetRequest 
 
 ### Return type
 
-[**LabelResources**](LabelResources.md)
+[**LabelResources**](../models/LabelResources.md)
 
 ### HTTP request headers
 
@@ -1517,14 +1517,14 @@ Other parameters are passed through a pointer to an apiIpblocksLabelsPostRequest
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **label** | [**LabelResource**](LabelResource.md) | The label to create. | |
+| **label** | [**LabelResource**](../models/LabelResource.md) | The label to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**LabelResource**](LabelResource.md)
+[**LabelResource**](../models/LabelResource.md)
 
 ### HTTP request headers
 
@@ -1598,14 +1598,14 @@ Other parameters are passed through a pointer to an apiIpblocksLabelsPutRequest 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **label** | [**LabelResource**](LabelResource.md) | The modified label | |
+| **label** | [**LabelResource**](../models/LabelResource.md) | The modified label | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**LabelResource**](LabelResource.md)
+[**LabelResource**](../models/LabelResource.md)
 
 ### HTTP request headers
 
@@ -1681,7 +1681,7 @@ Other parameters are passed through a pointer to an apiLabelsFindByUrnRequest st
 
 ### Return type
 
-[**Label**](Label.md)
+[**Label**](../models/Label.md)
 
 ### HTTP request headers
 
@@ -1752,7 +1752,7 @@ Other parameters are passed through a pointer to an apiLabelsGetRequest struct v
 
 ### Return type
 
-[**Labels**](Labels.md)
+[**Labels**](../models/Labels.md)
 
 ### HTTP request headers
 
@@ -1906,7 +1906,7 @@ Other parameters are passed through a pointer to an apiSnapshotsLabelsFindByKeyR
 
 ### Return type
 
-[**LabelResource**](LabelResource.md)
+[**LabelResource**](../models/LabelResource.md)
 
 ### HTTP request headers
 
@@ -1982,7 +1982,7 @@ Other parameters are passed through a pointer to an apiSnapshotsLabelsGetRequest
 
 ### Return type
 
-[**LabelResources**](LabelResources.md)
+[**LabelResources**](../models/LabelResources.md)
 
 ### HTTP request headers
 
@@ -2054,14 +2054,14 @@ Other parameters are passed through a pointer to an apiSnapshotsLabelsPostReques
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **label** | [**LabelResource**](LabelResource.md) | The label to create. | |
+| **label** | [**LabelResource**](../models/LabelResource.md) | The label to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**LabelResource**](LabelResource.md)
+[**LabelResource**](../models/LabelResource.md)
 
 ### HTTP request headers
 
@@ -2135,14 +2135,14 @@ Other parameters are passed through a pointer to an apiSnapshotsLabelsPutRequest
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **label** | [**LabelResource**](LabelResource.md) | The modified label | |
+| **label** | [**LabelResource**](../models/LabelResource.md) | The modified label | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**LabelResource**](LabelResource.md)
+[**LabelResource**](../models/LabelResource.md)
 
 ### HTTP request headers
 

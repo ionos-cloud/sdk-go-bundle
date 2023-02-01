@@ -101,6 +101,7 @@ func (a *ImagesApiService) ImagesDeleteExecute(r ApiImagesDeleteRequest) (*commo
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -254,6 +255,7 @@ func (a *ImagesApiService) ImagesFindByIdExecute(r ApiImagesFindByIdRequest) (Im
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -342,9 +344,11 @@ func (a *ImagesApiService) ImagesFindByIdExecute(r ApiImagesFindByIdRequest) (Im
 }
 
 type ApiImagesGetRequest struct {
-	ctx        _context.Context
-	ApiService *ImagesApiService
-	Params
+	ctx             _context.Context
+	ApiService      *ImagesApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	pretty          *bool
 	depth           *int32
 	xContractNumber *int32
@@ -363,6 +367,25 @@ func (r ApiImagesGetRequest) XContractNumber(xContractNumber int32) ApiImagesGet
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiImagesGetRequest) Filter(key string, value string) ApiImagesGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiImagesGetRequest) OrderBy(orderBy string) ApiImagesGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiImagesGetRequest) MaxResults(maxResults int32) ApiImagesGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiImagesGetRequest) Execute() (Images, *common.APIResponse, error) {
 	return r.ApiService.ImagesGetExecute(r)
 }
@@ -377,6 +400,7 @@ func (a *ImagesApiService) ImagesGet(ctx _context.Context) ApiImagesGetRequest {
 	return ApiImagesGetRequest{
 		ApiService: a,
 		ctx:        ctx,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -413,6 +437,20 @@ func (a *ImagesApiService) ImagesGetExecute(r ApiImagesGetRequest) (Images, *com
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -583,6 +621,7 @@ func (a *ImagesApiService) ImagesPatchExecute(r ApiImagesPatchRequest) (Image, *
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -755,6 +794,7 @@ func (a *ImagesApiService) ImagesPutExecute(r ApiImagesPutRequest) (Image, *comm
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 

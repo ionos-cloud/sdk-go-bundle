@@ -170,7 +170,7 @@ Other parameters are passed through a pointer to an apiDatacentersApplicationloa
 
 ### Return type
 
-[**ApplicationLoadBalancer**](ApplicationLoadBalancer.md)
+[**ApplicationLoadBalancer**](../models/ApplicationLoadBalancer.md)
 
 ### HTTP request headers
 
@@ -328,7 +328,7 @@ Other parameters are passed through a pointer to an apiDatacentersApplicationloa
 
 ### Return type
 
-[**FlowLog**](FlowLog.md)
+[**FlowLog**](../models/FlowLog.md)
 
 ### HTTP request headers
 
@@ -406,7 +406,7 @@ Other parameters are passed through a pointer to an apiDatacentersApplicationloa
 
 ### Return type
 
-[**FlowLogs**](FlowLogs.md)
+[**FlowLogs**](../models/FlowLogs.md)
 
 ### HTTP request headers
 
@@ -482,14 +482,14 @@ Other parameters are passed through a pointer to an apiDatacentersApplicationloa
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **applicationLoadBalancerFlowLogProperties** | [**FlowLogProperties**](FlowLogProperties.md) | The properties of the ALB Flow Log to be updated. | |
+| **applicationLoadBalancerFlowLogProperties** | [**FlowLogProperties**](../models/FlowLogProperties.md) | The properties of the ALB Flow Log to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**FlowLog**](FlowLog.md)
+[**FlowLog**](../models/FlowLog.md)
 
 ### HTTP request headers
 
@@ -563,14 +563,14 @@ Other parameters are passed through a pointer to an apiDatacentersApplicationloa
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **applicationLoadBalancerFlowLog** | [**FlowLog**](FlowLog.md) | The Flow Log to create. | |
+| **applicationLoadBalancerFlowLog** | [**FlowLog**](../models/FlowLog.md) | The Flow Log to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**FlowLog**](FlowLog.md)
+[**FlowLog**](../models/FlowLog.md)
 
 ### HTTP request headers
 
@@ -646,14 +646,14 @@ Other parameters are passed through a pointer to an apiDatacentersApplicationloa
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **applicationLoadBalancerFlowLog** | [**FlowLogPut**](FlowLogPut.md) | The modified ALB Flow Log. | |
+| **applicationLoadBalancerFlowLog** | [**FlowLogPut**](../models/FlowLogPut.md) | The modified ALB Flow Log. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**FlowLog**](FlowLog.md)
+[**FlowLog**](../models/FlowLog.md)
 
 ### HTTP request headers
 
@@ -811,7 +811,7 @@ Other parameters are passed through a pointer to an apiDatacentersApplicationloa
 
 ### Return type
 
-[**ApplicationLoadBalancerForwardingRule**](ApplicationLoadBalancerForwardingRule.md)
+[**ApplicationLoadBalancerForwardingRule**](../models/ApplicationLoadBalancerForwardingRule.md)
 
 ### HTTP request headers
 
@@ -889,7 +889,7 @@ Other parameters are passed through a pointer to an apiDatacentersApplicationloa
 
 ### Return type
 
-[**ApplicationLoadBalancerForwardingRules**](ApplicationLoadBalancerForwardingRules.md)
+[**ApplicationLoadBalancerForwardingRules**](../models/ApplicationLoadBalancerForwardingRules.md)
 
 ### HTTP request headers
 
@@ -965,14 +965,14 @@ Other parameters are passed through a pointer to an apiDatacentersApplicationloa
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **applicationLoadBalancerForwardingRuleProperties** | [**ApplicationLoadBalancerForwardingRuleProperties**](ApplicationLoadBalancerForwardingRuleProperties.md) | The properties of the forwarding rule to be updated. | |
+| **applicationLoadBalancerForwardingRuleProperties** | [**ApplicationLoadBalancerForwardingRuleProperties**](../models/ApplicationLoadBalancerForwardingRuleProperties.md) | The properties of the forwarding rule to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**ApplicationLoadBalancerForwardingRule**](ApplicationLoadBalancerForwardingRule.md)
+[**ApplicationLoadBalancerForwardingRule**](../models/ApplicationLoadBalancerForwardingRule.md)
 
 ### HTTP request headers
 
@@ -1046,14 +1046,14 @@ Other parameters are passed through a pointer to an apiDatacentersApplicationloa
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **applicationLoadBalancerForwardingRule** | [**ApplicationLoadBalancerForwardingRule**](ApplicationLoadBalancerForwardingRule.md) | The forwarding rule to create. | |
+| **applicationLoadBalancerForwardingRule** | [**ApplicationLoadBalancerForwardingRule**](../models/ApplicationLoadBalancerForwardingRule.md) | The forwarding rule to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**ApplicationLoadBalancerForwardingRule**](ApplicationLoadBalancerForwardingRule.md)
+[**ApplicationLoadBalancerForwardingRule**](../models/ApplicationLoadBalancerForwardingRule.md)
 
 ### HTTP request headers
 
@@ -1129,14 +1129,14 @@ Other parameters are passed through a pointer to an apiDatacentersApplicationloa
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **applicationLoadBalancerForwardingRule** | [**ApplicationLoadBalancerForwardingRulePut**](ApplicationLoadBalancerForwardingRulePut.md) | The modified ALB forwarding rule. | |
+| **applicationLoadBalancerForwardingRule** | [**ApplicationLoadBalancerForwardingRulePut**](../models/ApplicationLoadBalancerForwardingRulePut.md) | The modified ALB forwarding rule. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**ApplicationLoadBalancerForwardingRule**](ApplicationLoadBalancerForwardingRule.md)
+[**ApplicationLoadBalancerForwardingRule**](../models/ApplicationLoadBalancerForwardingRule.md)
 
 ### HTTP request headers
 
@@ -1218,7 +1218,7 @@ Other parameters are passed through a pointer to an apiDatacentersApplicationloa
 
 ### Return type
 
-[**ApplicationLoadBalancers**](ApplicationLoadBalancers.md)
+[**ApplicationLoadBalancers**](../models/ApplicationLoadBalancers.md)
 
 ### HTTP request headers
 
@@ -1292,14 +1292,14 @@ Other parameters are passed through a pointer to an apiDatacentersApplicationloa
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **applicationLoadBalancerProperties** | [**ApplicationLoadBalancerProperties**](ApplicationLoadBalancerProperties.md) | The Application Load Balancer properties to be updated. | |
+| **applicationLoadBalancerProperties** | [**ApplicationLoadBalancerProperties**](../models/ApplicationLoadBalancerProperties.md) | The Application Load Balancer properties to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**ApplicationLoadBalancer**](ApplicationLoadBalancer.md)
+[**ApplicationLoadBalancer**](../models/ApplicationLoadBalancer.md)
 
 ### HTTP request headers
 
@@ -1371,14 +1371,14 @@ Other parameters are passed through a pointer to an apiDatacentersApplicationloa
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **applicationLoadBalancer** | [**ApplicationLoadBalancer**](ApplicationLoadBalancer.md) | The Application Load Balancer to create. | |
+| **applicationLoadBalancer** | [**ApplicationLoadBalancer**](../models/ApplicationLoadBalancer.md) | The Application Load Balancer to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**ApplicationLoadBalancer**](ApplicationLoadBalancer.md)
+[**ApplicationLoadBalancer**](../models/ApplicationLoadBalancer.md)
 
 ### HTTP request headers
 
@@ -1452,14 +1452,14 @@ Other parameters are passed through a pointer to an apiDatacentersApplicationloa
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **applicationLoadBalancer** | [**ApplicationLoadBalancerPut**](ApplicationLoadBalancerPut.md) | The modified Application Load Balancer. | |
+| **applicationLoadBalancer** | [**ApplicationLoadBalancerPut**](../models/ApplicationLoadBalancerPut.md) | The modified Application Load Balancer. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**ApplicationLoadBalancer**](ApplicationLoadBalancer.md)
+[**ApplicationLoadBalancer**](../models/ApplicationLoadBalancer.md)
 
 ### HTTP request headers
 

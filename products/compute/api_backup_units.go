@@ -107,6 +107,7 @@ func (a *BackupUnitsApiService) BackupunitsDeleteExecute(r ApiBackupunitsDeleteR
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -260,6 +261,7 @@ func (a *BackupUnitsApiService) BackupunitsFindByIdExecute(r ApiBackupunitsFindB
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -348,9 +350,11 @@ func (a *BackupUnitsApiService) BackupunitsFindByIdExecute(r ApiBackupunitsFindB
 }
 
 type ApiBackupunitsGetRequest struct {
-	ctx        _context.Context
-	ApiService *BackupUnitsApiService
-	Params
+	ctx             _context.Context
+	ApiService      *BackupUnitsApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	pretty          *bool
 	depth           *int32
 	xContractNumber *int32
@@ -369,6 +373,25 @@ func (r ApiBackupunitsGetRequest) XContractNumber(xContractNumber int32) ApiBack
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiBackupunitsGetRequest) Filter(key string, value string) ApiBackupunitsGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiBackupunitsGetRequest) OrderBy(orderBy string) ApiBackupunitsGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiBackupunitsGetRequest) MaxResults(maxResults int32) ApiBackupunitsGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiBackupunitsGetRequest) Execute() (BackupUnits, *common.APIResponse, error) {
 	return r.ApiService.BackupunitsGetExecute(r)
 }
@@ -383,6 +406,7 @@ func (a *BackupUnitsApiService) BackupunitsGet(ctx _context.Context) ApiBackupun
 	return ApiBackupunitsGetRequest{
 		ApiService: a,
 		ctx:        ctx,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -419,6 +443,20 @@ func (a *BackupUnitsApiService) BackupunitsGetExecute(r ApiBackupunitsGetRequest
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -589,6 +627,7 @@ func (a *BackupUnitsApiService) BackupunitsPatchExecute(r ApiBackupunitsPatchReq
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -757,6 +796,7 @@ func (a *BackupUnitsApiService) BackupunitsPostExecute(r ApiBackupunitsPostReque
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -929,6 +969,7 @@ func (a *BackupUnitsApiService) BackupunitsPutExecute(r ApiBackupunitsPutRequest
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -1019,9 +1060,11 @@ func (a *BackupUnitsApiService) BackupunitsPutExecute(r ApiBackupunitsPutRequest
 }
 
 type ApiBackupunitsSsourlGetRequest struct {
-	ctx        _context.Context
-	ApiService *BackupUnitsApiService
-	Params
+	ctx             _context.Context
+	ApiService      *BackupUnitsApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	backupunitId    string
 	pretty          *bool
 	xContractNumber *int32
@@ -1033,6 +1076,25 @@ func (r ApiBackupunitsSsourlGetRequest) Pretty(pretty bool) ApiBackupunitsSsourl
 }
 func (r ApiBackupunitsSsourlGetRequest) XContractNumber(xContractNumber int32) ApiBackupunitsSsourlGetRequest {
 	r.xContractNumber = &xContractNumber
+	return r
+}
+
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiBackupunitsSsourlGetRequest) Filter(key string, value string) ApiBackupunitsSsourlGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiBackupunitsSsourlGetRequest) OrderBy(orderBy string) ApiBackupunitsSsourlGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiBackupunitsSsourlGetRequest) MaxResults(maxResults int32) ApiBackupunitsSsourlGetRequest {
+	r.maxResults = &maxResults
 	return r
 }
 
@@ -1052,6 +1114,7 @@ func (a *BackupUnitsApiService) BackupunitsSsourlGet(ctx _context.Context, backu
 		ApiService:   a,
 		ctx:          ctx,
 		backupunitId: backupunitId,
+		filters:      _neturl.Values{},
 	}
 }
 
@@ -1086,6 +1149,20 @@ func (a *BackupUnitsApiService) BackupunitsSsourlGetExecute(r ApiBackupunitsSsou
 	if r.pretty != nil {
 		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

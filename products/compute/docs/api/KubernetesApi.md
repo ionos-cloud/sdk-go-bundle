@@ -165,7 +165,7 @@ Other parameters are passed through a pointer to an apiK8sFindByClusterIdRequest
 
 ### Return type
 
-[**KubernetesCluster**](KubernetesCluster.md)
+[**KubernetesCluster**](../models/KubernetesCluster.md)
 
 ### HTTP request headers
 
@@ -236,7 +236,7 @@ Other parameters are passed through a pointer to an apiK8sGetRequest struct via 
 
 ### Return type
 
-[**KubernetesClusters**](KubernetesClusters.md)
+[**KubernetesClusters**](../models/KubernetesClusters.md)
 
 ### HTTP request headers
 
@@ -466,7 +466,7 @@ Other parameters are passed through a pointer to an apiK8sNodepoolsFindByIdReque
 
 ### Return type
 
-[**KubernetesNodePool**](KubernetesNodePool.md)
+[**KubernetesNodePool**](../models/KubernetesNodePool.md)
 
 ### HTTP request headers
 
@@ -542,7 +542,7 @@ Other parameters are passed through a pointer to an apiK8sNodepoolsGetRequest st
 
 ### Return type
 
-[**KubernetesNodePools**](KubernetesNodePools.md)
+[**KubernetesNodePools**](../models/KubernetesNodePools.md)
 
 ### HTTP request headers
 
@@ -700,7 +700,7 @@ Other parameters are passed through a pointer to an apiK8sNodepoolsNodesFindById
 
 ### Return type
 
-[**KubernetesNode**](KubernetesNode.md)
+[**KubernetesNode**](../models/KubernetesNode.md)
 
 ### HTTP request headers
 
@@ -778,7 +778,7 @@ Other parameters are passed through a pointer to an apiK8sNodepoolsNodesGetReque
 
 ### Return type
 
-[**KubernetesNodes**](KubernetesNodes.md)
+[**KubernetesNodes**](../models/KubernetesNodes.md)
 
 ### HTTP request headers
 
@@ -928,14 +928,14 @@ Other parameters are passed through a pointer to an apiK8sNodepoolsPostRequest s
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **kubernetesNodePool** | [**KubernetesNodePoolForPost**](KubernetesNodePoolForPost.md) | The Kubernetes node pool to create. | |
+| **kubernetesNodePool** | [**KubernetesNodePoolForPost**](../models/KubernetesNodePoolForPost.md) | The Kubernetes node pool to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**KubernetesNodePool**](KubernetesNodePool.md)
+[**KubernetesNodePool**](../models/KubernetesNodePool.md)
 
 ### HTTP request headers
 
@@ -1009,14 +1009,14 @@ Other parameters are passed through a pointer to an apiK8sNodepoolsPutRequest st
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **kubernetesNodePool** | [**KubernetesNodePoolForPut**](KubernetesNodePoolForPut.md) | Details of the Kubernetes Node Pool | |
+| **kubernetesNodePool** | [**KubernetesNodePoolForPut**](../models/KubernetesNodePoolForPut.md) | Details of the Kubernetes Node Pool | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**KubernetesNodePool**](KubernetesNodePool.md)
+[**KubernetesNodePool**](../models/KubernetesNodePool.md)
 
 ### HTTP request headers
 
@@ -1083,14 +1083,14 @@ Other parameters are passed through a pointer to an apiK8sPostRequest struct via
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **kubernetesCluster** | [**KubernetesClusterForPost**](KubernetesClusterForPost.md) | The Kubernetes cluster to create. | |
+| **kubernetesCluster** | [**KubernetesClusterForPost**](../models/KubernetesClusterForPost.md) | The Kubernetes cluster to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**KubernetesCluster**](KubernetesCluster.md)
+[**KubernetesCluster**](../models/KubernetesCluster.md)
 
 ### HTTP request headers
 
@@ -1162,14 +1162,14 @@ Other parameters are passed through a pointer to an apiK8sPutRequest struct via 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **kubernetesCluster** | [**KubernetesClusterForPut**](KubernetesClusterForPut.md) | The modified Kubernetes cluster. | |
+| **kubernetesCluster** | [**KubernetesClusterForPut**](../models/KubernetesClusterForPut.md) | The modified Kubernetes cluster. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**KubernetesCluster**](KubernetesCluster.md)
+[**KubernetesCluster**](../models/KubernetesCluster.md)
 
 ### HTTP request headers
 

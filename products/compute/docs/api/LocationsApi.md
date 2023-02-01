@@ -77,7 +77,7 @@ Other parameters are passed through a pointer to an apiLocationsFindByRegionIdRe
 
 ### Return type
 
-[**Locations**](Locations.md)
+[**Locations**](../models/Locations.md)
 
 ### HTTP request headers
 
@@ -155,7 +155,7 @@ Other parameters are passed through a pointer to an apiLocationsFindByRegionIdAn
 
 ### Return type
 
-[**Location**](Location.md)
+[**Location**](../models/Location.md)
 
 ### HTTP request headers
 
@@ -226,7 +226,7 @@ Other parameters are passed through a pointer to an apiLocationsGetRequest struc
 
 ### Return type
 
-[**Locations**](Locations.md)
+[**Locations**](../models/Locations.md)
 
 ### HTTP request headers
 

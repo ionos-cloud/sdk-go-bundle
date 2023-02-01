@@ -105,6 +105,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysDeleteExecute(r ApiUmUsersS3keysDele
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -262,6 +263,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysFindByKeyIdExecute(r ApiUmUsersS3key
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -350,9 +352,11 @@ func (a *UserS3KeysApiService) UmUsersS3keysFindByKeyIdExecute(r ApiUmUsersS3key
 }
 
 type ApiUmUsersS3keysGetRequest struct {
-	ctx        _context.Context
-	ApiService *UserS3KeysApiService
-	Params
+	ctx             _context.Context
+	ApiService      *UserS3KeysApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	userId          string
 	pretty          *bool
 	depth           *int32
@@ -372,6 +376,25 @@ func (r ApiUmUsersS3keysGetRequest) XContractNumber(xContractNumber int32) ApiUm
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiUmUsersS3keysGetRequest) Filter(key string, value string) ApiUmUsersS3keysGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiUmUsersS3keysGetRequest) OrderBy(orderBy string) ApiUmUsersS3keysGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiUmUsersS3keysGetRequest) MaxResults(maxResults int32) ApiUmUsersS3keysGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiUmUsersS3keysGetRequest) Execute() (S3Keys, *common.APIResponse, error) {
 	return r.ApiService.UmUsersS3keysGetExecute(r)
 }
@@ -388,6 +411,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysGet(ctx _context.Context, userId str
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -425,6 +449,20 @@ func (a *UserS3KeysApiService) UmUsersS3keysGetExecute(r ApiUmUsersS3keysGetRequ
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -587,6 +625,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysPostExecute(r ApiUmUsersS3keysPostRe
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -761,6 +800,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysPutExecute(r ApiUmUsersS3keysPutRequ
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -851,9 +891,11 @@ func (a *UserS3KeysApiService) UmUsersS3keysPutExecute(r ApiUmUsersS3keysPutRequ
 }
 
 type ApiUmUsersS3ssourlGetRequest struct {
-	ctx        _context.Context
-	ApiService *UserS3KeysApiService
-	Params
+	ctx             _context.Context
+	ApiService      *UserS3KeysApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	userId          string
 	pretty          *bool
 	xContractNumber *int32
@@ -865,6 +907,25 @@ func (r ApiUmUsersS3ssourlGetRequest) Pretty(pretty bool) ApiUmUsersS3ssourlGetR
 }
 func (r ApiUmUsersS3ssourlGetRequest) XContractNumber(xContractNumber int32) ApiUmUsersS3ssourlGetRequest {
 	r.xContractNumber = &xContractNumber
+	return r
+}
+
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiUmUsersS3ssourlGetRequest) Filter(key string, value string) ApiUmUsersS3ssourlGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiUmUsersS3ssourlGetRequest) OrderBy(orderBy string) ApiUmUsersS3ssourlGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiUmUsersS3ssourlGetRequest) MaxResults(maxResults int32) ApiUmUsersS3ssourlGetRequest {
+	r.maxResults = &maxResults
 	return r
 }
 
@@ -884,6 +945,7 @@ func (a *UserS3KeysApiService) UmUsersS3ssourlGet(ctx _context.Context, userId s
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -918,6 +980,20 @@ func (a *UserS3KeysApiService) UmUsersS3ssourlGetExecute(r ApiUmUsersS3ssourlGet
 	if r.pretty != nil {
 		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

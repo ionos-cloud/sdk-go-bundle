@@ -105,6 +105,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysDeleteExecute(r ApiDatacen
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -262,6 +263,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFindByNatGatewayIdExecute(
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -425,6 +427,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsDeleteExecute(r Ap
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -578,6 +581,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsFindByFlowLogIdExe
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -663,9 +667,11 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsFindByFlowLogIdExe
 }
 
 type ApiDatacentersNatgatewaysFlowlogsGetRequest struct {
-	ctx        _context.Context
-	ApiService *NATGatewaysApiService
-	Params
+	ctx          _context.Context
+	ApiService   *NATGatewaysApiService
+	filters      _neturl.Values
+	orderBy      *string
+	maxResults   *int32
 	datacenterId string
 	natGatewayId string
 	pretty       *bool
@@ -691,6 +697,25 @@ func (r ApiDatacentersNatgatewaysFlowlogsGetRequest) Limit(limit int32) ApiDatac
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiDatacentersNatgatewaysFlowlogsGetRequest) Filter(key string, value string) ApiDatacentersNatgatewaysFlowlogsGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiDatacentersNatgatewaysFlowlogsGetRequest) OrderBy(orderBy string) ApiDatacentersNatgatewaysFlowlogsGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiDatacentersNatgatewaysFlowlogsGetRequest) MaxResults(maxResults int32) ApiDatacentersNatgatewaysFlowlogsGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiDatacentersNatgatewaysFlowlogsGetRequest) Execute() (FlowLogs, *common.APIResponse, error) {
 	return r.ApiService.DatacentersNatgatewaysFlowlogsGetExecute(r)
 }
@@ -709,6 +734,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsGet(ctx _context.C
 		ctx:          ctx,
 		datacenterId: datacenterId,
 		natGatewayId: natGatewayId,
+		filters:      _neturl.Values{},
 	}
 }
 
@@ -753,6 +779,20 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsGetExecute(r ApiDa
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -923,6 +963,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPatchExecute(r Api
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1091,6 +1132,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPostExecute(r ApiD
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -1263,6 +1305,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPutExecute(r ApiDa
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -1350,9 +1393,11 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPutExecute(r ApiDa
 }
 
 type ApiDatacentersNatgatewaysGetRequest struct {
-	ctx        _context.Context
-	ApiService *NATGatewaysApiService
-	Params
+	ctx             _context.Context
+	ApiService      *NATGatewaysApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	datacenterId    string
 	pretty          *bool
 	depth           *int32
@@ -1372,6 +1417,25 @@ func (r ApiDatacentersNatgatewaysGetRequest) XContractNumber(xContractNumber int
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiDatacentersNatgatewaysGetRequest) Filter(key string, value string) ApiDatacentersNatgatewaysGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiDatacentersNatgatewaysGetRequest) OrderBy(orderBy string) ApiDatacentersNatgatewaysGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiDatacentersNatgatewaysGetRequest) MaxResults(maxResults int32) ApiDatacentersNatgatewaysGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiDatacentersNatgatewaysGetRequest) Execute() (NatGateways, *common.APIResponse, error) {
 	return r.ApiService.DatacentersNatgatewaysGetExecute(r)
 }
@@ -1388,6 +1452,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysGet(ctx _context.Context, 
 		ApiService:   a,
 		ctx:          ctx,
 		datacenterId: datacenterId,
+		filters:      _neturl.Values{},
 	}
 }
 
@@ -1425,6 +1490,20 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysGetExecute(r ApiDatacenter
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1599,6 +1678,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysPatchExecute(r ApiDatacent
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1773,6 +1853,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysPostExecute(r ApiDatacente
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -1949,6 +2030,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysPutExecute(r ApiDatacenter
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -2119,6 +2201,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesDeleteExecute(r ApiDa
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -2280,6 +2363,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesFindByNatGatewayRuleI
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -2368,9 +2452,11 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesFindByNatGatewayRuleI
 }
 
 type ApiDatacentersNatgatewaysRulesGetRequest struct {
-	ctx        _context.Context
-	ApiService *NATGatewaysApiService
-	Params
+	ctx             _context.Context
+	ApiService      *NATGatewaysApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	datacenterId    string
 	natGatewayId    string
 	pretty          *bool
@@ -2388,6 +2474,25 @@ func (r ApiDatacentersNatgatewaysRulesGetRequest) Depth(depth int32) ApiDatacent
 }
 func (r ApiDatacentersNatgatewaysRulesGetRequest) XContractNumber(xContractNumber int32) ApiDatacentersNatgatewaysRulesGetRequest {
 	r.xContractNumber = &xContractNumber
+	return r
+}
+
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiDatacentersNatgatewaysRulesGetRequest) Filter(key string, value string) ApiDatacentersNatgatewaysRulesGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiDatacentersNatgatewaysRulesGetRequest) OrderBy(orderBy string) ApiDatacentersNatgatewaysRulesGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiDatacentersNatgatewaysRulesGetRequest) MaxResults(maxResults int32) ApiDatacentersNatgatewaysRulesGetRequest {
+	r.maxResults = &maxResults
 	return r
 }
 
@@ -2409,6 +2514,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesGet(ctx _context.Cont
 		ctx:          ctx,
 		datacenterId: datacenterId,
 		natGatewayId: natGatewayId,
+		filters:      _neturl.Values{},
 	}
 }
 
@@ -2447,6 +2553,20 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesGetExecute(r ApiDatac
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -2625,6 +2745,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPatchExecute(r ApiDat
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -2801,6 +2922,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPostExecute(r ApiData
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -2981,6 +3103,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPutExecute(r ApiDatac
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 

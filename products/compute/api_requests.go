@@ -103,6 +103,7 @@ func (a *RequestsApiService) RequestsFindByIdExecute(r ApiRequestsFindByIdReques
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -191,9 +192,11 @@ func (a *RequestsApiService) RequestsFindByIdExecute(r ApiRequestsFindByIdReques
 }
 
 type ApiRequestsGetRequest struct {
-	ctx        _context.Context
-	ApiService *RequestsApiService
-	Params
+	ctx                 _context.Context
+	ApiService          *RequestsApiService
+	filters             _neturl.Values
+	orderBy             *string
+	maxResults          *int32
 	pretty              *bool
 	depth               *int32
 	xContractNumber     *int32
@@ -277,6 +280,25 @@ func (r ApiRequestsGetRequest) Limit(limit int32) ApiRequestsGetRequest {
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiRequestsGetRequest) Filter(key string, value string) ApiRequestsGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiRequestsGetRequest) OrderBy(orderBy string) ApiRequestsGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiRequestsGetRequest) MaxResults(maxResults int32) ApiRequestsGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiRequestsGetRequest) Execute() (Requests, *common.APIResponse, error) {
 	return r.ApiService.RequestsGetExecute(r)
 }
@@ -291,6 +313,7 @@ func (a *RequestsApiService) RequestsGet(ctx _context.Context) ApiRequestsGetReq
 	return ApiRequestsGetRequest{
 		ApiService: a,
 		ctx:        ctx,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -366,6 +389,20 @@ func (a *RequestsApiService) RequestsGetExecute(r ApiRequestsGetRequest) (Reques
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -454,9 +491,11 @@ func (a *RequestsApiService) RequestsGetExecute(r ApiRequestsGetRequest) (Reques
 }
 
 type ApiRequestsStatusGetRequest struct {
-	ctx        _context.Context
-	ApiService *RequestsApiService
-	Params
+	ctx             _context.Context
+	ApiService      *RequestsApiService
+	filters         _neturl.Values
+	orderBy         *string
+	maxResults      *int32
 	requestId       string
 	pretty          *bool
 	depth           *int32
@@ -476,6 +515,25 @@ func (r ApiRequestsStatusGetRequest) XContractNumber(xContractNumber int32) ApiR
 	return r
 }
 
+// Filters query parameters limit results to those containing a matching value for a specific property.
+func (r ApiRequestsStatusGetRequest) Filter(key string, value string) ApiRequestsStatusGetRequest {
+	filterKey := fmt.Sprintf("filter.%s", key)
+	r.filters[filterKey] = append(r.filters[filterKey], value)
+	return r
+}
+
+// OrderBy query param sorts the results alphanumerically in ascending order based on the specified property.
+func (r ApiRequestsStatusGetRequest) OrderBy(orderBy string) ApiRequestsStatusGetRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// MaxResults query param limits the number of results returned.
+func (r ApiRequestsStatusGetRequest) MaxResults(maxResults int32) ApiRequestsStatusGetRequest {
+	r.maxResults = &maxResults
+	return r
+}
+
 func (r ApiRequestsStatusGetRequest) Execute() (RequestStatus, *common.APIResponse, error) {
 	return r.ApiService.RequestsStatusGetExecute(r)
 }
@@ -492,6 +550,7 @@ func (a *RequestsApiService) RequestsStatusGet(ctx _context.Context, requestId s
 		ApiService: a,
 		ctx:        ctx,
 		requestId:  requestId,
+		filters:    _neturl.Values{},
 	}
 }
 
@@ -529,6 +588,20 @@ func (a *RequestsApiService) RequestsStatusGetExecute(r ApiRequestsStatusGetRequ
 	if r.depth != nil {
 		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+	}
+	if r.maxResults != nil {
+		localVarQueryParams.Add("maxResults", parameterToString(*r.maxResults, ""))
+	}
+	if len(r.filters) > 0 {
+		for k, v := range r.filters {
+			for _, iv := range v {
+				localVarQueryParams.Add(k, iv)
+			}
+		}
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

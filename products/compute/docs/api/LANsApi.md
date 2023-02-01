@@ -161,7 +161,7 @@ Other parameters are passed through a pointer to an apiDatacentersLansFindByIdRe
 
 ### Return type
 
-[**Lan**](Lan.md)
+[**Lan**](../models/Lan.md)
 
 ### HTTP request headers
 
@@ -243,7 +243,7 @@ Other parameters are passed through a pointer to an apiDatacentersLansGetRequest
 
 ### Return type
 
-[**Lans**](Lans.md)
+[**Lans**](../models/Lans.md)
 
 ### HTTP request headers
 
@@ -323,7 +323,7 @@ Other parameters are passed through a pointer to an apiDatacentersLansNicsFindBy
 
 ### Return type
 
-[**Nic**](Nic.md)
+[**Nic**](../models/Nic.md)
 
 ### HTTP request headers
 
@@ -407,7 +407,7 @@ Other parameters are passed through a pointer to an apiDatacentersLansNicsGetReq
 
 ### Return type
 
-[**LanNics**](LanNics.md)
+[**LanNics**](../models/LanNics.md)
 
 ### HTTP request headers
 
@@ -481,14 +481,14 @@ Other parameters are passed through a pointer to an apiDatacentersLansNicsPostRe
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **nic** | [**Nic**](Nic.md) | The NIC to be attached. | |
+| **nic** | [**Nic**](../models/Nic.md) | The NIC to be attached. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Nic**](Nic.md)
+[**Nic**](../models/Nic.md)
 
 ### HTTP request headers
 
@@ -562,14 +562,14 @@ Other parameters are passed through a pointer to an apiDatacentersLansPatchReque
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **lan** | [**LanProperties**](LanProperties.md) | The properties of the LAN to be updated. | |
+| **lan** | [**LanProperties**](../models/LanProperties.md) | The properties of the LAN to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Lan**](Lan.md)
+[**Lan**](../models/Lan.md)
 
 ### HTTP request headers
 
@@ -641,14 +641,14 @@ Other parameters are passed through a pointer to an apiDatacentersLansPostReques
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **lan** | [**LanPost**](LanPost.md) | The LAN to create. | |
+| **lan** | [**LanPost**](../models/LanPost.md) | The LAN to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**LanPost**](LanPost.md)
+[**LanPost**](../models/LanPost.md)
 
 ### HTTP request headers
 
@@ -722,14 +722,14 @@ Other parameters are passed through a pointer to an apiDatacentersLansPutRequest
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **lan** | [**Lan**](Lan.md) | The modified LAN | |
+| **lan** | [**Lan**](../models/Lan.md) | The modified LAN | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Lan**](Lan.md)
+[**Lan**](../models/Lan.md)
 
 ### HTTP request headers
 

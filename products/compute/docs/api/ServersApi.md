@@ -178,7 +178,7 @@ Other parameters are passed through a pointer to an apiDatacentersServersCdromsF
 
 ### Return type
 
-[**Image**](Image.md)
+[**Image**](../models/Image.md)
 
 ### HTTP request headers
 
@@ -262,7 +262,7 @@ Other parameters are passed through a pointer to an apiDatacentersServersCdromsG
 
 ### Return type
 
-[**Cdroms**](Cdroms.md)
+[**Cdroms**](../models/Cdroms.md)
 
 ### HTTP request headers
 
@@ -336,14 +336,14 @@ Other parameters are passed through a pointer to an apiDatacentersServersCdromsP
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **cdrom** | [**Image**](Image.md) | The CD-ROM to be attached. | |
+| **cdrom** | [**Image**](../models/Image.md) | The CD-ROM to be attached. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Image**](Image.md)
+[**Image**](../models/Image.md)
 
 ### HTTP request headers
 
@@ -500,7 +500,7 @@ Other parameters are passed through a pointer to an apiDatacentersServersFindByI
 
 ### Return type
 
-[**Server**](Server.md)
+[**Server**](../models/Server.md)
 
 ### HTTP request headers
 
@@ -585,7 +585,7 @@ Other parameters are passed through a pointer to an apiDatacentersServersGetRequ
 
 ### Return type
 
-[**Servers**](Servers.md)
+[**Servers**](../models/Servers.md)
 
 ### HTTP request headers
 
@@ -659,14 +659,14 @@ Other parameters are passed through a pointer to an apiDatacentersServersPatchRe
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **server** | [**ServerProperties**](ServerProperties.md) | The properties of the server to be updated. | |
+| **server** | [**ServerProperties**](../models/ServerProperties.md) | The properties of the server to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Server**](Server.md)
+[**Server**](../models/Server.md)
 
 ### HTTP request headers
 
@@ -738,14 +738,14 @@ Other parameters are passed through a pointer to an apiDatacentersServersPostReq
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **server** | [**Server**](Server.md) | The server to create. | |
+| **server** | [**Server**](../models/Server.md) | The server to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Server**](Server.md)
+[**Server**](../models/Server.md)
 
 ### HTTP request headers
 
@@ -819,14 +819,14 @@ Other parameters are passed through a pointer to an apiDatacentersServersPutRequ
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **server** | [**Server**](Server.md) | The modified server | |
+| **server** | [**Server**](../models/Server.md) | The modified server | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Server**](Server.md)
+[**Server**](../models/Server.md)
 
 ### HTTP request headers
 
@@ -980,7 +980,7 @@ Other parameters are passed through a pointer to an apiDatacentersServersRemoteC
 
 ### Return type
 
-[**RemoteConsoleUrl**](RemoteConsoleUrl.md)
+[**RemoteConsoleUrl**](../models/RemoteConsoleUrl.md)
 
 ### HTTP request headers
 
@@ -1362,7 +1362,7 @@ Other parameters are passed through a pointer to an apiDatacentersServersTokenGe
 
 ### Return type
 
-[**Token**](Token.md)
+[**Token**](../models/Token.md)
 
 ### HTTP request headers
 
@@ -1596,7 +1596,7 @@ Other parameters are passed through a pointer to an apiDatacentersServersVolumes
 
 ### Return type
 
-[**Volume**](Volume.md)
+[**Volume**](../models/Volume.md)
 
 ### HTTP request headers
 
@@ -1680,7 +1680,7 @@ Other parameters are passed through a pointer to an apiDatacentersServersVolumes
 
 ### Return type
 
-[**AttachedVolumes**](AttachedVolumes.md)
+[**AttachedVolumes**](../models/AttachedVolumes.md)
 
 ### HTTP request headers
 
@@ -1754,14 +1754,14 @@ Other parameters are passed through a pointer to an apiDatacentersServersVolumes
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **volume** | [**Volume**](Volume.md) | The volume to be attached (or created and attached). | |
+| **volume** | [**Volume**](../models/Volume.md) | The volume to be attached (or created and attached). | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Volume**](Volume.md)
+[**Volume**](../models/Volume.md)
 
 ### HTTP request headers
 

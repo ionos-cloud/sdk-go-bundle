@@ -158,7 +158,7 @@ Other parameters are passed through a pointer to an apiUmUsersS3keysFindByKeyIdR
 
 ### Return type
 
-[**S3Key**](S3Key.md)
+[**S3Key**](../models/S3Key.md)
 
 ### HTTP request headers
 
@@ -234,7 +234,7 @@ Other parameters are passed through a pointer to an apiUmUsersS3keysGetRequest s
 
 ### Return type
 
-[**S3Keys**](S3Keys.md)
+[**S3Keys**](../models/S3Keys.md)
 
 ### HTTP request headers
 
@@ -310,7 +310,7 @@ Other parameters are passed through a pointer to an apiUmUsersS3keysPostRequest 
 
 ### Return type
 
-[**S3Key**](S3Key.md)
+[**S3Key**](../models/S3Key.md)
 
 ### HTTP request headers
 
@@ -384,14 +384,14 @@ Other parameters are passed through a pointer to an apiUmUsersS3keysPutRequest s
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **s3Key** | [**S3Key**](S3Key.md) | The modified S3 key. | |
+| **s3Key** | [**S3Key**](../models/S3Key.md) | The modified S3 key. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**S3Key**](S3Key.md)
+[**S3Key**](../models/S3Key.md)
 
 ### HTTP request headers
 
@@ -464,7 +464,7 @@ Other parameters are passed through a pointer to an apiUmUsersS3ssourlGetRequest
 
 ### Return type
 
-[**S3ObjectStorageSSO**](S3ObjectStorageSSO.md)
+[**S3ObjectStorageSSO**](../models/S3ObjectStorageSSO.md)
 
 ### HTTP request headers
 

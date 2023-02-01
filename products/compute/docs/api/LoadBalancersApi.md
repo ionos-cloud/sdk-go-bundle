@@ -166,7 +166,7 @@ Other parameters are passed through a pointer to an apiDatacentersLoadbalancersB
 
 ### Return type
 
-[**Nic**](Nic.md)
+[**Nic**](../models/Nic.md)
 
 ### HTTP request headers
 
@@ -244,7 +244,7 @@ Other parameters are passed through a pointer to an apiDatacentersLoadbalancersB
 
 ### Return type
 
-[**BalancedNics**](BalancedNics.md)
+[**BalancedNics**](../models/BalancedNics.md)
 
 ### HTTP request headers
 
@@ -318,14 +318,14 @@ Other parameters are passed through a pointer to an apiDatacentersLoadbalancersB
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **nic** | [**Nic**](Nic.md) | The NIC to be attached. | |
+| **nic** | [**Nic**](../models/Nic.md) | The NIC to be attached. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Nic**](Nic.md)
+[**Nic**](../models/Nic.md)
 
 ### HTTP request headers
 
@@ -479,7 +479,7 @@ Other parameters are passed through a pointer to an apiDatacentersLoadbalancersF
 
 ### Return type
 
-[**Loadbalancer**](Loadbalancer.md)
+[**Loadbalancer**](../models/Loadbalancer.md)
 
 ### HTTP request headers
 
@@ -561,7 +561,7 @@ Other parameters are passed through a pointer to an apiDatacentersLoadbalancersG
 
 ### Return type
 
-[**Loadbalancers**](Loadbalancers.md)
+[**Loadbalancers**](../models/Loadbalancers.md)
 
 ### HTTP request headers
 
@@ -635,14 +635,14 @@ Other parameters are passed through a pointer to an apiDatacentersLoadbalancersP
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **loadbalancer** | [**LoadbalancerProperties**](LoadbalancerProperties.md) | The properties of the Load Balancer to be updated. | |
+| **loadbalancer** | [**LoadbalancerProperties**](../models/LoadbalancerProperties.md) | The properties of the Load Balancer to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Loadbalancer**](Loadbalancer.md)
+[**Loadbalancer**](../models/Loadbalancer.md)
 
 ### HTTP request headers
 
@@ -714,14 +714,14 @@ Other parameters are passed through a pointer to an apiDatacentersLoadbalancersP
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **loadbalancer** | [**Loadbalancer**](Loadbalancer.md) | The Load Balancer to create. | |
+| **loadbalancer** | [**Loadbalancer**](../models/Loadbalancer.md) | The Load Balancer to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Loadbalancer**](Loadbalancer.md)
+[**Loadbalancer**](../models/Loadbalancer.md)
 
 ### HTTP request headers
 
@@ -795,14 +795,14 @@ Other parameters are passed through a pointer to an apiDatacentersLoadbalancersP
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **loadbalancer** | [**Loadbalancer**](Loadbalancer.md) | The modified Load Balancer. | |
+| **loadbalancer** | [**Loadbalancer**](../models/Loadbalancer.md) | The modified Load Balancer. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Loadbalancer**](Loadbalancer.md)
+[**Loadbalancer**](../models/Loadbalancer.md)
 
 ### HTTP request headers
 

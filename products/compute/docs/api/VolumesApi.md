@@ -96,7 +96,7 @@ Other parameters are passed through a pointer to an apiDatacentersVolumesCreateS
 
 ### Return type
 
-[**Snapshot**](Snapshot.md)
+[**Snapshot**](../models/Snapshot.md)
 
 ### HTTP request headers
 
@@ -250,7 +250,7 @@ Other parameters are passed through a pointer to an apiDatacentersVolumesFindByI
 
 ### Return type
 
-[**Volume**](Volume.md)
+[**Volume**](../models/Volume.md)
 
 ### HTTP request headers
 
@@ -332,7 +332,7 @@ Other parameters are passed through a pointer to an apiDatacentersVolumesGetRequ
 
 ### Return type
 
-[**Volumes**](Volumes.md)
+[**Volumes**](../models/Volumes.md)
 
 ### HTTP request headers
 
@@ -406,14 +406,14 @@ Other parameters are passed through a pointer to an apiDatacentersVolumesPatchRe
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **volume** | [**VolumeProperties**](VolumeProperties.md) | The properties of the volume to be updated. | |
+| **volume** | [**VolumeProperties**](../models/VolumeProperties.md) | The properties of the volume to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Volume**](Volume.md)
+[**Volume**](../models/Volume.md)
 
 ### HTTP request headers
 
@@ -485,14 +485,14 @@ Other parameters are passed through a pointer to an apiDatacentersVolumesPostReq
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **volume** | [**Volume**](Volume.md) | The volume to create. | |
+| **volume** | [**Volume**](../models/Volume.md) | The volume to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Volume**](Volume.md)
+[**Volume**](../models/Volume.md)
 
 ### HTTP request headers
 
@@ -566,14 +566,14 @@ Other parameters are passed through a pointer to an apiDatacentersVolumesPutRequ
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **volume** | [**Volume**](Volume.md) | The modified volume | |
+| **volume** | [**Volume**](../models/Volume.md) | The modified volume | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
 
 ### Return type
 
-[**Volume**](Volume.md)
+[**Volume**](../models/Volume.md)
 
 ### HTTP request headers
 
