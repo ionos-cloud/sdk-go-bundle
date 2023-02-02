@@ -136,7 +136,7 @@ Other parameters are passed through a pointer to an apiCertificatesGetRequest st
 
 ### Return type
 
-[**CertificateCollectionDto**](CertificateCollectionDto.md)
+[**CertificateCollectionDto**](../models/CertificateCollectionDto.md)
 
 ### HTTP request headers
 
@@ -203,7 +203,7 @@ Other parameters are passed through a pointer to an apiCertificatesGetByIdReques
 
 ### Return type
 
-[**CertificateDto**](CertificateDto.md)
+[**CertificateDto**](../models/CertificateDto.md)
 
 ### HTTP request headers
 
@@ -269,11 +269,11 @@ Other parameters are passed through a pointer to an apiCertificatesPatchRequest 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **certificatePatchDto** | [**CertificatePatchDto**](CertificatePatchDto.md) |  | |
+| **certificatePatchDto** | [**CertificatePatchDto**](../models/CertificatePatchDto.md) |  | |
 
 ### Return type
 
-[**CertificateDto**](CertificateDto.md)
+[**CertificateDto**](../models/CertificateDto.md)
 
 ### HTTP request headers
 
@@ -334,11 +334,11 @@ Other parameters are passed through a pointer to an apiCertificatesPostRequest s
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **certificatePostDto** | [**CertificatePostDto**](CertificatePostDto.md) |  | |
+| **certificatePostDto** | [**CertificatePostDto**](../models/CertificatePostDto.md) |  | |
 
 ### Return type
 
-[**CertificateDto**](CertificateDto.md)
+[**CertificateDto**](../models/CertificateDto.md)
 
 ### HTTP request headers
 
