@@ -53,7 +53,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**registryId** | [**string**](.md) | The unique ID of the registry | |
+|**registryId** | [**string**](../models/.md) | The unique ID of the registry | |
 |**name** | **string** | The name of the repository | |
 
 ### Other Parameters

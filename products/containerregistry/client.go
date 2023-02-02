@@ -51,7 +51,7 @@ const (
 	RequestStatusFailed  = "FAILED"
 	RequestStatusDone    = "DONE"
 
-	Version = "products/containerregistry/v1.0.0"
+	Version = "products/containerregistry/v0.1.0"
 )
 
 // APIClient manages communication with the Container Registry service API v1.0
@@ -84,7 +84,7 @@ func NewAPIClient(cfg *common.Configuration) *APIClient {
 		cfg.HTTPClient = http.DefaultClient
 	}
 
-	if cfg.Servers != nil && len(cfg.Servers) == 0 {
+	if len(cfg.Servers) == 0 {
 		cfg.Servers = common.ServerConfigurations{
 			{
 				URL:         "https://api.ionos.com/containerregistries",

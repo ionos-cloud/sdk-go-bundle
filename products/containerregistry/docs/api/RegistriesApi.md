@@ -55,7 +55,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**registryId** | [**string**](.md) | The unique ID of the registry | |
+|**registryId** | [**string**](../models/.md) | The unique ID of the registry | |
 
 ### Other Parameters
 
@@ -122,7 +122,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**registryId** | [**string**](.md) | The unique ID of the registry | |
+|**registryId** | [**string**](../models/.md) | The unique ID of the registry | |
 
 ### Other Parameters
 
@@ -134,7 +134,7 @@ Other parameters are passed through a pointer to an apiRegistriesFindByIdRequest
 
 ### Return type
 
-[**RegistryResponse**](RegistryResponse.md)
+[**RegistryResponse**](../models/RegistryResponse.md)
 
 ### HTTP request headers
 
@@ -205,7 +205,7 @@ Other parameters are passed through a pointer to an apiRegistriesGetRequest stru
 
 ### Return type
 
-[**RegistriesResponse**](RegistriesResponse.md)
+[**RegistriesResponse**](../models/RegistriesResponse.md)
 
 ### HTTP request headers
 
@@ -262,7 +262,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**registryId** | [**string**](.md) | The unique ID of the registry | |
+|**registryId** | [**string**](../models/.md) | The unique ID of the registry | |
 
 ### Other Parameters
 
@@ -271,11 +271,11 @@ Other parameters are passed through a pointer to an apiRegistriesPatchRequest st
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **patchRegistryInput** | [**PatchRegistryInput**](PatchRegistryInput.md) |  | |
+| **patchRegistryInput** | [**PatchRegistryInput**](../models/PatchRegistryInput.md) |  | |
 
 ### Return type
 
-[**RegistryResponse**](RegistryResponse.md)
+[**RegistryResponse**](../models/RegistryResponse.md)
 
 ### HTTP request headers
 
@@ -336,11 +336,11 @@ Other parameters are passed through a pointer to an apiRegistriesPostRequest str
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **postRegistryInput** | [**PostRegistryInput**](PostRegistryInput.md) |  | |
+| **postRegistryInput** | [**PostRegistryInput**](../models/PostRegistryInput.md) |  | |
 
 ### Return type
 
-[**PostRegistryOutput**](PostRegistryOutput.md)
+[**PostRegistryOutput**](../models/PostRegistryOutput.md)
 
 ### HTTP request headers
 
@@ -397,7 +397,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**registryId** | [**string**](.md) | The unique ID of the registry | |
+|**registryId** | [**string**](../models/.md) | The unique ID of the registry | |
 
 ### Other Parameters
 
@@ -406,11 +406,11 @@ Other parameters are passed through a pointer to an apiRegistriesPutRequest stru
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **putRegistryInput** | [**PutRegistryInput**](PutRegistryInput.md) |  | |
+| **putRegistryInput** | [**PutRegistryInput**](../models/PutRegistryInput.md) |  | |
 
 ### Return type
 
-[**PutRegistryOutput**](PutRegistryOutput.md)
+[**PutRegistryOutput**](../models/PutRegistryOutput.md)
 
 ### HTTP request headers
 

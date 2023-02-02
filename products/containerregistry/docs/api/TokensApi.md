@@ -56,8 +56,8 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**registryId** | [**string**](.md) | The unique ID of the registry | |
-|**tokenId** | [**string**](.md) | The unique ID of the token | |
+|**registryId** | [**string**](../models/.md) | The unique ID of the registry | |
+|**tokenId** | [**string**](../models/.md) | The unique ID of the token | |
 
 ### Other Parameters
 
@@ -125,8 +125,8 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**registryId** | [**string**](.md) | The unique ID of the registry | |
-|**tokenId** | [**string**](.md) | The unique ID of the token | |
+|**registryId** | [**string**](../models/.md) | The unique ID of the registry | |
+|**tokenId** | [**string**](../models/.md) | The unique ID of the token | |
 
 ### Other Parameters
 
@@ -138,7 +138,7 @@ Other parameters are passed through a pointer to an apiRegistriesTokensFindByIdR
 
 ### Return type
 
-[**TokenResponse**](TokenResponse.md)
+[**TokenResponse**](../models/TokenResponse.md)
 
 ### HTTP request headers
 
@@ -195,7 +195,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**registryId** | [**string**](.md) | The unique ID of the registry | |
+|**registryId** | [**string**](../models/.md) | The unique ID of the registry | |
 
 ### Other Parameters
 
@@ -209,7 +209,7 @@ Other parameters are passed through a pointer to an apiRegistriesTokensGetReques
 
 ### Return type
 
-[**TokensResponse**](TokensResponse.md)
+[**TokensResponse**](../models/TokensResponse.md)
 
 ### HTTP request headers
 
@@ -267,8 +267,8 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**registryId** | [**string**](.md) | The unique ID of the registry | |
-|**tokenId** | [**string**](.md) | The unique ID of the token | |
+|**registryId** | [**string**](../models/.md) | The unique ID of the registry | |
+|**tokenId** | [**string**](../models/.md) | The unique ID of the token | |
 
 ### Other Parameters
 
@@ -277,11 +277,11 @@ Other parameters are passed through a pointer to an apiRegistriesTokensPatchRequ
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **patchTokenInput** | [**PatchTokenInput**](PatchTokenInput.md) |  | |
+| **patchTokenInput** | [**PatchTokenInput**](../models/PatchTokenInput.md) |  | |
 
 ### Return type
 
-[**TokenResponse**](TokenResponse.md)
+[**TokenResponse**](../models/TokenResponse.md)
 
 ### HTTP request headers
 
@@ -338,7 +338,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**registryId** | [**string**](.md) | The unique ID of the registry | |
+|**registryId** | [**string**](../models/.md) | The unique ID of the registry | |
 
 ### Other Parameters
 
@@ -347,11 +347,11 @@ Other parameters are passed through a pointer to an apiRegistriesTokensPostReque
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **postTokenInput** | [**PostTokenInput**](PostTokenInput.md) |  | |
+| **postTokenInput** | [**PostTokenInput**](../models/PostTokenInput.md) |  | |
 
 ### Return type
 
-[**PostTokenOutput**](PostTokenOutput.md)
+[**PostTokenOutput**](../models/PostTokenOutput.md)
 
 ### HTTP request headers
 
@@ -409,7 +409,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**registryId** | [**string**](.md) | The unique ID of the registry | |
+|**registryId** | [**string**](../models/.md) | The unique ID of the registry | |
 |**tokenId** | **string** | The unique ID of the token | |
 
 ### Other Parameters
@@ -419,11 +419,11 @@ Other parameters are passed through a pointer to an apiRegistriesTokensPutReques
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **putTokenInput** | [**PutTokenInput**](PutTokenInput.md) |  | |
+| **putTokenInput** | [**PutTokenInput**](../models/PutTokenInput.md) |  | |
 
 ### Return type
 
-[**PutTokenOutput**](PutTokenOutput.md)
+[**PutTokenOutput**](../models/PutTokenOutput.md)
 
 ### HTTP request headers
 

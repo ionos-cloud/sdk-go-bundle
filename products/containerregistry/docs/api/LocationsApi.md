@@ -56,7 +56,7 @@ Other parameters are passed through a pointer to an apiLocationsGetRequest struc
 
 ### Return type
 
-[**LocationsResponse**](LocationsResponse.md)
+[**LocationsResponse**](../models/LocationsResponse.md)
 
 ### HTTP request headers
 
