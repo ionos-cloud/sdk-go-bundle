@@ -71,7 +71,7 @@ Other parameters are passed through a pointer to an apiTokensDeleteByCriteriaReq
 
 ### Return type
 
-[**DeleteResponse**](DeleteResponse.md)
+[**DeleteResponse**](../models/DeleteResponse.md)
 
 ### HTTP request headers
 
@@ -141,7 +141,7 @@ Other parameters are passed through a pointer to an apiTokensDeleteByIdRequest s
 
 ### Return type
 
-[**DeleteResponse**](DeleteResponse.md)
+[**DeleteResponse**](../models/DeleteResponse.md)
 
 ### HTTP request headers
 
@@ -211,7 +211,7 @@ Other parameters are passed through a pointer to an apiTokensFindByIdRequest str
 
 ### Return type
 
-[**Token**](Token.md)
+[**Token**](../models/Token.md)
 
 ### HTTP request headers
 
@@ -276,7 +276,7 @@ Other parameters are passed through a pointer to an apiTokensGenerateRequest str
 
 ### Return type
 
-[**Jwt**](Jwt.md)
+[**Jwt**](../models/Jwt.md)
 
 ### HTTP request headers
 
@@ -341,7 +341,7 @@ Other parameters are passed through a pointer to an apiTokensGetRequest struct v
 
 ### Return type
 
-[**Tokens**](Tokens.md)
+[**Tokens**](../models/Tokens.md)
 
 ### HTTP request headers
 
