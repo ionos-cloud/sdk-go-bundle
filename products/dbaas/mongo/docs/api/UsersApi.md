@@ -72,7 +72,7 @@ Other parameters are passed through a pointer to an apiClustersUsersDeleteReques
 
 ### Return type
 
-[**User**](User.md)
+[**User**](../models/User.md)
 
 ### HTTP request headers
 
@@ -141,7 +141,7 @@ Other parameters are passed through a pointer to an apiClustersUsersFindByIdRequ
 
 ### Return type
 
-[**User**](User.md)
+[**User**](../models/User.md)
 
 ### HTTP request headers
 
@@ -208,7 +208,7 @@ Other parameters are passed through a pointer to an apiClustersUsersGetRequest s
 
 ### Return type
 
-[**UsersList**](UsersList.md)
+[**UsersList**](../models/UsersList.md)
 
 ### HTTP request headers
 
@@ -276,11 +276,11 @@ Other parameters are passed through a pointer to an apiClustersUsersPatchRequest
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **patchUserRequest** | [**PatchUserRequest**](PatchUserRequest.md) | Part of the MongoDB user which should be modified. | |
+| **patchUserRequest** | [**PatchUserRequest**](../models/PatchUserRequest.md) | Part of the MongoDB user which should be modified. | |
 
 ### Return type
 
-[**User**](User.md)
+[**User**](../models/User.md)
 
 ### HTTP request headers
 
@@ -346,11 +346,11 @@ Other parameters are passed through a pointer to an apiClustersUsersPostRequest 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **user** | [**User**](User.md) | The user to be created. | |
+| **user** | [**User**](../models/User.md) | The user to be created. | |
 
 ### Return type
 
-[**User**](User.md)
+[**User**](../models/User.md)
 
 ### HTTP request headers
 

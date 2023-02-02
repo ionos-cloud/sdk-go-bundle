@@ -66,7 +66,7 @@ Other parameters are passed through a pointer to an apiClustersSnapshotsGetReque
 
 ### Return type
 
-[**SnapshotList**](SnapshotList.md)
+[**SnapshotList**](../models/SnapshotList.md)
 
 ### HTTP request headers
 

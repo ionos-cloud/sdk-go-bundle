@@ -58,7 +58,7 @@ Other parameters are passed through a pointer to an apiTemplatesGetRequest struc
 
 ### Return type
 
-[**TemplateList**](TemplateList.md)
+[**TemplateList**](../models/TemplateList.md)
 
 ### HTTP request headers
 

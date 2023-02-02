@@ -50,7 +50,7 @@ const (
 	RequestStatusFailed  = "FAILED"
 	RequestStatusDone    = "DONE"
 
-	Version = "products/dbaas/mongo/v1.0.0"
+	Version = "products/dbaas/mongo/v0.1.0"
 )
 
 // APIClient manages communication with the IONOS DBaaS MongoDB REST API API v1.0.0
@@ -87,7 +87,7 @@ func NewAPIClient(cfg *common.Configuration) *APIClient {
 		cfg.HTTPClient = http.DefaultClient
 	}
 
-	if cfg.Servers != nil && len(cfg.Servers) == 0 {
+	if len(cfg.Servers) == 0 {
 		cfg.Servers = common.ServerConfigurations{
 			{
 				URL:         "https://api.ionos.com/databases/mongodb",

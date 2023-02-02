@@ -63,7 +63,7 @@ Other parameters are passed through a pointer to an apiClustersRestorePostReques
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **createRestoreRequest** | [**CreateRestoreRequest**](CreateRestoreRequest.md) | The restore request to create. | |
+| **createRestoreRequest** | [**CreateRestoreRequest**](../models/CreateRestoreRequest.md) | The restore request to create. | |
 
 ### Return type
 

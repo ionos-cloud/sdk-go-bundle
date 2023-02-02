@@ -70,7 +70,7 @@ Other parameters are passed through a pointer to an apiClustersDeleteRequest str
 
 ### Return type
 
-[**ClusterResponse**](ClusterResponse.md)
+[**ClusterResponse**](../models/ClusterResponse.md)
 
 ### HTTP request headers
 
@@ -137,7 +137,7 @@ Other parameters are passed through a pointer to an apiClustersFindByIdRequest s
 
 ### Return type
 
-[**ClusterResponse**](ClusterResponse.md)
+[**ClusterResponse**](../models/ClusterResponse.md)
 
 ### HTTP request headers
 
@@ -202,7 +202,7 @@ Other parameters are passed through a pointer to an apiClustersGetRequest struct
 
 ### Return type
 
-[**ClusterList**](ClusterList.md)
+[**ClusterList**](../models/ClusterList.md)
 
 ### HTTP request headers
 
@@ -268,11 +268,11 @@ Other parameters are passed through a pointer to an apiClustersPatchRequest stru
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **patchClusterRequest** | [**PatchClusterRequest**](PatchClusterRequest.md) | Part of the cluster which should be modified. | |
+| **patchClusterRequest** | [**PatchClusterRequest**](../models/PatchClusterRequest.md) | Part of the cluster which should be modified. | |
 
 ### Return type
 
-[**ClusterResponse**](ClusterResponse.md)
+[**ClusterResponse**](../models/ClusterResponse.md)
 
 ### HTTP request headers
 
@@ -333,11 +333,11 @@ Other parameters are passed through a pointer to an apiClustersPostRequest struc
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **createClusterRequest** | [**CreateClusterRequest**](CreateClusterRequest.md) | The cluster to be created. | |
+| **createClusterRequest** | [**CreateClusterRequest**](../models/CreateClusterRequest.md) | The cluster to be created. | |
 
 ### Return type
 
-[**ClusterResponse**](ClusterResponse.md)
+[**ClusterResponse**](../models/ClusterResponse.md)
 
 ### HTTP request headers
 

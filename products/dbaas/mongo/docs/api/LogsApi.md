@@ -78,7 +78,7 @@ Other parameters are passed through a pointer to an apiClustersLogsGetRequest st
 
 ### Return type
 
-[**ClusterLogs**](ClusterLogs.md)
+[**ClusterLogs**](../models/ClusterLogs.md)
 
 ### HTTP request headers
 
