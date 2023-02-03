@@ -128,16 +128,17 @@ Save the generated token and use it to authenticate:
     import (
         "context"
         "fmt"
-        "github.com/ionos-cloud/sdk-go/v6"
         "log"
+		
+        "github.com/ionos-cloud/sdk-go-bundle/common"
+        "github.com/ionos-cloud/sdk-go-bundle/products/compute"
     )
 
     func TokenAuthExample() error {
         //note: to use NewConfigurationFromEnv(), you need to previously set IONOS_TOKEN as env variables
-        authClient := authApi.NewAPIClient(authApi.NewConfigurationFromEnv())
-        cfg.Debug = true
-        apiClient := ionoscloud.NewAPIClient(cfg)
-        datacenters, _, err := apiClient.DataCenter6Api.DatacentersGet(context.Background()).Depth(1).Execute()
+        authClient := common.NewAPIClient(authApi.NewConfigurationFromEnv())
+        apiClient := compute.NewAPIClient(cfg)
+        datacenters, _, err := apiClient.DataCentersApi.DatacentersGet(context.Background()).Depth(1).Execute()
         if err != nil {
             return fmt.Errorf("error retrieving datacenters (%w)", err)
         }
