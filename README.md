@@ -1,8 +1,7 @@
 # sdk-go-bundle
 Enables users of IONOS Cloud sdks to use one repo for all the GO SDKs released.
 
-⚠️ **Note:** __sdk-go-bundle is currently in the Early Access (EA) phase. We recommend keeping usage and testing to non-production critical applications.
-As an alternative, you can still use the older separate repo SDKs in the table below.
+⚠️ **Note:** __sdk-go-bundle is currently in the Early Access (EA) phase. For production or critical applications, we recommend using the older separate repo SDKs in the table below.
 
 # Go API client for ionoscloud
 
