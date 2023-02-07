@@ -1,6 +1,8 @@
 # sdk-go-bundle
 Enables users of IONOS Cloud sdks to use one repo for all the GO SDKs released.
 
+⚠️ **Note:** __sdk-go-bundle is currently in the Early Access (EA) phase. For production or critical applications, we recommend using the older separate repo SDKs in the table below.
+
 # Go API client for ionoscloud
 
 IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.
@@ -12,22 +14,34 @@ The IONOS Cloud SDK for GO bundle provides you with access to the IONOS Cloud AP
 It is designed for developers who are building applications in GO . The SDK for GO wraps the IONOS Cloud API. All API operations are performed over SSL and authenticated using your IONOS Cloud portal credentials.
 The API can be accessed within an instance running in IONOS Cloud or directly over the Internet from any application that can send an HTTPS request and receive an HTTPS response.
 
+## List of all SDK products in `sdk-go-bundle`, along with their equivalents in the separate repos
+
+| SDK Name            | Sdk-go-bundle module                             | Full repo equivalent                                               | Description                                                                                                                                                                                                                                                                                                                                                                       |
+|---------------------|--------------------------------------------------|--------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Authentication      | [readme](./products/auth/README.md)              | [readme](https://github.com/ionos-cloud/sdk-go-auth)               | Use the Auth API to manage tokens for secure access to IONOS Cloud  APIs (Auth API, Cloud API, Reseller API, Activity Log API, and others).                                                                                                                                                                                                                                       |
+| Compute             | [readme](./products/compute/README.md)           | [readme](https://github.com/ionos-cloud/sdk-go)                    | Use the Auth API to manage resources in the compute engine: datacenters, locations, servers, kubernetes resources, images, volumes, lans, ip blocks, network interfaces, private cross connects, firewall rules, flow logs, load balancers, nat gateways, network load balancers, application load balancers, target groups, s3 keys, snapshots, users, groups, labels, templates |
+| DBaaS Mongo         | [readme](./products/dbaas/mongo/README.md)       | [readme](https://github.com/ionos-cloud/sdk-go-dbaas-mongo)        | You have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API. The MongoDB API allows you to create additional database clusters or modify existing ones.                                                                                                                                              |
+| DBaaS Postgres SQL  | [readme](./products/dbaas/psql/README.md)        | [readme](https://github.com/ionos-cloud/sdk-go-dbaas-postgres)     | The API allows you to create additional PostgreSQL database clusters or modify existing ones.                                                                                                                                                                                                                                                                                     |
+| Certificate Manager | [readme](./products/cert/README.md)              | [readme](https://github.com/ionos-cloud/sdk-go-cert-manager)       | Using the Certificate Manager product, you can conveniently provision and manage SSL certificates with IONOS services and your internal connected resources.                                                                                                                                                                                                                      |
+| Container Registry  | [readme](./products/containerregistry/README.md) | [readme](https://github.com/ionos-cloud/sdk-go-container-registry) | Container Registry product enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls.                                                                                                                        |
+
+
 ## Environment Variables
 
-| Environment Variable | Description                                                                                                                                                                                                                    |
-|----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `IONOS_USERNAME`     | Specify the username used to login, to authenticate against the IONOS Cloud API                                                                                                                                                |
-| `IONOS_PASSWORD`     | Specify the password used to login, to authenticate against the IONOS Cloud API                                                                                                                                                |
-| `IONOS_TOKEN`        | Specify the token used to login, if a token is being used instead of username and password                                                                                                                                     |
-| `IONOS_API_URL`      | Specify the API URL. It will overwrite the API endpoint default value `api.ionos.com`. Note: the host URL does not contain the `/cloudapi/v6` path, so it should _not_ be included in the `IONOS_API_URL` environment variable |
-| `IONOS_LOG_LEVEL`    | Specify the Log Level used to log messages. Possible values: Off, Debug, Trace |
-| `IONOS_PINNED_CERT`  | Specify the SHA-256 public fingerprint here, enables certificate pinning                                                                                                                                                       |
+| Environment Variable | Description                                                                                                                                                                                                                                 |
+|----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `IONOS_USERNAME`     | Specify the username used to login, to authenticate against the IONOS Cloud API                                                                                                                                                             |
+| `IONOS_PASSWORD`     | Specify the password used to login, to authenticate against the IONOS Cloud API                                                                                                                                                             |
+| `IONOS_TOKEN`        | Specify the token used to login, if a token is being used instead of username and password                                                                                                                                                  |
+| `IONOS_API_URL`      | Specify the API URL. It will overwrite the API endpoint default value `api.ionos.com`. Note: for compute, the host URL does not contain the `/cloudapi/v6` path, so it should _not_ be included in the `IONOS_API_URL` environment variable |
+| `IONOS_LOG_LEVEL`    | Specify the Log Level used to log messages. Possible values: Off, Debug, Trace                                                                                                                                                              |
+| `IONOS_PINNED_CERT`  | Specify the SHA-256 public fingerprint here, enables certificate pinning                                                                                                                                                                    |
 
 ⚠️ **_Note: To overwrite the api endpoint - `api.ionos.com`, the environment variable `$IONOS_API_URL` can be set, and used with `NewConfigurationFromEnv()` function._**
 
 ## Getting started
 
-To start working with the SDK, setup your project for Go modules, and retrieve the SDK dependencies with `go get`. This example shows how to use the SDK
+To start working with the SDK, set up your project for Go modules, and retrieve the SDK dependencies with `go get`. This example shows how to use the SDK
 to make an API request to IONOS Cloud.
 
 ### Create directory
@@ -224,7 +238,7 @@ All SDKs are found in the folder `https://github.com/ionos-cloud/sdk-go-bundle/t
 
 Example migration for compute `github.com/ionos-cloud/sdk-go/v6` to `github.com/ionos-cloud/sdk-go-bundle/products/compute`
 
-1. Replace the import ionoscloud `github.com/ionos-cloud/sdk-go/v6` with `github.com/ionos-cloud/sdk-go-bundle/products/compute` You will get errors, as some structs have been moved the the `common` package
+1. Replace the import ionoscloud `github.com/ionos-cloud/sdk-go/v6` with `github.com/ionos-cloud/sdk-go-bundle/products/compute` You will get errors, as some structs have been moved the `common` package
 2. Import `github.com/ionos-cloud/sdk-go-bundle/common` and replace the structs as required.
    Example replacements:
       - var apiResponse *ionoscloud.APIResponse with var apiResponse *common.APIResponse
@@ -233,13 +247,3 @@ Example migration for compute `github.com/ionos-cloud/sdk-go/v6` to `github.com/
 
 All replacements work as-is, no other changes are required.
 
-### List of all SDK products in `sdk-go-bundle`, along with their equivalents in the separate repos
-
-| SDK Name          | Sdk-go-bundle module                             | Full repo equivalent                                               | Description                                                                                                                                                                                                                                                                                                                                                                       |
-|-------------------|--------------------------------------------------|--------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Authentication    | [readme](./products/auth/README.md)              | [readme](https://github.com/ionos-cloud/sdk-go-auth)               | Use the Auth API to manage tokens for secure access to IONOS Cloud  APIs (Auth API, Cloud API, Reseller API, Activity Log API, and others).                                                                                                                                                                                                                                       |
-| Compute           | [readme](./products/compute/README.md)           | [readme](https://github.com/ionos-cloud/sdk-go)                    | Use the Auth API to manage resources in the compute engine: datacenters, locations, servers, kubernetes resources, images, volumes, lans, ip blocks, network interfaces, private cross connects, firewall rules, flow logs, load balancers, nat gateways, network load balancers, application load balancers, target groups, s3 keys, snapshots, users, groups, labels, templates |
-| DBaaS Mongo      | [readme](./products/dbaas/mongo/README.md)       | [readme](https://github.com/ionos-cloud/sdk-go-dbaas-mongo)        | You have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API. The MongoDB API allows you to create additional database clusters or modify existing ones.                                                                                                                                              |
-| DBaaS Postgres SQL | [readme](./products/dbaas/psql/README.md)        | [readme](https://github.com/ionos-cloud/sdk-go-dbaas-postgres)     | The API allows you to create additional PostgreSQL database clusters or modify existing ones.                                                                                                                                                                                                                                                                                     |
-| Certificate Manager | [readme](./products/cert/README.md)              | [readme](https://github.com/ionos-cloud/sdk-go-cert-manager)       | Using the Certificate Manager product, you can conveniently provision and manage SSL certificates with IONOS services and your internal connected resources.                                                                                                                                                                                                                      |
-| Container Registry | [readme](./products/containerregistry/README.md) | [readme](https://github.com/ionos-cloud/sdk-go-container-registry) | Container Registry product enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls.                                                                                                                        |
