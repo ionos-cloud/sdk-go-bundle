@@ -1,6 +1,7 @@
 package common
 
 import (
+	"reflect"
 	"unicode/utf8"
 )
 
@@ -52,4 +53,18 @@ func (v *Nullable[T]) Unset() {
 
 func Strlen(s string) int {
 	return utf8.RuneCountInString(s)
+}
+
+// IsNil checks if an input is nil
+func IsNil(i interface{}) bool {
+	if i == nil {
+		return true
+	}
+	switch reflect.TypeOf(i).Kind() {
+	case reflect.Chan, reflect.Func, reflect.Map, reflect.Ptr, reflect.UnsafePointer, reflect.Interface, reflect.Slice:
+		return reflect.ValueOf(i).IsNil()
+	case reflect.Array:
+		return reflect.ValueOf(i).IsZero()
+	}
+	return false
 }
