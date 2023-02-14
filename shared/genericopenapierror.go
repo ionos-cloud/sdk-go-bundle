@@ -1,4 +1,4 @@
-package common
+package shared
 
 // GenericOpenAPIError Provides access to the body, error and model on returned errors.
 type GenericOpenAPIError struct {
