@@ -34,13 +34,13 @@ import (
     "os"
 
     mongo "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/mongo"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
     clusterId := "clusterId_example" // string | The unique ID of the cluster.
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := mongo.NewAPIClient(configuration)
     resource, resp, err := apiClient.ClustersApi.ClustersDelete(context.Background(), clusterId).Execute()
     if err != nil {
@@ -101,13 +101,13 @@ import (
     "os"
 
     mongo "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/mongo"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
     clusterId := "clusterId_example" // string | The unique ID of the cluster.
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := mongo.NewAPIClient(configuration)
     resource, resp, err := apiClient.ClustersApi.ClustersFindById(context.Background(), clusterId).Execute()
     if err != nil {
@@ -169,13 +169,13 @@ import (
     "os"
 
     mongo "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/mongo"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
     filterName := "filterName_example" // string | Response filter to list only the MongoDB clusters that contain the specified name. The value is case insensitive and matched on the 'displayName' field.  (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := mongo.NewAPIClient(configuration)
     resource, resp, err := apiClient.ClustersApi.ClustersGet(context.Background()).FilterName(filterName).Execute()
     if err != nil {
@@ -234,14 +234,14 @@ import (
     "os"
 
     mongo "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/mongo"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
     clusterId := "clusterId_example" // string | The unique ID of the cluster.
     patchClusterRequest := *openapiclient.NewPatchClusterRequest() // PatchClusterRequest | Part of the cluster which should be modified.
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := mongo.NewAPIClient(configuration)
     resource, resp, err := apiClient.ClustersApi.ClustersPatch(context.Background(), clusterId).PatchClusterRequest(patchClusterRequest).Execute()
     if err != nil {
@@ -304,13 +304,13 @@ import (
     "os"
 
     mongo "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/mongo"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
     createClusterRequest := *openapiclient.NewCreateClusterRequest() // CreateClusterRequest | The cluster to be created.
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := mongo.NewAPIClient(configuration)
     resource, resp, err := apiClient.ClustersApi.ClustersPost(context.Background()).CreateClusterRequest(createClusterRequest).Execute()
     if err != nil {

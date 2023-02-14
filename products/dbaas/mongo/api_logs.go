@@ -13,7 +13,7 @@ package mongo
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -56,7 +56,7 @@ func (r ApiClustersLogsGetRequest) Limit(limit int32) ApiClustersLogsGetRequest 
 	return r
 }
 
-func (r ApiClustersLogsGetRequest) Execute() (ClusterLogs, *common.APIResponse, error) {
+func (r ApiClustersLogsGetRequest) Execute() (ClusterLogs, *shared.APIResponse, error) {
 	return r.ApiService.ClustersLogsGetExecute(r)
 }
 
@@ -79,7 +79,7 @@ func (a *LogsApiService) ClustersLogsGet(ctx _context.Context, clusterId string)
  * Execute executes the request
  * @return ClusterLogs
  */
-func (a *LogsApiService) ClustersLogsGetExecute(r ApiClustersLogsGetRequest) (ClusterLogs, *common.APIResponse, error) {
+func (a *LogsApiService) ClustersLogsGetExecute(r ApiClustersLogsGetRequest) (ClusterLogs, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -91,7 +91,7 @@ func (a *LogsApiService) ClustersLogsGetExecute(r ApiClustersLogsGetRequest) (Cl
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogsApiService.ClustersLogsGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -134,7 +134,7 @@ func (a *LogsApiService) ClustersLogsGetExecute(r ApiClustersLogsGetRequest) (Cl
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["tokenAuth"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -153,7 +153,7 @@ func (a *LogsApiService) ClustersLogsGetExecute(r ApiClustersLogsGetRequest) (Cl
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -173,7 +173,7 @@ func (a *LogsApiService) ClustersLogsGetExecute(r ApiClustersLogsGetRequest) (Cl
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -189,7 +189,7 @@ func (a *LogsApiService) ClustersLogsGetExecute(r ApiClustersLogsGetRequest) (Cl
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())

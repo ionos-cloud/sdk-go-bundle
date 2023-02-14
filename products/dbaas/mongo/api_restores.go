@@ -13,7 +13,7 @@ package mongo
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -40,7 +40,7 @@ func (r ApiClustersRestorePostRequest) CreateRestoreRequest(createRestoreRequest
 	return r
 }
 
-func (r ApiClustersRestorePostRequest) Execute() (*common.APIResponse, error) {
+func (r ApiClustersRestorePostRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.ClustersRestorePostExecute(r)
 }
 
@@ -62,7 +62,7 @@ func (a *RestoresApiService) ClustersRestorePost(ctx _context.Context, clusterId
 /*
  * Execute executes the request
  */
-func (a *RestoresApiService) ClustersRestorePostExecute(r ApiClustersRestorePostRequest) (*common.APIResponse, error) {
+func (a *RestoresApiService) ClustersRestorePostExecute(r ApiClustersRestorePostRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -73,7 +73,7 @@ func (a *RestoresApiService) ClustersRestorePostExecute(r ApiClustersRestorePost
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RestoresApiService.ClustersRestorePost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -109,7 +109,7 @@ func (a *RestoresApiService) ClustersRestorePostExecute(r ApiClustersRestorePost
 	localVarPostBody = r.createRestoreRequest
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["tokenAuth"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -128,7 +128,7 @@ func (a *RestoresApiService) ClustersRestorePostExecute(r ApiClustersRestorePost
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -148,7 +148,7 @@ func (a *RestoresApiService) ClustersRestorePostExecute(r ApiClustersRestorePost
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))

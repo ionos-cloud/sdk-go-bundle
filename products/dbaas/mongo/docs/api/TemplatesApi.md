@@ -30,12 +30,12 @@ import (
     "os"
 
     mongo "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/mongo"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := mongo.NewAPIClient(configuration)
     resource, resp, err := apiClient.TemplatesApi.TemplatesGet(context.Background()).Execute()
     if err != nil {

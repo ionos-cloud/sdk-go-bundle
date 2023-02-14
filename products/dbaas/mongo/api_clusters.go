@@ -13,7 +13,7 @@ package mongo
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -34,7 +34,7 @@ type ApiClustersDeleteRequest struct {
 	clusterId  string
 }
 
-func (r ApiClustersDeleteRequest) Execute() (ClusterResponse, *common.APIResponse, error) {
+func (r ApiClustersDeleteRequest) Execute() (ClusterResponse, *shared.APIResponse, error) {
 	return r.ApiService.ClustersDeleteExecute(r)
 }
 
@@ -57,7 +57,7 @@ func (a *ClustersApiService) ClustersDelete(ctx _context.Context, clusterId stri
  * Execute executes the request
  * @return ClusterResponse
  */
-func (a *ClustersApiService) ClustersDeleteExecute(r ApiClustersDeleteRequest) (ClusterResponse, *common.APIResponse, error) {
+func (a *ClustersApiService) ClustersDeleteExecute(r ApiClustersDeleteRequest) (ClusterResponse, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -69,7 +69,7 @@ func (a *ClustersApiService) ClustersDeleteExecute(r ApiClustersDeleteRequest) (
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClustersApiService.ClustersDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -100,7 +100,7 @@ func (a *ClustersApiService) ClustersDeleteExecute(r ApiClustersDeleteRequest) (
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["tokenAuth"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -119,7 +119,7 @@ func (a *ClustersApiService) ClustersDeleteExecute(r ApiClustersDeleteRequest) (
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -139,7 +139,7 @@ func (a *ClustersApiService) ClustersDeleteExecute(r ApiClustersDeleteRequest) (
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -155,7 +155,7 @@ func (a *ClustersApiService) ClustersDeleteExecute(r ApiClustersDeleteRequest) (
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -171,7 +171,7 @@ type ApiClustersFindByIdRequest struct {
 	clusterId  string
 }
 
-func (r ApiClustersFindByIdRequest) Execute() (ClusterResponse, *common.APIResponse, error) {
+func (r ApiClustersFindByIdRequest) Execute() (ClusterResponse, *shared.APIResponse, error) {
 	return r.ApiService.ClustersFindByIdExecute(r)
 }
 
@@ -194,7 +194,7 @@ func (a *ClustersApiService) ClustersFindById(ctx _context.Context, clusterId st
  * Execute executes the request
  * @return ClusterResponse
  */
-func (a *ClustersApiService) ClustersFindByIdExecute(r ApiClustersFindByIdRequest) (ClusterResponse, *common.APIResponse, error) {
+func (a *ClustersApiService) ClustersFindByIdExecute(r ApiClustersFindByIdRequest) (ClusterResponse, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -206,7 +206,7 @@ func (a *ClustersApiService) ClustersFindByIdExecute(r ApiClustersFindByIdReques
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClustersApiService.ClustersFindById")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -237,7 +237,7 @@ func (a *ClustersApiService) ClustersFindByIdExecute(r ApiClustersFindByIdReques
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["tokenAuth"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -256,7 +256,7 @@ func (a *ClustersApiService) ClustersFindByIdExecute(r ApiClustersFindByIdReques
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -276,7 +276,7 @@ func (a *ClustersApiService) ClustersFindByIdExecute(r ApiClustersFindByIdReques
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -292,7 +292,7 @@ func (a *ClustersApiService) ClustersFindByIdExecute(r ApiClustersFindByIdReques
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -313,7 +313,7 @@ func (r ApiClustersGetRequest) FilterName(filterName string) ApiClustersGetReque
 	return r
 }
 
-func (r ApiClustersGetRequest) Execute() (ClusterList, *common.APIResponse, error) {
+func (r ApiClustersGetRequest) Execute() (ClusterList, *shared.APIResponse, error) {
 	return r.ApiService.ClustersGetExecute(r)
 }
 
@@ -334,7 +334,7 @@ func (a *ClustersApiService) ClustersGet(ctx _context.Context) ApiClustersGetReq
  * Execute executes the request
  * @return ClusterList
  */
-func (a *ClustersApiService) ClustersGetExecute(r ApiClustersGetRequest) (ClusterList, *common.APIResponse, error) {
+func (a *ClustersApiService) ClustersGetExecute(r ApiClustersGetRequest) (ClusterList, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -346,7 +346,7 @@ func (a *ClustersApiService) ClustersGetExecute(r ApiClustersGetRequest) (Cluste
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClustersApiService.ClustersGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -379,7 +379,7 @@ func (a *ClustersApiService) ClustersGetExecute(r ApiClustersGetRequest) (Cluste
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["tokenAuth"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -398,7 +398,7 @@ func (a *ClustersApiService) ClustersGetExecute(r ApiClustersGetRequest) (Cluste
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -418,7 +418,7 @@ func (a *ClustersApiService) ClustersGetExecute(r ApiClustersGetRequest) (Cluste
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -434,7 +434,7 @@ func (a *ClustersApiService) ClustersGetExecute(r ApiClustersGetRequest) (Cluste
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -456,7 +456,7 @@ func (r ApiClustersPatchRequest) PatchClusterRequest(patchClusterRequest PatchCl
 	return r
 }
 
-func (r ApiClustersPatchRequest) Execute() (ClusterResponse, *common.APIResponse, error) {
+func (r ApiClustersPatchRequest) Execute() (ClusterResponse, *shared.APIResponse, error) {
 	return r.ApiService.ClustersPatchExecute(r)
 }
 
@@ -479,7 +479,7 @@ func (a *ClustersApiService) ClustersPatch(ctx _context.Context, clusterId strin
  * Execute executes the request
  * @return ClusterResponse
  */
-func (a *ClustersApiService) ClustersPatchExecute(r ApiClustersPatchRequest) (ClusterResponse, *common.APIResponse, error) {
+func (a *ClustersApiService) ClustersPatchExecute(r ApiClustersPatchRequest) (ClusterResponse, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPatch
 		localVarPostBody     interface{}
@@ -491,7 +491,7 @@ func (a *ClustersApiService) ClustersPatchExecute(r ApiClustersPatchRequest) (Cl
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClustersApiService.ClustersPatch")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -527,7 +527,7 @@ func (a *ClustersApiService) ClustersPatchExecute(r ApiClustersPatchRequest) (Cl
 	localVarPostBody = r.patchClusterRequest
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["tokenAuth"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -546,7 +546,7 @@ func (a *ClustersApiService) ClustersPatchExecute(r ApiClustersPatchRequest) (Cl
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -566,7 +566,7 @@ func (a *ClustersApiService) ClustersPatchExecute(r ApiClustersPatchRequest) (Cl
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -582,7 +582,7 @@ func (a *ClustersApiService) ClustersPatchExecute(r ApiClustersPatchRequest) (Cl
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -603,7 +603,7 @@ func (r ApiClustersPostRequest) CreateClusterRequest(createClusterRequest Create
 	return r
 }
 
-func (r ApiClustersPostRequest) Execute() (ClusterResponse, *common.APIResponse, error) {
+func (r ApiClustersPostRequest) Execute() (ClusterResponse, *shared.APIResponse, error) {
 	return r.ApiService.ClustersPostExecute(r)
 }
 
@@ -625,7 +625,7 @@ func (a *ClustersApiService) ClustersPost(ctx _context.Context) ApiClustersPostR
  * Execute executes the request
  * @return ClusterResponse
  */
-func (a *ClustersApiService) ClustersPostExecute(r ApiClustersPostRequest) (ClusterResponse, *common.APIResponse, error) {
+func (a *ClustersApiService) ClustersPostExecute(r ApiClustersPostRequest) (ClusterResponse, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -637,7 +637,7 @@ func (a *ClustersApiService) ClustersPostExecute(r ApiClustersPostRequest) (Clus
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClustersApiService.ClustersPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -672,7 +672,7 @@ func (a *ClustersApiService) ClustersPostExecute(r ApiClustersPostRequest) (Clus
 	localVarPostBody = r.createClusterRequest
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["tokenAuth"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -691,7 +691,7 @@ func (a *ClustersApiService) ClustersPostExecute(r ApiClustersPostRequest) (Clus
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -711,7 +711,7 @@ func (a *ClustersApiService) ClustersPostExecute(r ApiClustersPostRequest) (Clus
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -727,7 +727,7 @@ func (a *ClustersApiService) ClustersPostExecute(r ApiClustersPostRequest) (Clus
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
