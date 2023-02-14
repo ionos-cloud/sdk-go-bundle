@@ -30,14 +30,14 @@ import (
     "os"
 
     containerregistry "github.com/ionos-cloud/sdk-go-bundle/products/containerregistry"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
     registryId := TODO // string | The unique ID of the registry
     name := "ubuntu" // string | The name of the repository
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := containerregistry.NewAPIClient(configuration)
     resource, resp, err := apiClient.RepositoriesApi.RegistriesRepositoriesDelete(context.Background(), registryId, name).Execute()
     if err != nil {

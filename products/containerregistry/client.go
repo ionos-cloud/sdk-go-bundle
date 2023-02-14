@@ -36,7 +36,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	"golang.org/x/oauth2"
 )
 
@@ -57,7 +57,7 @@ const (
 // APIClient manages communication with the Container Registry service API v1.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
-	cfg    *common.Configuration
+	cfg    *shared.Configuration
 	common service // Reuse a single struct instead of allocating one for each service on the heap.
 
 	// API Services
@@ -79,13 +79,13 @@ type service struct {
 
 // NewAPIClient creates a new API client. Requires a userAgent string describing your application.
 // optionally a custom http.Client to allow for advanced features such as caching.
-func NewAPIClient(cfg *common.Configuration) *APIClient {
+func NewAPIClient(cfg *shared.Configuration) *APIClient {
 	if cfg.HTTPClient == nil {
 		cfg.HTTPClient = http.DefaultClient
 	}
 
 	if len(cfg.Servers) == 0 {
-		cfg.Servers = common.ServerConfigurations{
+		cfg.Servers = shared.ServerConfigurations{
 			{
 				URL:         "https://api.ionos.com/containerregistries",
 				Description: "Production",
@@ -93,7 +93,7 @@ func NewAPIClient(cfg *common.Configuration) *APIClient {
 		}
 	}
 	//enable certificate pinning if the env variable is set
-	pkFingerprint := os.Getenv(common.IonosPinnedCertEnvVar)
+	pkFingerprint := os.Getenv(shared.IonosPinnedCertEnvVar)
 	if pkFingerprint != "" {
 		httpTransport := &http.Transport{}
 		AddPinnedCert(httpTransport, pkFingerprint)
@@ -277,7 +277,7 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, time.Duratio
 			}
 		}
 
-		if c.cfg.LogLevel.Satisfies(common.Trace) {
+		if c.cfg.LogLevel.Satisfies(shared.Trace) {
 			dump, err := httputil.DumpRequestOut(clonedRequest, true)
 			if err == nil {
 				c.cfg.Logger.Printf(" DumpRequestOut : %s\n", string(dump))
@@ -295,7 +295,7 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, time.Duratio
 			return resp, httpRequestTime, err
 		}
 
-		if c.cfg.LogLevel.Satisfies(common.Trace) {
+		if c.cfg.LogLevel.Satisfies(shared.Trace) {
 			dump, err := httputil.DumpResponse(resp, true)
 			if err == nil {
 				c.cfg.Logger.Printf("\n DumpResponse : %s\n", string(dump))
@@ -328,7 +328,7 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, time.Duratio
 		}
 
 		if retryCount >= c.GetConfig().MaxRetries {
-			if c.cfg.LogLevel.Satisfies(common.Debug) {
+			if c.cfg.LogLevel.Satisfies(shared.Debug) {
 				c.cfg.Logger.Printf(" Number of maximum retries exceeded (%d retries)\n", c.cfg.MaxRetries)
 			}
 			break
@@ -344,7 +344,7 @@ func (c *APIClient) backOff(t time.Duration) {
 	if t > c.GetConfig().MaxWaitTime {
 		t = c.GetConfig().MaxWaitTime
 	}
-	if c.cfg.LogLevel.Satisfies(common.Debug) {
+	if c.cfg.LogLevel.Satisfies(shared.Debug) {
 		c.cfg.Logger.Printf(" Sleeping %s before retrying request\n", t.String())
 	}
 	time.Sleep(t)
@@ -352,7 +352,7 @@ func (c *APIClient) backOff(t time.Duration) {
 
 // Allow modification of underlying config for alternate implementations and testing
 // Caution: modifying the configuration while live can cause data races and potentially unwanted behavior
-func (c *APIClient) GetConfig() *common.Configuration {
+func (c *APIClient) GetConfig() *shared.Configuration {
 	return c.cfg
 }
 
@@ -505,7 +505,7 @@ func (c *APIClient) prepareRequest(
 		// Walk through any authentication.
 
 		// OAuth2 authentication
-		if tok, ok := ctx.Value(common.ContextOAuth2).(oauth2.TokenSource); ok {
+		if tok, ok := ctx.Value(shared.ContextOAuth2).(oauth2.TokenSource); ok {
 			// We were able to grab an oauth2 token from the context
 			var latestToken *oauth2.Token
 			if latestToken, err = tok.Token(); err != nil {
@@ -516,12 +516,12 @@ func (c *APIClient) prepareRequest(
 		}
 
 		// Basic HTTP Authentication
-		if auth, ok := ctx.Value(common.ContextBasicAuth).(common.BasicAuth); ok {
+		if auth, ok := ctx.Value(shared.ContextBasicAuth).(shared.BasicAuth); ok {
 			localVarRequest.SetBasicAuth(auth.UserName, auth.Password)
 		}
 
 		// AccessToken Authentication
-		if auth, ok := ctx.Value(common.ContextAccessToken).(string); ok {
+		if auth, ok := ctx.Value(shared.ContextAccessToken).(string); ok {
 			localVarRequest.Header.Add("Authorization", "Bearer "+auth)
 		}
 

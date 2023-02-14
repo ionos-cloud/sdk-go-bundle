@@ -12,7 +12,7 @@
 package containerregistry
 
 import (
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	"strings"
 	"time"
 )
@@ -23,7 +23,7 @@ type IonosTime struct {
 
 func (t *IonosTime) UnmarshalJSON(data []byte) error {
 	str := string(data)
-	if common.Strlen(str) == 0 {
+	if shared.Strlen(str) == 0 {
 		t = nil
 		return nil
 	}

@@ -14,7 +14,7 @@ package containerregistry
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -36,7 +36,7 @@ type ApiRegistriesRepositoriesDeleteRequest struct {
 	name       string
 }
 
-func (r ApiRegistriesRepositoriesDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiRegistriesRepositoriesDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.RegistriesRepositoriesDeleteExecute(r)
 }
 
@@ -68,7 +68,7 @@ func (a *RepositoriesApiService) RegistriesRepositoriesDelete(ctx _context.Conte
 /*
  * Execute executes the request
  */
-func (a *RepositoriesApiService) RegistriesRepositoriesDeleteExecute(r ApiRegistriesRepositoriesDeleteRequest) (*common.APIResponse, error) {
+func (a *RepositoriesApiService) RegistriesRepositoriesDeleteExecute(r ApiRegistriesRepositoriesDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -79,7 +79,7 @@ func (a *RepositoriesApiService) RegistriesRepositoriesDeleteExecute(r ApiRegist
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RepositoriesApiService.RegistriesRepositoriesDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -111,7 +111,7 @@ func (a *RepositoriesApiService) RegistriesRepositoriesDeleteExecute(r ApiRegist
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["tokenAuth"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -130,7 +130,7 @@ func (a *RepositoriesApiService) RegistriesRepositoriesDeleteExecute(r ApiRegist
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -150,7 +150,7 @@ func (a *RepositoriesApiService) RegistriesRepositoriesDeleteExecute(r ApiRegist
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))

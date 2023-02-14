@@ -28,12 +28,12 @@ import (
     "os"
 
     containerregistry "github.com/ionos-cloud/sdk-go-bundle/products/containerregistry"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := containerregistry.NewAPIClient(configuration)
     resource, resp, err := apiClient.LocationsApi.LocationsGet(context.Background()).Execute()
     if err != nil {

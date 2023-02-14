@@ -14,7 +14,7 @@ package containerregistry
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -35,7 +35,7 @@ type ApiRegistriesDeleteRequest struct {
 	registryId string
 }
 
-func (r ApiRegistriesDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiRegistriesDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.RegistriesDeleteExecute(r)
 }
 
@@ -56,7 +56,7 @@ func (a *RegistriesApiService) RegistriesDelete(ctx _context.Context, registryId
 /*
  * Execute executes the request
  */
-func (a *RegistriesApiService) RegistriesDeleteExecute(r ApiRegistriesDeleteRequest) (*common.APIResponse, error) {
+func (a *RegistriesApiService) RegistriesDeleteExecute(r ApiRegistriesDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -67,7 +67,7 @@ func (a *RegistriesApiService) RegistriesDeleteExecute(r ApiRegistriesDeleteRequ
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RegistriesApiService.RegistriesDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -98,7 +98,7 @@ func (a *RegistriesApiService) RegistriesDeleteExecute(r ApiRegistriesDeleteRequ
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["tokenAuth"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -117,7 +117,7 @@ func (a *RegistriesApiService) RegistriesDeleteExecute(r ApiRegistriesDeleteRequ
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -137,7 +137,7 @@ func (a *RegistriesApiService) RegistriesDeleteExecute(r ApiRegistriesDeleteRequ
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -162,7 +162,7 @@ type ApiRegistriesFindByIdRequest struct {
 	registryId string
 }
 
-func (r ApiRegistriesFindByIdRequest) Execute() (RegistryResponse, *common.APIResponse, error) {
+func (r ApiRegistriesFindByIdRequest) Execute() (RegistryResponse, *shared.APIResponse, error) {
 	return r.ApiService.RegistriesFindByIdExecute(r)
 }
 
@@ -185,7 +185,7 @@ func (a *RegistriesApiService) RegistriesFindById(ctx _context.Context, registry
  * Execute executes the request
  * @return RegistryResponse
  */
-func (a *RegistriesApiService) RegistriesFindByIdExecute(r ApiRegistriesFindByIdRequest) (RegistryResponse, *common.APIResponse, error) {
+func (a *RegistriesApiService) RegistriesFindByIdExecute(r ApiRegistriesFindByIdRequest) (RegistryResponse, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -197,7 +197,7 @@ func (a *RegistriesApiService) RegistriesFindByIdExecute(r ApiRegistriesFindById
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RegistriesApiService.RegistriesFindById")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -228,7 +228,7 @@ func (a *RegistriesApiService) RegistriesFindByIdExecute(r ApiRegistriesFindById
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["tokenAuth"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -247,7 +247,7 @@ func (a *RegistriesApiService) RegistriesFindByIdExecute(r ApiRegistriesFindById
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -267,7 +267,7 @@ func (a *RegistriesApiService) RegistriesFindByIdExecute(r ApiRegistriesFindById
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -294,7 +294,7 @@ func (a *RegistriesApiService) RegistriesFindByIdExecute(r ApiRegistriesFindById
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -325,7 +325,7 @@ func (r ApiRegistriesGetRequest) PaginationToken(paginationToken string) ApiRegi
 	return r
 }
 
-func (r ApiRegistriesGetRequest) Execute() (RegistriesResponse, *common.APIResponse, error) {
+func (r ApiRegistriesGetRequest) Execute() (RegistriesResponse, *shared.APIResponse, error) {
 	return r.ApiService.RegistriesGetExecute(r)
 }
 
@@ -346,7 +346,7 @@ func (a *RegistriesApiService) RegistriesGet(ctx _context.Context) ApiRegistries
  * Execute executes the request
  * @return RegistriesResponse
  */
-func (a *RegistriesApiService) RegistriesGetExecute(r ApiRegistriesGetRequest) (RegistriesResponse, *common.APIResponse, error) {
+func (a *RegistriesApiService) RegistriesGetExecute(r ApiRegistriesGetRequest) (RegistriesResponse, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -358,7 +358,7 @@ func (a *RegistriesApiService) RegistriesGetExecute(r ApiRegistriesGetRequest) (
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RegistriesApiService.RegistriesGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -397,7 +397,7 @@ func (a *RegistriesApiService) RegistriesGetExecute(r ApiRegistriesGetRequest) (
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["tokenAuth"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -416,7 +416,7 @@ func (a *RegistriesApiService) RegistriesGetExecute(r ApiRegistriesGetRequest) (
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -436,7 +436,7 @@ func (a *RegistriesApiService) RegistriesGetExecute(r ApiRegistriesGetRequest) (
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -454,7 +454,7 @@ func (a *RegistriesApiService) RegistriesGetExecute(r ApiRegistriesGetRequest) (
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -476,7 +476,7 @@ func (r ApiRegistriesPatchRequest) PatchRegistryInput(patchRegistryInput PatchRe
 	return r
 }
 
-func (r ApiRegistriesPatchRequest) Execute() (RegistryResponse, *common.APIResponse, error) {
+func (r ApiRegistriesPatchRequest) Execute() (RegistryResponse, *shared.APIResponse, error) {
 	return r.ApiService.RegistriesPatchExecute(r)
 }
 
@@ -501,7 +501,7 @@ func (a *RegistriesApiService) RegistriesPatch(ctx _context.Context, registryId 
  * Execute executes the request
  * @return RegistryResponse
  */
-func (a *RegistriesApiService) RegistriesPatchExecute(r ApiRegistriesPatchRequest) (RegistryResponse, *common.APIResponse, error) {
+func (a *RegistriesApiService) RegistriesPatchExecute(r ApiRegistriesPatchRequest) (RegistryResponse, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPatch
 		localVarPostBody     interface{}
@@ -513,7 +513,7 @@ func (a *RegistriesApiService) RegistriesPatchExecute(r ApiRegistriesPatchReques
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RegistriesApiService.RegistriesPatch")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -549,7 +549,7 @@ func (a *RegistriesApiService) RegistriesPatchExecute(r ApiRegistriesPatchReques
 	localVarPostBody = r.patchRegistryInput
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["tokenAuth"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -568,7 +568,7 @@ func (a *RegistriesApiService) RegistriesPatchExecute(r ApiRegistriesPatchReques
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -588,7 +588,7 @@ func (a *RegistriesApiService) RegistriesPatchExecute(r ApiRegistriesPatchReques
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -606,7 +606,7 @@ func (a *RegistriesApiService) RegistriesPatchExecute(r ApiRegistriesPatchReques
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -627,7 +627,7 @@ func (r ApiRegistriesPostRequest) PostRegistryInput(postRegistryInput PostRegist
 	return r
 }
 
-func (r ApiRegistriesPostRequest) Execute() (PostRegistryOutput, *common.APIResponse, error) {
+func (r ApiRegistriesPostRequest) Execute() (PostRegistryOutput, *shared.APIResponse, error) {
 	return r.ApiService.RegistriesPostExecute(r)
 }
 
@@ -652,7 +652,7 @@ func (a *RegistriesApiService) RegistriesPost(ctx _context.Context) ApiRegistrie
  * Execute executes the request
  * @return PostRegistryOutput
  */
-func (a *RegistriesApiService) RegistriesPostExecute(r ApiRegistriesPostRequest) (PostRegistryOutput, *common.APIResponse, error) {
+func (a *RegistriesApiService) RegistriesPostExecute(r ApiRegistriesPostRequest) (PostRegistryOutput, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -664,7 +664,7 @@ func (a *RegistriesApiService) RegistriesPostExecute(r ApiRegistriesPostRequest)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RegistriesApiService.RegistriesPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -699,7 +699,7 @@ func (a *RegistriesApiService) RegistriesPostExecute(r ApiRegistriesPostRequest)
 	localVarPostBody = r.postRegistryInput
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["tokenAuth"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -718,7 +718,7 @@ func (a *RegistriesApiService) RegistriesPostExecute(r ApiRegistriesPostRequest)
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -738,7 +738,7 @@ func (a *RegistriesApiService) RegistriesPostExecute(r ApiRegistriesPostRequest)
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -756,7 +756,7 @@ func (a *RegistriesApiService) RegistriesPostExecute(r ApiRegistriesPostRequest)
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -778,7 +778,7 @@ func (r ApiRegistriesPutRequest) PutRegistryInput(putRegistryInput PutRegistryIn
 	return r
 }
 
-func (r ApiRegistriesPutRequest) Execute() (PutRegistryOutput, *common.APIResponse, error) {
+func (r ApiRegistriesPutRequest) Execute() (PutRegistryOutput, *shared.APIResponse, error) {
 	return r.ApiService.RegistriesPutExecute(r)
 }
 
@@ -815,7 +815,7 @@ func (a *RegistriesApiService) RegistriesPut(ctx _context.Context, registryId st
  * Execute executes the request
  * @return PutRegistryOutput
  */
-func (a *RegistriesApiService) RegistriesPutExecute(r ApiRegistriesPutRequest) (PutRegistryOutput, *common.APIResponse, error) {
+func (a *RegistriesApiService) RegistriesPutExecute(r ApiRegistriesPutRequest) (PutRegistryOutput, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -827,7 +827,7 @@ func (a *RegistriesApiService) RegistriesPutExecute(r ApiRegistriesPutRequest) (
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RegistriesApiService.RegistriesPut")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -863,7 +863,7 @@ func (a *RegistriesApiService) RegistriesPutExecute(r ApiRegistriesPutRequest) (
 	localVarPostBody = r.putRegistryInput
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["tokenAuth"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -882,7 +882,7 @@ func (a *RegistriesApiService) RegistriesPutExecute(r ApiRegistriesPutRequest) (
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -902,7 +902,7 @@ func (a *RegistriesApiService) RegistriesPutExecute(r ApiRegistriesPutRequest) (
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -920,7 +920,7 @@ func (a *RegistriesApiService) RegistriesPutExecute(r ApiRegistriesPutRequest) (
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())

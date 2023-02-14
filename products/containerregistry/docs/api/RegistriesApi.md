@@ -33,13 +33,13 @@ import (
     "os"
 
     containerregistry "github.com/ionos-cloud/sdk-go-bundle/products/containerregistry"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
     registryId := TODO // string | The unique ID of the registry
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := containerregistry.NewAPIClient(configuration)
     resource, resp, err := apiClient.RegistriesApi.RegistriesDelete(context.Background(), registryId).Execute()
     if err != nil {
@@ -98,13 +98,13 @@ import (
     "os"
 
     containerregistry "github.com/ionos-cloud/sdk-go-bundle/products/containerregistry"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
     registryId := TODO // string | The unique ID of the registry
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := containerregistry.NewAPIClient(configuration)
     resource, resp, err := apiClient.RegistriesApi.RegistriesFindById(context.Background(), registryId).Execute()
     if err != nil {
@@ -168,7 +168,7 @@ import (
     "os"
 
     containerregistry "github.com/ionos-cloud/sdk-go-bundle/products/containerregistry"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -176,7 +176,7 @@ func main() {
     limit := "limit_example" // string | The maximum number of elements to return (used together with pagination.token for pagination) (optional) (default to "100")
     paginationToken := "eyJ2IjoibWV0YS5rOHMuaW8vdjEiLCJydiI6MTYzMjQ0OTk2ODAsInN0YXJ0IjoiM2RmYTc3YjctZGIwNS00MjMwLThmMjAtOGU3NjJlOTUxOTUzXHUwMDAwIn0" // string | An opaque token used to iterate the set of results (used together with limit for pagination) (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := containerregistry.NewAPIClient(configuration)
     resource, resp, err := apiClient.RegistriesApi.RegistriesGet(context.Background()).FilterName(filterName).Limit(limit).PaginationToken(paginationToken).Execute()
     if err != nil {
@@ -237,14 +237,14 @@ import (
     "os"
 
     containerregistry "github.com/ionos-cloud/sdk-go-bundle/products/containerregistry"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
     registryId := TODO // string | The unique ID of the registry
     patchRegistryInput := *openapiclient.NewPatchRegistryInput() // PatchRegistryInput | 
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := containerregistry.NewAPIClient(configuration)
     resource, resp, err := apiClient.RegistriesApi.RegistriesPatch(context.Background(), registryId).PatchRegistryInput(patchRegistryInput).Execute()
     if err != nil {
@@ -307,13 +307,13 @@ import (
     "os"
 
     containerregistry "github.com/ionos-cloud/sdk-go-bundle/products/containerregistry"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
     postRegistryInput := *openapiclient.NewPostRegistryInput(*openapiclient.NewPostRegistryProperties("de/txl", "my-registry")) // PostRegistryInput | 
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := containerregistry.NewAPIClient(configuration)
     resource, resp, err := apiClient.RegistriesApi.RegistriesPost(context.Background()).PostRegistryInput(postRegistryInput).Execute()
     if err != nil {
@@ -372,14 +372,14 @@ import (
     "os"
 
     containerregistry "github.com/ionos-cloud/sdk-go-bundle/products/containerregistry"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
     registryId := TODO // string | The unique ID of the registry
     putRegistryInput := *openapiclient.NewPutRegistryInput(*openapiclient.NewPostRegistryProperties("de/txl", "my-registry")) // PutRegistryInput | 
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := containerregistry.NewAPIClient(configuration)
     resource, resp, err := apiClient.RegistriesApi.RegistriesPut(context.Background(), registryId).PutRegistryInput(putRegistryInput).Execute()
     if err != nil {

@@ -14,7 +14,7 @@ package containerregistry
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -35,7 +35,7 @@ type ApiNamesCheckUsageRequest struct {
 	name       string
 }
 
-func (r ApiNamesCheckUsageRequest) Execute() (*common.APIResponse, error) {
+func (r ApiNamesCheckUsageRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.NamesCheckUsageExecute(r)
 }
 
@@ -62,7 +62,7 @@ func (a *NamesApiService) NamesCheckUsage(ctx _context.Context, name string) Api
 /*
  * Execute executes the request
  */
-func (a *NamesApiService) NamesCheckUsageExecute(r ApiNamesCheckUsageRequest) (*common.APIResponse, error) {
+func (a *NamesApiService) NamesCheckUsageExecute(r ApiNamesCheckUsageRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodHead
 		localVarPostBody     interface{}
@@ -73,7 +73,7 @@ func (a *NamesApiService) NamesCheckUsageExecute(r ApiNamesCheckUsageRequest) (*
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamesApiService.NamesCheckUsage")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -104,7 +104,7 @@ func (a *NamesApiService) NamesCheckUsageExecute(r ApiNamesCheckUsageRequest) (*
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["tokenAuth"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -123,7 +123,7 @@ func (a *NamesApiService) NamesCheckUsageExecute(r ApiNamesCheckUsageRequest) (*
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -143,7 +143,7 @@ func (a *NamesApiService) NamesCheckUsageExecute(r ApiNamesCheckUsageRequest) (*
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
