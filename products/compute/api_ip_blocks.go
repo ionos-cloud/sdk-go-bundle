@@ -13,7 +13,7 @@ package compute
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -50,7 +50,7 @@ func (r ApiIpblocksDeleteRequest) XContractNumber(xContractNumber int32) ApiIpbl
 	return r
 }
 
-func (r ApiIpblocksDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiIpblocksDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.IpblocksDeleteExecute(r)
 }
 
@@ -72,7 +72,7 @@ func (a *IPBlocksApiService) IpblocksDelete(ctx _context.Context, ipblockId stri
 /*
  * Execute executes the request
  */
-func (a *IPBlocksApiService) IpblocksDeleteExecute(r ApiIpblocksDeleteRequest) (*common.APIResponse, error) {
+func (a *IPBlocksApiService) IpblocksDeleteExecute(r ApiIpblocksDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -83,7 +83,7 @@ func (a *IPBlocksApiService) IpblocksDeleteExecute(r ApiIpblocksDeleteRequest) (
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPBlocksApiService.IpblocksDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -124,7 +124,7 @@ func (a *IPBlocksApiService) IpblocksDeleteExecute(r ApiIpblocksDeleteRequest) (
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -143,7 +143,7 @@ func (a *IPBlocksApiService) IpblocksDeleteExecute(r ApiIpblocksDeleteRequest) (
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -163,7 +163,7 @@ func (a *IPBlocksApiService) IpblocksDeleteExecute(r ApiIpblocksDeleteRequest) (
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -202,7 +202,7 @@ func (r ApiIpblocksFindByIdRequest) XContractNumber(xContractNumber int32) ApiIp
 	return r
 }
 
-func (r ApiIpblocksFindByIdRequest) Execute() (IpBlock, *common.APIResponse, error) {
+func (r ApiIpblocksFindByIdRequest) Execute() (IpBlock, *shared.APIResponse, error) {
 	return r.ApiService.IpblocksFindByIdExecute(r)
 }
 
@@ -225,7 +225,7 @@ func (a *IPBlocksApiService) IpblocksFindById(ctx _context.Context, ipblockId st
  * Execute executes the request
  * @return IpBlock
  */
-func (a *IPBlocksApiService) IpblocksFindByIdExecute(r ApiIpblocksFindByIdRequest) (IpBlock, *common.APIResponse, error) {
+func (a *IPBlocksApiService) IpblocksFindByIdExecute(r ApiIpblocksFindByIdRequest) (IpBlock, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -237,7 +237,7 @@ func (a *IPBlocksApiService) IpblocksFindByIdExecute(r ApiIpblocksFindByIdReques
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPBlocksApiService.IpblocksFindById")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -278,7 +278,7 @@ func (a *IPBlocksApiService) IpblocksFindByIdExecute(r ApiIpblocksFindByIdReques
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -297,7 +297,7 @@ func (a *IPBlocksApiService) IpblocksFindByIdExecute(r ApiIpblocksFindByIdReques
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -317,7 +317,7 @@ func (a *IPBlocksApiService) IpblocksFindByIdExecute(r ApiIpblocksFindByIdReques
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -333,7 +333,7 @@ func (a *IPBlocksApiService) IpblocksFindByIdExecute(r ApiIpblocksFindByIdReques
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -396,7 +396,7 @@ func (r ApiIpblocksGetRequest) MaxResults(maxResults int32) ApiIpblocksGetReques
 	return r
 }
 
-func (r ApiIpblocksGetRequest) Execute() (IpBlocks, *common.APIResponse, error) {
+func (r ApiIpblocksGetRequest) Execute() (IpBlocks, *shared.APIResponse, error) {
 	return r.ApiService.IpblocksGetExecute(r)
 }
 
@@ -418,7 +418,7 @@ func (a *IPBlocksApiService) IpblocksGet(ctx _context.Context) ApiIpblocksGetReq
  * Execute executes the request
  * @return IpBlocks
  */
-func (a *IPBlocksApiService) IpblocksGetExecute(r ApiIpblocksGetRequest) (IpBlocks, *common.APIResponse, error) {
+func (a *IPBlocksApiService) IpblocksGetExecute(r ApiIpblocksGetRequest) (IpBlocks, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -430,7 +430,7 @@ func (a *IPBlocksApiService) IpblocksGetExecute(r ApiIpblocksGetRequest) (IpBloc
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPBlocksApiService.IpblocksGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -489,7 +489,7 @@ func (a *IPBlocksApiService) IpblocksGetExecute(r ApiIpblocksGetRequest) (IpBloc
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -508,7 +508,7 @@ func (a *IPBlocksApiService) IpblocksGetExecute(r ApiIpblocksGetRequest) (IpBloc
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -528,7 +528,7 @@ func (a *IPBlocksApiService) IpblocksGetExecute(r ApiIpblocksGetRequest) (IpBloc
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -544,7 +544,7 @@ func (a *IPBlocksApiService) IpblocksGetExecute(r ApiIpblocksGetRequest) (IpBloc
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -581,7 +581,7 @@ func (r ApiIpblocksPatchRequest) XContractNumber(xContractNumber int32) ApiIpblo
 	return r
 }
 
-func (r ApiIpblocksPatchRequest) Execute() (IpBlock, *common.APIResponse, error) {
+func (r ApiIpblocksPatchRequest) Execute() (IpBlock, *shared.APIResponse, error) {
 	return r.ApiService.IpblocksPatchExecute(r)
 }
 
@@ -604,7 +604,7 @@ func (a *IPBlocksApiService) IpblocksPatch(ctx _context.Context, ipblockId strin
  * Execute executes the request
  * @return IpBlock
  */
-func (a *IPBlocksApiService) IpblocksPatchExecute(r ApiIpblocksPatchRequest) (IpBlock, *common.APIResponse, error) {
+func (a *IPBlocksApiService) IpblocksPatchExecute(r ApiIpblocksPatchRequest) (IpBlock, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPatch
 		localVarPostBody     interface{}
@@ -616,7 +616,7 @@ func (a *IPBlocksApiService) IpblocksPatchExecute(r ApiIpblocksPatchRequest) (Ip
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPBlocksApiService.IpblocksPatch")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -662,7 +662,7 @@ func (a *IPBlocksApiService) IpblocksPatchExecute(r ApiIpblocksPatchRequest) (Ip
 	localVarPostBody = r.ipblock
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -681,7 +681,7 @@ func (a *IPBlocksApiService) IpblocksPatchExecute(r ApiIpblocksPatchRequest) (Ip
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -701,7 +701,7 @@ func (a *IPBlocksApiService) IpblocksPatchExecute(r ApiIpblocksPatchRequest) (Ip
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -717,7 +717,7 @@ func (a *IPBlocksApiService) IpblocksPatchExecute(r ApiIpblocksPatchRequest) (Ip
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -753,7 +753,7 @@ func (r ApiIpblocksPostRequest) XContractNumber(xContractNumber int32) ApiIpbloc
 	return r
 }
 
-func (r ApiIpblocksPostRequest) Execute() (IpBlock, *common.APIResponse, error) {
+func (r ApiIpblocksPostRequest) Execute() (IpBlock, *shared.APIResponse, error) {
 	return r.ApiService.IpblocksPostExecute(r)
 }
 
@@ -774,7 +774,7 @@ func (a *IPBlocksApiService) IpblocksPost(ctx _context.Context) ApiIpblocksPostR
  * Execute executes the request
  * @return IpBlock
  */
-func (a *IPBlocksApiService) IpblocksPostExecute(r ApiIpblocksPostRequest) (IpBlock, *common.APIResponse, error) {
+func (a *IPBlocksApiService) IpblocksPostExecute(r ApiIpblocksPostRequest) (IpBlock, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -786,7 +786,7 @@ func (a *IPBlocksApiService) IpblocksPostExecute(r ApiIpblocksPostRequest) (IpBl
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPBlocksApiService.IpblocksPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -831,7 +831,7 @@ func (a *IPBlocksApiService) IpblocksPostExecute(r ApiIpblocksPostRequest) (IpBl
 	localVarPostBody = r.ipblock
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -850,7 +850,7 @@ func (a *IPBlocksApiService) IpblocksPostExecute(r ApiIpblocksPostRequest) (IpBl
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -870,7 +870,7 @@ func (a *IPBlocksApiService) IpblocksPostExecute(r ApiIpblocksPostRequest) (IpBl
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -886,7 +886,7 @@ func (a *IPBlocksApiService) IpblocksPostExecute(r ApiIpblocksPostRequest) (IpBl
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -923,7 +923,7 @@ func (r ApiIpblocksPutRequest) XContractNumber(xContractNumber int32) ApiIpblock
 	return r
 }
 
-func (r ApiIpblocksPutRequest) Execute() (IpBlock, *common.APIResponse, error) {
+func (r ApiIpblocksPutRequest) Execute() (IpBlock, *shared.APIResponse, error) {
 	return r.ApiService.IpblocksPutExecute(r)
 }
 
@@ -946,7 +946,7 @@ func (a *IPBlocksApiService) IpblocksPut(ctx _context.Context, ipblockId string)
  * Execute executes the request
  * @return IpBlock
  */
-func (a *IPBlocksApiService) IpblocksPutExecute(r ApiIpblocksPutRequest) (IpBlock, *common.APIResponse, error) {
+func (a *IPBlocksApiService) IpblocksPutExecute(r ApiIpblocksPutRequest) (IpBlock, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -958,7 +958,7 @@ func (a *IPBlocksApiService) IpblocksPutExecute(r ApiIpblocksPutRequest) (IpBloc
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPBlocksApiService.IpblocksPut")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1004,7 +1004,7 @@ func (a *IPBlocksApiService) IpblocksPutExecute(r ApiIpblocksPutRequest) (IpBloc
 	localVarPostBody = r.ipblock
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1023,7 +1023,7 @@ func (a *IPBlocksApiService) IpblocksPutExecute(r ApiIpblocksPutRequest) (IpBloc
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1043,7 +1043,7 @@ func (a *IPBlocksApiService) IpblocksPutExecute(r ApiIpblocksPutRequest) (IpBloc
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1059,7 +1059,7 @@ func (a *IPBlocksApiService) IpblocksPutExecute(r ApiIpblocksPutRequest) (IpBloc
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())

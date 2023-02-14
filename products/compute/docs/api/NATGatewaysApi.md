@@ -50,7 +50,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -60,7 +60,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysDelete(context.Background(), datacenterId, natGatewayId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -126,7 +126,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -136,7 +136,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysFindByNatGatewayId(context.Background(), datacenterId, natGatewayId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -203,7 +203,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -213,7 +213,7 @@ func main() {
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysFlowlogsDelete(context.Background(), datacenterId, natGatewayId, flowLogId).Pretty(pretty).Depth(depth).Execute()
     if err != nil {
@@ -278,7 +278,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -288,7 +288,7 @@ func main() {
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysFlowlogsFindByFlowLogId(context.Background(), datacenterId, natGatewayId, flowLogId).Pretty(pretty).Depth(depth).Execute()
     if err != nil {
@@ -357,7 +357,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -368,7 +368,7 @@ func main() {
     offset := int32(56) // int32 | The first element (from the complete list of the elements) to include in the response (used together with <b><i>limit</i></b> for pagination). (optional) (default to 0)
     limit := int32(56) // int32 | The maximum number of elements to return (use together with offset for pagination). (optional) (default to 1000)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysFlowlogsGet(context.Background(), datacenterId, natGatewayId).Pretty(pretty).Depth(depth).Offset(offset).Limit(limit).Execute()
     if err != nil {
@@ -437,7 +437,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -448,7 +448,7 @@ func main() {
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysFlowlogsPatch(context.Background(), datacenterId, natGatewayId, flowLogId).NatGatewayFlowLogProperties(natGatewayFlowLogProperties).Pretty(pretty).Depth(depth).Execute()
     if err != nil {
@@ -517,7 +517,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -527,7 +527,7 @@ func main() {
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysFlowlogsPost(context.Background(), datacenterId, natGatewayId).NatGatewayFlowLog(natGatewayFlowLog).Pretty(pretty).Depth(depth).Execute()
     if err != nil {
@@ -595,7 +595,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -606,7 +606,7 @@ func main() {
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysFlowlogsPut(context.Background(), datacenterId, natGatewayId, flowLogId).NatGatewayFlowLog(natGatewayFlowLog).Pretty(pretty).Depth(depth).Execute()
     if err != nil {
@@ -675,7 +675,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -684,7 +684,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysGet(context.Background(), datacenterId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -752,7 +752,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -763,7 +763,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysPatch(context.Background(), datacenterId, natGatewayId).NatGatewayProperties(natGatewayProperties).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -833,7 +833,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -843,7 +843,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysPost(context.Background(), datacenterId).NatGateway(natGateway).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -912,7 +912,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -923,7 +923,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysPut(context.Background(), datacenterId, natGatewayId).NatGateway(natGateway).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -992,7 +992,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -1003,7 +1003,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysRulesDelete(context.Background(), datacenterId, natGatewayId, natGatewayRuleId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -1070,7 +1070,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -1081,7 +1081,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysRulesFindByNatGatewayRuleId(context.Background(), datacenterId, natGatewayId, natGatewayRuleId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -1150,7 +1150,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -1160,7 +1160,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysRulesGet(context.Background(), datacenterId, natGatewayId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -1229,7 +1229,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -1241,7 +1241,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysRulesPatch(context.Background(), datacenterId, natGatewayId, natGatewayRuleId).NatGatewayRuleProperties(natGatewayRuleProperties).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -1312,7 +1312,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -1323,7 +1323,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysRulesPost(context.Background(), datacenterId, natGatewayId).NatGatewayRule(natGatewayRule).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -1393,7 +1393,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -1405,7 +1405,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.NATGatewaysApi.DatacentersNatgatewaysRulesPut(context.Background(), datacenterId, natGatewayId, natGatewayRuleId).NatGatewayRule(natGatewayRule).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {

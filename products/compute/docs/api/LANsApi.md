@@ -41,7 +41,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -51,7 +51,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.LANsApi.DatacentersLansDelete(context.Background(), datacenterId, lanId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -117,7 +117,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -127,7 +127,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.LANsApi.DatacentersLansFindById(context.Background(), datacenterId, lanId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -197,7 +197,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -208,7 +208,7 @@ func main() {
     offset := int32(56) // int32 | The first element (from the complete list of the elements) to include in the response (used together with <b><i>limit</i></b> for pagination). (optional) (default to 0)
     limit := int32(56) // int32 | The maximum number of elements to return (use together with offset for pagination). (optional) (default to 1000)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.LANsApi.DatacentersLansGet(context.Background(), datacenterId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Offset(offset).Limit(limit).Execute()
     if err != nil {
@@ -277,7 +277,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -288,7 +288,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.LANsApi.DatacentersLansNicsFindById(context.Background(), datacenterId, lanId, nicId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -359,7 +359,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -371,7 +371,7 @@ func main() {
     offset := int32(56) // int32 | The first element (from the complete list of the elements) to include in the response (used together with <b><i>limit</i></b> for pagination). (optional) (default to 0)
     limit := int32(56) // int32 | The maximum number of elements to return (use together with offset for pagination). (optional) (default to 1000)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.LANsApi.DatacentersLansNicsGet(context.Background(), datacenterId, lanId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Offset(offset).Limit(limit).Execute()
     if err != nil {
@@ -442,7 +442,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -453,7 +453,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.LANsApi.DatacentersLansNicsPost(context.Background(), datacenterId, lanId).Nic(nic).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -523,7 +523,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -534,7 +534,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.LANsApi.DatacentersLansPatch(context.Background(), datacenterId, lanId).Lan(lan).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -604,7 +604,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -614,7 +614,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.LANsApi.DatacentersLansPost(context.Background(), datacenterId).Lan(lan).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -683,7 +683,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -694,7 +694,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.LANsApi.DatacentersLansPut(context.Background(), datacenterId, lanId).Lan(lan).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {

@@ -13,7 +13,7 @@ package compute
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -50,7 +50,7 @@ func (r ApiBackupunitsDeleteRequest) XContractNumber(xContractNumber int32) ApiB
 	return r
 }
 
-func (r ApiBackupunitsDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiBackupunitsDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.BackupunitsDeleteExecute(r)
 }
 
@@ -78,7 +78,7 @@ func (a *BackupUnitsApiService) BackupunitsDelete(ctx _context.Context, backupun
 /*
  * Execute executes the request
  */
-func (a *BackupUnitsApiService) BackupunitsDeleteExecute(r ApiBackupunitsDeleteRequest) (*common.APIResponse, error) {
+func (a *BackupUnitsApiService) BackupunitsDeleteExecute(r ApiBackupunitsDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -89,7 +89,7 @@ func (a *BackupUnitsApiService) BackupunitsDeleteExecute(r ApiBackupunitsDeleteR
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BackupUnitsApiService.BackupunitsDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -130,7 +130,7 @@ func (a *BackupUnitsApiService) BackupunitsDeleteExecute(r ApiBackupunitsDeleteR
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -149,7 +149,7 @@ func (a *BackupUnitsApiService) BackupunitsDeleteExecute(r ApiBackupunitsDeleteR
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -169,7 +169,7 @@ func (a *BackupUnitsApiService) BackupunitsDeleteExecute(r ApiBackupunitsDeleteR
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -208,7 +208,7 @@ func (r ApiBackupunitsFindByIdRequest) XContractNumber(xContractNumber int32) Ap
 	return r
 }
 
-func (r ApiBackupunitsFindByIdRequest) Execute() (BackupUnit, *common.APIResponse, error) {
+func (r ApiBackupunitsFindByIdRequest) Execute() (BackupUnit, *shared.APIResponse, error) {
 	return r.ApiService.BackupunitsFindByIdExecute(r)
 }
 
@@ -231,7 +231,7 @@ func (a *BackupUnitsApiService) BackupunitsFindById(ctx _context.Context, backup
  * Execute executes the request
  * @return BackupUnit
  */
-func (a *BackupUnitsApiService) BackupunitsFindByIdExecute(r ApiBackupunitsFindByIdRequest) (BackupUnit, *common.APIResponse, error) {
+func (a *BackupUnitsApiService) BackupunitsFindByIdExecute(r ApiBackupunitsFindByIdRequest) (BackupUnit, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -243,7 +243,7 @@ func (a *BackupUnitsApiService) BackupunitsFindByIdExecute(r ApiBackupunitsFindB
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BackupUnitsApiService.BackupunitsFindById")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -284,7 +284,7 @@ func (a *BackupUnitsApiService) BackupunitsFindByIdExecute(r ApiBackupunitsFindB
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -303,7 +303,7 @@ func (a *BackupUnitsApiService) BackupunitsFindByIdExecute(r ApiBackupunitsFindB
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -323,7 +323,7 @@ func (a *BackupUnitsApiService) BackupunitsFindByIdExecute(r ApiBackupunitsFindB
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -339,7 +339,7 @@ func (a *BackupUnitsApiService) BackupunitsFindByIdExecute(r ApiBackupunitsFindB
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -392,7 +392,7 @@ func (r ApiBackupunitsGetRequest) MaxResults(maxResults int32) ApiBackupunitsGet
 	return r
 }
 
-func (r ApiBackupunitsGetRequest) Execute() (BackupUnits, *common.APIResponse, error) {
+func (r ApiBackupunitsGetRequest) Execute() (BackupUnits, *shared.APIResponse, error) {
 	return r.ApiService.BackupunitsGetExecute(r)
 }
 
@@ -414,7 +414,7 @@ func (a *BackupUnitsApiService) BackupunitsGet(ctx _context.Context) ApiBackupun
  * Execute executes the request
  * @return BackupUnits
  */
-func (a *BackupUnitsApiService) BackupunitsGetExecute(r ApiBackupunitsGetRequest) (BackupUnits, *common.APIResponse, error) {
+func (a *BackupUnitsApiService) BackupunitsGetExecute(r ApiBackupunitsGetRequest) (BackupUnits, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -426,7 +426,7 @@ func (a *BackupUnitsApiService) BackupunitsGetExecute(r ApiBackupunitsGetRequest
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BackupUnitsApiService.BackupunitsGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -479,7 +479,7 @@ func (a *BackupUnitsApiService) BackupunitsGetExecute(r ApiBackupunitsGetRequest
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -498,7 +498,7 @@ func (a *BackupUnitsApiService) BackupunitsGetExecute(r ApiBackupunitsGetRequest
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -518,7 +518,7 @@ func (a *BackupUnitsApiService) BackupunitsGetExecute(r ApiBackupunitsGetRequest
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -534,7 +534,7 @@ func (a *BackupUnitsApiService) BackupunitsGetExecute(r ApiBackupunitsGetRequest
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -571,7 +571,7 @@ func (r ApiBackupunitsPatchRequest) XContractNumber(xContractNumber int32) ApiBa
 	return r
 }
 
-func (r ApiBackupunitsPatchRequest) Execute() (BackupUnit, *common.APIResponse, error) {
+func (r ApiBackupunitsPatchRequest) Execute() (BackupUnit, *shared.APIResponse, error) {
 	return r.ApiService.BackupunitsPatchExecute(r)
 }
 
@@ -594,7 +594,7 @@ func (a *BackupUnitsApiService) BackupunitsPatch(ctx _context.Context, backupuni
  * Execute executes the request
  * @return BackupUnit
  */
-func (a *BackupUnitsApiService) BackupunitsPatchExecute(r ApiBackupunitsPatchRequest) (BackupUnit, *common.APIResponse, error) {
+func (a *BackupUnitsApiService) BackupunitsPatchExecute(r ApiBackupunitsPatchRequest) (BackupUnit, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPatch
 		localVarPostBody     interface{}
@@ -606,7 +606,7 @@ func (a *BackupUnitsApiService) BackupunitsPatchExecute(r ApiBackupunitsPatchReq
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BackupUnitsApiService.BackupunitsPatch")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -652,7 +652,7 @@ func (a *BackupUnitsApiService) BackupunitsPatchExecute(r ApiBackupunitsPatchReq
 	localVarPostBody = r.backupUnit
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -671,7 +671,7 @@ func (a *BackupUnitsApiService) BackupunitsPatchExecute(r ApiBackupunitsPatchReq
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -691,7 +691,7 @@ func (a *BackupUnitsApiService) BackupunitsPatchExecute(r ApiBackupunitsPatchReq
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -707,7 +707,7 @@ func (a *BackupUnitsApiService) BackupunitsPatchExecute(r ApiBackupunitsPatchReq
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -743,7 +743,7 @@ func (r ApiBackupunitsPostRequest) XContractNumber(xContractNumber int32) ApiBac
 	return r
 }
 
-func (r ApiBackupunitsPostRequest) Execute() (BackupUnit, *common.APIResponse, error) {
+func (r ApiBackupunitsPostRequest) Execute() (BackupUnit, *shared.APIResponse, error) {
 	return r.ApiService.BackupunitsPostExecute(r)
 }
 
@@ -764,7 +764,7 @@ func (a *BackupUnitsApiService) BackupunitsPost(ctx _context.Context) ApiBackupu
  * Execute executes the request
  * @return BackupUnit
  */
-func (a *BackupUnitsApiService) BackupunitsPostExecute(r ApiBackupunitsPostRequest) (BackupUnit, *common.APIResponse, error) {
+func (a *BackupUnitsApiService) BackupunitsPostExecute(r ApiBackupunitsPostRequest) (BackupUnit, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -776,7 +776,7 @@ func (a *BackupUnitsApiService) BackupunitsPostExecute(r ApiBackupunitsPostReque
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BackupUnitsApiService.BackupunitsPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -821,7 +821,7 @@ func (a *BackupUnitsApiService) BackupunitsPostExecute(r ApiBackupunitsPostReque
 	localVarPostBody = r.backupUnit
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -840,7 +840,7 @@ func (a *BackupUnitsApiService) BackupunitsPostExecute(r ApiBackupunitsPostReque
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -860,7 +860,7 @@ func (a *BackupUnitsApiService) BackupunitsPostExecute(r ApiBackupunitsPostReque
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -876,7 +876,7 @@ func (a *BackupUnitsApiService) BackupunitsPostExecute(r ApiBackupunitsPostReque
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -913,7 +913,7 @@ func (r ApiBackupunitsPutRequest) XContractNumber(xContractNumber int32) ApiBack
 	return r
 }
 
-func (r ApiBackupunitsPutRequest) Execute() (BackupUnit, *common.APIResponse, error) {
+func (r ApiBackupunitsPutRequest) Execute() (BackupUnit, *shared.APIResponse, error) {
 	return r.ApiService.BackupunitsPutExecute(r)
 }
 
@@ -936,7 +936,7 @@ func (a *BackupUnitsApiService) BackupunitsPut(ctx _context.Context, backupunitI
  * Execute executes the request
  * @return BackupUnit
  */
-func (a *BackupUnitsApiService) BackupunitsPutExecute(r ApiBackupunitsPutRequest) (BackupUnit, *common.APIResponse, error) {
+func (a *BackupUnitsApiService) BackupunitsPutExecute(r ApiBackupunitsPutRequest) (BackupUnit, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -948,7 +948,7 @@ func (a *BackupUnitsApiService) BackupunitsPutExecute(r ApiBackupunitsPutRequest
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BackupUnitsApiService.BackupunitsPut")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -994,7 +994,7 @@ func (a *BackupUnitsApiService) BackupunitsPutExecute(r ApiBackupunitsPutRequest
 	localVarPostBody = r.backupUnit
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1013,7 +1013,7 @@ func (a *BackupUnitsApiService) BackupunitsPutExecute(r ApiBackupunitsPutRequest
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1033,7 +1033,7 @@ func (a *BackupUnitsApiService) BackupunitsPutExecute(r ApiBackupunitsPutRequest
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1049,7 +1049,7 @@ func (a *BackupUnitsApiService) BackupunitsPutExecute(r ApiBackupunitsPutRequest
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1098,7 +1098,7 @@ func (r ApiBackupunitsSsourlGetRequest) MaxResults(maxResults int32) ApiBackupun
 	return r
 }
 
-func (r ApiBackupunitsSsourlGetRequest) Execute() (BackupUnitSSO, *common.APIResponse, error) {
+func (r ApiBackupunitsSsourlGetRequest) Execute() (BackupUnitSSO, *shared.APIResponse, error) {
 	return r.ApiService.BackupunitsSsourlGetExecute(r)
 }
 
@@ -1122,7 +1122,7 @@ func (a *BackupUnitsApiService) BackupunitsSsourlGet(ctx _context.Context, backu
  * Execute executes the request
  * @return BackupUnitSSO
  */
-func (a *BackupUnitsApiService) BackupunitsSsourlGetExecute(r ApiBackupunitsSsourlGetRequest) (BackupUnitSSO, *common.APIResponse, error) {
+func (a *BackupUnitsApiService) BackupunitsSsourlGetExecute(r ApiBackupunitsSsourlGetRequest) (BackupUnitSSO, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -1134,7 +1134,7 @@ func (a *BackupUnitsApiService) BackupunitsSsourlGetExecute(r ApiBackupunitsSsou
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BackupUnitsApiService.BackupunitsSsourlGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1185,7 +1185,7 @@ func (a *BackupUnitsApiService) BackupunitsSsourlGetExecute(r ApiBackupunitsSsou
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1204,7 +1204,7 @@ func (a *BackupUnitsApiService) BackupunitsSsourlGetExecute(r ApiBackupunitsSsou
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1224,7 +1224,7 @@ func (a *BackupUnitsApiService) BackupunitsSsourlGetExecute(r ApiBackupunitsSsou
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1240,7 +1240,7 @@ func (a *BackupUnitsApiService) BackupunitsSsourlGetExecute(r ApiBackupunitsSsou
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())

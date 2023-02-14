@@ -13,7 +13,7 @@ package compute
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -52,7 +52,7 @@ func (r ApiDatacentersServersCdromsDeleteRequest) XContractNumber(xContractNumbe
 	return r
 }
 
-func (r ApiDatacentersServersCdromsDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiDatacentersServersCdromsDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersCdromsDeleteExecute(r)
 }
 
@@ -78,7 +78,7 @@ func (a *ServersApiService) DatacentersServersCdromsDelete(ctx _context.Context,
 /*
  * Execute executes the request
  */
-func (a *ServersApiService) DatacentersServersCdromsDeleteExecute(r ApiDatacentersServersCdromsDeleteRequest) (*common.APIResponse, error) {
+func (a *ServersApiService) DatacentersServersCdromsDeleteExecute(r ApiDatacentersServersCdromsDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -89,7 +89,7 @@ func (a *ServersApiService) DatacentersServersCdromsDeleteExecute(r ApiDatacente
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.DatacentersServersCdromsDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -132,7 +132,7 @@ func (a *ServersApiService) DatacentersServersCdromsDeleteExecute(r ApiDatacente
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -151,7 +151,7 @@ func (a *ServersApiService) DatacentersServersCdromsDeleteExecute(r ApiDatacente
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -171,7 +171,7 @@ func (a *ServersApiService) DatacentersServersCdromsDeleteExecute(r ApiDatacente
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -212,7 +212,7 @@ func (r ApiDatacentersServersCdromsFindByIdRequest) XContractNumber(xContractNum
 	return r
 }
 
-func (r ApiDatacentersServersCdromsFindByIdRequest) Execute() (Image, *common.APIResponse, error) {
+func (r ApiDatacentersServersCdromsFindByIdRequest) Execute() (Image, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersCdromsFindByIdExecute(r)
 }
 
@@ -239,7 +239,7 @@ func (a *ServersApiService) DatacentersServersCdromsFindById(ctx _context.Contex
  * Execute executes the request
  * @return Image
  */
-func (a *ServersApiService) DatacentersServersCdromsFindByIdExecute(r ApiDatacentersServersCdromsFindByIdRequest) (Image, *common.APIResponse, error) {
+func (a *ServersApiService) DatacentersServersCdromsFindByIdExecute(r ApiDatacentersServersCdromsFindByIdRequest) (Image, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -251,7 +251,7 @@ func (a *ServersApiService) DatacentersServersCdromsFindByIdExecute(r ApiDatacen
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.DatacentersServersCdromsFindById")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -294,7 +294,7 @@ func (a *ServersApiService) DatacentersServersCdromsFindByIdExecute(r ApiDatacen
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -313,7 +313,7 @@ func (a *ServersApiService) DatacentersServersCdromsFindByIdExecute(r ApiDatacen
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -333,7 +333,7 @@ func (a *ServersApiService) DatacentersServersCdromsFindByIdExecute(r ApiDatacen
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -349,7 +349,7 @@ func (a *ServersApiService) DatacentersServersCdromsFindByIdExecute(r ApiDatacen
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -414,7 +414,7 @@ func (r ApiDatacentersServersCdromsGetRequest) MaxResults(maxResults int32) ApiD
 	return r
 }
 
-func (r ApiDatacentersServersCdromsGetRequest) Execute() (Cdroms, *common.APIResponse, error) {
+func (r ApiDatacentersServersCdromsGetRequest) Execute() (Cdroms, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersCdromsGetExecute(r)
 }
 
@@ -440,7 +440,7 @@ func (a *ServersApiService) DatacentersServersCdromsGet(ctx _context.Context, da
  * Execute executes the request
  * @return Cdroms
  */
-func (a *ServersApiService) DatacentersServersCdromsGetExecute(r ApiDatacentersServersCdromsGetRequest) (Cdroms, *common.APIResponse, error) {
+func (a *ServersApiService) DatacentersServersCdromsGetExecute(r ApiDatacentersServersCdromsGetRequest) (Cdroms, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -452,7 +452,7 @@ func (a *ServersApiService) DatacentersServersCdromsGetExecute(r ApiDatacentersS
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.DatacentersServersCdromsGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -513,7 +513,7 @@ func (a *ServersApiService) DatacentersServersCdromsGetExecute(r ApiDatacentersS
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -532,7 +532,7 @@ func (a *ServersApiService) DatacentersServersCdromsGetExecute(r ApiDatacentersS
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -552,7 +552,7 @@ func (a *ServersApiService) DatacentersServersCdromsGetExecute(r ApiDatacentersS
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -568,7 +568,7 @@ func (a *ServersApiService) DatacentersServersCdromsGetExecute(r ApiDatacentersS
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -606,7 +606,7 @@ func (r ApiDatacentersServersCdromsPostRequest) XContractNumber(xContractNumber 
 	return r
 }
 
-func (r ApiDatacentersServersCdromsPostRequest) Execute() (Image, *common.APIResponse, error) {
+func (r ApiDatacentersServersCdromsPostRequest) Execute() (Image, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersCdromsPostExecute(r)
 }
 
@@ -631,7 +631,7 @@ func (a *ServersApiService) DatacentersServersCdromsPost(ctx _context.Context, d
  * Execute executes the request
  * @return Image
  */
-func (a *ServersApiService) DatacentersServersCdromsPostExecute(r ApiDatacentersServersCdromsPostRequest) (Image, *common.APIResponse, error) {
+func (a *ServersApiService) DatacentersServersCdromsPostExecute(r ApiDatacentersServersCdromsPostRequest) (Image, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -643,7 +643,7 @@ func (a *ServersApiService) DatacentersServersCdromsPostExecute(r ApiDatacenters
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.DatacentersServersCdromsPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -690,7 +690,7 @@ func (a *ServersApiService) DatacentersServersCdromsPostExecute(r ApiDatacenters
 	localVarPostBody = r.cdrom
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -709,7 +709,7 @@ func (a *ServersApiService) DatacentersServersCdromsPostExecute(r ApiDatacenters
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -729,7 +729,7 @@ func (a *ServersApiService) DatacentersServersCdromsPostExecute(r ApiDatacenters
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -745,7 +745,7 @@ func (a *ServersApiService) DatacentersServersCdromsPostExecute(r ApiDatacenters
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -783,7 +783,7 @@ func (r ApiDatacentersServersDeleteRequest) DeleteVolumes(deleteVolumes bool) Ap
 	return r
 }
 
-func (r ApiDatacentersServersDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiDatacentersServersDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersDeleteExecute(r)
 }
 
@@ -807,7 +807,7 @@ func (a *ServersApiService) DatacentersServersDelete(ctx _context.Context, datac
 /*
  * Execute executes the request
  */
-func (a *ServersApiService) DatacentersServersDeleteExecute(r ApiDatacentersServersDeleteRequest) (*common.APIResponse, error) {
+func (a *ServersApiService) DatacentersServersDeleteExecute(r ApiDatacentersServersDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -818,7 +818,7 @@ func (a *ServersApiService) DatacentersServersDeleteExecute(r ApiDatacentersServ
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.DatacentersServersDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -863,7 +863,7 @@ func (a *ServersApiService) DatacentersServersDeleteExecute(r ApiDatacentersServ
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -882,7 +882,7 @@ func (a *ServersApiService) DatacentersServersDeleteExecute(r ApiDatacentersServ
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -902,7 +902,7 @@ func (a *ServersApiService) DatacentersServersDeleteExecute(r ApiDatacentersServ
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -942,7 +942,7 @@ func (r ApiDatacentersServersFindByIdRequest) XContractNumber(xContractNumber in
 	return r
 }
 
-func (r ApiDatacentersServersFindByIdRequest) Execute() (Server, *common.APIResponse, error) {
+func (r ApiDatacentersServersFindByIdRequest) Execute() (Server, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersFindByIdExecute(r)
 }
 
@@ -967,7 +967,7 @@ func (a *ServersApiService) DatacentersServersFindById(ctx _context.Context, dat
  * Execute executes the request
  * @return Server
  */
-func (a *ServersApiService) DatacentersServersFindByIdExecute(r ApiDatacentersServersFindByIdRequest) (Server, *common.APIResponse, error) {
+func (a *ServersApiService) DatacentersServersFindByIdExecute(r ApiDatacentersServersFindByIdRequest) (Server, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -979,7 +979,7 @@ func (a *ServersApiService) DatacentersServersFindByIdExecute(r ApiDatacentersSe
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.DatacentersServersFindById")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1021,7 +1021,7 @@ func (a *ServersApiService) DatacentersServersFindByIdExecute(r ApiDatacentersSe
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1040,7 +1040,7 @@ func (a *ServersApiService) DatacentersServersFindByIdExecute(r ApiDatacentersSe
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1060,7 +1060,7 @@ func (a *ServersApiService) DatacentersServersFindByIdExecute(r ApiDatacentersSe
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1076,7 +1076,7 @@ func (a *ServersApiService) DatacentersServersFindByIdExecute(r ApiDatacentersSe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1145,7 +1145,7 @@ func (r ApiDatacentersServersGetRequest) MaxResults(maxResults int32) ApiDatacen
 	return r
 }
 
-func (r ApiDatacentersServersGetRequest) Execute() (Servers, *common.APIResponse, error) {
+func (r ApiDatacentersServersGetRequest) Execute() (Servers, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersGetExecute(r)
 }
 
@@ -1169,7 +1169,7 @@ func (a *ServersApiService) DatacentersServersGet(ctx _context.Context, datacent
  * Execute executes the request
  * @return Servers
  */
-func (a *ServersApiService) DatacentersServersGetExecute(r ApiDatacentersServersGetRequest) (Servers, *common.APIResponse, error) {
+func (a *ServersApiService) DatacentersServersGetExecute(r ApiDatacentersServersGetRequest) (Servers, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -1181,7 +1181,7 @@ func (a *ServersApiService) DatacentersServersGetExecute(r ApiDatacentersServers
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.DatacentersServersGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1244,7 +1244,7 @@ func (a *ServersApiService) DatacentersServersGetExecute(r ApiDatacentersServers
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1263,7 +1263,7 @@ func (a *ServersApiService) DatacentersServersGetExecute(r ApiDatacentersServers
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1283,7 +1283,7 @@ func (a *ServersApiService) DatacentersServersGetExecute(r ApiDatacentersServers
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1299,7 +1299,7 @@ func (a *ServersApiService) DatacentersServersGetExecute(r ApiDatacentersServers
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1337,7 +1337,7 @@ func (r ApiDatacentersServersPatchRequest) XContractNumber(xContractNumber int32
 	return r
 }
 
-func (r ApiDatacentersServersPatchRequest) Execute() (Server, *common.APIResponse, error) {
+func (r ApiDatacentersServersPatchRequest) Execute() (Server, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersPatchExecute(r)
 }
 
@@ -1362,7 +1362,7 @@ func (a *ServersApiService) DatacentersServersPatch(ctx _context.Context, datace
  * Execute executes the request
  * @return Server
  */
-func (a *ServersApiService) DatacentersServersPatchExecute(r ApiDatacentersServersPatchRequest) (Server, *common.APIResponse, error) {
+func (a *ServersApiService) DatacentersServersPatchExecute(r ApiDatacentersServersPatchRequest) (Server, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPatch
 		localVarPostBody     interface{}
@@ -1374,7 +1374,7 @@ func (a *ServersApiService) DatacentersServersPatchExecute(r ApiDatacentersServe
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.DatacentersServersPatch")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1421,7 +1421,7 @@ func (a *ServersApiService) DatacentersServersPatchExecute(r ApiDatacentersServe
 	localVarPostBody = r.server
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1440,7 +1440,7 @@ func (a *ServersApiService) DatacentersServersPatchExecute(r ApiDatacentersServe
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1460,7 +1460,7 @@ func (a *ServersApiService) DatacentersServersPatchExecute(r ApiDatacentersServe
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1476,7 +1476,7 @@ func (a *ServersApiService) DatacentersServersPatchExecute(r ApiDatacentersServe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1513,7 +1513,7 @@ func (r ApiDatacentersServersPostRequest) XContractNumber(xContractNumber int32)
 	return r
 }
 
-func (r ApiDatacentersServersPostRequest) Execute() (Server, *common.APIResponse, error) {
+func (r ApiDatacentersServersPostRequest) Execute() (Server, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersPostExecute(r)
 }
 
@@ -1536,7 +1536,7 @@ func (a *ServersApiService) DatacentersServersPost(ctx _context.Context, datacen
  * Execute executes the request
  * @return Server
  */
-func (a *ServersApiService) DatacentersServersPostExecute(r ApiDatacentersServersPostRequest) (Server, *common.APIResponse, error) {
+func (a *ServersApiService) DatacentersServersPostExecute(r ApiDatacentersServersPostRequest) (Server, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -1548,7 +1548,7 @@ func (a *ServersApiService) DatacentersServersPostExecute(r ApiDatacentersServer
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.DatacentersServersPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1594,7 +1594,7 @@ func (a *ServersApiService) DatacentersServersPostExecute(r ApiDatacentersServer
 	localVarPostBody = r.server
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1613,7 +1613,7 @@ func (a *ServersApiService) DatacentersServersPostExecute(r ApiDatacentersServer
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1633,7 +1633,7 @@ func (a *ServersApiService) DatacentersServersPostExecute(r ApiDatacentersServer
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1649,7 +1649,7 @@ func (a *ServersApiService) DatacentersServersPostExecute(r ApiDatacentersServer
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1687,7 +1687,7 @@ func (r ApiDatacentersServersPutRequest) XContractNumber(xContractNumber int32) 
 	return r
 }
 
-func (r ApiDatacentersServersPutRequest) Execute() (Server, *common.APIResponse, error) {
+func (r ApiDatacentersServersPutRequest) Execute() (Server, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersPutExecute(r)
 }
 
@@ -1714,7 +1714,7 @@ func (a *ServersApiService) DatacentersServersPut(ctx _context.Context, datacent
  * Execute executes the request
  * @return Server
  */
-func (a *ServersApiService) DatacentersServersPutExecute(r ApiDatacentersServersPutRequest) (Server, *common.APIResponse, error) {
+func (a *ServersApiService) DatacentersServersPutExecute(r ApiDatacentersServersPutRequest) (Server, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -1726,7 +1726,7 @@ func (a *ServersApiService) DatacentersServersPutExecute(r ApiDatacentersServers
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.DatacentersServersPut")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1773,7 +1773,7 @@ func (a *ServersApiService) DatacentersServersPutExecute(r ApiDatacentersServers
 	localVarPostBody = r.server
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1792,7 +1792,7 @@ func (a *ServersApiService) DatacentersServersPutExecute(r ApiDatacentersServers
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1812,7 +1812,7 @@ func (a *ServersApiService) DatacentersServersPutExecute(r ApiDatacentersServers
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1828,7 +1828,7 @@ func (a *ServersApiService) DatacentersServersPutExecute(r ApiDatacentersServers
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1861,7 +1861,7 @@ func (r ApiDatacentersServersRebootPostRequest) XContractNumber(xContractNumber 
 	return r
 }
 
-func (r ApiDatacentersServersRebootPostRequest) Execute() (*common.APIResponse, error) {
+func (r ApiDatacentersServersRebootPostRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersRebootPostExecute(r)
 }
 
@@ -1885,7 +1885,7 @@ func (a *ServersApiService) DatacentersServersRebootPost(ctx _context.Context, d
 /*
  * Execute executes the request
  */
-func (a *ServersApiService) DatacentersServersRebootPostExecute(r ApiDatacentersServersRebootPostRequest) (*common.APIResponse, error) {
+func (a *ServersApiService) DatacentersServersRebootPostExecute(r ApiDatacentersServersRebootPostRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -1896,7 +1896,7 @@ func (a *ServersApiService) DatacentersServersRebootPostExecute(r ApiDatacenters
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.DatacentersServersRebootPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -1938,7 +1938,7 @@ func (a *ServersApiService) DatacentersServersRebootPostExecute(r ApiDatacenters
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1957,7 +1957,7 @@ func (a *ServersApiService) DatacentersServersRebootPostExecute(r ApiDatacenters
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1977,7 +1977,7 @@ func (a *ServersApiService) DatacentersServersRebootPostExecute(r ApiDatacenters
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2039,7 +2039,7 @@ func (r ApiDatacentersServersRemoteConsoleGetRequest) MaxResults(maxResults int3
 	return r
 }
 
-func (r ApiDatacentersServersRemoteConsoleGetRequest) Execute() (RemoteConsoleUrl, *common.APIResponse, error) {
+func (r ApiDatacentersServersRemoteConsoleGetRequest) Execute() (RemoteConsoleUrl, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersRemoteConsoleGetExecute(r)
 }
 
@@ -2065,7 +2065,7 @@ func (a *ServersApiService) DatacentersServersRemoteConsoleGet(ctx _context.Cont
  * Execute executes the request
  * @return RemoteConsoleUrl
  */
-func (a *ServersApiService) DatacentersServersRemoteConsoleGetExecute(r ApiDatacentersServersRemoteConsoleGetRequest) (RemoteConsoleUrl, *common.APIResponse, error) {
+func (a *ServersApiService) DatacentersServersRemoteConsoleGetExecute(r ApiDatacentersServersRemoteConsoleGetRequest) (RemoteConsoleUrl, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -2077,7 +2077,7 @@ func (a *ServersApiService) DatacentersServersRemoteConsoleGetExecute(r ApiDatac
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.DatacentersServersRemoteConsoleGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -2132,7 +2132,7 @@ func (a *ServersApiService) DatacentersServersRemoteConsoleGetExecute(r ApiDatac
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2151,7 +2151,7 @@ func (a *ServersApiService) DatacentersServersRemoteConsoleGetExecute(r ApiDatac
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2171,7 +2171,7 @@ func (a *ServersApiService) DatacentersServersRemoteConsoleGetExecute(r ApiDatac
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2187,7 +2187,7 @@ func (a *ServersApiService) DatacentersServersRemoteConsoleGetExecute(r ApiDatac
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -2220,7 +2220,7 @@ func (r ApiDatacentersServersResumePostRequest) XContractNumber(xContractNumber 
 	return r
 }
 
-func (r ApiDatacentersServersResumePostRequest) Execute() (*common.APIResponse, error) {
+func (r ApiDatacentersServersResumePostRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersResumePostExecute(r)
 }
 
@@ -2246,7 +2246,7 @@ func (a *ServersApiService) DatacentersServersResumePost(ctx _context.Context, d
 /*
  * Execute executes the request
  */
-func (a *ServersApiService) DatacentersServersResumePostExecute(r ApiDatacentersServersResumePostRequest) (*common.APIResponse, error) {
+func (a *ServersApiService) DatacentersServersResumePostExecute(r ApiDatacentersServersResumePostRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -2257,7 +2257,7 @@ func (a *ServersApiService) DatacentersServersResumePostExecute(r ApiDatacenters
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.DatacentersServersResumePost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -2299,7 +2299,7 @@ func (a *ServersApiService) DatacentersServersResumePostExecute(r ApiDatacenters
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2318,7 +2318,7 @@ func (a *ServersApiService) DatacentersServersResumePostExecute(r ApiDatacenters
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2338,7 +2338,7 @@ func (a *ServersApiService) DatacentersServersResumePostExecute(r ApiDatacenters
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2378,7 +2378,7 @@ func (r ApiDatacentersServersStartPostRequest) XContractNumber(xContractNumber i
 	return r
 }
 
-func (r ApiDatacentersServersStartPostRequest) Execute() (*common.APIResponse, error) {
+func (r ApiDatacentersServersStartPostRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersStartPostExecute(r)
 }
 
@@ -2402,7 +2402,7 @@ func (a *ServersApiService) DatacentersServersStartPost(ctx _context.Context, da
 /*
  * Execute executes the request
  */
-func (a *ServersApiService) DatacentersServersStartPostExecute(r ApiDatacentersServersStartPostRequest) (*common.APIResponse, error) {
+func (a *ServersApiService) DatacentersServersStartPostExecute(r ApiDatacentersServersStartPostRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -2413,7 +2413,7 @@ func (a *ServersApiService) DatacentersServersStartPostExecute(r ApiDatacentersS
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.DatacentersServersStartPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -2455,7 +2455,7 @@ func (a *ServersApiService) DatacentersServersStartPostExecute(r ApiDatacentersS
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2474,7 +2474,7 @@ func (a *ServersApiService) DatacentersServersStartPostExecute(r ApiDatacentersS
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2494,7 +2494,7 @@ func (a *ServersApiService) DatacentersServersStartPostExecute(r ApiDatacentersS
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2534,7 +2534,7 @@ func (r ApiDatacentersServersStopPostRequest) XContractNumber(xContractNumber in
 	return r
 }
 
-func (r ApiDatacentersServersStopPostRequest) Execute() (*common.APIResponse, error) {
+func (r ApiDatacentersServersStopPostRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersStopPostExecute(r)
 }
 
@@ -2560,7 +2560,7 @@ func (a *ServersApiService) DatacentersServersStopPost(ctx _context.Context, dat
 /*
  * Execute executes the request
  */
-func (a *ServersApiService) DatacentersServersStopPostExecute(r ApiDatacentersServersStopPostRequest) (*common.APIResponse, error) {
+func (a *ServersApiService) DatacentersServersStopPostExecute(r ApiDatacentersServersStopPostRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -2571,7 +2571,7 @@ func (a *ServersApiService) DatacentersServersStopPostExecute(r ApiDatacentersSe
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.DatacentersServersStopPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -2613,7 +2613,7 @@ func (a *ServersApiService) DatacentersServersStopPostExecute(r ApiDatacentersSe
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2632,7 +2632,7 @@ func (a *ServersApiService) DatacentersServersStopPostExecute(r ApiDatacentersSe
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2652,7 +2652,7 @@ func (a *ServersApiService) DatacentersServersStopPostExecute(r ApiDatacentersSe
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2692,7 +2692,7 @@ func (r ApiDatacentersServersSuspendPostRequest) XContractNumber(xContractNumber
 	return r
 }
 
-func (r ApiDatacentersServersSuspendPostRequest) Execute() (*common.APIResponse, error) {
+func (r ApiDatacentersServersSuspendPostRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersSuspendPostExecute(r)
 }
 
@@ -2718,7 +2718,7 @@ func (a *ServersApiService) DatacentersServersSuspendPost(ctx _context.Context, 
 /*
  * Execute executes the request
  */
-func (a *ServersApiService) DatacentersServersSuspendPostExecute(r ApiDatacentersServersSuspendPostRequest) (*common.APIResponse, error) {
+func (a *ServersApiService) DatacentersServersSuspendPostExecute(r ApiDatacentersServersSuspendPostRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -2729,7 +2729,7 @@ func (a *ServersApiService) DatacentersServersSuspendPostExecute(r ApiDatacenter
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.DatacentersServersSuspendPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -2771,7 +2771,7 @@ func (a *ServersApiService) DatacentersServersSuspendPostExecute(r ApiDatacenter
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2790,7 +2790,7 @@ func (a *ServersApiService) DatacentersServersSuspendPostExecute(r ApiDatacenter
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2810,7 +2810,7 @@ func (a *ServersApiService) DatacentersServersSuspendPostExecute(r ApiDatacenter
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2872,7 +2872,7 @@ func (r ApiDatacentersServersTokenGetRequest) MaxResults(maxResults int32) ApiDa
 	return r
 }
 
-func (r ApiDatacentersServersTokenGetRequest) Execute() (Token, *common.APIResponse, error) {
+func (r ApiDatacentersServersTokenGetRequest) Execute() (Token, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersTokenGetExecute(r)
 }
 
@@ -2898,7 +2898,7 @@ func (a *ServersApiService) DatacentersServersTokenGet(ctx _context.Context, dat
  * Execute executes the request
  * @return Token
  */
-func (a *ServersApiService) DatacentersServersTokenGetExecute(r ApiDatacentersServersTokenGetRequest) (Token, *common.APIResponse, error) {
+func (a *ServersApiService) DatacentersServersTokenGetExecute(r ApiDatacentersServersTokenGetRequest) (Token, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -2910,7 +2910,7 @@ func (a *ServersApiService) DatacentersServersTokenGetExecute(r ApiDatacentersSe
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.DatacentersServersTokenGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -2965,7 +2965,7 @@ func (a *ServersApiService) DatacentersServersTokenGetExecute(r ApiDatacentersSe
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2984,7 +2984,7 @@ func (a *ServersApiService) DatacentersServersTokenGetExecute(r ApiDatacentersSe
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -3004,7 +3004,7 @@ func (a *ServersApiService) DatacentersServersTokenGetExecute(r ApiDatacentersSe
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -3020,7 +3020,7 @@ func (a *ServersApiService) DatacentersServersTokenGetExecute(r ApiDatacentersSe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -3053,7 +3053,7 @@ func (r ApiDatacentersServersUpgradePostRequest) XContractNumber(xContractNumber
 	return r
 }
 
-func (r ApiDatacentersServersUpgradePostRequest) Execute() (*common.APIResponse, error) {
+func (r ApiDatacentersServersUpgradePostRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersUpgradePostExecute(r)
 }
 
@@ -3079,7 +3079,7 @@ func (a *ServersApiService) DatacentersServersUpgradePost(ctx _context.Context, 
 /*
  * Execute executes the request
  */
-func (a *ServersApiService) DatacentersServersUpgradePostExecute(r ApiDatacentersServersUpgradePostRequest) (*common.APIResponse, error) {
+func (a *ServersApiService) DatacentersServersUpgradePostExecute(r ApiDatacentersServersUpgradePostRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -3090,7 +3090,7 @@ func (a *ServersApiService) DatacentersServersUpgradePostExecute(r ApiDatacenter
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.DatacentersServersUpgradePost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -3132,7 +3132,7 @@ func (a *ServersApiService) DatacentersServersUpgradePostExecute(r ApiDatacenter
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -3151,7 +3151,7 @@ func (a *ServersApiService) DatacentersServersUpgradePostExecute(r ApiDatacenter
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -3171,7 +3171,7 @@ func (a *ServersApiService) DatacentersServersUpgradePostExecute(r ApiDatacenter
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -3212,7 +3212,7 @@ func (r ApiDatacentersServersVolumesDeleteRequest) XContractNumber(xContractNumb
 	return r
 }
 
-func (r ApiDatacentersServersVolumesDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiDatacentersServersVolumesDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersVolumesDeleteExecute(r)
 }
 
@@ -3238,7 +3238,7 @@ func (a *ServersApiService) DatacentersServersVolumesDelete(ctx _context.Context
 /*
  * Execute executes the request
  */
-func (a *ServersApiService) DatacentersServersVolumesDeleteExecute(r ApiDatacentersServersVolumesDeleteRequest) (*common.APIResponse, error) {
+func (a *ServersApiService) DatacentersServersVolumesDeleteExecute(r ApiDatacentersServersVolumesDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -3249,7 +3249,7 @@ func (a *ServersApiService) DatacentersServersVolumesDeleteExecute(r ApiDatacent
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.DatacentersServersVolumesDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -3292,7 +3292,7 @@ func (a *ServersApiService) DatacentersServersVolumesDeleteExecute(r ApiDatacent
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -3311,7 +3311,7 @@ func (a *ServersApiService) DatacentersServersVolumesDeleteExecute(r ApiDatacent
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -3331,7 +3331,7 @@ func (a *ServersApiService) DatacentersServersVolumesDeleteExecute(r ApiDatacent
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -3372,7 +3372,7 @@ func (r ApiDatacentersServersVolumesFindByIdRequest) XContractNumber(xContractNu
 	return r
 }
 
-func (r ApiDatacentersServersVolumesFindByIdRequest) Execute() (Volume, *common.APIResponse, error) {
+func (r ApiDatacentersServersVolumesFindByIdRequest) Execute() (Volume, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersVolumesFindByIdExecute(r)
 }
 
@@ -3399,7 +3399,7 @@ func (a *ServersApiService) DatacentersServersVolumesFindById(ctx _context.Conte
  * Execute executes the request
  * @return Volume
  */
-func (a *ServersApiService) DatacentersServersVolumesFindByIdExecute(r ApiDatacentersServersVolumesFindByIdRequest) (Volume, *common.APIResponse, error) {
+func (a *ServersApiService) DatacentersServersVolumesFindByIdExecute(r ApiDatacentersServersVolumesFindByIdRequest) (Volume, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -3411,7 +3411,7 @@ func (a *ServersApiService) DatacentersServersVolumesFindByIdExecute(r ApiDatace
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.DatacentersServersVolumesFindById")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -3454,7 +3454,7 @@ func (a *ServersApiService) DatacentersServersVolumesFindByIdExecute(r ApiDatace
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -3473,7 +3473,7 @@ func (a *ServersApiService) DatacentersServersVolumesFindByIdExecute(r ApiDatace
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -3493,7 +3493,7 @@ func (a *ServersApiService) DatacentersServersVolumesFindByIdExecute(r ApiDatace
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -3509,7 +3509,7 @@ func (a *ServersApiService) DatacentersServersVolumesFindByIdExecute(r ApiDatace
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -3574,7 +3574,7 @@ func (r ApiDatacentersServersVolumesGetRequest) MaxResults(maxResults int32) Api
 	return r
 }
 
-func (r ApiDatacentersServersVolumesGetRequest) Execute() (AttachedVolumes, *common.APIResponse, error) {
+func (r ApiDatacentersServersVolumesGetRequest) Execute() (AttachedVolumes, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersVolumesGetExecute(r)
 }
 
@@ -3600,7 +3600,7 @@ func (a *ServersApiService) DatacentersServersVolumesGet(ctx _context.Context, d
  * Execute executes the request
  * @return AttachedVolumes
  */
-func (a *ServersApiService) DatacentersServersVolumesGetExecute(r ApiDatacentersServersVolumesGetRequest) (AttachedVolumes, *common.APIResponse, error) {
+func (a *ServersApiService) DatacentersServersVolumesGetExecute(r ApiDatacentersServersVolumesGetRequest) (AttachedVolumes, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -3612,7 +3612,7 @@ func (a *ServersApiService) DatacentersServersVolumesGetExecute(r ApiDatacenters
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.DatacentersServersVolumesGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -3673,7 +3673,7 @@ func (a *ServersApiService) DatacentersServersVolumesGetExecute(r ApiDatacenters
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -3692,7 +3692,7 @@ func (a *ServersApiService) DatacentersServersVolumesGetExecute(r ApiDatacenters
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -3712,7 +3712,7 @@ func (a *ServersApiService) DatacentersServersVolumesGetExecute(r ApiDatacenters
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -3728,7 +3728,7 @@ func (a *ServersApiService) DatacentersServersVolumesGetExecute(r ApiDatacenters
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -3766,7 +3766,7 @@ func (r ApiDatacentersServersVolumesPostRequest) XContractNumber(xContractNumber
 	return r
 }
 
-func (r ApiDatacentersServersVolumesPostRequest) Execute() (Volume, *common.APIResponse, error) {
+func (r ApiDatacentersServersVolumesPostRequest) Execute() (Volume, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersVolumesPostExecute(r)
 }
 
@@ -3795,7 +3795,7 @@ func (a *ServersApiService) DatacentersServersVolumesPost(ctx _context.Context, 
  * Execute executes the request
  * @return Volume
  */
-func (a *ServersApiService) DatacentersServersVolumesPostExecute(r ApiDatacentersServersVolumesPostRequest) (Volume, *common.APIResponse, error) {
+func (a *ServersApiService) DatacentersServersVolumesPostExecute(r ApiDatacentersServersVolumesPostRequest) (Volume, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -3807,7 +3807,7 @@ func (a *ServersApiService) DatacentersServersVolumesPostExecute(r ApiDatacenter
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServersApiService.DatacentersServersVolumesPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -3854,7 +3854,7 @@ func (a *ServersApiService) DatacentersServersVolumesPostExecute(r ApiDatacenter
 	localVarPostBody = r.volume
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -3873,7 +3873,7 @@ func (a *ServersApiService) DatacentersServersVolumesPostExecute(r ApiDatacenter
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -3893,7 +3893,7 @@ func (a *ServersApiService) DatacentersServersVolumesPostExecute(r ApiDatacenter
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -3909,7 +3909,7 @@ func (a *ServersApiService) DatacentersServersVolumesPostExecute(r ApiDatacenter
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())

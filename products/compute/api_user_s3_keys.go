@@ -13,7 +13,7 @@ package compute
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -51,7 +51,7 @@ func (r ApiUmUsersS3keysDeleteRequest) XContractNumber(xContractNumber int32) Ap
 	return r
 }
 
-func (r ApiUmUsersS3keysDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiUmUsersS3keysDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.UmUsersS3keysDeleteExecute(r)
 }
 
@@ -75,7 +75,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysDelete(ctx _context.Context, userId 
 /*
  * Execute executes the request
  */
-func (a *UserS3KeysApiService) UmUsersS3keysDeleteExecute(r ApiUmUsersS3keysDeleteRequest) (*common.APIResponse, error) {
+func (a *UserS3KeysApiService) UmUsersS3keysDeleteExecute(r ApiUmUsersS3keysDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -86,7 +86,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysDeleteExecute(r ApiUmUsersS3keysDele
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserS3KeysApiService.UmUsersS3keysDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -128,7 +128,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysDeleteExecute(r ApiUmUsersS3keysDele
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -147,7 +147,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysDeleteExecute(r ApiUmUsersS3keysDele
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -167,7 +167,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysDeleteExecute(r ApiUmUsersS3keysDele
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -207,7 +207,7 @@ func (r ApiUmUsersS3keysFindByKeyIdRequest) XContractNumber(xContractNumber int3
 	return r
 }
 
-func (r ApiUmUsersS3keysFindByKeyIdRequest) Execute() (S3Key, *common.APIResponse, error) {
+func (r ApiUmUsersS3keysFindByKeyIdRequest) Execute() (S3Key, *shared.APIResponse, error) {
 	return r.ApiService.UmUsersS3keysFindByKeyIdExecute(r)
 }
 
@@ -232,7 +232,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysFindByKeyId(ctx _context.Context, us
  * Execute executes the request
  * @return S3Key
  */
-func (a *UserS3KeysApiService) UmUsersS3keysFindByKeyIdExecute(r ApiUmUsersS3keysFindByKeyIdRequest) (S3Key, *common.APIResponse, error) {
+func (a *UserS3KeysApiService) UmUsersS3keysFindByKeyIdExecute(r ApiUmUsersS3keysFindByKeyIdRequest) (S3Key, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -244,7 +244,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysFindByKeyIdExecute(r ApiUmUsersS3key
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserS3KeysApiService.UmUsersS3keysFindByKeyId")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -286,7 +286,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysFindByKeyIdExecute(r ApiUmUsersS3key
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -305,7 +305,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysFindByKeyIdExecute(r ApiUmUsersS3key
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -325,7 +325,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysFindByKeyIdExecute(r ApiUmUsersS3key
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -341,7 +341,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysFindByKeyIdExecute(r ApiUmUsersS3key
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -395,7 +395,7 @@ func (r ApiUmUsersS3keysGetRequest) MaxResults(maxResults int32) ApiUmUsersS3key
 	return r
 }
 
-func (r ApiUmUsersS3keysGetRequest) Execute() (S3Keys, *common.APIResponse, error) {
+func (r ApiUmUsersS3keysGetRequest) Execute() (S3Keys, *shared.APIResponse, error) {
 	return r.ApiService.UmUsersS3keysGetExecute(r)
 }
 
@@ -419,7 +419,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysGet(ctx _context.Context, userId str
  * Execute executes the request
  * @return S3Keys
  */
-func (a *UserS3KeysApiService) UmUsersS3keysGetExecute(r ApiUmUsersS3keysGetRequest) (S3Keys, *common.APIResponse, error) {
+func (a *UserS3KeysApiService) UmUsersS3keysGetExecute(r ApiUmUsersS3keysGetRequest) (S3Keys, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -431,7 +431,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysGetExecute(r ApiUmUsersS3keysGetRequ
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserS3KeysApiService.UmUsersS3keysGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -485,7 +485,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysGetExecute(r ApiUmUsersS3keysGetRequ
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -504,7 +504,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysGetExecute(r ApiUmUsersS3keysGetRequ
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -524,7 +524,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysGetExecute(r ApiUmUsersS3keysGetRequ
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -540,7 +540,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysGetExecute(r ApiUmUsersS3keysGetRequ
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -572,7 +572,7 @@ func (r ApiUmUsersS3keysPostRequest) XContractNumber(xContractNumber int32) ApiU
 	return r
 }
 
-func (r ApiUmUsersS3keysPostRequest) Execute() (S3Key, *common.APIResponse, error) {
+func (r ApiUmUsersS3keysPostRequest) Execute() (S3Key, *shared.APIResponse, error) {
 	return r.ApiService.UmUsersS3keysPostExecute(r)
 }
 
@@ -595,7 +595,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysPost(ctx _context.Context, userId st
  * Execute executes the request
  * @return S3Key
  */
-func (a *UserS3KeysApiService) UmUsersS3keysPostExecute(r ApiUmUsersS3keysPostRequest) (S3Key, *common.APIResponse, error) {
+func (a *UserS3KeysApiService) UmUsersS3keysPostExecute(r ApiUmUsersS3keysPostRequest) (S3Key, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -607,7 +607,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysPostExecute(r ApiUmUsersS3keysPostRe
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserS3KeysApiService.UmUsersS3keysPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -648,7 +648,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysPostExecute(r ApiUmUsersS3keysPostRe
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -667,7 +667,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysPostExecute(r ApiUmUsersS3keysPostRe
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -687,7 +687,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysPostExecute(r ApiUmUsersS3keysPostRe
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -703,7 +703,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysPostExecute(r ApiUmUsersS3keysPostRe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -741,7 +741,7 @@ func (r ApiUmUsersS3keysPutRequest) XContractNumber(xContractNumber int32) ApiUm
 	return r
 }
 
-func (r ApiUmUsersS3keysPutRequest) Execute() (S3Key, *common.APIResponse, error) {
+func (r ApiUmUsersS3keysPutRequest) Execute() (S3Key, *shared.APIResponse, error) {
 	return r.ApiService.UmUsersS3keysPutExecute(r)
 }
 
@@ -766,7 +766,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysPut(ctx _context.Context, userId str
  * Execute executes the request
  * @return S3Key
  */
-func (a *UserS3KeysApiService) UmUsersS3keysPutExecute(r ApiUmUsersS3keysPutRequest) (S3Key, *common.APIResponse, error) {
+func (a *UserS3KeysApiService) UmUsersS3keysPutExecute(r ApiUmUsersS3keysPutRequest) (S3Key, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -778,7 +778,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysPutExecute(r ApiUmUsersS3keysPutRequ
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserS3KeysApiService.UmUsersS3keysPut")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -825,7 +825,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysPutExecute(r ApiUmUsersS3keysPutRequ
 	localVarPostBody = r.s3Key
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -844,7 +844,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysPutExecute(r ApiUmUsersS3keysPutRequ
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -864,7 +864,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysPutExecute(r ApiUmUsersS3keysPutRequ
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -880,7 +880,7 @@ func (a *UserS3KeysApiService) UmUsersS3keysPutExecute(r ApiUmUsersS3keysPutRequ
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -929,7 +929,7 @@ func (r ApiUmUsersS3ssourlGetRequest) MaxResults(maxResults int32) ApiUmUsersS3s
 	return r
 }
 
-func (r ApiUmUsersS3ssourlGetRequest) Execute() (S3ObjectStorageSSO, *common.APIResponse, error) {
+func (r ApiUmUsersS3ssourlGetRequest) Execute() (S3ObjectStorageSSO, *shared.APIResponse, error) {
 	return r.ApiService.UmUsersS3ssourlGetExecute(r)
 }
 
@@ -953,7 +953,7 @@ func (a *UserS3KeysApiService) UmUsersS3ssourlGet(ctx _context.Context, userId s
  * Execute executes the request
  * @return S3ObjectStorageSSO
  */
-func (a *UserS3KeysApiService) UmUsersS3ssourlGetExecute(r ApiUmUsersS3ssourlGetRequest) (S3ObjectStorageSSO, *common.APIResponse, error) {
+func (a *UserS3KeysApiService) UmUsersS3ssourlGetExecute(r ApiUmUsersS3ssourlGetRequest) (S3ObjectStorageSSO, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -965,7 +965,7 @@ func (a *UserS3KeysApiService) UmUsersS3ssourlGetExecute(r ApiUmUsersS3ssourlGet
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserS3KeysApiService.UmUsersS3ssourlGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1016,7 +1016,7 @@ func (a *UserS3KeysApiService) UmUsersS3ssourlGetExecute(r ApiUmUsersS3ssourlGet
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1035,7 +1035,7 @@ func (a *UserS3KeysApiService) UmUsersS3ssourlGetExecute(r ApiUmUsersS3ssourlGet
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1055,7 +1055,7 @@ func (a *UserS3KeysApiService) UmUsersS3ssourlGetExecute(r ApiUmUsersS3ssourlGet
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1071,7 +1071,7 @@ func (a *UserS3KeysApiService) UmUsersS3ssourlGetExecute(r ApiUmUsersS3ssourlGet
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())

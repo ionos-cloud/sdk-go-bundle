@@ -32,14 +32,14 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
     templateId := "templateId_example" // string | The unique Template ID.
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.TemplatesApi.TemplatesFindById(context.Background(), templateId).Depth(depth).Execute()
     if err != nil {
@@ -102,13 +102,13 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.TemplatesApi.TemplatesGet(context.Background()).Depth(depth).Execute()
     if err != nil {

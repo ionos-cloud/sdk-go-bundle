@@ -49,7 +49,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -58,7 +58,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.KubernetesApi.K8sDelete(context.Background(), k8sClusterId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -123,7 +123,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -132,7 +132,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.KubernetesApi.K8sFindByClusterId(context.Background(), k8sClusterId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -199,7 +199,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -207,7 +207,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.KubernetesApi.K8sGet(context.Background()).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -270,7 +270,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -279,7 +279,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.KubernetesApi.K8sKubeconfigGet(context.Background(), k8sClusterId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -346,7 +346,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -356,7 +356,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.KubernetesApi.K8sNodepoolsDelete(context.Background(), k8sClusterId, nodepoolId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -422,7 +422,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -432,7 +432,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.KubernetesApi.K8sNodepoolsFindById(context.Background(), k8sClusterId, nodepoolId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -500,7 +500,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -509,7 +509,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.KubernetesApi.K8sNodepoolsGet(context.Background(), k8sClusterId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -576,7 +576,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -587,7 +587,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.KubernetesApi.K8sNodepoolsNodesDelete(context.Background(), k8sClusterId, nodepoolId, nodeId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -654,7 +654,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -665,7 +665,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.KubernetesApi.K8sNodepoolsNodesFindById(context.Background(), k8sClusterId, nodepoolId, nodeId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -734,7 +734,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -744,7 +744,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.KubernetesApi.K8sNodepoolsNodesGet(context.Background(), k8sClusterId, nodepoolId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -812,7 +812,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -823,7 +823,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.KubernetesApi.K8sNodepoolsNodesReplacePost(context.Background(), k8sClusterId, nodepoolId, nodeId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -891,7 +891,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -901,7 +901,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.KubernetesApi.K8sNodepoolsPost(context.Background(), k8sClusterId).KubernetesNodePool(kubernetesNodePool).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -970,7 +970,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -981,7 +981,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.KubernetesApi.K8sNodepoolsPut(context.Background(), k8sClusterId, nodepoolId).KubernetesNodePool(kubernetesNodePool).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -1051,7 +1051,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -1060,7 +1060,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.KubernetesApi.K8sPost(context.Background()).KubernetesCluster(kubernetesCluster).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -1125,7 +1125,7 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -1135,7 +1135,7 @@ func main() {
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.KubernetesApi.K8sPut(context.Background(), k8sClusterId).KubernetesCluster(kubernetesCluster).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
@@ -1200,12 +1200,12 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.KubernetesApi.K8sVersionsDefaultGet(context.Background()).Execute()
     if err != nil {
@@ -1259,12 +1259,12 @@ import (
     "os"
 
     compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
     resource, resp, err := apiClient.KubernetesApi.K8sVersionsGet(context.Background()).Execute()
     if err != nil {

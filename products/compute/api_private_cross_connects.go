@@ -13,7 +13,7 @@ package compute
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -50,7 +50,7 @@ func (r ApiPccsDeleteRequest) XContractNumber(xContractNumber int32) ApiPccsDele
 	return r
 }
 
-func (r ApiPccsDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiPccsDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.PccsDeleteExecute(r)
 }
 
@@ -72,7 +72,7 @@ func (a *PrivateCrossConnectsApiService) PccsDelete(ctx _context.Context, pccId 
 /*
  * Execute executes the request
  */
-func (a *PrivateCrossConnectsApiService) PccsDeleteExecute(r ApiPccsDeleteRequest) (*common.APIResponse, error) {
+func (a *PrivateCrossConnectsApiService) PccsDeleteExecute(r ApiPccsDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -83,7 +83,7 @@ func (a *PrivateCrossConnectsApiService) PccsDeleteExecute(r ApiPccsDeleteReques
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PrivateCrossConnectsApiService.PccsDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -124,7 +124,7 @@ func (a *PrivateCrossConnectsApiService) PccsDeleteExecute(r ApiPccsDeleteReques
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -143,7 +143,7 @@ func (a *PrivateCrossConnectsApiService) PccsDeleteExecute(r ApiPccsDeleteReques
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -163,7 +163,7 @@ func (a *PrivateCrossConnectsApiService) PccsDeleteExecute(r ApiPccsDeleteReques
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -202,7 +202,7 @@ func (r ApiPccsFindByIdRequest) XContractNumber(xContractNumber int32) ApiPccsFi
 	return r
 }
 
-func (r ApiPccsFindByIdRequest) Execute() (PrivateCrossConnect, *common.APIResponse, error) {
+func (r ApiPccsFindByIdRequest) Execute() (PrivateCrossConnect, *shared.APIResponse, error) {
 	return r.ApiService.PccsFindByIdExecute(r)
 }
 
@@ -225,7 +225,7 @@ func (a *PrivateCrossConnectsApiService) PccsFindById(ctx _context.Context, pccI
  * Execute executes the request
  * @return PrivateCrossConnect
  */
-func (a *PrivateCrossConnectsApiService) PccsFindByIdExecute(r ApiPccsFindByIdRequest) (PrivateCrossConnect, *common.APIResponse, error) {
+func (a *PrivateCrossConnectsApiService) PccsFindByIdExecute(r ApiPccsFindByIdRequest) (PrivateCrossConnect, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -237,7 +237,7 @@ func (a *PrivateCrossConnectsApiService) PccsFindByIdExecute(r ApiPccsFindByIdRe
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PrivateCrossConnectsApiService.PccsFindById")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -278,7 +278,7 @@ func (a *PrivateCrossConnectsApiService) PccsFindByIdExecute(r ApiPccsFindByIdRe
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -297,7 +297,7 @@ func (a *PrivateCrossConnectsApiService) PccsFindByIdExecute(r ApiPccsFindByIdRe
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -317,7 +317,7 @@ func (a *PrivateCrossConnectsApiService) PccsFindByIdExecute(r ApiPccsFindByIdRe
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -333,7 +333,7 @@ func (a *PrivateCrossConnectsApiService) PccsFindByIdExecute(r ApiPccsFindByIdRe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -386,7 +386,7 @@ func (r ApiPccsGetRequest) MaxResults(maxResults int32) ApiPccsGetRequest {
 	return r
 }
 
-func (r ApiPccsGetRequest) Execute() (PrivateCrossConnects, *common.APIResponse, error) {
+func (r ApiPccsGetRequest) Execute() (PrivateCrossConnects, *shared.APIResponse, error) {
 	return r.ApiService.PccsGetExecute(r)
 }
 
@@ -408,7 +408,7 @@ func (a *PrivateCrossConnectsApiService) PccsGet(ctx _context.Context) ApiPccsGe
  * Execute executes the request
  * @return PrivateCrossConnects
  */
-func (a *PrivateCrossConnectsApiService) PccsGetExecute(r ApiPccsGetRequest) (PrivateCrossConnects, *common.APIResponse, error) {
+func (a *PrivateCrossConnectsApiService) PccsGetExecute(r ApiPccsGetRequest) (PrivateCrossConnects, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -420,7 +420,7 @@ func (a *PrivateCrossConnectsApiService) PccsGetExecute(r ApiPccsGetRequest) (Pr
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PrivateCrossConnectsApiService.PccsGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -473,7 +473,7 @@ func (a *PrivateCrossConnectsApiService) PccsGetExecute(r ApiPccsGetRequest) (Pr
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -492,7 +492,7 @@ func (a *PrivateCrossConnectsApiService) PccsGetExecute(r ApiPccsGetRequest) (Pr
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -512,7 +512,7 @@ func (a *PrivateCrossConnectsApiService) PccsGetExecute(r ApiPccsGetRequest) (Pr
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -528,7 +528,7 @@ func (a *PrivateCrossConnectsApiService) PccsGetExecute(r ApiPccsGetRequest) (Pr
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -565,7 +565,7 @@ func (r ApiPccsPatchRequest) XContractNumber(xContractNumber int32) ApiPccsPatch
 	return r
 }
 
-func (r ApiPccsPatchRequest) Execute() (PrivateCrossConnect, *common.APIResponse, error) {
+func (r ApiPccsPatchRequest) Execute() (PrivateCrossConnect, *shared.APIResponse, error) {
 	return r.ApiService.PccsPatchExecute(r)
 }
 
@@ -588,7 +588,7 @@ func (a *PrivateCrossConnectsApiService) PccsPatch(ctx _context.Context, pccId s
  * Execute executes the request
  * @return PrivateCrossConnect
  */
-func (a *PrivateCrossConnectsApiService) PccsPatchExecute(r ApiPccsPatchRequest) (PrivateCrossConnect, *common.APIResponse, error) {
+func (a *PrivateCrossConnectsApiService) PccsPatchExecute(r ApiPccsPatchRequest) (PrivateCrossConnect, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPatch
 		localVarPostBody     interface{}
@@ -600,7 +600,7 @@ func (a *PrivateCrossConnectsApiService) PccsPatchExecute(r ApiPccsPatchRequest)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PrivateCrossConnectsApiService.PccsPatch")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -646,7 +646,7 @@ func (a *PrivateCrossConnectsApiService) PccsPatchExecute(r ApiPccsPatchRequest)
 	localVarPostBody = r.pcc
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -665,7 +665,7 @@ func (a *PrivateCrossConnectsApiService) PccsPatchExecute(r ApiPccsPatchRequest)
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -685,7 +685,7 @@ func (a *PrivateCrossConnectsApiService) PccsPatchExecute(r ApiPccsPatchRequest)
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -701,7 +701,7 @@ func (a *PrivateCrossConnectsApiService) PccsPatchExecute(r ApiPccsPatchRequest)
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -737,7 +737,7 @@ func (r ApiPccsPostRequest) XContractNumber(xContractNumber int32) ApiPccsPostRe
 	return r
 }
 
-func (r ApiPccsPostRequest) Execute() (PrivateCrossConnect, *common.APIResponse, error) {
+func (r ApiPccsPostRequest) Execute() (PrivateCrossConnect, *shared.APIResponse, error) {
 	return r.ApiService.PccsPostExecute(r)
 }
 
@@ -758,7 +758,7 @@ func (a *PrivateCrossConnectsApiService) PccsPost(ctx _context.Context) ApiPccsP
  * Execute executes the request
  * @return PrivateCrossConnect
  */
-func (a *PrivateCrossConnectsApiService) PccsPostExecute(r ApiPccsPostRequest) (PrivateCrossConnect, *common.APIResponse, error) {
+func (a *PrivateCrossConnectsApiService) PccsPostExecute(r ApiPccsPostRequest) (PrivateCrossConnect, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -770,7 +770,7 @@ func (a *PrivateCrossConnectsApiService) PccsPostExecute(r ApiPccsPostRequest) (
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PrivateCrossConnectsApiService.PccsPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -815,7 +815,7 @@ func (a *PrivateCrossConnectsApiService) PccsPostExecute(r ApiPccsPostRequest) (
 	localVarPostBody = r.pcc
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -834,7 +834,7 @@ func (a *PrivateCrossConnectsApiService) PccsPostExecute(r ApiPccsPostRequest) (
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -854,7 +854,7 @@ func (a *PrivateCrossConnectsApiService) PccsPostExecute(r ApiPccsPostRequest) (
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -870,7 +870,7 @@ func (a *PrivateCrossConnectsApiService) PccsPostExecute(r ApiPccsPostRequest) (
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())

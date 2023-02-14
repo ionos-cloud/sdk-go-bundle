@@ -13,7 +13,7 @@ package compute
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -40,7 +40,7 @@ func (r ApiTemplatesFindByIdRequest) Depth(depth int32) ApiTemplatesFindByIdRequ
 	return r
 }
 
-func (r ApiTemplatesFindByIdRequest) Execute() (Template, *common.APIResponse, error) {
+func (r ApiTemplatesFindByIdRequest) Execute() (Template, *shared.APIResponse, error) {
 	return r.ApiService.TemplatesFindByIdExecute(r)
 }
 
@@ -65,7 +65,7 @@ func (a *TemplatesApiService) TemplatesFindById(ctx _context.Context, templateId
  * Execute executes the request
  * @return Template
  */
-func (a *TemplatesApiService) TemplatesFindByIdExecute(r ApiTemplatesFindByIdRequest) (Template, *common.APIResponse, error) {
+func (a *TemplatesApiService) TemplatesFindByIdExecute(r ApiTemplatesFindByIdRequest) (Template, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -77,7 +77,7 @@ func (a *TemplatesApiService) TemplatesFindByIdExecute(r ApiTemplatesFindByIdReq
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplatesApiService.TemplatesFindById")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -112,7 +112,7 @@ func (a *TemplatesApiService) TemplatesFindByIdExecute(r ApiTemplatesFindByIdReq
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -131,7 +131,7 @@ func (a *TemplatesApiService) TemplatesFindByIdExecute(r ApiTemplatesFindByIdReq
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -151,7 +151,7 @@ func (a *TemplatesApiService) TemplatesFindByIdExecute(r ApiTemplatesFindByIdReq
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -167,7 +167,7 @@ func (a *TemplatesApiService) TemplatesFindByIdExecute(r ApiTemplatesFindByIdReq
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -210,7 +210,7 @@ func (r ApiTemplatesGetRequest) MaxResults(maxResults int32) ApiTemplatesGetRequ
 	return r
 }
 
-func (r ApiTemplatesGetRequest) Execute() (Templates, *common.APIResponse, error) {
+func (r ApiTemplatesGetRequest) Execute() (Templates, *shared.APIResponse, error) {
 	return r.ApiService.TemplatesGetExecute(r)
 }
 
@@ -234,7 +234,7 @@ func (a *TemplatesApiService) TemplatesGet(ctx _context.Context) ApiTemplatesGet
  * Execute executes the request
  * @return Templates
  */
-func (a *TemplatesApiService) TemplatesGetExecute(r ApiTemplatesGetRequest) (Templates, *common.APIResponse, error) {
+func (a *TemplatesApiService) TemplatesGetExecute(r ApiTemplatesGetRequest) (Templates, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -246,7 +246,7 @@ func (a *TemplatesApiService) TemplatesGetExecute(r ApiTemplatesGetRequest) (Tem
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplatesApiService.TemplatesGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -293,7 +293,7 @@ func (a *TemplatesApiService) TemplatesGetExecute(r ApiTemplatesGetRequest) (Tem
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -312,7 +312,7 @@ func (a *TemplatesApiService) TemplatesGetExecute(r ApiTemplatesGetRequest) (Tem
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -332,7 +332,7 @@ func (a *TemplatesApiService) TemplatesGetExecute(r ApiTemplatesGetRequest) (Tem
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -348,7 +348,7 @@ func (a *TemplatesApiService) TemplatesGetExecute(r ApiTemplatesGetRequest) (Tem
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())

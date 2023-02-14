@@ -13,7 +13,7 @@ package compute
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -50,7 +50,7 @@ func (r ApiK8sDeleteRequest) XContractNumber(xContractNumber int32) ApiK8sDelete
 	return r
 }
 
-func (r ApiK8sDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiK8sDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.K8sDeleteExecute(r)
 }
 
@@ -72,7 +72,7 @@ func (a *KubernetesApiService) K8sDelete(ctx _context.Context, k8sClusterId stri
 /*
  * Execute executes the request
  */
-func (a *KubernetesApiService) K8sDeleteExecute(r ApiK8sDeleteRequest) (*common.APIResponse, error) {
+func (a *KubernetesApiService) K8sDeleteExecute(r ApiK8sDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -83,7 +83,7 @@ func (a *KubernetesApiService) K8sDeleteExecute(r ApiK8sDeleteRequest) (*common.
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KubernetesApiService.K8sDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -124,7 +124,7 @@ func (a *KubernetesApiService) K8sDeleteExecute(r ApiK8sDeleteRequest) (*common.
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -143,7 +143,7 @@ func (a *KubernetesApiService) K8sDeleteExecute(r ApiK8sDeleteRequest) (*common.
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -163,7 +163,7 @@ func (a *KubernetesApiService) K8sDeleteExecute(r ApiK8sDeleteRequest) (*common.
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -202,7 +202,7 @@ func (r ApiK8sFindByClusterIdRequest) XContractNumber(xContractNumber int32) Api
 	return r
 }
 
-func (r ApiK8sFindByClusterIdRequest) Execute() (KubernetesCluster, *common.APIResponse, error) {
+func (r ApiK8sFindByClusterIdRequest) Execute() (KubernetesCluster, *shared.APIResponse, error) {
 	return r.ApiService.K8sFindByClusterIdExecute(r)
 }
 
@@ -225,7 +225,7 @@ func (a *KubernetesApiService) K8sFindByClusterId(ctx _context.Context, k8sClust
  * Execute executes the request
  * @return KubernetesCluster
  */
-func (a *KubernetesApiService) K8sFindByClusterIdExecute(r ApiK8sFindByClusterIdRequest) (KubernetesCluster, *common.APIResponse, error) {
+func (a *KubernetesApiService) K8sFindByClusterIdExecute(r ApiK8sFindByClusterIdRequest) (KubernetesCluster, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -237,7 +237,7 @@ func (a *KubernetesApiService) K8sFindByClusterIdExecute(r ApiK8sFindByClusterId
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KubernetesApiService.K8sFindByClusterId")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -278,7 +278,7 @@ func (a *KubernetesApiService) K8sFindByClusterIdExecute(r ApiK8sFindByClusterId
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -297,7 +297,7 @@ func (a *KubernetesApiService) K8sFindByClusterIdExecute(r ApiK8sFindByClusterId
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -317,7 +317,7 @@ func (a *KubernetesApiService) K8sFindByClusterIdExecute(r ApiK8sFindByClusterId
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -333,7 +333,7 @@ func (a *KubernetesApiService) K8sFindByClusterIdExecute(r ApiK8sFindByClusterId
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -386,7 +386,7 @@ func (r ApiK8sGetRequest) MaxResults(maxResults int32) ApiK8sGetRequest {
 	return r
 }
 
-func (r ApiK8sGetRequest) Execute() (KubernetesClusters, *common.APIResponse, error) {
+func (r ApiK8sGetRequest) Execute() (KubernetesClusters, *shared.APIResponse, error) {
 	return r.ApiService.K8sGetExecute(r)
 }
 
@@ -408,7 +408,7 @@ func (a *KubernetesApiService) K8sGet(ctx _context.Context) ApiK8sGetRequest {
  * Execute executes the request
  * @return KubernetesClusters
  */
-func (a *KubernetesApiService) K8sGetExecute(r ApiK8sGetRequest) (KubernetesClusters, *common.APIResponse, error) {
+func (a *KubernetesApiService) K8sGetExecute(r ApiK8sGetRequest) (KubernetesClusters, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -420,7 +420,7 @@ func (a *KubernetesApiService) K8sGetExecute(r ApiK8sGetRequest) (KubernetesClus
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KubernetesApiService.K8sGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -473,7 +473,7 @@ func (a *KubernetesApiService) K8sGetExecute(r ApiK8sGetRequest) (KubernetesClus
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -492,7 +492,7 @@ func (a *KubernetesApiService) K8sGetExecute(r ApiK8sGetRequest) (KubernetesClus
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -512,7 +512,7 @@ func (a *KubernetesApiService) K8sGetExecute(r ApiK8sGetRequest) (KubernetesClus
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -528,7 +528,7 @@ func (a *KubernetesApiService) K8sGetExecute(r ApiK8sGetRequest) (KubernetesClus
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -582,7 +582,7 @@ func (r ApiK8sKubeconfigGetRequest) MaxResults(maxResults int32) ApiK8sKubeconfi
 	return r
 }
 
-func (r ApiK8sKubeconfigGetRequest) Execute() (string, *common.APIResponse, error) {
+func (r ApiK8sKubeconfigGetRequest) Execute() (string, *shared.APIResponse, error) {
 	return r.ApiService.K8sKubeconfigGetExecute(r)
 }
 
@@ -606,7 +606,7 @@ func (a *KubernetesApiService) K8sKubeconfigGet(ctx _context.Context, k8sCluster
  * Execute executes the request
  * @return string
  */
-func (a *KubernetesApiService) K8sKubeconfigGetExecute(r ApiK8sKubeconfigGetRequest) (string, *common.APIResponse, error) {
+func (a *KubernetesApiService) K8sKubeconfigGetExecute(r ApiK8sKubeconfigGetRequest) (string, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -618,7 +618,7 @@ func (a *KubernetesApiService) K8sKubeconfigGetExecute(r ApiK8sKubeconfigGetRequ
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KubernetesApiService.K8sKubeconfigGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -672,7 +672,7 @@ func (a *KubernetesApiService) K8sKubeconfigGetExecute(r ApiK8sKubeconfigGetRequ
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -691,7 +691,7 @@ func (a *KubernetesApiService) K8sKubeconfigGetExecute(r ApiK8sKubeconfigGetRequ
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -711,7 +711,7 @@ func (a *KubernetesApiService) K8sKubeconfigGetExecute(r ApiK8sKubeconfigGetRequ
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -727,7 +727,7 @@ func (a *KubernetesApiService) K8sKubeconfigGetExecute(r ApiK8sKubeconfigGetRequ
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -760,7 +760,7 @@ func (r ApiK8sNodepoolsDeleteRequest) XContractNumber(xContractNumber int32) Api
 	return r
 }
 
-func (r ApiK8sNodepoolsDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiK8sNodepoolsDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.K8sNodepoolsDeleteExecute(r)
 }
 
@@ -784,7 +784,7 @@ func (a *KubernetesApiService) K8sNodepoolsDelete(ctx _context.Context, k8sClust
 /*
  * Execute executes the request
  */
-func (a *KubernetesApiService) K8sNodepoolsDeleteExecute(r ApiK8sNodepoolsDeleteRequest) (*common.APIResponse, error) {
+func (a *KubernetesApiService) K8sNodepoolsDeleteExecute(r ApiK8sNodepoolsDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -795,7 +795,7 @@ func (a *KubernetesApiService) K8sNodepoolsDeleteExecute(r ApiK8sNodepoolsDelete
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KubernetesApiService.K8sNodepoolsDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -837,7 +837,7 @@ func (a *KubernetesApiService) K8sNodepoolsDeleteExecute(r ApiK8sNodepoolsDelete
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -856,7 +856,7 @@ func (a *KubernetesApiService) K8sNodepoolsDeleteExecute(r ApiK8sNodepoolsDelete
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -876,7 +876,7 @@ func (a *KubernetesApiService) K8sNodepoolsDeleteExecute(r ApiK8sNodepoolsDelete
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -916,7 +916,7 @@ func (r ApiK8sNodepoolsFindByIdRequest) XContractNumber(xContractNumber int32) A
 	return r
 }
 
-func (r ApiK8sNodepoolsFindByIdRequest) Execute() (KubernetesNodePool, *common.APIResponse, error) {
+func (r ApiK8sNodepoolsFindByIdRequest) Execute() (KubernetesNodePool, *shared.APIResponse, error) {
 	return r.ApiService.K8sNodepoolsFindByIdExecute(r)
 }
 
@@ -941,7 +941,7 @@ func (a *KubernetesApiService) K8sNodepoolsFindById(ctx _context.Context, k8sClu
  * Execute executes the request
  * @return KubernetesNodePool
  */
-func (a *KubernetesApiService) K8sNodepoolsFindByIdExecute(r ApiK8sNodepoolsFindByIdRequest) (KubernetesNodePool, *common.APIResponse, error) {
+func (a *KubernetesApiService) K8sNodepoolsFindByIdExecute(r ApiK8sNodepoolsFindByIdRequest) (KubernetesNodePool, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -953,7 +953,7 @@ func (a *KubernetesApiService) K8sNodepoolsFindByIdExecute(r ApiK8sNodepoolsFind
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KubernetesApiService.K8sNodepoolsFindById")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -995,7 +995,7 @@ func (a *KubernetesApiService) K8sNodepoolsFindByIdExecute(r ApiK8sNodepoolsFind
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1014,7 +1014,7 @@ func (a *KubernetesApiService) K8sNodepoolsFindByIdExecute(r ApiK8sNodepoolsFind
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1034,7 +1034,7 @@ func (a *KubernetesApiService) K8sNodepoolsFindByIdExecute(r ApiK8sNodepoolsFind
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1050,7 +1050,7 @@ func (a *KubernetesApiService) K8sNodepoolsFindByIdExecute(r ApiK8sNodepoolsFind
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1104,7 +1104,7 @@ func (r ApiK8sNodepoolsGetRequest) MaxResults(maxResults int32) ApiK8sNodepoolsG
 	return r
 }
 
-func (r ApiK8sNodepoolsGetRequest) Execute() (KubernetesNodePools, *common.APIResponse, error) {
+func (r ApiK8sNodepoolsGetRequest) Execute() (KubernetesNodePools, *shared.APIResponse, error) {
 	return r.ApiService.K8sNodepoolsGetExecute(r)
 }
 
@@ -1128,7 +1128,7 @@ func (a *KubernetesApiService) K8sNodepoolsGet(ctx _context.Context, k8sClusterI
  * Execute executes the request
  * @return KubernetesNodePools
  */
-func (a *KubernetesApiService) K8sNodepoolsGetExecute(r ApiK8sNodepoolsGetRequest) (KubernetesNodePools, *common.APIResponse, error) {
+func (a *KubernetesApiService) K8sNodepoolsGetExecute(r ApiK8sNodepoolsGetRequest) (KubernetesNodePools, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -1140,7 +1140,7 @@ func (a *KubernetesApiService) K8sNodepoolsGetExecute(r ApiK8sNodepoolsGetReques
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KubernetesApiService.K8sNodepoolsGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1194,7 +1194,7 @@ func (a *KubernetesApiService) K8sNodepoolsGetExecute(r ApiK8sNodepoolsGetReques
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1213,7 +1213,7 @@ func (a *KubernetesApiService) K8sNodepoolsGetExecute(r ApiK8sNodepoolsGetReques
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1233,7 +1233,7 @@ func (a *KubernetesApiService) K8sNodepoolsGetExecute(r ApiK8sNodepoolsGetReques
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1249,7 +1249,7 @@ func (a *KubernetesApiService) K8sNodepoolsGetExecute(r ApiK8sNodepoolsGetReques
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1283,7 +1283,7 @@ func (r ApiK8sNodepoolsNodesDeleteRequest) XContractNumber(xContractNumber int32
 	return r
 }
 
-func (r ApiK8sNodepoolsNodesDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiK8sNodepoolsNodesDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.K8sNodepoolsNodesDeleteExecute(r)
 }
 
@@ -1309,7 +1309,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesDelete(ctx _context.Context, k8s
 /*
  * Execute executes the request
  */
-func (a *KubernetesApiService) K8sNodepoolsNodesDeleteExecute(r ApiK8sNodepoolsNodesDeleteRequest) (*common.APIResponse, error) {
+func (a *KubernetesApiService) K8sNodepoolsNodesDeleteExecute(r ApiK8sNodepoolsNodesDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -1320,7 +1320,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesDeleteExecute(r ApiK8sNodepoolsN
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KubernetesApiService.K8sNodepoolsNodesDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -1363,7 +1363,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesDeleteExecute(r ApiK8sNodepoolsN
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1382,7 +1382,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesDeleteExecute(r ApiK8sNodepoolsN
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1402,7 +1402,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesDeleteExecute(r ApiK8sNodepoolsN
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1443,7 +1443,7 @@ func (r ApiK8sNodepoolsNodesFindByIdRequest) XContractNumber(xContractNumber int
 	return r
 }
 
-func (r ApiK8sNodepoolsNodesFindByIdRequest) Execute() (KubernetesNode, *common.APIResponse, error) {
+func (r ApiK8sNodepoolsNodesFindByIdRequest) Execute() (KubernetesNode, *shared.APIResponse, error) {
 	return r.ApiService.K8sNodepoolsNodesFindByIdExecute(r)
 }
 
@@ -1470,7 +1470,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesFindById(ctx _context.Context, k
  * Execute executes the request
  * @return KubernetesNode
  */
-func (a *KubernetesApiService) K8sNodepoolsNodesFindByIdExecute(r ApiK8sNodepoolsNodesFindByIdRequest) (KubernetesNode, *common.APIResponse, error) {
+func (a *KubernetesApiService) K8sNodepoolsNodesFindByIdExecute(r ApiK8sNodepoolsNodesFindByIdRequest) (KubernetesNode, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -1482,7 +1482,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesFindByIdExecute(r ApiK8sNodepool
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KubernetesApiService.K8sNodepoolsNodesFindById")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1525,7 +1525,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesFindByIdExecute(r ApiK8sNodepool
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1544,7 +1544,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesFindByIdExecute(r ApiK8sNodepool
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1564,7 +1564,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesFindByIdExecute(r ApiK8sNodepool
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1580,7 +1580,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesFindByIdExecute(r ApiK8sNodepool
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1635,7 +1635,7 @@ func (r ApiK8sNodepoolsNodesGetRequest) MaxResults(maxResults int32) ApiK8sNodep
 	return r
 }
 
-func (r ApiK8sNodepoolsNodesGetRequest) Execute() (KubernetesNodes, *common.APIResponse, error) {
+func (r ApiK8sNodepoolsNodesGetRequest) Execute() (KubernetesNodes, *shared.APIResponse, error) {
 	return r.ApiService.K8sNodepoolsNodesGetExecute(r)
 }
 
@@ -1661,7 +1661,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesGet(ctx _context.Context, k8sClu
  * Execute executes the request
  * @return KubernetesNodes
  */
-func (a *KubernetesApiService) K8sNodepoolsNodesGetExecute(r ApiK8sNodepoolsNodesGetRequest) (KubernetesNodes, *common.APIResponse, error) {
+func (a *KubernetesApiService) K8sNodepoolsNodesGetExecute(r ApiK8sNodepoolsNodesGetRequest) (KubernetesNodes, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -1673,7 +1673,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesGetExecute(r ApiK8sNodepoolsNode
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KubernetesApiService.K8sNodepoolsNodesGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1728,7 +1728,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesGetExecute(r ApiK8sNodepoolsNode
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1747,7 +1747,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesGetExecute(r ApiK8sNodepoolsNode
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1767,7 +1767,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesGetExecute(r ApiK8sNodepoolsNode
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1783,7 +1783,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesGetExecute(r ApiK8sNodepoolsNode
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1817,7 +1817,7 @@ func (r ApiK8sNodepoolsNodesReplacePostRequest) XContractNumber(xContractNumber 
 	return r
 }
 
-func (r ApiK8sNodepoolsNodesReplacePostRequest) Execute() (*common.APIResponse, error) {
+func (r ApiK8sNodepoolsNodesReplacePostRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.K8sNodepoolsNodesReplacePostExecute(r)
 }
 
@@ -1845,7 +1845,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesReplacePost(ctx _context.Context
 /*
  * Execute executes the request
  */
-func (a *KubernetesApiService) K8sNodepoolsNodesReplacePostExecute(r ApiK8sNodepoolsNodesReplacePostRequest) (*common.APIResponse, error) {
+func (a *KubernetesApiService) K8sNodepoolsNodesReplacePostExecute(r ApiK8sNodepoolsNodesReplacePostRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -1856,7 +1856,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesReplacePostExecute(r ApiK8sNodep
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KubernetesApiService.K8sNodepoolsNodesReplacePost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -1899,7 +1899,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesReplacePostExecute(r ApiK8sNodep
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1918,7 +1918,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesReplacePostExecute(r ApiK8sNodep
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1938,7 +1938,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesReplacePostExecute(r ApiK8sNodep
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1982,7 +1982,7 @@ func (r ApiK8sNodepoolsPostRequest) XContractNumber(xContractNumber int32) ApiK8
 	return r
 }
 
-func (r ApiK8sNodepoolsPostRequest) Execute() (KubernetesNodePool, *common.APIResponse, error) {
+func (r ApiK8sNodepoolsPostRequest) Execute() (KubernetesNodePool, *shared.APIResponse, error) {
 	return r.ApiService.K8sNodepoolsPostExecute(r)
 }
 
@@ -2005,7 +2005,7 @@ func (a *KubernetesApiService) K8sNodepoolsPost(ctx _context.Context, k8sCluster
  * Execute executes the request
  * @return KubernetesNodePool
  */
-func (a *KubernetesApiService) K8sNodepoolsPostExecute(r ApiK8sNodepoolsPostRequest) (KubernetesNodePool, *common.APIResponse, error) {
+func (a *KubernetesApiService) K8sNodepoolsPostExecute(r ApiK8sNodepoolsPostRequest) (KubernetesNodePool, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -2017,7 +2017,7 @@ func (a *KubernetesApiService) K8sNodepoolsPostExecute(r ApiK8sNodepoolsPostRequ
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KubernetesApiService.K8sNodepoolsPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -2063,7 +2063,7 @@ func (a *KubernetesApiService) K8sNodepoolsPostExecute(r ApiK8sNodepoolsPostRequ
 	localVarPostBody = r.kubernetesNodePool
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2082,7 +2082,7 @@ func (a *KubernetesApiService) K8sNodepoolsPostExecute(r ApiK8sNodepoolsPostRequ
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2102,7 +2102,7 @@ func (a *KubernetesApiService) K8sNodepoolsPostExecute(r ApiK8sNodepoolsPostRequ
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2118,7 +2118,7 @@ func (a *KubernetesApiService) K8sNodepoolsPostExecute(r ApiK8sNodepoolsPostRequ
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -2156,7 +2156,7 @@ func (r ApiK8sNodepoolsPutRequest) XContractNumber(xContractNumber int32) ApiK8s
 	return r
 }
 
-func (r ApiK8sNodepoolsPutRequest) Execute() (KubernetesNodePool, *common.APIResponse, error) {
+func (r ApiK8sNodepoolsPutRequest) Execute() (KubernetesNodePool, *shared.APIResponse, error) {
 	return r.ApiService.K8sNodepoolsPutExecute(r)
 }
 
@@ -2181,7 +2181,7 @@ func (a *KubernetesApiService) K8sNodepoolsPut(ctx _context.Context, k8sClusterI
  * Execute executes the request
  * @return KubernetesNodePool
  */
-func (a *KubernetesApiService) K8sNodepoolsPutExecute(r ApiK8sNodepoolsPutRequest) (KubernetesNodePool, *common.APIResponse, error) {
+func (a *KubernetesApiService) K8sNodepoolsPutExecute(r ApiK8sNodepoolsPutRequest) (KubernetesNodePool, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -2193,7 +2193,7 @@ func (a *KubernetesApiService) K8sNodepoolsPutExecute(r ApiK8sNodepoolsPutReques
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KubernetesApiService.K8sNodepoolsPut")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -2240,7 +2240,7 @@ func (a *KubernetesApiService) K8sNodepoolsPutExecute(r ApiK8sNodepoolsPutReques
 	localVarPostBody = r.kubernetesNodePool
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2259,7 +2259,7 @@ func (a *KubernetesApiService) K8sNodepoolsPutExecute(r ApiK8sNodepoolsPutReques
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2279,7 +2279,7 @@ func (a *KubernetesApiService) K8sNodepoolsPutExecute(r ApiK8sNodepoolsPutReques
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2295,7 +2295,7 @@ func (a *KubernetesApiService) K8sNodepoolsPutExecute(r ApiK8sNodepoolsPutReques
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -2331,7 +2331,7 @@ func (r ApiK8sPostRequest) XContractNumber(xContractNumber int32) ApiK8sPostRequ
 	return r
 }
 
-func (r ApiK8sPostRequest) Execute() (KubernetesCluster, *common.APIResponse, error) {
+func (r ApiK8sPostRequest) Execute() (KubernetesCluster, *shared.APIResponse, error) {
 	return r.ApiService.K8sPostExecute(r)
 }
 
@@ -2352,7 +2352,7 @@ func (a *KubernetesApiService) K8sPost(ctx _context.Context) ApiK8sPostRequest {
  * Execute executes the request
  * @return KubernetesCluster
  */
-func (a *KubernetesApiService) K8sPostExecute(r ApiK8sPostRequest) (KubernetesCluster, *common.APIResponse, error) {
+func (a *KubernetesApiService) K8sPostExecute(r ApiK8sPostRequest) (KubernetesCluster, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -2364,7 +2364,7 @@ func (a *KubernetesApiService) K8sPostExecute(r ApiK8sPostRequest) (KubernetesCl
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KubernetesApiService.K8sPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -2409,7 +2409,7 @@ func (a *KubernetesApiService) K8sPostExecute(r ApiK8sPostRequest) (KubernetesCl
 	localVarPostBody = r.kubernetesCluster
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2428,7 +2428,7 @@ func (a *KubernetesApiService) K8sPostExecute(r ApiK8sPostRequest) (KubernetesCl
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2448,7 +2448,7 @@ func (a *KubernetesApiService) K8sPostExecute(r ApiK8sPostRequest) (KubernetesCl
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2464,7 +2464,7 @@ func (a *KubernetesApiService) K8sPostExecute(r ApiK8sPostRequest) (KubernetesCl
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -2501,7 +2501,7 @@ func (r ApiK8sPutRequest) XContractNumber(xContractNumber int32) ApiK8sPutReques
 	return r
 }
 
-func (r ApiK8sPutRequest) Execute() (KubernetesCluster, *common.APIResponse, error) {
+func (r ApiK8sPutRequest) Execute() (KubernetesCluster, *shared.APIResponse, error) {
 	return r.ApiService.K8sPutExecute(r)
 }
 
@@ -2524,7 +2524,7 @@ func (a *KubernetesApiService) K8sPut(ctx _context.Context, k8sClusterId string)
  * Execute executes the request
  * @return KubernetesCluster
  */
-func (a *KubernetesApiService) K8sPutExecute(r ApiK8sPutRequest) (KubernetesCluster, *common.APIResponse, error) {
+func (a *KubernetesApiService) K8sPutExecute(r ApiK8sPutRequest) (KubernetesCluster, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -2536,7 +2536,7 @@ func (a *KubernetesApiService) K8sPutExecute(r ApiK8sPutRequest) (KubernetesClus
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KubernetesApiService.K8sPut")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -2582,7 +2582,7 @@ func (a *KubernetesApiService) K8sPutExecute(r ApiK8sPutRequest) (KubernetesClus
 	localVarPostBody = r.kubernetesCluster
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2601,7 +2601,7 @@ func (a *KubernetesApiService) K8sPutExecute(r ApiK8sPutRequest) (KubernetesClus
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2621,7 +2621,7 @@ func (a *KubernetesApiService) K8sPutExecute(r ApiK8sPutRequest) (KubernetesClus
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2637,7 +2637,7 @@ func (a *KubernetesApiService) K8sPutExecute(r ApiK8sPutRequest) (KubernetesClus
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -2674,7 +2674,7 @@ func (r ApiK8sVersionsDefaultGetRequest) MaxResults(maxResults int32) ApiK8sVers
 	return r
 }
 
-func (r ApiK8sVersionsDefaultGetRequest) Execute() (string, *common.APIResponse, error) {
+func (r ApiK8sVersionsDefaultGetRequest) Execute() (string, *shared.APIResponse, error) {
 	return r.ApiService.K8sVersionsDefaultGetExecute(r)
 }
 
@@ -2696,7 +2696,7 @@ func (a *KubernetesApiService) K8sVersionsDefaultGet(ctx _context.Context) ApiK8
  * Execute executes the request
  * @return string
  */
-func (a *KubernetesApiService) K8sVersionsDefaultGetExecute(r ApiK8sVersionsDefaultGetRequest) (string, *common.APIResponse, error) {
+func (a *KubernetesApiService) K8sVersionsDefaultGetExecute(r ApiK8sVersionsDefaultGetRequest) (string, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -2708,7 +2708,7 @@ func (a *KubernetesApiService) K8sVersionsDefaultGetExecute(r ApiK8sVersionsDefa
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KubernetesApiService.K8sVersionsDefaultGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -2752,7 +2752,7 @@ func (a *KubernetesApiService) K8sVersionsDefaultGetExecute(r ApiK8sVersionsDefa
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2771,7 +2771,7 @@ func (a *KubernetesApiService) K8sVersionsDefaultGetExecute(r ApiK8sVersionsDefa
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2791,7 +2791,7 @@ func (a *KubernetesApiService) K8sVersionsDefaultGetExecute(r ApiK8sVersionsDefa
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2807,7 +2807,7 @@ func (a *KubernetesApiService) K8sVersionsDefaultGetExecute(r ApiK8sVersionsDefa
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -2844,7 +2844,7 @@ func (r ApiK8sVersionsGetRequest) MaxResults(maxResults int32) ApiK8sVersionsGet
 	return r
 }
 
-func (r ApiK8sVersionsGetRequest) Execute() ([]string, *common.APIResponse, error) {
+func (r ApiK8sVersionsGetRequest) Execute() ([]string, *shared.APIResponse, error) {
 	return r.ApiService.K8sVersionsGetExecute(r)
 }
 
@@ -2866,7 +2866,7 @@ func (a *KubernetesApiService) K8sVersionsGet(ctx _context.Context) ApiK8sVersio
  * Execute executes the request
  * @return []string
  */
-func (a *KubernetesApiService) K8sVersionsGetExecute(r ApiK8sVersionsGetRequest) ([]string, *common.APIResponse, error) {
+func (a *KubernetesApiService) K8sVersionsGetExecute(r ApiK8sVersionsGetRequest) ([]string, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -2878,7 +2878,7 @@ func (a *KubernetesApiService) K8sVersionsGetExecute(r ApiK8sVersionsGetRequest)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KubernetesApiService.K8sVersionsGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -2922,7 +2922,7 @@ func (a *KubernetesApiService) K8sVersionsGetExecute(r ApiK8sVersionsGetRequest)
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2941,7 +2941,7 @@ func (a *KubernetesApiService) K8sVersionsGetExecute(r ApiK8sVersionsGetRequest)
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2961,7 +2961,7 @@ func (a *KubernetesApiService) K8sVersionsGetExecute(r ApiK8sVersionsGetRequest)
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2977,7 +2977,7 @@ func (a *KubernetesApiService) K8sVersionsGetExecute(r ApiK8sVersionsGetRequest)
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())

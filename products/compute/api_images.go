@@ -13,7 +13,7 @@ package compute
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -50,7 +50,7 @@ func (r ApiImagesDeleteRequest) XContractNumber(xContractNumber int32) ApiImages
 	return r
 }
 
-func (r ApiImagesDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiImagesDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.ImagesDeleteExecute(r)
 }
 
@@ -72,7 +72,7 @@ func (a *ImagesApiService) ImagesDelete(ctx _context.Context, imageId string) Ap
 /*
  * Execute executes the request
  */
-func (a *ImagesApiService) ImagesDeleteExecute(r ApiImagesDeleteRequest) (*common.APIResponse, error) {
+func (a *ImagesApiService) ImagesDeleteExecute(r ApiImagesDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -83,7 +83,7 @@ func (a *ImagesApiService) ImagesDeleteExecute(r ApiImagesDeleteRequest) (*commo
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.ImagesDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -124,7 +124,7 @@ func (a *ImagesApiService) ImagesDeleteExecute(r ApiImagesDeleteRequest) (*commo
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -143,7 +143,7 @@ func (a *ImagesApiService) ImagesDeleteExecute(r ApiImagesDeleteRequest) (*commo
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -163,7 +163,7 @@ func (a *ImagesApiService) ImagesDeleteExecute(r ApiImagesDeleteRequest) (*commo
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -202,7 +202,7 @@ func (r ApiImagesFindByIdRequest) XContractNumber(xContractNumber int32) ApiImag
 	return r
 }
 
-func (r ApiImagesFindByIdRequest) Execute() (Image, *common.APIResponse, error) {
+func (r ApiImagesFindByIdRequest) Execute() (Image, *shared.APIResponse, error) {
 	return r.ApiService.ImagesFindByIdExecute(r)
 }
 
@@ -225,7 +225,7 @@ func (a *ImagesApiService) ImagesFindById(ctx _context.Context, imageId string) 
  * Execute executes the request
  * @return Image
  */
-func (a *ImagesApiService) ImagesFindByIdExecute(r ApiImagesFindByIdRequest) (Image, *common.APIResponse, error) {
+func (a *ImagesApiService) ImagesFindByIdExecute(r ApiImagesFindByIdRequest) (Image, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -237,7 +237,7 @@ func (a *ImagesApiService) ImagesFindByIdExecute(r ApiImagesFindByIdRequest) (Im
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.ImagesFindById")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -278,7 +278,7 @@ func (a *ImagesApiService) ImagesFindByIdExecute(r ApiImagesFindByIdRequest) (Im
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -297,7 +297,7 @@ func (a *ImagesApiService) ImagesFindByIdExecute(r ApiImagesFindByIdRequest) (Im
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -317,7 +317,7 @@ func (a *ImagesApiService) ImagesFindByIdExecute(r ApiImagesFindByIdRequest) (Im
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -333,7 +333,7 @@ func (a *ImagesApiService) ImagesFindByIdExecute(r ApiImagesFindByIdRequest) (Im
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -386,7 +386,7 @@ func (r ApiImagesGetRequest) MaxResults(maxResults int32) ApiImagesGetRequest {
 	return r
 }
 
-func (r ApiImagesGetRequest) Execute() (Images, *common.APIResponse, error) {
+func (r ApiImagesGetRequest) Execute() (Images, *shared.APIResponse, error) {
 	return r.ApiService.ImagesGetExecute(r)
 }
 
@@ -408,7 +408,7 @@ func (a *ImagesApiService) ImagesGet(ctx _context.Context) ApiImagesGetRequest {
  * Execute executes the request
  * @return Images
  */
-func (a *ImagesApiService) ImagesGetExecute(r ApiImagesGetRequest) (Images, *common.APIResponse, error) {
+func (a *ImagesApiService) ImagesGetExecute(r ApiImagesGetRequest) (Images, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -420,7 +420,7 @@ func (a *ImagesApiService) ImagesGetExecute(r ApiImagesGetRequest) (Images, *com
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.ImagesGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -473,7 +473,7 @@ func (a *ImagesApiService) ImagesGetExecute(r ApiImagesGetRequest) (Images, *com
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -492,7 +492,7 @@ func (a *ImagesApiService) ImagesGetExecute(r ApiImagesGetRequest) (Images, *com
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -512,7 +512,7 @@ func (a *ImagesApiService) ImagesGetExecute(r ApiImagesGetRequest) (Images, *com
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -528,7 +528,7 @@ func (a *ImagesApiService) ImagesGetExecute(r ApiImagesGetRequest) (Images, *com
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -565,7 +565,7 @@ func (r ApiImagesPatchRequest) XContractNumber(xContractNumber int32) ApiImagesP
 	return r
 }
 
-func (r ApiImagesPatchRequest) Execute() (Image, *common.APIResponse, error) {
+func (r ApiImagesPatchRequest) Execute() (Image, *shared.APIResponse, error) {
 	return r.ApiService.ImagesPatchExecute(r)
 }
 
@@ -588,7 +588,7 @@ func (a *ImagesApiService) ImagesPatch(ctx _context.Context, imageId string) Api
  * Execute executes the request
  * @return Image
  */
-func (a *ImagesApiService) ImagesPatchExecute(r ApiImagesPatchRequest) (Image, *common.APIResponse, error) {
+func (a *ImagesApiService) ImagesPatchExecute(r ApiImagesPatchRequest) (Image, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPatch
 		localVarPostBody     interface{}
@@ -600,7 +600,7 @@ func (a *ImagesApiService) ImagesPatchExecute(r ApiImagesPatchRequest) (Image, *
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.ImagesPatch")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -646,7 +646,7 @@ func (a *ImagesApiService) ImagesPatchExecute(r ApiImagesPatchRequest) (Image, *
 	localVarPostBody = r.image
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -665,7 +665,7 @@ func (a *ImagesApiService) ImagesPatchExecute(r ApiImagesPatchRequest) (Image, *
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -685,7 +685,7 @@ func (a *ImagesApiService) ImagesPatchExecute(r ApiImagesPatchRequest) (Image, *
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -701,7 +701,7 @@ func (a *ImagesApiService) ImagesPatchExecute(r ApiImagesPatchRequest) (Image, *
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -738,7 +738,7 @@ func (r ApiImagesPutRequest) XContractNumber(xContractNumber int32) ApiImagesPut
 	return r
 }
 
-func (r ApiImagesPutRequest) Execute() (Image, *common.APIResponse, error) {
+func (r ApiImagesPutRequest) Execute() (Image, *shared.APIResponse, error) {
 	return r.ApiService.ImagesPutExecute(r)
 }
 
@@ -761,7 +761,7 @@ func (a *ImagesApiService) ImagesPut(ctx _context.Context, imageId string) ApiIm
  * Execute executes the request
  * @return Image
  */
-func (a *ImagesApiService) ImagesPutExecute(r ApiImagesPutRequest) (Image, *common.APIResponse, error) {
+func (a *ImagesApiService) ImagesPutExecute(r ApiImagesPutRequest) (Image, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -773,7 +773,7 @@ func (a *ImagesApiService) ImagesPutExecute(r ApiImagesPutRequest) (Image, *comm
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.ImagesPut")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -819,7 +819,7 @@ func (a *ImagesApiService) ImagesPutExecute(r ApiImagesPutRequest) (Image, *comm
 	localVarPostBody = r.image
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -838,7 +838,7 @@ func (a *ImagesApiService) ImagesPutExecute(r ApiImagesPutRequest) (Image, *comm
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -858,7 +858,7 @@ func (a *ImagesApiService) ImagesPutExecute(r ApiImagesPutRequest) (Image, *comm
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -874,7 +874,7 @@ func (a *ImagesApiService) ImagesPutExecute(r ApiImagesPutRequest) (Image, *comm
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())

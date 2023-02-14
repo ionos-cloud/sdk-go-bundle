@@ -13,7 +13,7 @@ package compute
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -51,7 +51,7 @@ func (r ApiDatacentersNatgatewaysDeleteRequest) XContractNumber(xContractNumber 
 	return r
 }
 
-func (r ApiDatacentersNatgatewaysDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiDatacentersNatgatewaysDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.DatacentersNatgatewaysDeleteExecute(r)
 }
 
@@ -75,7 +75,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysDelete(ctx _context.Contex
 /*
  * Execute executes the request
  */
-func (a *NATGatewaysApiService) DatacentersNatgatewaysDeleteExecute(r ApiDatacentersNatgatewaysDeleteRequest) (*common.APIResponse, error) {
+func (a *NATGatewaysApiService) DatacentersNatgatewaysDeleteExecute(r ApiDatacentersNatgatewaysDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -86,7 +86,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysDeleteExecute(r ApiDatacen
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NATGatewaysApiService.DatacentersNatgatewaysDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -128,7 +128,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysDeleteExecute(r ApiDatacen
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -147,7 +147,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysDeleteExecute(r ApiDatacen
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -167,7 +167,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysDeleteExecute(r ApiDatacen
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -207,7 +207,7 @@ func (r ApiDatacentersNatgatewaysFindByNatGatewayIdRequest) XContractNumber(xCon
 	return r
 }
 
-func (r ApiDatacentersNatgatewaysFindByNatGatewayIdRequest) Execute() (NatGateway, *common.APIResponse, error) {
+func (r ApiDatacentersNatgatewaysFindByNatGatewayIdRequest) Execute() (NatGateway, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersNatgatewaysFindByNatGatewayIdExecute(r)
 }
 
@@ -232,7 +232,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFindByNatGatewayId(ctx _co
  * Execute executes the request
  * @return NatGateway
  */
-func (a *NATGatewaysApiService) DatacentersNatgatewaysFindByNatGatewayIdExecute(r ApiDatacentersNatgatewaysFindByNatGatewayIdRequest) (NatGateway, *common.APIResponse, error) {
+func (a *NATGatewaysApiService) DatacentersNatgatewaysFindByNatGatewayIdExecute(r ApiDatacentersNatgatewaysFindByNatGatewayIdRequest) (NatGateway, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -244,7 +244,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFindByNatGatewayIdExecute(
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NATGatewaysApiService.DatacentersNatgatewaysFindByNatGatewayId")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -286,7 +286,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFindByNatGatewayIdExecute(
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -305,7 +305,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFindByNatGatewayIdExecute(
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -325,7 +325,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFindByNatGatewayIdExecute(
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -341,7 +341,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFindByNatGatewayIdExecute(
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -370,7 +370,7 @@ func (r ApiDatacentersNatgatewaysFlowlogsDeleteRequest) Depth(depth int32) ApiDa
 	return r
 }
 
-func (r ApiDatacentersNatgatewaysFlowlogsDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiDatacentersNatgatewaysFlowlogsDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.DatacentersNatgatewaysFlowlogsDeleteExecute(r)
 }
 
@@ -396,7 +396,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsDelete(ctx _contex
 /*
  * Execute executes the request
  */
-func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsDeleteExecute(r ApiDatacentersNatgatewaysFlowlogsDeleteRequest) (*common.APIResponse, error) {
+func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsDeleteExecute(r ApiDatacentersNatgatewaysFlowlogsDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -407,7 +407,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsDeleteExecute(r Ap
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NATGatewaysApiService.DatacentersNatgatewaysFlowlogsDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -447,7 +447,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsDeleteExecute(r Ap
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -466,7 +466,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsDeleteExecute(r Ap
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -486,7 +486,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsDeleteExecute(r Ap
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -522,7 +522,7 @@ func (r ApiDatacentersNatgatewaysFlowlogsFindByFlowLogIdRequest) Depth(depth int
 	return r
 }
 
-func (r ApiDatacentersNatgatewaysFlowlogsFindByFlowLogIdRequest) Execute() (FlowLog, *common.APIResponse, error) {
+func (r ApiDatacentersNatgatewaysFlowlogsFindByFlowLogIdRequest) Execute() (FlowLog, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersNatgatewaysFlowlogsFindByFlowLogIdExecute(r)
 }
 
@@ -549,7 +549,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsFindByFlowLogId(ct
  * Execute executes the request
  * @return FlowLog
  */
-func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsFindByFlowLogIdExecute(r ApiDatacentersNatgatewaysFlowlogsFindByFlowLogIdRequest) (FlowLog, *common.APIResponse, error) {
+func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsFindByFlowLogIdExecute(r ApiDatacentersNatgatewaysFlowlogsFindByFlowLogIdRequest) (FlowLog, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -561,7 +561,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsFindByFlowLogIdExe
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NATGatewaysApiService.DatacentersNatgatewaysFlowlogsFindByFlowLogId")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -601,7 +601,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsFindByFlowLogIdExe
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -620,7 +620,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsFindByFlowLogIdExe
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -640,7 +640,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsFindByFlowLogIdExe
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -656,7 +656,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsFindByFlowLogIdExe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -716,7 +716,7 @@ func (r ApiDatacentersNatgatewaysFlowlogsGetRequest) MaxResults(maxResults int32
 	return r
 }
 
-func (r ApiDatacentersNatgatewaysFlowlogsGetRequest) Execute() (FlowLogs, *common.APIResponse, error) {
+func (r ApiDatacentersNatgatewaysFlowlogsGetRequest) Execute() (FlowLogs, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersNatgatewaysFlowlogsGetExecute(r)
 }
 
@@ -742,7 +742,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsGet(ctx _context.C
  * Execute executes the request
  * @return FlowLogs
  */
-func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsGetExecute(r ApiDatacentersNatgatewaysFlowlogsGetRequest) (FlowLogs, *common.APIResponse, error) {
+func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsGetExecute(r ApiDatacentersNatgatewaysFlowlogsGetRequest) (FlowLogs, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -754,7 +754,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsGetExecute(r ApiDa
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NATGatewaysApiService.DatacentersNatgatewaysFlowlogsGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -812,7 +812,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsGetExecute(r ApiDa
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -831,7 +831,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsGetExecute(r ApiDa
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -851,7 +851,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsGetExecute(r ApiDa
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -867,7 +867,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsGetExecute(r ApiDa
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -901,7 +901,7 @@ func (r ApiDatacentersNatgatewaysFlowlogsPatchRequest) Depth(depth int32) ApiDat
 	return r
 }
 
-func (r ApiDatacentersNatgatewaysFlowlogsPatchRequest) Execute() (FlowLog, *common.APIResponse, error) {
+func (r ApiDatacentersNatgatewaysFlowlogsPatchRequest) Execute() (FlowLog, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersNatgatewaysFlowlogsPatchExecute(r)
 }
 
@@ -928,7 +928,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPatch(ctx _context
  * Execute executes the request
  * @return FlowLog
  */
-func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPatchExecute(r ApiDatacentersNatgatewaysFlowlogsPatchRequest) (FlowLog, *common.APIResponse, error) {
+func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPatchExecute(r ApiDatacentersNatgatewaysFlowlogsPatchRequest) (FlowLog, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPatch
 		localVarPostBody     interface{}
@@ -940,7 +940,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPatchExecute(r Api
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NATGatewaysApiService.DatacentersNatgatewaysFlowlogsPatch")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -985,7 +985,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPatchExecute(r Api
 	localVarPostBody = r.natGatewayFlowLogProperties
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1004,7 +1004,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPatchExecute(r Api
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1024,7 +1024,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPatchExecute(r Api
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1040,7 +1040,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPatchExecute(r Api
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1073,7 +1073,7 @@ func (r ApiDatacentersNatgatewaysFlowlogsPostRequest) Depth(depth int32) ApiData
 	return r
 }
 
-func (r ApiDatacentersNatgatewaysFlowlogsPostRequest) Execute() (FlowLog, *common.APIResponse, error) {
+func (r ApiDatacentersNatgatewaysFlowlogsPostRequest) Execute() (FlowLog, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersNatgatewaysFlowlogsPostExecute(r)
 }
 
@@ -1098,7 +1098,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPost(ctx _context.
  * Execute executes the request
  * @return FlowLog
  */
-func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPostExecute(r ApiDatacentersNatgatewaysFlowlogsPostRequest) (FlowLog, *common.APIResponse, error) {
+func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPostExecute(r ApiDatacentersNatgatewaysFlowlogsPostRequest) (FlowLog, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -1110,7 +1110,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPostExecute(r ApiD
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NATGatewaysApiService.DatacentersNatgatewaysFlowlogsPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1154,7 +1154,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPostExecute(r ApiD
 	localVarPostBody = r.natGatewayFlowLog
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1173,7 +1173,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPostExecute(r ApiD
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1193,7 +1193,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPostExecute(r ApiD
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1209,7 +1209,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPostExecute(r ApiD
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1243,7 +1243,7 @@ func (r ApiDatacentersNatgatewaysFlowlogsPutRequest) Depth(depth int32) ApiDatac
 	return r
 }
 
-func (r ApiDatacentersNatgatewaysFlowlogsPutRequest) Execute() (FlowLog, *common.APIResponse, error) {
+func (r ApiDatacentersNatgatewaysFlowlogsPutRequest) Execute() (FlowLog, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersNatgatewaysFlowlogsPutExecute(r)
 }
 
@@ -1270,7 +1270,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPut(ctx _context.C
  * Execute executes the request
  * @return FlowLog
  */
-func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPutExecute(r ApiDatacentersNatgatewaysFlowlogsPutRequest) (FlowLog, *common.APIResponse, error) {
+func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPutExecute(r ApiDatacentersNatgatewaysFlowlogsPutRequest) (FlowLog, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -1282,7 +1282,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPutExecute(r ApiDa
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NATGatewaysApiService.DatacentersNatgatewaysFlowlogsPut")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1327,7 +1327,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPutExecute(r ApiDa
 	localVarPostBody = r.natGatewayFlowLog
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1346,7 +1346,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPutExecute(r ApiDa
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1366,7 +1366,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPutExecute(r ApiDa
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1382,7 +1382,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysFlowlogsPutExecute(r ApiDa
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1436,7 +1436,7 @@ func (r ApiDatacentersNatgatewaysGetRequest) MaxResults(maxResults int32) ApiDat
 	return r
 }
 
-func (r ApiDatacentersNatgatewaysGetRequest) Execute() (NatGateways, *common.APIResponse, error) {
+func (r ApiDatacentersNatgatewaysGetRequest) Execute() (NatGateways, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersNatgatewaysGetExecute(r)
 }
 
@@ -1460,7 +1460,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysGet(ctx _context.Context, 
  * Execute executes the request
  * @return NatGateways
  */
-func (a *NATGatewaysApiService) DatacentersNatgatewaysGetExecute(r ApiDatacentersNatgatewaysGetRequest) (NatGateways, *common.APIResponse, error) {
+func (a *NATGatewaysApiService) DatacentersNatgatewaysGetExecute(r ApiDatacentersNatgatewaysGetRequest) (NatGateways, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -1472,7 +1472,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysGetExecute(r ApiDatacenter
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NATGatewaysApiService.DatacentersNatgatewaysGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1526,7 +1526,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysGetExecute(r ApiDatacenter
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1545,7 +1545,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysGetExecute(r ApiDatacenter
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1565,7 +1565,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysGetExecute(r ApiDatacenter
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1581,7 +1581,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysGetExecute(r ApiDatacenter
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1619,7 +1619,7 @@ func (r ApiDatacentersNatgatewaysPatchRequest) XContractNumber(xContractNumber i
 	return r
 }
 
-func (r ApiDatacentersNatgatewaysPatchRequest) Execute() (NatGateway, *common.APIResponse, error) {
+func (r ApiDatacentersNatgatewaysPatchRequest) Execute() (NatGateway, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersNatgatewaysPatchExecute(r)
 }
 
@@ -1644,7 +1644,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysPatch(ctx _context.Context
  * Execute executes the request
  * @return NatGateway
  */
-func (a *NATGatewaysApiService) DatacentersNatgatewaysPatchExecute(r ApiDatacentersNatgatewaysPatchRequest) (NatGateway, *common.APIResponse, error) {
+func (a *NATGatewaysApiService) DatacentersNatgatewaysPatchExecute(r ApiDatacentersNatgatewaysPatchRequest) (NatGateway, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPatch
 		localVarPostBody     interface{}
@@ -1656,7 +1656,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysPatchExecute(r ApiDatacent
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NATGatewaysApiService.DatacentersNatgatewaysPatch")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1703,7 +1703,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysPatchExecute(r ApiDatacent
 	localVarPostBody = r.natGatewayProperties
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1722,7 +1722,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysPatchExecute(r ApiDatacent
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1742,7 +1742,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysPatchExecute(r ApiDatacent
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1758,7 +1758,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysPatchExecute(r ApiDatacent
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1795,7 +1795,7 @@ func (r ApiDatacentersNatgatewaysPostRequest) XContractNumber(xContractNumber in
 	return r
 }
 
-func (r ApiDatacentersNatgatewaysPostRequest) Execute() (NatGateway, *common.APIResponse, error) {
+func (r ApiDatacentersNatgatewaysPostRequest) Execute() (NatGateway, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersNatgatewaysPostExecute(r)
 }
 
@@ -1820,7 +1820,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysPost(ctx _context.Context,
  * Execute executes the request
  * @return NatGateway
  */
-func (a *NATGatewaysApiService) DatacentersNatgatewaysPostExecute(r ApiDatacentersNatgatewaysPostRequest) (NatGateway, *common.APIResponse, error) {
+func (a *NATGatewaysApiService) DatacentersNatgatewaysPostExecute(r ApiDatacentersNatgatewaysPostRequest) (NatGateway, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -1832,7 +1832,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysPostExecute(r ApiDatacente
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NATGatewaysApiService.DatacentersNatgatewaysPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1878,7 +1878,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysPostExecute(r ApiDatacente
 	localVarPostBody = r.natGateway
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1897,7 +1897,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysPostExecute(r ApiDatacente
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1917,7 +1917,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysPostExecute(r ApiDatacente
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1933,7 +1933,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysPostExecute(r ApiDatacente
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1971,7 +1971,7 @@ func (r ApiDatacentersNatgatewaysPutRequest) XContractNumber(xContractNumber int
 	return r
 }
 
-func (r ApiDatacentersNatgatewaysPutRequest) Execute() (NatGateway, *common.APIResponse, error) {
+func (r ApiDatacentersNatgatewaysPutRequest) Execute() (NatGateway, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersNatgatewaysPutExecute(r)
 }
 
@@ -1996,7 +1996,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysPut(ctx _context.Context, 
  * Execute executes the request
  * @return NatGateway
  */
-func (a *NATGatewaysApiService) DatacentersNatgatewaysPutExecute(r ApiDatacentersNatgatewaysPutRequest) (NatGateway, *common.APIResponse, error) {
+func (a *NATGatewaysApiService) DatacentersNatgatewaysPutExecute(r ApiDatacentersNatgatewaysPutRequest) (NatGateway, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -2008,7 +2008,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysPutExecute(r ApiDatacenter
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NATGatewaysApiService.DatacentersNatgatewaysPut")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -2055,7 +2055,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysPutExecute(r ApiDatacenter
 	localVarPostBody = r.natGateway
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2074,7 +2074,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysPutExecute(r ApiDatacenter
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2094,7 +2094,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysPutExecute(r ApiDatacenter
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2110,7 +2110,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysPutExecute(r ApiDatacenter
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -2144,7 +2144,7 @@ func (r ApiDatacentersNatgatewaysRulesDeleteRequest) XContractNumber(xContractNu
 	return r
 }
 
-func (r ApiDatacentersNatgatewaysRulesDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiDatacentersNatgatewaysRulesDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.DatacentersNatgatewaysRulesDeleteExecute(r)
 }
 
@@ -2170,7 +2170,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesDelete(ctx _context.C
 /*
  * Execute executes the request
  */
-func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesDeleteExecute(r ApiDatacentersNatgatewaysRulesDeleteRequest) (*common.APIResponse, error) {
+func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesDeleteExecute(r ApiDatacentersNatgatewaysRulesDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -2181,7 +2181,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesDeleteExecute(r ApiDa
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NATGatewaysApiService.DatacentersNatgatewaysRulesDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -2224,7 +2224,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesDeleteExecute(r ApiDa
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2243,7 +2243,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesDeleteExecute(r ApiDa
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2263,7 +2263,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesDeleteExecute(r ApiDa
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2304,7 +2304,7 @@ func (r ApiDatacentersNatgatewaysRulesFindByNatGatewayRuleIdRequest) XContractNu
 	return r
 }
 
-func (r ApiDatacentersNatgatewaysRulesFindByNatGatewayRuleIdRequest) Execute() (NatGatewayRule, *common.APIResponse, error) {
+func (r ApiDatacentersNatgatewaysRulesFindByNatGatewayRuleIdRequest) Execute() (NatGatewayRule, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersNatgatewaysRulesFindByNatGatewayRuleIdExecute(r)
 }
 
@@ -2331,7 +2331,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesFindByNatGatewayRuleI
  * Execute executes the request
  * @return NatGatewayRule
  */
-func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesFindByNatGatewayRuleIdExecute(r ApiDatacentersNatgatewaysRulesFindByNatGatewayRuleIdRequest) (NatGatewayRule, *common.APIResponse, error) {
+func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesFindByNatGatewayRuleIdExecute(r ApiDatacentersNatgatewaysRulesFindByNatGatewayRuleIdRequest) (NatGatewayRule, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -2343,7 +2343,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesFindByNatGatewayRuleI
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NATGatewaysApiService.DatacentersNatgatewaysRulesFindByNatGatewayRuleId")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -2386,7 +2386,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesFindByNatGatewayRuleI
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2405,7 +2405,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesFindByNatGatewayRuleI
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2425,7 +2425,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesFindByNatGatewayRuleI
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2441,7 +2441,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesFindByNatGatewayRuleI
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -2496,7 +2496,7 @@ func (r ApiDatacentersNatgatewaysRulesGetRequest) MaxResults(maxResults int32) A
 	return r
 }
 
-func (r ApiDatacentersNatgatewaysRulesGetRequest) Execute() (NatGatewayRules, *common.APIResponse, error) {
+func (r ApiDatacentersNatgatewaysRulesGetRequest) Execute() (NatGatewayRules, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersNatgatewaysRulesGetExecute(r)
 }
 
@@ -2522,7 +2522,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesGet(ctx _context.Cont
  * Execute executes the request
  * @return NatGatewayRules
  */
-func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesGetExecute(r ApiDatacentersNatgatewaysRulesGetRequest) (NatGatewayRules, *common.APIResponse, error) {
+func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesGetExecute(r ApiDatacentersNatgatewaysRulesGetRequest) (NatGatewayRules, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -2534,7 +2534,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesGetExecute(r ApiDatac
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NATGatewaysApiService.DatacentersNatgatewaysRulesGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -2589,7 +2589,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesGetExecute(r ApiDatac
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2608,7 +2608,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesGetExecute(r ApiDatac
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2628,7 +2628,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesGetExecute(r ApiDatac
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2644,7 +2644,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesGetExecute(r ApiDatac
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -2683,7 +2683,7 @@ func (r ApiDatacentersNatgatewaysRulesPatchRequest) XContractNumber(xContractNum
 	return r
 }
 
-func (r ApiDatacentersNatgatewaysRulesPatchRequest) Execute() (NatGatewayRule, *common.APIResponse, error) {
+func (r ApiDatacentersNatgatewaysRulesPatchRequest) Execute() (NatGatewayRule, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersNatgatewaysRulesPatchExecute(r)
 }
 
@@ -2710,7 +2710,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPatch(ctx _context.Co
  * Execute executes the request
  * @return NatGatewayRule
  */
-func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPatchExecute(r ApiDatacentersNatgatewaysRulesPatchRequest) (NatGatewayRule, *common.APIResponse, error) {
+func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPatchExecute(r ApiDatacentersNatgatewaysRulesPatchRequest) (NatGatewayRule, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPatch
 		localVarPostBody     interface{}
@@ -2722,7 +2722,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPatchExecute(r ApiDat
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NATGatewaysApiService.DatacentersNatgatewaysRulesPatch")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -2770,7 +2770,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPatchExecute(r ApiDat
 	localVarPostBody = r.natGatewayRuleProperties
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2789,7 +2789,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPatchExecute(r ApiDat
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2809,7 +2809,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPatchExecute(r ApiDat
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2825,7 +2825,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPatchExecute(r ApiDat
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -2863,7 +2863,7 @@ func (r ApiDatacentersNatgatewaysRulesPostRequest) XContractNumber(xContractNumb
 	return r
 }
 
-func (r ApiDatacentersNatgatewaysRulesPostRequest) Execute() (NatGatewayRule, *common.APIResponse, error) {
+func (r ApiDatacentersNatgatewaysRulesPostRequest) Execute() (NatGatewayRule, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersNatgatewaysRulesPostExecute(r)
 }
 
@@ -2888,7 +2888,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPost(ctx _context.Con
  * Execute executes the request
  * @return NatGatewayRule
  */
-func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPostExecute(r ApiDatacentersNatgatewaysRulesPostRequest) (NatGatewayRule, *common.APIResponse, error) {
+func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPostExecute(r ApiDatacentersNatgatewaysRulesPostRequest) (NatGatewayRule, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -2900,7 +2900,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPostExecute(r ApiData
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NATGatewaysApiService.DatacentersNatgatewaysRulesPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -2947,7 +2947,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPostExecute(r ApiData
 	localVarPostBody = r.natGatewayRule
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2966,7 +2966,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPostExecute(r ApiData
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2986,7 +2986,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPostExecute(r ApiData
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -3002,7 +3002,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPostExecute(r ApiData
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -3041,7 +3041,7 @@ func (r ApiDatacentersNatgatewaysRulesPutRequest) XContractNumber(xContractNumbe
 	return r
 }
 
-func (r ApiDatacentersNatgatewaysRulesPutRequest) Execute() (NatGatewayRule, *common.APIResponse, error) {
+func (r ApiDatacentersNatgatewaysRulesPutRequest) Execute() (NatGatewayRule, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersNatgatewaysRulesPutExecute(r)
 }
 
@@ -3068,7 +3068,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPut(ctx _context.Cont
  * Execute executes the request
  * @return NatGatewayRule
  */
-func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPutExecute(r ApiDatacentersNatgatewaysRulesPutRequest) (NatGatewayRule, *common.APIResponse, error) {
+func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPutExecute(r ApiDatacentersNatgatewaysRulesPutRequest) (NatGatewayRule, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -3080,7 +3080,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPutExecute(r ApiDatac
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NATGatewaysApiService.DatacentersNatgatewaysRulesPut")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -3128,7 +3128,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPutExecute(r ApiDatac
 	localVarPostBody = r.natGatewayRule
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -3147,7 +3147,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPutExecute(r ApiDatac
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -3167,7 +3167,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPutExecute(r ApiDatac
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -3183,7 +3183,7 @@ func (a *NATGatewaysApiService) DatacentersNatgatewaysRulesPutExecute(r ApiDatac
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())

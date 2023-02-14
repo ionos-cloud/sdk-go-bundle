@@ -13,7 +13,7 @@ package compute
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -70,7 +70,7 @@ func (r ApiApiInfoGetRequest) MaxResults(maxResults int32) ApiApiInfoGetRequest 
 	return r
 }
 
-func (r ApiApiInfoGetRequest) Execute() (Info, *common.APIResponse, error) {
+func (r ApiApiInfoGetRequest) Execute() (Info, *shared.APIResponse, error) {
 	return r.ApiService.ApiInfoGetExecute(r)
 }
 
@@ -92,7 +92,7 @@ func (a *DefaultApiService) ApiInfoGet(ctx _context.Context) ApiApiInfoGetReques
  * Execute executes the request
  * @return Info
  */
-func (a *DefaultApiService) ApiInfoGetExecute(r ApiApiInfoGetRequest) (Info, *common.APIResponse, error) {
+func (a *DefaultApiService) ApiInfoGetExecute(r ApiApiInfoGetRequest) (Info, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -104,7 +104,7 @@ func (a *DefaultApiService) ApiInfoGetExecute(r ApiApiInfoGetRequest) (Info, *co
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ApiInfoGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -162,7 +162,7 @@ func (a *DefaultApiService) ApiInfoGetExecute(r ApiApiInfoGetRequest) (Info, *co
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -182,7 +182,7 @@ func (a *DefaultApiService) ApiInfoGetExecute(r ApiApiInfoGetRequest) (Info, *co
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -198,7 +198,7 @@ func (a *DefaultApiService) ApiInfoGetExecute(r ApiApiInfoGetRequest) (Info, *co
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())

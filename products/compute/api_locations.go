@@ -13,7 +13,7 @@ package compute
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -50,7 +50,7 @@ func (r ApiLocationsFindByRegionIdRequest) XContractNumber(xContractNumber int32
 	return r
 }
 
-func (r ApiLocationsFindByRegionIdRequest) Execute() (Locations, *common.APIResponse, error) {
+func (r ApiLocationsFindByRegionIdRequest) Execute() (Locations, *shared.APIResponse, error) {
 	return r.ApiService.LocationsFindByRegionIdExecute(r)
 }
 
@@ -73,7 +73,7 @@ func (a *LocationsApiService) LocationsFindByRegionId(ctx _context.Context, regi
  * Execute executes the request
  * @return Locations
  */
-func (a *LocationsApiService) LocationsFindByRegionIdExecute(r ApiLocationsFindByRegionIdRequest) (Locations, *common.APIResponse, error) {
+func (a *LocationsApiService) LocationsFindByRegionIdExecute(r ApiLocationsFindByRegionIdRequest) (Locations, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -85,7 +85,7 @@ func (a *LocationsApiService) LocationsFindByRegionIdExecute(r ApiLocationsFindB
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LocationsApiService.LocationsFindByRegionId")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -126,7 +126,7 @@ func (a *LocationsApiService) LocationsFindByRegionIdExecute(r ApiLocationsFindB
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -145,7 +145,7 @@ func (a *LocationsApiService) LocationsFindByRegionIdExecute(r ApiLocationsFindB
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -165,7 +165,7 @@ func (a *LocationsApiService) LocationsFindByRegionIdExecute(r ApiLocationsFindB
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -181,7 +181,7 @@ func (a *LocationsApiService) LocationsFindByRegionIdExecute(r ApiLocationsFindB
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -214,7 +214,7 @@ func (r ApiLocationsFindByRegionIdAndIdRequest) XContractNumber(xContractNumber 
 	return r
 }
 
-func (r ApiLocationsFindByRegionIdAndIdRequest) Execute() (Location, *common.APIResponse, error) {
+func (r ApiLocationsFindByRegionIdAndIdRequest) Execute() (Location, *shared.APIResponse, error) {
 	return r.ApiService.LocationsFindByRegionIdAndIdExecute(r)
 }
 
@@ -239,7 +239,7 @@ func (a *LocationsApiService) LocationsFindByRegionIdAndId(ctx _context.Context,
  * Execute executes the request
  * @return Location
  */
-func (a *LocationsApiService) LocationsFindByRegionIdAndIdExecute(r ApiLocationsFindByRegionIdAndIdRequest) (Location, *common.APIResponse, error) {
+func (a *LocationsApiService) LocationsFindByRegionIdAndIdExecute(r ApiLocationsFindByRegionIdAndIdRequest) (Location, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -251,7 +251,7 @@ func (a *LocationsApiService) LocationsFindByRegionIdAndIdExecute(r ApiLocations
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LocationsApiService.LocationsFindByRegionIdAndId")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -293,7 +293,7 @@ func (a *LocationsApiService) LocationsFindByRegionIdAndIdExecute(r ApiLocations
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -312,7 +312,7 @@ func (a *LocationsApiService) LocationsFindByRegionIdAndIdExecute(r ApiLocations
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -332,7 +332,7 @@ func (a *LocationsApiService) LocationsFindByRegionIdAndIdExecute(r ApiLocations
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -348,7 +348,7 @@ func (a *LocationsApiService) LocationsFindByRegionIdAndIdExecute(r ApiLocations
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -401,7 +401,7 @@ func (r ApiLocationsGetRequest) MaxResults(maxResults int32) ApiLocationsGetRequ
 	return r
 }
 
-func (r ApiLocationsGetRequest) Execute() (Locations, *common.APIResponse, error) {
+func (r ApiLocationsGetRequest) Execute() (Locations, *shared.APIResponse, error) {
 	return r.ApiService.LocationsGetExecute(r)
 }
 
@@ -423,7 +423,7 @@ func (a *LocationsApiService) LocationsGet(ctx _context.Context) ApiLocationsGet
  * Execute executes the request
  * @return Locations
  */
-func (a *LocationsApiService) LocationsGetExecute(r ApiLocationsGetRequest) (Locations, *common.APIResponse, error) {
+func (a *LocationsApiService) LocationsGetExecute(r ApiLocationsGetRequest) (Locations, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -435,7 +435,7 @@ func (a *LocationsApiService) LocationsGetExecute(r ApiLocationsGetRequest) (Loc
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LocationsApiService.LocationsGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -488,7 +488,7 @@ func (a *LocationsApiService) LocationsGetExecute(r ApiLocationsGetRequest) (Loc
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -507,7 +507,7 @@ func (a *LocationsApiService) LocationsGetExecute(r ApiLocationsGetRequest) (Loc
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -527,7 +527,7 @@ func (a *LocationsApiService) LocationsGetExecute(r ApiLocationsGetRequest) (Loc
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -543,7 +543,7 @@ func (a *LocationsApiService) LocationsGetExecute(r ApiLocationsGetRequest) (Loc
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())

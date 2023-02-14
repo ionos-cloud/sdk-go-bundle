@@ -13,7 +13,7 @@ package compute
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -50,7 +50,7 @@ func (r ApiUmGroupsDeleteRequest) XContractNumber(xContractNumber int32) ApiUmGr
 	return r
 }
 
-func (r ApiUmGroupsDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiUmGroupsDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.UmGroupsDeleteExecute(r)
 }
 
@@ -72,7 +72,7 @@ func (a *UserManagementApiService) UmGroupsDelete(ctx _context.Context, groupId 
 /*
  * Execute executes the request
  */
-func (a *UserManagementApiService) UmGroupsDeleteExecute(r ApiUmGroupsDeleteRequest) (*common.APIResponse, error) {
+func (a *UserManagementApiService) UmGroupsDeleteExecute(r ApiUmGroupsDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -83,7 +83,7 @@ func (a *UserManagementApiService) UmGroupsDeleteExecute(r ApiUmGroupsDeleteRequ
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UmGroupsDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -124,7 +124,7 @@ func (a *UserManagementApiService) UmGroupsDeleteExecute(r ApiUmGroupsDeleteRequ
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -143,7 +143,7 @@ func (a *UserManagementApiService) UmGroupsDeleteExecute(r ApiUmGroupsDeleteRequ
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -163,7 +163,7 @@ func (a *UserManagementApiService) UmGroupsDeleteExecute(r ApiUmGroupsDeleteRequ
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -202,7 +202,7 @@ func (r ApiUmGroupsFindByIdRequest) XContractNumber(xContractNumber int32) ApiUm
 	return r
 }
 
-func (r ApiUmGroupsFindByIdRequest) Execute() (Group, *common.APIResponse, error) {
+func (r ApiUmGroupsFindByIdRequest) Execute() (Group, *shared.APIResponse, error) {
 	return r.ApiService.UmGroupsFindByIdExecute(r)
 }
 
@@ -225,7 +225,7 @@ func (a *UserManagementApiService) UmGroupsFindById(ctx _context.Context, groupI
  * Execute executes the request
  * @return Group
  */
-func (a *UserManagementApiService) UmGroupsFindByIdExecute(r ApiUmGroupsFindByIdRequest) (Group, *common.APIResponse, error) {
+func (a *UserManagementApiService) UmGroupsFindByIdExecute(r ApiUmGroupsFindByIdRequest) (Group, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -237,7 +237,7 @@ func (a *UserManagementApiService) UmGroupsFindByIdExecute(r ApiUmGroupsFindById
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UmGroupsFindById")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -278,7 +278,7 @@ func (a *UserManagementApiService) UmGroupsFindByIdExecute(r ApiUmGroupsFindById
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -297,7 +297,7 @@ func (a *UserManagementApiService) UmGroupsFindByIdExecute(r ApiUmGroupsFindById
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -317,7 +317,7 @@ func (a *UserManagementApiService) UmGroupsFindByIdExecute(r ApiUmGroupsFindById
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -333,7 +333,7 @@ func (a *UserManagementApiService) UmGroupsFindByIdExecute(r ApiUmGroupsFindById
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -386,7 +386,7 @@ func (r ApiUmGroupsGetRequest) MaxResults(maxResults int32) ApiUmGroupsGetReques
 	return r
 }
 
-func (r ApiUmGroupsGetRequest) Execute() (Groups, *common.APIResponse, error) {
+func (r ApiUmGroupsGetRequest) Execute() (Groups, *shared.APIResponse, error) {
 	return r.ApiService.UmGroupsGetExecute(r)
 }
 
@@ -408,7 +408,7 @@ func (a *UserManagementApiService) UmGroupsGet(ctx _context.Context) ApiUmGroups
  * Execute executes the request
  * @return Groups
  */
-func (a *UserManagementApiService) UmGroupsGetExecute(r ApiUmGroupsGetRequest) (Groups, *common.APIResponse, error) {
+func (a *UserManagementApiService) UmGroupsGetExecute(r ApiUmGroupsGetRequest) (Groups, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -420,7 +420,7 @@ func (a *UserManagementApiService) UmGroupsGetExecute(r ApiUmGroupsGetRequest) (
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UmGroupsGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -473,7 +473,7 @@ func (a *UserManagementApiService) UmGroupsGetExecute(r ApiUmGroupsGetRequest) (
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -492,7 +492,7 @@ func (a *UserManagementApiService) UmGroupsGetExecute(r ApiUmGroupsGetRequest) (
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -512,7 +512,7 @@ func (a *UserManagementApiService) UmGroupsGetExecute(r ApiUmGroupsGetRequest) (
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -528,7 +528,7 @@ func (a *UserManagementApiService) UmGroupsGetExecute(r ApiUmGroupsGetRequest) (
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -564,7 +564,7 @@ func (r ApiUmGroupsPostRequest) XContractNumber(xContractNumber int32) ApiUmGrou
 	return r
 }
 
-func (r ApiUmGroupsPostRequest) Execute() (Group, *common.APIResponse, error) {
+func (r ApiUmGroupsPostRequest) Execute() (Group, *shared.APIResponse, error) {
 	return r.ApiService.UmGroupsPostExecute(r)
 }
 
@@ -585,7 +585,7 @@ func (a *UserManagementApiService) UmGroupsPost(ctx _context.Context) ApiUmGroup
  * Execute executes the request
  * @return Group
  */
-func (a *UserManagementApiService) UmGroupsPostExecute(r ApiUmGroupsPostRequest) (Group, *common.APIResponse, error) {
+func (a *UserManagementApiService) UmGroupsPostExecute(r ApiUmGroupsPostRequest) (Group, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -597,7 +597,7 @@ func (a *UserManagementApiService) UmGroupsPostExecute(r ApiUmGroupsPostRequest)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UmGroupsPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -642,7 +642,7 @@ func (a *UserManagementApiService) UmGroupsPostExecute(r ApiUmGroupsPostRequest)
 	localVarPostBody = r.group
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -661,7 +661,7 @@ func (a *UserManagementApiService) UmGroupsPostExecute(r ApiUmGroupsPostRequest)
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -681,7 +681,7 @@ func (a *UserManagementApiService) UmGroupsPostExecute(r ApiUmGroupsPostRequest)
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -697,7 +697,7 @@ func (a *UserManagementApiService) UmGroupsPostExecute(r ApiUmGroupsPostRequest)
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -734,7 +734,7 @@ func (r ApiUmGroupsPutRequest) XContractNumber(xContractNumber int32) ApiUmGroup
 	return r
 }
 
-func (r ApiUmGroupsPutRequest) Execute() (Group, *common.APIResponse, error) {
+func (r ApiUmGroupsPutRequest) Execute() (Group, *shared.APIResponse, error) {
 	return r.ApiService.UmGroupsPutExecute(r)
 }
 
@@ -757,7 +757,7 @@ func (a *UserManagementApiService) UmGroupsPut(ctx _context.Context, groupId str
  * Execute executes the request
  * @return Group
  */
-func (a *UserManagementApiService) UmGroupsPutExecute(r ApiUmGroupsPutRequest) (Group, *common.APIResponse, error) {
+func (a *UserManagementApiService) UmGroupsPutExecute(r ApiUmGroupsPutRequest) (Group, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -769,7 +769,7 @@ func (a *UserManagementApiService) UmGroupsPutExecute(r ApiUmGroupsPutRequest) (
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UmGroupsPut")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -815,7 +815,7 @@ func (a *UserManagementApiService) UmGroupsPutExecute(r ApiUmGroupsPutRequest) (
 	localVarPostBody = r.group
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -834,7 +834,7 @@ func (a *UserManagementApiService) UmGroupsPutExecute(r ApiUmGroupsPutRequest) (
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -854,7 +854,7 @@ func (a *UserManagementApiService) UmGroupsPutExecute(r ApiUmGroupsPutRequest) (
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -870,7 +870,7 @@ func (a *UserManagementApiService) UmGroupsPutExecute(r ApiUmGroupsPutRequest) (
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -924,7 +924,7 @@ func (r ApiUmGroupsResourcesGetRequest) MaxResults(maxResults int32) ApiUmGroups
 	return r
 }
 
-func (r ApiUmGroupsResourcesGetRequest) Execute() (ResourceGroups, *common.APIResponse, error) {
+func (r ApiUmGroupsResourcesGetRequest) Execute() (ResourceGroups, *shared.APIResponse, error) {
 	return r.ApiService.UmGroupsResourcesGetExecute(r)
 }
 
@@ -948,7 +948,7 @@ func (a *UserManagementApiService) UmGroupsResourcesGet(ctx _context.Context, gr
  * Execute executes the request
  * @return ResourceGroups
  */
-func (a *UserManagementApiService) UmGroupsResourcesGetExecute(r ApiUmGroupsResourcesGetRequest) (ResourceGroups, *common.APIResponse, error) {
+func (a *UserManagementApiService) UmGroupsResourcesGetExecute(r ApiUmGroupsResourcesGetRequest) (ResourceGroups, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -960,7 +960,7 @@ func (a *UserManagementApiService) UmGroupsResourcesGetExecute(r ApiUmGroupsReso
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UmGroupsResourcesGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1014,7 +1014,7 @@ func (a *UserManagementApiService) UmGroupsResourcesGetExecute(r ApiUmGroupsReso
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1033,7 +1033,7 @@ func (a *UserManagementApiService) UmGroupsResourcesGetExecute(r ApiUmGroupsReso
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1053,7 +1053,7 @@ func (a *UserManagementApiService) UmGroupsResourcesGetExecute(r ApiUmGroupsReso
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1069,7 +1069,7 @@ func (a *UserManagementApiService) UmGroupsResourcesGetExecute(r ApiUmGroupsReso
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1102,7 +1102,7 @@ func (r ApiUmGroupsSharesDeleteRequest) XContractNumber(xContractNumber int32) A
 	return r
 }
 
-func (r ApiUmGroupsSharesDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiUmGroupsSharesDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.UmGroupsSharesDeleteExecute(r)
 }
 
@@ -1126,7 +1126,7 @@ func (a *UserManagementApiService) UmGroupsSharesDelete(ctx _context.Context, gr
 /*
  * Execute executes the request
  */
-func (a *UserManagementApiService) UmGroupsSharesDeleteExecute(r ApiUmGroupsSharesDeleteRequest) (*common.APIResponse, error) {
+func (a *UserManagementApiService) UmGroupsSharesDeleteExecute(r ApiUmGroupsSharesDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -1137,7 +1137,7 @@ func (a *UserManagementApiService) UmGroupsSharesDeleteExecute(r ApiUmGroupsShar
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UmGroupsSharesDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -1179,7 +1179,7 @@ func (a *UserManagementApiService) UmGroupsSharesDeleteExecute(r ApiUmGroupsShar
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1198,7 +1198,7 @@ func (a *UserManagementApiService) UmGroupsSharesDeleteExecute(r ApiUmGroupsShar
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1218,7 +1218,7 @@ func (a *UserManagementApiService) UmGroupsSharesDeleteExecute(r ApiUmGroupsShar
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1258,7 +1258,7 @@ func (r ApiUmGroupsSharesFindByResourceIdRequest) XContractNumber(xContractNumbe
 	return r
 }
 
-func (r ApiUmGroupsSharesFindByResourceIdRequest) Execute() (GroupShare, *common.APIResponse, error) {
+func (r ApiUmGroupsSharesFindByResourceIdRequest) Execute() (GroupShare, *shared.APIResponse, error) {
 	return r.ApiService.UmGroupsSharesFindByResourceIdExecute(r)
 }
 
@@ -1283,7 +1283,7 @@ func (a *UserManagementApiService) UmGroupsSharesFindByResourceId(ctx _context.C
  * Execute executes the request
  * @return GroupShare
  */
-func (a *UserManagementApiService) UmGroupsSharesFindByResourceIdExecute(r ApiUmGroupsSharesFindByResourceIdRequest) (GroupShare, *common.APIResponse, error) {
+func (a *UserManagementApiService) UmGroupsSharesFindByResourceIdExecute(r ApiUmGroupsSharesFindByResourceIdRequest) (GroupShare, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -1295,7 +1295,7 @@ func (a *UserManagementApiService) UmGroupsSharesFindByResourceIdExecute(r ApiUm
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UmGroupsSharesFindByResourceId")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1337,7 +1337,7 @@ func (a *UserManagementApiService) UmGroupsSharesFindByResourceIdExecute(r ApiUm
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1356,7 +1356,7 @@ func (a *UserManagementApiService) UmGroupsSharesFindByResourceIdExecute(r ApiUm
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1376,7 +1376,7 @@ func (a *UserManagementApiService) UmGroupsSharesFindByResourceIdExecute(r ApiUm
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1392,7 +1392,7 @@ func (a *UserManagementApiService) UmGroupsSharesFindByResourceIdExecute(r ApiUm
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1446,7 +1446,7 @@ func (r ApiUmGroupsSharesGetRequest) MaxResults(maxResults int32) ApiUmGroupsSha
 	return r
 }
 
-func (r ApiUmGroupsSharesGetRequest) Execute() (GroupShares, *common.APIResponse, error) {
+func (r ApiUmGroupsSharesGetRequest) Execute() (GroupShares, *shared.APIResponse, error) {
 	return r.ApiService.UmGroupsSharesGetExecute(r)
 }
 
@@ -1470,7 +1470,7 @@ func (a *UserManagementApiService) UmGroupsSharesGet(ctx _context.Context, group
  * Execute executes the request
  * @return GroupShares
  */
-func (a *UserManagementApiService) UmGroupsSharesGetExecute(r ApiUmGroupsSharesGetRequest) (GroupShares, *common.APIResponse, error) {
+func (a *UserManagementApiService) UmGroupsSharesGetExecute(r ApiUmGroupsSharesGetRequest) (GroupShares, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -1482,7 +1482,7 @@ func (a *UserManagementApiService) UmGroupsSharesGetExecute(r ApiUmGroupsSharesG
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UmGroupsSharesGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1536,7 +1536,7 @@ func (a *UserManagementApiService) UmGroupsSharesGetExecute(r ApiUmGroupsSharesG
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1555,7 +1555,7 @@ func (a *UserManagementApiService) UmGroupsSharesGetExecute(r ApiUmGroupsSharesG
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1575,7 +1575,7 @@ func (a *UserManagementApiService) UmGroupsSharesGetExecute(r ApiUmGroupsSharesG
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1591,7 +1591,7 @@ func (a *UserManagementApiService) UmGroupsSharesGetExecute(r ApiUmGroupsSharesG
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1629,7 +1629,7 @@ func (r ApiUmGroupsSharesPostRequest) XContractNumber(xContractNumber int32) Api
 	return r
 }
 
-func (r ApiUmGroupsSharesPostRequest) Execute() (GroupShare, *common.APIResponse, error) {
+func (r ApiUmGroupsSharesPostRequest) Execute() (GroupShare, *shared.APIResponse, error) {
 	return r.ApiService.UmGroupsSharesPostExecute(r)
 }
 
@@ -1654,7 +1654,7 @@ func (a *UserManagementApiService) UmGroupsSharesPost(ctx _context.Context, grou
  * Execute executes the request
  * @return GroupShare
  */
-func (a *UserManagementApiService) UmGroupsSharesPostExecute(r ApiUmGroupsSharesPostRequest) (GroupShare, *common.APIResponse, error) {
+func (a *UserManagementApiService) UmGroupsSharesPostExecute(r ApiUmGroupsSharesPostRequest) (GroupShare, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -1666,7 +1666,7 @@ func (a *UserManagementApiService) UmGroupsSharesPostExecute(r ApiUmGroupsShares
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UmGroupsSharesPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1713,7 +1713,7 @@ func (a *UserManagementApiService) UmGroupsSharesPostExecute(r ApiUmGroupsShares
 	localVarPostBody = r.resource
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1732,7 +1732,7 @@ func (a *UserManagementApiService) UmGroupsSharesPostExecute(r ApiUmGroupsShares
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1752,7 +1752,7 @@ func (a *UserManagementApiService) UmGroupsSharesPostExecute(r ApiUmGroupsShares
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1768,7 +1768,7 @@ func (a *UserManagementApiService) UmGroupsSharesPostExecute(r ApiUmGroupsShares
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1806,7 +1806,7 @@ func (r ApiUmGroupsSharesPutRequest) XContractNumber(xContractNumber int32) ApiU
 	return r
 }
 
-func (r ApiUmGroupsSharesPutRequest) Execute() (GroupShare, *common.APIResponse, error) {
+func (r ApiUmGroupsSharesPutRequest) Execute() (GroupShare, *shared.APIResponse, error) {
 	return r.ApiService.UmGroupsSharesPutExecute(r)
 }
 
@@ -1831,7 +1831,7 @@ func (a *UserManagementApiService) UmGroupsSharesPut(ctx _context.Context, group
  * Execute executes the request
  * @return GroupShare
  */
-func (a *UserManagementApiService) UmGroupsSharesPutExecute(r ApiUmGroupsSharesPutRequest) (GroupShare, *common.APIResponse, error) {
+func (a *UserManagementApiService) UmGroupsSharesPutExecute(r ApiUmGroupsSharesPutRequest) (GroupShare, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -1843,7 +1843,7 @@ func (a *UserManagementApiService) UmGroupsSharesPutExecute(r ApiUmGroupsSharesP
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UmGroupsSharesPut")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1890,7 +1890,7 @@ func (a *UserManagementApiService) UmGroupsSharesPutExecute(r ApiUmGroupsSharesP
 	localVarPostBody = r.resource
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1909,7 +1909,7 @@ func (a *UserManagementApiService) UmGroupsSharesPutExecute(r ApiUmGroupsSharesP
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1929,7 +1929,7 @@ func (a *UserManagementApiService) UmGroupsSharesPutExecute(r ApiUmGroupsSharesP
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1945,7 +1945,7 @@ func (a *UserManagementApiService) UmGroupsSharesPutExecute(r ApiUmGroupsSharesP
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1978,7 +1978,7 @@ func (r ApiUmGroupsUsersDeleteRequest) XContractNumber(xContractNumber int32) Ap
 	return r
 }
 
-func (r ApiUmGroupsUsersDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiUmGroupsUsersDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.UmGroupsUsersDeleteExecute(r)
 }
 
@@ -2002,7 +2002,7 @@ func (a *UserManagementApiService) UmGroupsUsersDelete(ctx _context.Context, gro
 /*
  * Execute executes the request
  */
-func (a *UserManagementApiService) UmGroupsUsersDeleteExecute(r ApiUmGroupsUsersDeleteRequest) (*common.APIResponse, error) {
+func (a *UserManagementApiService) UmGroupsUsersDeleteExecute(r ApiUmGroupsUsersDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -2013,7 +2013,7 @@ func (a *UserManagementApiService) UmGroupsUsersDeleteExecute(r ApiUmGroupsUsers
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UmGroupsUsersDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -2055,7 +2055,7 @@ func (a *UserManagementApiService) UmGroupsUsersDeleteExecute(r ApiUmGroupsUsers
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2074,7 +2074,7 @@ func (a *UserManagementApiService) UmGroupsUsersDeleteExecute(r ApiUmGroupsUsers
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2094,7 +2094,7 @@ func (a *UserManagementApiService) UmGroupsUsersDeleteExecute(r ApiUmGroupsUsers
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2155,7 +2155,7 @@ func (r ApiUmGroupsUsersGetRequest) MaxResults(maxResults int32) ApiUmGroupsUser
 	return r
 }
 
-func (r ApiUmGroupsUsersGetRequest) Execute() (GroupMembers, *common.APIResponse, error) {
+func (r ApiUmGroupsUsersGetRequest) Execute() (GroupMembers, *shared.APIResponse, error) {
 	return r.ApiService.UmGroupsUsersGetExecute(r)
 }
 
@@ -2179,7 +2179,7 @@ func (a *UserManagementApiService) UmGroupsUsersGet(ctx _context.Context, groupI
  * Execute executes the request
  * @return GroupMembers
  */
-func (a *UserManagementApiService) UmGroupsUsersGetExecute(r ApiUmGroupsUsersGetRequest) (GroupMembers, *common.APIResponse, error) {
+func (a *UserManagementApiService) UmGroupsUsersGetExecute(r ApiUmGroupsUsersGetRequest) (GroupMembers, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -2191,7 +2191,7 @@ func (a *UserManagementApiService) UmGroupsUsersGetExecute(r ApiUmGroupsUsersGet
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UmGroupsUsersGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -2245,7 +2245,7 @@ func (a *UserManagementApiService) UmGroupsUsersGetExecute(r ApiUmGroupsUsersGet
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2264,7 +2264,7 @@ func (a *UserManagementApiService) UmGroupsUsersGetExecute(r ApiUmGroupsUsersGet
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2284,7 +2284,7 @@ func (a *UserManagementApiService) UmGroupsUsersGetExecute(r ApiUmGroupsUsersGet
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2300,7 +2300,7 @@ func (a *UserManagementApiService) UmGroupsUsersGetExecute(r ApiUmGroupsUsersGet
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -2337,7 +2337,7 @@ func (r ApiUmGroupsUsersPostRequest) XContractNumber(xContractNumber int32) ApiU
 	return r
 }
 
-func (r ApiUmGroupsUsersPostRequest) Execute() (User, *common.APIResponse, error) {
+func (r ApiUmGroupsUsersPostRequest) Execute() (User, *shared.APIResponse, error) {
 	return r.ApiService.UmGroupsUsersPostExecute(r)
 }
 
@@ -2360,7 +2360,7 @@ func (a *UserManagementApiService) UmGroupsUsersPost(ctx _context.Context, group
  * Execute executes the request
  * @return User
  */
-func (a *UserManagementApiService) UmGroupsUsersPostExecute(r ApiUmGroupsUsersPostRequest) (User, *common.APIResponse, error) {
+func (a *UserManagementApiService) UmGroupsUsersPostExecute(r ApiUmGroupsUsersPostRequest) (User, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -2372,7 +2372,7 @@ func (a *UserManagementApiService) UmGroupsUsersPostExecute(r ApiUmGroupsUsersPo
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UmGroupsUsersPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -2418,7 +2418,7 @@ func (a *UserManagementApiService) UmGroupsUsersPostExecute(r ApiUmGroupsUsersPo
 	localVarPostBody = r.user
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2437,7 +2437,7 @@ func (a *UserManagementApiService) UmGroupsUsersPostExecute(r ApiUmGroupsUsersPo
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2457,7 +2457,7 @@ func (a *UserManagementApiService) UmGroupsUsersPostExecute(r ApiUmGroupsUsersPo
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2473,7 +2473,7 @@ func (a *UserManagementApiService) UmGroupsUsersPostExecute(r ApiUmGroupsUsersPo
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -2505,7 +2505,7 @@ func (r ApiUmResourcesFindByTypeRequest) XContractNumber(xContractNumber int32) 
 	return r
 }
 
-func (r ApiUmResourcesFindByTypeRequest) Execute() (Resources, *common.APIResponse, error) {
+func (r ApiUmResourcesFindByTypeRequest) Execute() (Resources, *shared.APIResponse, error) {
 	return r.ApiService.UmResourcesFindByTypeExecute(r)
 }
 
@@ -2532,7 +2532,7 @@ func (a *UserManagementApiService) UmResourcesFindByType(ctx _context.Context, r
  * Execute executes the request
  * @return Resources
  */
-func (a *UserManagementApiService) UmResourcesFindByTypeExecute(r ApiUmResourcesFindByTypeRequest) (Resources, *common.APIResponse, error) {
+func (a *UserManagementApiService) UmResourcesFindByTypeExecute(r ApiUmResourcesFindByTypeRequest) (Resources, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -2544,7 +2544,7 @@ func (a *UserManagementApiService) UmResourcesFindByTypeExecute(r ApiUmResources
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UmResourcesFindByType")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -2585,7 +2585,7 @@ func (a *UserManagementApiService) UmResourcesFindByTypeExecute(r ApiUmResources
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2604,7 +2604,7 @@ func (a *UserManagementApiService) UmResourcesFindByTypeExecute(r ApiUmResources
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2624,7 +2624,7 @@ func (a *UserManagementApiService) UmResourcesFindByTypeExecute(r ApiUmResources
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2640,7 +2640,7 @@ func (a *UserManagementApiService) UmResourcesFindByTypeExecute(r ApiUmResources
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -2673,7 +2673,7 @@ func (r ApiUmResourcesFindByTypeAndIdRequest) XContractNumber(xContractNumber in
 	return r
 }
 
-func (r ApiUmResourcesFindByTypeAndIdRequest) Execute() (Resource, *common.APIResponse, error) {
+func (r ApiUmResourcesFindByTypeAndIdRequest) Execute() (Resource, *shared.APIResponse, error) {
 	return r.ApiService.UmResourcesFindByTypeAndIdExecute(r)
 }
 
@@ -2702,7 +2702,7 @@ func (a *UserManagementApiService) UmResourcesFindByTypeAndId(ctx _context.Conte
  * Execute executes the request
  * @return Resource
  */
-func (a *UserManagementApiService) UmResourcesFindByTypeAndIdExecute(r ApiUmResourcesFindByTypeAndIdRequest) (Resource, *common.APIResponse, error) {
+func (a *UserManagementApiService) UmResourcesFindByTypeAndIdExecute(r ApiUmResourcesFindByTypeAndIdRequest) (Resource, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -2714,7 +2714,7 @@ func (a *UserManagementApiService) UmResourcesFindByTypeAndIdExecute(r ApiUmReso
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UmResourcesFindByTypeAndId")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -2756,7 +2756,7 @@ func (a *UserManagementApiService) UmResourcesFindByTypeAndIdExecute(r ApiUmReso
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2775,7 +2775,7 @@ func (a *UserManagementApiService) UmResourcesFindByTypeAndIdExecute(r ApiUmReso
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2795,7 +2795,7 @@ func (a *UserManagementApiService) UmResourcesFindByTypeAndIdExecute(r ApiUmReso
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2811,7 +2811,7 @@ func (a *UserManagementApiService) UmResourcesFindByTypeAndIdExecute(r ApiUmReso
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -2864,7 +2864,7 @@ func (r ApiUmResourcesGetRequest) MaxResults(maxResults int32) ApiUmResourcesGet
 	return r
 }
 
-func (r ApiUmResourcesGetRequest) Execute() (Resources, *common.APIResponse, error) {
+func (r ApiUmResourcesGetRequest) Execute() (Resources, *shared.APIResponse, error) {
 	return r.ApiService.UmResourcesGetExecute(r)
 }
 
@@ -2886,7 +2886,7 @@ func (a *UserManagementApiService) UmResourcesGet(ctx _context.Context) ApiUmRes
  * Execute executes the request
  * @return Resources
  */
-func (a *UserManagementApiService) UmResourcesGetExecute(r ApiUmResourcesGetRequest) (Resources, *common.APIResponse, error) {
+func (a *UserManagementApiService) UmResourcesGetExecute(r ApiUmResourcesGetRequest) (Resources, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -2898,7 +2898,7 @@ func (a *UserManagementApiService) UmResourcesGetExecute(r ApiUmResourcesGetRequ
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UmResourcesGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -2951,7 +2951,7 @@ func (a *UserManagementApiService) UmResourcesGetExecute(r ApiUmResourcesGetRequ
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2970,7 +2970,7 @@ func (a *UserManagementApiService) UmResourcesGetExecute(r ApiUmResourcesGetRequ
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2990,7 +2990,7 @@ func (a *UserManagementApiService) UmResourcesGetExecute(r ApiUmResourcesGetRequ
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -3006,7 +3006,7 @@ func (a *UserManagementApiService) UmResourcesGetExecute(r ApiUmResourcesGetRequ
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -3038,7 +3038,7 @@ func (r ApiUmUsersDeleteRequest) XContractNumber(xContractNumber int32) ApiUmUse
 	return r
 }
 
-func (r ApiUmUsersDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiUmUsersDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.UmUsersDeleteExecute(r)
 }
 
@@ -3060,7 +3060,7 @@ func (a *UserManagementApiService) UmUsersDelete(ctx _context.Context, userId st
 /*
  * Execute executes the request
  */
-func (a *UserManagementApiService) UmUsersDeleteExecute(r ApiUmUsersDeleteRequest) (*common.APIResponse, error) {
+func (a *UserManagementApiService) UmUsersDeleteExecute(r ApiUmUsersDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -3071,7 +3071,7 @@ func (a *UserManagementApiService) UmUsersDeleteExecute(r ApiUmUsersDeleteReques
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UmUsersDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -3112,7 +3112,7 @@ func (a *UserManagementApiService) UmUsersDeleteExecute(r ApiUmUsersDeleteReques
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -3131,7 +3131,7 @@ func (a *UserManagementApiService) UmUsersDeleteExecute(r ApiUmUsersDeleteReques
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -3151,7 +3151,7 @@ func (a *UserManagementApiService) UmUsersDeleteExecute(r ApiUmUsersDeleteReques
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -3190,7 +3190,7 @@ func (r ApiUmUsersFindByIdRequest) XContractNumber(xContractNumber int32) ApiUmU
 	return r
 }
 
-func (r ApiUmUsersFindByIdRequest) Execute() (User, *common.APIResponse, error) {
+func (r ApiUmUsersFindByIdRequest) Execute() (User, *shared.APIResponse, error) {
 	return r.ApiService.UmUsersFindByIdExecute(r)
 }
 
@@ -3213,7 +3213,7 @@ func (a *UserManagementApiService) UmUsersFindById(ctx _context.Context, userId 
  * Execute executes the request
  * @return User
  */
-func (a *UserManagementApiService) UmUsersFindByIdExecute(r ApiUmUsersFindByIdRequest) (User, *common.APIResponse, error) {
+func (a *UserManagementApiService) UmUsersFindByIdExecute(r ApiUmUsersFindByIdRequest) (User, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -3225,7 +3225,7 @@ func (a *UserManagementApiService) UmUsersFindByIdExecute(r ApiUmUsersFindByIdRe
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UmUsersFindById")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -3266,7 +3266,7 @@ func (a *UserManagementApiService) UmUsersFindByIdExecute(r ApiUmUsersFindByIdRe
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -3285,7 +3285,7 @@ func (a *UserManagementApiService) UmUsersFindByIdExecute(r ApiUmUsersFindByIdRe
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -3305,7 +3305,7 @@ func (a *UserManagementApiService) UmUsersFindByIdExecute(r ApiUmUsersFindByIdRe
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -3321,7 +3321,7 @@ func (a *UserManagementApiService) UmUsersFindByIdExecute(r ApiUmUsersFindByIdRe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -3384,7 +3384,7 @@ func (r ApiUmUsersGetRequest) MaxResults(maxResults int32) ApiUmUsersGetRequest 
 	return r
 }
 
-func (r ApiUmUsersGetRequest) Execute() (Users, *common.APIResponse, error) {
+func (r ApiUmUsersGetRequest) Execute() (Users, *shared.APIResponse, error) {
 	return r.ApiService.UmUsersGetExecute(r)
 }
 
@@ -3406,7 +3406,7 @@ func (a *UserManagementApiService) UmUsersGet(ctx _context.Context) ApiUmUsersGe
  * Execute executes the request
  * @return Users
  */
-func (a *UserManagementApiService) UmUsersGetExecute(r ApiUmUsersGetRequest) (Users, *common.APIResponse, error) {
+func (a *UserManagementApiService) UmUsersGetExecute(r ApiUmUsersGetRequest) (Users, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -3418,7 +3418,7 @@ func (a *UserManagementApiService) UmUsersGetExecute(r ApiUmUsersGetRequest) (Us
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UmUsersGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -3477,7 +3477,7 @@ func (a *UserManagementApiService) UmUsersGetExecute(r ApiUmUsersGetRequest) (Us
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -3496,7 +3496,7 @@ func (a *UserManagementApiService) UmUsersGetExecute(r ApiUmUsersGetRequest) (Us
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -3516,7 +3516,7 @@ func (a *UserManagementApiService) UmUsersGetExecute(r ApiUmUsersGetRequest) (Us
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -3532,7 +3532,7 @@ func (a *UserManagementApiService) UmUsersGetExecute(r ApiUmUsersGetRequest) (Us
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -3586,7 +3586,7 @@ func (r ApiUmUsersGroupsGetRequest) MaxResults(maxResults int32) ApiUmUsersGroup
 	return r
 }
 
-func (r ApiUmUsersGroupsGetRequest) Execute() (ResourceGroups, *common.APIResponse, error) {
+func (r ApiUmUsersGroupsGetRequest) Execute() (ResourceGroups, *shared.APIResponse, error) {
 	return r.ApiService.UmUsersGroupsGetExecute(r)
 }
 
@@ -3610,7 +3610,7 @@ func (a *UserManagementApiService) UmUsersGroupsGet(ctx _context.Context, userId
  * Execute executes the request
  * @return ResourceGroups
  */
-func (a *UserManagementApiService) UmUsersGroupsGetExecute(r ApiUmUsersGroupsGetRequest) (ResourceGroups, *common.APIResponse, error) {
+func (a *UserManagementApiService) UmUsersGroupsGetExecute(r ApiUmUsersGroupsGetRequest) (ResourceGroups, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -3622,7 +3622,7 @@ func (a *UserManagementApiService) UmUsersGroupsGetExecute(r ApiUmUsersGroupsGet
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UmUsersGroupsGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -3676,7 +3676,7 @@ func (a *UserManagementApiService) UmUsersGroupsGetExecute(r ApiUmUsersGroupsGet
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -3695,7 +3695,7 @@ func (a *UserManagementApiService) UmUsersGroupsGetExecute(r ApiUmUsersGroupsGet
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -3715,7 +3715,7 @@ func (a *UserManagementApiService) UmUsersGroupsGetExecute(r ApiUmUsersGroupsGet
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -3731,7 +3731,7 @@ func (a *UserManagementApiService) UmUsersGroupsGetExecute(r ApiUmUsersGroupsGet
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -3785,7 +3785,7 @@ func (r ApiUmUsersOwnsGetRequest) MaxResults(maxResults int32) ApiUmUsersOwnsGet
 	return r
 }
 
-func (r ApiUmUsersOwnsGetRequest) Execute() (ResourcesUsers, *common.APIResponse, error) {
+func (r ApiUmUsersOwnsGetRequest) Execute() (ResourcesUsers, *shared.APIResponse, error) {
 	return r.ApiService.UmUsersOwnsGetExecute(r)
 }
 
@@ -3809,7 +3809,7 @@ func (a *UserManagementApiService) UmUsersOwnsGet(ctx _context.Context, userId s
  * Execute executes the request
  * @return ResourcesUsers
  */
-func (a *UserManagementApiService) UmUsersOwnsGetExecute(r ApiUmUsersOwnsGetRequest) (ResourcesUsers, *common.APIResponse, error) {
+func (a *UserManagementApiService) UmUsersOwnsGetExecute(r ApiUmUsersOwnsGetRequest) (ResourcesUsers, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -3821,7 +3821,7 @@ func (a *UserManagementApiService) UmUsersOwnsGetExecute(r ApiUmUsersOwnsGetRequ
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UmUsersOwnsGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -3875,7 +3875,7 @@ func (a *UserManagementApiService) UmUsersOwnsGetExecute(r ApiUmUsersOwnsGetRequ
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -3894,7 +3894,7 @@ func (a *UserManagementApiService) UmUsersOwnsGetExecute(r ApiUmUsersOwnsGetRequ
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -3914,7 +3914,7 @@ func (a *UserManagementApiService) UmUsersOwnsGetExecute(r ApiUmUsersOwnsGetRequ
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -3930,7 +3930,7 @@ func (a *UserManagementApiService) UmUsersOwnsGetExecute(r ApiUmUsersOwnsGetRequ
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -3966,7 +3966,7 @@ func (r ApiUmUsersPostRequest) XContractNumber(xContractNumber int32) ApiUmUsers
 	return r
 }
 
-func (r ApiUmUsersPostRequest) Execute() (User, *common.APIResponse, error) {
+func (r ApiUmUsersPostRequest) Execute() (User, *shared.APIResponse, error) {
 	return r.ApiService.UmUsersPostExecute(r)
 }
 
@@ -3987,7 +3987,7 @@ func (a *UserManagementApiService) UmUsersPost(ctx _context.Context) ApiUmUsersP
  * Execute executes the request
  * @return User
  */
-func (a *UserManagementApiService) UmUsersPostExecute(r ApiUmUsersPostRequest) (User, *common.APIResponse, error) {
+func (a *UserManagementApiService) UmUsersPostExecute(r ApiUmUsersPostRequest) (User, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -3999,7 +3999,7 @@ func (a *UserManagementApiService) UmUsersPostExecute(r ApiUmUsersPostRequest) (
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UmUsersPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -4044,7 +4044,7 @@ func (a *UserManagementApiService) UmUsersPostExecute(r ApiUmUsersPostRequest) (
 	localVarPostBody = r.user
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -4063,7 +4063,7 @@ func (a *UserManagementApiService) UmUsersPostExecute(r ApiUmUsersPostRequest) (
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -4083,7 +4083,7 @@ func (a *UserManagementApiService) UmUsersPostExecute(r ApiUmUsersPostRequest) (
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -4099,7 +4099,7 @@ func (a *UserManagementApiService) UmUsersPostExecute(r ApiUmUsersPostRequest) (
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -4136,7 +4136,7 @@ func (r ApiUmUsersPutRequest) XContractNumber(xContractNumber int32) ApiUmUsersP
 	return r
 }
 
-func (r ApiUmUsersPutRequest) Execute() (User, *common.APIResponse, error) {
+func (r ApiUmUsersPutRequest) Execute() (User, *shared.APIResponse, error) {
 	return r.ApiService.UmUsersPutExecute(r)
 }
 
@@ -4159,7 +4159,7 @@ func (a *UserManagementApiService) UmUsersPut(ctx _context.Context, userId strin
  * Execute executes the request
  * @return User
  */
-func (a *UserManagementApiService) UmUsersPutExecute(r ApiUmUsersPutRequest) (User, *common.APIResponse, error) {
+func (a *UserManagementApiService) UmUsersPutExecute(r ApiUmUsersPutRequest) (User, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -4171,7 +4171,7 @@ func (a *UserManagementApiService) UmUsersPutExecute(r ApiUmUsersPutRequest) (Us
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UmUsersPut")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -4217,7 +4217,7 @@ func (a *UserManagementApiService) UmUsersPutExecute(r ApiUmUsersPutRequest) (Us
 	localVarPostBody = r.user
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -4236,7 +4236,7 @@ func (a *UserManagementApiService) UmUsersPutExecute(r ApiUmUsersPutRequest) (Us
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -4256,7 +4256,7 @@ func (a *UserManagementApiService) UmUsersPutExecute(r ApiUmUsersPutRequest) (Us
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -4272,7 +4272,7 @@ func (a *UserManagementApiService) UmUsersPutExecute(r ApiUmUsersPutRequest) (Us
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())

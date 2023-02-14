@@ -13,7 +13,7 @@ package compute
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -52,7 +52,7 @@ func (r ApiDatacentersLoadbalancersBalancednicsDeleteRequest) XContractNumber(xC
 	return r
 }
 
-func (r ApiDatacentersLoadbalancersBalancednicsDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiDatacentersLoadbalancersBalancednicsDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.DatacentersLoadbalancersBalancednicsDeleteExecute(r)
 }
 
@@ -78,7 +78,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsDelete(ctx
 /*
  * Execute executes the request
  */
-func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsDeleteExecute(r ApiDatacentersLoadbalancersBalancednicsDeleteRequest) (*common.APIResponse, error) {
+func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsDeleteExecute(r ApiDatacentersLoadbalancersBalancednicsDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -89,7 +89,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsDeleteExec
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoadBalancersApiService.DatacentersLoadbalancersBalancednicsDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -132,7 +132,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsDeleteExec
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -151,7 +151,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsDeleteExec
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -171,7 +171,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsDeleteExec
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -212,7 +212,7 @@ func (r ApiDatacentersLoadbalancersBalancednicsFindByNicIdRequest) XContractNumb
 	return r
 }
 
-func (r ApiDatacentersLoadbalancersBalancednicsFindByNicIdRequest) Execute() (Nic, *common.APIResponse, error) {
+func (r ApiDatacentersLoadbalancersBalancednicsFindByNicIdRequest) Execute() (Nic, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersLoadbalancersBalancednicsFindByNicIdExecute(r)
 }
 
@@ -239,7 +239,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsFindByNicI
  * Execute executes the request
  * @return Nic
  */
-func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsFindByNicIdExecute(r ApiDatacentersLoadbalancersBalancednicsFindByNicIdRequest) (Nic, *common.APIResponse, error) {
+func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsFindByNicIdExecute(r ApiDatacentersLoadbalancersBalancednicsFindByNicIdRequest) (Nic, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -251,7 +251,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsFindByNicI
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoadBalancersApiService.DatacentersLoadbalancersBalancednicsFindByNicId")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -294,7 +294,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsFindByNicI
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -313,7 +313,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsFindByNicI
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -333,7 +333,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsFindByNicI
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -349,7 +349,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsFindByNicI
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -404,7 +404,7 @@ func (r ApiDatacentersLoadbalancersBalancednicsGetRequest) MaxResults(maxResults
 	return r
 }
 
-func (r ApiDatacentersLoadbalancersBalancednicsGetRequest) Execute() (BalancedNics, *common.APIResponse, error) {
+func (r ApiDatacentersLoadbalancersBalancednicsGetRequest) Execute() (BalancedNics, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersLoadbalancersBalancednicsGetExecute(r)
 }
 
@@ -430,7 +430,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsGet(ctx _c
  * Execute executes the request
  * @return BalancedNics
  */
-func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsGetExecute(r ApiDatacentersLoadbalancersBalancednicsGetRequest) (BalancedNics, *common.APIResponse, error) {
+func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsGetExecute(r ApiDatacentersLoadbalancersBalancednicsGetRequest) (BalancedNics, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -442,7 +442,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsGetExecute
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoadBalancersApiService.DatacentersLoadbalancersBalancednicsGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -497,7 +497,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsGetExecute
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -516,7 +516,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsGetExecute
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -536,7 +536,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsGetExecute
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -552,7 +552,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsGetExecute
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -590,7 +590,7 @@ func (r ApiDatacentersLoadbalancersBalancednicsPostRequest) XContractNumber(xCon
 	return r
 }
 
-func (r ApiDatacentersLoadbalancersBalancednicsPostRequest) Execute() (Nic, *common.APIResponse, error) {
+func (r ApiDatacentersLoadbalancersBalancednicsPostRequest) Execute() (Nic, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersLoadbalancersBalancednicsPostExecute(r)
 }
 
@@ -615,7 +615,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsPost(ctx _
  * Execute executes the request
  * @return Nic
  */
-func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsPostExecute(r ApiDatacentersLoadbalancersBalancednicsPostRequest) (Nic, *common.APIResponse, error) {
+func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsPostExecute(r ApiDatacentersLoadbalancersBalancednicsPostRequest) (Nic, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -627,7 +627,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsPostExecut
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoadBalancersApiService.DatacentersLoadbalancersBalancednicsPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -674,7 +674,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsPostExecut
 	localVarPostBody = r.nic
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -693,7 +693,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsPostExecut
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -713,7 +713,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsPostExecut
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -729,7 +729,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsPostExecut
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -762,7 +762,7 @@ func (r ApiDatacentersLoadbalancersDeleteRequest) XContractNumber(xContractNumbe
 	return r
 }
 
-func (r ApiDatacentersLoadbalancersDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiDatacentersLoadbalancersDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.DatacentersLoadbalancersDeleteExecute(r)
 }
 
@@ -786,7 +786,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersDelete(ctx _context.Co
 /*
  * Execute executes the request
  */
-func (a *LoadBalancersApiService) DatacentersLoadbalancersDeleteExecute(r ApiDatacentersLoadbalancersDeleteRequest) (*common.APIResponse, error) {
+func (a *LoadBalancersApiService) DatacentersLoadbalancersDeleteExecute(r ApiDatacentersLoadbalancersDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -797,7 +797,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersDeleteExecute(r ApiDat
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoadBalancersApiService.DatacentersLoadbalancersDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -839,7 +839,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersDeleteExecute(r ApiDat
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -858,7 +858,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersDeleteExecute(r ApiDat
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -878,7 +878,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersDeleteExecute(r ApiDat
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -918,7 +918,7 @@ func (r ApiDatacentersLoadbalancersFindByIdRequest) XContractNumber(xContractNum
 	return r
 }
 
-func (r ApiDatacentersLoadbalancersFindByIdRequest) Execute() (Loadbalancer, *common.APIResponse, error) {
+func (r ApiDatacentersLoadbalancersFindByIdRequest) Execute() (Loadbalancer, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersLoadbalancersFindByIdExecute(r)
 }
 
@@ -943,7 +943,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersFindById(ctx _context.
  * Execute executes the request
  * @return Loadbalancer
  */
-func (a *LoadBalancersApiService) DatacentersLoadbalancersFindByIdExecute(r ApiDatacentersLoadbalancersFindByIdRequest) (Loadbalancer, *common.APIResponse, error) {
+func (a *LoadBalancersApiService) DatacentersLoadbalancersFindByIdExecute(r ApiDatacentersLoadbalancersFindByIdRequest) (Loadbalancer, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -955,7 +955,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersFindByIdExecute(r ApiD
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoadBalancersApiService.DatacentersLoadbalancersFindById")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -997,7 +997,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersFindByIdExecute(r ApiD
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1016,7 +1016,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersFindByIdExecute(r ApiD
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1036,7 +1036,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersFindByIdExecute(r ApiD
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1052,7 +1052,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersFindByIdExecute(r ApiD
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1116,7 +1116,7 @@ func (r ApiDatacentersLoadbalancersGetRequest) MaxResults(maxResults int32) ApiD
 	return r
 }
 
-func (r ApiDatacentersLoadbalancersGetRequest) Execute() (Loadbalancers, *common.APIResponse, error) {
+func (r ApiDatacentersLoadbalancersGetRequest) Execute() (Loadbalancers, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersLoadbalancersGetExecute(r)
 }
 
@@ -1140,7 +1140,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersGet(ctx _context.Conte
  * Execute executes the request
  * @return Loadbalancers
  */
-func (a *LoadBalancersApiService) DatacentersLoadbalancersGetExecute(r ApiDatacentersLoadbalancersGetRequest) (Loadbalancers, *common.APIResponse, error) {
+func (a *LoadBalancersApiService) DatacentersLoadbalancersGetExecute(r ApiDatacentersLoadbalancersGetRequest) (Loadbalancers, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -1152,7 +1152,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersGetExecute(r ApiDatace
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoadBalancersApiService.DatacentersLoadbalancersGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1212,7 +1212,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersGetExecute(r ApiDatace
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1231,7 +1231,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersGetExecute(r ApiDatace
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1251,7 +1251,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersGetExecute(r ApiDatace
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1267,7 +1267,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersGetExecute(r ApiDatace
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1305,7 +1305,7 @@ func (r ApiDatacentersLoadbalancersPatchRequest) XContractNumber(xContractNumber
 	return r
 }
 
-func (r ApiDatacentersLoadbalancersPatchRequest) Execute() (Loadbalancer, *common.APIResponse, error) {
+func (r ApiDatacentersLoadbalancersPatchRequest) Execute() (Loadbalancer, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersLoadbalancersPatchExecute(r)
 }
 
@@ -1330,7 +1330,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPatch(ctx _context.Con
  * Execute executes the request
  * @return Loadbalancer
  */
-func (a *LoadBalancersApiService) DatacentersLoadbalancersPatchExecute(r ApiDatacentersLoadbalancersPatchRequest) (Loadbalancer, *common.APIResponse, error) {
+func (a *LoadBalancersApiService) DatacentersLoadbalancersPatchExecute(r ApiDatacentersLoadbalancersPatchRequest) (Loadbalancer, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPatch
 		localVarPostBody     interface{}
@@ -1342,7 +1342,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPatchExecute(r ApiData
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoadBalancersApiService.DatacentersLoadbalancersPatch")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1389,7 +1389,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPatchExecute(r ApiData
 	localVarPostBody = r.loadbalancer
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1408,7 +1408,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPatchExecute(r ApiData
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1428,7 +1428,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPatchExecute(r ApiData
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1444,7 +1444,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPatchExecute(r ApiData
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1481,7 +1481,7 @@ func (r ApiDatacentersLoadbalancersPostRequest) XContractNumber(xContractNumber 
 	return r
 }
 
-func (r ApiDatacentersLoadbalancersPostRequest) Execute() (Loadbalancer, *common.APIResponse, error) {
+func (r ApiDatacentersLoadbalancersPostRequest) Execute() (Loadbalancer, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersLoadbalancersPostExecute(r)
 }
 
@@ -1504,7 +1504,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPost(ctx _context.Cont
  * Execute executes the request
  * @return Loadbalancer
  */
-func (a *LoadBalancersApiService) DatacentersLoadbalancersPostExecute(r ApiDatacentersLoadbalancersPostRequest) (Loadbalancer, *common.APIResponse, error) {
+func (a *LoadBalancersApiService) DatacentersLoadbalancersPostExecute(r ApiDatacentersLoadbalancersPostRequest) (Loadbalancer, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -1516,7 +1516,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPostExecute(r ApiDatac
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoadBalancersApiService.DatacentersLoadbalancersPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1562,7 +1562,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPostExecute(r ApiDatac
 	localVarPostBody = r.loadbalancer
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1581,7 +1581,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPostExecute(r ApiDatac
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1601,7 +1601,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPostExecute(r ApiDatac
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1617,7 +1617,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPostExecute(r ApiDatac
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1655,7 +1655,7 @@ func (r ApiDatacentersLoadbalancersPutRequest) XContractNumber(xContractNumber i
 	return r
 }
 
-func (r ApiDatacentersLoadbalancersPutRequest) Execute() (Loadbalancer, *common.APIResponse, error) {
+func (r ApiDatacentersLoadbalancersPutRequest) Execute() (Loadbalancer, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersLoadbalancersPutExecute(r)
 }
 
@@ -1680,7 +1680,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPut(ctx _context.Conte
  * Execute executes the request
  * @return Loadbalancer
  */
-func (a *LoadBalancersApiService) DatacentersLoadbalancersPutExecute(r ApiDatacentersLoadbalancersPutRequest) (Loadbalancer, *common.APIResponse, error) {
+func (a *LoadBalancersApiService) DatacentersLoadbalancersPutExecute(r ApiDatacentersLoadbalancersPutRequest) (Loadbalancer, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -1692,7 +1692,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPutExecute(r ApiDatace
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoadBalancersApiService.DatacentersLoadbalancersPut")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1739,7 +1739,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPutExecute(r ApiDatace
 	localVarPostBody = r.loadbalancer
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1758,7 +1758,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPutExecute(r ApiDatace
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1778,7 +1778,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPutExecute(r ApiDatace
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1794,7 +1794,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPutExecute(r ApiDatace
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())

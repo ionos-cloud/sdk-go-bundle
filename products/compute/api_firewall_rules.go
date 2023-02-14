@@ -13,7 +13,7 @@ package compute
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -53,7 +53,7 @@ func (r ApiDatacentersServersNicsFirewallrulesDeleteRequest) XContractNumber(xCo
 	return r
 }
 
-func (r ApiDatacentersServersNicsFirewallrulesDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiDatacentersServersNicsFirewallrulesDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersNicsFirewallrulesDeleteExecute(r)
 }
 
@@ -81,7 +81,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesDelete(ctx 
 /*
  * Execute executes the request
  */
-func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesDeleteExecute(r ApiDatacentersServersNicsFirewallrulesDeleteRequest) (*common.APIResponse, error) {
+func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesDeleteExecute(r ApiDatacentersServersNicsFirewallrulesDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -92,7 +92,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesDeleteExecu
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FirewallRulesApiService.DatacentersServersNicsFirewallrulesDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -136,7 +136,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesDeleteExecu
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -155,7 +155,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesDeleteExecu
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -175,7 +175,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesDeleteExecu
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -217,7 +217,7 @@ func (r ApiDatacentersServersNicsFirewallrulesFindByIdRequest) XContractNumber(x
 	return r
 }
 
-func (r ApiDatacentersServersNicsFirewallrulesFindByIdRequest) Execute() (FirewallRule, *common.APIResponse, error) {
+func (r ApiDatacentersServersNicsFirewallrulesFindByIdRequest) Execute() (FirewallRule, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersNicsFirewallrulesFindByIdExecute(r)
 }
 
@@ -246,7 +246,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesFindById(ct
  * Execute executes the request
  * @return FirewallRule
  */
-func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesFindByIdExecute(r ApiDatacentersServersNicsFirewallrulesFindByIdRequest) (FirewallRule, *common.APIResponse, error) {
+func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesFindByIdExecute(r ApiDatacentersServersNicsFirewallrulesFindByIdRequest) (FirewallRule, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -258,7 +258,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesFindByIdExe
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FirewallRulesApiService.DatacentersServersNicsFirewallrulesFindById")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -302,7 +302,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesFindByIdExe
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -321,7 +321,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesFindByIdExe
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -341,7 +341,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesFindByIdExe
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -357,7 +357,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesFindByIdExe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -423,7 +423,7 @@ func (r ApiDatacentersServersNicsFirewallrulesGetRequest) MaxResults(maxResults 
 	return r
 }
 
-func (r ApiDatacentersServersNicsFirewallrulesGetRequest) Execute() (FirewallRules, *common.APIResponse, error) {
+func (r ApiDatacentersServersNicsFirewallrulesGetRequest) Execute() (FirewallRules, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersNicsFirewallrulesGetExecute(r)
 }
 
@@ -451,7 +451,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesGet(ctx _co
  * Execute executes the request
  * @return FirewallRules
  */
-func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesGetExecute(r ApiDatacentersServersNicsFirewallrulesGetRequest) (FirewallRules, *common.APIResponse, error) {
+func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesGetExecute(r ApiDatacentersServersNicsFirewallrulesGetRequest) (FirewallRules, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -463,7 +463,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesGetExecute(
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FirewallRulesApiService.DatacentersServersNicsFirewallrulesGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -525,7 +525,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesGetExecute(
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -544,7 +544,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesGetExecute(
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -564,7 +564,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesGetExecute(
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -580,7 +580,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesGetExecute(
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -620,7 +620,7 @@ func (r ApiDatacentersServersNicsFirewallrulesPatchRequest) XContractNumber(xCon
 	return r
 }
 
-func (r ApiDatacentersServersNicsFirewallrulesPatchRequest) Execute() (FirewallRule, *common.APIResponse, error) {
+func (r ApiDatacentersServersNicsFirewallrulesPatchRequest) Execute() (FirewallRule, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersNicsFirewallrulesPatchExecute(r)
 }
 
@@ -649,7 +649,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesPatch(ctx _
  * Execute executes the request
  * @return FirewallRule
  */
-func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesPatchExecute(r ApiDatacentersServersNicsFirewallrulesPatchRequest) (FirewallRule, *common.APIResponse, error) {
+func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesPatchExecute(r ApiDatacentersServersNicsFirewallrulesPatchRequest) (FirewallRule, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPatch
 		localVarPostBody     interface{}
@@ -661,7 +661,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesPatchExecut
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FirewallRulesApiService.DatacentersServersNicsFirewallrulesPatch")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -710,7 +710,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesPatchExecut
 	localVarPostBody = r.firewallrule
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -729,7 +729,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesPatchExecut
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -749,7 +749,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesPatchExecut
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -765,7 +765,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesPatchExecut
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -804,7 +804,7 @@ func (r ApiDatacentersServersNicsFirewallrulesPostRequest) XContractNumber(xCont
 	return r
 }
 
-func (r ApiDatacentersServersNicsFirewallrulesPostRequest) Execute() (FirewallRule, *common.APIResponse, error) {
+func (r ApiDatacentersServersNicsFirewallrulesPostRequest) Execute() (FirewallRule, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersNicsFirewallrulesPostExecute(r)
 }
 
@@ -831,7 +831,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesPost(ctx _c
  * Execute executes the request
  * @return FirewallRule
  */
-func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesPostExecute(r ApiDatacentersServersNicsFirewallrulesPostRequest) (FirewallRule, *common.APIResponse, error) {
+func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesPostExecute(r ApiDatacentersServersNicsFirewallrulesPostRequest) (FirewallRule, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -843,7 +843,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesPostExecute
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FirewallRulesApiService.DatacentersServersNicsFirewallrulesPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -891,7 +891,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesPostExecute
 	localVarPostBody = r.firewallrule
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -910,7 +910,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesPostExecute
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -930,7 +930,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesPostExecute
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -946,7 +946,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesPostExecute
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -986,7 +986,7 @@ func (r ApiDatacentersServersNicsFirewallrulesPutRequest) XContractNumber(xContr
 	return r
 }
 
-func (r ApiDatacentersServersNicsFirewallrulesPutRequest) Execute() (FirewallRule, *common.APIResponse, error) {
+func (r ApiDatacentersServersNicsFirewallrulesPutRequest) Execute() (FirewallRule, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersNicsFirewallrulesPutExecute(r)
 }
 
@@ -1015,7 +1015,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesPut(ctx _co
  * Execute executes the request
  * @return FirewallRule
  */
-func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesPutExecute(r ApiDatacentersServersNicsFirewallrulesPutRequest) (FirewallRule, *common.APIResponse, error) {
+func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesPutExecute(r ApiDatacentersServersNicsFirewallrulesPutRequest) (FirewallRule, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -1027,7 +1027,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesPutExecute(
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FirewallRulesApiService.DatacentersServersNicsFirewallrulesPut")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1076,7 +1076,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesPutExecute(
 	localVarPostBody = r.firewallrule
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1095,7 +1095,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesPutExecute(
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1115,7 +1115,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesPutExecute(
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1131,7 +1131,7 @@ func (a *FirewallRulesApiService) DatacentersServersNicsFirewallrulesPutExecute(
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())

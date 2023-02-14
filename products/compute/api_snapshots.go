@@ -13,7 +13,7 @@ package compute
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -50,7 +50,7 @@ func (r ApiSnapshotsDeleteRequest) XContractNumber(xContractNumber int32) ApiSna
 	return r
 }
 
-func (r ApiSnapshotsDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiSnapshotsDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.SnapshotsDeleteExecute(r)
 }
 
@@ -72,7 +72,7 @@ func (a *SnapshotsApiService) SnapshotsDelete(ctx _context.Context, snapshotId s
 /*
  * Execute executes the request
  */
-func (a *SnapshotsApiService) SnapshotsDeleteExecute(r ApiSnapshotsDeleteRequest) (*common.APIResponse, error) {
+func (a *SnapshotsApiService) SnapshotsDeleteExecute(r ApiSnapshotsDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -83,7 +83,7 @@ func (a *SnapshotsApiService) SnapshotsDeleteExecute(r ApiSnapshotsDeleteRequest
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SnapshotsApiService.SnapshotsDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -124,7 +124,7 @@ func (a *SnapshotsApiService) SnapshotsDeleteExecute(r ApiSnapshotsDeleteRequest
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -143,7 +143,7 @@ func (a *SnapshotsApiService) SnapshotsDeleteExecute(r ApiSnapshotsDeleteRequest
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -163,7 +163,7 @@ func (a *SnapshotsApiService) SnapshotsDeleteExecute(r ApiSnapshotsDeleteRequest
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -202,7 +202,7 @@ func (r ApiSnapshotsFindByIdRequest) XContractNumber(xContractNumber int32) ApiS
 	return r
 }
 
-func (r ApiSnapshotsFindByIdRequest) Execute() (Snapshot, *common.APIResponse, error) {
+func (r ApiSnapshotsFindByIdRequest) Execute() (Snapshot, *shared.APIResponse, error) {
 	return r.ApiService.SnapshotsFindByIdExecute(r)
 }
 
@@ -225,7 +225,7 @@ func (a *SnapshotsApiService) SnapshotsFindById(ctx _context.Context, snapshotId
  * Execute executes the request
  * @return Snapshot
  */
-func (a *SnapshotsApiService) SnapshotsFindByIdExecute(r ApiSnapshotsFindByIdRequest) (Snapshot, *common.APIResponse, error) {
+func (a *SnapshotsApiService) SnapshotsFindByIdExecute(r ApiSnapshotsFindByIdRequest) (Snapshot, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -237,7 +237,7 @@ func (a *SnapshotsApiService) SnapshotsFindByIdExecute(r ApiSnapshotsFindByIdReq
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SnapshotsApiService.SnapshotsFindById")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -278,7 +278,7 @@ func (a *SnapshotsApiService) SnapshotsFindByIdExecute(r ApiSnapshotsFindByIdReq
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -297,7 +297,7 @@ func (a *SnapshotsApiService) SnapshotsFindByIdExecute(r ApiSnapshotsFindByIdReq
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -317,7 +317,7 @@ func (a *SnapshotsApiService) SnapshotsFindByIdExecute(r ApiSnapshotsFindByIdReq
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -333,7 +333,7 @@ func (a *SnapshotsApiService) SnapshotsFindByIdExecute(r ApiSnapshotsFindByIdReq
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -386,7 +386,7 @@ func (r ApiSnapshotsGetRequest) MaxResults(maxResults int32) ApiSnapshotsGetRequ
 	return r
 }
 
-func (r ApiSnapshotsGetRequest) Execute() (Snapshots, *common.APIResponse, error) {
+func (r ApiSnapshotsGetRequest) Execute() (Snapshots, *shared.APIResponse, error) {
 	return r.ApiService.SnapshotsGetExecute(r)
 }
 
@@ -408,7 +408,7 @@ func (a *SnapshotsApiService) SnapshotsGet(ctx _context.Context) ApiSnapshotsGet
  * Execute executes the request
  * @return Snapshots
  */
-func (a *SnapshotsApiService) SnapshotsGetExecute(r ApiSnapshotsGetRequest) (Snapshots, *common.APIResponse, error) {
+func (a *SnapshotsApiService) SnapshotsGetExecute(r ApiSnapshotsGetRequest) (Snapshots, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -420,7 +420,7 @@ func (a *SnapshotsApiService) SnapshotsGetExecute(r ApiSnapshotsGetRequest) (Sna
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SnapshotsApiService.SnapshotsGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -473,7 +473,7 @@ func (a *SnapshotsApiService) SnapshotsGetExecute(r ApiSnapshotsGetRequest) (Sna
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -492,7 +492,7 @@ func (a *SnapshotsApiService) SnapshotsGetExecute(r ApiSnapshotsGetRequest) (Sna
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -512,7 +512,7 @@ func (a *SnapshotsApiService) SnapshotsGetExecute(r ApiSnapshotsGetRequest) (Sna
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -528,7 +528,7 @@ func (a *SnapshotsApiService) SnapshotsGetExecute(r ApiSnapshotsGetRequest) (Sna
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -565,7 +565,7 @@ func (r ApiSnapshotsPatchRequest) XContractNumber(xContractNumber int32) ApiSnap
 	return r
 }
 
-func (r ApiSnapshotsPatchRequest) Execute() (Snapshot, *common.APIResponse, error) {
+func (r ApiSnapshotsPatchRequest) Execute() (Snapshot, *shared.APIResponse, error) {
 	return r.ApiService.SnapshotsPatchExecute(r)
 }
 
@@ -588,7 +588,7 @@ func (a *SnapshotsApiService) SnapshotsPatch(ctx _context.Context, snapshotId st
  * Execute executes the request
  * @return Snapshot
  */
-func (a *SnapshotsApiService) SnapshotsPatchExecute(r ApiSnapshotsPatchRequest) (Snapshot, *common.APIResponse, error) {
+func (a *SnapshotsApiService) SnapshotsPatchExecute(r ApiSnapshotsPatchRequest) (Snapshot, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPatch
 		localVarPostBody     interface{}
@@ -600,7 +600,7 @@ func (a *SnapshotsApiService) SnapshotsPatchExecute(r ApiSnapshotsPatchRequest) 
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SnapshotsApiService.SnapshotsPatch")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -646,7 +646,7 @@ func (a *SnapshotsApiService) SnapshotsPatchExecute(r ApiSnapshotsPatchRequest) 
 	localVarPostBody = r.snapshot
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -665,7 +665,7 @@ func (a *SnapshotsApiService) SnapshotsPatchExecute(r ApiSnapshotsPatchRequest) 
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -685,7 +685,7 @@ func (a *SnapshotsApiService) SnapshotsPatchExecute(r ApiSnapshotsPatchRequest) 
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -701,7 +701,7 @@ func (a *SnapshotsApiService) SnapshotsPatchExecute(r ApiSnapshotsPatchRequest) 
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -738,7 +738,7 @@ func (r ApiSnapshotsPutRequest) XContractNumber(xContractNumber int32) ApiSnapsh
 	return r
 }
 
-func (r ApiSnapshotsPutRequest) Execute() (Snapshot, *common.APIResponse, error) {
+func (r ApiSnapshotsPutRequest) Execute() (Snapshot, *shared.APIResponse, error) {
 	return r.ApiService.SnapshotsPutExecute(r)
 }
 
@@ -761,7 +761,7 @@ func (a *SnapshotsApiService) SnapshotsPut(ctx _context.Context, snapshotId stri
  * Execute executes the request
  * @return Snapshot
  */
-func (a *SnapshotsApiService) SnapshotsPutExecute(r ApiSnapshotsPutRequest) (Snapshot, *common.APIResponse, error) {
+func (a *SnapshotsApiService) SnapshotsPutExecute(r ApiSnapshotsPutRequest) (Snapshot, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -773,7 +773,7 @@ func (a *SnapshotsApiService) SnapshotsPutExecute(r ApiSnapshotsPutRequest) (Sna
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SnapshotsApiService.SnapshotsPut")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -819,7 +819,7 @@ func (a *SnapshotsApiService) SnapshotsPutExecute(r ApiSnapshotsPutRequest) (Sna
 	localVarPostBody = r.snapshot
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -838,7 +838,7 @@ func (a *SnapshotsApiService) SnapshotsPutExecute(r ApiSnapshotsPutRequest) (Sna
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -858,7 +858,7 @@ func (a *SnapshotsApiService) SnapshotsPutExecute(r ApiSnapshotsPutRequest) (Sna
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -874,7 +874,7 @@ func (a *SnapshotsApiService) SnapshotsPutExecute(r ApiSnapshotsPutRequest) (Sna
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())

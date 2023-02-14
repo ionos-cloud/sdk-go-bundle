@@ -13,7 +13,7 @@ package compute
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -48,7 +48,7 @@ func (r ApiDatacentersServersNicsFlowlogsDeleteRequest) Depth(depth int32) ApiDa
 	return r
 }
 
-func (r ApiDatacentersServersNicsFlowlogsDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiDatacentersServersNicsFlowlogsDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersNicsFlowlogsDeleteExecute(r)
 }
 
@@ -76,7 +76,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsDelete(ctx _context.C
 /*
  * Execute executes the request
  */
-func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsDeleteExecute(r ApiDatacentersServersNicsFlowlogsDeleteRequest) (*common.APIResponse, error) {
+func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsDeleteExecute(r ApiDatacentersServersNicsFlowlogsDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -87,7 +87,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsDeleteExecute(r ApiDa
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowLogsApiService.DatacentersServersNicsFlowlogsDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -128,7 +128,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsDeleteExecute(r ApiDa
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -147,7 +147,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsDeleteExecute(r ApiDa
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -167,7 +167,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsDeleteExecute(r ApiDa
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -204,7 +204,7 @@ func (r ApiDatacentersServersNicsFlowlogsFindByIdRequest) Depth(depth int32) Api
 	return r
 }
 
-func (r ApiDatacentersServersNicsFlowlogsFindByIdRequest) Execute() (FlowLog, *common.APIResponse, error) {
+func (r ApiDatacentersServersNicsFlowlogsFindByIdRequest) Execute() (FlowLog, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersNicsFlowlogsFindByIdExecute(r)
 }
 
@@ -233,7 +233,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsFindById(ctx _context
  * Execute executes the request
  * @return FlowLog
  */
-func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsFindByIdExecute(r ApiDatacentersServersNicsFlowlogsFindByIdRequest) (FlowLog, *common.APIResponse, error) {
+func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsFindByIdExecute(r ApiDatacentersServersNicsFlowlogsFindByIdRequest) (FlowLog, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -245,7 +245,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsFindByIdExecute(r Api
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowLogsApiService.DatacentersServersNicsFlowlogsFindById")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -286,7 +286,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsFindByIdExecute(r Api
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -305,7 +305,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsFindByIdExecute(r Api
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -325,7 +325,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsFindByIdExecute(r Api
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -341,7 +341,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsFindByIdExecute(r Api
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -402,7 +402,7 @@ func (r ApiDatacentersServersNicsFlowlogsGetRequest) MaxResults(maxResults int32
 	return r
 }
 
-func (r ApiDatacentersServersNicsFlowlogsGetRequest) Execute() (FlowLogs, *common.APIResponse, error) {
+func (r ApiDatacentersServersNicsFlowlogsGetRequest) Execute() (FlowLogs, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersNicsFlowlogsGetExecute(r)
 }
 
@@ -430,7 +430,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsGet(ctx _context.Cont
  * Execute executes the request
  * @return FlowLogs
  */
-func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsGetExecute(r ApiDatacentersServersNicsFlowlogsGetRequest) (FlowLogs, *common.APIResponse, error) {
+func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsGetExecute(r ApiDatacentersServersNicsFlowlogsGetRequest) (FlowLogs, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -442,7 +442,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsGetExecute(r ApiDatac
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowLogsApiService.DatacentersServersNicsFlowlogsGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -501,7 +501,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsGetExecute(r ApiDatac
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -520,7 +520,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsGetExecute(r ApiDatac
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -540,7 +540,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsGetExecute(r ApiDatac
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -556,7 +556,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsGetExecute(r ApiDatac
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -591,7 +591,7 @@ func (r ApiDatacentersServersNicsFlowlogsPatchRequest) Depth(depth int32) ApiDat
 	return r
 }
 
-func (r ApiDatacentersServersNicsFlowlogsPatchRequest) Execute() (FlowLog, *common.APIResponse, error) {
+func (r ApiDatacentersServersNicsFlowlogsPatchRequest) Execute() (FlowLog, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersNicsFlowlogsPatchExecute(r)
 }
 
@@ -620,7 +620,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPatch(ctx _context.Co
  * Execute executes the request
  * @return FlowLog
  */
-func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPatchExecute(r ApiDatacentersServersNicsFlowlogsPatchRequest) (FlowLog, *common.APIResponse, error) {
+func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPatchExecute(r ApiDatacentersServersNicsFlowlogsPatchRequest) (FlowLog, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPatch
 		localVarPostBody     interface{}
@@ -632,7 +632,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPatchExecute(r ApiDat
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowLogsApiService.DatacentersServersNicsFlowlogsPatch")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -678,7 +678,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPatchExecute(r ApiDat
 	localVarPostBody = r.flowlog
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -697,7 +697,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPatchExecute(r ApiDat
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -717,7 +717,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPatchExecute(r ApiDat
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -733,7 +733,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPatchExecute(r ApiDat
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -767,7 +767,7 @@ func (r ApiDatacentersServersNicsFlowlogsPostRequest) Depth(depth int32) ApiData
 	return r
 }
 
-func (r ApiDatacentersServersNicsFlowlogsPostRequest) Execute() (FlowLog, *common.APIResponse, error) {
+func (r ApiDatacentersServersNicsFlowlogsPostRequest) Execute() (FlowLog, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersNicsFlowlogsPostExecute(r)
 }
 
@@ -794,7 +794,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPost(ctx _context.Con
  * Execute executes the request
  * @return FlowLog
  */
-func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPostExecute(r ApiDatacentersServersNicsFlowlogsPostRequest) (FlowLog, *common.APIResponse, error) {
+func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPostExecute(r ApiDatacentersServersNicsFlowlogsPostRequest) (FlowLog, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -806,7 +806,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPostExecute(r ApiData
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowLogsApiService.DatacentersServersNicsFlowlogsPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -851,7 +851,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPostExecute(r ApiData
 	localVarPostBody = r.flowlog
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -870,7 +870,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPostExecute(r ApiData
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -890,7 +890,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPostExecute(r ApiData
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -906,7 +906,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPostExecute(r ApiData
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -941,7 +941,7 @@ func (r ApiDatacentersServersNicsFlowlogsPutRequest) Depth(depth int32) ApiDatac
 	return r
 }
 
-func (r ApiDatacentersServersNicsFlowlogsPutRequest) Execute() (FlowLog, *common.APIResponse, error) {
+func (r ApiDatacentersServersNicsFlowlogsPutRequest) Execute() (FlowLog, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersNicsFlowlogsPutExecute(r)
 }
 
@@ -970,7 +970,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPut(ctx _context.Cont
  * Execute executes the request
  * @return FlowLog
  */
-func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPutExecute(r ApiDatacentersServersNicsFlowlogsPutRequest) (FlowLog, *common.APIResponse, error) {
+func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPutExecute(r ApiDatacentersServersNicsFlowlogsPutRequest) (FlowLog, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -982,7 +982,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPutExecute(r ApiDatac
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowLogsApiService.DatacentersServersNicsFlowlogsPut")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1028,7 +1028,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPutExecute(r ApiDatac
 	localVarPostBody = r.flowlog
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1047,7 +1047,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPutExecute(r ApiDatac
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1067,7 +1067,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPutExecute(r ApiDatac
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1083,7 +1083,7 @@ func (a *FlowLogsApiService) DatacentersServersNicsFlowlogsPutExecute(r ApiDatac
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())

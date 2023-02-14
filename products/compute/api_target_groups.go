@@ -13,7 +13,7 @@ package compute
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -50,7 +50,7 @@ func (r ApiTargetGroupsDeleteRequest) XContractNumber(xContractNumber int32) Api
 	return r
 }
 
-func (r ApiTargetGroupsDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiTargetGroupsDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.TargetGroupsDeleteExecute(r)
 }
 
@@ -72,7 +72,7 @@ func (a *TargetGroupsApiService) TargetGroupsDelete(ctx _context.Context, target
 /*
  * Execute executes the request
  */
-func (a *TargetGroupsApiService) TargetGroupsDeleteExecute(r ApiTargetGroupsDeleteRequest) (*common.APIResponse, error) {
+func (a *TargetGroupsApiService) TargetGroupsDeleteExecute(r ApiTargetGroupsDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -83,7 +83,7 @@ func (a *TargetGroupsApiService) TargetGroupsDeleteExecute(r ApiTargetGroupsDele
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TargetGroupsApiService.TargetGroupsDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -124,7 +124,7 @@ func (a *TargetGroupsApiService) TargetGroupsDeleteExecute(r ApiTargetGroupsDele
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -143,7 +143,7 @@ func (a *TargetGroupsApiService) TargetGroupsDeleteExecute(r ApiTargetGroupsDele
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -163,7 +163,7 @@ func (a *TargetGroupsApiService) TargetGroupsDeleteExecute(r ApiTargetGroupsDele
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -202,7 +202,7 @@ func (r ApiTargetgroupsFindByTargetGroupIdRequest) XContractNumber(xContractNumb
 	return r
 }
 
-func (r ApiTargetgroupsFindByTargetGroupIdRequest) Execute() (TargetGroup, *common.APIResponse, error) {
+func (r ApiTargetgroupsFindByTargetGroupIdRequest) Execute() (TargetGroup, *shared.APIResponse, error) {
 	return r.ApiService.TargetgroupsFindByTargetGroupIdExecute(r)
 }
 
@@ -225,7 +225,7 @@ func (a *TargetGroupsApiService) TargetgroupsFindByTargetGroupId(ctx _context.Co
  * Execute executes the request
  * @return TargetGroup
  */
-func (a *TargetGroupsApiService) TargetgroupsFindByTargetGroupIdExecute(r ApiTargetgroupsFindByTargetGroupIdRequest) (TargetGroup, *common.APIResponse, error) {
+func (a *TargetGroupsApiService) TargetgroupsFindByTargetGroupIdExecute(r ApiTargetgroupsFindByTargetGroupIdRequest) (TargetGroup, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -237,7 +237,7 @@ func (a *TargetGroupsApiService) TargetgroupsFindByTargetGroupIdExecute(r ApiTar
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TargetGroupsApiService.TargetgroupsFindByTargetGroupId")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -278,7 +278,7 @@ func (a *TargetGroupsApiService) TargetgroupsFindByTargetGroupIdExecute(r ApiTar
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -297,7 +297,7 @@ func (a *TargetGroupsApiService) TargetgroupsFindByTargetGroupIdExecute(r ApiTar
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -317,7 +317,7 @@ func (a *TargetGroupsApiService) TargetgroupsFindByTargetGroupIdExecute(r ApiTar
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -333,7 +333,7 @@ func (a *TargetGroupsApiService) TargetgroupsFindByTargetGroupIdExecute(r ApiTar
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -396,7 +396,7 @@ func (r ApiTargetgroupsGetRequest) MaxResults(maxResults int32) ApiTargetgroupsG
 	return r
 }
 
-func (r ApiTargetgroupsGetRequest) Execute() (TargetGroups, *common.APIResponse, error) {
+func (r ApiTargetgroupsGetRequest) Execute() (TargetGroups, *shared.APIResponse, error) {
 	return r.ApiService.TargetgroupsGetExecute(r)
 }
 
@@ -418,7 +418,7 @@ func (a *TargetGroupsApiService) TargetgroupsGet(ctx _context.Context) ApiTarget
  * Execute executes the request
  * @return TargetGroups
  */
-func (a *TargetGroupsApiService) TargetgroupsGetExecute(r ApiTargetgroupsGetRequest) (TargetGroups, *common.APIResponse, error) {
+func (a *TargetGroupsApiService) TargetgroupsGetExecute(r ApiTargetgroupsGetRequest) (TargetGroups, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -430,7 +430,7 @@ func (a *TargetGroupsApiService) TargetgroupsGetExecute(r ApiTargetgroupsGetRequ
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TargetGroupsApiService.TargetgroupsGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -489,7 +489,7 @@ func (a *TargetGroupsApiService) TargetgroupsGetExecute(r ApiTargetgroupsGetRequ
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -508,7 +508,7 @@ func (a *TargetGroupsApiService) TargetgroupsGetExecute(r ApiTargetgroupsGetRequ
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -528,7 +528,7 @@ func (a *TargetGroupsApiService) TargetgroupsGetExecute(r ApiTargetgroupsGetRequ
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -544,7 +544,7 @@ func (a *TargetGroupsApiService) TargetgroupsGetExecute(r ApiTargetgroupsGetRequ
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -581,7 +581,7 @@ func (r ApiTargetgroupsPatchRequest) XContractNumber(xContractNumber int32) ApiT
 	return r
 }
 
-func (r ApiTargetgroupsPatchRequest) Execute() (TargetGroup, *common.APIResponse, error) {
+func (r ApiTargetgroupsPatchRequest) Execute() (TargetGroup, *shared.APIResponse, error) {
 	return r.ApiService.TargetgroupsPatchExecute(r)
 }
 
@@ -604,7 +604,7 @@ func (a *TargetGroupsApiService) TargetgroupsPatch(ctx _context.Context, targetG
  * Execute executes the request
  * @return TargetGroup
  */
-func (a *TargetGroupsApiService) TargetgroupsPatchExecute(r ApiTargetgroupsPatchRequest) (TargetGroup, *common.APIResponse, error) {
+func (a *TargetGroupsApiService) TargetgroupsPatchExecute(r ApiTargetgroupsPatchRequest) (TargetGroup, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPatch
 		localVarPostBody     interface{}
@@ -616,7 +616,7 @@ func (a *TargetGroupsApiService) TargetgroupsPatchExecute(r ApiTargetgroupsPatch
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TargetGroupsApiService.TargetgroupsPatch")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -662,7 +662,7 @@ func (a *TargetGroupsApiService) TargetgroupsPatchExecute(r ApiTargetgroupsPatch
 	localVarPostBody = r.targetGroupProperties
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -681,7 +681,7 @@ func (a *TargetGroupsApiService) TargetgroupsPatchExecute(r ApiTargetgroupsPatch
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -701,7 +701,7 @@ func (a *TargetGroupsApiService) TargetgroupsPatchExecute(r ApiTargetgroupsPatch
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -717,7 +717,7 @@ func (a *TargetGroupsApiService) TargetgroupsPatchExecute(r ApiTargetgroupsPatch
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -753,7 +753,7 @@ func (r ApiTargetgroupsPostRequest) XContractNumber(xContractNumber int32) ApiTa
 	return r
 }
 
-func (r ApiTargetgroupsPostRequest) Execute() (TargetGroup, *common.APIResponse, error) {
+func (r ApiTargetgroupsPostRequest) Execute() (TargetGroup, *shared.APIResponse, error) {
 	return r.ApiService.TargetgroupsPostExecute(r)
 }
 
@@ -774,7 +774,7 @@ func (a *TargetGroupsApiService) TargetgroupsPost(ctx _context.Context) ApiTarge
  * Execute executes the request
  * @return TargetGroup
  */
-func (a *TargetGroupsApiService) TargetgroupsPostExecute(r ApiTargetgroupsPostRequest) (TargetGroup, *common.APIResponse, error) {
+func (a *TargetGroupsApiService) TargetgroupsPostExecute(r ApiTargetgroupsPostRequest) (TargetGroup, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -786,7 +786,7 @@ func (a *TargetGroupsApiService) TargetgroupsPostExecute(r ApiTargetgroupsPostRe
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TargetGroupsApiService.TargetgroupsPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -831,7 +831,7 @@ func (a *TargetGroupsApiService) TargetgroupsPostExecute(r ApiTargetgroupsPostRe
 	localVarPostBody = r.targetGroup
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -850,7 +850,7 @@ func (a *TargetGroupsApiService) TargetgroupsPostExecute(r ApiTargetgroupsPostRe
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -870,7 +870,7 @@ func (a *TargetGroupsApiService) TargetgroupsPostExecute(r ApiTargetgroupsPostRe
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -886,7 +886,7 @@ func (a *TargetGroupsApiService) TargetgroupsPostExecute(r ApiTargetgroupsPostRe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -923,7 +923,7 @@ func (r ApiTargetgroupsPutRequest) XContractNumber(xContractNumber int32) ApiTar
 	return r
 }
 
-func (r ApiTargetgroupsPutRequest) Execute() (TargetGroup, *common.APIResponse, error) {
+func (r ApiTargetgroupsPutRequest) Execute() (TargetGroup, *shared.APIResponse, error) {
 	return r.ApiService.TargetgroupsPutExecute(r)
 }
 
@@ -946,7 +946,7 @@ func (a *TargetGroupsApiService) TargetgroupsPut(ctx _context.Context, targetGro
  * Execute executes the request
  * @return TargetGroup
  */
-func (a *TargetGroupsApiService) TargetgroupsPutExecute(r ApiTargetgroupsPutRequest) (TargetGroup, *common.APIResponse, error) {
+func (a *TargetGroupsApiService) TargetgroupsPutExecute(r ApiTargetgroupsPutRequest) (TargetGroup, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -958,7 +958,7 @@ func (a *TargetGroupsApiService) TargetgroupsPutExecute(r ApiTargetgroupsPutRequ
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TargetGroupsApiService.TargetgroupsPut")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1004,7 +1004,7 @@ func (a *TargetGroupsApiService) TargetgroupsPutExecute(r ApiTargetgroupsPutRequ
 	localVarPostBody = r.targetGroup
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1023,7 +1023,7 @@ func (a *TargetGroupsApiService) TargetgroupsPutExecute(r ApiTargetgroupsPutRequ
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1043,7 +1043,7 @@ func (a *TargetGroupsApiService) TargetgroupsPutExecute(r ApiTargetgroupsPutRequ
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1059,7 +1059,7 @@ func (a *TargetGroupsApiService) TargetgroupsPutExecute(r ApiTargetgroupsPutRequ
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())

@@ -13,7 +13,7 @@ package compute
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -51,7 +51,7 @@ func (r ApiDatacentersLabelsDeleteRequest) XContractNumber(xContractNumber int32
 	return r
 }
 
-func (r ApiDatacentersLabelsDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiDatacentersLabelsDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.DatacentersLabelsDeleteExecute(r)
 }
 
@@ -75,7 +75,7 @@ func (a *LabelsApiService) DatacentersLabelsDelete(ctx _context.Context, datacen
 /*
  * Execute executes the request
  */
-func (a *LabelsApiService) DatacentersLabelsDeleteExecute(r ApiDatacentersLabelsDeleteRequest) (*common.APIResponse, error) {
+func (a *LabelsApiService) DatacentersLabelsDeleteExecute(r ApiDatacentersLabelsDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -86,7 +86,7 @@ func (a *LabelsApiService) DatacentersLabelsDeleteExecute(r ApiDatacentersLabels
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.DatacentersLabelsDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -128,7 +128,7 @@ func (a *LabelsApiService) DatacentersLabelsDeleteExecute(r ApiDatacentersLabels
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -147,7 +147,7 @@ func (a *LabelsApiService) DatacentersLabelsDeleteExecute(r ApiDatacentersLabels
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -167,7 +167,7 @@ func (a *LabelsApiService) DatacentersLabelsDeleteExecute(r ApiDatacentersLabels
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -207,7 +207,7 @@ func (r ApiDatacentersLabelsFindByKeyRequest) XContractNumber(xContractNumber in
 	return r
 }
 
-func (r ApiDatacentersLabelsFindByKeyRequest) Execute() (LabelResource, *common.APIResponse, error) {
+func (r ApiDatacentersLabelsFindByKeyRequest) Execute() (LabelResource, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersLabelsFindByKeyExecute(r)
 }
 
@@ -232,7 +232,7 @@ func (a *LabelsApiService) DatacentersLabelsFindByKey(ctx _context.Context, data
  * Execute executes the request
  * @return LabelResource
  */
-func (a *LabelsApiService) DatacentersLabelsFindByKeyExecute(r ApiDatacentersLabelsFindByKeyRequest) (LabelResource, *common.APIResponse, error) {
+func (a *LabelsApiService) DatacentersLabelsFindByKeyExecute(r ApiDatacentersLabelsFindByKeyRequest) (LabelResource, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -244,7 +244,7 @@ func (a *LabelsApiService) DatacentersLabelsFindByKeyExecute(r ApiDatacentersLab
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.DatacentersLabelsFindByKey")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -286,7 +286,7 @@ func (a *LabelsApiService) DatacentersLabelsFindByKeyExecute(r ApiDatacentersLab
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -305,7 +305,7 @@ func (a *LabelsApiService) DatacentersLabelsFindByKeyExecute(r ApiDatacentersLab
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -325,7 +325,7 @@ func (a *LabelsApiService) DatacentersLabelsFindByKeyExecute(r ApiDatacentersLab
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -341,7 +341,7 @@ func (a *LabelsApiService) DatacentersLabelsFindByKeyExecute(r ApiDatacentersLab
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -395,7 +395,7 @@ func (r ApiDatacentersLabelsGetRequest) MaxResults(maxResults int32) ApiDatacent
 	return r
 }
 
-func (r ApiDatacentersLabelsGetRequest) Execute() (LabelResources, *common.APIResponse, error) {
+func (r ApiDatacentersLabelsGetRequest) Execute() (LabelResources, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersLabelsGetExecute(r)
 }
 
@@ -419,7 +419,7 @@ func (a *LabelsApiService) DatacentersLabelsGet(ctx _context.Context, datacenter
  * Execute executes the request
  * @return LabelResources
  */
-func (a *LabelsApiService) DatacentersLabelsGetExecute(r ApiDatacentersLabelsGetRequest) (LabelResources, *common.APIResponse, error) {
+func (a *LabelsApiService) DatacentersLabelsGetExecute(r ApiDatacentersLabelsGetRequest) (LabelResources, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -431,7 +431,7 @@ func (a *LabelsApiService) DatacentersLabelsGetExecute(r ApiDatacentersLabelsGet
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.DatacentersLabelsGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -485,7 +485,7 @@ func (a *LabelsApiService) DatacentersLabelsGetExecute(r ApiDatacentersLabelsGet
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -504,7 +504,7 @@ func (a *LabelsApiService) DatacentersLabelsGetExecute(r ApiDatacentersLabelsGet
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -524,7 +524,7 @@ func (a *LabelsApiService) DatacentersLabelsGetExecute(r ApiDatacentersLabelsGet
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -540,7 +540,7 @@ func (a *LabelsApiService) DatacentersLabelsGetExecute(r ApiDatacentersLabelsGet
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -577,7 +577,7 @@ func (r ApiDatacentersLabelsPostRequest) XContractNumber(xContractNumber int32) 
 	return r
 }
 
-func (r ApiDatacentersLabelsPostRequest) Execute() (LabelResource, *common.APIResponse, error) {
+func (r ApiDatacentersLabelsPostRequest) Execute() (LabelResource, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersLabelsPostExecute(r)
 }
 
@@ -600,7 +600,7 @@ func (a *LabelsApiService) DatacentersLabelsPost(ctx _context.Context, datacente
  * Execute executes the request
  * @return LabelResource
  */
-func (a *LabelsApiService) DatacentersLabelsPostExecute(r ApiDatacentersLabelsPostRequest) (LabelResource, *common.APIResponse, error) {
+func (a *LabelsApiService) DatacentersLabelsPostExecute(r ApiDatacentersLabelsPostRequest) (LabelResource, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -612,7 +612,7 @@ func (a *LabelsApiService) DatacentersLabelsPostExecute(r ApiDatacentersLabelsPo
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.DatacentersLabelsPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -658,7 +658,7 @@ func (a *LabelsApiService) DatacentersLabelsPostExecute(r ApiDatacentersLabelsPo
 	localVarPostBody = r.label
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -677,7 +677,7 @@ func (a *LabelsApiService) DatacentersLabelsPostExecute(r ApiDatacentersLabelsPo
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -697,7 +697,7 @@ func (a *LabelsApiService) DatacentersLabelsPostExecute(r ApiDatacentersLabelsPo
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -713,7 +713,7 @@ func (a *LabelsApiService) DatacentersLabelsPostExecute(r ApiDatacentersLabelsPo
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -751,7 +751,7 @@ func (r ApiDatacentersLabelsPutRequest) XContractNumber(xContractNumber int32) A
 	return r
 }
 
-func (r ApiDatacentersLabelsPutRequest) Execute() (LabelResource, *common.APIResponse, error) {
+func (r ApiDatacentersLabelsPutRequest) Execute() (LabelResource, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersLabelsPutExecute(r)
 }
 
@@ -776,7 +776,7 @@ func (a *LabelsApiService) DatacentersLabelsPut(ctx _context.Context, datacenter
  * Execute executes the request
  * @return LabelResource
  */
-func (a *LabelsApiService) DatacentersLabelsPutExecute(r ApiDatacentersLabelsPutRequest) (LabelResource, *common.APIResponse, error) {
+func (a *LabelsApiService) DatacentersLabelsPutExecute(r ApiDatacentersLabelsPutRequest) (LabelResource, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -788,7 +788,7 @@ func (a *LabelsApiService) DatacentersLabelsPutExecute(r ApiDatacentersLabelsPut
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.DatacentersLabelsPut")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -835,7 +835,7 @@ func (a *LabelsApiService) DatacentersLabelsPutExecute(r ApiDatacentersLabelsPut
 	localVarPostBody = r.label
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -854,7 +854,7 @@ func (a *LabelsApiService) DatacentersLabelsPutExecute(r ApiDatacentersLabelsPut
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -874,7 +874,7 @@ func (a *LabelsApiService) DatacentersLabelsPutExecute(r ApiDatacentersLabelsPut
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -890,7 +890,7 @@ func (a *LabelsApiService) DatacentersLabelsPutExecute(r ApiDatacentersLabelsPut
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -924,7 +924,7 @@ func (r ApiDatacentersServersLabelsDeleteRequest) XContractNumber(xContractNumbe
 	return r
 }
 
-func (r ApiDatacentersServersLabelsDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiDatacentersServersLabelsDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersLabelsDeleteExecute(r)
 }
 
@@ -950,7 +950,7 @@ func (a *LabelsApiService) DatacentersServersLabelsDelete(ctx _context.Context, 
 /*
  * Execute executes the request
  */
-func (a *LabelsApiService) DatacentersServersLabelsDeleteExecute(r ApiDatacentersServersLabelsDeleteRequest) (*common.APIResponse, error) {
+func (a *LabelsApiService) DatacentersServersLabelsDeleteExecute(r ApiDatacentersServersLabelsDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -961,7 +961,7 @@ func (a *LabelsApiService) DatacentersServersLabelsDeleteExecute(r ApiDatacenter
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.DatacentersServersLabelsDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -1004,7 +1004,7 @@ func (a *LabelsApiService) DatacentersServersLabelsDeleteExecute(r ApiDatacenter
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1023,7 +1023,7 @@ func (a *LabelsApiService) DatacentersServersLabelsDeleteExecute(r ApiDatacenter
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1043,7 +1043,7 @@ func (a *LabelsApiService) DatacentersServersLabelsDeleteExecute(r ApiDatacenter
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1084,7 +1084,7 @@ func (r ApiDatacentersServersLabelsFindByKeyRequest) XContractNumber(xContractNu
 	return r
 }
 
-func (r ApiDatacentersServersLabelsFindByKeyRequest) Execute() (LabelResource, *common.APIResponse, error) {
+func (r ApiDatacentersServersLabelsFindByKeyRequest) Execute() (LabelResource, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersLabelsFindByKeyExecute(r)
 }
 
@@ -1111,7 +1111,7 @@ func (a *LabelsApiService) DatacentersServersLabelsFindByKey(ctx _context.Contex
  * Execute executes the request
  * @return LabelResource
  */
-func (a *LabelsApiService) DatacentersServersLabelsFindByKeyExecute(r ApiDatacentersServersLabelsFindByKeyRequest) (LabelResource, *common.APIResponse, error) {
+func (a *LabelsApiService) DatacentersServersLabelsFindByKeyExecute(r ApiDatacentersServersLabelsFindByKeyRequest) (LabelResource, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -1123,7 +1123,7 @@ func (a *LabelsApiService) DatacentersServersLabelsFindByKeyExecute(r ApiDatacen
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.DatacentersServersLabelsFindByKey")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1166,7 +1166,7 @@ func (a *LabelsApiService) DatacentersServersLabelsFindByKeyExecute(r ApiDatacen
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1185,7 +1185,7 @@ func (a *LabelsApiService) DatacentersServersLabelsFindByKeyExecute(r ApiDatacen
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1205,7 +1205,7 @@ func (a *LabelsApiService) DatacentersServersLabelsFindByKeyExecute(r ApiDatacen
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1221,7 +1221,7 @@ func (a *LabelsApiService) DatacentersServersLabelsFindByKeyExecute(r ApiDatacen
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1276,7 +1276,7 @@ func (r ApiDatacentersServersLabelsGetRequest) MaxResults(maxResults int32) ApiD
 	return r
 }
 
-func (r ApiDatacentersServersLabelsGetRequest) Execute() (LabelResources, *common.APIResponse, error) {
+func (r ApiDatacentersServersLabelsGetRequest) Execute() (LabelResources, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersLabelsGetExecute(r)
 }
 
@@ -1302,7 +1302,7 @@ func (a *LabelsApiService) DatacentersServersLabelsGet(ctx _context.Context, dat
  * Execute executes the request
  * @return LabelResources
  */
-func (a *LabelsApiService) DatacentersServersLabelsGetExecute(r ApiDatacentersServersLabelsGetRequest) (LabelResources, *common.APIResponse, error) {
+func (a *LabelsApiService) DatacentersServersLabelsGetExecute(r ApiDatacentersServersLabelsGetRequest) (LabelResources, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -1314,7 +1314,7 @@ func (a *LabelsApiService) DatacentersServersLabelsGetExecute(r ApiDatacentersSe
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.DatacentersServersLabelsGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1369,7 +1369,7 @@ func (a *LabelsApiService) DatacentersServersLabelsGetExecute(r ApiDatacentersSe
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1388,7 +1388,7 @@ func (a *LabelsApiService) DatacentersServersLabelsGetExecute(r ApiDatacentersSe
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1408,7 +1408,7 @@ func (a *LabelsApiService) DatacentersServersLabelsGetExecute(r ApiDatacentersSe
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1424,7 +1424,7 @@ func (a *LabelsApiService) DatacentersServersLabelsGetExecute(r ApiDatacentersSe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1462,7 +1462,7 @@ func (r ApiDatacentersServersLabelsPostRequest) XContractNumber(xContractNumber 
 	return r
 }
 
-func (r ApiDatacentersServersLabelsPostRequest) Execute() (LabelResource, *common.APIResponse, error) {
+func (r ApiDatacentersServersLabelsPostRequest) Execute() (LabelResource, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersLabelsPostExecute(r)
 }
 
@@ -1487,7 +1487,7 @@ func (a *LabelsApiService) DatacentersServersLabelsPost(ctx _context.Context, da
  * Execute executes the request
  * @return LabelResource
  */
-func (a *LabelsApiService) DatacentersServersLabelsPostExecute(r ApiDatacentersServersLabelsPostRequest) (LabelResource, *common.APIResponse, error) {
+func (a *LabelsApiService) DatacentersServersLabelsPostExecute(r ApiDatacentersServersLabelsPostRequest) (LabelResource, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -1499,7 +1499,7 @@ func (a *LabelsApiService) DatacentersServersLabelsPostExecute(r ApiDatacentersS
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.DatacentersServersLabelsPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1546,7 +1546,7 @@ func (a *LabelsApiService) DatacentersServersLabelsPostExecute(r ApiDatacentersS
 	localVarPostBody = r.label
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1565,7 +1565,7 @@ func (a *LabelsApiService) DatacentersServersLabelsPostExecute(r ApiDatacentersS
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1585,7 +1585,7 @@ func (a *LabelsApiService) DatacentersServersLabelsPostExecute(r ApiDatacentersS
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1601,7 +1601,7 @@ func (a *LabelsApiService) DatacentersServersLabelsPostExecute(r ApiDatacentersS
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1640,7 +1640,7 @@ func (r ApiDatacentersServersLabelsPutRequest) XContractNumber(xContractNumber i
 	return r
 }
 
-func (r ApiDatacentersServersLabelsPutRequest) Execute() (LabelResource, *common.APIResponse, error) {
+func (r ApiDatacentersServersLabelsPutRequest) Execute() (LabelResource, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersServersLabelsPutExecute(r)
 }
 
@@ -1667,7 +1667,7 @@ func (a *LabelsApiService) DatacentersServersLabelsPut(ctx _context.Context, dat
  * Execute executes the request
  * @return LabelResource
  */
-func (a *LabelsApiService) DatacentersServersLabelsPutExecute(r ApiDatacentersServersLabelsPutRequest) (LabelResource, *common.APIResponse, error) {
+func (a *LabelsApiService) DatacentersServersLabelsPutExecute(r ApiDatacentersServersLabelsPutRequest) (LabelResource, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -1679,7 +1679,7 @@ func (a *LabelsApiService) DatacentersServersLabelsPutExecute(r ApiDatacentersSe
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.DatacentersServersLabelsPut")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -1727,7 +1727,7 @@ func (a *LabelsApiService) DatacentersServersLabelsPutExecute(r ApiDatacentersSe
 	localVarPostBody = r.label
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1746,7 +1746,7 @@ func (a *LabelsApiService) DatacentersServersLabelsPutExecute(r ApiDatacentersSe
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1766,7 +1766,7 @@ func (a *LabelsApiService) DatacentersServersLabelsPutExecute(r ApiDatacentersSe
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1782,7 +1782,7 @@ func (a *LabelsApiService) DatacentersServersLabelsPutExecute(r ApiDatacentersSe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -1816,7 +1816,7 @@ func (r ApiDatacentersVolumesLabelsDeleteRequest) XContractNumber(xContractNumbe
 	return r
 }
 
-func (r ApiDatacentersVolumesLabelsDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiDatacentersVolumesLabelsDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.DatacentersVolumesLabelsDeleteExecute(r)
 }
 
@@ -1842,7 +1842,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsDelete(ctx _context.Context, 
 /*
  * Execute executes the request
  */
-func (a *LabelsApiService) DatacentersVolumesLabelsDeleteExecute(r ApiDatacentersVolumesLabelsDeleteRequest) (*common.APIResponse, error) {
+func (a *LabelsApiService) DatacentersVolumesLabelsDeleteExecute(r ApiDatacentersVolumesLabelsDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -1853,7 +1853,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsDeleteExecute(r ApiDatacenter
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.DatacentersVolumesLabelsDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -1896,7 +1896,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsDeleteExecute(r ApiDatacenter
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1915,7 +1915,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsDeleteExecute(r ApiDatacenter
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -1935,7 +1935,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsDeleteExecute(r ApiDatacenter
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -1976,7 +1976,7 @@ func (r ApiDatacentersVolumesLabelsFindByKeyRequest) XContractNumber(xContractNu
 	return r
 }
 
-func (r ApiDatacentersVolumesLabelsFindByKeyRequest) Execute() (LabelResource, *common.APIResponse, error) {
+func (r ApiDatacentersVolumesLabelsFindByKeyRequest) Execute() (LabelResource, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersVolumesLabelsFindByKeyExecute(r)
 }
 
@@ -2003,7 +2003,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsFindByKey(ctx _context.Contex
  * Execute executes the request
  * @return LabelResource
  */
-func (a *LabelsApiService) DatacentersVolumesLabelsFindByKeyExecute(r ApiDatacentersVolumesLabelsFindByKeyRequest) (LabelResource, *common.APIResponse, error) {
+func (a *LabelsApiService) DatacentersVolumesLabelsFindByKeyExecute(r ApiDatacentersVolumesLabelsFindByKeyRequest) (LabelResource, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -2015,7 +2015,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsFindByKeyExecute(r ApiDatacen
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.DatacentersVolumesLabelsFindByKey")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -2058,7 +2058,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsFindByKeyExecute(r ApiDatacen
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2077,7 +2077,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsFindByKeyExecute(r ApiDatacen
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2097,7 +2097,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsFindByKeyExecute(r ApiDatacen
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2113,7 +2113,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsFindByKeyExecute(r ApiDatacen
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -2168,7 +2168,7 @@ func (r ApiDatacentersVolumesLabelsGetRequest) MaxResults(maxResults int32) ApiD
 	return r
 }
 
-func (r ApiDatacentersVolumesLabelsGetRequest) Execute() (LabelResources, *common.APIResponse, error) {
+func (r ApiDatacentersVolumesLabelsGetRequest) Execute() (LabelResources, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersVolumesLabelsGetExecute(r)
 }
 
@@ -2194,7 +2194,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsGet(ctx _context.Context, dat
  * Execute executes the request
  * @return LabelResources
  */
-func (a *LabelsApiService) DatacentersVolumesLabelsGetExecute(r ApiDatacentersVolumesLabelsGetRequest) (LabelResources, *common.APIResponse, error) {
+func (a *LabelsApiService) DatacentersVolumesLabelsGetExecute(r ApiDatacentersVolumesLabelsGetRequest) (LabelResources, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -2206,7 +2206,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsGetExecute(r ApiDatacentersVo
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.DatacentersVolumesLabelsGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -2261,7 +2261,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsGetExecute(r ApiDatacentersVo
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2280,7 +2280,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsGetExecute(r ApiDatacentersVo
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2300,7 +2300,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsGetExecute(r ApiDatacentersVo
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2316,7 +2316,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsGetExecute(r ApiDatacentersVo
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -2354,7 +2354,7 @@ func (r ApiDatacentersVolumesLabelsPostRequest) XContractNumber(xContractNumber 
 	return r
 }
 
-func (r ApiDatacentersVolumesLabelsPostRequest) Execute() (LabelResource, *common.APIResponse, error) {
+func (r ApiDatacentersVolumesLabelsPostRequest) Execute() (LabelResource, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersVolumesLabelsPostExecute(r)
 }
 
@@ -2379,7 +2379,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsPost(ctx _context.Context, da
  * Execute executes the request
  * @return LabelResource
  */
-func (a *LabelsApiService) DatacentersVolumesLabelsPostExecute(r ApiDatacentersVolumesLabelsPostRequest) (LabelResource, *common.APIResponse, error) {
+func (a *LabelsApiService) DatacentersVolumesLabelsPostExecute(r ApiDatacentersVolumesLabelsPostRequest) (LabelResource, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -2391,7 +2391,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsPostExecute(r ApiDatacentersV
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.DatacentersVolumesLabelsPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -2438,7 +2438,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsPostExecute(r ApiDatacentersV
 	localVarPostBody = r.label
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2457,7 +2457,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsPostExecute(r ApiDatacentersV
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2477,7 +2477,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsPostExecute(r ApiDatacentersV
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2493,7 +2493,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsPostExecute(r ApiDatacentersV
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -2532,7 +2532,7 @@ func (r ApiDatacentersVolumesLabelsPutRequest) XContractNumber(xContractNumber i
 	return r
 }
 
-func (r ApiDatacentersVolumesLabelsPutRequest) Execute() (LabelResource, *common.APIResponse, error) {
+func (r ApiDatacentersVolumesLabelsPutRequest) Execute() (LabelResource, *shared.APIResponse, error) {
 	return r.ApiService.DatacentersVolumesLabelsPutExecute(r)
 }
 
@@ -2559,7 +2559,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsPut(ctx _context.Context, dat
  * Execute executes the request
  * @return LabelResource
  */
-func (a *LabelsApiService) DatacentersVolumesLabelsPutExecute(r ApiDatacentersVolumesLabelsPutRequest) (LabelResource, *common.APIResponse, error) {
+func (a *LabelsApiService) DatacentersVolumesLabelsPutExecute(r ApiDatacentersVolumesLabelsPutRequest) (LabelResource, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -2571,7 +2571,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsPutExecute(r ApiDatacentersVo
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.DatacentersVolumesLabelsPut")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -2619,7 +2619,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsPutExecute(r ApiDatacentersVo
 	localVarPostBody = r.label
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2638,7 +2638,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsPutExecute(r ApiDatacentersVo
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2658,7 +2658,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsPutExecute(r ApiDatacentersVo
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2674,7 +2674,7 @@ func (a *LabelsApiService) DatacentersVolumesLabelsPutExecute(r ApiDatacentersVo
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -2707,7 +2707,7 @@ func (r ApiIpblocksLabelsDeleteRequest) XContractNumber(xContractNumber int32) A
 	return r
 }
 
-func (r ApiIpblocksLabelsDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiIpblocksLabelsDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.IpblocksLabelsDeleteExecute(r)
 }
 
@@ -2731,7 +2731,7 @@ func (a *LabelsApiService) IpblocksLabelsDelete(ctx _context.Context, ipblockId 
 /*
  * Execute executes the request
  */
-func (a *LabelsApiService) IpblocksLabelsDeleteExecute(r ApiIpblocksLabelsDeleteRequest) (*common.APIResponse, error) {
+func (a *LabelsApiService) IpblocksLabelsDeleteExecute(r ApiIpblocksLabelsDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -2742,7 +2742,7 @@ func (a *LabelsApiService) IpblocksLabelsDeleteExecute(r ApiIpblocksLabelsDelete
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.IpblocksLabelsDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -2784,7 +2784,7 @@ func (a *LabelsApiService) IpblocksLabelsDeleteExecute(r ApiIpblocksLabelsDelete
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2803,7 +2803,7 @@ func (a *LabelsApiService) IpblocksLabelsDeleteExecute(r ApiIpblocksLabelsDelete
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2823,7 +2823,7 @@ func (a *LabelsApiService) IpblocksLabelsDeleteExecute(r ApiIpblocksLabelsDelete
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2863,7 +2863,7 @@ func (r ApiIpblocksLabelsFindByKeyRequest) XContractNumber(xContractNumber int32
 	return r
 }
 
-func (r ApiIpblocksLabelsFindByKeyRequest) Execute() (LabelResource, *common.APIResponse, error) {
+func (r ApiIpblocksLabelsFindByKeyRequest) Execute() (LabelResource, *shared.APIResponse, error) {
 	return r.ApiService.IpblocksLabelsFindByKeyExecute(r)
 }
 
@@ -2888,7 +2888,7 @@ func (a *LabelsApiService) IpblocksLabelsFindByKey(ctx _context.Context, ipblock
  * Execute executes the request
  * @return LabelResource
  */
-func (a *LabelsApiService) IpblocksLabelsFindByKeyExecute(r ApiIpblocksLabelsFindByKeyRequest) (LabelResource, *common.APIResponse, error) {
+func (a *LabelsApiService) IpblocksLabelsFindByKeyExecute(r ApiIpblocksLabelsFindByKeyRequest) (LabelResource, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -2900,7 +2900,7 @@ func (a *LabelsApiService) IpblocksLabelsFindByKeyExecute(r ApiIpblocksLabelsFin
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.IpblocksLabelsFindByKey")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -2942,7 +2942,7 @@ func (a *LabelsApiService) IpblocksLabelsFindByKeyExecute(r ApiIpblocksLabelsFin
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -2961,7 +2961,7 @@ func (a *LabelsApiService) IpblocksLabelsFindByKeyExecute(r ApiIpblocksLabelsFin
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -2981,7 +2981,7 @@ func (a *LabelsApiService) IpblocksLabelsFindByKeyExecute(r ApiIpblocksLabelsFin
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -2997,7 +2997,7 @@ func (a *LabelsApiService) IpblocksLabelsFindByKeyExecute(r ApiIpblocksLabelsFin
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -3051,7 +3051,7 @@ func (r ApiIpblocksLabelsGetRequest) MaxResults(maxResults int32) ApiIpblocksLab
 	return r
 }
 
-func (r ApiIpblocksLabelsGetRequest) Execute() (LabelResources, *common.APIResponse, error) {
+func (r ApiIpblocksLabelsGetRequest) Execute() (LabelResources, *shared.APIResponse, error) {
 	return r.ApiService.IpblocksLabelsGetExecute(r)
 }
 
@@ -3075,7 +3075,7 @@ func (a *LabelsApiService) IpblocksLabelsGet(ctx _context.Context, ipblockId str
  * Execute executes the request
  * @return LabelResources
  */
-func (a *LabelsApiService) IpblocksLabelsGetExecute(r ApiIpblocksLabelsGetRequest) (LabelResources, *common.APIResponse, error) {
+func (a *LabelsApiService) IpblocksLabelsGetExecute(r ApiIpblocksLabelsGetRequest) (LabelResources, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -3087,7 +3087,7 @@ func (a *LabelsApiService) IpblocksLabelsGetExecute(r ApiIpblocksLabelsGetReques
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.IpblocksLabelsGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -3141,7 +3141,7 @@ func (a *LabelsApiService) IpblocksLabelsGetExecute(r ApiIpblocksLabelsGetReques
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -3160,7 +3160,7 @@ func (a *LabelsApiService) IpblocksLabelsGetExecute(r ApiIpblocksLabelsGetReques
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -3180,7 +3180,7 @@ func (a *LabelsApiService) IpblocksLabelsGetExecute(r ApiIpblocksLabelsGetReques
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -3196,7 +3196,7 @@ func (a *LabelsApiService) IpblocksLabelsGetExecute(r ApiIpblocksLabelsGetReques
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -3233,7 +3233,7 @@ func (r ApiIpblocksLabelsPostRequest) XContractNumber(xContractNumber int32) Api
 	return r
 }
 
-func (r ApiIpblocksLabelsPostRequest) Execute() (LabelResource, *common.APIResponse, error) {
+func (r ApiIpblocksLabelsPostRequest) Execute() (LabelResource, *shared.APIResponse, error) {
 	return r.ApiService.IpblocksLabelsPostExecute(r)
 }
 
@@ -3256,7 +3256,7 @@ func (a *LabelsApiService) IpblocksLabelsPost(ctx _context.Context, ipblockId st
  * Execute executes the request
  * @return LabelResource
  */
-func (a *LabelsApiService) IpblocksLabelsPostExecute(r ApiIpblocksLabelsPostRequest) (LabelResource, *common.APIResponse, error) {
+func (a *LabelsApiService) IpblocksLabelsPostExecute(r ApiIpblocksLabelsPostRequest) (LabelResource, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -3268,7 +3268,7 @@ func (a *LabelsApiService) IpblocksLabelsPostExecute(r ApiIpblocksLabelsPostRequ
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.IpblocksLabelsPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -3314,7 +3314,7 @@ func (a *LabelsApiService) IpblocksLabelsPostExecute(r ApiIpblocksLabelsPostRequ
 	localVarPostBody = r.label
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -3333,7 +3333,7 @@ func (a *LabelsApiService) IpblocksLabelsPostExecute(r ApiIpblocksLabelsPostRequ
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -3353,7 +3353,7 @@ func (a *LabelsApiService) IpblocksLabelsPostExecute(r ApiIpblocksLabelsPostRequ
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -3369,7 +3369,7 @@ func (a *LabelsApiService) IpblocksLabelsPostExecute(r ApiIpblocksLabelsPostRequ
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -3407,7 +3407,7 @@ func (r ApiIpblocksLabelsPutRequest) XContractNumber(xContractNumber int32) ApiI
 	return r
 }
 
-func (r ApiIpblocksLabelsPutRequest) Execute() (LabelResource, *common.APIResponse, error) {
+func (r ApiIpblocksLabelsPutRequest) Execute() (LabelResource, *shared.APIResponse, error) {
 	return r.ApiService.IpblocksLabelsPutExecute(r)
 }
 
@@ -3432,7 +3432,7 @@ func (a *LabelsApiService) IpblocksLabelsPut(ctx _context.Context, ipblockId str
  * Execute executes the request
  * @return LabelResource
  */
-func (a *LabelsApiService) IpblocksLabelsPutExecute(r ApiIpblocksLabelsPutRequest) (LabelResource, *common.APIResponse, error) {
+func (a *LabelsApiService) IpblocksLabelsPutExecute(r ApiIpblocksLabelsPutRequest) (LabelResource, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -3444,7 +3444,7 @@ func (a *LabelsApiService) IpblocksLabelsPutExecute(r ApiIpblocksLabelsPutReques
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.IpblocksLabelsPut")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -3491,7 +3491,7 @@ func (a *LabelsApiService) IpblocksLabelsPutExecute(r ApiIpblocksLabelsPutReques
 	localVarPostBody = r.label
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -3510,7 +3510,7 @@ func (a *LabelsApiService) IpblocksLabelsPutExecute(r ApiIpblocksLabelsPutReques
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -3530,7 +3530,7 @@ func (a *LabelsApiService) IpblocksLabelsPutExecute(r ApiIpblocksLabelsPutReques
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -3546,7 +3546,7 @@ func (a *LabelsApiService) IpblocksLabelsPutExecute(r ApiIpblocksLabelsPutReques
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -3578,7 +3578,7 @@ func (r ApiLabelsFindByUrnRequest) XContractNumber(xContractNumber int32) ApiLab
 	return r
 }
 
-func (r ApiLabelsFindByUrnRequest) Execute() (Label, *common.APIResponse, error) {
+func (r ApiLabelsFindByUrnRequest) Execute() (Label, *shared.APIResponse, error) {
 	return r.ApiService.LabelsFindByUrnExecute(r)
 }
 
@@ -3605,7 +3605,7 @@ func (a *LabelsApiService) LabelsFindByUrn(ctx _context.Context, labelurn string
  * Execute executes the request
  * @return Label
  */
-func (a *LabelsApiService) LabelsFindByUrnExecute(r ApiLabelsFindByUrnRequest) (Label, *common.APIResponse, error) {
+func (a *LabelsApiService) LabelsFindByUrnExecute(r ApiLabelsFindByUrnRequest) (Label, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -3617,7 +3617,7 @@ func (a *LabelsApiService) LabelsFindByUrnExecute(r ApiLabelsFindByUrnRequest) (
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.LabelsFindByUrn")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -3658,7 +3658,7 @@ func (a *LabelsApiService) LabelsFindByUrnExecute(r ApiLabelsFindByUrnRequest) (
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -3677,7 +3677,7 @@ func (a *LabelsApiService) LabelsFindByUrnExecute(r ApiLabelsFindByUrnRequest) (
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -3697,7 +3697,7 @@ func (a *LabelsApiService) LabelsFindByUrnExecute(r ApiLabelsFindByUrnRequest) (
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -3713,7 +3713,7 @@ func (a *LabelsApiService) LabelsFindByUrnExecute(r ApiLabelsFindByUrnRequest) (
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -3766,7 +3766,7 @@ func (r ApiLabelsGetRequest) MaxResults(maxResults int32) ApiLabelsGetRequest {
 	return r
 }
 
-func (r ApiLabelsGetRequest) Execute() (Labels, *common.APIResponse, error) {
+func (r ApiLabelsGetRequest) Execute() (Labels, *shared.APIResponse, error) {
 	return r.ApiService.LabelsGetExecute(r)
 }
 
@@ -3788,7 +3788,7 @@ func (a *LabelsApiService) LabelsGet(ctx _context.Context) ApiLabelsGetRequest {
  * Execute executes the request
  * @return Labels
  */
-func (a *LabelsApiService) LabelsGetExecute(r ApiLabelsGetRequest) (Labels, *common.APIResponse, error) {
+func (a *LabelsApiService) LabelsGetExecute(r ApiLabelsGetRequest) (Labels, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -3800,7 +3800,7 @@ func (a *LabelsApiService) LabelsGetExecute(r ApiLabelsGetRequest) (Labels, *com
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.LabelsGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -3853,7 +3853,7 @@ func (a *LabelsApiService) LabelsGetExecute(r ApiLabelsGetRequest) (Labels, *com
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -3872,7 +3872,7 @@ func (a *LabelsApiService) LabelsGetExecute(r ApiLabelsGetRequest) (Labels, *com
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -3892,7 +3892,7 @@ func (a *LabelsApiService) LabelsGetExecute(r ApiLabelsGetRequest) (Labels, *com
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -3908,7 +3908,7 @@ func (a *LabelsApiService) LabelsGetExecute(r ApiLabelsGetRequest) (Labels, *com
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -3941,7 +3941,7 @@ func (r ApiSnapshotsLabelsDeleteRequest) XContractNumber(xContractNumber int32) 
 	return r
 }
 
-func (r ApiSnapshotsLabelsDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiSnapshotsLabelsDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.SnapshotsLabelsDeleteExecute(r)
 }
 
@@ -3965,7 +3965,7 @@ func (a *LabelsApiService) SnapshotsLabelsDelete(ctx _context.Context, snapshotI
 /*
  * Execute executes the request
  */
-func (a *LabelsApiService) SnapshotsLabelsDeleteExecute(r ApiSnapshotsLabelsDeleteRequest) (*common.APIResponse, error) {
+func (a *LabelsApiService) SnapshotsLabelsDeleteExecute(r ApiSnapshotsLabelsDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -3976,7 +3976,7 @@ func (a *LabelsApiService) SnapshotsLabelsDeleteExecute(r ApiSnapshotsLabelsDele
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.SnapshotsLabelsDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -4018,7 +4018,7 @@ func (a *LabelsApiService) SnapshotsLabelsDeleteExecute(r ApiSnapshotsLabelsDele
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -4037,7 +4037,7 @@ func (a *LabelsApiService) SnapshotsLabelsDeleteExecute(r ApiSnapshotsLabelsDele
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -4057,7 +4057,7 @@ func (a *LabelsApiService) SnapshotsLabelsDeleteExecute(r ApiSnapshotsLabelsDele
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -4097,7 +4097,7 @@ func (r ApiSnapshotsLabelsFindByKeyRequest) XContractNumber(xContractNumber int3
 	return r
 }
 
-func (r ApiSnapshotsLabelsFindByKeyRequest) Execute() (LabelResource, *common.APIResponse, error) {
+func (r ApiSnapshotsLabelsFindByKeyRequest) Execute() (LabelResource, *shared.APIResponse, error) {
 	return r.ApiService.SnapshotsLabelsFindByKeyExecute(r)
 }
 
@@ -4122,7 +4122,7 @@ func (a *LabelsApiService) SnapshotsLabelsFindByKey(ctx _context.Context, snapsh
  * Execute executes the request
  * @return LabelResource
  */
-func (a *LabelsApiService) SnapshotsLabelsFindByKeyExecute(r ApiSnapshotsLabelsFindByKeyRequest) (LabelResource, *common.APIResponse, error) {
+func (a *LabelsApiService) SnapshotsLabelsFindByKeyExecute(r ApiSnapshotsLabelsFindByKeyRequest) (LabelResource, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -4134,7 +4134,7 @@ func (a *LabelsApiService) SnapshotsLabelsFindByKeyExecute(r ApiSnapshotsLabelsF
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.SnapshotsLabelsFindByKey")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -4176,7 +4176,7 @@ func (a *LabelsApiService) SnapshotsLabelsFindByKeyExecute(r ApiSnapshotsLabelsF
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -4195,7 +4195,7 @@ func (a *LabelsApiService) SnapshotsLabelsFindByKeyExecute(r ApiSnapshotsLabelsF
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -4215,7 +4215,7 @@ func (a *LabelsApiService) SnapshotsLabelsFindByKeyExecute(r ApiSnapshotsLabelsF
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -4231,7 +4231,7 @@ func (a *LabelsApiService) SnapshotsLabelsFindByKeyExecute(r ApiSnapshotsLabelsF
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -4285,7 +4285,7 @@ func (r ApiSnapshotsLabelsGetRequest) MaxResults(maxResults int32) ApiSnapshotsL
 	return r
 }
 
-func (r ApiSnapshotsLabelsGetRequest) Execute() (LabelResources, *common.APIResponse, error) {
+func (r ApiSnapshotsLabelsGetRequest) Execute() (LabelResources, *shared.APIResponse, error) {
 	return r.ApiService.SnapshotsLabelsGetExecute(r)
 }
 
@@ -4309,7 +4309,7 @@ func (a *LabelsApiService) SnapshotsLabelsGet(ctx _context.Context, snapshotId s
  * Execute executes the request
  * @return LabelResources
  */
-func (a *LabelsApiService) SnapshotsLabelsGetExecute(r ApiSnapshotsLabelsGetRequest) (LabelResources, *common.APIResponse, error) {
+func (a *LabelsApiService) SnapshotsLabelsGetExecute(r ApiSnapshotsLabelsGetRequest) (LabelResources, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -4321,7 +4321,7 @@ func (a *LabelsApiService) SnapshotsLabelsGetExecute(r ApiSnapshotsLabelsGetRequ
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.SnapshotsLabelsGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -4375,7 +4375,7 @@ func (a *LabelsApiService) SnapshotsLabelsGetExecute(r ApiSnapshotsLabelsGetRequ
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -4394,7 +4394,7 @@ func (a *LabelsApiService) SnapshotsLabelsGetExecute(r ApiSnapshotsLabelsGetRequ
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -4414,7 +4414,7 @@ func (a *LabelsApiService) SnapshotsLabelsGetExecute(r ApiSnapshotsLabelsGetRequ
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -4430,7 +4430,7 @@ func (a *LabelsApiService) SnapshotsLabelsGetExecute(r ApiSnapshotsLabelsGetRequ
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -4467,7 +4467,7 @@ func (r ApiSnapshotsLabelsPostRequest) XContractNumber(xContractNumber int32) Ap
 	return r
 }
 
-func (r ApiSnapshotsLabelsPostRequest) Execute() (LabelResource, *common.APIResponse, error) {
+func (r ApiSnapshotsLabelsPostRequest) Execute() (LabelResource, *shared.APIResponse, error) {
 	return r.ApiService.SnapshotsLabelsPostExecute(r)
 }
 
@@ -4490,7 +4490,7 @@ func (a *LabelsApiService) SnapshotsLabelsPost(ctx _context.Context, snapshotId 
  * Execute executes the request
  * @return LabelResource
  */
-func (a *LabelsApiService) SnapshotsLabelsPostExecute(r ApiSnapshotsLabelsPostRequest) (LabelResource, *common.APIResponse, error) {
+func (a *LabelsApiService) SnapshotsLabelsPostExecute(r ApiSnapshotsLabelsPostRequest) (LabelResource, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -4502,7 +4502,7 @@ func (a *LabelsApiService) SnapshotsLabelsPostExecute(r ApiSnapshotsLabelsPostRe
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.SnapshotsLabelsPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -4548,7 +4548,7 @@ func (a *LabelsApiService) SnapshotsLabelsPostExecute(r ApiSnapshotsLabelsPostRe
 	localVarPostBody = r.label
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -4567,7 +4567,7 @@ func (a *LabelsApiService) SnapshotsLabelsPostExecute(r ApiSnapshotsLabelsPostRe
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -4587,7 +4587,7 @@ func (a *LabelsApiService) SnapshotsLabelsPostExecute(r ApiSnapshotsLabelsPostRe
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -4603,7 +4603,7 @@ func (a *LabelsApiService) SnapshotsLabelsPostExecute(r ApiSnapshotsLabelsPostRe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -4641,7 +4641,7 @@ func (r ApiSnapshotsLabelsPutRequest) XContractNumber(xContractNumber int32) Api
 	return r
 }
 
-func (r ApiSnapshotsLabelsPutRequest) Execute() (LabelResource, *common.APIResponse, error) {
+func (r ApiSnapshotsLabelsPutRequest) Execute() (LabelResource, *shared.APIResponse, error) {
 	return r.ApiService.SnapshotsLabelsPutExecute(r)
 }
 
@@ -4666,7 +4666,7 @@ func (a *LabelsApiService) SnapshotsLabelsPut(ctx _context.Context, snapshotId s
  * Execute executes the request
  * @return LabelResource
  */
-func (a *LabelsApiService) SnapshotsLabelsPutExecute(r ApiSnapshotsLabelsPutRequest) (LabelResource, *common.APIResponse, error) {
+func (a *LabelsApiService) SnapshotsLabelsPutExecute(r ApiSnapshotsLabelsPutRequest) (LabelResource, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -4678,7 +4678,7 @@ func (a *LabelsApiService) SnapshotsLabelsPutExecute(r ApiSnapshotsLabelsPutRequ
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelsApiService.SnapshotsLabelsPut")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -4725,7 +4725,7 @@ func (a *LabelsApiService) SnapshotsLabelsPutExecute(r ApiSnapshotsLabelsPutRequ
 	localVarPostBody = r.label
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["Token Authentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -4744,7 +4744,7 @@ func (a *LabelsApiService) SnapshotsLabelsPutExecute(r ApiSnapshotsLabelsPutRequ
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -4764,7 +4764,7 @@ func (a *LabelsApiService) SnapshotsLabelsPutExecute(r ApiSnapshotsLabelsPutRequ
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -4780,7 +4780,7 @@ func (a *LabelsApiService) SnapshotsLabelsPutExecute(r ApiSnapshotsLabelsPutRequ
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
