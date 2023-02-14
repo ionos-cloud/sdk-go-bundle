@@ -13,7 +13,7 @@ package cert
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -34,7 +34,7 @@ type ApiCertificatesDeleteRequest struct {
 	certificateId string
 }
 
-func (r ApiCertificatesDeleteRequest) Execute() (*common.APIResponse, error) {
+func (r ApiCertificatesDeleteRequest) Execute() (*shared.APIResponse, error) {
 	return r.ApiService.CertificatesDeleteExecute(r)
 }
 
@@ -56,7 +56,7 @@ func (a *CertificatesApiService) CertificatesDelete(ctx _context.Context, certif
 /*
  * Execute executes the request
  */
-func (a *CertificatesApiService) CertificatesDeleteExecute(r ApiCertificatesDeleteRequest) (*common.APIResponse, error) {
+func (a *CertificatesApiService) CertificatesDeleteExecute(r ApiCertificatesDeleteRequest) (*shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -67,7 +67,7 @@ func (a *CertificatesApiService) CertificatesDeleteExecute(r ApiCertificatesDele
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CertificatesApiService.CertificatesDelete")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return nil, gerr
 	}
@@ -98,7 +98,7 @@ func (a *CertificatesApiService) CertificatesDeleteExecute(r ApiCertificatesDele
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["tokenAuth"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -117,7 +117,7 @@ func (a *CertificatesApiService) CertificatesDeleteExecute(r ApiCertificatesDele
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -137,7 +137,7 @@ func (a *CertificatesApiService) CertificatesDeleteExecute(r ApiCertificatesDele
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -163,7 +163,7 @@ func (r ApiCertificatesGetRequest) Limit(limit string) ApiCertificatesGetRequest
 	return r
 }
 
-func (r ApiCertificatesGetRequest) Execute() (CertificateCollectionDto, *common.APIResponse, error) {
+func (r ApiCertificatesGetRequest) Execute() (CertificateCollectionDto, *shared.APIResponse, error) {
 	return r.ApiService.CertificatesGetExecute(r)
 }
 
@@ -184,7 +184,7 @@ func (a *CertificatesApiService) CertificatesGet(ctx _context.Context) ApiCertif
  * Execute executes the request
  * @return CertificateCollectionDto
  */
-func (a *CertificatesApiService) CertificatesGetExecute(r ApiCertificatesGetRequest) (CertificateCollectionDto, *common.APIResponse, error) {
+func (a *CertificatesApiService) CertificatesGetExecute(r ApiCertificatesGetRequest) (CertificateCollectionDto, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -196,7 +196,7 @@ func (a *CertificatesApiService) CertificatesGetExecute(r ApiCertificatesGetRequ
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CertificatesApiService.CertificatesGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -232,7 +232,7 @@ func (a *CertificatesApiService) CertificatesGetExecute(r ApiCertificatesGetRequ
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["tokenAuth"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -251,7 +251,7 @@ func (a *CertificatesApiService) CertificatesGetExecute(r ApiCertificatesGetRequ
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -271,7 +271,7 @@ func (a *CertificatesApiService) CertificatesGetExecute(r ApiCertificatesGetRequ
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -280,7 +280,7 @@ func (a *CertificatesApiService) CertificatesGetExecute(r ApiCertificatesGetRequ
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -296,7 +296,7 @@ type ApiCertificatesGetByIdRequest struct {
 	certificateId string
 }
 
-func (r ApiCertificatesGetByIdRequest) Execute() (CertificateDto, *common.APIResponse, error) {
+func (r ApiCertificatesGetByIdRequest) Execute() (CertificateDto, *shared.APIResponse, error) {
 	return r.ApiService.CertificatesGetByIdExecute(r)
 }
 
@@ -319,7 +319,7 @@ func (a *CertificatesApiService) CertificatesGetById(ctx _context.Context, certi
  * Execute executes the request
  * @return CertificateDto
  */
-func (a *CertificatesApiService) CertificatesGetByIdExecute(r ApiCertificatesGetByIdRequest) (CertificateDto, *common.APIResponse, error) {
+func (a *CertificatesApiService) CertificatesGetByIdExecute(r ApiCertificatesGetByIdRequest) (CertificateDto, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -331,7 +331,7 @@ func (a *CertificatesApiService) CertificatesGetByIdExecute(r ApiCertificatesGet
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CertificatesApiService.CertificatesGetById")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -362,7 +362,7 @@ func (a *CertificatesApiService) CertificatesGetByIdExecute(r ApiCertificatesGet
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["tokenAuth"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -381,7 +381,7 @@ func (a *CertificatesApiService) CertificatesGetByIdExecute(r ApiCertificatesGet
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -401,7 +401,7 @@ func (a *CertificatesApiService) CertificatesGetByIdExecute(r ApiCertificatesGet
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -410,7 +410,7 @@ func (a *CertificatesApiService) CertificatesGetByIdExecute(r ApiCertificatesGet
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -432,7 +432,7 @@ func (r ApiCertificatesPatchRequest) CertificatePatchDto(certificatePatchDto Cer
 	return r
 }
 
-func (r ApiCertificatesPatchRequest) Execute() (CertificateDto, *common.APIResponse, error) {
+func (r ApiCertificatesPatchRequest) Execute() (CertificateDto, *shared.APIResponse, error) {
 	return r.ApiService.CertificatesPatchExecute(r)
 }
 
@@ -455,7 +455,7 @@ func (a *CertificatesApiService) CertificatesPatch(ctx _context.Context, certifi
  * Execute executes the request
  * @return CertificateDto
  */
-func (a *CertificatesApiService) CertificatesPatchExecute(r ApiCertificatesPatchRequest) (CertificateDto, *common.APIResponse, error) {
+func (a *CertificatesApiService) CertificatesPatchExecute(r ApiCertificatesPatchRequest) (CertificateDto, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPatch
 		localVarPostBody     interface{}
@@ -467,7 +467,7 @@ func (a *CertificatesApiService) CertificatesPatchExecute(r ApiCertificatesPatch
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CertificatesApiService.CertificatesPatch")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -503,7 +503,7 @@ func (a *CertificatesApiService) CertificatesPatchExecute(r ApiCertificatesPatch
 	localVarPostBody = r.certificatePatchDto
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["tokenAuth"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -522,7 +522,7 @@ func (a *CertificatesApiService) CertificatesPatchExecute(r ApiCertificatesPatch
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -542,7 +542,7 @@ func (a *CertificatesApiService) CertificatesPatchExecute(r ApiCertificatesPatch
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -551,7 +551,7 @@ func (a *CertificatesApiService) CertificatesPatchExecute(r ApiCertificatesPatch
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -572,7 +572,7 @@ func (r ApiCertificatesPostRequest) CertificatePostDto(certificatePostDto Certif
 	return r
 }
 
-func (r ApiCertificatesPostRequest) Execute() (CertificateDto, *common.APIResponse, error) {
+func (r ApiCertificatesPostRequest) Execute() (CertificateDto, *shared.APIResponse, error) {
 	return r.ApiService.CertificatesPostExecute(r)
 }
 
@@ -593,7 +593,7 @@ func (a *CertificatesApiService) CertificatesPost(ctx _context.Context) ApiCerti
  * Execute executes the request
  * @return CertificateDto
  */
-func (a *CertificatesApiService) CertificatesPostExecute(r ApiCertificatesPostRequest) (CertificateDto, *common.APIResponse, error) {
+func (a *CertificatesApiService) CertificatesPostExecute(r ApiCertificatesPostRequest) (CertificateDto, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -605,7 +605,7 @@ func (a *CertificatesApiService) CertificatesPostExecute(r ApiCertificatesPostRe
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CertificatesApiService.CertificatesPost")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -640,7 +640,7 @@ func (a *CertificatesApiService) CertificatesPostExecute(r ApiCertificatesPostRe
 	localVarPostBody = r.certificatePostDto
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["tokenAuth"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -659,7 +659,7 @@ func (a *CertificatesApiService) CertificatesPostExecute(r ApiCertificatesPostRe
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -679,7 +679,7 @@ func (a *CertificatesApiService) CertificatesPostExecute(r ApiCertificatesPostRe
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -688,7 +688,7 @@ func (a *CertificatesApiService) CertificatesPostExecute(r ApiCertificatesPostRe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())

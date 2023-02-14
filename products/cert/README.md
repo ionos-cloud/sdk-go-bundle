@@ -57,13 +57,13 @@ Example
 import (
 	"context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	cert "github.com/ionos-cloud/sdk-go-bundle/products/cert"
 	"log"
 )
 
 func basicAuthExample() error {
-	cfg := common.NewConfiguration("username_here", "pwd_here", "", "")
+	cfg := shared.NewConfiguration("username_here", "pwd_here", "", "")
 	cfg.LogLevel = Trace
 	apiClient := cert.NewAPIClient(cfg)
 	return nil
@@ -78,7 +78,7 @@ There are 2 ways to generate your token:
         "context"
         "fmt"
         "github.com/ionos-cloud/sdk-go-bundle/products/auth"
-        "github.com/ionos-cloud/sdk-go-bundle/common"
+        "github.com/ionos-cloud/sdk-go-bundle/shared"
         cert "github.com/ionos-cloud/sdk-go-bundle/products/cert"
         "log"
     )
@@ -93,7 +93,7 @@ There are 2 ways to generate your token:
         if !jwt.HasToken() {
             return fmt.Errorf("could not generate token")
         }
-        cfg := common.NewConfiguration("", "", *jwt.GetToken(), "")
+        cfg := shared.NewConfiguration("", "", *jwt.GetToken(), "")
         cfg.LogLevel = Trace
         apiClient := cert.NewAPIClient(cfg)
         return nil
@@ -172,14 +172,14 @@ package main
 
     import (
         cert "github.com/ionos-cloud/sdk-go-bundle/products/cert"
-        "github.com/ionos-cloud/sdk-go-bundle/common"
+        "github.com/ionos-cloud/sdk-go-bundle/shared"
         "github.com/sirupsen/logrus"
     )
 
 func main() {
     // create your configuration. replace username, password, token and url with correct values, or use NewConfigurationFromEnv()
     // if you have set your env variables as explained above
-    cfg := common.NewConfiguration("username", "password", "token", "hostUrl")
+    cfg := shared.NewConfiguration("username", "password", "token", "hostUrl")
     // enable request and response logging. this is the most verbose loglevel
     cfg.LogLevel = Trace
     // inject your own logger that implements Printf

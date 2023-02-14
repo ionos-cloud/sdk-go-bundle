@@ -13,7 +13,7 @@ package cert
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -33,7 +33,7 @@ type ApiGetInfoRequest struct {
 	ApiService *InformationApiService
 }
 
-func (r ApiGetInfoRequest) Execute() (ApiInfoDto, *common.APIResponse, error) {
+func (r ApiGetInfoRequest) Execute() (ApiInfoDto, *shared.APIResponse, error) {
 	return r.ApiService.GetInfoExecute(r)
 }
 
@@ -54,7 +54,7 @@ func (a *InformationApiService) GetInfo(ctx _context.Context) ApiGetInfoRequest 
  * Execute executes the request
  * @return ApiInfoDto
  */
-func (a *InformationApiService) GetInfoExecute(r ApiGetInfoRequest) (ApiInfoDto, *common.APIResponse, error) {
+func (a *InformationApiService) GetInfoExecute(r ApiGetInfoRequest) (ApiInfoDto, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -66,7 +66,7 @@ func (a *InformationApiService) GetInfoExecute(r ApiGetInfoRequest) (ApiInfoDto,
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InformationApiService.GetInfo")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -96,7 +96,7 @@ func (a *InformationApiService) GetInfoExecute(r ApiGetInfoRequest) (ApiInfoDto,
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["tokenAuth"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -115,7 +115,7 @@ func (a *InformationApiService) GetInfoExecute(r ApiGetInfoRequest) (ApiInfoDto,
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -135,7 +135,7 @@ func (a *InformationApiService) GetInfoExecute(r ApiGetInfoRequest) (ApiInfoDto,
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -144,7 +144,7 @@ func (a *InformationApiService) GetInfoExecute(r ApiGetInfoRequest) (ApiInfoDto,
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -159,7 +159,7 @@ type ApiGetJsonOpenApiSpecRequest struct {
 	ApiService *InformationApiService
 }
 
-func (r ApiGetJsonOpenApiSpecRequest) Execute() (*os.File, *common.APIResponse, error) {
+func (r ApiGetJsonOpenApiSpecRequest) Execute() (*os.File, *shared.APIResponse, error) {
 	return r.ApiService.GetJsonOpenApiSpecExecute(r)
 }
 
@@ -180,7 +180,7 @@ func (a *InformationApiService) GetJsonOpenApiSpec(ctx _context.Context) ApiGetJ
  * Execute executes the request
  * @return *os.File
  */
-func (a *InformationApiService) GetJsonOpenApiSpecExecute(r ApiGetJsonOpenApiSpecRequest) (*os.File, *common.APIResponse, error) {
+func (a *InformationApiService) GetJsonOpenApiSpecExecute(r ApiGetJsonOpenApiSpecRequest) (*os.File, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -192,7 +192,7 @@ func (a *InformationApiService) GetJsonOpenApiSpecExecute(r ApiGetJsonOpenApiSpe
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InformationApiService.GetJsonOpenApiSpec")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -222,7 +222,7 @@ func (a *InformationApiService) GetJsonOpenApiSpecExecute(r ApiGetJsonOpenApiSpe
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["tokenAuth"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -241,7 +241,7 @@ func (a *InformationApiService) GetJsonOpenApiSpecExecute(r ApiGetJsonOpenApiSpe
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -261,7 +261,7 @@ func (a *InformationApiService) GetJsonOpenApiSpecExecute(r ApiGetJsonOpenApiSpe
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -270,7 +270,7 @@ func (a *InformationApiService) GetJsonOpenApiSpecExecute(r ApiGetJsonOpenApiSpe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -285,7 +285,7 @@ type ApiGetYamlOpenApiSpecRequest struct {
 	ApiService *InformationApiService
 }
 
-func (r ApiGetYamlOpenApiSpecRequest) Execute() (*os.File, *common.APIResponse, error) {
+func (r ApiGetYamlOpenApiSpecRequest) Execute() (*os.File, *shared.APIResponse, error) {
 	return r.ApiService.GetYamlOpenApiSpecExecute(r)
 }
 
@@ -306,7 +306,7 @@ func (a *InformationApiService) GetYamlOpenApiSpec(ctx _context.Context) ApiGetY
  * Execute executes the request
  * @return *os.File
  */
-func (a *InformationApiService) GetYamlOpenApiSpecExecute(r ApiGetYamlOpenApiSpecRequest) (*os.File, *common.APIResponse, error) {
+func (a *InformationApiService) GetYamlOpenApiSpecExecute(r ApiGetYamlOpenApiSpecRequest) (*os.File, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -318,7 +318,7 @@ func (a *InformationApiService) GetYamlOpenApiSpecExecute(r ApiGetYamlOpenApiSpe
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InformationApiService.GetYamlOpenApiSpec")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -348,7 +348,7 @@ func (a *InformationApiService) GetYamlOpenApiSpecExecute(r ApiGetYamlOpenApiSpe
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["tokenAuth"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -367,7 +367,7 @@ func (a *InformationApiService) GetYamlOpenApiSpecExecute(r ApiGetYamlOpenApiSpe
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -387,7 +387,7 @@ func (a *InformationApiService) GetYamlOpenApiSpecExecute(r ApiGetYamlOpenApiSpe
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -396,7 +396,7 @@ func (a *InformationApiService) GetYamlOpenApiSpecExecute(r ApiGetYamlOpenApiSpe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
