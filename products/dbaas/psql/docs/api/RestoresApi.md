@@ -31,14 +31,14 @@ import (
     "os"
 
     psql "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/psql"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
     clusterId := "clusterId_example" // string | The unique ID of the cluster.
     createRestoreRequest := *openapiclient.NewCreateRestoreRequest("dcd31531-3ac8-11eb-9feb-046c59cc737e") // CreateRestoreRequest | The restore request to create.
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := psql.NewAPIClient(configuration)
     resource, resp, err := apiClient.RestoresApi.ClusterRestorePost(context.Background(), clusterId).CreateRestoreRequest(createRestoreRequest).Execute()
     if err != nil {
@@ -63,7 +63,7 @@ Other parameters are passed through a pointer to an apiClusterRestorePostRequest
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **createRestoreRequest** | [**CreateRestoreRequest**](CreateRestoreRequest.md) | The restore request to create. | |
+| **createRestoreRequest** | [**CreateRestoreRequest**](../models/CreateRestoreRequest.md) | The restore request to create. | |
 
 ### Return type
 

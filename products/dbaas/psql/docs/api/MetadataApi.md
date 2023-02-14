@@ -31,12 +31,12 @@ import (
     "os"
 
     psql "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/psql"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := psql.NewAPIClient(configuration)
     resource, resp, err := apiClient.MetadataApi.InfosVersionGet(context.Background()).Execute()
     if err != nil {
@@ -59,7 +59,7 @@ Other parameters are passed through a pointer to an apiInfosVersionGetRequest st
 
 ### Return type
 
-[**APIVersion**](APIVersion.md)
+[**APIVersion**](../models/APIVersion.md)
 
 ### HTTP request headers
 
@@ -90,12 +90,12 @@ import (
     "os"
 
     psql "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/psql"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := psql.NewAPIClient(configuration)
     resource, resp, err := apiClient.MetadataApi.InfosVersionsGet(context.Background()).Execute()
     if err != nil {
@@ -118,7 +118,7 @@ Other parameters are passed through a pointer to an apiInfosVersionsGetRequest s
 
 ### Return type
 
-[**[]APIVersion**](APIVersion.md)
+[**[]APIVersion**](../models/APIVersion.md)
 
 ### HTTP request headers
 

@@ -13,7 +13,7 @@ package psql
 import (
 	_context "context"
 	"fmt"
-	"github.com/ionos-cloud/sdk-go-bundle/common"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -32,7 +32,7 @@ type ApiInfosVersionGetRequest struct {
 	ApiService *MetadataApiService
 }
 
-func (r ApiInfosVersionGetRequest) Execute() (APIVersion, *common.APIResponse, error) {
+func (r ApiInfosVersionGetRequest) Execute() (APIVersion, *shared.APIResponse, error) {
 	return r.ApiService.InfosVersionGetExecute(r)
 }
 
@@ -53,7 +53,7 @@ func (a *MetadataApiService) InfosVersionGet(ctx _context.Context) ApiInfosVersi
  * Execute executes the request
  * @return APIVersion
  */
-func (a *MetadataApiService) InfosVersionGetExecute(r ApiInfosVersionGetRequest) (APIVersion, *common.APIResponse, error) {
+func (a *MetadataApiService) InfosVersionGetExecute(r ApiInfosVersionGetRequest) (APIVersion, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -65,7 +65,7 @@ func (a *MetadataApiService) InfosVersionGetExecute(r ApiInfosVersionGetRequest)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MetadataApiService.InfosVersionGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -95,7 +95,7 @@ func (a *MetadataApiService) InfosVersionGetExecute(r ApiInfosVersionGetRequest)
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["tokenAuth"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -114,7 +114,7 @@ func (a *MetadataApiService) InfosVersionGetExecute(r ApiInfosVersionGetRequest)
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -134,7 +134,7 @@ func (a *MetadataApiService) InfosVersionGetExecute(r ApiInfosVersionGetRequest)
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -150,7 +150,7 @@ func (a *MetadataApiService) InfosVersionGetExecute(r ApiInfosVersionGetRequest)
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())
@@ -165,7 +165,7 @@ type ApiInfosVersionsGetRequest struct {
 	ApiService *MetadataApiService
 }
 
-func (r ApiInfosVersionsGetRequest) Execute() ([]APIVersion, *common.APIResponse, error) {
+func (r ApiInfosVersionsGetRequest) Execute() ([]APIVersion, *shared.APIResponse, error) {
 	return r.ApiService.InfosVersionsGetExecute(r)
 }
 
@@ -186,7 +186,7 @@ func (a *MetadataApiService) InfosVersionsGet(ctx _context.Context) ApiInfosVers
  * Execute executes the request
  * @return []APIVersion
  */
-func (a *MetadataApiService) InfosVersionsGetExecute(r ApiInfosVersionsGetRequest) ([]APIVersion, *common.APIResponse, error) {
+func (a *MetadataApiService) InfosVersionsGetExecute(r ApiInfosVersionsGetRequest) ([]APIVersion, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -198,7 +198,7 @@ func (a *MetadataApiService) InfosVersionsGetExecute(r ApiInfosVersionsGetReques
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MetadataApiService.InfosVersionsGet")
 	if err != nil {
-		gerr := common.GenericOpenAPIError{}
+		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
@@ -228,7 +228,7 @@ func (a *MetadataApiService) InfosVersionsGetExecute(r ApiInfosVersionsGetReques
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(common.ContextAPIKeys).(map[string]common.APIKey); ok {
+		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
 			if apiKey, ok := auth["tokenAuth"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -247,7 +247,7 @@ func (a *MetadataApiService) InfosVersionsGetExecute(r ApiInfosVersionsGetReques
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
-	localVarAPIResponse := &common.APIResponse{
+	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
@@ -267,7 +267,7 @@ func (a *MetadataApiService) InfosVersionsGetExecute(r ApiInfosVersionsGetReques
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
@@ -283,7 +283,7 @@ func (a *MetadataApiService) InfosVersionsGetExecute(r ApiInfosVersionsGetReques
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := common.GenericOpenAPIError{}
+		newErr := shared.GenericOpenAPIError{}
 		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
 		newErr.SetBody(localVarBody)
 		newErr.SetError(err.Error())

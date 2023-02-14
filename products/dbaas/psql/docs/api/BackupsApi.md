@@ -32,13 +32,13 @@ import (
     "os"
 
     psql "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/psql"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
     clusterId := "clusterId_example" // string | The unique ID of the cluster.
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := psql.NewAPIClient(configuration)
     resource, resp, err := apiClient.BackupsApi.ClusterBackupsGet(context.Background(), clusterId).Execute()
     if err != nil {
@@ -68,7 +68,7 @@ Other parameters are passed through a pointer to an apiClusterBackupsGetRequest 
 
 ### Return type
 
-[**ClusterBackupList**](ClusterBackupList.md)
+[**ClusterBackupList**](../models/ClusterBackupList.md)
 
 ### HTTP request headers
 
@@ -99,13 +99,13 @@ import (
     "os"
 
     psql "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/psql"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
     backupId := "backupId_example" // string | The unique ID of the backup.
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := psql.NewAPIClient(configuration)
     resource, resp, err := apiClient.BackupsApi.ClustersBackupsFindById(context.Background(), backupId).Execute()
     if err != nil {
@@ -135,7 +135,7 @@ Other parameters are passed through a pointer to an apiClustersBackupsFindByIdRe
 
 ### Return type
 
-[**BackupResponse**](BackupResponse.md)
+[**BackupResponse**](../models/BackupResponse.md)
 
 ### HTTP request headers
 
@@ -166,12 +166,12 @@ import (
     "os"
 
     psql "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/psql"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := psql.NewAPIClient(configuration)
     resource, resp, err := apiClient.BackupsApi.ClustersBackupsGet(context.Background()).Execute()
     if err != nil {
@@ -194,7 +194,7 @@ Other parameters are passed through a pointer to an apiClustersBackupsGetRequest
 
 ### Return type
 
-[**ClusterBackupList**](ClusterBackupList.md)
+[**ClusterBackupList**](../models/ClusterBackupList.md)
 
 ### HTTP request headers
 

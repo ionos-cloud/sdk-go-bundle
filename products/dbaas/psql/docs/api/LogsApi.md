@@ -34,7 +34,7 @@ import (
     "os"
 
     psql "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/psql"
-    "github.com/ionos-cloud/sdk-go-bundle/common"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
@@ -44,7 +44,7 @@ func main() {
     direction := "direction_example" // string | The direction in which to scan through the logs. The logs are returned in order of the direction. (optional) (default to "BACKWARD")
     limit := int32(56) // int32 | The maximal number of log lines to return.  If the limit is reached then log lines will be cut at the end (respecting the scan direction). (optional) (default to 100)
 
-    configuration := common.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := psql.NewAPIClient(configuration)
     resource, resp, err := apiClient.LogsApi.ClusterLogsGet(context.Background(), clusterId).Start(start).End(end).Direction(direction).Limit(limit).Execute()
     if err != nil {
@@ -78,7 +78,7 @@ Other parameters are passed through a pointer to an apiClusterLogsGetRequest str
 
 ### Return type
 
-[**ClusterLogs**](ClusterLogs.md)
+[**ClusterLogs**](../models/ClusterLogs.md)
 
 ### HTTP request headers
 
