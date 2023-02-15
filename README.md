@@ -54,7 +54,7 @@ $ go mod init firstbundleproj
 ### Add SDK dependencies
 
 ```bash
-$ go get github.com/ionos-cloud/sdk-go-bundle/common
+$ go get github.com/ionos-cloud/sdk-go-bundle/shared
 $ go get github.com/ionos-cloud/sdk-go-bundle/products/compute
 ```
 
@@ -65,7 +65,7 @@ package main
 import (
    "context"
    "fmt"
-   "github.com/ionos-cloud/sdk-go-bundle/common"
+   "github.com/ionos-cloud/sdk-go-bundle/shared"
    "github.com/ionos-cloud/sdk-go-bundle/products/compute"
    "log"
 )
@@ -74,7 +74,7 @@ func main() {
    // NewConfigurationFromEnv looks for the following variables in the environment: IONOS_USERNAME, IONOS_PASSWORD, IONOS_TOKEN, IONOS_API_URL
    // You can either export IONOS_USERNAME and IONOS_PASSWORD, or IONOS_TOKEN
    // IONOS_API_URL - should be set only if you with to overwrite the default ionoscloud.DefaultIonosServerUrl
-   cfg := common.NewConfigurationFromEnv()
+   cfg := shared.NewConfigurationFromEnv()
 
    computeClient := compute.NewAPIClient(cfg)
    //setting Depth to 1 here makes sure we get the properties of the object(eg name)
@@ -119,7 +119,7 @@ package main
 
 import (
    "context"
-   "github.com/ionos-cloud/sdk-go-bundle/common"
+   "github.com/ionos-cloud/sdk-go-bundle/shared"
    "github.com/ionos-cloud/sdk-go-bundle/products/auth"
    "github.com/ionos-cloud/sdk-go-bundle/products/compute"
    "log"
@@ -127,7 +127,7 @@ import (
 
 func main() {
    //note: to use NewConfigurationFromEnv(), you need to previously set IONOS_USERNAME and IONOS_PASSWORD as env variables
-   authClient := auth.NewAPIClient(common.NewConfigurationFromEnv())
+   authClient := auth.NewAPIClient(shared.NewConfigurationFromEnv())
    jwt, _, err := authClient.TokensApi.TokensGenerate(context.Background()).Execute()
    if err != nil {
       log.Fatalf("error occurred while generating token (%v)", err)
@@ -135,7 +135,7 @@ func main() {
    if !jwt.HasToken() {
       log.Fatalf("could not generate token")
    }
-   cfg := common.NewConfiguration("", "", *jwt.GetToken(), "")
+   cfg := shared.NewConfiguration("", "", *jwt.GetToken(), "")
    apiClient := compute.NewAPIClient(cfg)
    datacenters, apiResponse, err := apiClient.DataCentersApi.DatacentersGet(context.Background()).Depth(1).Execute()
    if err != nil {
@@ -168,13 +168,13 @@ Save the generated token and use it to authenticate:
         "fmt"
         "log"
 		
-        "github.com/ionos-cloud/sdk-go-bundle/common"
+        "github.com/ionos-cloud/sdk-go-bundle/shared"
         "github.com/ionos-cloud/sdk-go-bundle/products/compute"
     )
 
     func TokenAuthExample() error {
         //note: to use NewConfigurationFromEnv(), you need to previously set IONOS_TOKEN as env variables
-        authClient := common.NewAPIClient(authApi.NewConfigurationFromEnv())
+        authClient := shared.NewAPIClient(authApi.NewConfigurationFromEnv())
         apiClient := compute.NewAPIClient(cfg)
         datacenters, _, err := apiClient.DataCentersApi.DatacentersGet(context.Background()).Depth(1).Execute()
         if err != nil {
@@ -213,16 +213,16 @@ Verbose request and response logging can also significantly impact your applicat
 package main
 
 import (
-   "github.com/ionos-cloud/sdk-go-bundle/common"
+   "github.com/ionos-cloud/sdk-go-bundle/shared"
    "github.com/sirupsen/logrus"
 )
 
 func main() {
    // create your configuration. replace username, password, token and url with correct values, or use NewConfigurationFromEnv()
    // if you have set your env variables as explained above
-   cfg := common.NewConfiguration("username", "password", "token", "hostUrl")
+   cfg := shared.NewConfiguration("username", "password", "token", "hostUrl")
    // enable request and response logging. this is the most verbose loglevel
-   cfg.LogLevel = common.Trace
+   cfg.LogLevel = shared.Trace
    // inject your own logger that implements Printf
    cfg.Logger = logrus.New()
 }
@@ -231,19 +231,18 @@ func main() {
 ## Migration Guide
 
 All SDKs are found in the folder `https://github.com/ionos-cloud/sdk-go-bundle/tree/master/products`.
-- Structs moved to common package: `GenericOpenAPIError`, `Configuration`, `APIResponse`, utility functions, logging interface,  environment variables.
-- Import `github.com/ionos-cloud/sdk-go-bundle/common` and replace the structs as required.
+- Structs moved to `shared` package: `GenericOpenAPIError`, `Configuration`, `APIResponse`, utility functions, logging interface,  environment variables.
+- Import `github.com/ionos-cloud/sdk-go-bundle/shared` and replace the structs as required.
 - IONOS_DEBUG removed, debugging now set with `IONOS_LOG_LEVEL`, as described [here](https://github.com/ionos-cloud/sdk-go-bundle#debugging)
 - Replaced `PtrBool`, `PtrInt`, `PtrInt32`, `PtrInt64`, `PtrFloat`, `PtrFloat32`, `PtrFloat64`, `PtrString`, `PtrTime` with `ToPtr` generic functions
 
 Example migration for compute `github.com/ionos-cloud/sdk-go/v6` to `github.com/ionos-cloud/sdk-go-bundle/products/compute`
 
-1. Replace the import ionoscloud `github.com/ionos-cloud/sdk-go/v6` with `github.com/ionos-cloud/sdk-go-bundle/products/compute` You will get errors, as some structs have been moved the `common` package
-2. Import `github.com/ionos-cloud/sdk-go-bundle/common` and replace the structs as required.
+1. Replace the import ionoscloud `github.com/ionos-cloud/sdk-go/v6` with `github.com/ionos-cloud/sdk-go-bundle/products/compute` You will get errors, as some structs have been moved the `shared` package
+2. Import `github.com/ionos-cloud/sdk-go-bundle/shared` and replace the structs as required.
    Example replacements:
-      - var apiResponse *ionoscloud.APIResponse with var apiResponse *common.APIResponse
-      - ionoscloud.NewConfiguration(username, password, token, url) with common.NewConfiguration(username, password, token, url).
+      - var apiResponse *ionoscloud.APIResponse with var apiResponse *shared.APIResponse
+      - ionoscloud.NewConfiguration(username, password, token, url) with shared.NewConfiguration(username, password, token, url).
 3. Replace the structs that were in the old repo with the ones in the new repo.
 
 All replacements work as-is, no other changes are required.
-
