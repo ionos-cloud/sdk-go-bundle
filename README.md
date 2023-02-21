@@ -239,11 +239,10 @@ Example migration for compute `github.com/ionos-cloud/sdk-go/v6` to `github.com/
 
 1. Replace the import ionoscloud `github.com/ionos-cloud/sdk-go/v6` with `github.com/ionos-cloud/sdk-go-bundle/products/compute` You will get errors, as some structs have been moved the `shared` package
 2. Import `github.com/ionos-cloud/sdk-go-bundle/shared` and replace the structs as required.
-   Example replacements:
-      - var apiResponse *ionoscloud.APIResponse with var apiResponse *shared.APIResponse
-      - ionoscloud.NewConfiguration(username, password, token, url) with shared.NewConfiguration(username, password, token, url).
-      - Logger is a global variable `SdkLogger`, that can be injected using shared.Logger = `logger of your choice`
-      - LogLevel is a global variables `SdkLogLevel`, that can be set using `shared.SdkLogLevel`
-3. Replace the structs that were in the old repo with the ones in the new repo.
+   Examples:
+      - `var apiResponse *ionoscloud.APIResponse` with `var apiResponse *shared.APIResponse`
+      - `ionoscloud.NewConfiguration(username, password, token, url)` with `shared.NewConfiguration(username, password, token, url)`
+      - `Logger` no longer a part of the `Configuration` object, it is a global instance called `SdkLogger`, that can be set using shared.Logger = `logger of your choice`
+      - `LogLevel` no longer a part of the `Configuration` object, it is a global instance called `SdkLogLevel`, that can be set using `shared.SdkLogLevel`
 
 All replacements work as-is, no other changes are required.
