@@ -1,7 +1,6 @@
 package shared
 
 import (
-	"log"
 	"net/http"
 	"time"
 )
@@ -53,10 +52,10 @@ func (resp *APIResponse) HttpNotFound() bool {
 func (resp *APIResponse) LogInfo() {
 
 	if resp != nil {
-		log.Printf("[DEBUG] Request time : %s for operation : %s",
+		SdkLogger.Printf("[DEBUG] Request time : %s for operation : %s",
 			resp.RequestTime, resp.Operation)
 		if resp.Response != nil {
-			log.Printf("[DEBUG] response status code : %d\n", resp.StatusCode)
+			SdkLogger.Printf("[DEBUG] response status code : %d\n", resp.StatusCode)
 		}
 	}
 }

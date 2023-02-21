@@ -22,7 +22,7 @@ const (
 	IonosTokenEnvVar      = "IONOS_TOKEN"
 	IonosApiUrlEnvVar     = "IONOS_API_URL"
 	IonosPinnedCertEnvVar = "IONOS_PINNED_CERT"
-	IonosLogLevel         = "IONOS_LOG_LEVEL"
+	IonosLogLevelEnvVar   = "IONOS_LOG_LEVEL"
 	DefaultIonosServerUrl = "https://api.ionos.com/"
 
 	defaultMaxRetries  = 3
@@ -114,8 +114,6 @@ type Configuration struct {
 	MaxRetries         int           `json:"maxRetries,omitempty"`
 	WaitTime           time.Duration `json:"waitTime,omitempty"`
 	MaxWaitTime        time.Duration `json:"maxWaitTime,omitempty"`
-	LogLevel           LogLevel
-	Logger             Logger
 }
 
 // NewConfiguration returns a new shared.Configuration object
@@ -130,8 +128,6 @@ func NewConfiguration(username, password, token, hostUrl string) *Configuration 
 		MaxRetries:         defaultMaxRetries,
 		MaxWaitTime:        defaultMaxWaitTime,
 		WaitTime:           defaultWaitTime,
-		Logger:             NewDefaultLogger(),
-		LogLevel:           getLogLevelFromEnv(),
 		Servers:            ServerConfigurations{},
 		OperationServers:   map[string]ServerConfigurations{},
 	}

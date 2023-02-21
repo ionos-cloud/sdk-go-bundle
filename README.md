@@ -1,7 +1,7 @@
 # sdk-go-bundle
 Enables users of IONOS Cloud sdks to use one repo for all the GO SDKs released.
 
-⚠️ **Note:** __sdk-go-bundle is currently in the Early Access (EA) phase. For production or critical applications, we recommend using the older separate repo SDKs in the table below.
+⚠️ **Note:** __sdk-go-bundle is currently in the Early Access (EA) phase. For production or critical applications, we recommend using the older separate repo SDKs in the table below.__
 
 # Go API client for ionoscloud
 
@@ -195,9 +195,8 @@ You can get the sha256 fingerprint most easily from the browser by inspecting th
 
 ## Debugging
 
-You can now inject any logger that implements Printf as a logger
-instead of using the default sdk logger.
-There are now log levels that you can set: `Off`, `Debug` and `Trace`.
+You can inject any logger that implements Printf as a logger instead of using the default sdk logger.
+There are log levels that you can set: `Off`, `Debug` and `Trace`.
 
 | Log level | Description                                                                                   |
 |-----------|-----------------------------------------------------------------------------------------------|
@@ -222,9 +221,9 @@ func main() {
    // if you have set your env variables as explained above
    cfg := shared.NewConfiguration("username", "password", "token", "hostUrl")
    // enable request and response logging. this is the most verbose loglevel
-   cfg.LogLevel = shared.Trace
+   shared.SdkLogLevel = shared.Trace
    // inject your own logger that implements Printf
-   cfg.Logger = logrus.New()
+   shared.SdkLogger = logrus.New()
 }
 ```
 
@@ -243,6 +242,8 @@ Example migration for compute `github.com/ionos-cloud/sdk-go/v6` to `github.com/
    Example replacements:
       - var apiResponse *ionoscloud.APIResponse with var apiResponse *shared.APIResponse
       - ionoscloud.NewConfiguration(username, password, token, url) with shared.NewConfiguration(username, password, token, url).
+      - Logger is a global variable `SdkLogger`, that can be injected using shared.Logger = `logger of your choice`
+      - LogLevel is a global variables `SdkLogLevel`, that can be set using `shared.SdkLogLevel`
 3. Replace the structs that were in the old repo with the ones in the new repo.
 
 All replacements work as-is, no other changes are required.
