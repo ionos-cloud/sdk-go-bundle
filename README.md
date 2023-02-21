@@ -195,7 +195,7 @@ You can get the sha256 fingerprint most easily from the browser by inspecting th
 
 ## Debugging
 
-You can inject any logger that implements Printf as a logger instead of using the default sdk logger.
+You can inject any logger that implements Printf instead of using the default sdk logger.
 There are log levels that you can set: `Off`, `Debug` and `Trace`.
 
 | Log level | Description                                                                                   |
