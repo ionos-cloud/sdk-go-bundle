@@ -10,6 +10,12 @@ import (
 	"strings"
 )
 
+// creates default logger and gets logLevel from environment
+func init() {
+	NewSdkLogger()
+	SdkLogLevel = getLogLevelFromEnv()
+}
+
 type LogLevel uint
 
 func (l *LogLevel) Get() LogLevel {
@@ -44,8 +50,9 @@ var LogLevelMap = map[string]LogLevel{
 // returns Off if an invalid log level is encountered
 func getLogLevelFromEnv() LogLevel {
 	strLogLevel := "off"
-	if os.Getenv(IonosLogLevel) != "" {
-		strLogLevel = os.Getenv(IonosLogLevel)
+
+	if logLevelFromEnv, isSet := os.LookupEnv(IonosLogLevelEnvVar); isSet {
+		strLogLevel = logLevelFromEnv
 	}
 
 	logLevel, ok := LogLevelMap[strings.ToLower(strLogLevel)]
@@ -55,20 +62,13 @@ func getLogLevelFromEnv() LogLevel {
 	return logLevel
 }
 
+var SdkLogger Logger
+var SdkLogLevel LogLevel
+
 type Logger interface {
 	Printf(format string, args ...interface{})
 }
 
-func NewDefaultLogger() Logger {
-	return &defaultLogger{
-		logger: log.New(os.Stderr, "IONOSLOG ", log.LstdFlags),
-	}
-}
-
-type defaultLogger struct {
-	logger *log.Logger
-}
-
-func (l defaultLogger) Printf(format string, args ...interface{}) {
-	l.logger.Printf(format, args...)
+func NewSdkLogger() {
+	SdkLogger = log.New(os.Stderr, "IONOSLOG ", log.LstdFlags)
 }
