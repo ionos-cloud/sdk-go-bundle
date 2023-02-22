@@ -277,14 +277,14 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, time.Duratio
 			}
 		}
 
-		if c.cfg.LogLevel.Satisfies(shared.Trace) {
+		if shared.SdkLogLevel.Satisfies(shared.Trace) {
 			dump, err := httputil.DumpRequestOut(clonedRequest, true)
 			if err == nil {
-				c.cfg.Logger.Printf(" DumpRequestOut : %s\n", string(dump))
+				shared.SdkLogger.Printf(" DumpRequestOut : %s\n", string(dump))
 			} else {
-				c.cfg.Logger.Printf(" DumpRequestOut err: %+v", err)
+				shared.SdkLogger.Printf(" DumpRequestOut err: %+v", err)
 			}
-			c.cfg.Logger.Printf("\n try no: %d\n", retryCount)
+			shared.SdkLogger.Printf("\n try no: %d\n", retryCount)
 		}
 
 		httpRequestStartTime := time.Now()
@@ -295,12 +295,12 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, time.Duratio
 			return resp, httpRequestTime, err
 		}
 
-		if c.cfg.LogLevel.Satisfies(shared.Trace) {
+		if shared.SdkLogLevel.Satisfies(shared.Trace) {
 			dump, err := httputil.DumpResponse(resp, true)
 			if err == nil {
-				c.cfg.Logger.Printf("\n DumpResponse : %s\n", string(dump))
+				shared.SdkLogger.Printf("\n DumpResponse : %s\n", string(dump))
 			} else {
-				c.cfg.Logger.Printf(" DumpResponse err %+v", err)
+				shared.SdkLogger.Printf(" DumpResponse err %+v", err)
 			}
 		}
 
@@ -328,8 +328,8 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, time.Duratio
 		}
 
 		if retryCount >= c.GetConfig().MaxRetries {
-			if c.cfg.LogLevel.Satisfies(shared.Debug) {
-				c.cfg.Logger.Printf(" Number of maximum retries exceeded (%d retries)\n", c.cfg.MaxRetries)
+			if shared.SdkLogLevel.Satisfies(shared.Debug) {
+				shared.SdkLogger.Printf(" Number of maximum retries exceeded (%d retries)\n", c.cfg.MaxRetries)
 			}
 			break
 		} else {
@@ -344,8 +344,8 @@ func (c *APIClient) backOff(t time.Duration) {
 	if t > c.GetConfig().MaxWaitTime {
 		t = c.GetConfig().MaxWaitTime
 	}
-	if c.cfg.LogLevel.Satisfies(shared.Debug) {
-		c.cfg.Logger.Printf(" Sleeping %s before retrying request\n", t.String())
+	if shared.SdkLogLevel.Satisfies(shared.Debug) {
+		shared.SdkLogger.Printf(" Sleeping %s before retrying request\n", t.String())
 	}
 	time.Sleep(t)
 }
