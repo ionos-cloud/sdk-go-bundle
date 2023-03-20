@@ -4,7 +4,7 @@
 
 ## SDKs
 
-* [Authentication](./products/auth/README.md)
+* [Authentication](./products/auth/docs/summary.md)
 * [Compute](./products/compute/README.md)
 * [DBaaS Mongo](./products/dbaas/mongo/README.md)
 * [DBaaS Postgres SQL](./products/dbaas/psql/README.md)
