@@ -5,7 +5,7 @@
 ## SDKs
 
 * [Authentication](./products/auth/README.md)
-  * [CHANGELOG](./products/auth/docs/CHANGELOG.md)
+  * [Changelog](./products/auth/docs/CHANGELOG.md)
   * API
     * [TokensApi](./products/auth/docs/api/TokensApi.md)
   * Models
@@ -250,7 +250,7 @@
     * [VolumeProperties](./products/compute/docs/models/VolumeProperties.md)
     * [Volumes](./products/compute/docs/models/Volumes.md)
 * [Container Registry](./products/containerregistry/README.md)
-  * [CHANGELOG](./products/containerregistry/docs/CHANGELOG.md)
+  * [Changelog](./products/containerregistry/docs/CHANGELOG.md)
   * API
     * [LocationsApi](./products/containerregistry/docs/api/LocationsApi.md)
     * [NamesApi](./products/containerregistry/docs/api/NamesApi.md)
@@ -289,7 +289,7 @@
     * [TokensResponse](./products/containerregistry/docs/models/TokensResponse.md)
     * [WeeklySchedule](./products/containerregistry/docs/models/WeeklySchedule.md)
 * [DBaaS Mongo](./products/dbaas/mongo/README.md)
-  * [CHANGELOG](./products/dbaas/mongo/docs/CHANGELOG.md)
+  * [Changelog](./products/dbaas/mongo/docs/CHANGELOG.md)
   * API
     * [ClustersApi](./products/dbaas/mongo/docs/api/ClustersApi.md)
     * [LogsApi](./products/dbaas/mongo/docs/api/LogsApi.md)
@@ -338,7 +338,7 @@
     * [UserRoles](./products/dbaas/mongo/docs/models/UserRoles.md)
     * [UsersList](./products/dbaas/mongo/docs/models/UsersList.md)
 * [DBaaS Postgres SQL](./products/dbaas/psql/README.md)
-  * [CHANGELOG](./products/dbaas/psql/docs/CHANGELOG.md)
+  * [Changelog](./products/dbaas/psql/docs/CHANGELOG.md)
   * API
     * [BackupsApi](./products/dbaas/psql/docs/api/BackupsApi.md)
     * [ClustersApi](./products/dbaas/psql/docs/api/ClustersApi.md)
@@ -380,7 +380,7 @@
     * [StorageType](./products/dbaas/psql/docs/models/StorageType.md)
     * [SynchronizationMode](./products/dbaas/psql/docs/models/SynchronizationMode.md)
 * [Data Platform](./products/dataplatform/README.md)
-  * [CHANGELOG](./products/dataplatform/docs/CHANGELOG.md)
+  * [Changelog](./products/dataplatform/docs/CHANGELOG.md)
   * API
     * [DataPlatformClusterApi](./products/dataplatform/docs/api/DataPlatformClusterApi.md)
     * [DataPlatformMetaDataApi](./products/dataplatform/docs/api/DataPlatformMetaDataApi.md)
