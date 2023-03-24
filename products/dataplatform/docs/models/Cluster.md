@@ -5,7 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**Name** | Pointer to **string** | The name of your cluster. Must be 63 characters or less and must begin and end with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), underscores (_), dots (.), and alphanumerics between.  | [optional] |
-|**DataPlatformVersion** | Pointer to **string** | The version of the DataPlatform.  | [optional] |
+|**DataPlatformVersion** | Pointer to **string** | The version of the data platform.  | [optional] |
 |**DatacenterId** | Pointer to **string** | The UUID of the virtual data center (VDC) the cluster is provisioned.  | [optional] |
 |**MaintenanceWindow** | Pointer to [**MaintenanceWindow**](MaintenanceWindow.md) |  | [optional] |
 

@@ -3,9 +3,9 @@
 Managed Stackable Data Platform by IONOS Cloud provides a preconfigured Kubernetes cluster
 with pre-installed and managed Stackable operators. After the provision of these Stackable operators,
 the customer can interact with them directly
-and build his desired application on top of the Stackable Platform.
+and build his desired application on top of the Stackable platform.
 
-Managed Stackable Data Platform by IONOS Cloud can be configured through the IONOS Cloud API
+The Managed Stackable Data Platform by IONOS Cloud can be configured through the IONOS Cloud API
 in addition or as an alternative to the \"Data Center Designer\" (DCD).
 
 ## Getting Started
@@ -18,20 +18,21 @@ The first step is the creation of a IONOS Cloud account if not already existing.
 
 To register a **new account** visit [cloud.ionos.com](https://cloud.ionos.com/compute/signup).
 
-### Virtual Datacenter (VDC)
+### Virtual Data Center (VDC)
 
-The Managed Data Stack needs a virtual datacenter (VDC) hosting the cluster.
-This could either be a VDC that already exists, especially if you want to connect the managed DataPlatform
-to other services already running within your VDC. Otherwise, if you want to place the Managed Data Stack in
-a new VDC or you have not yet created a VDC, you need to do so.
+The Managed Stackable Data Platform needs a virtual data center (VDC) hosting the cluster.
+This could either be a VDC that already exists, especially if you want to connect the managed data platform
+to other services already running within your VDC.
+Otherwise, if you want to place the Managed Stackable Data Platform in a new VDC or you have not yet created a VDC,
+you need to do so.
 
-A new VDC can be created via the IONOS Cloud API, the IONOS-CLI or the DCD Web interface.
+A new VDC can be created via the IONOS Cloud API, the IONOS Cloud CLI (ionosctl), or the DCD Web interface.
 For more information, see the [official documentation](https://docs.ionos.com/cloud/getting-started/tutorials/data-center-basics)
 
 ### Get a authentication token
 
 To interact with this API a user specific authentication token is needed.
-This token can be generated using the IONOS-CLI the following way:
+This token can be generated using the IONOS Cloud CLI the following way:
 
 ```
 ionosctl token generate
@@ -41,7 +42,7 @@ For more information [see](https://docs.ionos.com/cli-ionosctl/subcommands/authe
 
 ### Create a new DataPlatformCluster
 
-Before using Managed Stackable Data Platform, a new DataPlatformCluster must be created.
+Before using the Managed Stackable Data Platform, a new DataPlatformCluster must be created.
 
 To create a cluster, use the [Create DataPlatformCluster](paths./clusters.post) API endpoint.
 
@@ -78,22 +79,21 @@ All endpoints are secured, so only an authenticated user can access them.
 As Authentication mechanism the default IONOS Cloud authentication mechanism
 is used. A detailed description can be found [here](https://api.ionos.com/docs/authentication/).
 
-### Basic-Auth
+### Basic Auth
 
 The basic auth scheme uses the IONOS Cloud user credentials in form of a Basic Authentication Header
 accordingly to [RFC7617](https://datatracker.ietf.org/doc/html/rfc7617)
 
-### API-Key as Bearer Token
+### API Key as Bearer Token
 
-The Bearer auth token used at the API-Gateway is a user related token created with the IONOS-CLI.
+The Bearer auth token used at the API Gateway is a user-related token created with the IONOS Cloud CLI.
 (See the [documentation](https://docs.ionos.com/cli-ionosctl/subcommands/authentication/token-generate) for details)
 For every request to be authenticated, the token is passed as 'Authorization Bearer' header along with the request.
 
-### Permissions and access roles
+### Permissions and Access Roles
 
 Currently, an admin can see and manipulate all resources in a contract.
 A normal authenticated user can only see and manipulate resources he created.
-
 
 ## Components
 
@@ -102,12 +102,15 @@ The concept of a DataPlatformClusters and the backing DataPlatformNodePools the 
 
 ### DataPlatformCluster
 
-A DataPlatformCluster is the virtual instance of the customer services and operations running the managed Services like Stackable operators.
+A DataPlatformCluster is the virtual instance of the customer services and operations running the managed services
+like Stackable operators.
 A DataPlatformCluster is a Kubernetes Cluster in the VDC of the customer.
-Therefore, it's possible to integrate the cluster with other resources as vLANs e.G.
-to shape the datacenter in the customer's need and integrate the cluster within the topology the customer wants to build.
+Therefore, it's possible to integrate the cluster with other resources as VLANs
+e.g. to shape the data center in the customer's need
+and integrate the cluster within the topology the customer wants to build.
 
-In addition to the Kubernetes cluster a small node pool is provided which is exclusively used to run the Stackable operators.
+In addition to the Kubernetes cluster, a small node pool is provided
+which is exclusively used to run the Stackable operators.
 
 ### DataPlatformNodePool
 
@@ -116,10 +119,10 @@ All nodes within a node pool are identical in setup.
 The nodes of a pool are provisioned into virtual data centers at a location of your choice
 and you can freely specify the properties of all the nodes at once before creation.
 
-Nodes in node pools provisioned by the Managed Stackable Data Platform Cloud API are readonly in the customer's VDC
+Nodes in node pools provisioned by the Managed Stackable Data Platform Cloud API are read-only in the customer's VDC
 and can only be modified or deleted via the API.
 
-### References
+## References
 
 
 ## Overview
@@ -154,7 +157,7 @@ go get github.com/ionos-cloud/sdk-go-bundle/products/dataplatform@latest
 | `IONOS_PASSWORD`     | Specify the password used to login, to authenticate against the IONOS Cloud API                                                                                                                                                |
 | `IONOS_TOKEN`        | Specify the token used to login, if a token is being used instead of username and password                                                                                                                                     |
 | `IONOS_API_URL`      | Specify the API URL. It will overwrite the API endpoint default value `api.ionos.com`. Note: the host URL does not contain the `/cloudapi/v6` path, so it should _not_ be included in the `IONOS_API_URL` environment variable |
-| `IONOS_LOGLEVEL`     | Specify the Log Level used to log messages. Possible values: Off, Debug, Trace |
+| `IONOS_LOG_LEVEL`    | Specify the Log Level used to log messages. Possible values: Off, Debug, Trace |
 | `IONOS_PINNED_CERT`  | Specify the SHA-256 public fingerprint here, enables certificate pinning                                                                                                                                                       |
 
 ⚠️ **_Note: To overwrite the api endpoint - `api.ionos.com`, the environment variable `$IONOS_API_URL` can be set, and used with `NewConfigurationFromEnv()` function._**
@@ -276,9 +279,9 @@ requestProperties.SetURL("https://api.ionos.com/cloudapi/v6")
 
 ## Debugging
 
-You can now inject any logger that implements Printf as a logger
+You can inject any logger that implements Printf as a logger
 instead of using the default sdk logger.
-There are now Loglevels that you can set: `Off`, `Debug` and `Trace`.
+There are log levels that you can set: `Off`, `Debug` and `Trace`.
 `Off` - does not show any logs
 `Debug` - regular logs, no sensitive information
 `Trace` - we recommend you only set this field for debugging purposes. Disable it in your production environments because it can log sensitive data.
@@ -299,9 +302,9 @@ func main() {
     // if you have set your env variables as explained above
     cfg := shared.NewConfiguration("username", "password", "token", "hostUrl")
     // enable request and response logging. this is the most verbose loglevel
-    cfg.LogLevel = Trace
+    shared.SdkLogLevel = Trace
     // inject your own logger that implements Printf
-    cfg.Logger = logrus.New()
+    shared.SdkLogger = logrus.New()
     // create you api client with the configuration
     apiClient := dataplatform.NewAPIClient(cfg)
 }
@@ -316,18 +319,18 @@ All URIs are relative to *https://api.ionos.com/dataplatform*
 
 Class | Method | HTTP request | Description
 ------------- | ------------- | ------------- | -------------
-DataPlatformClusterApi | [**CreateCluster**](docs/api/DataPlatformClusterApi.md#createcluster) | **Post** /clusters | Create a DataPlatformCluster
-DataPlatformClusterApi | [**DeleteCluster**](docs/api/DataPlatformClusterApi.md#deletecluster) | **Delete** /clusters/{clusterId} | Delete DataPlatformCluster
-DataPlatformClusterApi | [**GetCluster**](docs/api/DataPlatformClusterApi.md#getcluster) | **Get** /clusters/{clusterId} | Retrieve a DataPlatformCluster
-DataPlatformClusterApi | [**GetClusterKubeconfig**](docs/api/DataPlatformClusterApi.md#getclusterkubeconfig) | **Get** /clusters/{clusterId}/kubeconfig | Read the kubeconfig
-DataPlatformClusterApi | [**GetClusters**](docs/api/DataPlatformClusterApi.md#getclusters) | **Get** /clusters | List DataPlatformCluster
-DataPlatformClusterApi | [**PatchCluster**](docs/api/DataPlatformClusterApi.md#patchcluster) | **Patch** /clusters/{clusterId} | Partially modify a DataPlatformCluster
-DataPlatformMetaDataApi | [**VersionsGet**](docs/api/DataPlatformMetaDataApi.md#versionsget) | **Get** /versions | Managed Data Stack API version
-DataPlatformNodePoolApi | [**CreateClusterNodepool**](docs/api/DataPlatformNodePoolApi.md#createclusternodepool) | **Post** /clusters/{clusterId}/nodepools | Create a DataPlatformNodePool for a distinct DataPlatformCluster
-DataPlatformNodePoolApi | [**DeleteClusterNodepool**](docs/api/DataPlatformNodePoolApi.md#deleteclusternodepool) | **Delete** /clusters/{clusterId}/nodepools/{nodepoolId} | Remove node pool from DataPlatformCluster.
-DataPlatformNodePoolApi | [**GetClusterNodepool**](docs/api/DataPlatformNodePoolApi.md#getclusternodepool) | **Get** /clusters/{clusterId}/nodepools/{nodepoolId} | Retrieve a DataPlatformNodePool
-DataPlatformNodePoolApi | [**GetClusterNodepools**](docs/api/DataPlatformNodePoolApi.md#getclusternodepools) | **Get** /clusters/{clusterId}/nodepools | List the DataPlatformNodePools of a  DataPlatformCluster
-DataPlatformNodePoolApi | [**PatchClusterNodepool**](docs/api/DataPlatformNodePoolApi.md#patchclusternodepool) | **Patch** /clusters/{clusterId}/nodepools/{nodepoolId} | Partially modify a DataPlatformNodePool
+DataPlatformClusterApi | [**ClustersDelete**](docs/api/DataPlatformClusterApi.md#clustersdelete) | **Delete** /clusters/{clusterId} | Delete a DataPlatformCluster
+DataPlatformClusterApi | [**ClustersFindById**](docs/api/DataPlatformClusterApi.md#clustersfindbyid) | **Get** /clusters/{clusterId} | Retrieve a DataPlatformCluster
+DataPlatformClusterApi | [**ClustersGet**](docs/api/DataPlatformClusterApi.md#clustersget) | **Get** /clusters | List the DataPlatformClusters
+DataPlatformClusterApi | [**ClustersKubeconfigFindByClusterId**](docs/api/DataPlatformClusterApi.md#clusterskubeconfigfindbyclusterid) | **Get** /clusters/{clusterId}/kubeconfig | Read the Kubeconfig
+DataPlatformClusterApi | [**ClustersPatch**](docs/api/DataPlatformClusterApi.md#clusterspatch) | **Patch** /clusters/{clusterId} | Partially Modify a DataPlatformCluster
+DataPlatformClusterApi | [**ClustersPost**](docs/api/DataPlatformClusterApi.md#clusterspost) | **Post** /clusters | Create a DataPlatformCluster
+DataPlatformMetaDataApi | [**VersionsGet**](docs/api/DataPlatformMetaDataApi.md#versionsget) | **Get** /versions | Managed Stackable Data Platform API Versions
+DataPlatformNodePoolApi | [**ClustersNodepoolsDelete**](docs/api/DataPlatformNodePoolApi.md#clustersnodepoolsdelete) | **Delete** /clusters/{clusterId}/nodepools/{nodepoolId} | Remove a DataPlatformNodePool from a DataPlatformCluster
+DataPlatformNodePoolApi | [**ClustersNodepoolsFindById**](docs/api/DataPlatformNodePoolApi.md#clustersnodepoolsfindbyid) | **Get** /clusters/{clusterId}/nodepools/{nodepoolId} | Retrieve a DataPlatformNodePool
+DataPlatformNodePoolApi | [**ClustersNodepoolsGet**](docs/api/DataPlatformNodePoolApi.md#clustersnodepoolsget) | **Get** /clusters/{clusterId}/nodepools | List the DataPlatformNodePools of a DataPlatformCluster
+DataPlatformNodePoolApi | [**ClustersNodepoolsPatch**](docs/api/DataPlatformNodePoolApi.md#clustersnodepoolspatch) | **Patch** /clusters/{clusterId}/nodepools/{nodepoolId} | Partially Modify a DataPlatformNodePool
+DataPlatformNodePoolApi | [**ClustersNodepoolsPost**](docs/api/DataPlatformNodePoolApi.md#clustersnodepoolspost) | **Post** /clusters/{clusterId}/nodepools | Create a DataPlatformNodePool for a distinct DataPlatformCluster
 
 </details>
 

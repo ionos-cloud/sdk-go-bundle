@@ -12,8 +12,8 @@
 |**LastModifiedDate** | Pointer to [**time.Time**](time.Time.md) | The last time the resource was modified, ISO 8601 timestamp (UTC). | [optional] |
 |**LastModifiedBy** | Pointer to **string** | The user that last modified the resource | [optional] |
 |**LastModifiedByUserId** | Pointer to **string** | The ID of the user that last modified the resource | [optional] |
-|**CurrentDataPlatformVersion** | Pointer to **string** | The version of the DataPlatform.  | [optional] |
-|**CurrentDataPlatformRevision** | Pointer to **int64** | The current dataplatform revision of a resource. This internal revision is used to rollout non-breaking internal changes. This attribute is read-only.  | [optional] |
+|**CurrentDataPlatformVersion** | Pointer to **string** | The version of the data platform.  | [optional] |
+|**CurrentDataPlatformRevision** | Pointer to **int64** | The current data platform revision of a resource. This internal revision is used to roll out non-breaking internal changes. This attribute is read-only.  | [optional] |
 |**AvailableUpgradeVersions** | Pointer to **[]string** | List of available upgrades for this cluster | [optional] |
 |**State** | Pointer to **string** | State of the resource. *AVAILABLE* There are no pending modification requests for this item; *BUSY* There is at least one modification request pending and all following requests will be queued; *DEPLOYING* Resource state DEPLOYING - the resource is being created; *FAILED* Resource state FAILED - creation of the resource failed; *UPDATING* Resource state UPDATING - the resource is being updated; *FAILED_UPDATING* Resource state FAILED_UPDATING - an update to the resource was not successful; *DESTROYING* Resource state DESTROYING - the resource is being deleted; *FAILED_DESTROYING* Resource state FAILED_DESTROYING - deletion of the resource was not successful; *TERMINATED* Resource state TERMINATED - the resource was deleted.  | [optional] |
 

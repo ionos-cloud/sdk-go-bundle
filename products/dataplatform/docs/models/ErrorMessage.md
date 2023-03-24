@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**ErrorCode** | Pointer to **string** | internal error code  | [optional] |
+|**ErrorCode** | Pointer to **string** | Internal error code  | [optional] |
 |**Message** | Pointer to **string** | A human readable explanation of the problem.  | [optional] |
 
 ## Methods

@@ -4,7 +4,7 @@ All URIs are relative to *https://api.ionos.com/dataplatform*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**VersionsGet**](DataPlatformMetaDataApi.md#VersionsGet) | **Get** /versions | Managed Data Stack API version|
+|[**VersionsGet**](DataPlatformMetaDataApi.md#VersionsGet) | **Get** /versions | Managed Stackable Data Platform API Versions|
 
 
 
@@ -15,7 +15,7 @@ var result []string = VersionsGet(ctx)
                       .Execute()
 ```
 
-Managed Data Stack API version
+Managed Stackable Data Platform API Versions
 
 
 
