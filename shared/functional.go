@@ -5,6 +5,27 @@ package shared
  * They are designed with code readability in mind. Use them to simplify common slice operations and provide error handling where appropriate.
  */
 
+import (
+	"github.com/hashicorp/go-multierror"
+)
+
+// ApplyAndAggregateErrors applies the provided function for each element of the slice
+// If the function returns an error, it accumulates the error and continues execution
+// After all elements are processed, it returns the aggregated errors if any
+func ApplyAndAggregateErrors[T any](xs []T, f func(T) error) error {
+	return Fold(
+		xs,
+		func(errs *multierror.Error, x T) *multierror.Error {
+			err := f(x)
+			if err != nil {
+				errs = multierror.Append(errs, err)
+			}
+			return errs
+		},
+		new(multierror.Error),
+	).ErrorOrNil()
+}
+
 // ApplyOrFail tries applying the provided function for each element of the slice
 // If the function returns an error, we break execution and return the error
 func ApplyOrFail[T any](xs []T, f func(T) error) error {
