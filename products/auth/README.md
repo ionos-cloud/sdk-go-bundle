@@ -34,7 +34,7 @@ go get github.com/ionos-cloud/sdk-go-bundle/products/auth@latest
 | `IONOS_PASSWORD`     | Specify the password used to login, to authenticate against the IONOS Cloud API                                                                                                                                                |
 | `IONOS_TOKEN`        | Specify the token used to login, if a token is being used instead of username and password                                                                                                                                     |
 | `IONOS_API_URL`      | Specify the API URL. It will overwrite the API endpoint default value `api.ionos.com`. Note: the host URL does not contain the `/cloudapi/v6` path, so it should _not_ be included in the `IONOS_API_URL` environment variable |
-| `IONOS_LOGLEVEL`     | Specify the Log Level used to log messages. Possible values: Off, Debug, Trace |
+| `IONOS_LOG_LEVEL`    | Specify the Log Level used to log messages. Possible values: Off, Debug, Trace |
 | `IONOS_PINNED_CERT`  | Specify the SHA-256 public fingerprint here, enables certificate pinning                                                                                                                                                       |
 
 ⚠️ **_Note: To overwrite the api endpoint - `api.ionos.com`, the environment variable `$IONOS_API_URL` can be set, and used with `NewConfigurationFromEnv()` function._**
@@ -156,9 +156,9 @@ requestProperties.SetURL("https://api.ionos.com/cloudapi/v6")
 
 ## Debugging
 
-You can now inject any logger that implements Printf as a logger
+You can inject any logger that implements Printf as a logger
 instead of using the default sdk logger.
-There are now Loglevels that you can set: `Off`, `Debug` and `Trace`.
+There are log levels that you can set: `Off`, `Debug` and `Trace`.
 `Off` - does not show any logs
 `Debug` - regular logs, no sensitive information
 `Trace` - we recommend you only set this field for debugging purposes. Disable it in your production environments because it can log sensitive data.
@@ -179,9 +179,9 @@ func main() {
     // if you have set your env variables as explained above
     cfg := shared.NewConfiguration("username", "password", "token", "hostUrl")
     // enable request and response logging. this is the most verbose loglevel
-    cfg.LogLevel = Trace
+    shared.SdkLogLevel = Trace
     // inject your own logger that implements Printf
-    cfg.Logger = logrus.New()
+    shared.SdkLogger = logrus.New()
     // create you api client with the configuration
     apiClient := auth.NewAPIClient(cfg)
 }
