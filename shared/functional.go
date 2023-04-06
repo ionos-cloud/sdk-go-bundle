@@ -5,6 +5,27 @@ package shared
  * They are designed with code readability in mind. Use them to simplify common slice operations and provide error handling where appropriate.
  */
 
+import (
+	"errors"
+)
+
+// ApplyAndAggregateErrors applies the provided function for each element of the slice
+// If the function returns an error, it accumulates the error and continues execution
+// After all elements are processed, it returns the aggregated errors if any
+func ApplyAndAggregateErrors[T any](xs []T, f func(T) error) error {
+	return Fold(
+		xs,
+		func(errs error, x T) error {
+			err := f(x)
+			if err != nil {
+				errs = errors.Join(errs, err)
+			}
+			return errs
+		},
+		nil,
+	)
+}
+
 // ApplyOrFail tries applying the provided function for each element of the slice
 // If the function returns an error, we break execution and return the error
 func ApplyOrFail[T any](xs []T, f func(T) error) error {
