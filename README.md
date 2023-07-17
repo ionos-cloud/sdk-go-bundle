@@ -236,6 +236,7 @@ All SDKs are found in the folder `https://github.com/ionos-cloud/sdk-go-bundle/t
 - Import `github.com/ionos-cloud/sdk-go-bundle/shared` and replace the structs as required.
 - IONOS_DEBUG removed, debugging now set with `IONOS_LOG_LEVEL`, as described [here](https://github.com/ionos-cloud/sdk-go-bundle#debugging)
 - Replaced `PtrBool`, `PtrInt`, `PtrInt32`, `PtrInt64`, `PtrFloat`, `PtrFloat32`, `PtrFloat64`, `PtrString`, `PtrTime` with `ToPtr` generic functions
+- For CloudAPI, `computeconfig.SetDepth(int32(1))` is removed, you should instead use `sharedconfig.AddDefaultQueryParam("depth", "1")` 
 
 Example migration for compute `github.com/ionos-cloud/sdk-go/v6` to `github.com/ionos-cloud/sdk-go-bundle/products/compute`
 
