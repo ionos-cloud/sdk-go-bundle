@@ -14,12 +14,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the PipelinePatchProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PipelinePatchProperties{}
+
 // PipelinePatchProperties Patch pipeline properties
 type PipelinePatchProperties struct {
 	// The friendly name of your pipeline.
 	Name *string `json:"name,omitempty"`
 	// The information of the log pipelines
-	Logs *[]PipelineCreatePropertiesLogs `json:"logs,omitempty"`
+	Logs []Processor `json:"logs,omitempty"`
 }
 
 // NewPipelinePatchProperties instantiates a new PipelinePatchProperties object
@@ -40,93 +43,87 @@ func NewPipelinePatchPropertiesWithDefaults() *PipelinePatchProperties {
 	return &this
 }
 
-// GetName returns the Name field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *PipelinePatchProperties) GetName() *string {
-	if o == nil {
-		return nil
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *PipelinePatchProperties) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
 	}
-
-	return o.Name
-
+	return *o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PipelinePatchProperties) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-
 	return o.Name, true
-}
-
-// SetName sets field value
-func (o *PipelinePatchProperties) SetName(v string) {
-
-	o.Name = &v
-
 }
 
 // HasName returns a boolean if a field has been set.
 func (o *PipelinePatchProperties) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
 	return false
 }
 
-// GetLogs returns the Logs field value
-// If the value is explicit nil, the zero value for []PipelineCreatePropertiesLogs will be returned
-func (o *PipelinePatchProperties) GetLogs() *[]PipelineCreatePropertiesLogs {
-	if o == nil {
-		return nil
-	}
-
-	return o.Logs
-
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *PipelinePatchProperties) SetName(v string) {
+	o.Name = &v
 }
 
-// GetLogsOk returns a tuple with the Logs field value
+// GetLogs returns the Logs field value if set, zero value otherwise.
+func (o *PipelinePatchProperties) GetLogs() []Processor {
+	if o == nil || IsNil(o.Logs) {
+		var ret []Processor
+		return ret
+	}
+	return o.Logs
+}
+
+// GetLogsOk returns a tuple with the Logs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PipelinePatchProperties) GetLogsOk() (*[]PipelineCreatePropertiesLogs, bool) {
-	if o == nil {
+func (o *PipelinePatchProperties) GetLogsOk() ([]Processor, bool) {
+	if o == nil || IsNil(o.Logs) {
 		return nil, false
 	}
-
 	return o.Logs, true
-}
-
-// SetLogs sets field value
-func (o *PipelinePatchProperties) SetLogs(v []PipelineCreatePropertiesLogs) {
-
-	o.Logs = &v
-
 }
 
 // HasLogs returns a boolean if a field has been set.
 func (o *PipelinePatchProperties) HasLogs() bool {
-	if o != nil && o.Logs != nil {
+	if o != nil && !IsNil(o.Logs) {
 		return true
 	}
 
 	return false
 }
 
+// SetLogs gets a reference to the given []Processor and assigns it to the Logs field.
+func (o *PipelinePatchProperties) SetLogs(v []Processor) {
+	o.Logs = v
+}
+
 func (o PipelinePatchProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PipelinePatchProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-
-	if o.Logs != nil {
+	if !IsNil(o.Logs) {
 		toSerialize["logs"] = o.Logs
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullablePipelinePatchProperties struct {

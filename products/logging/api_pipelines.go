@@ -75,7 +75,7 @@ func (a *PipelinesApiService) PipelinesDeleteExecute(r ApiPipelinesDeleteRequest
 	}
 
 	localVarPath := localBasePath + "/pipelines/{pipelineId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"pipelineId"+"}", _neturl.PathEscape(parameterToString(r.pipelineId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"pipelineId"+"}", _neturl.PathEscape(parameterValueToString(r.pipelineId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -212,7 +212,7 @@ func (a *PipelinesApiService) PipelinesFindByIdExecute(r ApiPipelinesFindByIdReq
 	}
 
 	localVarPath := localBasePath + "/pipelines/{pipelineId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"pipelineId"+"}", _neturl.PathEscape(parameterToString(r.pipelineId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"pipelineId"+"}", _neturl.PathEscape(parameterValueToString(r.pipelineId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -368,13 +368,13 @@ func (a *PipelinesApiService) PipelinesGetExecute(r ApiPipelinesGetRequest) (Pip
 	localVarFormParams := _neturl.Values{}
 
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	if r.offset != nil {
-		localVarQueryParams.Add("offset", parameterToString(*r.offset, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
 	}
 	if r.orderBy != nil {
-		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "orderBy", r.orderBy, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -466,7 +466,7 @@ type ApiPipelinesKeyPostRequest struct {
 	pipelineId string
 }
 
-func (r ApiPipelinesKeyPostRequest) Execute() (PipelinesKeyPost200Response, *shared.APIResponse, error) {
+func (r ApiPipelinesKeyPostRequest) Execute() (InlineResponse200, *shared.APIResponse, error) {
 	return r.ApiService.PipelinesKeyPostExecute(r)
 }
 
@@ -487,16 +487,16 @@ func (a *PipelinesApiService) PipelinesKeyPost(ctx _context.Context, pipelineId 
 
 /*
  * Execute executes the request
- * @return PipelinesKeyPost200Response
+ * @return InlineResponse200
  */
-func (a *PipelinesApiService) PipelinesKeyPostExecute(r ApiPipelinesKeyPostRequest) (PipelinesKeyPost200Response, *shared.APIResponse, error) {
+func (a *PipelinesApiService) PipelinesKeyPostExecute(r ApiPipelinesKeyPostRequest) (InlineResponse200, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  PipelinesKeyPost200Response
+		localVarReturnValue  InlineResponse200
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PipelinesApiService.PipelinesKeyPost")
@@ -507,7 +507,7 @@ func (a *PipelinesApiService) PipelinesKeyPostExecute(r ApiPipelinesKeyPostReque
 	}
 
 	localVarPath := localBasePath + "/pipelines/{pipelineId}/key"
-	localVarPath = strings.Replace(localVarPath, "{"+"pipelineId"+"}", _neturl.PathEscape(parameterToString(r.pipelineId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"pipelineId"+"}", _neturl.PathEscape(parameterValueToString(r.pipelineId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -650,7 +650,7 @@ func (a *PipelinesApiService) PipelinesPatchExecute(r ApiPipelinesPatchRequest) 
 	}
 
 	localVarPath := localBasePath + "/pipelines/{pipelineId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"pipelineId"+"}", _neturl.PathEscape(parameterToString(r.pipelineId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"pipelineId"+"}", _neturl.PathEscape(parameterValueToString(r.pipelineId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}

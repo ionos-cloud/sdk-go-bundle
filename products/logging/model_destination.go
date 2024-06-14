@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Destination type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Destination{}
+
 // Destination The information of the logging aggregator storage
 type Destination struct {
 	// The internal output stream to send logs to
@@ -49,93 +52,87 @@ func NewDestinationWithDefaults() *Destination {
 	return &this
 }
 
-// GetType returns the Type field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Destination) GetType() *string {
-	if o == nil {
-		return nil
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *Destination) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
 	}
-
-	return o.Type
-
+	return *o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Destination) GetTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
-
 	return o.Type, true
-}
-
-// SetType sets field value
-func (o *Destination) SetType(v string) {
-
-	o.Type = &v
-
 }
 
 // HasType returns a boolean if a field has been set.
 func (o *Destination) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
 	return false
 }
 
-// GetRetentionInDays returns the RetentionInDays field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *Destination) GetRetentionInDays() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.RetentionInDays
-
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *Destination) SetType(v string) {
+	o.Type = &v
 }
 
-// GetRetentionInDaysOk returns a tuple with the RetentionInDays field value
+// GetRetentionInDays returns the RetentionInDays field value if set, zero value otherwise.
+func (o *Destination) GetRetentionInDays() int32 {
+	if o == nil || IsNil(o.RetentionInDays) {
+		var ret int32
+		return ret
+	}
+	return *o.RetentionInDays
+}
+
+// GetRetentionInDaysOk returns a tuple with the RetentionInDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Destination) GetRetentionInDaysOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.RetentionInDays) {
 		return nil, false
 	}
-
 	return o.RetentionInDays, true
-}
-
-// SetRetentionInDays sets field value
-func (o *Destination) SetRetentionInDays(v int32) {
-
-	o.RetentionInDays = &v
-
 }
 
 // HasRetentionInDays returns a boolean if a field has been set.
 func (o *Destination) HasRetentionInDays() bool {
-	if o != nil && o.RetentionInDays != nil {
+	if o != nil && !IsNil(o.RetentionInDays) {
 		return true
 	}
 
 	return false
 }
 
+// SetRetentionInDays gets a reference to the given int32 and assigns it to the RetentionInDays field.
+func (o *Destination) SetRetentionInDays(v int32) {
+	o.RetentionInDays = &v
+}
+
 func (o Destination) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Destination) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-
-	if o.RetentionInDays != nil {
+	if !IsNil(o.RetentionInDays) {
 		toSerialize["retentionInDays"] = o.RetentionInDays
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableDestination struct {

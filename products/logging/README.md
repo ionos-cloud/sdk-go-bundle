@@ -216,11 +216,11 @@ All URIs are relative to *https://logging.de-txl.ionos.com*
  - [Destination](docs/models/Destination)
  - [ErrorMessage](docs/models/ErrorMessage)
  - [ErrorResponse](docs/models/ErrorResponse)
+ - [InlineResponse200](docs/models/InlineResponse200)
  - [Metadata](docs/models/Metadata)
  - [Pipeline](docs/models/Pipeline)
  - [PipelineCreate](docs/models/PipelineCreate)
  - [PipelineCreateProperties](docs/models/PipelineCreateProperties)
- - [PipelineCreatePropertiesLogs](docs/models/PipelineCreatePropertiesLogs)
  - [PipelineListResponse](docs/models/PipelineListResponse)
  - [PipelinePatch](docs/models/PipelinePatch)
  - [PipelinePatchProperties](docs/models/PipelinePatchProperties)
@@ -228,7 +228,6 @@ All URIs are relative to *https://logging.de-txl.ionos.com*
  - [PipelineResponse](docs/models/PipelineResponse)
  - [PipelineResponseAllOf](docs/models/PipelineResponseAllOf)
  - [PipelineResponseAllOf1](docs/models/PipelineResponseAllOf1)
- - [PipelinesKeyPost200Response](docs/models/PipelinesKeyPost200Response)
  - [Processor](docs/models/Processor)
 
 

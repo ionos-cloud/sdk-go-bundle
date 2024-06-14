@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PipelineResponseAllOf type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PipelineResponseAllOf{}
+
 // PipelineResponseAllOf struct for PipelineResponseAllOf
 type PipelineResponseAllOf struct {
 	Public *bool `json:"public,omitempty"`
@@ -37,51 +40,52 @@ func NewPipelineResponseAllOfWithDefaults() *PipelineResponseAllOf {
 	return &this
 }
 
-// GetPublic returns the Public field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *PipelineResponseAllOf) GetPublic() *bool {
-	if o == nil {
-		return nil
+// GetPublic returns the Public field value if set, zero value otherwise.
+func (o *PipelineResponseAllOf) GetPublic() bool {
+	if o == nil || IsNil(o.Public) {
+		var ret bool
+		return ret
 	}
-
-	return o.Public
-
+	return *o.Public
 }
 
-// GetPublicOk returns a tuple with the Public field value
+// GetPublicOk returns a tuple with the Public field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PipelineResponseAllOf) GetPublicOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Public) {
 		return nil, false
 	}
-
 	return o.Public, true
-}
-
-// SetPublic sets field value
-func (o *PipelineResponseAllOf) SetPublic(v bool) {
-
-	o.Public = &v
-
 }
 
 // HasPublic returns a boolean if a field has been set.
 func (o *PipelineResponseAllOf) HasPublic() bool {
-	if o != nil && o.Public != nil {
+	if o != nil && !IsNil(o.Public) {
 		return true
 	}
 
 	return false
 }
 
+// SetPublic gets a reference to the given bool and assigns it to the Public field.
+func (o *PipelineResponseAllOf) SetPublic(v bool) {
+	o.Public = &v
+}
+
 func (o PipelineResponseAllOf) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PipelineResponseAllOf) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Public != nil {
+	if !IsNil(o.Public) {
 		toSerialize["public"] = o.Public
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullablePipelineResponseAllOf struct {

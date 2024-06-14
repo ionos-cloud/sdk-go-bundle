@@ -1,6 +1,6 @@
-module github.com/ionos-cloud/sdk-go-bundle/products/logging
+module github.com/ionos-cloud/sdk-go-bundle/products/logging/v2
 
-go 1.19
+go 1.21
 
 require (
 	github.com/ionos-cloud/sdk-go-bundle/shared v0.1.0

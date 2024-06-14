@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Pipeline type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Pipeline{}
+
 // Pipeline pipeline response
 type Pipeline struct {
 	// The unique ID of the resource.
@@ -40,135 +43,122 @@ func NewPipelineWithDefaults() *Pipeline {
 	return &this
 }
 
-// GetId returns the Id field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Pipeline) GetId() *string {
-	if o == nil {
-		return nil
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *Pipeline) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
 	}
-
-	return o.Id
-
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Pipeline) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-
 	return o.Id, true
-}
-
-// SetId sets field value
-func (o *Pipeline) SetId(v string) {
-
-	o.Id = &v
-
 }
 
 // HasId returns a boolean if a field has been set.
 func (o *Pipeline) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
 	return false
 }
 
-// GetMetadata returns the Metadata field value
-// If the value is explicit nil, the zero value for Metadata will be returned
-func (o *Pipeline) GetMetadata() *Metadata {
-	if o == nil {
-		return nil
-	}
-
-	return o.Metadata
-
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *Pipeline) SetId(v string) {
+	o.Id = &v
 }
 
-// GetMetadataOk returns a tuple with the Metadata field value
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
+func (o *Pipeline) GetMetadata() Metadata {
+	if o == nil || IsNil(o.Metadata) {
+		var ret Metadata
+		return ret
+	}
+	return *o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Pipeline) GetMetadataOk() (*Metadata, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
-
 	return o.Metadata, true
-}
-
-// SetMetadata sets field value
-func (o *Pipeline) SetMetadata(v Metadata) {
-
-	o.Metadata = &v
-
 }
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *Pipeline) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
 	return false
 }
 
-// GetProperties returns the Properties field value
-// If the value is explicit nil, the zero value for PipelineProperties will be returned
-func (o *Pipeline) GetProperties() *PipelineProperties {
-	if o == nil {
-		return nil
-	}
-
-	return o.Properties
-
+// SetMetadata gets a reference to the given Metadata and assigns it to the Metadata field.
+func (o *Pipeline) SetMetadata(v Metadata) {
+	o.Metadata = &v
 }
 
-// GetPropertiesOk returns a tuple with the Properties field value
+// GetProperties returns the Properties field value if set, zero value otherwise.
+func (o *Pipeline) GetProperties() PipelineProperties {
+	if o == nil || IsNil(o.Properties) {
+		var ret PipelineProperties
+		return ret
+	}
+	return *o.Properties
+}
+
+// GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Pipeline) GetPropertiesOk() (*PipelineProperties, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Properties) {
 		return nil, false
 	}
-
 	return o.Properties, true
-}
-
-// SetProperties sets field value
-func (o *Pipeline) SetProperties(v PipelineProperties) {
-
-	o.Properties = &v
-
 }
 
 // HasProperties returns a boolean if a field has been set.
 func (o *Pipeline) HasProperties() bool {
-	if o != nil && o.Properties != nil {
+	if o != nil && !IsNil(o.Properties) {
 		return true
 	}
 
 	return false
 }
 
+// SetProperties gets a reference to the given PipelineProperties and assigns it to the Properties field.
+func (o *Pipeline) SetProperties(v PipelineProperties) {
+	o.Properties = &v
+}
+
 func (o Pipeline) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Pipeline) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-
-	if o.Metadata != nil {
+	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
-
-	if o.Properties != nil {
+	if !IsNil(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullablePipeline struct {

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PipelineResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PipelineResponse{}
+
 // PipelineResponse struct for PipelineResponse
 type PipelineResponse struct {
 	Public *bool `json:"public,omitempty"`
@@ -24,8 +27,8 @@ type PipelineResponse struct {
 	// Protocol to use as intake
 	Protocol *string `json:"protocol,omitempty"`
 	// Optional custom labels to filter and report logs
-	Labels       *[]string      `json:"labels,omitempty"`
-	Destinations *[]Destination `json:"destinations,omitempty"`
+	Labels       []string      `json:"labels,omitempty"`
+	Destinations []Destination `json:"destinations,omitempty"`
 }
 
 // NewPipelineResponse instantiates a new PipelineResponse object
@@ -46,261 +49,227 @@ func NewPipelineResponseWithDefaults() *PipelineResponse {
 	return &this
 }
 
-// GetPublic returns the Public field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *PipelineResponse) GetPublic() *bool {
-	if o == nil {
-		return nil
+// GetPublic returns the Public field value if set, zero value otherwise.
+func (o *PipelineResponse) GetPublic() bool {
+	if o == nil || IsNil(o.Public) {
+		var ret bool
+		return ret
 	}
-
-	return o.Public
-
+	return *o.Public
 }
 
-// GetPublicOk returns a tuple with the Public field value
+// GetPublicOk returns a tuple with the Public field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PipelineResponse) GetPublicOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Public) {
 		return nil, false
 	}
-
 	return o.Public, true
-}
-
-// SetPublic sets field value
-func (o *PipelineResponse) SetPublic(v bool) {
-
-	o.Public = &v
-
 }
 
 // HasPublic returns a boolean if a field has been set.
 func (o *PipelineResponse) HasPublic() bool {
-	if o != nil && o.Public != nil {
+	if o != nil && !IsNil(o.Public) {
 		return true
 	}
 
 	return false
 }
 
-// GetSource returns the Source field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *PipelineResponse) GetSource() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Source
-
+// SetPublic gets a reference to the given bool and assigns it to the Public field.
+func (o *PipelineResponse) SetPublic(v bool) {
+	o.Public = &v
 }
 
-// GetSourceOk returns a tuple with the Source field value
+// GetSource returns the Source field value if set, zero value otherwise.
+func (o *PipelineResponse) GetSource() string {
+	if o == nil || IsNil(o.Source) {
+		var ret string
+		return ret
+	}
+	return *o.Source
+}
+
+// GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PipelineResponse) GetSourceOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
-
 	return o.Source, true
-}
-
-// SetSource sets field value
-func (o *PipelineResponse) SetSource(v string) {
-
-	o.Source = &v
-
 }
 
 // HasSource returns a boolean if a field has been set.
 func (o *PipelineResponse) HasSource() bool {
-	if o != nil && o.Source != nil {
+	if o != nil && !IsNil(o.Source) {
 		return true
 	}
 
 	return false
 }
 
-// GetTag returns the Tag field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *PipelineResponse) GetTag() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Tag
-
+// SetSource gets a reference to the given string and assigns it to the Source field.
+func (o *PipelineResponse) SetSource(v string) {
+	o.Source = &v
 }
 
-// GetTagOk returns a tuple with the Tag field value
+// GetTag returns the Tag field value if set, zero value otherwise.
+func (o *PipelineResponse) GetTag() string {
+	if o == nil || IsNil(o.Tag) {
+		var ret string
+		return ret
+	}
+	return *o.Tag
+}
+
+// GetTagOk returns a tuple with the Tag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PipelineResponse) GetTagOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Tag) {
 		return nil, false
 	}
-
 	return o.Tag, true
-}
-
-// SetTag sets field value
-func (o *PipelineResponse) SetTag(v string) {
-
-	o.Tag = &v
-
 }
 
 // HasTag returns a boolean if a field has been set.
 func (o *PipelineResponse) HasTag() bool {
-	if o != nil && o.Tag != nil {
+	if o != nil && !IsNil(o.Tag) {
 		return true
 	}
 
 	return false
 }
 
-// GetProtocol returns the Protocol field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *PipelineResponse) GetProtocol() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Protocol
-
+// SetTag gets a reference to the given string and assigns it to the Tag field.
+func (o *PipelineResponse) SetTag(v string) {
+	o.Tag = &v
 }
 
-// GetProtocolOk returns a tuple with the Protocol field value
+// GetProtocol returns the Protocol field value if set, zero value otherwise.
+func (o *PipelineResponse) GetProtocol() string {
+	if o == nil || IsNil(o.Protocol) {
+		var ret string
+		return ret
+	}
+	return *o.Protocol
+}
+
+// GetProtocolOk returns a tuple with the Protocol field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PipelineResponse) GetProtocolOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Protocol) {
 		return nil, false
 	}
-
 	return o.Protocol, true
-}
-
-// SetProtocol sets field value
-func (o *PipelineResponse) SetProtocol(v string) {
-
-	o.Protocol = &v
-
 }
 
 // HasProtocol returns a boolean if a field has been set.
 func (o *PipelineResponse) HasProtocol() bool {
-	if o != nil && o.Protocol != nil {
+	if o != nil && !IsNil(o.Protocol) {
 		return true
 	}
 
 	return false
 }
 
-// GetLabels returns the Labels field value
-// If the value is explicit nil, the zero value for []string will be returned
-func (o *PipelineResponse) GetLabels() *[]string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Labels
-
+// SetProtocol gets a reference to the given string and assigns it to the Protocol field.
+func (o *PipelineResponse) SetProtocol(v string) {
+	o.Protocol = &v
 }
 
-// GetLabelsOk returns a tuple with the Labels field value
+// GetLabels returns the Labels field value if set, zero value otherwise.
+func (o *PipelineResponse) GetLabels() []string {
+	if o == nil || IsNil(o.Labels) {
+		var ret []string
+		return ret
+	}
+	return o.Labels
+}
+
+// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PipelineResponse) GetLabelsOk() (*[]string, bool) {
-	if o == nil {
+func (o *PipelineResponse) GetLabelsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Labels) {
 		return nil, false
 	}
-
 	return o.Labels, true
-}
-
-// SetLabels sets field value
-func (o *PipelineResponse) SetLabels(v []string) {
-
-	o.Labels = &v
-
 }
 
 // HasLabels returns a boolean if a field has been set.
 func (o *PipelineResponse) HasLabels() bool {
-	if o != nil && o.Labels != nil {
+	if o != nil && !IsNil(o.Labels) {
 		return true
 	}
 
 	return false
 }
 
-// GetDestinations returns the Destinations field value
-// If the value is explicit nil, the zero value for []Destination will be returned
-func (o *PipelineResponse) GetDestinations() *[]Destination {
-	if o == nil {
-		return nil
-	}
-
-	return o.Destinations
-
+// SetLabels gets a reference to the given []string and assigns it to the Labels field.
+func (o *PipelineResponse) SetLabels(v []string) {
+	o.Labels = v
 }
 
-// GetDestinationsOk returns a tuple with the Destinations field value
+// GetDestinations returns the Destinations field value if set, zero value otherwise.
+func (o *PipelineResponse) GetDestinations() []Destination {
+	if o == nil || IsNil(o.Destinations) {
+		var ret []Destination
+		return ret
+	}
+	return o.Destinations
+}
+
+// GetDestinationsOk returns a tuple with the Destinations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PipelineResponse) GetDestinationsOk() (*[]Destination, bool) {
-	if o == nil {
+func (o *PipelineResponse) GetDestinationsOk() ([]Destination, bool) {
+	if o == nil || IsNil(o.Destinations) {
 		return nil, false
 	}
-
 	return o.Destinations, true
-}
-
-// SetDestinations sets field value
-func (o *PipelineResponse) SetDestinations(v []Destination) {
-
-	o.Destinations = &v
-
 }
 
 // HasDestinations returns a boolean if a field has been set.
 func (o *PipelineResponse) HasDestinations() bool {
-	if o != nil && o.Destinations != nil {
+	if o != nil && !IsNil(o.Destinations) {
 		return true
 	}
 
 	return false
 }
 
+// SetDestinations gets a reference to the given []Destination and assigns it to the Destinations field.
+func (o *PipelineResponse) SetDestinations(v []Destination) {
+	o.Destinations = v
+}
+
 func (o PipelineResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PipelineResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Public != nil {
+	if !IsNil(o.Public) {
 		toSerialize["public"] = o.Public
 	}
-
-	if o.Source != nil {
+	if !IsNil(o.Source) {
 		toSerialize["source"] = o.Source
 	}
-
-	if o.Tag != nil {
+	if !IsNil(o.Tag) {
 		toSerialize["tag"] = o.Tag
 	}
-
-	if o.Protocol != nil {
+	if !IsNil(o.Protocol) {
 		toSerialize["protocol"] = o.Protocol
 	}
-
-	if o.Labels != nil {
+	if !IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
 	}
-
-	if o.Destinations != nil {
+	if !IsNil(o.Destinations) {
 		toSerialize["destinations"] = o.Destinations
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullablePipelineResponse struct {

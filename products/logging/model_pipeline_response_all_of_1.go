@@ -14,9 +14,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the PipelineResponseAllOf1 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PipelineResponseAllOf1{}
+
 // PipelineResponseAllOf1 struct for PipelineResponseAllOf1
 type PipelineResponseAllOf1 struct {
-	Destinations *[]Destination `json:"destinations,omitempty"`
+	Destinations []Destination `json:"destinations,omitempty"`
 }
 
 // NewPipelineResponseAllOf1 instantiates a new PipelineResponseAllOf1 object
@@ -37,51 +40,52 @@ func NewPipelineResponseAllOf1WithDefaults() *PipelineResponseAllOf1 {
 	return &this
 }
 
-// GetDestinations returns the Destinations field value
-// If the value is explicit nil, the zero value for []Destination will be returned
-func (o *PipelineResponseAllOf1) GetDestinations() *[]Destination {
-	if o == nil {
-		return nil
+// GetDestinations returns the Destinations field value if set, zero value otherwise.
+func (o *PipelineResponseAllOf1) GetDestinations() []Destination {
+	if o == nil || IsNil(o.Destinations) {
+		var ret []Destination
+		return ret
 	}
-
 	return o.Destinations
-
 }
 
-// GetDestinationsOk returns a tuple with the Destinations field value
+// GetDestinationsOk returns a tuple with the Destinations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PipelineResponseAllOf1) GetDestinationsOk() (*[]Destination, bool) {
-	if o == nil {
+func (o *PipelineResponseAllOf1) GetDestinationsOk() ([]Destination, bool) {
+	if o == nil || IsNil(o.Destinations) {
 		return nil, false
 	}
-
 	return o.Destinations, true
-}
-
-// SetDestinations sets field value
-func (o *PipelineResponseAllOf1) SetDestinations(v []Destination) {
-
-	o.Destinations = &v
-
 }
 
 // HasDestinations returns a boolean if a field has been set.
 func (o *PipelineResponseAllOf1) HasDestinations() bool {
-	if o != nil && o.Destinations != nil {
+	if o != nil && !IsNil(o.Destinations) {
 		return true
 	}
 
 	return false
 }
 
+// SetDestinations gets a reference to the given []Destination and assigns it to the Destinations field.
+func (o *PipelineResponseAllOf1) SetDestinations(v []Destination) {
+	o.Destinations = v
+}
+
 func (o PipelineResponseAllOf1) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PipelineResponseAllOf1) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Destinations != nil {
+	if !IsNil(o.Destinations) {
 		toSerialize["destinations"] = o.Destinations
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullablePipelineResponseAllOf1 struct {

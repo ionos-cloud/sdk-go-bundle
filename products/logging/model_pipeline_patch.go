@@ -14,9 +14,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the PipelinePatch type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PipelinePatch{}
+
 // PipelinePatch Request payload with any data that is possible to patch a logging pipeline
 type PipelinePatch struct {
-	Properties *PipelinePatchProperties `json:"properties"`
+	Properties PipelinePatchProperties `json:"properties"`
 }
 
 // NewPipelinePatch instantiates a new PipelinePatch object
@@ -26,7 +29,7 @@ type PipelinePatch struct {
 func NewPipelinePatch(properties PipelinePatchProperties) *PipelinePatch {
 	this := PipelinePatch{}
 
-	this.Properties = &properties
+	this.Properties = properties
 
 	return &this
 }
@@ -40,50 +43,43 @@ func NewPipelinePatchWithDefaults() *PipelinePatch {
 }
 
 // GetProperties returns the Properties field value
-// If the value is explicit nil, the zero value for PipelinePatchProperties will be returned
-func (o *PipelinePatch) GetProperties() *PipelinePatchProperties {
+func (o *PipelinePatch) GetProperties() PipelinePatchProperties {
 	if o == nil {
-		return nil
+		var ret PipelinePatchProperties
+		return ret
 	}
 
 	return o.Properties
-
 }
 
 // GetPropertiesOk returns a tuple with the Properties field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PipelinePatch) GetPropertiesOk() (*PipelinePatchProperties, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Properties, true
+	return &o.Properties, true
 }
 
 // SetProperties sets field value
 func (o *PipelinePatch) SetProperties(v PipelinePatchProperties) {
-
-	o.Properties = &v
-
-}
-
-// HasProperties returns a boolean if a field has been set.
-func (o *PipelinePatch) HasProperties() bool {
-	if o != nil && o.Properties != nil {
-		return true
-	}
-
-	return false
+	o.Properties = v
 }
 
 func (o PipelinePatch) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PipelinePatch) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Properties != nil {
+	if !IsZero(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullablePipelinePatch struct {

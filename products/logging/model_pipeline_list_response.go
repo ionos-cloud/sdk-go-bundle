@@ -14,11 +14,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the PipelineListResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PipelineListResponse{}
+
 // PipelineListResponse List of pipelines
 type PipelineListResponse struct {
-	Id    *string     `json:"id,omitempty"`
-	Type  *string     `json:"type,omitempty"`
-	Items *[]Pipeline `json:"items,omitempty"`
+	Id    *string    `json:"id,omitempty"`
+	Type  *string    `json:"type,omitempty"`
+	Items []Pipeline `json:"items,omitempty"`
 }
 
 // NewPipelineListResponse instantiates a new PipelineListResponse object
@@ -39,135 +42,122 @@ func NewPipelineListResponseWithDefaults() *PipelineListResponse {
 	return &this
 }
 
-// GetId returns the Id field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *PipelineListResponse) GetId() *string {
-	if o == nil {
-		return nil
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *PipelineListResponse) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
 	}
-
-	return o.Id
-
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PipelineListResponse) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-
 	return o.Id, true
-}
-
-// SetId sets field value
-func (o *PipelineListResponse) SetId(v string) {
-
-	o.Id = &v
-
 }
 
 // HasId returns a boolean if a field has been set.
 func (o *PipelineListResponse) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
 	return false
 }
 
-// GetType returns the Type field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *PipelineListResponse) GetType() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Type
-
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *PipelineListResponse) SetId(v string) {
+	o.Id = &v
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *PipelineListResponse) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PipelineListResponse) GetTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
-
 	return o.Type, true
-}
-
-// SetType sets field value
-func (o *PipelineListResponse) SetType(v string) {
-
-	o.Type = &v
-
 }
 
 // HasType returns a boolean if a field has been set.
 func (o *PipelineListResponse) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
 	return false
 }
 
-// GetItems returns the Items field value
-// If the value is explicit nil, the zero value for []Pipeline will be returned
-func (o *PipelineListResponse) GetItems() *[]Pipeline {
-	if o == nil {
-		return nil
-	}
-
-	return o.Items
-
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *PipelineListResponse) SetType(v string) {
+	o.Type = &v
 }
 
-// GetItemsOk returns a tuple with the Items field value
+// GetItems returns the Items field value if set, zero value otherwise.
+func (o *PipelineListResponse) GetItems() []Pipeline {
+	if o == nil || IsNil(o.Items) {
+		var ret []Pipeline
+		return ret
+	}
+	return o.Items
+}
+
+// GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PipelineListResponse) GetItemsOk() (*[]Pipeline, bool) {
-	if o == nil {
+func (o *PipelineListResponse) GetItemsOk() ([]Pipeline, bool) {
+	if o == nil || IsNil(o.Items) {
 		return nil, false
 	}
-
 	return o.Items, true
-}
-
-// SetItems sets field value
-func (o *PipelineListResponse) SetItems(v []Pipeline) {
-
-	o.Items = &v
-
 }
 
 // HasItems returns a boolean if a field has been set.
 func (o *PipelineListResponse) HasItems() bool {
-	if o != nil && o.Items != nil {
+	if o != nil && !IsNil(o.Items) {
 		return true
 	}
 
 	return false
 }
 
+// SetItems gets a reference to the given []Pipeline and assigns it to the Items field.
+func (o *PipelineListResponse) SetItems(v []Pipeline) {
+	o.Items = v
+}
+
 func (o PipelineListResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PipelineListResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-
-	if o.Items != nil {
+	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullablePipelineListResponse struct {

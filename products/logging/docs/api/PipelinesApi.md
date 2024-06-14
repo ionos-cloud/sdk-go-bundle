@@ -221,7 +221,7 @@ Other parameters are passed through a pointer to an apiPipelinesGetRequest struc
 ## PipelinesKeyPost
 
 ```go
-var result PipelinesKeyPost200Response = PipelinesKeyPost(ctx, pipelineId)
+var result InlineResponse200 = PipelinesKeyPost(ctx, pipelineId)
                       .Execute()
 ```
 
@@ -253,7 +253,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `PipelinesApi.PipelinesKeyPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
-    // response from `PipelinesKeyPost`: PipelinesKeyPost200Response
+    // response from `PipelinesKeyPost`: InlineResponse200
     fmt.Fprintf(os.Stdout, "Response from `PipelinesApi.PipelinesKeyPost`: %v\n", resource)
 }
 ```
@@ -276,7 +276,7 @@ Other parameters are passed through a pointer to an apiPipelinesKeyPostRequest s
 
 ### Return type
 
-[**PipelinesKeyPost200Response**](../models/PipelinesKeyPost200Response.md)
+[**InlineResponse200**](../models/InlineResponse200.md)
 
 ### HTTP request headers
 
@@ -382,7 +382,7 @@ import (
 )
 
 func main() {
-    pipeline := *openapiclient.NewPipelineCreate(*openapiclient.NewPipelineCreateProperties("Name_example", []openapiclient.PipelineCreatePropertiesLogs{*openapiclient.NewPipelineCreatePropertiesLogs()})) // PipelineCreate | The pipeline to be created.
+    pipeline := *openapiclient.NewPipelineCreate(*openapiclient.NewPipelineCreateProperties("Name_example", []openapiclient.Processor{*openapiclient.NewProcessor()})) // PipelineCreate | The pipeline to be created.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := logging.NewAPIClient(configuration)

@@ -14,23 +14,26 @@ import (
 	"encoding/json"
 )
 
+// checks if the PipelineCreateProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PipelineCreateProperties{}
+
 // PipelineCreateProperties Create pipeline properties
 type PipelineCreateProperties struct {
 	// The friendly name of your pipeline.
-	Name *string `json:"name"`
+	Name string `json:"name"`
 	// The information of the log pipelines
-	Logs *[]PipelineCreatePropertiesLogs `json:"logs"`
+	Logs []Processor `json:"logs"`
 }
 
 // NewPipelineCreateProperties instantiates a new PipelineCreateProperties object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPipelineCreateProperties(name string, logs []PipelineCreatePropertiesLogs) *PipelineCreateProperties {
+func NewPipelineCreateProperties(name string, logs []Processor) *PipelineCreateProperties {
 	this := PipelineCreateProperties{}
 
-	this.Name = &name
-	this.Logs = &logs
+	this.Name = name
+	this.Logs = logs
 
 	return &this
 }
@@ -44,92 +47,70 @@ func NewPipelineCreatePropertiesWithDefaults() *PipelineCreateProperties {
 }
 
 // GetName returns the Name field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *PipelineCreateProperties) GetName() *string {
+func (o *PipelineCreateProperties) GetName() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Name
-
 }
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PipelineCreateProperties) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Name, true
+	return &o.Name, true
 }
 
 // SetName sets field value
 func (o *PipelineCreateProperties) SetName(v string) {
-
-	o.Name = &v
-
-}
-
-// HasName returns a boolean if a field has been set.
-func (o *PipelineCreateProperties) HasName() bool {
-	if o != nil && o.Name != nil {
-		return true
-	}
-
-	return false
+	o.Name = v
 }
 
 // GetLogs returns the Logs field value
-// If the value is explicit nil, the zero value for []PipelineCreatePropertiesLogs will be returned
-func (o *PipelineCreateProperties) GetLogs() *[]PipelineCreatePropertiesLogs {
+func (o *PipelineCreateProperties) GetLogs() []Processor {
 	if o == nil {
-		return nil
+		var ret []Processor
+		return ret
 	}
 
 	return o.Logs
-
 }
 
 // GetLogsOk returns a tuple with the Logs field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PipelineCreateProperties) GetLogsOk() (*[]PipelineCreatePropertiesLogs, bool) {
+func (o *PipelineCreateProperties) GetLogsOk() ([]Processor, bool) {
 	if o == nil {
 		return nil, false
 	}
-
 	return o.Logs, true
 }
 
 // SetLogs sets field value
-func (o *PipelineCreateProperties) SetLogs(v []PipelineCreatePropertiesLogs) {
-
-	o.Logs = &v
-
-}
-
-// HasLogs returns a boolean if a field has been set.
-func (o *PipelineCreateProperties) HasLogs() bool {
-	if o != nil && o.Logs != nil {
-		return true
-	}
-
-	return false
+func (o *PipelineCreateProperties) SetLogs(v []Processor) {
+	o.Logs = v
 }
 
 func (o PipelineCreateProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PipelineCreateProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsZero(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-
-	if o.Logs != nil {
+	if !IsZero(o.Logs) {
 		toSerialize["logs"] = o.Logs
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullablePipelineCreateProperties struct {

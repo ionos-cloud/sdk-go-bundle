@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Processor type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Processor{}
+
 // Processor struct for Processor
 type Processor struct {
 	// The source parser to be used
@@ -23,9 +26,9 @@ type Processor struct {
 	// Protocol to use as intake
 	Protocol *string `json:"protocol,omitempty"`
 	// Optional custom labels to filter and report logs
-	Labels *[]string `json:"labels,omitempty"`
+	Labels []string `json:"labels,omitempty"`
 	// The configuration of the logs datastore
-	Destinations *[]Destination `json:"destinations,omitempty"`
+	Destinations []Destination `json:"destinations,omitempty"`
 }
 
 // NewProcessor instantiates a new Processor object
@@ -46,219 +49,192 @@ func NewProcessorWithDefaults() *Processor {
 	return &this
 }
 
-// GetSource returns the Source field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Processor) GetSource() *string {
-	if o == nil {
-		return nil
+// GetSource returns the Source field value if set, zero value otherwise.
+func (o *Processor) GetSource() string {
+	if o == nil || IsNil(o.Source) {
+		var ret string
+		return ret
 	}
-
-	return o.Source
-
+	return *o.Source
 }
 
-// GetSourceOk returns a tuple with the Source field value
+// GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Processor) GetSourceOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
-
 	return o.Source, true
-}
-
-// SetSource sets field value
-func (o *Processor) SetSource(v string) {
-
-	o.Source = &v
-
 }
 
 // HasSource returns a boolean if a field has been set.
 func (o *Processor) HasSource() bool {
-	if o != nil && o.Source != nil {
+	if o != nil && !IsNil(o.Source) {
 		return true
 	}
 
 	return false
 }
 
-// GetTag returns the Tag field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Processor) GetTag() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Tag
-
+// SetSource gets a reference to the given string and assigns it to the Source field.
+func (o *Processor) SetSource(v string) {
+	o.Source = &v
 }
 
-// GetTagOk returns a tuple with the Tag field value
+// GetTag returns the Tag field value if set, zero value otherwise.
+func (o *Processor) GetTag() string {
+	if o == nil || IsNil(o.Tag) {
+		var ret string
+		return ret
+	}
+	return *o.Tag
+}
+
+// GetTagOk returns a tuple with the Tag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Processor) GetTagOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Tag) {
 		return nil, false
 	}
-
 	return o.Tag, true
-}
-
-// SetTag sets field value
-func (o *Processor) SetTag(v string) {
-
-	o.Tag = &v
-
 }
 
 // HasTag returns a boolean if a field has been set.
 func (o *Processor) HasTag() bool {
-	if o != nil && o.Tag != nil {
+	if o != nil && !IsNil(o.Tag) {
 		return true
 	}
 
 	return false
 }
 
-// GetProtocol returns the Protocol field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Processor) GetProtocol() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Protocol
-
+// SetTag gets a reference to the given string and assigns it to the Tag field.
+func (o *Processor) SetTag(v string) {
+	o.Tag = &v
 }
 
-// GetProtocolOk returns a tuple with the Protocol field value
+// GetProtocol returns the Protocol field value if set, zero value otherwise.
+func (o *Processor) GetProtocol() string {
+	if o == nil || IsNil(o.Protocol) {
+		var ret string
+		return ret
+	}
+	return *o.Protocol
+}
+
+// GetProtocolOk returns a tuple with the Protocol field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Processor) GetProtocolOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Protocol) {
 		return nil, false
 	}
-
 	return o.Protocol, true
-}
-
-// SetProtocol sets field value
-func (o *Processor) SetProtocol(v string) {
-
-	o.Protocol = &v
-
 }
 
 // HasProtocol returns a boolean if a field has been set.
 func (o *Processor) HasProtocol() bool {
-	if o != nil && o.Protocol != nil {
+	if o != nil && !IsNil(o.Protocol) {
 		return true
 	}
 
 	return false
 }
 
-// GetLabels returns the Labels field value
-// If the value is explicit nil, the zero value for []string will be returned
-func (o *Processor) GetLabels() *[]string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Labels
-
+// SetProtocol gets a reference to the given string and assigns it to the Protocol field.
+func (o *Processor) SetProtocol(v string) {
+	o.Protocol = &v
 }
 
-// GetLabelsOk returns a tuple with the Labels field value
+// GetLabels returns the Labels field value if set, zero value otherwise.
+func (o *Processor) GetLabels() []string {
+	if o == nil || IsNil(o.Labels) {
+		var ret []string
+		return ret
+	}
+	return o.Labels
+}
+
+// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Processor) GetLabelsOk() (*[]string, bool) {
-	if o == nil {
+func (o *Processor) GetLabelsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Labels) {
 		return nil, false
 	}
-
 	return o.Labels, true
-}
-
-// SetLabels sets field value
-func (o *Processor) SetLabels(v []string) {
-
-	o.Labels = &v
-
 }
 
 // HasLabels returns a boolean if a field has been set.
 func (o *Processor) HasLabels() bool {
-	if o != nil && o.Labels != nil {
+	if o != nil && !IsNil(o.Labels) {
 		return true
 	}
 
 	return false
 }
 
-// GetDestinations returns the Destinations field value
-// If the value is explicit nil, the zero value for []Destination will be returned
-func (o *Processor) GetDestinations() *[]Destination {
-	if o == nil {
-		return nil
-	}
-
-	return o.Destinations
-
+// SetLabels gets a reference to the given []string and assigns it to the Labels field.
+func (o *Processor) SetLabels(v []string) {
+	o.Labels = v
 }
 
-// GetDestinationsOk returns a tuple with the Destinations field value
+// GetDestinations returns the Destinations field value if set, zero value otherwise.
+func (o *Processor) GetDestinations() []Destination {
+	if o == nil || IsNil(o.Destinations) {
+		var ret []Destination
+		return ret
+	}
+	return o.Destinations
+}
+
+// GetDestinationsOk returns a tuple with the Destinations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Processor) GetDestinationsOk() (*[]Destination, bool) {
-	if o == nil {
+func (o *Processor) GetDestinationsOk() ([]Destination, bool) {
+	if o == nil || IsNil(o.Destinations) {
 		return nil, false
 	}
-
 	return o.Destinations, true
-}
-
-// SetDestinations sets field value
-func (o *Processor) SetDestinations(v []Destination) {
-
-	o.Destinations = &v
-
 }
 
 // HasDestinations returns a boolean if a field has been set.
 func (o *Processor) HasDestinations() bool {
-	if o != nil && o.Destinations != nil {
+	if o != nil && !IsNil(o.Destinations) {
 		return true
 	}
 
 	return false
 }
 
+// SetDestinations gets a reference to the given []Destination and assigns it to the Destinations field.
+func (o *Processor) SetDestinations(v []Destination) {
+	o.Destinations = v
+}
+
 func (o Processor) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Processor) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Source != nil {
+	if !IsNil(o.Source) {
 		toSerialize["source"] = o.Source
 	}
-
-	if o.Tag != nil {
+	if !IsNil(o.Tag) {
 		toSerialize["tag"] = o.Tag
 	}
-
-	if o.Protocol != nil {
+	if !IsNil(o.Protocol) {
 		toSerialize["protocol"] = o.Protocol
 	}
-
-	if o.Labels != nil {
+	if !IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
 	}
-
-	if o.Destinations != nil {
+	if !IsNil(o.Destinations) {
 		toSerialize["destinations"] = o.Destinations
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableProcessor struct {
