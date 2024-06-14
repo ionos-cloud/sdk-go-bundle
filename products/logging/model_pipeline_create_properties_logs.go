@@ -1,7 +1,7 @@
 /*
  * IONOS Logging REST API
  *
- * Logging Service is a service that provides a centralized logging system where users are able to push and aggregate their system or application logs. This service also provides a visualization platform where users are able to observe, search and filter the logs and also create dashboards and alerts for their data points. This service can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an API. The API allows you to create logging pipelines or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
+ * Logging as a Service (LaaS) is a service that provides a centralized logging system where users are able to push and aggregate their system or application logs. This service also provides a visualization platform where users are able to observe, search and filter the logs and also create dashboards and alerts for their data points. This service can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an API. The API allows you to create logging pipelines or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
  *
  * API version: 0.0.1
  */
@@ -14,8 +14,8 @@ import (
 	"encoding/json"
 )
 
-// PatchRequestPipeline struct for PatchRequestPipeline
-type PatchRequestPipeline struct {
+// PipelineCreatePropertiesLogs struct for PipelineCreatePropertiesLogs
+type PipelineCreatePropertiesLogs struct {
 	// The source parser to be used
 	Source *string `json:"source,omitempty"`
 	// Tag is to distinguish different pipelines. must be unique amongst the pipeline's array items.
@@ -28,27 +28,27 @@ type PatchRequestPipeline struct {
 	Destinations *[]Destination `json:"destinations,omitempty"`
 }
 
-// NewPatchRequestPipeline instantiates a new PatchRequestPipeline object
+// NewPipelineCreatePropertiesLogs instantiates a new PipelineCreatePropertiesLogs object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPatchRequestPipeline() *PatchRequestPipeline {
-	this := PatchRequestPipeline{}
+func NewPipelineCreatePropertiesLogs() *PipelineCreatePropertiesLogs {
+	this := PipelineCreatePropertiesLogs{}
 
 	return &this
 }
 
-// NewPatchRequestPipelineWithDefaults instantiates a new PatchRequestPipeline object
+// NewPipelineCreatePropertiesLogsWithDefaults instantiates a new PipelineCreatePropertiesLogs object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewPatchRequestPipelineWithDefaults() *PatchRequestPipeline {
-	this := PatchRequestPipeline{}
+func NewPipelineCreatePropertiesLogsWithDefaults() *PipelineCreatePropertiesLogs {
+	this := PipelineCreatePropertiesLogs{}
 	return &this
 }
 
 // GetSource returns the Source field value
 // If the value is explicit nil, the zero value for string will be returned
-func (o *PatchRequestPipeline) GetSource() *string {
+func (o *PipelineCreatePropertiesLogs) GetSource() *string {
 	if o == nil {
 		return nil
 	}
@@ -60,7 +60,7 @@ func (o *PatchRequestPipeline) GetSource() *string {
 // GetSourceOk returns a tuple with the Source field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PatchRequestPipeline) GetSourceOk() (*string, bool) {
+func (o *PipelineCreatePropertiesLogs) GetSourceOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -69,14 +69,14 @@ func (o *PatchRequestPipeline) GetSourceOk() (*string, bool) {
 }
 
 // SetSource sets field value
-func (o *PatchRequestPipeline) SetSource(v string) {
+func (o *PipelineCreatePropertiesLogs) SetSource(v string) {
 
 	o.Source = &v
 
 }
 
 // HasSource returns a boolean if a field has been set.
-func (o *PatchRequestPipeline) HasSource() bool {
+func (o *PipelineCreatePropertiesLogs) HasSource() bool {
 	if o != nil && o.Source != nil {
 		return true
 	}
@@ -86,7 +86,7 @@ func (o *PatchRequestPipeline) HasSource() bool {
 
 // GetTag returns the Tag field value
 // If the value is explicit nil, the zero value for string will be returned
-func (o *PatchRequestPipeline) GetTag() *string {
+func (o *PipelineCreatePropertiesLogs) GetTag() *string {
 	if o == nil {
 		return nil
 	}
@@ -98,7 +98,7 @@ func (o *PatchRequestPipeline) GetTag() *string {
 // GetTagOk returns a tuple with the Tag field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PatchRequestPipeline) GetTagOk() (*string, bool) {
+func (o *PipelineCreatePropertiesLogs) GetTagOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -107,14 +107,14 @@ func (o *PatchRequestPipeline) GetTagOk() (*string, bool) {
 }
 
 // SetTag sets field value
-func (o *PatchRequestPipeline) SetTag(v string) {
+func (o *PipelineCreatePropertiesLogs) SetTag(v string) {
 
 	o.Tag = &v
 
 }
 
 // HasTag returns a boolean if a field has been set.
-func (o *PatchRequestPipeline) HasTag() bool {
+func (o *PipelineCreatePropertiesLogs) HasTag() bool {
 	if o != nil && o.Tag != nil {
 		return true
 	}
@@ -124,7 +124,7 @@ func (o *PatchRequestPipeline) HasTag() bool {
 
 // GetProtocol returns the Protocol field value
 // If the value is explicit nil, the zero value for string will be returned
-func (o *PatchRequestPipeline) GetProtocol() *string {
+func (o *PipelineCreatePropertiesLogs) GetProtocol() *string {
 	if o == nil {
 		return nil
 	}
@@ -136,7 +136,7 @@ func (o *PatchRequestPipeline) GetProtocol() *string {
 // GetProtocolOk returns a tuple with the Protocol field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PatchRequestPipeline) GetProtocolOk() (*string, bool) {
+func (o *PipelineCreatePropertiesLogs) GetProtocolOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -145,14 +145,14 @@ func (o *PatchRequestPipeline) GetProtocolOk() (*string, bool) {
 }
 
 // SetProtocol sets field value
-func (o *PatchRequestPipeline) SetProtocol(v string) {
+func (o *PipelineCreatePropertiesLogs) SetProtocol(v string) {
 
 	o.Protocol = &v
 
 }
 
 // HasProtocol returns a boolean if a field has been set.
-func (o *PatchRequestPipeline) HasProtocol() bool {
+func (o *PipelineCreatePropertiesLogs) HasProtocol() bool {
 	if o != nil && o.Protocol != nil {
 		return true
 	}
@@ -162,7 +162,7 @@ func (o *PatchRequestPipeline) HasProtocol() bool {
 
 // GetLabels returns the Labels field value
 // If the value is explicit nil, the zero value for []string will be returned
-func (o *PatchRequestPipeline) GetLabels() *[]string {
+func (o *PipelineCreatePropertiesLogs) GetLabels() *[]string {
 	if o == nil {
 		return nil
 	}
@@ -174,7 +174,7 @@ func (o *PatchRequestPipeline) GetLabels() *[]string {
 // GetLabelsOk returns a tuple with the Labels field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PatchRequestPipeline) GetLabelsOk() (*[]string, bool) {
+func (o *PipelineCreatePropertiesLogs) GetLabelsOk() (*[]string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -183,14 +183,14 @@ func (o *PatchRequestPipeline) GetLabelsOk() (*[]string, bool) {
 }
 
 // SetLabels sets field value
-func (o *PatchRequestPipeline) SetLabels(v []string) {
+func (o *PipelineCreatePropertiesLogs) SetLabels(v []string) {
 
 	o.Labels = &v
 
 }
 
 // HasLabels returns a boolean if a field has been set.
-func (o *PatchRequestPipeline) HasLabels() bool {
+func (o *PipelineCreatePropertiesLogs) HasLabels() bool {
 	if o != nil && o.Labels != nil {
 		return true
 	}
@@ -200,7 +200,7 @@ func (o *PatchRequestPipeline) HasLabels() bool {
 
 // GetDestinations returns the Destinations field value
 // If the value is explicit nil, the zero value for []Destination will be returned
-func (o *PatchRequestPipeline) GetDestinations() *[]Destination {
+func (o *PipelineCreatePropertiesLogs) GetDestinations() *[]Destination {
 	if o == nil {
 		return nil
 	}
@@ -212,7 +212,7 @@ func (o *PatchRequestPipeline) GetDestinations() *[]Destination {
 // GetDestinationsOk returns a tuple with the Destinations field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PatchRequestPipeline) GetDestinationsOk() (*[]Destination, bool) {
+func (o *PipelineCreatePropertiesLogs) GetDestinationsOk() (*[]Destination, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -221,14 +221,14 @@ func (o *PatchRequestPipeline) GetDestinationsOk() (*[]Destination, bool) {
 }
 
 // SetDestinations sets field value
-func (o *PatchRequestPipeline) SetDestinations(v []Destination) {
+func (o *PipelineCreatePropertiesLogs) SetDestinations(v []Destination) {
 
 	o.Destinations = &v
 
 }
 
 // HasDestinations returns a boolean if a field has been set.
-func (o *PatchRequestPipeline) HasDestinations() bool {
+func (o *PipelineCreatePropertiesLogs) HasDestinations() bool {
 	if o != nil && o.Destinations != nil {
 		return true
 	}
@@ -236,7 +236,7 @@ func (o *PatchRequestPipeline) HasDestinations() bool {
 	return false
 }
 
-func (o PatchRequestPipeline) MarshalJSON() ([]byte, error) {
+func (o PipelineCreatePropertiesLogs) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Source != nil {
 		toSerialize["source"] = o.Source
@@ -261,38 +261,38 @@ func (o PatchRequestPipeline) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-type NullablePatchRequestPipeline struct {
-	value *PatchRequestPipeline
+type NullablePipelineCreatePropertiesLogs struct {
+	value *PipelineCreatePropertiesLogs
 	isSet bool
 }
 
-func (v NullablePatchRequestPipeline) Get() *PatchRequestPipeline {
+func (v NullablePipelineCreatePropertiesLogs) Get() *PipelineCreatePropertiesLogs {
 	return v.value
 }
 
-func (v *NullablePatchRequestPipeline) Set(val *PatchRequestPipeline) {
+func (v *NullablePipelineCreatePropertiesLogs) Set(val *PipelineCreatePropertiesLogs) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullablePatchRequestPipeline) IsSet() bool {
+func (v NullablePipelineCreatePropertiesLogs) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullablePatchRequestPipeline) Unset() {
+func (v *NullablePipelineCreatePropertiesLogs) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullablePatchRequestPipeline(val *PatchRequestPipeline) *NullablePatchRequestPipeline {
-	return &NullablePatchRequestPipeline{value: val, isSet: true}
+func NewNullablePipelineCreatePropertiesLogs(val *PipelineCreatePropertiesLogs) *NullablePipelineCreatePropertiesLogs {
+	return &NullablePipelineCreatePropertiesLogs{value: val, isSet: true}
 }
 
-func (v NullablePatchRequestPipeline) MarshalJSON() ([]byte, error) {
+func (v NullablePipelineCreatePropertiesLogs) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullablePatchRequestPipeline) UnmarshalJSON(src []byte) error {
+func (v *NullablePipelineCreatePropertiesLogs) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

@@ -5,7 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**Name** | Pointer to **string** | The friendly name of your pipeline. | [optional] |
-|**Logs** | Pointer to [**[]ResponsePipeline**](ResponsePipeline.md) | The information of the log aggregator | [optional] |
+|**Logs** | Pointer to [**[]PipelineResponse**](PipelineResponse.md) | The information of the log aggregator | [optional] |
 |**TcpAddress** | Pointer to **string** | The address to connect fluentBit compatible logging agents to | [optional] |
 |**HttpAddress** | Pointer to **string** | The address to post logs to using JSON with basic auth | [optional] |
 |**GrafanaAddress** | Pointer to **string** | The address of the client&#39;s grafana instance | [optional] |
@@ -56,20 +56,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetLogs
 
-`func (o *PipelineProperties) GetLogs() []ResponsePipeline`
+`func (o *PipelineProperties) GetLogs() []PipelineResponse`
 
 GetLogs returns the Logs field if non-nil, zero value otherwise.
 
 ### GetLogsOk
 
-`func (o *PipelineProperties) GetLogsOk() (*[]ResponsePipeline, bool)`
+`func (o *PipelineProperties) GetLogsOk() (*[]PipelineResponse, bool)`
 
 GetLogsOk returns a tuple with the Logs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLogs
 
-`func (o *PipelineProperties) SetLogs(v []ResponsePipeline)`
+`func (o *PipelineProperties) SetLogs(v []PipelineResponse)`
 
 SetLogs sets Logs field to given value.
 

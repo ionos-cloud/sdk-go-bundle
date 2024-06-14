@@ -12,7 +12,7 @@
 |**LastModifiedBy** | Pointer to **string** |  | [optional] |
 |**LastModifiedByUserId** | Pointer to **string** |  | [optional] |
 |**LastModifiedByUserUuid** | Pointer to **string** |  | [optional] |
-|**Status** | Pointer to **string** | The current status reported back by the pipeline. | [optional] |
+|**State** | Pointer to **string** | The current state reported back by the pipeline. | [optional] |
 
 ## Methods
 
@@ -233,29 +233,29 @@ SetLastModifiedByUserUuid sets LastModifiedByUserUuid field to given value.
 
 HasLastModifiedByUserUuid returns a boolean if a field has been set.
 
-### GetStatus
+### GetState
 
-`func (o *Metadata) GetStatus() string`
+`func (o *Metadata) GetState() string`
 
-GetStatus returns the Status field if non-nil, zero value otherwise.
+GetState returns the State field if non-nil, zero value otherwise.
 
-### GetStatusOk
+### GetStateOk
 
-`func (o *Metadata) GetStatusOk() (*string, bool)`
+`func (o *Metadata) GetStateOk() (*string, bool)`
 
-GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+GetStateOk returns a tuple with the State field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetStatus
+### SetState
 
-`func (o *Metadata) SetStatus(v string)`
+`func (o *Metadata) SetState(v string)`
 
-SetStatus sets Status field to given value.
+SetState sets State field to given value.
 
-### HasStatus
+### HasState
 
-`func (o *Metadata) HasStatus() bool`
+`func (o *Metadata) HasState() bool`
 
-HasStatus returns a boolean if a field has been set.
+HasState returns a boolean if a field has been set.
 
 

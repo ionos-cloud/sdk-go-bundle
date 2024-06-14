@@ -1,6 +1,6 @@
 # Go API client for logging
 
-Logging Service is a service that provides a centralized logging system where users are able to push and aggregate their system or application logs. This service also provides a visualization platform where users are able to observe, search and filter the logs and also create dashboards and alerts for their data points.
+Logging as a Service (LaaS) is a service that provides a centralized logging system where users are able to push and aggregate their system or application logs. This service also provides a visualization platform where users are able to observe, search and filter the logs and also create dashboards and alerts for their data points.
 This service can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an API.
 The API allows you to create logging pipelines or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
 
@@ -198,10 +198,10 @@ All URIs are relative to *https://logging.de-txl.ionos.com*
 
 Class | Method | HTTP request | Description
 ------------- | ------------- | ------------- | -------------
-PipelinesApi | [**PipelineKey**](docs/api/PipelinesApi.md#pipelinekey) | **Post** /pipelines/{pipelineId}/key | Renews the key of a Pipeline
 PipelinesApi | [**PipelinesDelete**](docs/api/PipelinesApi.md#pipelinesdelete) | **Delete** /pipelines/{pipelineId} | Delete a pipeline
 PipelinesApi | [**PipelinesFindById**](docs/api/PipelinesApi.md#pipelinesfindbyid) | **Get** /pipelines/{pipelineId} | Fetch a pipeline
 PipelinesApi | [**PipelinesGet**](docs/api/PipelinesApi.md#pipelinesget) | **Get** /pipelines | List pipelines
+PipelinesApi | [**PipelinesKeyPost**](docs/api/PipelinesApi.md#pipelineskeypost) | **Post** /pipelines/{pipelineId}/key | Renews the key of a Pipeline
 PipelinesApi | [**PipelinesPatch**](docs/api/PipelinesApi.md#pipelinespatch) | **Patch** /pipelines/{pipelineId} | Patch a pipeline
 PipelinesApi | [**PipelinesPost**](docs/api/PipelinesApi.md#pipelinespost) | **Post** /pipelines | Create a pipeline
 
@@ -213,24 +213,23 @@ All URIs are relative to *https://logging.de-txl.ionos.com*
 <details >
 <summary title="Click to toggle">API models list</summary>
 
- - [CreateRequest](docs/models/CreateRequest)
- - [CreateRequestPipeline](docs/models/CreateRequestPipeline)
- - [CreateRequestProperties](docs/models/CreateRequestProperties)
  - [Destination](docs/models/Destination)
  - [ErrorMessage](docs/models/ErrorMessage)
  - [ErrorResponse](docs/models/ErrorResponse)
- - [InlineResponse200](docs/models/InlineResponse200)
  - [Metadata](docs/models/Metadata)
- - [PatchRequest](docs/models/PatchRequest)
- - [PatchRequestPipeline](docs/models/PatchRequestPipeline)
- - [PatchRequestProperties](docs/models/PatchRequestProperties)
  - [Pipeline](docs/models/Pipeline)
+ - [PipelineCreate](docs/models/PipelineCreate)
+ - [PipelineCreateProperties](docs/models/PipelineCreateProperties)
+ - [PipelineCreatePropertiesLogs](docs/models/PipelineCreatePropertiesLogs)
  - [PipelineListResponse](docs/models/PipelineListResponse)
+ - [PipelinePatch](docs/models/PipelinePatch)
+ - [PipelinePatchProperties](docs/models/PipelinePatchProperties)
  - [PipelineProperties](docs/models/PipelineProperties)
+ - [PipelineResponse](docs/models/PipelineResponse)
+ - [PipelineResponseAllOf](docs/models/PipelineResponseAllOf)
+ - [PipelineResponseAllOf1](docs/models/PipelineResponseAllOf1)
+ - [PipelinesKeyPost200Response](docs/models/PipelinesKeyPost200Response)
  - [Processor](docs/models/Processor)
- - [ResponsePipeline](docs/models/ResponsePipeline)
- - [ResponsePipelineAllOf](docs/models/ResponsePipelineAllOf)
- - [ResponsePipelineAllOf1](docs/models/ResponsePipelineAllOf1)
 
 
 [[Back to API list]](#documentation-for-api-endpoints) [[Back to Model list]](#documentation-for-models)

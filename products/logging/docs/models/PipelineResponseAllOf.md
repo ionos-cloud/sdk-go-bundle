@@ -1,4 +1,4 @@
-# ResponsePipelineAllOf
+# PipelineResponseAllOf
 
 ## Properties
 
@@ -8,45 +8,45 @@
 
 ## Methods
 
-### NewResponsePipelineAllOf
+### NewPipelineResponseAllOf
 
-`func NewResponsePipelineAllOf() *ResponsePipelineAllOf`
+`func NewPipelineResponseAllOf() *PipelineResponseAllOf`
 
-NewResponsePipelineAllOf instantiates a new ResponsePipelineAllOf object
+NewPipelineResponseAllOf instantiates a new PipelineResponseAllOf object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewResponsePipelineAllOfWithDefaults
+### NewPipelineResponseAllOfWithDefaults
 
-`func NewResponsePipelineAllOfWithDefaults() *ResponsePipelineAllOf`
+`func NewPipelineResponseAllOfWithDefaults() *PipelineResponseAllOf`
 
-NewResponsePipelineAllOfWithDefaults instantiates a new ResponsePipelineAllOf object
+NewPipelineResponseAllOfWithDefaults instantiates a new PipelineResponseAllOf object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetPublic
 
-`func (o *ResponsePipelineAllOf) GetPublic() bool`
+`func (o *PipelineResponseAllOf) GetPublic() bool`
 
 GetPublic returns the Public field if non-nil, zero value otherwise.
 
 ### GetPublicOk
 
-`func (o *ResponsePipelineAllOf) GetPublicOk() (*bool, bool)`
+`func (o *PipelineResponseAllOf) GetPublicOk() (*bool, bool)`
 
 GetPublicOk returns a tuple with the Public field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPublic
 
-`func (o *ResponsePipelineAllOf) SetPublic(v bool)`
+`func (o *PipelineResponseAllOf) SetPublic(v bool)`
 
 SetPublic sets Public field to given value.
 
 ### HasPublic
 
-`func (o *ResponsePipelineAllOf) HasPublic() bool`
+`func (o *PipelineResponseAllOf) HasPublic() bool`
 
 HasPublic returns a boolean if a field has been set.
 

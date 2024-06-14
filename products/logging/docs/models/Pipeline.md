@@ -5,7 +5,6 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**Id** | Pointer to **string** | The unique ID of the resource. | [optional] |
-|**Type** | Pointer to **string** |  | [optional] |
 |**Metadata** | Pointer to [**Metadata**](Metadata.md) |  | [optional] |
 |**Properties** | Pointer to [**PipelineProperties**](PipelineProperties.md) |  | [optional] |
 
@@ -52,31 +51,6 @@ SetId sets Id field to given value.
 `func (o *Pipeline) HasId() bool`
 
 HasId returns a boolean if a field has been set.
-
-### GetType
-
-`func (o *Pipeline) GetType() string`
-
-GetType returns the Type field if non-nil, zero value otherwise.
-
-### GetTypeOk
-
-`func (o *Pipeline) GetTypeOk() (*string, bool)`
-
-GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetType
-
-`func (o *Pipeline) SetType(v string)`
-
-SetType sets Type field to given value.
-
-### HasType
-
-`func (o *Pipeline) HasType() bool`
-
-HasType returns a boolean if a field has been set.
 
 ### GetMetadata
 

@@ -4,79 +4,12 @@ All URIs are relative to *https://logging.de-txl.ionos.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**PipelineKey**](PipelinesApi.md#PipelineKey) | **Post** /pipelines/{pipelineId}/key | Renews the key of a Pipeline|
 |[**PipelinesDelete**](PipelinesApi.md#PipelinesDelete) | **Delete** /pipelines/{pipelineId} | Delete a pipeline|
 |[**PipelinesFindById**](PipelinesApi.md#PipelinesFindById) | **Get** /pipelines/{pipelineId} | Fetch a pipeline|
 |[**PipelinesGet**](PipelinesApi.md#PipelinesGet) | **Get** /pipelines | List pipelines|
+|[**PipelinesKeyPost**](PipelinesApi.md#PipelinesKeyPost) | **Post** /pipelines/{pipelineId}/key | Renews the key of a Pipeline|
 |[**PipelinesPatch**](PipelinesApi.md#PipelinesPatch) | **Patch** /pipelines/{pipelineId} | Patch a pipeline|
 |[**PipelinesPost**](PipelinesApi.md#PipelinesPost) | **Post** /pipelines | Create a pipeline|
-
-
-
-## PipelineKey
-
-```go
-var result InlineResponse200 = PipelineKey(ctx, pipelineId)
-                      .Execute()
-```
-
-Renews the key of a Pipeline
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-
-    logging "github.com/ionos-cloud/sdk-go-bundle/products/logging"
-    "github.com/ionos-cloud/sdk-go-bundle/shared"
-)
-
-func main() {
-    pipelineId := "pipelineId_example" // string | The unique ID of the pipeline
-
-    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
-    apiClient := logging.NewAPIClient(configuration)
-    resource, resp, err := apiClient.PipelinesApi.PipelineKey(context.Background(), pipelineId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PipelinesApi.PipelineKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
-    }
-    // response from `PipelineKey`: InlineResponse200
-    fmt.Fprintf(os.Stdout, "Response from `PipelinesApi.PipelineKey`: %v\n", resource)
-}
-```
-
-### Path Parameters
-
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-|**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**pipelineId** | **string** | The unique ID of the pipeline | |
-
-### Other Parameters
-
-Other parameters are passed through a pointer to an apiPipelineKeyRequest struct via the builder pattern
-
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-
-### Return type
-
-[**InlineResponse200**](../models/InlineResponse200.md)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
 
 
 
@@ -285,6 +218,73 @@ Other parameters are passed through a pointer to an apiPipelinesGetRequest struc
 
 
 
+## PipelinesKeyPost
+
+```go
+var result PipelinesKeyPost200Response = PipelinesKeyPost(ctx, pipelineId)
+                      .Execute()
+```
+
+Renews the key of a Pipeline
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+
+    logging "github.com/ionos-cloud/sdk-go-bundle/products/logging"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
+)
+
+func main() {
+    pipelineId := "pipelineId_example" // string | The unique ID of the pipeline
+
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := logging.NewAPIClient(configuration)
+    resource, resp, err := apiClient.PipelinesApi.PipelinesKeyPost(context.Background(), pipelineId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `PipelinesApi.PipelinesKeyPost``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
+    }
+    // response from `PipelinesKeyPost`: PipelinesKeyPost200Response
+    fmt.Fprintf(os.Stdout, "Response from `PipelinesApi.PipelinesKeyPost`: %v\n", resource)
+}
+```
+
+### Path Parameters
+
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+|**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
+|**pipelineId** | **string** | The unique ID of the pipeline | |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to an apiPipelinesKeyPostRequest struct via the builder pattern
+
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+
+### Return type
+
+[**PipelinesKeyPost200Response**](../models/PipelinesKeyPost200Response.md)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+
 ## PipelinesPatch
 
 ```go
@@ -313,7 +313,7 @@ import (
 
 func main() {
     pipelineId := "pipelineId_example" // string | The unique ID of the pipeline
-    pipeline := *openapiclient.NewPatchRequest(*openapiclient.NewPatchRequestProperties()) // PatchRequest | The modified pipeline.
+    pipeline := *openapiclient.NewPipelinePatch(*openapiclient.NewPipelinePatchProperties()) // PipelinePatch | The modified pipeline.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := logging.NewAPIClient(configuration)
@@ -342,7 +342,7 @@ Other parameters are passed through a pointer to an apiPipelinesPatchRequest str
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **pipeline** | [**PatchRequest**](../models/PatchRequest.md) | The modified pipeline. | |
+| **pipeline** | [**PipelinePatch**](../models/PipelinePatch.md) | The modified pipeline. | |
 
 ### Return type
 
@@ -382,7 +382,7 @@ import (
 )
 
 func main() {
-    pipeline := *openapiclient.NewCreateRequest(*openapiclient.NewCreateRequestProperties("Name_example", []openapiclient.CreateRequestPipeline{*openapiclient.NewCreateRequestPipeline()})) // CreateRequest | The pipeline to be created.
+    pipeline := *openapiclient.NewPipelineCreate(*openapiclient.NewPipelineCreateProperties("Name_example", []openapiclient.PipelineCreatePropertiesLogs{*openapiclient.NewPipelineCreatePropertiesLogs()})) // PipelineCreate | The pipeline to be created.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := logging.NewAPIClient(configuration)
@@ -407,7 +407,7 @@ Other parameters are passed through a pointer to an apiPipelinesPostRequest stru
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **pipeline** | [**CreateRequest**](../models/CreateRequest.md) | The pipeline to be created. | |
+| **pipeline** | [**PipelineCreate**](../models/PipelineCreate.md) | The pipeline to be created. | |
 
 ### Return type
 
