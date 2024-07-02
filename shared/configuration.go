@@ -98,6 +98,14 @@ type ServerConfiguration struct {
 // ServerConfigurations stores multiple ServerConfiguration items
 type ServerConfigurations []ServerConfiguration
 
+// AWSConfig stores the configuration for AWS interaction
+type AWSConfig struct {
+	AccessKeyID     string
+	SecretAccessKey string
+	Region          string
+	Service         string
+}
+
 // shared.Configuration stores the configuration of the API client
 type Configuration struct {
 	Host               string            `json:"host,omitempty"`
@@ -114,6 +122,7 @@ type Configuration struct {
 	MaxRetries         int           `json:"maxRetries,omitempty"`
 	WaitTime           time.Duration `json:"waitTime,omitempty"`
 	MaxWaitTime        time.Duration `json:"maxWaitTime,omitempty"`
+	AWSConfig          *AWSConfig    `json:"awsConfig,omitempty"`
 }
 
 // NewConfiguration returns a new shared.Configuration object
@@ -140,6 +149,10 @@ func NewConfiguration(username, password, token, hostUrl string) *Configuration 
 		}
 	}
 	return cfg
+}
+
+func (c *Configuration) SetAWSConfig(cfg AWSConfig) {
+	c.AWSConfig = &cfg
 }
 
 func NewConfigurationFromEnv() *Configuration {
