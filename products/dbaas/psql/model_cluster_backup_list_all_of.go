@@ -1,7 +1,7 @@
 /*
- * IONOS DBaaS REST API
+ * IONOS DBaaS PostgreSQL REST API
  *
- * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
+ * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional PostgreSQL database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
  *
  * API version: 1.0.0
  */
@@ -14,12 +14,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the ClusterBackupListAllOf type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ClusterBackupListAllOf{}
+
 // ClusterBackupListAllOf struct for ClusterBackupListAllOf
 type ClusterBackupListAllOf struct {
 	Type *ResourceType `json:"type,omitempty"`
 	// The unique ID of the resource.
-	Id    *string           `json:"id,omitempty"`
-	Items *[]BackupResponse `json:"items,omitempty"`
+	Id    *string          `json:"id,omitempty"`
+	Items []BackupResponse `json:"items,omitempty"`
 }
 
 // NewClusterBackupListAllOf instantiates a new ClusterBackupListAllOf object
@@ -40,135 +43,122 @@ func NewClusterBackupListAllOfWithDefaults() *ClusterBackupListAllOf {
 	return &this
 }
 
-// GetType returns the Type field value
-// If the value is explicit nil, the zero value for ResourceType will be returned
-func (o *ClusterBackupListAllOf) GetType() *ResourceType {
-	if o == nil {
-		return nil
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *ClusterBackupListAllOf) GetType() ResourceType {
+	if o == nil || IsNil(o.Type) {
+		var ret ResourceType
+		return ret
 	}
-
-	return o.Type
-
+	return *o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ClusterBackupListAllOf) GetTypeOk() (*ResourceType, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
-
 	return o.Type, true
-}
-
-// SetType sets field value
-func (o *ClusterBackupListAllOf) SetType(v ResourceType) {
-
-	o.Type = &v
-
 }
 
 // HasType returns a boolean if a field has been set.
 func (o *ClusterBackupListAllOf) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
 	return false
 }
 
-// GetId returns the Id field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ClusterBackupListAllOf) GetId() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Id
-
+// SetType gets a reference to the given ResourceType and assigns it to the Type field.
+func (o *ClusterBackupListAllOf) SetType(v ResourceType) {
+	o.Type = &v
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *ClusterBackupListAllOf) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ClusterBackupListAllOf) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-
 	return o.Id, true
-}
-
-// SetId sets field value
-func (o *ClusterBackupListAllOf) SetId(v string) {
-
-	o.Id = &v
-
 }
 
 // HasId returns a boolean if a field has been set.
 func (o *ClusterBackupListAllOf) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
 	return false
 }
 
-// GetItems returns the Items field value
-// If the value is explicit nil, the zero value for []BackupResponse will be returned
-func (o *ClusterBackupListAllOf) GetItems() *[]BackupResponse {
-	if o == nil {
-		return nil
-	}
-
-	return o.Items
-
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *ClusterBackupListAllOf) SetId(v string) {
+	o.Id = &v
 }
 
-// GetItemsOk returns a tuple with the Items field value
+// GetItems returns the Items field value if set, zero value otherwise.
+func (o *ClusterBackupListAllOf) GetItems() []BackupResponse {
+	if o == nil || IsNil(o.Items) {
+		var ret []BackupResponse
+		return ret
+	}
+	return o.Items
+}
+
+// GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ClusterBackupListAllOf) GetItemsOk() (*[]BackupResponse, bool) {
-	if o == nil {
+func (o *ClusterBackupListAllOf) GetItemsOk() ([]BackupResponse, bool) {
+	if o == nil || IsNil(o.Items) {
 		return nil, false
 	}
-
 	return o.Items, true
-}
-
-// SetItems sets field value
-func (o *ClusterBackupListAllOf) SetItems(v []BackupResponse) {
-
-	o.Items = &v
-
 }
 
 // HasItems returns a boolean if a field has been set.
 func (o *ClusterBackupListAllOf) HasItems() bool {
-	if o != nil && o.Items != nil {
+	if o != nil && !IsNil(o.Items) {
 		return true
 	}
 
 	return false
 }
 
+// SetItems gets a reference to the given []BackupResponse and assigns it to the Items field.
+func (o *ClusterBackupListAllOf) SetItems(v []BackupResponse) {
+	o.Items = v
+}
+
 func (o ClusterBackupListAllOf) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ClusterBackupListAllOf) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-
-	if o.Items != nil {
+	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableClusterBackupListAllOf struct {

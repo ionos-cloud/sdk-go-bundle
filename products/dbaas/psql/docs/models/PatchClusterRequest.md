@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Metadata** | Pointer to [**Metadata**](Metadata.md) |  | [optional] |
+|**Metadata** | Pointer to [**ClusterMetadata**](ClusterMetadata.md) |  | [optional] |
 |**Properties** | Pointer to [**PatchClusterProperties**](PatchClusterProperties.md) |  | [optional] |
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetMetadata
 
-`func (o *PatchClusterRequest) GetMetadata() Metadata`
+`func (o *PatchClusterRequest) GetMetadata() ClusterMetadata`
 
 GetMetadata returns the Metadata field if non-nil, zero value otherwise.
 
 ### GetMetadataOk
 
-`func (o *PatchClusterRequest) GetMetadataOk() (*Metadata, bool)`
+`func (o *PatchClusterRequest) GetMetadataOk() (*ClusterMetadata, bool)`
 
 GetMetadataOk returns a tuple with the Metadata field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMetadata
 
-`func (o *PatchClusterRequest) SetMetadata(v Metadata)`
+`func (o *PatchClusterRequest) SetMetadata(v ClusterMetadata)`
 
 SetMetadata sets Metadata field to given value.
 

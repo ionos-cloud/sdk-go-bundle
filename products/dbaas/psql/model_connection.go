@@ -1,7 +1,7 @@
 /*
- * IONOS DBaaS REST API
+ * IONOS DBaaS PostgreSQL REST API
  *
- * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
+ * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional PostgreSQL database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
  *
  * API version: 1.0.0
  */
@@ -14,14 +14,17 @@ import (
 	"encoding/json"
 )
 
+// checks if the Connection type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Connection{}
+
 // Connection Details about the network connection for your cluster.
 type Connection struct {
 	// The datacenter to connect your cluster to.
-	DatacenterId *string `json:"datacenterId"`
+	DatacenterId string `json:"datacenterId"`
 	// The numeric LAN ID to connect your cluster to.
-	LanId *string `json:"lanId"`
+	LanId string `json:"lanId"`
 	// The IP and subnet for your cluster. Note the following unavailable IP ranges: 10.233.64.0/18 10.233.0.0/18 10.233.114.0/24
-	Cidr *string `json:"cidr"`
+	Cidr string `json:"cidr"`
 }
 
 // NewConnection instantiates a new Connection object
@@ -31,9 +34,9 @@ type Connection struct {
 func NewConnection(datacenterId string, lanId string, cidr string) *Connection {
 	this := Connection{}
 
-	this.DatacenterId = &datacenterId
-	this.LanId = &lanId
-	this.Cidr = &cidr
+	this.DatacenterId = datacenterId
+	this.LanId = lanId
+	this.Cidr = cidr
 
 	return &this
 }
@@ -47,134 +50,97 @@ func NewConnectionWithDefaults() *Connection {
 }
 
 // GetDatacenterId returns the DatacenterId field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Connection) GetDatacenterId() *string {
+func (o *Connection) GetDatacenterId() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.DatacenterId
-
 }
 
 // GetDatacenterIdOk returns a tuple with the DatacenterId field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Connection) GetDatacenterIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.DatacenterId, true
+	return &o.DatacenterId, true
 }
 
 // SetDatacenterId sets field value
 func (o *Connection) SetDatacenterId(v string) {
-
-	o.DatacenterId = &v
-
-}
-
-// HasDatacenterId returns a boolean if a field has been set.
-func (o *Connection) HasDatacenterId() bool {
-	if o != nil && o.DatacenterId != nil {
-		return true
-	}
-
-	return false
+	o.DatacenterId = v
 }
 
 // GetLanId returns the LanId field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Connection) GetLanId() *string {
+func (o *Connection) GetLanId() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.LanId
-
 }
 
 // GetLanIdOk returns a tuple with the LanId field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Connection) GetLanIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.LanId, true
+	return &o.LanId, true
 }
 
 // SetLanId sets field value
 func (o *Connection) SetLanId(v string) {
-
-	o.LanId = &v
-
-}
-
-// HasLanId returns a boolean if a field has been set.
-func (o *Connection) HasLanId() bool {
-	if o != nil && o.LanId != nil {
-		return true
-	}
-
-	return false
+	o.LanId = v
 }
 
 // GetCidr returns the Cidr field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Connection) GetCidr() *string {
+func (o *Connection) GetCidr() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Cidr
-
 }
 
 // GetCidrOk returns a tuple with the Cidr field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Connection) GetCidrOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Cidr, true
+	return &o.Cidr, true
 }
 
 // SetCidr sets field value
 func (o *Connection) SetCidr(v string) {
-
-	o.Cidr = &v
-
-}
-
-// HasCidr returns a boolean if a field has been set.
-func (o *Connection) HasCidr() bool {
-	if o != nil && o.Cidr != nil {
-		return true
-	}
-
-	return false
+	o.Cidr = v
 }
 
 func (o Connection) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Connection) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.DatacenterId != nil {
+	if !IsZero(o.DatacenterId) {
 		toSerialize["datacenterId"] = o.DatacenterId
 	}
-
-	if o.LanId != nil {
+	if !IsZero(o.LanId) {
 		toSerialize["lanId"] = o.LanId
 	}
-
-	if o.Cidr != nil {
+	if !IsZero(o.Cidr) {
 		toSerialize["cidr"] = o.Cidr
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableConnection struct {

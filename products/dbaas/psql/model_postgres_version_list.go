@@ -1,7 +1,7 @@
 /*
- * IONOS DBaaS REST API
+ * IONOS DBaaS PostgreSQL REST API
  *
- * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
+ * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional PostgreSQL database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
  *
  * API version: 1.0.0
  */
@@ -14,9 +14,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the PostgresVersionList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostgresVersionList{}
+
 // PostgresVersionList List of PostgreSQL versions.
 type PostgresVersionList struct {
-	Data *[]PostgresVersionListData `json:"data,omitempty"`
+	Data []PostgresVersionListData `json:"data,omitempty"`
 }
 
 // NewPostgresVersionList instantiates a new PostgresVersionList object
@@ -37,51 +40,52 @@ func NewPostgresVersionListWithDefaults() *PostgresVersionList {
 	return &this
 }
 
-// GetData returns the Data field value
-// If the value is explicit nil, the zero value for []PostgresVersionListData will be returned
-func (o *PostgresVersionList) GetData() *[]PostgresVersionListData {
-	if o == nil {
-		return nil
+// GetData returns the Data field value if set, zero value otherwise.
+func (o *PostgresVersionList) GetData() []PostgresVersionListData {
+	if o == nil || IsNil(o.Data) {
+		var ret []PostgresVersionListData
+		return ret
 	}
-
 	return o.Data
-
 }
 
-// GetDataOk returns a tuple with the Data field value
+// GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PostgresVersionList) GetDataOk() (*[]PostgresVersionListData, bool) {
-	if o == nil {
+func (o *PostgresVersionList) GetDataOk() ([]PostgresVersionListData, bool) {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
-
 	return o.Data, true
-}
-
-// SetData sets field value
-func (o *PostgresVersionList) SetData(v []PostgresVersionListData) {
-
-	o.Data = &v
-
 }
 
 // HasData returns a boolean if a field has been set.
 func (o *PostgresVersionList) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
 	return false
 }
 
+// SetData gets a reference to the given []PostgresVersionListData and assigns it to the Data field.
+func (o *PostgresVersionList) SetData(v []PostgresVersionListData) {
+	o.Data = v
+}
+
 func (o PostgresVersionList) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PostgresVersionList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Data != nil {
+	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullablePostgresVersionList struct {

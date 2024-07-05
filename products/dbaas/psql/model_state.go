@@ -1,7 +1,7 @@
 /*
- * IONOS DBaaS REST API
+ * IONOS DBaaS PostgreSQL REST API
  *
- * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
+ * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional PostgreSQL database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
  *
  * API version: 1.0.0
  */
@@ -24,6 +24,7 @@ const (
 	STATE_AVAILABLE  State = "AVAILABLE"
 	STATE_BUSY       State = "BUSY"
 	STATE_DESTROYING State = "DESTROYING"
+	STATE_DEGRADED   State = "DEGRADED"
 	STATE_FAILED     State = "FAILED"
 	STATE_UNKNOWN    State = "UNKNOWN"
 )
@@ -35,7 +36,7 @@ func (v *State) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := State(value)
-	for _, existing := range []State{"AVAILABLE", "BUSY", "DESTROYING", "FAILED", "UNKNOWN"} {
+	for _, existing := range []State{"AVAILABLE", "BUSY", "DESTROYING", "DEGRADED", "FAILED", "UNKNOWN"} {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil

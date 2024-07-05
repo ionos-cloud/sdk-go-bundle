@@ -1,7 +1,7 @@
 /*
- * IONOS DBaaS REST API
+ * IONOS DBaaS PostgreSQL REST API
  *
- * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
+ * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional PostgreSQL database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
  *
  * API version: 1.0.0
  */
@@ -16,10 +16,13 @@ import (
 	"time"
 )
 
+// checks if the CreateRestoreRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateRestoreRequest{}
+
 // CreateRestoreRequest The restore request.
 type CreateRestoreRequest struct {
 	// The unique ID of the backup you want to restore.
-	BackupId *string `json:"backupId"`
+	BackupId string `json:"backupId"`
 	// If this value is supplied as ISO 8601 timestamp, the backup will be replayed up until the given timestamp. If empty, the backup will be applied completely.
 	RecoveryTargetTime *IonosTime `json:"recoveryTargetTime,omitempty"`
 }
@@ -31,7 +34,7 @@ type CreateRestoreRequest struct {
 func NewCreateRestoreRequest(backupId string) *CreateRestoreRequest {
 	this := CreateRestoreRequest{}
 
-	this.BackupId = &backupId
+	this.BackupId = backupId
 
 	return &this
 }
@@ -45,99 +48,78 @@ func NewCreateRestoreRequestWithDefaults() *CreateRestoreRequest {
 }
 
 // GetBackupId returns the BackupId field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *CreateRestoreRequest) GetBackupId() *string {
+func (o *CreateRestoreRequest) GetBackupId() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.BackupId
-
 }
 
 // GetBackupIdOk returns a tuple with the BackupId field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateRestoreRequest) GetBackupIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.BackupId, true
+	return &o.BackupId, true
 }
 
 // SetBackupId sets field value
 func (o *CreateRestoreRequest) SetBackupId(v string) {
-
-	o.BackupId = &v
-
+	o.BackupId = v
 }
 
-// HasBackupId returns a boolean if a field has been set.
-func (o *CreateRestoreRequest) HasBackupId() bool {
-	if o != nil && o.BackupId != nil {
-		return true
+// GetRecoveryTargetTime returns the RecoveryTargetTime field value if set, zero value otherwise.
+func (o *CreateRestoreRequest) GetRecoveryTargetTime() time.Time {
+	if o == nil || IsNil(o.RecoveryTargetTime) {
+		var ret time.Time
+		return ret
 	}
-
-	return false
+	return o.RecoveryTargetTime.Time
 }
 
-// GetRecoveryTargetTime returns the RecoveryTargetTime field value
-// If the value is explicit nil, the zero value for time.Time will be returned
-func (o *CreateRestoreRequest) GetRecoveryTargetTime() *time.Time {
-	if o == nil {
-		return nil
-	}
-
-	if o.RecoveryTargetTime == nil {
-		return nil
-	}
-	return &o.RecoveryTargetTime.Time
-
-}
-
-// GetRecoveryTargetTimeOk returns a tuple with the RecoveryTargetTime field value
+// GetRecoveryTargetTimeOk returns a tuple with the RecoveryTargetTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateRestoreRequest) GetRecoveryTargetTimeOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-
-	if o.RecoveryTargetTime == nil {
+	if o == nil || IsNil(o.RecoveryTargetTime) {
 		return nil, false
 	}
 	return &o.RecoveryTargetTime.Time, true
-
-}
-
-// SetRecoveryTargetTime sets field value
-func (o *CreateRestoreRequest) SetRecoveryTargetTime(v time.Time) {
-
-	o.RecoveryTargetTime = &IonosTime{v}
-
 }
 
 // HasRecoveryTargetTime returns a boolean if a field has been set.
 func (o *CreateRestoreRequest) HasRecoveryTargetTime() bool {
-	if o != nil && o.RecoveryTargetTime != nil {
+	if o != nil && !IsNil(o.RecoveryTargetTime) {
 		return true
 	}
 
 	return false
 }
 
+// SetRecoveryTargetTime gets a reference to the given time.Time and assigns it to the RecoveryTargetTime field.
+func (o *CreateRestoreRequest) SetRecoveryTargetTime(v time.Time) {
+	o.RecoveryTargetTime = &IonosTime{v}
+}
+
 func (o CreateRestoreRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CreateRestoreRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.BackupId != nil {
+	if !IsZero(o.BackupId) {
 		toSerialize["backupId"] = o.BackupId
 	}
-
-	if o.RecoveryTargetTime != nil {
+	if !IsNil(o.RecoveryTargetTime) {
 		toSerialize["recoveryTargetTime"] = o.RecoveryTargetTime
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableCreateRestoreRequest struct {

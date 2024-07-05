@@ -6,7 +6,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**Type** | Pointer to [**ResourceType**](ResourceType.md) |  | [optional] |
 |**Id** | Pointer to **string** | The unique ID of the resource. | [optional] |
-|**Metadata** | Pointer to [**Metadata**](Metadata.md) |  | [optional] |
+|**Metadata** | Pointer to [**ClusterMetadata**](ClusterMetadata.md) |  | [optional] |
 |**Properties** | Pointer to [**ClusterProperties**](ClusterProperties.md) |  | [optional] |
 
 ## Methods
@@ -80,20 +80,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetMetadata
 
-`func (o *ClusterResponse) GetMetadata() Metadata`
+`func (o *ClusterResponse) GetMetadata() ClusterMetadata`
 
 GetMetadata returns the Metadata field if non-nil, zero value otherwise.
 
 ### GetMetadataOk
 
-`func (o *ClusterResponse) GetMetadataOk() (*Metadata, bool)`
+`func (o *ClusterResponse) GetMetadataOk() (*ClusterMetadata, bool)`
 
 GetMetadataOk returns a tuple with the Metadata field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMetadata
 
-`func (o *ClusterResponse) SetMetadata(v Metadata)`
+`func (o *ClusterResponse) SetMetadata(v ClusterMetadata)`
 
 SetMetadata sets Metadata field to given value.
 

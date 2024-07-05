@@ -1,7 +1,7 @@
 /*
- * IONOS DBaaS REST API
+ * IONOS DBaaS PostgreSQL REST API
  *
- * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
+ * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional PostgreSQL database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
  *
  * API version: 1.0.0
  */
@@ -15,6 +15,9 @@ import (
 
 	"time"
 )
+
+// checks if the ClusterBackup type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ClusterBackup{}
 
 // ClusterBackup A backup object.
 type ClusterBackup struct {
@@ -52,310 +55,262 @@ func NewClusterBackupWithDefaults() *ClusterBackup {
 	return &this
 }
 
-// GetId returns the Id field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ClusterBackup) GetId() *string {
-	if o == nil {
-		return nil
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *ClusterBackup) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
 	}
-
-	return o.Id
-
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ClusterBackup) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-
 	return o.Id, true
-}
-
-// SetId sets field value
-func (o *ClusterBackup) SetId(v string) {
-
-	o.Id = &v
-
 }
 
 // HasId returns a boolean if a field has been set.
 func (o *ClusterBackup) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
 	return false
 }
 
-// GetClusterId returns the ClusterId field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ClusterBackup) GetClusterId() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.ClusterId
-
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *ClusterBackup) SetId(v string) {
+	o.Id = &v
 }
 
-// GetClusterIdOk returns a tuple with the ClusterId field value
+// GetClusterId returns the ClusterId field value if set, zero value otherwise.
+func (o *ClusterBackup) GetClusterId() string {
+	if o == nil || IsNil(o.ClusterId) {
+		var ret string
+		return ret
+	}
+	return *o.ClusterId
+}
+
+// GetClusterIdOk returns a tuple with the ClusterId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ClusterBackup) GetClusterIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ClusterId) {
 		return nil, false
 	}
-
 	return o.ClusterId, true
-}
-
-// SetClusterId sets field value
-func (o *ClusterBackup) SetClusterId(v string) {
-
-	o.ClusterId = &v
-
 }
 
 // HasClusterId returns a boolean if a field has been set.
 func (o *ClusterBackup) HasClusterId() bool {
-	if o != nil && o.ClusterId != nil {
+	if o != nil && !IsNil(o.ClusterId) {
 		return true
 	}
 
 	return false
 }
 
-// GetVersion returns the Version field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ClusterBackup) GetVersion() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Version
-
+// SetClusterId gets a reference to the given string and assigns it to the ClusterId field.
+func (o *ClusterBackup) SetClusterId(v string) {
+	o.ClusterId = &v
 }
 
-// GetVersionOk returns a tuple with the Version field value
+// GetVersion returns the Version field value if set, zero value otherwise.
+func (o *ClusterBackup) GetVersion() string {
+	if o == nil || IsNil(o.Version) {
+		var ret string
+		return ret
+	}
+	return *o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ClusterBackup) GetVersionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
-
 	return o.Version, true
-}
-
-// SetVersion sets field value
-func (o *ClusterBackup) SetVersion(v string) {
-
-	o.Version = &v
-
 }
 
 // HasVersion returns a boolean if a field has been set.
 func (o *ClusterBackup) HasVersion() bool {
-	if o != nil && o.Version != nil {
+	if o != nil && !IsNil(o.Version) {
 		return true
 	}
 
 	return false
 }
 
-// GetIsActive returns the IsActive field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *ClusterBackup) GetIsActive() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.IsActive
-
+// SetVersion gets a reference to the given string and assigns it to the Version field.
+func (o *ClusterBackup) SetVersion(v string) {
+	o.Version = &v
 }
 
-// GetIsActiveOk returns a tuple with the IsActive field value
+// GetIsActive returns the IsActive field value if set, zero value otherwise.
+func (o *ClusterBackup) GetIsActive() bool {
+	if o == nil || IsNil(o.IsActive) {
+		var ret bool
+		return ret
+	}
+	return *o.IsActive
+}
+
+// GetIsActiveOk returns a tuple with the IsActive field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ClusterBackup) GetIsActiveOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.IsActive) {
 		return nil, false
 	}
-
 	return o.IsActive, true
-}
-
-// SetIsActive sets field value
-func (o *ClusterBackup) SetIsActive(v bool) {
-
-	o.IsActive = &v
-
 }
 
 // HasIsActive returns a boolean if a field has been set.
 func (o *ClusterBackup) HasIsActive() bool {
-	if o != nil && o.IsActive != nil {
+	if o != nil && !IsNil(o.IsActive) {
 		return true
 	}
 
 	return false
 }
 
-// GetEarliestRecoveryTargetTime returns the EarliestRecoveryTargetTime field value
-// If the value is explicit nil, the zero value for time.Time will be returned
-func (o *ClusterBackup) GetEarliestRecoveryTargetTime() *time.Time {
-	if o == nil {
-		return nil
-	}
-
-	if o.EarliestRecoveryTargetTime == nil {
-		return nil
-	}
-	return &o.EarliestRecoveryTargetTime.Time
-
+// SetIsActive gets a reference to the given bool and assigns it to the IsActive field.
+func (o *ClusterBackup) SetIsActive(v bool) {
+	o.IsActive = &v
 }
 
-// GetEarliestRecoveryTargetTimeOk returns a tuple with the EarliestRecoveryTargetTime field value
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ClusterBackup) GetEarliestRecoveryTargetTimeOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
+// GetEarliestRecoveryTargetTime returns the EarliestRecoveryTargetTime field value if set, zero value otherwise.
+func (o *ClusterBackup) GetEarliestRecoveryTargetTime() time.Time {
+	if o == nil || IsNil(o.EarliestRecoveryTargetTime) {
+		var ret time.Time
+		return ret
 	}
+	return o.EarliestRecoveryTargetTime.Time
+}
 
-	if o.EarliestRecoveryTargetTime == nil {
+// GetEarliestRecoveryTargetTimeOk returns a tuple with the EarliestRecoveryTargetTime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ClusterBackup) GetEarliestRecoveryTargetTimeOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.EarliestRecoveryTargetTime) {
 		return nil, false
 	}
 	return &o.EarliestRecoveryTargetTime.Time, true
-
-}
-
-// SetEarliestRecoveryTargetTime sets field value
-func (o *ClusterBackup) SetEarliestRecoveryTargetTime(v time.Time) {
-
-	o.EarliestRecoveryTargetTime = &IonosTime{v}
-
 }
 
 // HasEarliestRecoveryTargetTime returns a boolean if a field has been set.
 func (o *ClusterBackup) HasEarliestRecoveryTargetTime() bool {
-	if o != nil && o.EarliestRecoveryTargetTime != nil {
+	if o != nil && !IsNil(o.EarliestRecoveryTargetTime) {
 		return true
 	}
 
 	return false
 }
 
-// GetSize returns the Size field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *ClusterBackup) GetSize() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.Size
-
+// SetEarliestRecoveryTargetTime gets a reference to the given time.Time and assigns it to the EarliestRecoveryTargetTime field.
+func (o *ClusterBackup) SetEarliestRecoveryTargetTime(v time.Time) {
+	o.EarliestRecoveryTargetTime = &IonosTime{v}
 }
 
-// GetSizeOk returns a tuple with the Size field value
+// GetSize returns the Size field value if set, zero value otherwise.
+func (o *ClusterBackup) GetSize() int32 {
+	if o == nil || IsNil(o.Size) {
+		var ret int32
+		return ret
+	}
+	return *o.Size
+}
+
+// GetSizeOk returns a tuple with the Size field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ClusterBackup) GetSizeOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Size) {
 		return nil, false
 	}
-
 	return o.Size, true
-}
-
-// SetSize sets field value
-func (o *ClusterBackup) SetSize(v int32) {
-
-	o.Size = &v
-
 }
 
 // HasSize returns a boolean if a field has been set.
 func (o *ClusterBackup) HasSize() bool {
-	if o != nil && o.Size != nil {
+	if o != nil && !IsNil(o.Size) {
 		return true
 	}
 
 	return false
 }
 
-// GetLocation returns the Location field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ClusterBackup) GetLocation() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Location
-
+// SetSize gets a reference to the given int32 and assigns it to the Size field.
+func (o *ClusterBackup) SetSize(v int32) {
+	o.Size = &v
 }
 
-// GetLocationOk returns a tuple with the Location field value
+// GetLocation returns the Location field value if set, zero value otherwise.
+func (o *ClusterBackup) GetLocation() string {
+	if o == nil || IsNil(o.Location) {
+		var ret string
+		return ret
+	}
+	return *o.Location
+}
+
+// GetLocationOk returns a tuple with the Location field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ClusterBackup) GetLocationOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Location) {
 		return nil, false
 	}
-
 	return o.Location, true
-}
-
-// SetLocation sets field value
-func (o *ClusterBackup) SetLocation(v string) {
-
-	o.Location = &v
-
 }
 
 // HasLocation returns a boolean if a field has been set.
 func (o *ClusterBackup) HasLocation() bool {
-	if o != nil && o.Location != nil {
+	if o != nil && !IsNil(o.Location) {
 		return true
 	}
 
 	return false
 }
 
+// SetLocation gets a reference to the given string and assigns it to the Location field.
+func (o *ClusterBackup) SetLocation(v string) {
+	o.Location = &v
+}
+
 func (o ClusterBackup) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ClusterBackup) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-
-	if o.ClusterId != nil {
+	if !IsNil(o.ClusterId) {
 		toSerialize["clusterId"] = o.ClusterId
 	}
-
-	if o.Version != nil {
+	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
-
-	if o.IsActive != nil {
+	if !IsNil(o.IsActive) {
 		toSerialize["isActive"] = o.IsActive
 	}
-
-	if o.EarliestRecoveryTargetTime != nil {
+	if !IsNil(o.EarliestRecoveryTargetTime) {
 		toSerialize["earliestRecoveryTargetTime"] = o.EarliestRecoveryTargetTime
 	}
-
-	if o.Size != nil {
+	if !IsNil(o.Size) {
 		toSerialize["size"] = o.Size
 	}
-
-	if o.Location != nil {
+	if !IsNil(o.Location) {
 		toSerialize["location"] = o.Location
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableClusterBackup struct {

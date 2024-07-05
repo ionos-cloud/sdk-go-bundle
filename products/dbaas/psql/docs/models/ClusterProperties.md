@@ -7,6 +7,7 @@
 |**DisplayName** | Pointer to **string** | The friendly name of your cluster. | [optional] |
 |**PostgresVersion** | Pointer to **string** | The PostgreSQL version of your cluster. | [optional] |
 |**Location** | Pointer to **string** | The physical location where the cluster will be created. This will be where all of your instances live. Property cannot be modified after datacenter creation.  | [optional] |
+|**DnsName** | Pointer to **string** | The DNS name pointing to your cluster. | [optional] |
 |**BackupLocation** | Pointer to **string** | The S3 location where the backups will be stored. | [optional] |
 |**Instances** | Pointer to **int32** | The total number of instances in the cluster (one master and n-1 standbys).  | [optional] |
 |**Ram** | Pointer to **int32** | The amount of memory per instance in megabytes. Has to be a multiple of 1024. | [optional] |
@@ -16,6 +17,7 @@
 |**Connections** | Pointer to [**[]Connection**](Connection.md) |  | [optional] |
 |**MaintenanceWindow** | Pointer to [**MaintenanceWindow**](MaintenanceWindow.md) |  | [optional] |
 |**SynchronizationMode** | Pointer to [**SynchronizationMode**](SynchronizationMode.md) |  | [optional] |
+|**ConnectionPooler** | Pointer to [**ConnectionPooler**](ConnectionPooler.md) |  | [optional] |
 
 ## Methods
 
@@ -110,6 +112,31 @@ SetLocation sets Location field to given value.
 `func (o *ClusterProperties) HasLocation() bool`
 
 HasLocation returns a boolean if a field has been set.
+
+### GetDnsName
+
+`func (o *ClusterProperties) GetDnsName() string`
+
+GetDnsName returns the DnsName field if non-nil, zero value otherwise.
+
+### GetDnsNameOk
+
+`func (o *ClusterProperties) GetDnsNameOk() (*string, bool)`
+
+GetDnsNameOk returns a tuple with the DnsName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDnsName
+
+`func (o *ClusterProperties) SetDnsName(v string)`
+
+SetDnsName sets DnsName field to given value.
+
+### HasDnsName
+
+`func (o *ClusterProperties) HasDnsName() bool`
+
+HasDnsName returns a boolean if a field has been set.
 
 ### GetBackupLocation
 
@@ -335,5 +362,30 @@ SetSynchronizationMode sets SynchronizationMode field to given value.
 `func (o *ClusterProperties) HasSynchronizationMode() bool`
 
 HasSynchronizationMode returns a boolean if a field has been set.
+
+### GetConnectionPooler
+
+`func (o *ClusterProperties) GetConnectionPooler() ConnectionPooler`
+
+GetConnectionPooler returns the ConnectionPooler field if non-nil, zero value otherwise.
+
+### GetConnectionPoolerOk
+
+`func (o *ClusterProperties) GetConnectionPoolerOk() (*ConnectionPooler, bool)`
+
+GetConnectionPoolerOk returns a tuple with the ConnectionPooler field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConnectionPooler
+
+`func (o *ClusterProperties) SetConnectionPooler(v ConnectionPooler)`
+
+SetConnectionPooler sets ConnectionPooler field to given value.
+
+### HasConnectionPooler
+
+`func (o *ClusterProperties) HasConnectionPooler() bool`
+
+HasConnectionPooler returns a boolean if a field has been set.
 
 

@@ -1,7 +1,7 @@
 /*
- * IONOS DBaaS REST API
+ * IONOS DBaaS PostgreSQL REST API
  *
- * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
+ * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional PostgreSQL database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
  *
  * API version: 1.0.0
  */
@@ -14,30 +14,34 @@ import (
 	"encoding/json"
 )
 
+// checks if the CreateClusterProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateClusterProperties{}
+
 // CreateClusterProperties Properties with all data needed to create a new PostgreSQL cluster.
 type CreateClusterProperties struct {
 	// The PostgreSQL version of your cluster.
-	PostgresVersion *string `json:"postgresVersion"`
+	PostgresVersion string `json:"postgresVersion"`
 	// The total number of instances in the cluster (one master and n-1 standbys).
-	Instances *int32 `json:"instances"`
+	Instances int32 `json:"instances"`
 	// The number of CPU cores per instance.
-	Cores *int32 `json:"cores"`
+	Cores int32 `json:"cores"`
 	// The amount of memory per instance in megabytes. Has to be a multiple of 1024.
-	Ram *int32 `json:"ram"`
+	Ram int32 `json:"ram"`
 	// The amount of storage per instance in megabytes.
-	StorageSize *int32        `json:"storageSize"`
-	StorageType *StorageType  `json:"storageType"`
-	Connections *[]Connection `json:"connections"`
+	StorageSize int32        `json:"storageSize"`
+	StorageType StorageType  `json:"storageType"`
+	Connections []Connection `json:"connections"`
 	// The physical location where the cluster will be created. This will be where all of your instances live. Property cannot be modified after datacenter creation.
-	Location *string `json:"location"`
+	Location string `json:"location"`
 	// The S3 location where the backups will be stored.
 	BackupLocation *string `json:"backupLocation,omitempty"`
 	// The friendly name of your cluster.
-	DisplayName         *string               `json:"displayName"`
+	DisplayName         string                `json:"displayName"`
 	MaintenanceWindow   *MaintenanceWindow    `json:"maintenanceWindow,omitempty"`
-	Credentials         *DBUser               `json:"credentials"`
-	SynchronizationMode *SynchronizationMode  `json:"synchronizationMode"`
+	Credentials         DBUser                `json:"credentials"`
+	SynchronizationMode SynchronizationMode   `json:"synchronizationMode"`
 	FromBackup          *CreateRestoreRequest `json:"fromBackup,omitempty"`
+	ConnectionPooler    *ConnectionPooler     `json:"connectionPooler,omitempty"`
 }
 
 // NewCreateClusterProperties instantiates a new CreateClusterProperties object
@@ -47,17 +51,17 @@ type CreateClusterProperties struct {
 func NewCreateClusterProperties(postgresVersion string, instances int32, cores int32, ram int32, storageSize int32, storageType StorageType, connections []Connection, location string, displayName string, credentials DBUser, synchronizationMode SynchronizationMode) *CreateClusterProperties {
 	this := CreateClusterProperties{}
 
-	this.PostgresVersion = &postgresVersion
-	this.Instances = &instances
-	this.Cores = &cores
-	this.Ram = &ram
-	this.StorageSize = &storageSize
-	this.StorageType = &storageType
-	this.Connections = &connections
-	this.Location = &location
-	this.DisplayName = &displayName
-	this.Credentials = &credentials
-	this.SynchronizationMode = &synchronizationMode
+	this.PostgresVersion = postgresVersion
+	this.Instances = instances
+	this.Cores = cores
+	this.Ram = ram
+	this.StorageSize = storageSize
+	this.StorageType = storageType
+	this.Connections = connections
+	this.Location = location
+	this.DisplayName = displayName
+	this.Credentials = credentials
+	this.SynchronizationMode = synchronizationMode
 
 	return &this
 }
@@ -71,596 +75,453 @@ func NewCreateClusterPropertiesWithDefaults() *CreateClusterProperties {
 }
 
 // GetPostgresVersion returns the PostgresVersion field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *CreateClusterProperties) GetPostgresVersion() *string {
+func (o *CreateClusterProperties) GetPostgresVersion() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.PostgresVersion
-
 }
 
 // GetPostgresVersionOk returns a tuple with the PostgresVersion field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateClusterProperties) GetPostgresVersionOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.PostgresVersion, true
+	return &o.PostgresVersion, true
 }
 
 // SetPostgresVersion sets field value
 func (o *CreateClusterProperties) SetPostgresVersion(v string) {
-
-	o.PostgresVersion = &v
-
-}
-
-// HasPostgresVersion returns a boolean if a field has been set.
-func (o *CreateClusterProperties) HasPostgresVersion() bool {
-	if o != nil && o.PostgresVersion != nil {
-		return true
-	}
-
-	return false
+	o.PostgresVersion = v
 }
 
 // GetInstances returns the Instances field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *CreateClusterProperties) GetInstances() *int32 {
+func (o *CreateClusterProperties) GetInstances() int32 {
 	if o == nil {
-		return nil
+		var ret int32
+		return ret
 	}
 
 	return o.Instances
-
 }
 
 // GetInstancesOk returns a tuple with the Instances field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateClusterProperties) GetInstancesOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Instances, true
+	return &o.Instances, true
 }
 
 // SetInstances sets field value
 func (o *CreateClusterProperties) SetInstances(v int32) {
-
-	o.Instances = &v
-
-}
-
-// HasInstances returns a boolean if a field has been set.
-func (o *CreateClusterProperties) HasInstances() bool {
-	if o != nil && o.Instances != nil {
-		return true
-	}
-
-	return false
+	o.Instances = v
 }
 
 // GetCores returns the Cores field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *CreateClusterProperties) GetCores() *int32 {
+func (o *CreateClusterProperties) GetCores() int32 {
 	if o == nil {
-		return nil
+		var ret int32
+		return ret
 	}
 
 	return o.Cores
-
 }
 
 // GetCoresOk returns a tuple with the Cores field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateClusterProperties) GetCoresOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Cores, true
+	return &o.Cores, true
 }
 
 // SetCores sets field value
 func (o *CreateClusterProperties) SetCores(v int32) {
-
-	o.Cores = &v
-
-}
-
-// HasCores returns a boolean if a field has been set.
-func (o *CreateClusterProperties) HasCores() bool {
-	if o != nil && o.Cores != nil {
-		return true
-	}
-
-	return false
+	o.Cores = v
 }
 
 // GetRam returns the Ram field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *CreateClusterProperties) GetRam() *int32 {
+func (o *CreateClusterProperties) GetRam() int32 {
 	if o == nil {
-		return nil
+		var ret int32
+		return ret
 	}
 
 	return o.Ram
-
 }
 
 // GetRamOk returns a tuple with the Ram field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateClusterProperties) GetRamOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Ram, true
+	return &o.Ram, true
 }
 
 // SetRam sets field value
 func (o *CreateClusterProperties) SetRam(v int32) {
-
-	o.Ram = &v
-
-}
-
-// HasRam returns a boolean if a field has been set.
-func (o *CreateClusterProperties) HasRam() bool {
-	if o != nil && o.Ram != nil {
-		return true
-	}
-
-	return false
+	o.Ram = v
 }
 
 // GetStorageSize returns the StorageSize field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *CreateClusterProperties) GetStorageSize() *int32 {
+func (o *CreateClusterProperties) GetStorageSize() int32 {
 	if o == nil {
-		return nil
+		var ret int32
+		return ret
 	}
 
 	return o.StorageSize
-
 }
 
 // GetStorageSizeOk returns a tuple with the StorageSize field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateClusterProperties) GetStorageSizeOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.StorageSize, true
+	return &o.StorageSize, true
 }
 
 // SetStorageSize sets field value
 func (o *CreateClusterProperties) SetStorageSize(v int32) {
-
-	o.StorageSize = &v
-
-}
-
-// HasStorageSize returns a boolean if a field has been set.
-func (o *CreateClusterProperties) HasStorageSize() bool {
-	if o != nil && o.StorageSize != nil {
-		return true
-	}
-
-	return false
+	o.StorageSize = v
 }
 
 // GetStorageType returns the StorageType field value
-// If the value is explicit nil, the zero value for StorageType will be returned
-func (o *CreateClusterProperties) GetStorageType() *StorageType {
+func (o *CreateClusterProperties) GetStorageType() StorageType {
 	if o == nil {
-		return nil
+		var ret StorageType
+		return ret
 	}
 
 	return o.StorageType
-
 }
 
 // GetStorageTypeOk returns a tuple with the StorageType field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateClusterProperties) GetStorageTypeOk() (*StorageType, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.StorageType, true
+	return &o.StorageType, true
 }
 
 // SetStorageType sets field value
 func (o *CreateClusterProperties) SetStorageType(v StorageType) {
-
-	o.StorageType = &v
-
-}
-
-// HasStorageType returns a boolean if a field has been set.
-func (o *CreateClusterProperties) HasStorageType() bool {
-	if o != nil && o.StorageType != nil {
-		return true
-	}
-
-	return false
+	o.StorageType = v
 }
 
 // GetConnections returns the Connections field value
-// If the value is explicit nil, the zero value for []Connection will be returned
-func (o *CreateClusterProperties) GetConnections() *[]Connection {
+func (o *CreateClusterProperties) GetConnections() []Connection {
 	if o == nil {
-		return nil
+		var ret []Connection
+		return ret
 	}
 
 	return o.Connections
-
 }
 
 // GetConnectionsOk returns a tuple with the Connections field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateClusterProperties) GetConnectionsOk() (*[]Connection, bool) {
+func (o *CreateClusterProperties) GetConnectionsOk() ([]Connection, bool) {
 	if o == nil {
 		return nil, false
 	}
-
 	return o.Connections, true
 }
 
 // SetConnections sets field value
 func (o *CreateClusterProperties) SetConnections(v []Connection) {
-
-	o.Connections = &v
-
-}
-
-// HasConnections returns a boolean if a field has been set.
-func (o *CreateClusterProperties) HasConnections() bool {
-	if o != nil && o.Connections != nil {
-		return true
-	}
-
-	return false
+	o.Connections = v
 }
 
 // GetLocation returns the Location field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *CreateClusterProperties) GetLocation() *string {
+func (o *CreateClusterProperties) GetLocation() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Location
-
 }
 
 // GetLocationOk returns a tuple with the Location field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateClusterProperties) GetLocationOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Location, true
+	return &o.Location, true
 }
 
 // SetLocation sets field value
 func (o *CreateClusterProperties) SetLocation(v string) {
-
-	o.Location = &v
-
+	o.Location = v
 }
 
-// HasLocation returns a boolean if a field has been set.
-func (o *CreateClusterProperties) HasLocation() bool {
-	if o != nil && o.Location != nil {
-		return true
+// GetBackupLocation returns the BackupLocation field value if set, zero value otherwise.
+func (o *CreateClusterProperties) GetBackupLocation() string {
+	if o == nil || IsNil(o.BackupLocation) {
+		var ret string
+		return ret
 	}
-
-	return false
+	return *o.BackupLocation
 }
 
-// GetBackupLocation returns the BackupLocation field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *CreateClusterProperties) GetBackupLocation() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.BackupLocation
-
-}
-
-// GetBackupLocationOk returns a tuple with the BackupLocation field value
+// GetBackupLocationOk returns a tuple with the BackupLocation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateClusterProperties) GetBackupLocationOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.BackupLocation) {
 		return nil, false
 	}
-
 	return o.BackupLocation, true
-}
-
-// SetBackupLocation sets field value
-func (o *CreateClusterProperties) SetBackupLocation(v string) {
-
-	o.BackupLocation = &v
-
 }
 
 // HasBackupLocation returns a boolean if a field has been set.
 func (o *CreateClusterProperties) HasBackupLocation() bool {
-	if o != nil && o.BackupLocation != nil {
+	if o != nil && !IsNil(o.BackupLocation) {
 		return true
 	}
 
 	return false
 }
 
+// SetBackupLocation gets a reference to the given string and assigns it to the BackupLocation field.
+func (o *CreateClusterProperties) SetBackupLocation(v string) {
+	o.BackupLocation = &v
+}
+
 // GetDisplayName returns the DisplayName field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *CreateClusterProperties) GetDisplayName() *string {
+func (o *CreateClusterProperties) GetDisplayName() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.DisplayName
-
 }
 
 // GetDisplayNameOk returns a tuple with the DisplayName field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateClusterProperties) GetDisplayNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.DisplayName, true
+	return &o.DisplayName, true
 }
 
 // SetDisplayName sets field value
 func (o *CreateClusterProperties) SetDisplayName(v string) {
-
-	o.DisplayName = &v
-
+	o.DisplayName = v
 }
 
-// HasDisplayName returns a boolean if a field has been set.
-func (o *CreateClusterProperties) HasDisplayName() bool {
-	if o != nil && o.DisplayName != nil {
-		return true
+// GetMaintenanceWindow returns the MaintenanceWindow field value if set, zero value otherwise.
+func (o *CreateClusterProperties) GetMaintenanceWindow() MaintenanceWindow {
+	if o == nil || IsNil(o.MaintenanceWindow) {
+		var ret MaintenanceWindow
+		return ret
 	}
-
-	return false
+	return *o.MaintenanceWindow
 }
 
-// GetMaintenanceWindow returns the MaintenanceWindow field value
-// If the value is explicit nil, the zero value for MaintenanceWindow will be returned
-func (o *CreateClusterProperties) GetMaintenanceWindow() *MaintenanceWindow {
-	if o == nil {
-		return nil
-	}
-
-	return o.MaintenanceWindow
-
-}
-
-// GetMaintenanceWindowOk returns a tuple with the MaintenanceWindow field value
+// GetMaintenanceWindowOk returns a tuple with the MaintenanceWindow field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateClusterProperties) GetMaintenanceWindowOk() (*MaintenanceWindow, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.MaintenanceWindow) {
 		return nil, false
 	}
-
 	return o.MaintenanceWindow, true
-}
-
-// SetMaintenanceWindow sets field value
-func (o *CreateClusterProperties) SetMaintenanceWindow(v MaintenanceWindow) {
-
-	o.MaintenanceWindow = &v
-
 }
 
 // HasMaintenanceWindow returns a boolean if a field has been set.
 func (o *CreateClusterProperties) HasMaintenanceWindow() bool {
-	if o != nil && o.MaintenanceWindow != nil {
+	if o != nil && !IsNil(o.MaintenanceWindow) {
 		return true
 	}
 
 	return false
 }
 
+// SetMaintenanceWindow gets a reference to the given MaintenanceWindow and assigns it to the MaintenanceWindow field.
+func (o *CreateClusterProperties) SetMaintenanceWindow(v MaintenanceWindow) {
+	o.MaintenanceWindow = &v
+}
+
 // GetCredentials returns the Credentials field value
-// If the value is explicit nil, the zero value for DBUser will be returned
-func (o *CreateClusterProperties) GetCredentials() *DBUser {
+func (o *CreateClusterProperties) GetCredentials() DBUser {
 	if o == nil {
-		return nil
+		var ret DBUser
+		return ret
 	}
 
 	return o.Credentials
-
 }
 
 // GetCredentialsOk returns a tuple with the Credentials field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateClusterProperties) GetCredentialsOk() (*DBUser, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Credentials, true
+	return &o.Credentials, true
 }
 
 // SetCredentials sets field value
 func (o *CreateClusterProperties) SetCredentials(v DBUser) {
-
-	o.Credentials = &v
-
-}
-
-// HasCredentials returns a boolean if a field has been set.
-func (o *CreateClusterProperties) HasCredentials() bool {
-	if o != nil && o.Credentials != nil {
-		return true
-	}
-
-	return false
+	o.Credentials = v
 }
 
 // GetSynchronizationMode returns the SynchronizationMode field value
-// If the value is explicit nil, the zero value for SynchronizationMode will be returned
-func (o *CreateClusterProperties) GetSynchronizationMode() *SynchronizationMode {
+func (o *CreateClusterProperties) GetSynchronizationMode() SynchronizationMode {
 	if o == nil {
-		return nil
+		var ret SynchronizationMode
+		return ret
 	}
 
 	return o.SynchronizationMode
-
 }
 
 // GetSynchronizationModeOk returns a tuple with the SynchronizationMode field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateClusterProperties) GetSynchronizationModeOk() (*SynchronizationMode, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.SynchronizationMode, true
+	return &o.SynchronizationMode, true
 }
 
 // SetSynchronizationMode sets field value
 func (o *CreateClusterProperties) SetSynchronizationMode(v SynchronizationMode) {
-
-	o.SynchronizationMode = &v
-
+	o.SynchronizationMode = v
 }
 
-// HasSynchronizationMode returns a boolean if a field has been set.
-func (o *CreateClusterProperties) HasSynchronizationMode() bool {
-	if o != nil && o.SynchronizationMode != nil {
-		return true
+// GetFromBackup returns the FromBackup field value if set, zero value otherwise.
+func (o *CreateClusterProperties) GetFromBackup() CreateRestoreRequest {
+	if o == nil || IsNil(o.FromBackup) {
+		var ret CreateRestoreRequest
+		return ret
 	}
-
-	return false
+	return *o.FromBackup
 }
 
-// GetFromBackup returns the FromBackup field value
-// If the value is explicit nil, the zero value for CreateRestoreRequest will be returned
-func (o *CreateClusterProperties) GetFromBackup() *CreateRestoreRequest {
-	if o == nil {
-		return nil
-	}
-
-	return o.FromBackup
-
-}
-
-// GetFromBackupOk returns a tuple with the FromBackup field value
+// GetFromBackupOk returns a tuple with the FromBackup field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateClusterProperties) GetFromBackupOk() (*CreateRestoreRequest, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.FromBackup) {
 		return nil, false
 	}
-
 	return o.FromBackup, true
-}
-
-// SetFromBackup sets field value
-func (o *CreateClusterProperties) SetFromBackup(v CreateRestoreRequest) {
-
-	o.FromBackup = &v
-
 }
 
 // HasFromBackup returns a boolean if a field has been set.
 func (o *CreateClusterProperties) HasFromBackup() bool {
-	if o != nil && o.FromBackup != nil {
+	if o != nil && !IsNil(o.FromBackup) {
 		return true
 	}
 
 	return false
 }
 
+// SetFromBackup gets a reference to the given CreateRestoreRequest and assigns it to the FromBackup field.
+func (o *CreateClusterProperties) SetFromBackup(v CreateRestoreRequest) {
+	o.FromBackup = &v
+}
+
+// GetConnectionPooler returns the ConnectionPooler field value if set, zero value otherwise.
+func (o *CreateClusterProperties) GetConnectionPooler() ConnectionPooler {
+	if o == nil || IsNil(o.ConnectionPooler) {
+		var ret ConnectionPooler
+		return ret
+	}
+	return *o.ConnectionPooler
+}
+
+// GetConnectionPoolerOk returns a tuple with the ConnectionPooler field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateClusterProperties) GetConnectionPoolerOk() (*ConnectionPooler, bool) {
+	if o == nil || IsNil(o.ConnectionPooler) {
+		return nil, false
+	}
+	return o.ConnectionPooler, true
+}
+
+// HasConnectionPooler returns a boolean if a field has been set.
+func (o *CreateClusterProperties) HasConnectionPooler() bool {
+	if o != nil && !IsNil(o.ConnectionPooler) {
+		return true
+	}
+
+	return false
+}
+
+// SetConnectionPooler gets a reference to the given ConnectionPooler and assigns it to the ConnectionPooler field.
+func (o *CreateClusterProperties) SetConnectionPooler(v ConnectionPooler) {
+	o.ConnectionPooler = &v
+}
+
 func (o CreateClusterProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CreateClusterProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.PostgresVersion != nil {
+	if !IsZero(o.PostgresVersion) {
 		toSerialize["postgresVersion"] = o.PostgresVersion
 	}
-
-	if o.Instances != nil {
+	if !IsZero(o.Instances) {
 		toSerialize["instances"] = o.Instances
 	}
-
-	if o.Cores != nil {
+	if !IsZero(o.Cores) {
 		toSerialize["cores"] = o.Cores
 	}
-
-	if o.Ram != nil {
+	if !IsZero(o.Ram) {
 		toSerialize["ram"] = o.Ram
 	}
-
-	if o.StorageSize != nil {
+	if !IsZero(o.StorageSize) {
 		toSerialize["storageSize"] = o.StorageSize
 	}
-
-	if o.StorageType != nil {
+	if !IsZero(o.StorageType) {
 		toSerialize["storageType"] = o.StorageType
 	}
-
-	if o.Connections != nil {
+	if !IsZero(o.Connections) {
 		toSerialize["connections"] = o.Connections
 	}
-
-	if o.Location != nil {
+	if !IsZero(o.Location) {
 		toSerialize["location"] = o.Location
 	}
-
-	if o.BackupLocation != nil {
+	if !IsNil(o.BackupLocation) {
 		toSerialize["backupLocation"] = o.BackupLocation
 	}
-
-	if o.DisplayName != nil {
+	if !IsZero(o.DisplayName) {
 		toSerialize["displayName"] = o.DisplayName
 	}
-
-	if o.MaintenanceWindow != nil {
+	if !IsNil(o.MaintenanceWindow) {
 		toSerialize["maintenanceWindow"] = o.MaintenanceWindow
 	}
-
-	if o.Credentials != nil {
+	if !IsZero(o.Credentials) {
 		toSerialize["credentials"] = o.Credentials
 	}
-
-	if o.SynchronizationMode != nil {
+	if !IsZero(o.SynchronizationMode) {
 		toSerialize["synchronizationMode"] = o.SynchronizationMode
 	}
-
-	if o.FromBackup != nil {
+	if !IsNil(o.FromBackup) {
 		toSerialize["fromBackup"] = o.FromBackup
 	}
-
-	return json.Marshal(toSerialize)
+	if !IsNil(o.ConnectionPooler) {
+		toSerialize["connectionPooler"] = o.ConnectionPooler
+	}
+	return toSerialize, nil
 }
 
 type NullableCreateClusterProperties struct {

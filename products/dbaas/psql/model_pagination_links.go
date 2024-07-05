@@ -1,7 +1,7 @@
 /*
- * IONOS DBaaS REST API
+ * IONOS DBaaS PostgreSQL REST API
  *
- * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
+ * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional PostgreSQL database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
  *
  * API version: 1.0.0
  */
@@ -14,7 +14,10 @@ import (
 	"encoding/json"
 )
 
-// PaginationLinks URLs to navigate the different pages. As of now we always only return a single page.
+// checks if the PaginationLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PaginationLinks{}
+
+// PaginationLinks URLs to navigate the different pages.
 type PaginationLinks struct {
 	// URL (with offset and limit parameters) of the previous page; only present if offset is greater than 0.
 	Prev *string `json:"prev,omitempty"`
@@ -42,135 +45,122 @@ func NewPaginationLinksWithDefaults() *PaginationLinks {
 	return &this
 }
 
-// GetPrev returns the Prev field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *PaginationLinks) GetPrev() *string {
-	if o == nil {
-		return nil
+// GetPrev returns the Prev field value if set, zero value otherwise.
+func (o *PaginationLinks) GetPrev() string {
+	if o == nil || IsNil(o.Prev) {
+		var ret string
+		return ret
 	}
-
-	return o.Prev
-
+	return *o.Prev
 }
 
-// GetPrevOk returns a tuple with the Prev field value
+// GetPrevOk returns a tuple with the Prev field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PaginationLinks) GetPrevOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Prev) {
 		return nil, false
 	}
-
 	return o.Prev, true
-}
-
-// SetPrev sets field value
-func (o *PaginationLinks) SetPrev(v string) {
-
-	o.Prev = &v
-
 }
 
 // HasPrev returns a boolean if a field has been set.
 func (o *PaginationLinks) HasPrev() bool {
-	if o != nil && o.Prev != nil {
+	if o != nil && !IsNil(o.Prev) {
 		return true
 	}
 
 	return false
 }
 
-// GetSelf returns the Self field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *PaginationLinks) GetSelf() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Self
-
+// SetPrev gets a reference to the given string and assigns it to the Prev field.
+func (o *PaginationLinks) SetPrev(v string) {
+	o.Prev = &v
 }
 
-// GetSelfOk returns a tuple with the Self field value
+// GetSelf returns the Self field value if set, zero value otherwise.
+func (o *PaginationLinks) GetSelf() string {
+	if o == nil || IsNil(o.Self) {
+		var ret string
+		return ret
+	}
+	return *o.Self
+}
+
+// GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PaginationLinks) GetSelfOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
-
 	return o.Self, true
-}
-
-// SetSelf sets field value
-func (o *PaginationLinks) SetSelf(v string) {
-
-	o.Self = &v
-
 }
 
 // HasSelf returns a boolean if a field has been set.
 func (o *PaginationLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
 	return false
 }
 
-// GetNext returns the Next field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *PaginationLinks) GetNext() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Next
-
+// SetSelf gets a reference to the given string and assigns it to the Self field.
+func (o *PaginationLinks) SetSelf(v string) {
+	o.Self = &v
 }
 
-// GetNextOk returns a tuple with the Next field value
+// GetNext returns the Next field value if set, zero value otherwise.
+func (o *PaginationLinks) GetNext() string {
+	if o == nil || IsNil(o.Next) {
+		var ret string
+		return ret
+	}
+	return *o.Next
+}
+
+// GetNextOk returns a tuple with the Next field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PaginationLinks) GetNextOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Next) {
 		return nil, false
 	}
-
 	return o.Next, true
-}
-
-// SetNext sets field value
-func (o *PaginationLinks) SetNext(v string) {
-
-	o.Next = &v
-
 }
 
 // HasNext returns a boolean if a field has been set.
 func (o *PaginationLinks) HasNext() bool {
-	if o != nil && o.Next != nil {
+	if o != nil && !IsNil(o.Next) {
 		return true
 	}
 
 	return false
 }
 
+// SetNext gets a reference to the given string and assigns it to the Next field.
+func (o *PaginationLinks) SetNext(v string) {
+	o.Next = &v
+}
+
 func (o PaginationLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PaginationLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Prev != nil {
+	if !IsNil(o.Prev) {
 		toSerialize["prev"] = o.Prev
 	}
-
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
-
-	if o.Next != nil {
+	if !IsNil(o.Next) {
 		toSerialize["next"] = o.Next
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullablePaginationLinks struct {

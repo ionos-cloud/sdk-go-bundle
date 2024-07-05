@@ -12,6 +12,7 @@
 |**MaintenanceWindow** | Pointer to [**MaintenanceWindow**](MaintenanceWindow.md) |  | [optional] |
 |**PostgresVersion** | Pointer to **string** | The PostgreSQL version of your cluster. | [optional] |
 |**Instances** | Pointer to **int32** | The total number of instances in the cluster (one master and n-1 standbys).  | [optional] |
+|**ConnectionPooler** | Pointer to [**ConnectionPooler**](ConnectionPooler.md) |  | [optional] |
 
 ## Methods
 
@@ -231,5 +232,30 @@ SetInstances sets Instances field to given value.
 `func (o *PatchClusterProperties) HasInstances() bool`
 
 HasInstances returns a boolean if a field has been set.
+
+### GetConnectionPooler
+
+`func (o *PatchClusterProperties) GetConnectionPooler() ConnectionPooler`
+
+GetConnectionPooler returns the ConnectionPooler field if non-nil, zero value otherwise.
+
+### GetConnectionPoolerOk
+
+`func (o *PatchClusterProperties) GetConnectionPoolerOk() (*ConnectionPooler, bool)`
+
+GetConnectionPoolerOk returns a tuple with the ConnectionPooler field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConnectionPooler
+
+`func (o *PatchClusterProperties) SetConnectionPooler(v ConnectionPooler)`
+
+SetConnectionPooler sets ConnectionPooler field to given value.
+
+### HasConnectionPooler
+
+`func (o *PatchClusterProperties) HasConnectionPooler() bool`
+
+HasConnectionPooler returns a boolean if a field has been set.
 
 

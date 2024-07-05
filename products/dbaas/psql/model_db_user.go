@@ -1,7 +1,7 @@
 /*
- * IONOS DBaaS REST API
+ * IONOS DBaaS PostgreSQL REST API
  *
- * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
+ * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional PostgreSQL database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
  *
  * API version: 1.0.0
  */
@@ -14,11 +14,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the DBUser type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DBUser{}
+
 // DBUser Credentials for the database user to be created.
 type DBUser struct {
 	// The username for the initial PostgreSQL user. Some system usernames are restricted (e.g. \"postgres\", \"admin\", \"standby\").
-	Username *string `json:"username"`
-	Password *string `json:"password"`
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
 
 // NewDBUser instantiates a new DBUser object
@@ -28,8 +31,8 @@ type DBUser struct {
 func NewDBUser(username string, password string) *DBUser {
 	this := DBUser{}
 
-	this.Username = &username
-	this.Password = &password
+	this.Username = username
+	this.Password = password
 
 	return &this
 }
@@ -43,92 +46,70 @@ func NewDBUserWithDefaults() *DBUser {
 }
 
 // GetUsername returns the Username field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *DBUser) GetUsername() *string {
+func (o *DBUser) GetUsername() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Username
-
 }
 
 // GetUsernameOk returns a tuple with the Username field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DBUser) GetUsernameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Username, true
+	return &o.Username, true
 }
 
 // SetUsername sets field value
 func (o *DBUser) SetUsername(v string) {
-
-	o.Username = &v
-
-}
-
-// HasUsername returns a boolean if a field has been set.
-func (o *DBUser) HasUsername() bool {
-	if o != nil && o.Username != nil {
-		return true
-	}
-
-	return false
+	o.Username = v
 }
 
 // GetPassword returns the Password field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *DBUser) GetPassword() *string {
+func (o *DBUser) GetPassword() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Password
-
 }
 
 // GetPasswordOk returns a tuple with the Password field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DBUser) GetPasswordOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Password, true
+	return &o.Password, true
 }
 
 // SetPassword sets field value
 func (o *DBUser) SetPassword(v string) {
-
-	o.Password = &v
-
-}
-
-// HasPassword returns a boolean if a field has been set.
-func (o *DBUser) HasPassword() bool {
-	if o != nil && o.Password != nil {
-		return true
-	}
-
-	return false
+	o.Password = v
 }
 
 func (o DBUser) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DBUser) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Username != nil {
+	if !IsZero(o.Username) {
 		toSerialize["username"] = o.Username
 	}
-
-	if o.Password != nil {
+	if !IsZero(o.Password) {
 		toSerialize["password"] = o.Password
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableDBUser struct {

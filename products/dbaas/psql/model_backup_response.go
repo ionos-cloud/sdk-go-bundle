@@ -1,7 +1,7 @@
 /*
- * IONOS DBaaS REST API
+ * IONOS DBaaS PostgreSQL REST API
  *
- * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
+ * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional PostgreSQL database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
  *
  * API version: 1.0.0
  */
@@ -13,6 +13,9 @@ package psql
 import (
 	"encoding/json"
 )
+
+// checks if the BackupResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BackupResponse{}
 
 // BackupResponse A database backup.
 type BackupResponse struct {
@@ -41,177 +44,157 @@ func NewBackupResponseWithDefaults() *BackupResponse {
 	return &this
 }
 
-// GetType returns the Type field value
-// If the value is explicit nil, the zero value for ResourceType will be returned
-func (o *BackupResponse) GetType() *ResourceType {
-	if o == nil {
-		return nil
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *BackupResponse) GetType() ResourceType {
+	if o == nil || IsNil(o.Type) {
+		var ret ResourceType
+		return ret
 	}
-
-	return o.Type
-
+	return *o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BackupResponse) GetTypeOk() (*ResourceType, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
-
 	return o.Type, true
-}
-
-// SetType sets field value
-func (o *BackupResponse) SetType(v ResourceType) {
-
-	o.Type = &v
-
 }
 
 // HasType returns a boolean if a field has been set.
 func (o *BackupResponse) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
 	return false
 }
 
-// GetId returns the Id field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *BackupResponse) GetId() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Id
-
+// SetType gets a reference to the given ResourceType and assigns it to the Type field.
+func (o *BackupResponse) SetType(v ResourceType) {
+	o.Type = &v
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *BackupResponse) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BackupResponse) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-
 	return o.Id, true
-}
-
-// SetId sets field value
-func (o *BackupResponse) SetId(v string) {
-
-	o.Id = &v
-
 }
 
 // HasId returns a boolean if a field has been set.
 func (o *BackupResponse) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
 	return false
 }
 
-// GetMetadata returns the Metadata field value
-// If the value is explicit nil, the zero value for BackupMetadata will be returned
-func (o *BackupResponse) GetMetadata() *BackupMetadata {
-	if o == nil {
-		return nil
-	}
-
-	return o.Metadata
-
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *BackupResponse) SetId(v string) {
+	o.Id = &v
 }
 
-// GetMetadataOk returns a tuple with the Metadata field value
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
+func (o *BackupResponse) GetMetadata() BackupMetadata {
+	if o == nil || IsNil(o.Metadata) {
+		var ret BackupMetadata
+		return ret
+	}
+	return *o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BackupResponse) GetMetadataOk() (*BackupMetadata, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
-
 	return o.Metadata, true
-}
-
-// SetMetadata sets field value
-func (o *BackupResponse) SetMetadata(v BackupMetadata) {
-
-	o.Metadata = &v
-
 }
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *BackupResponse) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
 	return false
 }
 
-// GetProperties returns the Properties field value
-// If the value is explicit nil, the zero value for ClusterBackup will be returned
-func (o *BackupResponse) GetProperties() *ClusterBackup {
-	if o == nil {
-		return nil
-	}
-
-	return o.Properties
-
+// SetMetadata gets a reference to the given BackupMetadata and assigns it to the Metadata field.
+func (o *BackupResponse) SetMetadata(v BackupMetadata) {
+	o.Metadata = &v
 }
 
-// GetPropertiesOk returns a tuple with the Properties field value
+// GetProperties returns the Properties field value if set, zero value otherwise.
+func (o *BackupResponse) GetProperties() ClusterBackup {
+	if o == nil || IsNil(o.Properties) {
+		var ret ClusterBackup
+		return ret
+	}
+	return *o.Properties
+}
+
+// GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BackupResponse) GetPropertiesOk() (*ClusterBackup, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Properties) {
 		return nil, false
 	}
-
 	return o.Properties, true
-}
-
-// SetProperties sets field value
-func (o *BackupResponse) SetProperties(v ClusterBackup) {
-
-	o.Properties = &v
-
 }
 
 // HasProperties returns a boolean if a field has been set.
 func (o *BackupResponse) HasProperties() bool {
-	if o != nil && o.Properties != nil {
+	if o != nil && !IsNil(o.Properties) {
 		return true
 	}
 
 	return false
 }
 
+// SetProperties gets a reference to the given ClusterBackup and assigns it to the Properties field.
+func (o *BackupResponse) SetProperties(v ClusterBackup) {
+	o.Properties = &v
+}
+
 func (o BackupResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BackupResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-
-	if o.Metadata != nil {
+	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
-
-	if o.Properties != nil {
+	if !IsNil(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableBackupResponse struct {

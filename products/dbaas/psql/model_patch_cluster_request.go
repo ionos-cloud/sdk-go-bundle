@@ -1,7 +1,7 @@
 /*
- * IONOS DBaaS REST API
+ * IONOS DBaaS PostgreSQL REST API
  *
- * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
+ * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional PostgreSQL database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
  *
  * API version: 1.0.0
  */
@@ -14,9 +14,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the PatchClusterRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PatchClusterRequest{}
+
 // PatchClusterRequest Request payload to change a cluster.
 type PatchClusterRequest struct {
-	Metadata   *Metadata               `json:"metadata,omitempty"`
+	Metadata   *ClusterMetadata        `json:"metadata,omitempty"`
 	Properties *PatchClusterProperties `json:"properties,omitempty"`
 }
 
@@ -38,93 +41,87 @@ func NewPatchClusterRequestWithDefaults() *PatchClusterRequest {
 	return &this
 }
 
-// GetMetadata returns the Metadata field value
-// If the value is explicit nil, the zero value for Metadata will be returned
-func (o *PatchClusterRequest) GetMetadata() *Metadata {
-	if o == nil {
-		return nil
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
+func (o *PatchClusterRequest) GetMetadata() ClusterMetadata {
+	if o == nil || IsNil(o.Metadata) {
+		var ret ClusterMetadata
+		return ret
 	}
-
-	return o.Metadata
-
+	return *o.Metadata
 }
 
-// GetMetadataOk returns a tuple with the Metadata field value
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PatchClusterRequest) GetMetadataOk() (*Metadata, bool) {
-	if o == nil {
+func (o *PatchClusterRequest) GetMetadataOk() (*ClusterMetadata, bool) {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
-
 	return o.Metadata, true
-}
-
-// SetMetadata sets field value
-func (o *PatchClusterRequest) SetMetadata(v Metadata) {
-
-	o.Metadata = &v
-
 }
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *PatchClusterRequest) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
 	return false
 }
 
-// GetProperties returns the Properties field value
-// If the value is explicit nil, the zero value for PatchClusterProperties will be returned
-func (o *PatchClusterRequest) GetProperties() *PatchClusterProperties {
-	if o == nil {
-		return nil
-	}
-
-	return o.Properties
-
+// SetMetadata gets a reference to the given ClusterMetadata and assigns it to the Metadata field.
+func (o *PatchClusterRequest) SetMetadata(v ClusterMetadata) {
+	o.Metadata = &v
 }
 
-// GetPropertiesOk returns a tuple with the Properties field value
+// GetProperties returns the Properties field value if set, zero value otherwise.
+func (o *PatchClusterRequest) GetProperties() PatchClusterProperties {
+	if o == nil || IsNil(o.Properties) {
+		var ret PatchClusterProperties
+		return ret
+	}
+	return *o.Properties
+}
+
+// GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PatchClusterRequest) GetPropertiesOk() (*PatchClusterProperties, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Properties) {
 		return nil, false
 	}
-
 	return o.Properties, true
-}
-
-// SetProperties sets field value
-func (o *PatchClusterRequest) SetProperties(v PatchClusterProperties) {
-
-	o.Properties = &v
-
 }
 
 // HasProperties returns a boolean if a field has been set.
 func (o *PatchClusterRequest) HasProperties() bool {
-	if o != nil && o.Properties != nil {
+	if o != nil && !IsNil(o.Properties) {
 		return true
 	}
 
 	return false
 }
 
+// SetProperties gets a reference to the given PatchClusterProperties and assigns it to the Properties field.
+func (o *PatchClusterRequest) SetProperties(v PatchClusterProperties) {
+	o.Properties = &v
+}
+
 func (o PatchClusterRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PatchClusterRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Metadata != nil {
+	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
-
-	if o.Properties != nil {
+	if !IsNil(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullablePatchClusterRequest struct {

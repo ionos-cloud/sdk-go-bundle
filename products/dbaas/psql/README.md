@@ -4,7 +4,7 @@ An enterprise-grade Database is provided as a Service (DBaaS) solution that
 can be managed through a browser-based \"Data Center Designer\" (DCD) tool or
 via an easy to use API.
 
-The API allows you to create additional database clusters or modify existing
+The API allows you to create additional PostgreSQL database clusters or modify existing
 ones. It is designed to allow users to leverage the same power and
 flexibility found within the DCD visual tool. Both tools are consistent with
 their concepts and lend well to making the experience smooth and intuitive.
@@ -42,7 +42,7 @@ go get github.com/ionos-cloud/sdk-go-bundle/products/dbaas/psql@latest
 | `IONOS_PASSWORD`     | Specify the password used to login, to authenticate against the IONOS Cloud API                                                                                                                                                |
 | `IONOS_TOKEN`        | Specify the token used to login, if a token is being used instead of username and password                                                                                                                                     |
 | `IONOS_API_URL`      | Specify the API URL. It will overwrite the API endpoint default value `api.ionos.com`. Note: the host URL does not contain the `/cloudapi/v6` path, so it should _not_ be included in the `IONOS_API_URL` environment variable |
-| `IONOS_LOGLEVEL`     | Specify the Log Level used to log messages. Possible values: Off, Debug, Trace |
+| `IONOS_LOG_LEVEL`    | Specify the Log Level used to log messages. Possible values: Off, Debug, Trace |
 | `IONOS_PINNED_CERT`  | Specify the SHA-256 public fingerprint here, enables certificate pinning                                                                                                                                                       |
 
 ⚠️ **_Note: To overwrite the api endpoint - `api.ionos.com`, the environment variable `$IONOS_API_URL` can be set, and used with `NewConfigurationFromEnv()` function._**
@@ -164,9 +164,9 @@ requestProperties.SetURL("https://api.ionos.com/cloudapi/v6")
 
 ## Debugging
 
-You can now inject any logger that implements Printf as a logger
+You can inject any logger that implements Printf as a logger
 instead of using the default sdk logger.
-There are now Loglevels that you can set: `Off`, `Debug` and `Trace`.
+There are log levels that you can set: `Off`, `Debug` and `Trace`.
 `Off` - does not show any logs
 `Debug` - regular logs, no sensitive information
 `Trace` - we recommend you only set this field for debugging purposes. Disable it in your production environments because it can log sensitive data.
@@ -187,9 +187,9 @@ func main() {
     // if you have set your env variables as explained above
     cfg := shared.NewConfiguration("username", "password", "token", "hostUrl")
     // enable request and response logging. this is the most verbose loglevel
-    cfg.LogLevel = Trace
+    shared.SdkLogLevel = Trace
     // inject your own logger that implements Printf
-    cfg.Logger = logrus.New()
+    shared.SdkLogger = logrus.New()
     // create you api client with the configuration
     apiClient := psql.NewAPIClient(cfg)
 }
@@ -214,10 +214,19 @@ ClustersApi | [**ClustersGet**](docs/api/ClustersApi.md#clustersget) | **Get** /
 ClustersApi | [**ClustersPatch**](docs/api/ClustersApi.md#clusterspatch) | **Patch** /clusters/{clusterId} | Patch a cluster
 ClustersApi | [**ClustersPost**](docs/api/ClustersApi.md#clusterspost) | **Post** /clusters | Create a cluster
 ClustersApi | [**PostgresVersionsGet**](docs/api/ClustersApi.md#postgresversionsget) | **Get** /clusters/postgresversions | List PostgreSQL versions
+DatabasesApi | [**DatabasesDelete**](docs/api/DatabasesApi.md#databasesdelete) | **Delete** /clusters/{clusterId}/databases/{databasename} | Delete database
+DatabasesApi | [**DatabasesGet**](docs/api/DatabasesApi.md#databasesget) | **Get** /clusters/{clusterId}/databases/{databasename} | Get database
+DatabasesApi | [**DatabasesList**](docs/api/DatabasesApi.md#databaseslist) | **Get** /clusters/{clusterId}/databases | List databases
+DatabasesApi | [**DatabasesPost**](docs/api/DatabasesApi.md#databasespost) | **Post** /clusters/{clusterId}/databases | Create a database
 LogsApi | [**ClusterLogsGet**](docs/api/LogsApi.md#clusterlogsget) | **Get** /clusters/{clusterId}/logs | Get logs of your cluster
 MetadataApi | [**InfosVersionGet**](docs/api/MetadataApi.md#infosversionget) | **Get** /infos/version | Get the current API version
 MetadataApi | [**InfosVersionsGet**](docs/api/MetadataApi.md#infosversionsget) | **Get** /infos/versions | Fetch all API versions
 RestoresApi | [**ClusterRestorePost**](docs/api/RestoresApi.md#clusterrestorepost) | **Post** /clusters/{clusterId}/restore | In-place restore of a cluster
+UsersApi | [**UsersDelete**](docs/api/UsersApi.md#usersdelete) | **Delete** /clusters/{clusterId}/users/{username} | Delete user
+UsersApi | [**UsersGet**](docs/api/UsersApi.md#usersget) | **Get** /clusters/{clusterId}/users/{username} | Get user
+UsersApi | [**UsersList**](docs/api/UsersApi.md#userslist) | **Get** /clusters/{clusterId}/users | List users
+UsersApi | [**UsersPatch**](docs/api/UsersApi.md#userspatch) | **Patch** /clusters/{clusterId}/users/{username} | Patch user
+UsersApi | [**UsersPost**](docs/api/UsersApi.md#userspost) | **Post** /clusters/{clusterId}/users | Create a user
 
 </details>
 
@@ -237,15 +246,23 @@ All URIs are relative to *https://api.ionos.com/databases/postgresql*
  - [ClusterListAllOf](docs/models/ClusterListAllOf)
  - [ClusterLogs](docs/models/ClusterLogs)
  - [ClusterLogsInstances](docs/models/ClusterLogsInstances)
- - [ClusterLogsMessages](docs/models/ClusterLogsMessages)
+ - [ClusterLogsInstancesMessages](docs/models/ClusterLogsInstancesMessages)
+ - [ClusterMetadata](docs/models/ClusterMetadata)
  - [ClusterProperties](docs/models/ClusterProperties)
  - [ClusterResponse](docs/models/ClusterResponse)
  - [Connection](docs/models/Connection)
+ - [ConnectionPooler](docs/models/ConnectionPooler)
  - [CreateClusterProperties](docs/models/CreateClusterProperties)
  - [CreateClusterRequest](docs/models/CreateClusterRequest)
  - [CreateRestoreRequest](docs/models/CreateRestoreRequest)
  - [DBUser](docs/models/DBUser)
+ - [Database](docs/models/Database)
+ - [DatabaseItems](docs/models/DatabaseItems)
+ - [DatabaseList](docs/models/DatabaseList)
+ - [DatabaseProperties](docs/models/DatabaseProperties)
+ - [DatabaseResource](docs/models/DatabaseResource)
  - [DayOfTheWeek](docs/models/DayOfTheWeek)
+ - [DeprecatedPagination](docs/models/DeprecatedPagination)
  - [ErrorMessage](docs/models/ErrorMessage)
  - [ErrorResponse](docs/models/ErrorResponse)
  - [MaintenanceWindow](docs/models/MaintenanceWindow)
@@ -254,12 +271,22 @@ All URIs are relative to *https://api.ionos.com/databases/postgresql*
  - [PaginationLinks](docs/models/PaginationLinks)
  - [PatchClusterProperties](docs/models/PatchClusterProperties)
  - [PatchClusterRequest](docs/models/PatchClusterRequest)
+ - [PatchUserProperties](docs/models/PatchUserProperties)
+ - [PoolMode](docs/models/PoolMode)
  - [PostgresVersionList](docs/models/PostgresVersionList)
  - [PostgresVersionListData](docs/models/PostgresVersionListData)
+ - [Resource](docs/models/Resource)
+ - [ResourceMetadata](docs/models/ResourceMetadata)
  - [ResourceType](docs/models/ResourceType)
  - [State](docs/models/State)
  - [StorageType](docs/models/StorageType)
  - [SynchronizationMode](docs/models/SynchronizationMode)
+ - [User](docs/models/User)
+ - [UserItems](docs/models/UserItems)
+ - [UserList](docs/models/UserList)
+ - [UserProperties](docs/models/UserProperties)
+ - [UserResource](docs/models/UserResource)
+ - [UsersPatchRequest](docs/models/UsersPatchRequest)
 
 
 [[Back to API list]](#documentation-for-api-endpoints) [[Back to Model list]](#documentation-for-models)

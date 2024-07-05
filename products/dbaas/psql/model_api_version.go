@@ -1,7 +1,7 @@
 /*
- * IONOS DBaaS REST API
+ * IONOS DBaaS PostgreSQL REST API
  *
- * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
+ * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional PostgreSQL database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
  *
  * API version: 1.0.0
  */
@@ -13,6 +13,9 @@ package psql
 import (
 	"encoding/json"
 )
+
+// checks if the APIVersion type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &APIVersion{}
 
 // APIVersion struct for APIVersion
 type APIVersion struct {
@@ -38,93 +41,87 @@ func NewAPIVersionWithDefaults() *APIVersion {
 	return &this
 }
 
-// GetName returns the Name field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *APIVersion) GetName() *string {
-	if o == nil {
-		return nil
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *APIVersion) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
 	}
-
-	return o.Name
-
+	return *o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *APIVersion) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-
 	return o.Name, true
-}
-
-// SetName sets field value
-func (o *APIVersion) SetName(v string) {
-
-	o.Name = &v
-
 }
 
 // HasName returns a boolean if a field has been set.
 func (o *APIVersion) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
 	return false
 }
 
-// GetSwaggerUrl returns the SwaggerUrl field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *APIVersion) GetSwaggerUrl() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.SwaggerUrl
-
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *APIVersion) SetName(v string) {
+	o.Name = &v
 }
 
-// GetSwaggerUrlOk returns a tuple with the SwaggerUrl field value
+// GetSwaggerUrl returns the SwaggerUrl field value if set, zero value otherwise.
+func (o *APIVersion) GetSwaggerUrl() string {
+	if o == nil || IsNil(o.SwaggerUrl) {
+		var ret string
+		return ret
+	}
+	return *o.SwaggerUrl
+}
+
+// GetSwaggerUrlOk returns a tuple with the SwaggerUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *APIVersion) GetSwaggerUrlOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.SwaggerUrl) {
 		return nil, false
 	}
-
 	return o.SwaggerUrl, true
-}
-
-// SetSwaggerUrl sets field value
-func (o *APIVersion) SetSwaggerUrl(v string) {
-
-	o.SwaggerUrl = &v
-
 }
 
 // HasSwaggerUrl returns a boolean if a field has been set.
 func (o *APIVersion) HasSwaggerUrl() bool {
-	if o != nil && o.SwaggerUrl != nil {
+	if o != nil && !IsNil(o.SwaggerUrl) {
 		return true
 	}
 
 	return false
 }
 
+// SetSwaggerUrl gets a reference to the given string and assigns it to the SwaggerUrl field.
+func (o *APIVersion) SetSwaggerUrl(v string) {
+	o.SwaggerUrl = &v
+}
+
 func (o APIVersion) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o APIVersion) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-
-	if o.SwaggerUrl != nil {
+	if !IsNil(o.SwaggerUrl) {
 		toSerialize["swaggerUrl"] = o.SwaggerUrl
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableAPIVersion struct {

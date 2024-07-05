@@ -1,7 +1,7 @@
 /*
- * IONOS DBaaS REST API
+ * IONOS DBaaS PostgreSQL REST API
  *
- * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
+ * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional PostgreSQL database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
  *
  * API version: 1.0.0
  */
@@ -15,6 +15,9 @@ import (
 
 	"time"
 )
+
+// checks if the BackupMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BackupMetadata{}
 
 // BackupMetadata Metadata of the backup resource.
 type BackupMetadata struct {
@@ -41,100 +44,87 @@ func NewBackupMetadataWithDefaults() *BackupMetadata {
 	return &this
 }
 
-// GetCreatedDate returns the CreatedDate field value
-// If the value is explicit nil, the zero value for time.Time will be returned
-func (o *BackupMetadata) GetCreatedDate() *time.Time {
-	if o == nil {
-		return nil
+// GetCreatedDate returns the CreatedDate field value if set, zero value otherwise.
+func (o *BackupMetadata) GetCreatedDate() time.Time {
+	if o == nil || IsNil(o.CreatedDate) {
+		var ret time.Time
+		return ret
 	}
-
-	if o.CreatedDate == nil {
-		return nil
-	}
-	return &o.CreatedDate.Time
-
+	return o.CreatedDate.Time
 }
 
-// GetCreatedDateOk returns a tuple with the CreatedDate field value
+// GetCreatedDateOk returns a tuple with the CreatedDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BackupMetadata) GetCreatedDateOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-
-	if o.CreatedDate == nil {
+	if o == nil || IsNil(o.CreatedDate) {
 		return nil, false
 	}
 	return &o.CreatedDate.Time, true
-
-}
-
-// SetCreatedDate sets field value
-func (o *BackupMetadata) SetCreatedDate(v time.Time) {
-
-	o.CreatedDate = &IonosTime{v}
-
 }
 
 // HasCreatedDate returns a boolean if a field has been set.
 func (o *BackupMetadata) HasCreatedDate() bool {
-	if o != nil && o.CreatedDate != nil {
+	if o != nil && !IsNil(o.CreatedDate) {
 		return true
 	}
 
 	return false
 }
 
-// GetState returns the State field value
-// If the value is explicit nil, the zero value for State will be returned
-func (o *BackupMetadata) GetState() *State {
-	if o == nil {
-		return nil
-	}
-
-	return o.State
-
+// SetCreatedDate gets a reference to the given time.Time and assigns it to the CreatedDate field.
+func (o *BackupMetadata) SetCreatedDate(v time.Time) {
+	o.CreatedDate = &IonosTime{v}
 }
 
-// GetStateOk returns a tuple with the State field value
+// GetState returns the State field value if set, zero value otherwise.
+func (o *BackupMetadata) GetState() State {
+	if o == nil || IsNil(o.State) {
+		var ret State
+		return ret
+	}
+	return *o.State
+}
+
+// GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BackupMetadata) GetStateOk() (*State, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
-
 	return o.State, true
-}
-
-// SetState sets field value
-func (o *BackupMetadata) SetState(v State) {
-
-	o.State = &v
-
 }
 
 // HasState returns a boolean if a field has been set.
 func (o *BackupMetadata) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
 	return false
 }
 
+// SetState gets a reference to the given State and assigns it to the State field.
+func (o *BackupMetadata) SetState(v State) {
+	o.State = &v
+}
+
 func (o BackupMetadata) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BackupMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CreatedDate != nil {
+	if !IsNil(o.CreatedDate) {
 		toSerialize["createdDate"] = o.CreatedDate
 	}
-
-	if o.State != nil {
+	if !IsNil(o.State) {
 		toSerialize["state"] = o.State
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableBackupMetadata struct {

@@ -38,7 +38,7 @@ import (
 )
 
 func main() {
-    clusterId := "clusterId_example" // string | The unique ID of the cluster.
+    clusterId := "498ae72f-411f-11eb-9d07-046c59cc737e" // string | The unique ID of the cluster.
     start := time.Now() // time.Time | The start time for the query in RFC3339 format. Must not be more than 30 days ago but before the end parameter. The default is 30 days ago. (optional)
     end := time.Now() // time.Time | The end time for the query in RFC3339 format. Must not be greater than now. The default is the current timestamp. (optional)
     direction := "direction_example" // string | The direction in which to scan through the logs. The logs are returned in order of the direction. (optional) (default to "BACKWARD")

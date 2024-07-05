@@ -1,7 +1,7 @@
 /*
- * IONOS DBaaS REST API
+ * IONOS DBaaS PostgreSQL REST API
  *
- * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
+ * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional PostgreSQL database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
  *
  * API version: 1.0.0
  */
@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PatchClusterProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PatchClusterProperties{}
+
 // PatchClusterProperties Properties of the payload to change a cluster.
 type PatchClusterProperties struct {
 	// The number of CPU cores per instance.
@@ -21,15 +24,16 @@ type PatchClusterProperties struct {
 	// The amount of memory per instance in megabytes. Has to be a multiple of 1024.
 	Ram *int32 `json:"ram,omitempty"`
 	// The amount of storage per instance in megabytes.
-	StorageSize *int32        `json:"storageSize,omitempty"`
-	Connections *[]Connection `json:"connections,omitempty"`
+	StorageSize *int32       `json:"storageSize,omitempty"`
+	Connections []Connection `json:"connections,omitempty"`
 	// The friendly name of your cluster.
 	DisplayName       *string            `json:"displayName,omitempty"`
 	MaintenanceWindow *MaintenanceWindow `json:"maintenanceWindow,omitempty"`
 	// The PostgreSQL version of your cluster.
 	PostgresVersion *string `json:"postgresVersion,omitempty"`
 	// The total number of instances in the cluster (one master and n-1 standbys).
-	Instances *int32 `json:"instances,omitempty"`
+	Instances        *int32            `json:"instances,omitempty"`
+	ConnectionPooler *ConnectionPooler `json:"connectionPooler,omitempty"`
 }
 
 // NewPatchClusterProperties instantiates a new PatchClusterProperties object
@@ -50,345 +54,332 @@ func NewPatchClusterPropertiesWithDefaults() *PatchClusterProperties {
 	return &this
 }
 
-// GetCores returns the Cores field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *PatchClusterProperties) GetCores() *int32 {
-	if o == nil {
-		return nil
+// GetCores returns the Cores field value if set, zero value otherwise.
+func (o *PatchClusterProperties) GetCores() int32 {
+	if o == nil || IsNil(o.Cores) {
+		var ret int32
+		return ret
 	}
-
-	return o.Cores
-
+	return *o.Cores
 }
 
-// GetCoresOk returns a tuple with the Cores field value
+// GetCoresOk returns a tuple with the Cores field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PatchClusterProperties) GetCoresOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Cores) {
 		return nil, false
 	}
-
 	return o.Cores, true
-}
-
-// SetCores sets field value
-func (o *PatchClusterProperties) SetCores(v int32) {
-
-	o.Cores = &v
-
 }
 
 // HasCores returns a boolean if a field has been set.
 func (o *PatchClusterProperties) HasCores() bool {
-	if o != nil && o.Cores != nil {
+	if o != nil && !IsNil(o.Cores) {
 		return true
 	}
 
 	return false
 }
 
-// GetRam returns the Ram field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *PatchClusterProperties) GetRam() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.Ram
-
+// SetCores gets a reference to the given int32 and assigns it to the Cores field.
+func (o *PatchClusterProperties) SetCores(v int32) {
+	o.Cores = &v
 }
 
-// GetRamOk returns a tuple with the Ram field value
+// GetRam returns the Ram field value if set, zero value otherwise.
+func (o *PatchClusterProperties) GetRam() int32 {
+	if o == nil || IsNil(o.Ram) {
+		var ret int32
+		return ret
+	}
+	return *o.Ram
+}
+
+// GetRamOk returns a tuple with the Ram field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PatchClusterProperties) GetRamOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Ram) {
 		return nil, false
 	}
-
 	return o.Ram, true
-}
-
-// SetRam sets field value
-func (o *PatchClusterProperties) SetRam(v int32) {
-
-	o.Ram = &v
-
 }
 
 // HasRam returns a boolean if a field has been set.
 func (o *PatchClusterProperties) HasRam() bool {
-	if o != nil && o.Ram != nil {
+	if o != nil && !IsNil(o.Ram) {
 		return true
 	}
 
 	return false
 }
 
-// GetStorageSize returns the StorageSize field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *PatchClusterProperties) GetStorageSize() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.StorageSize
-
+// SetRam gets a reference to the given int32 and assigns it to the Ram field.
+func (o *PatchClusterProperties) SetRam(v int32) {
+	o.Ram = &v
 }
 
-// GetStorageSizeOk returns a tuple with the StorageSize field value
+// GetStorageSize returns the StorageSize field value if set, zero value otherwise.
+func (o *PatchClusterProperties) GetStorageSize() int32 {
+	if o == nil || IsNil(o.StorageSize) {
+		var ret int32
+		return ret
+	}
+	return *o.StorageSize
+}
+
+// GetStorageSizeOk returns a tuple with the StorageSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PatchClusterProperties) GetStorageSizeOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.StorageSize) {
 		return nil, false
 	}
-
 	return o.StorageSize, true
-}
-
-// SetStorageSize sets field value
-func (o *PatchClusterProperties) SetStorageSize(v int32) {
-
-	o.StorageSize = &v
-
 }
 
 // HasStorageSize returns a boolean if a field has been set.
 func (o *PatchClusterProperties) HasStorageSize() bool {
-	if o != nil && o.StorageSize != nil {
+	if o != nil && !IsNil(o.StorageSize) {
 		return true
 	}
 
 	return false
 }
 
-// GetConnections returns the Connections field value
-// If the value is explicit nil, the zero value for []Connection will be returned
-func (o *PatchClusterProperties) GetConnections() *[]Connection {
-	if o == nil {
-		return nil
-	}
-
-	return o.Connections
-
+// SetStorageSize gets a reference to the given int32 and assigns it to the StorageSize field.
+func (o *PatchClusterProperties) SetStorageSize(v int32) {
+	o.StorageSize = &v
 }
 
-// GetConnectionsOk returns a tuple with the Connections field value
+// GetConnections returns the Connections field value if set, zero value otherwise.
+func (o *PatchClusterProperties) GetConnections() []Connection {
+	if o == nil || IsNil(o.Connections) {
+		var ret []Connection
+		return ret
+	}
+	return o.Connections
+}
+
+// GetConnectionsOk returns a tuple with the Connections field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PatchClusterProperties) GetConnectionsOk() (*[]Connection, bool) {
-	if o == nil {
+func (o *PatchClusterProperties) GetConnectionsOk() ([]Connection, bool) {
+	if o == nil || IsNil(o.Connections) {
 		return nil, false
 	}
-
 	return o.Connections, true
-}
-
-// SetConnections sets field value
-func (o *PatchClusterProperties) SetConnections(v []Connection) {
-
-	o.Connections = &v
-
 }
 
 // HasConnections returns a boolean if a field has been set.
 func (o *PatchClusterProperties) HasConnections() bool {
-	if o != nil && o.Connections != nil {
+	if o != nil && !IsNil(o.Connections) {
 		return true
 	}
 
 	return false
 }
 
-// GetDisplayName returns the DisplayName field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *PatchClusterProperties) GetDisplayName() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.DisplayName
-
+// SetConnections gets a reference to the given []Connection and assigns it to the Connections field.
+func (o *PatchClusterProperties) SetConnections(v []Connection) {
+	o.Connections = v
 }
 
-// GetDisplayNameOk returns a tuple with the DisplayName field value
+// GetDisplayName returns the DisplayName field value if set, zero value otherwise.
+func (o *PatchClusterProperties) GetDisplayName() string {
+	if o == nil || IsNil(o.DisplayName) {
+		var ret string
+		return ret
+	}
+	return *o.DisplayName
+}
+
+// GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PatchClusterProperties) GetDisplayNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		return nil, false
 	}
-
 	return o.DisplayName, true
-}
-
-// SetDisplayName sets field value
-func (o *PatchClusterProperties) SetDisplayName(v string) {
-
-	o.DisplayName = &v
-
 }
 
 // HasDisplayName returns a boolean if a field has been set.
 func (o *PatchClusterProperties) HasDisplayName() bool {
-	if o != nil && o.DisplayName != nil {
+	if o != nil && !IsNil(o.DisplayName) {
 		return true
 	}
 
 	return false
 }
 
-// GetMaintenanceWindow returns the MaintenanceWindow field value
-// If the value is explicit nil, the zero value for MaintenanceWindow will be returned
-func (o *PatchClusterProperties) GetMaintenanceWindow() *MaintenanceWindow {
-	if o == nil {
-		return nil
-	}
-
-	return o.MaintenanceWindow
-
+// SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
+func (o *PatchClusterProperties) SetDisplayName(v string) {
+	o.DisplayName = &v
 }
 
-// GetMaintenanceWindowOk returns a tuple with the MaintenanceWindow field value
+// GetMaintenanceWindow returns the MaintenanceWindow field value if set, zero value otherwise.
+func (o *PatchClusterProperties) GetMaintenanceWindow() MaintenanceWindow {
+	if o == nil || IsNil(o.MaintenanceWindow) {
+		var ret MaintenanceWindow
+		return ret
+	}
+	return *o.MaintenanceWindow
+}
+
+// GetMaintenanceWindowOk returns a tuple with the MaintenanceWindow field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PatchClusterProperties) GetMaintenanceWindowOk() (*MaintenanceWindow, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.MaintenanceWindow) {
 		return nil, false
 	}
-
 	return o.MaintenanceWindow, true
-}
-
-// SetMaintenanceWindow sets field value
-func (o *PatchClusterProperties) SetMaintenanceWindow(v MaintenanceWindow) {
-
-	o.MaintenanceWindow = &v
-
 }
 
 // HasMaintenanceWindow returns a boolean if a field has been set.
 func (o *PatchClusterProperties) HasMaintenanceWindow() bool {
-	if o != nil && o.MaintenanceWindow != nil {
+	if o != nil && !IsNil(o.MaintenanceWindow) {
 		return true
 	}
 
 	return false
 }
 
-// GetPostgresVersion returns the PostgresVersion field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *PatchClusterProperties) GetPostgresVersion() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.PostgresVersion
-
+// SetMaintenanceWindow gets a reference to the given MaintenanceWindow and assigns it to the MaintenanceWindow field.
+func (o *PatchClusterProperties) SetMaintenanceWindow(v MaintenanceWindow) {
+	o.MaintenanceWindow = &v
 }
 
-// GetPostgresVersionOk returns a tuple with the PostgresVersion field value
+// GetPostgresVersion returns the PostgresVersion field value if set, zero value otherwise.
+func (o *PatchClusterProperties) GetPostgresVersion() string {
+	if o == nil || IsNil(o.PostgresVersion) {
+		var ret string
+		return ret
+	}
+	return *o.PostgresVersion
+}
+
+// GetPostgresVersionOk returns a tuple with the PostgresVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PatchClusterProperties) GetPostgresVersionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.PostgresVersion) {
 		return nil, false
 	}
-
 	return o.PostgresVersion, true
-}
-
-// SetPostgresVersion sets field value
-func (o *PatchClusterProperties) SetPostgresVersion(v string) {
-
-	o.PostgresVersion = &v
-
 }
 
 // HasPostgresVersion returns a boolean if a field has been set.
 func (o *PatchClusterProperties) HasPostgresVersion() bool {
-	if o != nil && o.PostgresVersion != nil {
+	if o != nil && !IsNil(o.PostgresVersion) {
 		return true
 	}
 
 	return false
 }
 
-// GetInstances returns the Instances field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *PatchClusterProperties) GetInstances() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.Instances
-
+// SetPostgresVersion gets a reference to the given string and assigns it to the PostgresVersion field.
+func (o *PatchClusterProperties) SetPostgresVersion(v string) {
+	o.PostgresVersion = &v
 }
 
-// GetInstancesOk returns a tuple with the Instances field value
+// GetInstances returns the Instances field value if set, zero value otherwise.
+func (o *PatchClusterProperties) GetInstances() int32 {
+	if o == nil || IsNil(o.Instances) {
+		var ret int32
+		return ret
+	}
+	return *o.Instances
+}
+
+// GetInstancesOk returns a tuple with the Instances field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PatchClusterProperties) GetInstancesOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Instances) {
 		return nil, false
 	}
-
 	return o.Instances, true
-}
-
-// SetInstances sets field value
-func (o *PatchClusterProperties) SetInstances(v int32) {
-
-	o.Instances = &v
-
 }
 
 // HasInstances returns a boolean if a field has been set.
 func (o *PatchClusterProperties) HasInstances() bool {
-	if o != nil && o.Instances != nil {
+	if o != nil && !IsNil(o.Instances) {
 		return true
 	}
 
 	return false
 }
 
+// SetInstances gets a reference to the given int32 and assigns it to the Instances field.
+func (o *PatchClusterProperties) SetInstances(v int32) {
+	o.Instances = &v
+}
+
+// GetConnectionPooler returns the ConnectionPooler field value if set, zero value otherwise.
+func (o *PatchClusterProperties) GetConnectionPooler() ConnectionPooler {
+	if o == nil || IsNil(o.ConnectionPooler) {
+		var ret ConnectionPooler
+		return ret
+	}
+	return *o.ConnectionPooler
+}
+
+// GetConnectionPoolerOk returns a tuple with the ConnectionPooler field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PatchClusterProperties) GetConnectionPoolerOk() (*ConnectionPooler, bool) {
+	if o == nil || IsNil(o.ConnectionPooler) {
+		return nil, false
+	}
+	return o.ConnectionPooler, true
+}
+
+// HasConnectionPooler returns a boolean if a field has been set.
+func (o *PatchClusterProperties) HasConnectionPooler() bool {
+	if o != nil && !IsNil(o.ConnectionPooler) {
+		return true
+	}
+
+	return false
+}
+
+// SetConnectionPooler gets a reference to the given ConnectionPooler and assigns it to the ConnectionPooler field.
+func (o *PatchClusterProperties) SetConnectionPooler(v ConnectionPooler) {
+	o.ConnectionPooler = &v
+}
+
 func (o PatchClusterProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PatchClusterProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Cores != nil {
+	if !IsNil(o.Cores) {
 		toSerialize["cores"] = o.Cores
 	}
-
-	if o.Ram != nil {
+	if !IsNil(o.Ram) {
 		toSerialize["ram"] = o.Ram
 	}
-
-	if o.StorageSize != nil {
+	if !IsNil(o.StorageSize) {
 		toSerialize["storageSize"] = o.StorageSize
 	}
-
-	if o.Connections != nil {
+	if !IsNil(o.Connections) {
 		toSerialize["connections"] = o.Connections
 	}
-
-	if o.DisplayName != nil {
+	if !IsNil(o.DisplayName) {
 		toSerialize["displayName"] = o.DisplayName
 	}
-
-	if o.MaintenanceWindow != nil {
+	if !IsNil(o.MaintenanceWindow) {
 		toSerialize["maintenanceWindow"] = o.MaintenanceWindow
 	}
-
-	if o.PostgresVersion != nil {
+	if !IsNil(o.PostgresVersion) {
 		toSerialize["postgresVersion"] = o.PostgresVersion
 	}
-
-	if o.Instances != nil {
+	if !IsNil(o.Instances) {
 		toSerialize["instances"] = o.Instances
 	}
-
-	return json.Marshal(toSerialize)
+	if !IsNil(o.ConnectionPooler) {
+		toSerialize["connectionPooler"] = o.ConnectionPooler
+	}
+	return toSerialize, nil
 }
 
 type NullablePatchClusterProperties struct {

@@ -18,6 +18,7 @@
 |**Credentials** | [**DBUser**](DBUser.md) |  | |
 |**SynchronizationMode** | [**SynchronizationMode**](SynchronizationMode.md) |  | |
 |**FromBackup** | Pointer to [**CreateRestoreRequest**](CreateRestoreRequest.md) |  | [optional] |
+|**ConnectionPooler** | Pointer to [**ConnectionPooler**](ConnectionPooler.md) |  | [optional] |
 
 ## Methods
 
@@ -332,5 +333,30 @@ SetFromBackup sets FromBackup field to given value.
 `func (o *CreateClusterProperties) HasFromBackup() bool`
 
 HasFromBackup returns a boolean if a field has been set.
+
+### GetConnectionPooler
+
+`func (o *CreateClusterProperties) GetConnectionPooler() ConnectionPooler`
+
+GetConnectionPooler returns the ConnectionPooler field if non-nil, zero value otherwise.
+
+### GetConnectionPoolerOk
+
+`func (o *CreateClusterProperties) GetConnectionPoolerOk() (*ConnectionPooler, bool)`
+
+GetConnectionPoolerOk returns a tuple with the ConnectionPooler field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConnectionPooler
+
+`func (o *CreateClusterProperties) SetConnectionPooler(v ConnectionPooler)`
+
+SetConnectionPooler sets ConnectionPooler field to given value.
+
+### HasConnectionPooler
+
+`func (o *CreateClusterProperties) HasConnectionPooler() bool`
+
+HasConnectionPooler returns a boolean if a field has been set.
 
 

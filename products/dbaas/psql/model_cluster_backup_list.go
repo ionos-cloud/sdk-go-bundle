@@ -1,7 +1,7 @@
 /*
- * IONOS DBaaS REST API
+ * IONOS DBaaS PostgreSQL REST API
  *
- * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
+ * An enterprise-grade Database is provided as a Service (DBaaS) solution that can be managed through a browser-based \"Data Center Designer\" (DCD) tool or via an easy to use API.  The API allows you to create additional PostgreSQL database clusters or modify existing ones. It is designed to allow users to leverage the same power and flexibility found within the DCD visual tool. Both tools are consistent with their concepts and lend well to making the experience smooth and intuitive.
  *
  * API version: 1.0.0
  */
@@ -14,17 +14,20 @@ import (
 	"encoding/json"
 )
 
+// checks if the ClusterBackupList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ClusterBackupList{}
+
 // ClusterBackupList List of backups.
 type ClusterBackupList struct {
 	Type *ResourceType `json:"type,omitempty"`
 	// The unique ID of the resource.
-	Id    *string           `json:"id,omitempty"`
-	Items *[]BackupResponse `json:"items,omitempty"`
-	// The offset specified in the request (if none was specified, the default offset is 0) (not implemented yet).
+	Id    *string          `json:"id,omitempty"`
+	Items []BackupResponse `json:"items,omitempty"`
+	// The offset specified in the request (if none was specified, the default offset is 0).
 	Offset *int32 `json:"offset,omitempty"`
-	// The limit specified in the request (if none was specified, use the endpoint's default pagination limit) (not implemented yet, always return number of items).
+	// The limit specified in the request (if none was specified, the default limit is 100).
 	Limit *int32           `json:"limit,omitempty"`
-	Links *PaginationLinks `json:"_links,omitempty"`
+	Links *PaginationLinks `json:"links,omitempty"`
 }
 
 // NewClusterBackupList instantiates a new ClusterBackupList object
@@ -34,6 +37,11 @@ type ClusterBackupList struct {
 func NewClusterBackupList() *ClusterBackupList {
 	this := ClusterBackupList{}
 
+	var offset int32 = 0
+	this.Offset = &offset
+	var limit int32 = 100
+	this.Limit = &limit
+
 	return &this
 }
 
@@ -42,264 +50,234 @@ func NewClusterBackupList() *ClusterBackupList {
 // but it doesn't guarantee that properties required by API are set
 func NewClusterBackupListWithDefaults() *ClusterBackupList {
 	this := ClusterBackupList{}
+	var offset int32 = 0
+	this.Offset = &offset
+	var limit int32 = 100
+	this.Limit = &limit
 	return &this
 }
 
-// GetType returns the Type field value
-// If the value is explicit nil, the zero value for ResourceType will be returned
-func (o *ClusterBackupList) GetType() *ResourceType {
-	if o == nil {
-		return nil
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *ClusterBackupList) GetType() ResourceType {
+	if o == nil || IsNil(o.Type) {
+		var ret ResourceType
+		return ret
 	}
-
-	return o.Type
-
+	return *o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ClusterBackupList) GetTypeOk() (*ResourceType, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
-
 	return o.Type, true
-}
-
-// SetType sets field value
-func (o *ClusterBackupList) SetType(v ResourceType) {
-
-	o.Type = &v
-
 }
 
 // HasType returns a boolean if a field has been set.
 func (o *ClusterBackupList) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
 	return false
 }
 
-// GetId returns the Id field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ClusterBackupList) GetId() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Id
-
+// SetType gets a reference to the given ResourceType and assigns it to the Type field.
+func (o *ClusterBackupList) SetType(v ResourceType) {
+	o.Type = &v
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *ClusterBackupList) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ClusterBackupList) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-
 	return o.Id, true
-}
-
-// SetId sets field value
-func (o *ClusterBackupList) SetId(v string) {
-
-	o.Id = &v
-
 }
 
 // HasId returns a boolean if a field has been set.
 func (o *ClusterBackupList) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
 	return false
 }
 
-// GetItems returns the Items field value
-// If the value is explicit nil, the zero value for []BackupResponse will be returned
-func (o *ClusterBackupList) GetItems() *[]BackupResponse {
-	if o == nil {
-		return nil
-	}
-
-	return o.Items
-
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *ClusterBackupList) SetId(v string) {
+	o.Id = &v
 }
 
-// GetItemsOk returns a tuple with the Items field value
+// GetItems returns the Items field value if set, zero value otherwise.
+func (o *ClusterBackupList) GetItems() []BackupResponse {
+	if o == nil || IsNil(o.Items) {
+		var ret []BackupResponse
+		return ret
+	}
+	return o.Items
+}
+
+// GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ClusterBackupList) GetItemsOk() (*[]BackupResponse, bool) {
-	if o == nil {
+func (o *ClusterBackupList) GetItemsOk() ([]BackupResponse, bool) {
+	if o == nil || IsNil(o.Items) {
 		return nil, false
 	}
-
 	return o.Items, true
-}
-
-// SetItems sets field value
-func (o *ClusterBackupList) SetItems(v []BackupResponse) {
-
-	o.Items = &v
-
 }
 
 // HasItems returns a boolean if a field has been set.
 func (o *ClusterBackupList) HasItems() bool {
-	if o != nil && o.Items != nil {
+	if o != nil && !IsNil(o.Items) {
 		return true
 	}
 
 	return false
 }
 
-// GetOffset returns the Offset field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *ClusterBackupList) GetOffset() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.Offset
-
+// SetItems gets a reference to the given []BackupResponse and assigns it to the Items field.
+func (o *ClusterBackupList) SetItems(v []BackupResponse) {
+	o.Items = v
 }
 
-// GetOffsetOk returns a tuple with the Offset field value
+// GetOffset returns the Offset field value if set, zero value otherwise.
+func (o *ClusterBackupList) GetOffset() int32 {
+	if o == nil || IsNil(o.Offset) {
+		var ret int32
+		return ret
+	}
+	return *o.Offset
+}
+
+// GetOffsetOk returns a tuple with the Offset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ClusterBackupList) GetOffsetOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Offset) {
 		return nil, false
 	}
-
 	return o.Offset, true
-}
-
-// SetOffset sets field value
-func (o *ClusterBackupList) SetOffset(v int32) {
-
-	o.Offset = &v
-
 }
 
 // HasOffset returns a boolean if a field has been set.
 func (o *ClusterBackupList) HasOffset() bool {
-	if o != nil && o.Offset != nil {
+	if o != nil && !IsNil(o.Offset) {
 		return true
 	}
 
 	return false
 }
 
-// GetLimit returns the Limit field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *ClusterBackupList) GetLimit() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.Limit
-
+// SetOffset gets a reference to the given int32 and assigns it to the Offset field.
+func (o *ClusterBackupList) SetOffset(v int32) {
+	o.Offset = &v
 }
 
-// GetLimitOk returns a tuple with the Limit field value
+// GetLimit returns the Limit field value if set, zero value otherwise.
+func (o *ClusterBackupList) GetLimit() int32 {
+	if o == nil || IsNil(o.Limit) {
+		var ret int32
+		return ret
+	}
+	return *o.Limit
+}
+
+// GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ClusterBackupList) GetLimitOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
-
 	return o.Limit, true
-}
-
-// SetLimit sets field value
-func (o *ClusterBackupList) SetLimit(v int32) {
-
-	o.Limit = &v
-
 }
 
 // HasLimit returns a boolean if a field has been set.
 func (o *ClusterBackupList) HasLimit() bool {
-	if o != nil && o.Limit != nil {
+	if o != nil && !IsNil(o.Limit) {
 		return true
 	}
 
 	return false
 }
 
-// GetLinks returns the Links field value
-// If the value is explicit nil, the zero value for PaginationLinks will be returned
-func (o *ClusterBackupList) GetLinks() *PaginationLinks {
-	if o == nil {
-		return nil
-	}
-
-	return o.Links
-
+// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
+func (o *ClusterBackupList) SetLimit(v int32) {
+	o.Limit = &v
 }
 
-// GetLinksOk returns a tuple with the Links field value
+// GetLinks returns the Links field value if set, zero value otherwise.
+func (o *ClusterBackupList) GetLinks() PaginationLinks {
+	if o == nil || IsNil(o.Links) {
+		var ret PaginationLinks
+		return ret
+	}
+	return *o.Links
+}
+
+// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ClusterBackupList) GetLinksOk() (*PaginationLinks, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
-
 	return o.Links, true
-}
-
-// SetLinks sets field value
-func (o *ClusterBackupList) SetLinks(v PaginationLinks) {
-
-	o.Links = &v
-
 }
 
 // HasLinks returns a boolean if a field has been set.
 func (o *ClusterBackupList) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
 	return false
 }
 
+// SetLinks gets a reference to the given PaginationLinks and assigns it to the Links field.
+func (o *ClusterBackupList) SetLinks(v PaginationLinks) {
+	o.Links = &v
+}
+
 func (o ClusterBackupList) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ClusterBackupList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-
-	if o.Items != nil {
+	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
 	}
-
-	if o.Offset != nil {
+	if !IsNil(o.Offset) {
 		toSerialize["offset"] = o.Offset
 	}
-
-	if o.Limit != nil {
+	if !IsNil(o.Limit) {
 		toSerialize["limit"] = o.Limit
 	}
-
-	if o.Links != nil {
-		toSerialize["_links"] = o.Links
+	if !IsNil(o.Links) {
+		toSerialize["links"] = o.Links
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableClusterBackupList struct {
