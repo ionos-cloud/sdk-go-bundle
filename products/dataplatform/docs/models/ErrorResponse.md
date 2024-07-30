@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**HttpStatus** | Pointer to **int32** | HTTP status code of the operation as specified by [RFC 7231](https://datatracker.ietf.org/doc/html/rfc7231#section-6)  | [optional] |
+|**HttpStatus** | Pointer to **int32** | HTTP status code of the operation as specified by [RFC 7231](https://datatracker.ietf.org/doc/html/rfc7231#section-6).  | [optional] |
 |**Messages** | Pointer to [**[]ErrorMessage**](ErrorMessage.md) |  | [optional] |
 
 ## Methods

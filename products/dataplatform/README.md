@@ -1,12 +1,12 @@
 # Go API client for dataplatform
 
-Managed Stackable Data Platform by IONOS Cloud provides a preconfigured Kubernetes cluster
+*Managed Stackable Data Platform* by IONOS Cloud provides a preconfigured Kubernetes cluster
 with pre-installed and managed Stackable operators. After the provision of these Stackable operators,
 the customer can interact with them directly
 and build his desired application on top of the Stackable platform.
 
 The Managed Stackable Data Platform by IONOS Cloud can be configured through the IONOS Cloud API
-in addition or as an alternative to the \"Data Center Designer\" (DCD).
+in addition or as an alternative to the *Data Center Designer* (DCD).
 
 ## Getting Started
 
@@ -16,7 +16,7 @@ To get your DataPlatformCluster up and running, the following steps needs to be 
 
 The first step is the creation of a IONOS Cloud account if not already existing.
 
-To register a **new account** visit [cloud.ionos.com](https://cloud.ionos.com/compute/signup).
+To register a **new account**, visit [cloud.ionos.com](https://cloud.ionos.com/compute/signup).
 
 ### Virtual Data Center (VDC)
 
@@ -26,8 +26,9 @@ to other services already running within your VDC.
 Otherwise, if you want to place the Managed Stackable Data Platform in a new VDC or you have not yet created a VDC,
 you need to do so.
 
-A new VDC can be created via the IONOS Cloud API, the IONOS Cloud CLI (ionosctl), or the DCD Web interface.
-For more information, see the [official documentation](https://docs.ionos.com/cloud/getting-started/tutorials/data-center-basics)
+A new VDC can be created via the IONOS Cloud API, the IONOS Cloud CLI (`ionosctl`), or the DCD Web interface.
+For more information, see the
+[official documentation](https://docs.ionos.com/cloud/getting-started/basic-tutorials/data-center-basics).
 
 ### Get a authentication token
 
@@ -38,7 +39,7 @@ This token can be generated using the IONOS Cloud CLI the following way:
 ionosctl token generate
 ```
 
-For more information [see](https://docs.ionos.com/cli-ionosctl/subcommands/authentication/token-generate)
+For more information, [see](https://docs.ionos.com/cli-ionosctl/subcommands/authentication/token/generate).
 
 ### Create a new DataPlatformCluster
 
@@ -54,7 +55,7 @@ that was presented to you in the response of the create cluster call.
 
 To deploy and run a Stackable service, the cluster must have enough computational resources. The node pool
 that is provisioned along with the cluster is reserved for the Stackable operators.
-You may create further node pools with resources tailored to your use-case.
+You may create further node pools with resources tailored to your use case.
 
 To create a new node pool use the [Create DataPlatformNodepool](paths./clusters/{clusterId}/nodepools.post)
 endpoint.
@@ -64,14 +65,24 @@ endpoint.
 Once the DataPlatformCluster is created, the kubeconfig can be accessed by the API.
 The kubeconfig allows the interaction with the provided cluster as with any regular Kubernetes cluster.
 
+To protect the deployment of the Stackable distribution, the kubeconfig does not provide you with administration
+rights for the cluster. What that means is that your actions and deployments are limited to the **default** namespace.
+
+If you still want to group your deployments, you have the option to create subnamespaces within the default namespace.
+This is made possible by the concept of *hierarchical namespaces* (HNS). You can find more details
+[here](https://kubernetes.io/blog/2020/08/14/introducing-hierarchical-namespaces/).
+
 The kubeconfig can be downloaded with the [Get Kubeconfig](paths./clusters/{clusterId}/kubeconfig.get) endpoint
 using the cluster ID of the created DataPlatformCluster.
 
-### Create Stackable Service
+### Create Stackable Services
 
-To create the desired application, the Stackable service needs to be provided,
-using the received kubeconfig and
-[deploy a Stackable service](https://docs.stackable.tech/home/getting_started.html#_deploying_stackable_services)
+You can leverage the `kubeconfig.json` file to access the Managed Stackable Data Platform cluster and manage the
+deployment of [Stackable data apps](https://stackable.tech/en/platform/).
+
+With the Stackable operators, you can deploy the
+[data apps](https://docs.stackable.tech/home/stable/getting_started.html#_deploying_stackable_services)
+you want in your Data Platform cluster.
 
 ## Authorization
 
@@ -81,19 +92,20 @@ is used. A detailed description can be found [here](https://api.ionos.com/docs/a
 
 ### Basic Auth
 
-The basic auth scheme uses the IONOS Cloud user credentials in form of a Basic Authentication Header
-accordingly to [RFC7617](https://datatracker.ietf.org/doc/html/rfc7617)
+The basic auth scheme uses the IONOS Cloud user credentials in form of a *Basic Authentication* header
+accordingly to [RFC 7617](https://datatracker.ietf.org/doc/html/rfc7617).
 
 ### API Key as Bearer Token
 
-The Bearer auth token used at the API Gateway is a user-related token created with the IONOS Cloud CLI.
-(See the [documentation](https://docs.ionos.com/cli-ionosctl/subcommands/authentication/token-generate) for details)
-For every request to be authenticated, the token is passed as 'Authorization Bearer' header along with the request.
+The Bearer auth token used at the API Gateway is a user-related token created with the IONOS Cloud CLI
+(For details, see the
+[documentation](https://docs.ionos.com/cli-ionosctl/subcommands/authentication/token/generate)).
+For every request to be authenticated, the token is passed as *Authorization Bearer* header along with the request.
 
 ### Permissions and Access Roles
 
-Currently, an admin can see and manipulate all resources in a contract.
-A normal authenticated user can only see and manipulate resources he created.
+Currently, an administrator can see and manipulate all resources in a contract.
+Furthermore, users with the group privilege `Manage Dataplatform` can access the API.
 
 ## Components
 
@@ -350,6 +362,7 @@ All URIs are relative to *https://api.ionos.com/dataplatform*
  - [CreateNodePoolRequest](docs/models/CreateNodePoolRequest)
  - [ErrorMessage](docs/models/ErrorMessage)
  - [ErrorResponse](docs/models/ErrorResponse)
+ - [Lan](docs/models/Lan)
  - [MaintenanceWindow](docs/models/MaintenanceWindow)
  - [Metadata](docs/models/Metadata)
  - [NodePool](docs/models/NodePool)
@@ -359,7 +372,9 @@ All URIs are relative to *https://api.ionos.com/dataplatform*
  - [PatchClusterRequest](docs/models/PatchClusterRequest)
  - [PatchNodePoolProperties](docs/models/PatchNodePoolProperties)
  - [PatchNodePoolRequest](docs/models/PatchNodePoolRequest)
+ - [Route](docs/models/Route)
  - [StorageType](docs/models/StorageType)
+ - [VersionsGet200Response](docs/models/VersionsGet200Response)
 
 
 [[Back to API list]](#documentation-for-api-endpoints) [[Back to Model list]](#documentation-for-models)

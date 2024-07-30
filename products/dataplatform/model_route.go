@@ -14,59 +14,87 @@ import (
 	"encoding/json"
 )
 
-// checks if the PatchNodePoolRequest type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &PatchNodePoolRequest{}
+// checks if the Route type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Route{}
 
-// PatchNodePoolRequest Data to update selected properties of a node pool for a DataPlatformNodePool.
-type PatchNodePoolRequest struct {
-	Properties PatchNodePoolProperties `json:"properties"`
+// Route A LAN route.
+type Route struct {
+	// IPv4 or IPv6 CIDR to be routed via the interface.
+	Network string `json:"network"`
+	// IPv4 or IPv6 gateway IP for the route.
+	Gateway string `json:"gateway"`
 }
 
-// NewPatchNodePoolRequest instantiates a new PatchNodePoolRequest object
+// NewRoute instantiates a new Route object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPatchNodePoolRequest(properties PatchNodePoolProperties) *PatchNodePoolRequest {
-	this := PatchNodePoolRequest{}
+func NewRoute(network string, gateway string) *Route {
+	this := Route{}
 
-	this.Properties = properties
+	this.Network = network
+	this.Gateway = gateway
 
 	return &this
 }
 
-// NewPatchNodePoolRequestWithDefaults instantiates a new PatchNodePoolRequest object
+// NewRouteWithDefaults instantiates a new Route object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewPatchNodePoolRequestWithDefaults() *PatchNodePoolRequest {
-	this := PatchNodePoolRequest{}
+func NewRouteWithDefaults() *Route {
+	this := Route{}
 	return &this
 }
 
-// GetProperties returns the Properties field value
-func (o *PatchNodePoolRequest) GetProperties() PatchNodePoolProperties {
+// GetNetwork returns the Network field value
+func (o *Route) GetNetwork() string {
 	if o == nil {
-		var ret PatchNodePoolProperties
+		var ret string
 		return ret
 	}
 
-	return o.Properties
+	return o.Network
 }
 
-// GetPropertiesOk returns a tuple with the Properties field value
+// GetNetworkOk returns a tuple with the Network field value
 // and a boolean to check if the value has been set.
-func (o *PatchNodePoolRequest) GetPropertiesOk() (*PatchNodePoolProperties, bool) {
+func (o *Route) GetNetworkOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Properties, true
+	return &o.Network, true
 }
 
-// SetProperties sets field value
-func (o *PatchNodePoolRequest) SetProperties(v PatchNodePoolProperties) {
-	o.Properties = v
+// SetNetwork sets field value
+func (o *Route) SetNetwork(v string) {
+	o.Network = v
 }
 
-func (o PatchNodePoolRequest) MarshalJSON() ([]byte, error) {
+// GetGateway returns the Gateway field value
+func (o *Route) GetGateway() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Gateway
+}
+
+// GetGatewayOk returns a tuple with the Gateway field value
+// and a boolean to check if the value has been set.
+func (o *Route) GetGatewayOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Gateway, true
+}
+
+// SetGateway sets field value
+func (o *Route) SetGateway(v string) {
+	o.Gateway = v
+}
+
+func (o Route) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -74,46 +102,49 @@ func (o PatchNodePoolRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o PatchNodePoolRequest) ToMap() (map[string]interface{}, error) {
+func (o Route) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.Properties) {
-		toSerialize["properties"] = o.Properties
+	if !IsZero(o.Network) {
+		toSerialize["network"] = o.Network
+	}
+	if !IsZero(o.Gateway) {
+		toSerialize["gateway"] = o.Gateway
 	}
 	return toSerialize, nil
 }
 
-type NullablePatchNodePoolRequest struct {
-	value *PatchNodePoolRequest
+type NullableRoute struct {
+	value *Route
 	isSet bool
 }
 
-func (v NullablePatchNodePoolRequest) Get() *PatchNodePoolRequest {
+func (v NullableRoute) Get() *Route {
 	return v.value
 }
 
-func (v *NullablePatchNodePoolRequest) Set(val *PatchNodePoolRequest) {
+func (v *NullableRoute) Set(val *Route) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullablePatchNodePoolRequest) IsSet() bool {
+func (v NullableRoute) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullablePatchNodePoolRequest) Unset() {
+func (v *NullableRoute) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullablePatchNodePoolRequest(val *PatchNodePoolRequest) *NullablePatchNodePoolRequest {
-	return &NullablePatchNodePoolRequest{value: val, isSet: true}
+func NewNullableRoute(val *Route) *NullableRoute {
+	return &NullableRoute{value: val, isSet: true}
 }
 
-func (v NullablePatchNodePoolRequest) MarshalJSON() ([]byte, error) {
+func (v NullableRoute) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullablePatchNodePoolRequest) UnmarshalJSON(src []byte) error {
+func (v *NullableRoute) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

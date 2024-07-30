@@ -14,59 +14,128 @@ import (
 	"encoding/json"
 )
 
-// checks if the PatchNodePoolRequest type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &PatchNodePoolRequest{}
+// checks if the Lan type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Lan{}
 
-// PatchNodePoolRequest Data to update selected properties of a node pool for a DataPlatformNodePool.
-type PatchNodePoolRequest struct {
-	Properties PatchNodePoolProperties `json:"properties"`
+// Lan Local area network.
+type Lan struct {
+	// The LAN ID of an existing LAN at the related data center.
+	LanId string `json:"lanId"`
+	// Indicates if the Kubernetes node pool LAN will reserve an IP using DHCP. The default value is `true`.
+	Dhcp *bool `json:"dhcp,omitempty"`
+	// An array of additional LANs attached to worker nodes.
+	Routes []Route `json:"routes,omitempty"`
 }
 
-// NewPatchNodePoolRequest instantiates a new PatchNodePoolRequest object
+// NewLan instantiates a new Lan object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPatchNodePoolRequest(properties PatchNodePoolProperties) *PatchNodePoolRequest {
-	this := PatchNodePoolRequest{}
+func NewLan(lanId string) *Lan {
+	this := Lan{}
 
-	this.Properties = properties
+	this.LanId = lanId
 
 	return &this
 }
 
-// NewPatchNodePoolRequestWithDefaults instantiates a new PatchNodePoolRequest object
+// NewLanWithDefaults instantiates a new Lan object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewPatchNodePoolRequestWithDefaults() *PatchNodePoolRequest {
-	this := PatchNodePoolRequest{}
+func NewLanWithDefaults() *Lan {
+	this := Lan{}
 	return &this
 }
 
-// GetProperties returns the Properties field value
-func (o *PatchNodePoolRequest) GetProperties() PatchNodePoolProperties {
+// GetLanId returns the LanId field value
+func (o *Lan) GetLanId() string {
 	if o == nil {
-		var ret PatchNodePoolProperties
+		var ret string
 		return ret
 	}
 
-	return o.Properties
+	return o.LanId
 }
 
-// GetPropertiesOk returns a tuple with the Properties field value
+// GetLanIdOk returns a tuple with the LanId field value
 // and a boolean to check if the value has been set.
-func (o *PatchNodePoolRequest) GetPropertiesOk() (*PatchNodePoolProperties, bool) {
+func (o *Lan) GetLanIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Properties, true
+	return &o.LanId, true
 }
 
-// SetProperties sets field value
-func (o *PatchNodePoolRequest) SetProperties(v PatchNodePoolProperties) {
-	o.Properties = v
+// SetLanId sets field value
+func (o *Lan) SetLanId(v string) {
+	o.LanId = v
 }
 
-func (o PatchNodePoolRequest) MarshalJSON() ([]byte, error) {
+// GetDhcp returns the Dhcp field value if set, zero value otherwise.
+func (o *Lan) GetDhcp() bool {
+	if o == nil || IsNil(o.Dhcp) {
+		var ret bool
+		return ret
+	}
+	return *o.Dhcp
+}
+
+// GetDhcpOk returns a tuple with the Dhcp field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Lan) GetDhcpOk() (*bool, bool) {
+	if o == nil || IsNil(o.Dhcp) {
+		return nil, false
+	}
+	return o.Dhcp, true
+}
+
+// HasDhcp returns a boolean if a field has been set.
+func (o *Lan) HasDhcp() bool {
+	if o != nil && !IsNil(o.Dhcp) {
+		return true
+	}
+
+	return false
+}
+
+// SetDhcp gets a reference to the given bool and assigns it to the Dhcp field.
+func (o *Lan) SetDhcp(v bool) {
+	o.Dhcp = &v
+}
+
+// GetRoutes returns the Routes field value if set, zero value otherwise.
+func (o *Lan) GetRoutes() []Route {
+	if o == nil || IsNil(o.Routes) {
+		var ret []Route
+		return ret
+	}
+	return o.Routes
+}
+
+// GetRoutesOk returns a tuple with the Routes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Lan) GetRoutesOk() ([]Route, bool) {
+	if o == nil || IsNil(o.Routes) {
+		return nil, false
+	}
+	return o.Routes, true
+}
+
+// HasRoutes returns a boolean if a field has been set.
+func (o *Lan) HasRoutes() bool {
+	if o != nil && !IsNil(o.Routes) {
+		return true
+	}
+
+	return false
+}
+
+// SetRoutes gets a reference to the given []Route and assigns it to the Routes field.
+func (o *Lan) SetRoutes(v []Route) {
+	o.Routes = v
+}
+
+func (o Lan) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -74,46 +143,52 @@ func (o PatchNodePoolRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o PatchNodePoolRequest) ToMap() (map[string]interface{}, error) {
+func (o Lan) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.Properties) {
-		toSerialize["properties"] = o.Properties
+	if !IsZero(o.LanId) {
+		toSerialize["lanId"] = o.LanId
+	}
+	if !IsNil(o.Dhcp) {
+		toSerialize["dhcp"] = o.Dhcp
+	}
+	if !IsNil(o.Routes) {
+		toSerialize["routes"] = o.Routes
 	}
 	return toSerialize, nil
 }
 
-type NullablePatchNodePoolRequest struct {
-	value *PatchNodePoolRequest
+type NullableLan struct {
+	value *Lan
 	isSet bool
 }
 
-func (v NullablePatchNodePoolRequest) Get() *PatchNodePoolRequest {
+func (v NullableLan) Get() *Lan {
 	return v.value
 }
 
-func (v *NullablePatchNodePoolRequest) Set(val *PatchNodePoolRequest) {
+func (v *NullableLan) Set(val *Lan) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullablePatchNodePoolRequest) IsSet() bool {
+func (v NullableLan) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullablePatchNodePoolRequest) Unset() {
+func (v *NullableLan) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullablePatchNodePoolRequest(val *PatchNodePoolRequest) *NullablePatchNodePoolRequest {
-	return &NullablePatchNodePoolRequest{value: val, isSet: true}
+func NewNullableLan(val *Lan) *NullableLan {
+	return &NullableLan{value: val, isSet: true}
 }
 
-func (v NullablePatchNodePoolRequest) MarshalJSON() ([]byte, error) {
+func (v NullableLan) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullablePatchNodePoolRequest) UnmarshalJSON(src []byte) error {
+func (v *NullableLan) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

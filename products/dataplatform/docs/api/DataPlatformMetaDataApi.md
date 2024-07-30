@@ -11,7 +11,7 @@ All URIs are relative to *https://api.ionos.com/dataplatform*
 ## VersionsGet
 
 ```go
-var result []string = VersionsGet(ctx)
+var result VersionsGet200Response = VersionsGet(ctx)
                       .Execute()
 ```
 
@@ -42,7 +42,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `DataPlatformMetaDataApi.VersionsGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
-    // response from `VersionsGet`: []string
+    // response from `VersionsGet`: VersionsGet200Response
     fmt.Fprintf(os.Stdout, "Response from `DataPlatformMetaDataApi.VersionsGet`: %v\n", resource)
 }
 ```
@@ -58,7 +58,7 @@ Other parameters are passed through a pointer to an apiVersionsGetRequest struct
 
 ### Return type
 
-**[]string**
+[**VersionsGet200Response**](../models/VersionsGet200Response.md)
 
 ### HTTP request headers
 

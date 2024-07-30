@@ -38,12 +38,12 @@ import (
 )
 
 func main() {
-    clusterId := TODO // string | The unique ID of the cluster. Must conform to the UUID format. 
-    nodepoolId := TODO // string | The unique ID of the node pool. Must conform to the UUID format. 
+    clusterId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the cluster. Must conform to the UUID format. 
+    nodepoolId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the node pool. Must conform to the UUID format. 
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := dataplatform.NewAPIClient(configuration)
-    resource, resp, err := apiClient.DataPlatformNodePoolApi.ClustersNodepoolsDelete(context.Background(), clusterId, nodepoolId).Execute()
+    resp, err := apiClient.DataPlatformNodePoolApi.ClustersNodepoolsDelete(context.Background(), clusterId, nodepoolId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DataPlatformNodePoolApi.ClustersNodepoolsDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -59,8 +59,8 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | [**string**](../models/.md) | The unique ID of the cluster. Must conform to the UUID format.  | |
-|**nodepoolId** | [**string**](../models/.md) | The unique ID of the node pool. Must conform to the UUID format.  | |
+|**clusterId** | **string** | The unique ID of the cluster. Must conform to the UUID format.  | |
+|**nodepoolId** | **string** | The unique ID of the node pool. Must conform to the UUID format.  | |
 
 ### Other Parameters
 
@@ -107,8 +107,8 @@ import (
 )
 
 func main() {
-    clusterId := TODO // string | The unique ID of the cluster. Must conform to the UUID format. 
-    nodepoolId := TODO // string | The unique ID of the node pool. Must conform to the UUID format. 
+    clusterId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the cluster. Must conform to the UUID format. 
+    nodepoolId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the node pool. Must conform to the UUID format. 
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := dataplatform.NewAPIClient(configuration)
@@ -128,8 +128,8 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | [**string**](../models/.md) | The unique ID of the cluster. Must conform to the UUID format.  | |
-|**nodepoolId** | [**string**](../models/.md) | The unique ID of the node pool. Must conform to the UUID format.  | |
+|**clusterId** | **string** | The unique ID of the cluster. Must conform to the UUID format.  | |
+|**nodepoolId** | **string** | The unique ID of the node pool. Must conform to the UUID format.  | |
 
 ### Other Parameters
 
@@ -176,7 +176,7 @@ import (
 )
 
 func main() {
-    clusterId := TODO // string | The unique ID of the cluster. Must conform to the UUID format. 
+    clusterId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the cluster. Must conform to the UUID format. 
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := dataplatform.NewAPIClient(configuration)
@@ -196,7 +196,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | [**string**](../models/.md) | The unique ID of the cluster. Must conform to the UUID format.  | |
+|**clusterId** | **string** | The unique ID of the cluster. Must conform to the UUID format.  | |
 
 ### Other Parameters
 
@@ -244,8 +244,8 @@ import (
 )
 
 func main() {
-    clusterId := TODO // string | The unique ID of the cluster. Must conform to the UUID format. 
-    nodepoolId := TODO // string | The unique ID of the node pool. Must conform to the UUID format. 
+    clusterId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the cluster. Must conform to the UUID format. 
+    nodepoolId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the node pool. Must conform to the UUID format. 
     patchNodePoolRequest := *openapiclient.NewPatchNodePoolRequest(*openapiclient.NewPatchNodePoolProperties()) // PatchNodePoolRequest | Request payload with the properties that shall be applied to an existing DataPlatformNodePool. 
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
@@ -266,8 +266,8 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | [**string**](../models/.md) | The unique ID of the cluster. Must conform to the UUID format.  | |
-|**nodepoolId** | [**string**](../models/.md) | The unique ID of the node pool. Must conform to the UUID format.  | |
+|**clusterId** | **string** | The unique ID of the cluster. Must conform to the UUID format.  | |
+|**nodepoolId** | **string** | The unique ID of the node pool. Must conform to the UUID format.  | |
 
 ### Other Parameters
 
@@ -316,7 +316,7 @@ import (
 )
 
 func main() {
-    clusterId := TODO // string | The unique ID of the cluster. Must conform to the UUID format. 
+    clusterId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the cluster. Must conform to the UUID format. 
     createNodePoolRequest := *openapiclient.NewCreateNodePoolRequest(*openapiclient.NewCreateNodePoolProperties("my-node-pool", int32(2))) // CreateNodePoolRequest | Request payload with the properties that defines a DataPlatformNodePool. 
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
@@ -337,7 +337,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | [**string**](../models/.md) | The unique ID of the cluster. Must conform to the UUID format.  | |
+|**clusterId** | **string** | The unique ID of the cluster. Must conform to the UUID format.  | |
 
 ### Other Parameters
 

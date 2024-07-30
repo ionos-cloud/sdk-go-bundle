@@ -4,9 +4,10 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Name** | Pointer to **string** | The name of your cluster. Must be 63 characters or less and must begin and end with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), underscores (_), dots (.), and alphanumerics between.  | [optional] |
+|**Name** | Pointer to **string** | The name of your cluster. Must be 63 characters or less and must begin and end with an alphanumeric character (&#x60;[a-z0-9A-Z]&#x60;) with dashes (&#x60;-&#x60;), underscores (&#x60;_&#x60;), dots (&#x60;.&#x60;), and alphanumerics between.  | [optional] |
 |**DataPlatformVersion** | Pointer to **string** | The version of the data platform.  | [optional] |
 |**MaintenanceWindow** | Pointer to [**MaintenanceWindow**](MaintenanceWindow.md) |  | [optional] |
+|**Lans** | Pointer to [**[]Lan**](Lan.md) | A list of LANs you want this cluster to be part of.  | [optional] |
 
 ## Methods
 
@@ -102,4 +103,39 @@ SetMaintenanceWindow sets MaintenanceWindow field to given value.
 
 HasMaintenanceWindow returns a boolean if a field has been set.
 
+### GetLans
+
+`func (o *PatchClusterProperties) GetLans() []Lan`
+
+GetLans returns the Lans field if non-nil, zero value otherwise.
+
+### GetLansOk
+
+`func (o *PatchClusterProperties) GetLansOk() (*[]Lan, bool)`
+
+GetLansOk returns a tuple with the Lans field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLans
+
+`func (o *PatchClusterProperties) SetLans(v []Lan)`
+
+SetLans sets Lans field to given value.
+
+### HasLans
+
+`func (o *PatchClusterProperties) HasLans() bool`
+
+HasLans returns a boolean if a field has been set.
+
+### SetLansNil
+
+`func (o *PatchClusterProperties) SetLansNil(b bool)`
+
+ SetLansNil sets the value for Lans to be an explicit nil
+
+### UnsetLans
+`func (o *PatchClusterProperties) UnsetLans()`
+
+UnsetLans ensures that no value is present for Lans, not even an explicit nil
 

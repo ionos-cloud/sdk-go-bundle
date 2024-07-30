@@ -14,59 +14,159 @@ import (
 	"encoding/json"
 )
 
-// checks if the PatchNodePoolRequest type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &PatchNodePoolRequest{}
+// checks if the VersionsGet200Response type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &VersionsGet200Response{}
 
-// PatchNodePoolRequest Data to update selected properties of a node pool for a DataPlatformNodePool.
-type PatchNodePoolRequest struct {
-	Properties PatchNodePoolProperties `json:"properties"`
+// VersionsGet200Response struct for VersionsGet200Response
+type VersionsGet200Response struct {
+	// The ID of a list of resources.
+	Id    *string  `json:"id,omitempty"`
+	Type  *string  `json:"type,omitempty"`
+	Href  *string  `json:"href,omitempty"`
+	Items []string `json:"items"`
 }
 
-// NewPatchNodePoolRequest instantiates a new PatchNodePoolRequest object
+// NewVersionsGet200Response instantiates a new VersionsGet200Response object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPatchNodePoolRequest(properties PatchNodePoolProperties) *PatchNodePoolRequest {
-	this := PatchNodePoolRequest{}
+func NewVersionsGet200Response(items []string) *VersionsGet200Response {
+	this := VersionsGet200Response{}
 
-	this.Properties = properties
+	this.Items = items
 
 	return &this
 }
 
-// NewPatchNodePoolRequestWithDefaults instantiates a new PatchNodePoolRequest object
+// NewVersionsGet200ResponseWithDefaults instantiates a new VersionsGet200Response object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewPatchNodePoolRequestWithDefaults() *PatchNodePoolRequest {
-	this := PatchNodePoolRequest{}
+func NewVersionsGet200ResponseWithDefaults() *VersionsGet200Response {
+	this := VersionsGet200Response{}
 	return &this
 }
 
-// GetProperties returns the Properties field value
-func (o *PatchNodePoolRequest) GetProperties() PatchNodePoolProperties {
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *VersionsGet200Response) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VersionsGet200Response) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *VersionsGet200Response) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *VersionsGet200Response) SetId(v string) {
+	o.Id = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *VersionsGet200Response) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VersionsGet200Response) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *VersionsGet200Response) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *VersionsGet200Response) SetType(v string) {
+	o.Type = &v
+}
+
+// GetHref returns the Href field value if set, zero value otherwise.
+func (o *VersionsGet200Response) GetHref() string {
+	if o == nil || IsNil(o.Href) {
+		var ret string
+		return ret
+	}
+	return *o.Href
+}
+
+// GetHrefOk returns a tuple with the Href field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VersionsGet200Response) GetHrefOk() (*string, bool) {
+	if o == nil || IsNil(o.Href) {
+		return nil, false
+	}
+	return o.Href, true
+}
+
+// HasHref returns a boolean if a field has been set.
+func (o *VersionsGet200Response) HasHref() bool {
+	if o != nil && !IsNil(o.Href) {
+		return true
+	}
+
+	return false
+}
+
+// SetHref gets a reference to the given string and assigns it to the Href field.
+func (o *VersionsGet200Response) SetHref(v string) {
+	o.Href = &v
+}
+
+// GetItems returns the Items field value
+func (o *VersionsGet200Response) GetItems() []string {
 	if o == nil {
-		var ret PatchNodePoolProperties
+		var ret []string
 		return ret
 	}
 
-	return o.Properties
+	return o.Items
 }
 
-// GetPropertiesOk returns a tuple with the Properties field value
+// GetItemsOk returns a tuple with the Items field value
 // and a boolean to check if the value has been set.
-func (o *PatchNodePoolRequest) GetPropertiesOk() (*PatchNodePoolProperties, bool) {
+func (o *VersionsGet200Response) GetItemsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Properties, true
+	return o.Items, true
 }
 
-// SetProperties sets field value
-func (o *PatchNodePoolRequest) SetProperties(v PatchNodePoolProperties) {
-	o.Properties = v
+// SetItems sets field value
+func (o *VersionsGet200Response) SetItems(v []string) {
+	o.Items = v
 }
 
-func (o PatchNodePoolRequest) MarshalJSON() ([]byte, error) {
+func (o VersionsGet200Response) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -74,46 +174,55 @@ func (o PatchNodePoolRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o PatchNodePoolRequest) ToMap() (map[string]interface{}, error) {
+func (o VersionsGet200Response) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.Properties) {
-		toSerialize["properties"] = o.Properties
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Href) {
+		toSerialize["href"] = o.Href
+	}
+	if !IsZero(o.Items) {
+		toSerialize["items"] = o.Items
 	}
 	return toSerialize, nil
 }
 
-type NullablePatchNodePoolRequest struct {
-	value *PatchNodePoolRequest
+type NullableVersionsGet200Response struct {
+	value *VersionsGet200Response
 	isSet bool
 }
 
-func (v NullablePatchNodePoolRequest) Get() *PatchNodePoolRequest {
+func (v NullableVersionsGet200Response) Get() *VersionsGet200Response {
 	return v.value
 }
 
-func (v *NullablePatchNodePoolRequest) Set(val *PatchNodePoolRequest) {
+func (v *NullableVersionsGet200Response) Set(val *VersionsGet200Response) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullablePatchNodePoolRequest) IsSet() bool {
+func (v NullableVersionsGet200Response) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullablePatchNodePoolRequest) Unset() {
+func (v *NullableVersionsGet200Response) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullablePatchNodePoolRequest(val *PatchNodePoolRequest) *NullablePatchNodePoolRequest {
-	return &NullablePatchNodePoolRequest{value: val, isSet: true}
+func NewNullableVersionsGet200Response(val *VersionsGet200Response) *NullableVersionsGet200Response {
+	return &NullableVersionsGet200Response{value: val, isSet: true}
 }
 
-func (v NullablePatchNodePoolRequest) MarshalJSON() ([]byte, error) {
+func (v NullableVersionsGet200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullablePatchNodePoolRequest) UnmarshalJSON(src []byte) error {
+func (v *NullableVersionsGet200Response) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Time** | **string** | Time at which the maintenance should start. Must conform to the &#39;HH:MM:SS&#39; 24-hour format. | |
+|**Time** | **string** | Time at which the maintenance should start. Must conform to the &#x60;HH:MM:SS&#x60; 24-hour format. | |
 |**DayOfTheWeek** | **string** |  | |
 
 ## Methods

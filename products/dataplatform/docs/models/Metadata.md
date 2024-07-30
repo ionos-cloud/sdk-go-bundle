@@ -4,18 +4,18 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**ETag** | Pointer to **string** | The Entity Tag of the resource as defined in http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.11 | [optional] |
+|**ETag** | Pointer to **string** | The *entity tag* of the resource as defined in [RFC 9110](https://www.rfc-editor.org/rfc/rfc9110.html#name-etag).  | [optional] |
 |**CreatedDate** | Pointer to [**time.Time**](time.Time.md) | The time the resource was created, ISO 8601 timestamp (UTC). | [optional] |
-|**CreatedBy** | Pointer to **string** | The user that created the resource | [optional] |
-|**CreatedByUserId** | Pointer to **string** | The ID of the user that created the resource | [optional] |
-|**CreatedInContractNumber** | Pointer to **string** | The creators contractNumber | [optional] |
+|**CreatedBy** | Pointer to **string** | The user that created the resource. | [optional] |
+|**CreatedByUserId** | Pointer to **string** | The ID of the user that created the resource. | [optional] |
+|**CreatedInContractNumber** | Pointer to **string** | The creators&#39; contract number. | [optional] |
 |**LastModifiedDate** | Pointer to [**time.Time**](time.Time.md) | The last time the resource was modified, ISO 8601 timestamp (UTC). | [optional] |
-|**LastModifiedBy** | Pointer to **string** | The user that last modified the resource | [optional] |
-|**LastModifiedByUserId** | Pointer to **string** | The ID of the user that last modified the resource | [optional] |
+|**LastModifiedBy** | Pointer to **string** | The user that last modified the resource. | [optional] |
+|**LastModifiedByUserId** | Pointer to **string** | The ID of the user that last modified the resource. | [optional] |
 |**CurrentDataPlatformVersion** | Pointer to **string** | The version of the data platform.  | [optional] |
 |**CurrentDataPlatformRevision** | Pointer to **int64** | The current data platform revision of a resource. This internal revision is used to roll out non-breaking internal changes. This attribute is read-only.  | [optional] |
-|**AvailableUpgradeVersions** | Pointer to **[]string** | List of available upgrades for this cluster | [optional] |
-|**State** | Pointer to **string** | State of the resource. *AVAILABLE* There are no pending modification requests for this item; *BUSY* There is at least one modification request pending and all following requests will be queued; *DEPLOYING* Resource state DEPLOYING - the resource is being created; *FAILED* Resource state FAILED - creation of the resource failed; *UPDATING* Resource state UPDATING - the resource is being updated; *FAILED_UPDATING* Resource state FAILED_UPDATING - an update to the resource was not successful; *DESTROYING* Resource state DESTROYING - the resource is being deleted; *FAILED_DESTROYING* Resource state FAILED_DESTROYING - deletion of the resource was not successful; *TERMINATED* Resource state TERMINATED - the resource was deleted.  | [optional] |
+|**AvailableUpgradeVersions** | Pointer to **[]string** | List of available upgrades for this cluster. | [optional] |
+|**State** | Pointer to **string** | State of the resource. Resource states: &#x60;AVAILABLE&#x60;: There are no pending modification requests for this item. &#x60;BUSY&#x60;: There is at least one modification request pending and all following requests will be queued. &#x60;DEPLOYING&#x60;: The resource is being created. &#x60;FAILED&#x60;: The creation of the resource failed. &#x60;UPDATING&#x60;: The resource is being updated. &#x60;FAILED_UPDATING&#x60;: An update to the resource was not successful. &#x60;DESTROYING&#x60;: The resource is being deleted. &#x60;FAILED_DESTROYING&#x60;: The deletion of the resource was not successful. &#x60;TERMINATED&#x60;: The resource has been deleted.  | [optional] |
 
 ## Methods
 

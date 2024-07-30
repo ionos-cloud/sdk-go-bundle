@@ -39,11 +39,11 @@ import (
 )
 
 func main() {
-    clusterId := TODO // string | The unique ID of the cluster. Must conform to the UUID format. 
+    clusterId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the cluster. Must conform to the UUID format. 
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := dataplatform.NewAPIClient(configuration)
-    resource, resp, err := apiClient.DataPlatformClusterApi.ClustersDelete(context.Background(), clusterId).Execute()
+    resp, err := apiClient.DataPlatformClusterApi.ClustersDelete(context.Background(), clusterId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DataPlatformClusterApi.ClustersDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -59,7 +59,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | [**string**](../models/.md) | The unique ID of the cluster. Must conform to the UUID format.  | |
+|**clusterId** | **string** | The unique ID of the cluster. Must conform to the UUID format.  | |
 
 ### Other Parameters
 
@@ -106,7 +106,7 @@ import (
 )
 
 func main() {
-    clusterId := TODO // string | The unique ID of the cluster. Must conform to the UUID format. 
+    clusterId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the cluster. Must conform to the UUID format. 
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := dataplatform.NewAPIClient(configuration)
@@ -126,7 +126,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | [**string**](../models/.md) | The unique ID of the cluster. Must conform to the UUID format.  | |
+|**clusterId** | **string** | The unique ID of the cluster. Must conform to the UUID format.  | |
 
 ### Other Parameters
 
@@ -174,7 +174,7 @@ import (
 )
 
 func main() {
-    name := "name_example" // string | Response filter to list only the clusters which include the specified name. The value is case insensitive and matched on the `name` property of the cluster. The input is limited to 63 characters with alphanumeric characters ([a-z0-9A-Z]), dashes (-), underscores (_), and dots (.) allowed.  (optional)
+    name := "name_example" // string | Response filter to list only the clusters which include the specified name. The value is case insensitive and matched on the `name` property of the cluster. The input is limited to 63 characters with alphanumeric characters (`[a-z0-9A-Z]`), dashes (`-`), underscores (`_`), and dots (`.`) allowed.  (optional)
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := dataplatform.NewAPIClient(configuration)
@@ -199,7 +199,7 @@ Other parameters are passed through a pointer to an apiClustersGetRequest struct
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **name** | **string** | Response filter to list only the clusters which include the specified name. The value is case insensitive and matched on the &#x60;name&#x60; property of the cluster. The input is limited to 63 characters with alphanumeric characters ([a-z0-9A-Z]), dashes (-), underscores (_), and dots (.) allowed.  | |
+| **name** | **string** | Response filter to list only the clusters which include the specified name. The value is case insensitive and matched on the &#x60;name&#x60; property of the cluster. The input is limited to 63 characters with alphanumeric characters (&#x60;[a-z0-9A-Z]&#x60;), dashes (&#x60;-&#x60;), underscores (&#x60;_&#x60;), and dots (&#x60;.&#x60;) allowed.  | |
 
 ### Return type
 
@@ -238,7 +238,7 @@ import (
 )
 
 func main() {
-    clusterId := TODO // string | The unique ID of the cluster. Must conform to the UUID format. 
+    clusterId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the cluster. Must conform to the UUID format. 
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := dataplatform.NewAPIClient(configuration)
@@ -258,7 +258,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | [**string**](../models/.md) | The unique ID of the cluster. Must conform to the UUID format.  | |
+|**clusterId** | **string** | The unique ID of the cluster. Must conform to the UUID format.  | |
 
 ### Other Parameters
 
@@ -306,7 +306,7 @@ import (
 )
 
 func main() {
-    clusterId := TODO // string | The unique ID of the cluster. Must conform to the UUID format. 
+    clusterId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the cluster. Must conform to the UUID format. 
     patchClusterRequest := *openapiclient.NewPatchClusterRequest(*openapiclient.NewPatchClusterProperties()) // PatchClusterRequest | Request payload with the properties that shall be applied to an existing DataPlatformCluster. 
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
@@ -327,7 +327,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | [**string**](../models/.md) | The unique ID of the cluster. Must conform to the UUID format.  | |
+|**clusterId** | **string** | The unique ID of the cluster. Must conform to the UUID format.  | |
 
 ### Other Parameters
 
