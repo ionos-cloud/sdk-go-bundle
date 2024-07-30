@@ -1,7 +1,7 @@
 /*
  * IONOS DBaaS MongoDB REST API
  *
- * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.   MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
+ * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.  MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
  *
  * API version: 1.0.0
  */
@@ -14,11 +14,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserProperties{}
+
 // UserProperties Mongodb user properties.
 type UserProperties struct {
-	Username *string      `json:"username"`
-	Password *string      `json:"password"`
-	Roles    *[]UserRoles `json:"roles,omitempty"`
+	Username string      `json:"username"`
+	Password string      `json:"password"`
+	Roles    []UserRoles `json:"roles,omitempty"`
 }
 
 // NewUserProperties instantiates a new UserProperties object
@@ -28,8 +31,8 @@ type UserProperties struct {
 func NewUserProperties(username string, password string) *UserProperties {
 	this := UserProperties{}
 
-	this.Username = &username
-	this.Password = &password
+	this.Username = username
+	this.Password = password
 
 	return &this
 }
@@ -43,134 +46,105 @@ func NewUserPropertiesWithDefaults() *UserProperties {
 }
 
 // GetUsername returns the Username field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *UserProperties) GetUsername() *string {
+func (o *UserProperties) GetUsername() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Username
-
 }
 
 // GetUsernameOk returns a tuple with the Username field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UserProperties) GetUsernameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Username, true
+	return &o.Username, true
 }
 
 // SetUsername sets field value
 func (o *UserProperties) SetUsername(v string) {
-
-	o.Username = &v
-
-}
-
-// HasUsername returns a boolean if a field has been set.
-func (o *UserProperties) HasUsername() bool {
-	if o != nil && o.Username != nil {
-		return true
-	}
-
-	return false
+	o.Username = v
 }
 
 // GetPassword returns the Password field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *UserProperties) GetPassword() *string {
+func (o *UserProperties) GetPassword() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Password
-
 }
 
 // GetPasswordOk returns a tuple with the Password field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UserProperties) GetPasswordOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Password, true
+	return &o.Password, true
 }
 
 // SetPassword sets field value
 func (o *UserProperties) SetPassword(v string) {
-
-	o.Password = &v
-
+	o.Password = v
 }
 
-// HasPassword returns a boolean if a field has been set.
-func (o *UserProperties) HasPassword() bool {
-	if o != nil && o.Password != nil {
-		return true
+// GetRoles returns the Roles field value if set, zero value otherwise.
+func (o *UserProperties) GetRoles() []UserRoles {
+	if o == nil || IsNil(o.Roles) {
+		var ret []UserRoles
+		return ret
 	}
-
-	return false
-}
-
-// GetRoles returns the Roles field value
-// If the value is explicit nil, the zero value for []UserRoles will be returned
-func (o *UserProperties) GetRoles() *[]UserRoles {
-	if o == nil {
-		return nil
-	}
-
 	return o.Roles
-
 }
 
-// GetRolesOk returns a tuple with the Roles field value
+// GetRolesOk returns a tuple with the Roles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UserProperties) GetRolesOk() (*[]UserRoles, bool) {
-	if o == nil {
+func (o *UserProperties) GetRolesOk() ([]UserRoles, bool) {
+	if o == nil || IsNil(o.Roles) {
 		return nil, false
 	}
-
 	return o.Roles, true
-}
-
-// SetRoles sets field value
-func (o *UserProperties) SetRoles(v []UserRoles) {
-
-	o.Roles = &v
-
 }
 
 // HasRoles returns a boolean if a field has been set.
 func (o *UserProperties) HasRoles() bool {
-	if o != nil && o.Roles != nil {
+	if o != nil && !IsNil(o.Roles) {
 		return true
 	}
 
 	return false
 }
 
+// SetRoles gets a reference to the given []UserRoles and assigns it to the Roles field.
+func (o *UserProperties) SetRoles(v []UserRoles) {
+	o.Roles = v
+}
+
 func (o UserProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Username != nil {
+	if !IsZero(o.Username) {
 		toSerialize["username"] = o.Username
 	}
-
-	if o.Password != nil {
+	if !IsZero(o.Password) {
 		toSerialize["password"] = o.Password
 	}
-
-	if o.Roles != nil {
+	if !IsNil(o.Roles) {
 		toSerialize["roles"] = o.Roles
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableUserProperties struct {

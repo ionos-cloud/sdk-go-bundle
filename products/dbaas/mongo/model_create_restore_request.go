@@ -1,7 +1,7 @@
 /*
  * IONOS DBaaS MongoDB REST API
  *
- * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.   MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
+ * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.  MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
  *
  * API version: 1.0.0
  */
@@ -12,22 +12,27 @@ package mongo
 
 import (
 	"encoding/json"
+
+	"time"
 )
+
+// checks if the CreateRestoreRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateRestoreRequest{}
 
 // CreateRestoreRequest The restore request.
 type CreateRestoreRequest struct {
 	// The unique ID of the snapshot you want to restore.
-	SnapshotId *string `json:"snapshotId"`
+	SnapshotId *string `json:"snapshotId,omitempty"`
+	// If this value is supplied as ISO 8601 timestamp, the backup will be replayed up until the given timestamp.
+	RecoveryTargetTime *IonosTime `json:"recoveryTargetTime,omitempty"`
 }
 
 // NewCreateRestoreRequest instantiates a new CreateRestoreRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateRestoreRequest(snapshotId string) *CreateRestoreRequest {
+func NewCreateRestoreRequest() *CreateRestoreRequest {
 	this := CreateRestoreRequest{}
-
-	this.SnapshotId = &snapshotId
 
 	return &this
 }
@@ -40,51 +45,87 @@ func NewCreateRestoreRequestWithDefaults() *CreateRestoreRequest {
 	return &this
 }
 
-// GetSnapshotId returns the SnapshotId field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *CreateRestoreRequest) GetSnapshotId() *string {
-	if o == nil {
-		return nil
+// GetSnapshotId returns the SnapshotId field value if set, zero value otherwise.
+func (o *CreateRestoreRequest) GetSnapshotId() string {
+	if o == nil || IsNil(o.SnapshotId) {
+		var ret string
+		return ret
 	}
-
-	return o.SnapshotId
-
+	return *o.SnapshotId
 }
 
-// GetSnapshotIdOk returns a tuple with the SnapshotId field value
+// GetSnapshotIdOk returns a tuple with the SnapshotId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateRestoreRequest) GetSnapshotIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.SnapshotId) {
 		return nil, false
 	}
-
 	return o.SnapshotId, true
-}
-
-// SetSnapshotId sets field value
-func (o *CreateRestoreRequest) SetSnapshotId(v string) {
-
-	o.SnapshotId = &v
-
 }
 
 // HasSnapshotId returns a boolean if a field has been set.
 func (o *CreateRestoreRequest) HasSnapshotId() bool {
-	if o != nil && o.SnapshotId != nil {
+	if o != nil && !IsNil(o.SnapshotId) {
 		return true
 	}
 
 	return false
 }
 
-func (o CreateRestoreRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.SnapshotId != nil {
-		toSerialize["snapshotId"] = o.SnapshotId
+// SetSnapshotId gets a reference to the given string and assigns it to the SnapshotId field.
+func (o *CreateRestoreRequest) SetSnapshotId(v string) {
+	o.SnapshotId = &v
+}
+
+// GetRecoveryTargetTime returns the RecoveryTargetTime field value if set, zero value otherwise.
+func (o *CreateRestoreRequest) GetRecoveryTargetTime() time.Time {
+	if o == nil || IsNil(o.RecoveryTargetTime) {
+		var ret time.Time
+		return ret
+	}
+	return o.RecoveryTargetTime.Time
+}
+
+// GetRecoveryTargetTimeOk returns a tuple with the RecoveryTargetTime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateRestoreRequest) GetRecoveryTargetTimeOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.RecoveryTargetTime) {
+		return nil, false
+	}
+	return &o.RecoveryTargetTime.Time, true
+}
+
+// HasRecoveryTargetTime returns a boolean if a field has been set.
+func (o *CreateRestoreRequest) HasRecoveryTargetTime() bool {
+	if o != nil && !IsNil(o.RecoveryTargetTime) {
+		return true
 	}
 
+	return false
+}
+
+// SetRecoveryTargetTime gets a reference to the given time.Time and assigns it to the RecoveryTargetTime field.
+func (o *CreateRestoreRequest) SetRecoveryTargetTime(v time.Time) {
+	o.RecoveryTargetTime = &IonosTime{v}
+}
+
+func (o CreateRestoreRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreateRestoreRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.SnapshotId) {
+		toSerialize["snapshotId"] = o.SnapshotId
+	}
+	if !IsNil(o.RecoveryTargetTime) {
+		toSerialize["recoveryTargetTime"] = o.RecoveryTargetTime
+	}
+	return toSerialize, nil
 }
 
 type NullableCreateRestoreRequest struct {

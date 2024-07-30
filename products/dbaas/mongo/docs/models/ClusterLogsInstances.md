@@ -5,7 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**Name** | Pointer to **string** | The name of the MongoDB instance. | [optional] |
-|**Messages** | Pointer to [**[]ClusterLogsMessages**](ClusterLogsMessages.md) |  | [optional] |
+|**Messages** | Pointer to [**[]ClusterLogsInstancesMessages**](ClusterLogsInstancesMessages.md) |  | [optional] |
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetMessages
 
-`func (o *ClusterLogsInstances) GetMessages() []ClusterLogsMessages`
+`func (o *ClusterLogsInstances) GetMessages() []ClusterLogsInstancesMessages`
 
 GetMessages returns the Messages field if non-nil, zero value otherwise.
 
 ### GetMessagesOk
 
-`func (o *ClusterLogsInstances) GetMessagesOk() (*[]ClusterLogsMessages, bool)`
+`func (o *ClusterLogsInstances) GetMessagesOk() (*[]ClusterLogsInstancesMessages, bool)`
 
 GetMessagesOk returns a tuple with the Messages field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMessages
 
-`func (o *ClusterLogsInstances) SetMessages(v []ClusterLogsMessages)`
+`func (o *ClusterLogsInstances) SetMessages(v []ClusterLogsInstancesMessages)`
 
 SetMessages sets Messages field to given value.
 

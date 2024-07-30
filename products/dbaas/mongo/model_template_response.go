@@ -1,7 +1,7 @@
 /*
  * IONOS DBaaS MongoDB REST API
  *
- * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.   MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
+ * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.  MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
  *
  * API version: 1.0.0
  */
@@ -14,20 +14,16 @@ import (
 	"encoding/json"
 )
 
-// TemplateResponse A MongoDB template item.
+// checks if the TemplateResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TemplateResponse{}
+
+// TemplateResponse A MongoDB template.
 type TemplateResponse struct {
-	// The unique template ID.
-	Id *string `json:"id,omitempty"`
-	// The name of the template.
-	Name *string `json:"name,omitempty"`
-	// The edition of the template (e.g. enterprise)
-	Edition *string `json:"edition,omitempty"`
-	// The number of CPU cores.
-	Cores *int32 `json:"cores,omitempty"`
-	// The amount of memory in GB.
-	Ram *int32 `json:"ram,omitempty"`
-	// The amount of storage size in GB.
-	StorageSize *int32 `json:"storageSize,omitempty"`
+	Type *ResourceType `json:"type,omitempty"`
+	// The unique ID of the resource.
+	Id         *string             `json:"id,omitempty"`
+	Metadata   *Metadata           `json:"metadata,omitempty"`
+	Properties *TemplateProperties `json:"properties,omitempty"`
 }
 
 // NewTemplateResponse instantiates a new TemplateResponse object
@@ -48,261 +44,157 @@ func NewTemplateResponseWithDefaults() *TemplateResponse {
 	return &this
 }
 
-// GetId returns the Id field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *TemplateResponse) GetId() *string {
-	if o == nil {
-		return nil
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *TemplateResponse) GetType() ResourceType {
+	if o == nil || IsNil(o.Type) {
+		var ret ResourceType
+		return ret
 	}
-
-	return o.Id
-
+	return *o.Type
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TemplateResponse) GetIdOk() (*string, bool) {
-	if o == nil {
+func (o *TemplateResponse) GetTypeOk() (*ResourceType, bool) {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
-
-	return o.Id, true
+	return o.Type, true
 }
 
-// SetId sets field value
-func (o *TemplateResponse) SetId(v string) {
+// HasType returns a boolean if a field has been set.
+func (o *TemplateResponse) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
 
-	o.Id = &v
+	return false
+}
 
+// SetType gets a reference to the given ResourceType and assigns it to the Type field.
+func (o *TemplateResponse) SetType(v ResourceType) {
+	o.Type = &v
+}
+
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *TemplateResponse) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TemplateResponse) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
 }
 
 // HasId returns a boolean if a field has been set.
 func (o *TemplateResponse) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
 	return false
 }
 
-// GetName returns the Name field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *TemplateResponse) GetName() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Name
-
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *TemplateResponse) SetId(v string) {
+	o.Id = &v
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
+func (o *TemplateResponse) GetMetadata() Metadata {
+	if o == nil || IsNil(o.Metadata) {
+		var ret Metadata
+		return ret
+	}
+	return *o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TemplateResponse) GetNameOk() (*string, bool) {
-	if o == nil {
+func (o *TemplateResponse) GetMetadataOk() (*Metadata, bool) {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
-
-	return o.Name, true
+	return o.Metadata, true
 }
 
-// SetName sets field value
-func (o *TemplateResponse) SetName(v string) {
-
-	o.Name = &v
-
-}
-
-// HasName returns a boolean if a field has been set.
-func (o *TemplateResponse) HasName() bool {
-	if o != nil && o.Name != nil {
+// HasMetadata returns a boolean if a field has been set.
+func (o *TemplateResponse) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
 	return false
 }
 
-// GetEdition returns the Edition field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *TemplateResponse) GetEdition() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Edition
-
+// SetMetadata gets a reference to the given Metadata and assigns it to the Metadata field.
+func (o *TemplateResponse) SetMetadata(v Metadata) {
+	o.Metadata = &v
 }
 
-// GetEditionOk returns a tuple with the Edition field value
+// GetProperties returns the Properties field value if set, zero value otherwise.
+func (o *TemplateResponse) GetProperties() TemplateProperties {
+	if o == nil || IsNil(o.Properties) {
+		var ret TemplateProperties
+		return ret
+	}
+	return *o.Properties
+}
+
+// GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TemplateResponse) GetEditionOk() (*string, bool) {
-	if o == nil {
+func (o *TemplateResponse) GetPropertiesOk() (*TemplateProperties, bool) {
+	if o == nil || IsNil(o.Properties) {
 		return nil, false
 	}
-
-	return o.Edition, true
+	return o.Properties, true
 }
 
-// SetEdition sets field value
-func (o *TemplateResponse) SetEdition(v string) {
-
-	o.Edition = &v
-
-}
-
-// HasEdition returns a boolean if a field has been set.
-func (o *TemplateResponse) HasEdition() bool {
-	if o != nil && o.Edition != nil {
+// HasProperties returns a boolean if a field has been set.
+func (o *TemplateResponse) HasProperties() bool {
+	if o != nil && !IsNil(o.Properties) {
 		return true
 	}
 
 	return false
 }
 
-// GetCores returns the Cores field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *TemplateResponse) GetCores() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.Cores
-
-}
-
-// GetCoresOk returns a tuple with the Cores field value
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TemplateResponse) GetCoresOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-
-	return o.Cores, true
-}
-
-// SetCores sets field value
-func (o *TemplateResponse) SetCores(v int32) {
-
-	o.Cores = &v
-
-}
-
-// HasCores returns a boolean if a field has been set.
-func (o *TemplateResponse) HasCores() bool {
-	if o != nil && o.Cores != nil {
-		return true
-	}
-
-	return false
-}
-
-// GetRam returns the Ram field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *TemplateResponse) GetRam() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.Ram
-
-}
-
-// GetRamOk returns a tuple with the Ram field value
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TemplateResponse) GetRamOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-
-	return o.Ram, true
-}
-
-// SetRam sets field value
-func (o *TemplateResponse) SetRam(v int32) {
-
-	o.Ram = &v
-
-}
-
-// HasRam returns a boolean if a field has been set.
-func (o *TemplateResponse) HasRam() bool {
-	if o != nil && o.Ram != nil {
-		return true
-	}
-
-	return false
-}
-
-// GetStorageSize returns the StorageSize field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *TemplateResponse) GetStorageSize() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.StorageSize
-
-}
-
-// GetStorageSizeOk returns a tuple with the StorageSize field value
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TemplateResponse) GetStorageSizeOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-
-	return o.StorageSize, true
-}
-
-// SetStorageSize sets field value
-func (o *TemplateResponse) SetStorageSize(v int32) {
-
-	o.StorageSize = &v
-
-}
-
-// HasStorageSize returns a boolean if a field has been set.
-func (o *TemplateResponse) HasStorageSize() bool {
-	if o != nil && o.StorageSize != nil {
-		return true
-	}
-
-	return false
+// SetProperties gets a reference to the given TemplateProperties and assigns it to the Properties field.
+func (o *TemplateResponse) SetProperties(v TemplateProperties) {
+	o.Properties = &v
 }
 
 func (o TemplateResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TemplateResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
+	if !IsNil(o.Metadata) {
+		toSerialize["metadata"] = o.Metadata
 	}
-
-	if o.Edition != nil {
-		toSerialize["edition"] = o.Edition
+	if !IsNil(o.Properties) {
+		toSerialize["properties"] = o.Properties
 	}
-
-	if o.Cores != nil {
-		toSerialize["cores"] = o.Cores
-	}
-
-	if o.Ram != nil {
-		toSerialize["ram"] = o.Ram
-	}
-
-	if o.StorageSize != nil {
-		toSerialize["storageSize"] = o.StorageSize
-	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableTemplateResponse struct {

@@ -1,7 +1,7 @@
 /*
  * IONOS DBaaS MongoDB REST API
  *
- * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.   MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
+ * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.  MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
  *
  * API version: 1.0.0
  */
@@ -13,6 +13,9 @@ package mongo
 import (
 	"encoding/json"
 )
+
+// checks if the UserRoles type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserRoles{}
 
 // UserRoles a list of mongodb user role.
 type UserRoles struct {
@@ -38,93 +41,87 @@ func NewUserRolesWithDefaults() *UserRoles {
 	return &this
 }
 
-// GetRole returns the Role field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *UserRoles) GetRole() *string {
-	if o == nil {
-		return nil
+// GetRole returns the Role field value if set, zero value otherwise.
+func (o *UserRoles) GetRole() string {
+	if o == nil || IsNil(o.Role) {
+		var ret string
+		return ret
 	}
-
-	return o.Role
-
+	return *o.Role
 }
 
-// GetRoleOk returns a tuple with the Role field value
+// GetRoleOk returns a tuple with the Role field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UserRoles) GetRoleOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Role) {
 		return nil, false
 	}
-
 	return o.Role, true
-}
-
-// SetRole sets field value
-func (o *UserRoles) SetRole(v string) {
-
-	o.Role = &v
-
 }
 
 // HasRole returns a boolean if a field has been set.
 func (o *UserRoles) HasRole() bool {
-	if o != nil && o.Role != nil {
+	if o != nil && !IsNil(o.Role) {
 		return true
 	}
 
 	return false
 }
 
-// GetDatabase returns the Database field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *UserRoles) GetDatabase() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Database
-
+// SetRole gets a reference to the given string and assigns it to the Role field.
+func (o *UserRoles) SetRole(v string) {
+	o.Role = &v
 }
 
-// GetDatabaseOk returns a tuple with the Database field value
+// GetDatabase returns the Database field value if set, zero value otherwise.
+func (o *UserRoles) GetDatabase() string {
+	if o == nil || IsNil(o.Database) {
+		var ret string
+		return ret
+	}
+	return *o.Database
+}
+
+// GetDatabaseOk returns a tuple with the Database field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UserRoles) GetDatabaseOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Database) {
 		return nil, false
 	}
-
 	return o.Database, true
-}
-
-// SetDatabase sets field value
-func (o *UserRoles) SetDatabase(v string) {
-
-	o.Database = &v
-
 }
 
 // HasDatabase returns a boolean if a field has been set.
 func (o *UserRoles) HasDatabase() bool {
-	if o != nil && o.Database != nil {
+	if o != nil && !IsNil(o.Database) {
 		return true
 	}
 
 	return false
 }
 
+// SetDatabase gets a reference to the given string and assigns it to the Database field.
+func (o *UserRoles) SetDatabase(v string) {
+	o.Database = &v
+}
+
 func (o UserRoles) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserRoles) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Role != nil {
+	if !IsNil(o.Role) {
 		toSerialize["role"] = o.Role
 	}
-
-	if o.Database != nil {
+	if !IsNil(o.Database) {
 		toSerialize["database"] = o.Database
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableUserRoles struct {

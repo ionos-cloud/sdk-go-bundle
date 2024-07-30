@@ -1,7 +1,7 @@
 /*
  * IONOS DBaaS MongoDB REST API
  *
- * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.   MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
+ * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.  MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
  *
  * API version: 1.0.0
  */
@@ -13,6 +13,9 @@ package mongo
 import (
 	"encoding/json"
 )
+
+// checks if the PatchUserRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PatchUserRequest{}
 
 // PatchUserRequest MongoDB database user patch request.
 type PatchUserRequest struct {
@@ -38,93 +41,87 @@ func NewPatchUserRequestWithDefaults() *PatchUserRequest {
 	return &this
 }
 
-// GetMetadata returns the Metadata field value
-// If the value is explicit nil, the zero value for UserMetadata will be returned
-func (o *PatchUserRequest) GetMetadata() *UserMetadata {
-	if o == nil {
-		return nil
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
+func (o *PatchUserRequest) GetMetadata() UserMetadata {
+	if o == nil || IsNil(o.Metadata) {
+		var ret UserMetadata
+		return ret
 	}
-
-	return o.Metadata
-
+	return *o.Metadata
 }
 
-// GetMetadataOk returns a tuple with the Metadata field value
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PatchUserRequest) GetMetadataOk() (*UserMetadata, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
-
 	return o.Metadata, true
-}
-
-// SetMetadata sets field value
-func (o *PatchUserRequest) SetMetadata(v UserMetadata) {
-
-	o.Metadata = &v
-
 }
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *PatchUserRequest) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
 	return false
 }
 
-// GetProperties returns the Properties field value
-// If the value is explicit nil, the zero value for PatchUserProperties will be returned
-func (o *PatchUserRequest) GetProperties() *PatchUserProperties {
-	if o == nil {
-		return nil
-	}
-
-	return o.Properties
-
+// SetMetadata gets a reference to the given UserMetadata and assigns it to the Metadata field.
+func (o *PatchUserRequest) SetMetadata(v UserMetadata) {
+	o.Metadata = &v
 }
 
-// GetPropertiesOk returns a tuple with the Properties field value
+// GetProperties returns the Properties field value if set, zero value otherwise.
+func (o *PatchUserRequest) GetProperties() PatchUserProperties {
+	if o == nil || IsNil(o.Properties) {
+		var ret PatchUserProperties
+		return ret
+	}
+	return *o.Properties
+}
+
+// GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PatchUserRequest) GetPropertiesOk() (*PatchUserProperties, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Properties) {
 		return nil, false
 	}
-
 	return o.Properties, true
-}
-
-// SetProperties sets field value
-func (o *PatchUserRequest) SetProperties(v PatchUserProperties) {
-
-	o.Properties = &v
-
 }
 
 // HasProperties returns a boolean if a field has been set.
 func (o *PatchUserRequest) HasProperties() bool {
-	if o != nil && o.Properties != nil {
+	if o != nil && !IsNil(o.Properties) {
 		return true
 	}
 
 	return false
 }
 
+// SetProperties gets a reference to the given PatchUserProperties and assigns it to the Properties field.
+func (o *PatchUserRequest) SetProperties(v PatchUserProperties) {
+	o.Properties = &v
+}
+
 func (o PatchUserRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PatchUserRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Metadata != nil {
+	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
-
-	if o.Properties != nil {
+	if !IsNil(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullablePatchUserRequest struct {

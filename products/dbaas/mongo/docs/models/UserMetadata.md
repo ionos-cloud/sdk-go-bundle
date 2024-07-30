@@ -7,7 +7,6 @@
 |**CreatedDate** | Pointer to [**time.Time**](time.Time.md) | The date the resource was created. | [optional] |
 |**CreatedBy** | Pointer to **string** | The user who created the resource. | [optional] |
 |**CreatedByUserId** | Pointer to **string** | The ID of the user who created the resource. | [optional] |
-|**State** | Pointer to **string** | The user state. | [optional] |
 
 ## Methods
 
@@ -102,30 +101,5 @@ SetCreatedByUserId sets CreatedByUserId field to given value.
 `func (o *UserMetadata) HasCreatedByUserId() bool`
 
 HasCreatedByUserId returns a boolean if a field has been set.
-
-### GetState
-
-`func (o *UserMetadata) GetState() string`
-
-GetState returns the State field if non-nil, zero value otherwise.
-
-### GetStateOk
-
-`func (o *UserMetadata) GetStateOk() (*string, bool)`
-
-GetStateOk returns a tuple with the State field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetState
-
-`func (o *UserMetadata) SetState(v string)`
-
-SetState sets State field to given value.
-
-### HasState
-
-`func (o *UserMetadata) HasState() bool`
-
-HasState returns a boolean if a field has been set.
 
 

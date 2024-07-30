@@ -1,7 +1,7 @@
 /*
  * IONOS DBaaS MongoDB REST API
  *
- * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.   MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
+ * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.  MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
  *
  * API version: 1.0.0
  */
@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the UserMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserMetadata{}
+
 // UserMetadata The metadata of the resource.
 type UserMetadata struct {
 	// The date the resource was created.
@@ -24,8 +27,6 @@ type UserMetadata struct {
 	CreatedBy *string `json:"createdBy,omitempty"`
 	// The ID of the user who created the resource.
 	CreatedByUserId *string `json:"createdByUserId,omitempty"`
-	// The user state.
-	State *string `json:"state,omitempty"`
 }
 
 // NewUserMetadata instantiates a new UserMetadata object
@@ -46,184 +47,122 @@ func NewUserMetadataWithDefaults() *UserMetadata {
 	return &this
 }
 
-// GetCreatedDate returns the CreatedDate field value
-// If the value is explicit nil, the zero value for time.Time will be returned
-func (o *UserMetadata) GetCreatedDate() *time.Time {
-	if o == nil {
-		return nil
+// GetCreatedDate returns the CreatedDate field value if set, zero value otherwise.
+func (o *UserMetadata) GetCreatedDate() time.Time {
+	if o == nil || IsNil(o.CreatedDate) {
+		var ret time.Time
+		return ret
 	}
-
-	if o.CreatedDate == nil {
-		return nil
-	}
-	return &o.CreatedDate.Time
-
+	return o.CreatedDate.Time
 }
 
-// GetCreatedDateOk returns a tuple with the CreatedDate field value
+// GetCreatedDateOk returns a tuple with the CreatedDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UserMetadata) GetCreatedDateOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-
-	if o.CreatedDate == nil {
+	if o == nil || IsNil(o.CreatedDate) {
 		return nil, false
 	}
 	return &o.CreatedDate.Time, true
-
-}
-
-// SetCreatedDate sets field value
-func (o *UserMetadata) SetCreatedDate(v time.Time) {
-
-	o.CreatedDate = &IonosTime{v}
-
 }
 
 // HasCreatedDate returns a boolean if a field has been set.
 func (o *UserMetadata) HasCreatedDate() bool {
-	if o != nil && o.CreatedDate != nil {
+	if o != nil && !IsNil(o.CreatedDate) {
 		return true
 	}
 
 	return false
 }
 
-// GetCreatedBy returns the CreatedBy field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *UserMetadata) GetCreatedBy() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.CreatedBy
-
+// SetCreatedDate gets a reference to the given time.Time and assigns it to the CreatedDate field.
+func (o *UserMetadata) SetCreatedDate(v time.Time) {
+	o.CreatedDate = &IonosTime{v}
 }
 
-// GetCreatedByOk returns a tuple with the CreatedBy field value
+// GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
+func (o *UserMetadata) GetCreatedBy() string {
+	if o == nil || IsNil(o.CreatedBy) {
+		var ret string
+		return ret
+	}
+	return *o.CreatedBy
+}
+
+// GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UserMetadata) GetCreatedByOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		return nil, false
 	}
-
 	return o.CreatedBy, true
-}
-
-// SetCreatedBy sets field value
-func (o *UserMetadata) SetCreatedBy(v string) {
-
-	o.CreatedBy = &v
-
 }
 
 // HasCreatedBy returns a boolean if a field has been set.
 func (o *UserMetadata) HasCreatedBy() bool {
-	if o != nil && o.CreatedBy != nil {
+	if o != nil && !IsNil(o.CreatedBy) {
 		return true
 	}
 
 	return false
 }
 
-// GetCreatedByUserId returns the CreatedByUserId field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *UserMetadata) GetCreatedByUserId() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.CreatedByUserId
-
+// SetCreatedBy gets a reference to the given string and assigns it to the CreatedBy field.
+func (o *UserMetadata) SetCreatedBy(v string) {
+	o.CreatedBy = &v
 }
 
-// GetCreatedByUserIdOk returns a tuple with the CreatedByUserId field value
+// GetCreatedByUserId returns the CreatedByUserId field value if set, zero value otherwise.
+func (o *UserMetadata) GetCreatedByUserId() string {
+	if o == nil || IsNil(o.CreatedByUserId) {
+		var ret string
+		return ret
+	}
+	return *o.CreatedByUserId
+}
+
+// GetCreatedByUserIdOk returns a tuple with the CreatedByUserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UserMetadata) GetCreatedByUserIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CreatedByUserId) {
 		return nil, false
 	}
-
 	return o.CreatedByUserId, true
-}
-
-// SetCreatedByUserId sets field value
-func (o *UserMetadata) SetCreatedByUserId(v string) {
-
-	o.CreatedByUserId = &v
-
 }
 
 // HasCreatedByUserId returns a boolean if a field has been set.
 func (o *UserMetadata) HasCreatedByUserId() bool {
-	if o != nil && o.CreatedByUserId != nil {
+	if o != nil && !IsNil(o.CreatedByUserId) {
 		return true
 	}
 
 	return false
 }
 
-// GetState returns the State field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *UserMetadata) GetState() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.State
-
-}
-
-// GetStateOk returns a tuple with the State field value
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UserMetadata) GetStateOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-
-	return o.State, true
-}
-
-// SetState sets field value
-func (o *UserMetadata) SetState(v string) {
-
-	o.State = &v
-
-}
-
-// HasState returns a boolean if a field has been set.
-func (o *UserMetadata) HasState() bool {
-	if o != nil && o.State != nil {
-		return true
-	}
-
-	return false
+// SetCreatedByUserId gets a reference to the given string and assigns it to the CreatedByUserId field.
+func (o *UserMetadata) SetCreatedByUserId(v string) {
+	o.CreatedByUserId = &v
 }
 
 func (o UserMetadata) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CreatedDate != nil {
+	if !IsNil(o.CreatedDate) {
 		toSerialize["createdDate"] = o.CreatedDate
 	}
-
-	if o.CreatedBy != nil {
+	if !IsNil(o.CreatedBy) {
 		toSerialize["createdBy"] = o.CreatedBy
 	}
-
-	if o.CreatedByUserId != nil {
+	if !IsNil(o.CreatedByUserId) {
 		toSerialize["createdByUserId"] = o.CreatedByUserId
 	}
-
-	if o.State != nil {
-		toSerialize["state"] = o.State
-	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableUserMetadata struct {

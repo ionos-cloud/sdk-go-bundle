@@ -1,7 +1,7 @@
 /*
  * IONOS DBaaS MongoDB REST API
  *
- * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.   MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
+ * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.  MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
  *
  * API version: 1.0.0
  */
@@ -14,9 +14,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the ClusterLogs type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ClusterLogs{}
+
 // ClusterLogs The logs of the MongoDB cluster.
 type ClusterLogs struct {
-	Instances *[]ClusterLogsInstances `json:"instances,omitempty"`
+	Instances []ClusterLogsInstances `json:"instances,omitempty"`
 }
 
 // NewClusterLogs instantiates a new ClusterLogs object
@@ -37,51 +40,52 @@ func NewClusterLogsWithDefaults() *ClusterLogs {
 	return &this
 }
 
-// GetInstances returns the Instances field value
-// If the value is explicit nil, the zero value for []ClusterLogsInstances will be returned
-func (o *ClusterLogs) GetInstances() *[]ClusterLogsInstances {
-	if o == nil {
-		return nil
+// GetInstances returns the Instances field value if set, zero value otherwise.
+func (o *ClusterLogs) GetInstances() []ClusterLogsInstances {
+	if o == nil || IsNil(o.Instances) {
+		var ret []ClusterLogsInstances
+		return ret
 	}
-
 	return o.Instances
-
 }
 
-// GetInstancesOk returns a tuple with the Instances field value
+// GetInstancesOk returns a tuple with the Instances field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ClusterLogs) GetInstancesOk() (*[]ClusterLogsInstances, bool) {
-	if o == nil {
+func (o *ClusterLogs) GetInstancesOk() ([]ClusterLogsInstances, bool) {
+	if o == nil || IsNil(o.Instances) {
 		return nil, false
 	}
-
 	return o.Instances, true
-}
-
-// SetInstances sets field value
-func (o *ClusterLogs) SetInstances(v []ClusterLogsInstances) {
-
-	o.Instances = &v
-
 }
 
 // HasInstances returns a boolean if a field has been set.
 func (o *ClusterLogs) HasInstances() bool {
-	if o != nil && o.Instances != nil {
+	if o != nil && !IsNil(o.Instances) {
 		return true
 	}
 
 	return false
 }
 
+// SetInstances gets a reference to the given []ClusterLogsInstances and assigns it to the Instances field.
+func (o *ClusterLogs) SetInstances(v []ClusterLogsInstances) {
+	o.Instances = v
+}
+
 func (o ClusterLogs) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ClusterLogs) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Instances != nil {
+	if !IsNil(o.Instances) {
 		toSerialize["instances"] = o.Instances
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableClusterLogs struct {

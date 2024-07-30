@@ -4,8 +4,8 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Offset** | Pointer to **int32** | The offset specified in the request (if none was specified, the default offset is 0) (not implemented yet).  | [optional] [readonly] |
-|**Limit** | Pointer to **int32** | The limit specified in the request (if none was specified, use the endpoint&#39;s default pagination limit) (not implemented yet, always return number of items).  | [optional] [readonly] |
+|**Offset** | Pointer to **int32** | The offset specified in the request (if none was specified, the default offset is 0).  | [optional] [default to 0]|
+|**Limit** | Pointer to **int32** | The limit specified in the request (if none was specified, the default limit is 100).  | [optional] [default to 100]|
 |**Links** | Pointer to [**PaginationLinks**](PaginationLinks.md) |  | [optional] |
 
 ## Methods

@@ -1,7 +1,7 @@
 /*
  * IONOS DBaaS MongoDB REST API
  *
- * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.   MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
+ * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.  MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
  *
  * API version: 1.0.0
  */
@@ -13,6 +13,9 @@ package mongo
 import (
 	"encoding/json"
 )
+
+// checks if the SnapshotResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SnapshotResponse{}
 
 // SnapshotResponse A database snapshot.
 type SnapshotResponse struct {
@@ -40,135 +43,122 @@ func NewSnapshotResponseWithDefaults() *SnapshotResponse {
 	return &this
 }
 
-// GetType returns the Type field value
-// If the value is explicit nil, the zero value for ResourceType will be returned
-func (o *SnapshotResponse) GetType() *ResourceType {
-	if o == nil {
-		return nil
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *SnapshotResponse) GetType() ResourceType {
+	if o == nil || IsNil(o.Type) {
+		var ret ResourceType
+		return ret
 	}
-
-	return o.Type
-
+	return *o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SnapshotResponse) GetTypeOk() (*ResourceType, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
-
 	return o.Type, true
-}
-
-// SetType sets field value
-func (o *SnapshotResponse) SetType(v ResourceType) {
-
-	o.Type = &v
-
 }
 
 // HasType returns a boolean if a field has been set.
 func (o *SnapshotResponse) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
 	return false
 }
 
-// GetId returns the Id field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *SnapshotResponse) GetId() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Id
-
+// SetType gets a reference to the given ResourceType and assigns it to the Type field.
+func (o *SnapshotResponse) SetType(v ResourceType) {
+	o.Type = &v
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *SnapshotResponse) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SnapshotResponse) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-
 	return o.Id, true
-}
-
-// SetId sets field value
-func (o *SnapshotResponse) SetId(v string) {
-
-	o.Id = &v
-
 }
 
 // HasId returns a boolean if a field has been set.
 func (o *SnapshotResponse) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
 	return false
 }
 
-// GetProperties returns the Properties field value
-// If the value is explicit nil, the zero value for SnapshotProperties will be returned
-func (o *SnapshotResponse) GetProperties() *SnapshotProperties {
-	if o == nil {
-		return nil
-	}
-
-	return o.Properties
-
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *SnapshotResponse) SetId(v string) {
+	o.Id = &v
 }
 
-// GetPropertiesOk returns a tuple with the Properties field value
+// GetProperties returns the Properties field value if set, zero value otherwise.
+func (o *SnapshotResponse) GetProperties() SnapshotProperties {
+	if o == nil || IsNil(o.Properties) {
+		var ret SnapshotProperties
+		return ret
+	}
+	return *o.Properties
+}
+
+// GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SnapshotResponse) GetPropertiesOk() (*SnapshotProperties, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Properties) {
 		return nil, false
 	}
-
 	return o.Properties, true
-}
-
-// SetProperties sets field value
-func (o *SnapshotResponse) SetProperties(v SnapshotProperties) {
-
-	o.Properties = &v
-
 }
 
 // HasProperties returns a boolean if a field has been set.
 func (o *SnapshotResponse) HasProperties() bool {
-	if o != nil && o.Properties != nil {
+	if o != nil && !IsNil(o.Properties) {
 		return true
 	}
 
 	return false
 }
 
+// SetProperties gets a reference to the given SnapshotProperties and assigns it to the Properties field.
+func (o *SnapshotResponse) SetProperties(v SnapshotProperties) {
+	o.Properties = &v
+}
+
 func (o SnapshotResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SnapshotResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-
-	if o.Properties != nil {
+	if !IsNil(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableSnapshotResponse struct {

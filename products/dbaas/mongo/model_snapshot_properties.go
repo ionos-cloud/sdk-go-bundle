@@ -1,7 +1,7 @@
 /*
  * IONOS DBaaS MongoDB REST API
  *
- * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.   MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
+ * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.  MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
  *
  * API version: 1.0.0
  */
@@ -15,6 +15,9 @@ import (
 
 	"time"
 )
+
+// checks if the SnapshotProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SnapshotProperties{}
 
 // SnapshotProperties Properties of a snapshot.
 type SnapshotProperties struct {
@@ -44,142 +47,122 @@ func NewSnapshotPropertiesWithDefaults() *SnapshotProperties {
 	return &this
 }
 
-// GetVersion returns the Version field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *SnapshotProperties) GetVersion() *string {
-	if o == nil {
-		return nil
+// GetVersion returns the Version field value if set, zero value otherwise.
+func (o *SnapshotProperties) GetVersion() string {
+	if o == nil || IsNil(o.Version) {
+		var ret string
+		return ret
 	}
-
-	return o.Version
-
+	return *o.Version
 }
 
-// GetVersionOk returns a tuple with the Version field value
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SnapshotProperties) GetVersionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
-
 	return o.Version, true
-}
-
-// SetVersion sets field value
-func (o *SnapshotProperties) SetVersion(v string) {
-
-	o.Version = &v
-
 }
 
 // HasVersion returns a boolean if a field has been set.
 func (o *SnapshotProperties) HasVersion() bool {
-	if o != nil && o.Version != nil {
+	if o != nil && !IsNil(o.Version) {
 		return true
 	}
 
 	return false
 }
 
-// GetSize returns the Size field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *SnapshotProperties) GetSize() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.Size
-
+// SetVersion gets a reference to the given string and assigns it to the Version field.
+func (o *SnapshotProperties) SetVersion(v string) {
+	o.Version = &v
 }
 
-// GetSizeOk returns a tuple with the Size field value
+// GetSize returns the Size field value if set, zero value otherwise.
+func (o *SnapshotProperties) GetSize() int32 {
+	if o == nil || IsNil(o.Size) {
+		var ret int32
+		return ret
+	}
+	return *o.Size
+}
+
+// GetSizeOk returns a tuple with the Size field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SnapshotProperties) GetSizeOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Size) {
 		return nil, false
 	}
-
 	return o.Size, true
-}
-
-// SetSize sets field value
-func (o *SnapshotProperties) SetSize(v int32) {
-
-	o.Size = &v
-
 }
 
 // HasSize returns a boolean if a field has been set.
 func (o *SnapshotProperties) HasSize() bool {
-	if o != nil && o.Size != nil {
+	if o != nil && !IsNil(o.Size) {
 		return true
 	}
 
 	return false
 }
 
-// GetCreationTime returns the CreationTime field value
-// If the value is explicit nil, the zero value for time.Time will be returned
-func (o *SnapshotProperties) GetCreationTime() *time.Time {
-	if o == nil {
-		return nil
-	}
-
-	if o.CreationTime == nil {
-		return nil
-	}
-	return &o.CreationTime.Time
-
+// SetSize gets a reference to the given int32 and assigns it to the Size field.
+func (o *SnapshotProperties) SetSize(v int32) {
+	o.Size = &v
 }
 
-// GetCreationTimeOk returns a tuple with the CreationTime field value
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *SnapshotProperties) GetCreationTimeOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
+// GetCreationTime returns the CreationTime field value if set, zero value otherwise.
+func (o *SnapshotProperties) GetCreationTime() time.Time {
+	if o == nil || IsNil(o.CreationTime) {
+		var ret time.Time
+		return ret
 	}
+	return o.CreationTime.Time
+}
 
-	if o.CreationTime == nil {
+// GetCreationTimeOk returns a tuple with the CreationTime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SnapshotProperties) GetCreationTimeOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CreationTime) {
 		return nil, false
 	}
 	return &o.CreationTime.Time, true
-
-}
-
-// SetCreationTime sets field value
-func (o *SnapshotProperties) SetCreationTime(v time.Time) {
-
-	o.CreationTime = &IonosTime{v}
-
 }
 
 // HasCreationTime returns a boolean if a field has been set.
 func (o *SnapshotProperties) HasCreationTime() bool {
-	if o != nil && o.CreationTime != nil {
+	if o != nil && !IsNil(o.CreationTime) {
 		return true
 	}
 
 	return false
 }
 
+// SetCreationTime gets a reference to the given time.Time and assigns it to the CreationTime field.
+func (o *SnapshotProperties) SetCreationTime(v time.Time) {
+	o.CreationTime = &IonosTime{v}
+}
+
 func (o SnapshotProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SnapshotProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Version != nil {
+	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
-
-	if o.Size != nil {
+	if !IsNil(o.Size) {
 		toSerialize["size"] = o.Size
 	}
-
-	if o.CreationTime != nil {
+	if !IsNil(o.CreationTime) {
 		toSerialize["creationTime"] = o.CreationTime
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableSnapshotProperties struct {

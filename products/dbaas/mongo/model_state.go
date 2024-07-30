@@ -1,7 +1,7 @@
 /*
  * IONOS DBaaS MongoDB REST API
  *
- * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.   MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
+ * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.  MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
  *
  * API version: 1.0.0
  */
@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// State The current status reported by the cluster. * **AVAILABLE** Resources for this cluster exist and are healthy. * **BUSY** Resources for this cluster are being created or updated. * **DESTROYING** Delete cluster command was issued, the cluster is being deleted. * **FAILED** Failed to get the cluster status. * **UNKNOWN** The state is unknown.
+// State The current status reported by the cluster. * **AVAILABLE** Resources for this cluster exist and are healthy. * **BUSY** Resources for this cluster are being created or updated. * **DESTROYING** Delete cluster command was issued, the cluster is being deleted. * **FAILED** Failed to get the cluster status. * **UNKNOWN** The state is unknown. * **UPGRADING** The cluster is upgrading to a different edition.
 type State string
 
 // List of State
@@ -26,6 +26,7 @@ const (
 	STATE_DESTROYING State = "DESTROYING"
 	STATE_FAILED     State = "FAILED"
 	STATE_UNKNOWN    State = "UNKNOWN"
+	STATE_UPGRADING  State = "UPGRADING"
 )
 
 func (v *State) UnmarshalJSON(src []byte) error {
@@ -35,7 +36,7 @@ func (v *State) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := State(value)
-	for _, existing := range []State{"AVAILABLE", "BUSY", "DESTROYING", "FAILED", "UNKNOWN"} {
+	for _, existing := range []State{"AVAILABLE", "BUSY", "DESTROYING", "FAILED", "UNKNOWN", "UPGRADING"} {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil

@@ -1,7 +1,7 @@
 /*
  * IONOS DBaaS MongoDB REST API
  *
- * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.   MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
+ * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.  MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
  *
  * API version: 1.0.0
  */
@@ -14,10 +14,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the MaintenanceWindow type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MaintenanceWindow{}
+
 // MaintenanceWindow A weekly window of 4 hours during which maintenance work can be performed.
 type MaintenanceWindow struct {
-	Time         *string       `json:"time"`
-	DayOfTheWeek *DayOfTheWeek `json:"dayOfTheWeek"`
+	Time         string       `json:"time"`
+	DayOfTheWeek DayOfTheWeek `json:"dayOfTheWeek"`
 }
 
 // NewMaintenanceWindow instantiates a new MaintenanceWindow object
@@ -27,8 +30,8 @@ type MaintenanceWindow struct {
 func NewMaintenanceWindow(time string, dayOfTheWeek DayOfTheWeek) *MaintenanceWindow {
 	this := MaintenanceWindow{}
 
-	this.Time = &time
-	this.DayOfTheWeek = &dayOfTheWeek
+	this.Time = time
+	this.DayOfTheWeek = dayOfTheWeek
 
 	return &this
 }
@@ -42,92 +45,70 @@ func NewMaintenanceWindowWithDefaults() *MaintenanceWindow {
 }
 
 // GetTime returns the Time field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *MaintenanceWindow) GetTime() *string {
+func (o *MaintenanceWindow) GetTime() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Time
-
 }
 
 // GetTimeOk returns a tuple with the Time field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MaintenanceWindow) GetTimeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Time, true
+	return &o.Time, true
 }
 
 // SetTime sets field value
 func (o *MaintenanceWindow) SetTime(v string) {
-
-	o.Time = &v
-
-}
-
-// HasTime returns a boolean if a field has been set.
-func (o *MaintenanceWindow) HasTime() bool {
-	if o != nil && o.Time != nil {
-		return true
-	}
-
-	return false
+	o.Time = v
 }
 
 // GetDayOfTheWeek returns the DayOfTheWeek field value
-// If the value is explicit nil, the zero value for DayOfTheWeek will be returned
-func (o *MaintenanceWindow) GetDayOfTheWeek() *DayOfTheWeek {
+func (o *MaintenanceWindow) GetDayOfTheWeek() DayOfTheWeek {
 	if o == nil {
-		return nil
+		var ret DayOfTheWeek
+		return ret
 	}
 
 	return o.DayOfTheWeek
-
 }
 
 // GetDayOfTheWeekOk returns a tuple with the DayOfTheWeek field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MaintenanceWindow) GetDayOfTheWeekOk() (*DayOfTheWeek, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.DayOfTheWeek, true
+	return &o.DayOfTheWeek, true
 }
 
 // SetDayOfTheWeek sets field value
 func (o *MaintenanceWindow) SetDayOfTheWeek(v DayOfTheWeek) {
-
-	o.DayOfTheWeek = &v
-
-}
-
-// HasDayOfTheWeek returns a boolean if a field has been set.
-func (o *MaintenanceWindow) HasDayOfTheWeek() bool {
-	if o != nil && o.DayOfTheWeek != nil {
-		return true
-	}
-
-	return false
+	o.DayOfTheWeek = v
 }
 
 func (o MaintenanceWindow) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o MaintenanceWindow) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Time != nil {
+	if !IsZero(o.Time) {
 		toSerialize["time"] = o.Time
 	}
-
-	if o.DayOfTheWeek != nil {
+	if !IsZero(o.DayOfTheWeek) {
 		toSerialize["dayOfTheWeek"] = o.DayOfTheWeek
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableMaintenanceWindow struct {

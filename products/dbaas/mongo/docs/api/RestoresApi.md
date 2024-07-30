@@ -36,7 +36,7 @@ import (
 
 func main() {
     clusterId := "clusterId_example" // string | The unique ID of the cluster.
-    createRestoreRequest := *openapiclient.NewCreateRestoreRequest("dcd31531-3ac8-11eb-9feb-046c59cc737e") // CreateRestoreRequest | The restore request to create.
+    createRestoreRequest := *openapiclient.NewCreateRestoreRequest() // CreateRestoreRequest | The restore request to create.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := mongo.NewAPIClient(configuration)

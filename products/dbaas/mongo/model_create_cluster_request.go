@@ -1,7 +1,7 @@
 /*
  * IONOS DBaaS MongoDB REST API
  *
- * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.   MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
+ * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.  MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
  *
  * API version: 1.0.0
  */
@@ -13,6 +13,9 @@ package mongo
 import (
 	"encoding/json"
 )
+
+// checks if the CreateClusterRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateClusterRequest{}
 
 // CreateClusterRequest The request payload with all data needed to create a new MongoDB cluster.
 type CreateClusterRequest struct {
@@ -38,93 +41,87 @@ func NewCreateClusterRequestWithDefaults() *CreateClusterRequest {
 	return &this
 }
 
-// GetMetadata returns the Metadata field value
-// If the value is explicit nil, the zero value for Metadata will be returned
-func (o *CreateClusterRequest) GetMetadata() *Metadata {
-	if o == nil {
-		return nil
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
+func (o *CreateClusterRequest) GetMetadata() Metadata {
+	if o == nil || IsNil(o.Metadata) {
+		var ret Metadata
+		return ret
 	}
-
-	return o.Metadata
-
+	return *o.Metadata
 }
 
-// GetMetadataOk returns a tuple with the Metadata field value
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateClusterRequest) GetMetadataOk() (*Metadata, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
-
 	return o.Metadata, true
-}
-
-// SetMetadata sets field value
-func (o *CreateClusterRequest) SetMetadata(v Metadata) {
-
-	o.Metadata = &v
-
 }
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *CreateClusterRequest) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
 	return false
 }
 
-// GetProperties returns the Properties field value
-// If the value is explicit nil, the zero value for CreateClusterProperties will be returned
-func (o *CreateClusterRequest) GetProperties() *CreateClusterProperties {
-	if o == nil {
-		return nil
-	}
-
-	return o.Properties
-
+// SetMetadata gets a reference to the given Metadata and assigns it to the Metadata field.
+func (o *CreateClusterRequest) SetMetadata(v Metadata) {
+	o.Metadata = &v
 }
 
-// GetPropertiesOk returns a tuple with the Properties field value
+// GetProperties returns the Properties field value if set, zero value otherwise.
+func (o *CreateClusterRequest) GetProperties() CreateClusterProperties {
+	if o == nil || IsNil(o.Properties) {
+		var ret CreateClusterProperties
+		return ret
+	}
+	return *o.Properties
+}
+
+// GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CreateClusterRequest) GetPropertiesOk() (*CreateClusterProperties, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Properties) {
 		return nil, false
 	}
-
 	return o.Properties, true
-}
-
-// SetProperties sets field value
-func (o *CreateClusterRequest) SetProperties(v CreateClusterProperties) {
-
-	o.Properties = &v
-
 }
 
 // HasProperties returns a boolean if a field has been set.
 func (o *CreateClusterRequest) HasProperties() bool {
-	if o != nil && o.Properties != nil {
+	if o != nil && !IsNil(o.Properties) {
 		return true
 	}
 
 	return false
 }
 
+// SetProperties gets a reference to the given CreateClusterProperties and assigns it to the Properties field.
+func (o *CreateClusterRequest) SetProperties(v CreateClusterProperties) {
+	o.Properties = &v
+}
+
 func (o CreateClusterRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CreateClusterRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Metadata != nil {
+	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
-
-	if o.Properties != nil {
+	if !IsNil(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableCreateClusterRequest struct {

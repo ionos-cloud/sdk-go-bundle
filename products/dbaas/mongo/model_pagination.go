@@ -1,7 +1,7 @@
 /*
  * IONOS DBaaS MongoDB REST API
  *
- * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.   MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
+ * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.  MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
  *
  * API version: 1.0.0
  */
@@ -14,11 +14,14 @@ import (
 	"encoding/json"
 )
 
-// Pagination struct for Pagination
+// checks if the Pagination type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Pagination{}
+
+// Pagination Pagination information in list responses.
 type Pagination struct {
-	// The offset specified in the request (if none was specified, the default offset is 0) (not implemented yet).
+	// The offset specified in the request (if none was specified, the default offset is 0).
 	Offset *int32 `json:"offset,omitempty"`
-	// The limit specified in the request (if none was specified, use the endpoint's default pagination limit) (not implemented yet, always return number of items).
+	// The limit specified in the request (if none was specified, the default limit is 100).
 	Limit *int32           `json:"limit,omitempty"`
 	Links *PaginationLinks `json:"_links,omitempty"`
 }
@@ -30,6 +33,11 @@ type Pagination struct {
 func NewPagination() *Pagination {
 	this := Pagination{}
 
+	var offset int32 = 0
+	this.Offset = &offset
+	var limit int32 = 100
+	this.Limit = &limit
+
 	return &this
 }
 
@@ -38,138 +46,129 @@ func NewPagination() *Pagination {
 // but it doesn't guarantee that properties required by API are set
 func NewPaginationWithDefaults() *Pagination {
 	this := Pagination{}
+	var offset int32 = 0
+	this.Offset = &offset
+	var limit int32 = 100
+	this.Limit = &limit
 	return &this
 }
 
-// GetOffset returns the Offset field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *Pagination) GetOffset() *int32 {
-	if o == nil {
-		return nil
+// GetOffset returns the Offset field value if set, zero value otherwise.
+func (o *Pagination) GetOffset() int32 {
+	if o == nil || IsNil(o.Offset) {
+		var ret int32
+		return ret
 	}
-
-	return o.Offset
-
+	return *o.Offset
 }
 
-// GetOffsetOk returns a tuple with the Offset field value
+// GetOffsetOk returns a tuple with the Offset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Pagination) GetOffsetOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Offset) {
 		return nil, false
 	}
-
 	return o.Offset, true
-}
-
-// SetOffset sets field value
-func (o *Pagination) SetOffset(v int32) {
-
-	o.Offset = &v
-
 }
 
 // HasOffset returns a boolean if a field has been set.
 func (o *Pagination) HasOffset() bool {
-	if o != nil && o.Offset != nil {
+	if o != nil && !IsNil(o.Offset) {
 		return true
 	}
 
 	return false
 }
 
-// GetLimit returns the Limit field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *Pagination) GetLimit() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.Limit
-
+// SetOffset gets a reference to the given int32 and assigns it to the Offset field.
+func (o *Pagination) SetOffset(v int32) {
+	o.Offset = &v
 }
 
-// GetLimitOk returns a tuple with the Limit field value
+// GetLimit returns the Limit field value if set, zero value otherwise.
+func (o *Pagination) GetLimit() int32 {
+	if o == nil || IsNil(o.Limit) {
+		var ret int32
+		return ret
+	}
+	return *o.Limit
+}
+
+// GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Pagination) GetLimitOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
-
 	return o.Limit, true
-}
-
-// SetLimit sets field value
-func (o *Pagination) SetLimit(v int32) {
-
-	o.Limit = &v
-
 }
 
 // HasLimit returns a boolean if a field has been set.
 func (o *Pagination) HasLimit() bool {
-	if o != nil && o.Limit != nil {
+	if o != nil && !IsNil(o.Limit) {
 		return true
 	}
 
 	return false
 }
 
-// GetLinks returns the Links field value
-// If the value is explicit nil, the zero value for PaginationLinks will be returned
-func (o *Pagination) GetLinks() *PaginationLinks {
-	if o == nil {
-		return nil
-	}
-
-	return o.Links
-
+// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
+func (o *Pagination) SetLimit(v int32) {
+	o.Limit = &v
 }
 
-// GetLinksOk returns a tuple with the Links field value
+// GetLinks returns the Links field value if set, zero value otherwise.
+func (o *Pagination) GetLinks() PaginationLinks {
+	if o == nil || IsNil(o.Links) {
+		var ret PaginationLinks
+		return ret
+	}
+	return *o.Links
+}
+
+// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Pagination) GetLinksOk() (*PaginationLinks, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
-
 	return o.Links, true
-}
-
-// SetLinks sets field value
-func (o *Pagination) SetLinks(v PaginationLinks) {
-
-	o.Links = &v
-
 }
 
 // HasLinks returns a boolean if a field has been set.
 func (o *Pagination) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
 	return false
 }
 
+// SetLinks gets a reference to the given PaginationLinks and assigns it to the Links field.
+func (o *Pagination) SetLinks(v PaginationLinks) {
+	o.Links = &v
+}
+
 func (o Pagination) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Pagination) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Offset != nil {
+	if !IsNil(o.Offset) {
 		toSerialize["offset"] = o.Offset
 	}
-
-	if o.Limit != nil {
+	if !IsNil(o.Limit) {
 		toSerialize["limit"] = o.Limit
 	}
-
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullablePagination struct {

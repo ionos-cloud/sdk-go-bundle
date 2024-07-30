@@ -42,7 +42,7 @@ func main() {
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := mongo.NewAPIClient(configuration)
-    resource, resp, err := apiClient.ClustersApi.ClustersDelete(context.Background(), clusterId).Execute()
+    resp, err := apiClient.ClustersApi.ClustersDelete(context.Background(), clusterId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -150,6 +150,8 @@ Other parameters are passed through a pointer to an apiClustersFindByIdRequest s
 
 ```go
 var result ClusterList = ClustersGet(ctx)
+                      .Limit(limit)
+                      .Offset(offset)
                       .FilterName(filterName)
                       .Execute()
 ```
@@ -173,11 +175,13 @@ import (
 )
 
 func main() {
+    limit := int32(100) // int32 | The maximum number of elements to return. Use together with 'offset' for pagination. (optional) (default to 100)
+    offset := int32(200) // int32 | The first element to return. Use together with 'limit' for pagination. (optional) (default to 0)
     filterName := "filterName_example" // string | Response filter to list only the MongoDB clusters that contain the specified name. The value is case insensitive and matched on the 'displayName' field.  (optional)
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := mongo.NewAPIClient(configuration)
-    resource, resp, err := apiClient.ClustersApi.ClustersGet(context.Background()).FilterName(filterName).Execute()
+    resource, resp, err := apiClient.ClustersApi.ClustersGet(context.Background()).Limit(limit).Offset(offset).FilterName(filterName).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -198,6 +202,8 @@ Other parameters are passed through a pointer to an apiClustersGetRequest struct
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
+| **limit** | **int32** | The maximum number of elements to return. Use together with &#39;offset&#39; for pagination. | [default to 100]|
+| **offset** | **int32** | The first element to return. Use together with &#39;limit&#39; for pagination. | [default to 0]|
 | **filterName** | **string** | Response filter to list only the MongoDB clusters that contain the specified name. The value is case insensitive and matched on the &#39;displayName&#39; field.  | |
 
 ### Return type

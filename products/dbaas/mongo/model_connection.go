@@ -1,7 +1,7 @@
 /*
  * IONOS DBaaS MongoDB REST API
  *
- * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.   MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
+ * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.  MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
  *
  * API version: 1.0.0
  */
@@ -14,14 +14,19 @@ import (
 	"encoding/json"
 )
 
+// checks if the Connection type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Connection{}
+
 // Connection The network connection  details for your cluster.
 type Connection struct {
 	// The datacenter to which your cluster will be connected.
-	DatacenterId *string `json:"datacenterId"`
+	DatacenterId string `json:"datacenterId"`
 	// The numeric LAN ID with which you connect your cluster.
-	LanId *string `json:"lanId"`
+	LanId string `json:"lanId"`
 	// The list of IPs for your cluster. All IPs must be in a /24 network. Note the following unavailable IP ranges: 10.233.114.0/24
-	CidrList *[]string `json:"cidrList"`
+	CidrList []string `json:"cidrList"`
+	// List of whitelisted CIDRs.
+	Whitelist []string `json:"whitelist,omitempty"`
 }
 
 // NewConnection instantiates a new Connection object
@@ -31,9 +36,9 @@ type Connection struct {
 func NewConnection(datacenterId string, lanId string, cidrList []string) *Connection {
 	this := Connection{}
 
-	this.DatacenterId = &datacenterId
-	this.LanId = &lanId
-	this.CidrList = &cidrList
+	this.DatacenterId = datacenterId
+	this.LanId = lanId
+	this.CidrList = cidrList
 
 	return &this
 }
@@ -47,134 +52,132 @@ func NewConnectionWithDefaults() *Connection {
 }
 
 // GetDatacenterId returns the DatacenterId field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Connection) GetDatacenterId() *string {
+func (o *Connection) GetDatacenterId() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.DatacenterId
-
 }
 
 // GetDatacenterIdOk returns a tuple with the DatacenterId field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Connection) GetDatacenterIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.DatacenterId, true
+	return &o.DatacenterId, true
 }
 
 // SetDatacenterId sets field value
 func (o *Connection) SetDatacenterId(v string) {
-
-	o.DatacenterId = &v
-
-}
-
-// HasDatacenterId returns a boolean if a field has been set.
-func (o *Connection) HasDatacenterId() bool {
-	if o != nil && o.DatacenterId != nil {
-		return true
-	}
-
-	return false
+	o.DatacenterId = v
 }
 
 // GetLanId returns the LanId field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Connection) GetLanId() *string {
+func (o *Connection) GetLanId() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.LanId
-
 }
 
 // GetLanIdOk returns a tuple with the LanId field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Connection) GetLanIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.LanId, true
+	return &o.LanId, true
 }
 
 // SetLanId sets field value
 func (o *Connection) SetLanId(v string) {
-
-	o.LanId = &v
-
-}
-
-// HasLanId returns a boolean if a field has been set.
-func (o *Connection) HasLanId() bool {
-	if o != nil && o.LanId != nil {
-		return true
-	}
-
-	return false
+	o.LanId = v
 }
 
 // GetCidrList returns the CidrList field value
-// If the value is explicit nil, the zero value for []string will be returned
-func (o *Connection) GetCidrList() *[]string {
+func (o *Connection) GetCidrList() []string {
 	if o == nil {
-		return nil
+		var ret []string
+		return ret
 	}
 
 	return o.CidrList
-
 }
 
 // GetCidrListOk returns a tuple with the CidrList field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Connection) GetCidrListOk() (*[]string, bool) {
+func (o *Connection) GetCidrListOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
 	return o.CidrList, true
 }
 
 // SetCidrList sets field value
 func (o *Connection) SetCidrList(v []string) {
-
-	o.CidrList = &v
-
+	o.CidrList = v
 }
 
-// HasCidrList returns a boolean if a field has been set.
-func (o *Connection) HasCidrList() bool {
-	if o != nil && o.CidrList != nil {
+// GetWhitelist returns the Whitelist field value if set, zero value otherwise.
+func (o *Connection) GetWhitelist() []string {
+	if o == nil || IsNil(o.Whitelist) {
+		var ret []string
+		return ret
+	}
+	return o.Whitelist
+}
+
+// GetWhitelistOk returns a tuple with the Whitelist field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Connection) GetWhitelistOk() ([]string, bool) {
+	if o == nil || IsNil(o.Whitelist) {
+		return nil, false
+	}
+	return o.Whitelist, true
+}
+
+// HasWhitelist returns a boolean if a field has been set.
+func (o *Connection) HasWhitelist() bool {
+	if o != nil && !IsNil(o.Whitelist) {
 		return true
 	}
 
 	return false
 }
 
+// SetWhitelist gets a reference to the given []string and assigns it to the Whitelist field.
+func (o *Connection) SetWhitelist(v []string) {
+	o.Whitelist = v
+}
+
 func (o Connection) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Connection) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.DatacenterId != nil {
+	if !IsZero(o.DatacenterId) {
 		toSerialize["datacenterId"] = o.DatacenterId
 	}
-
-	if o.LanId != nil {
+	if !IsZero(o.LanId) {
 		toSerialize["lanId"] = o.LanId
 	}
-
-	if o.CidrList != nil {
+	if !IsZero(o.CidrList) {
 		toSerialize["cidrList"] = o.CidrList
 	}
-
-	return json.Marshal(toSerialize)
+	if !IsNil(o.Whitelist) {
+		toSerialize["whitelist"] = o.Whitelist
+	}
+	return toSerialize, nil
 }
 
 type NullableConnection struct {

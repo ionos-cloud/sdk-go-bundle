@@ -1,7 +1,7 @@
 /*
  * IONOS DBaaS MongoDB REST API
  *
- * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.   MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
+ * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.  MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
  *
  * API version: 1.0.0
  */
@@ -14,10 +14,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the PatchUserProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PatchUserProperties{}
+
 // PatchUserProperties MongoDB database user patch request properties.
 type PatchUserProperties struct {
-	Password *string      `json:"password,omitempty"`
-	Roles    *[]UserRoles `json:"roles,omitempty"`
+	Password *string     `json:"password,omitempty"`
+	Roles    []UserRoles `json:"roles,omitempty"`
 }
 
 // NewPatchUserProperties instantiates a new PatchUserProperties object
@@ -38,93 +41,87 @@ func NewPatchUserPropertiesWithDefaults() *PatchUserProperties {
 	return &this
 }
 
-// GetPassword returns the Password field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *PatchUserProperties) GetPassword() *string {
-	if o == nil {
-		return nil
+// GetPassword returns the Password field value if set, zero value otherwise.
+func (o *PatchUserProperties) GetPassword() string {
+	if o == nil || IsNil(o.Password) {
+		var ret string
+		return ret
 	}
-
-	return o.Password
-
+	return *o.Password
 }
 
-// GetPasswordOk returns a tuple with the Password field value
+// GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PatchUserProperties) GetPasswordOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
-
 	return o.Password, true
-}
-
-// SetPassword sets field value
-func (o *PatchUserProperties) SetPassword(v string) {
-
-	o.Password = &v
-
 }
 
 // HasPassword returns a boolean if a field has been set.
 func (o *PatchUserProperties) HasPassword() bool {
-	if o != nil && o.Password != nil {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
 	return false
 }
 
-// GetRoles returns the Roles field value
-// If the value is explicit nil, the zero value for []UserRoles will be returned
-func (o *PatchUserProperties) GetRoles() *[]UserRoles {
-	if o == nil {
-		return nil
-	}
-
-	return o.Roles
-
+// SetPassword gets a reference to the given string and assigns it to the Password field.
+func (o *PatchUserProperties) SetPassword(v string) {
+	o.Password = &v
 }
 
-// GetRolesOk returns a tuple with the Roles field value
+// GetRoles returns the Roles field value if set, zero value otherwise.
+func (o *PatchUserProperties) GetRoles() []UserRoles {
+	if o == nil || IsNil(o.Roles) {
+		var ret []UserRoles
+		return ret
+	}
+	return o.Roles
+}
+
+// GetRolesOk returns a tuple with the Roles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PatchUserProperties) GetRolesOk() (*[]UserRoles, bool) {
-	if o == nil {
+func (o *PatchUserProperties) GetRolesOk() ([]UserRoles, bool) {
+	if o == nil || IsNil(o.Roles) {
 		return nil, false
 	}
-
 	return o.Roles, true
-}
-
-// SetRoles sets field value
-func (o *PatchUserProperties) SetRoles(v []UserRoles) {
-
-	o.Roles = &v
-
 }
 
 // HasRoles returns a boolean if a field has been set.
 func (o *PatchUserProperties) HasRoles() bool {
-	if o != nil && o.Roles != nil {
+	if o != nil && !IsNil(o.Roles) {
 		return true
 	}
 
 	return false
 }
 
+// SetRoles gets a reference to the given []UserRoles and assigns it to the Roles field.
+func (o *PatchUserProperties) SetRoles(v []UserRoles) {
+	o.Roles = v
+}
+
 func (o PatchUserProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PatchUserProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Password != nil {
+	if !IsNil(o.Password) {
 		toSerialize["password"] = o.Password
 	}
-
-	if o.Roles != nil {
+	if !IsNil(o.Roles) {
 		toSerialize["roles"] = o.Roles
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullablePatchUserProperties struct {

@@ -1,7 +1,7 @@
 /*
  * IONOS DBaaS MongoDB REST API
  *
- * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.   MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
+ * With IONOS Cloud Database as a Service, you have the ability to quickly set up and manage a MongoDB database. You can also delete clusters, manage backups and users via the API.  MongoDB is an open source, cross-platform, document-oriented database program. Classified as a NoSQL database program, it uses JSON-like documents with optional schemas.  The MongoDB API allows you to create additional database clusters or modify existing ones. Both tools, the Data Center Designer (DCD) and the API use the same concepts consistently and are well suited for smooth and intuitive use.
  *
  * API version: 1.0.0
  */
@@ -13,6 +13,9 @@ package mongo
 import (
 	"encoding/json"
 )
+
+// checks if the ErrorMessage type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ErrorMessage{}
 
 // ErrorMessage struct for ErrorMessage
 type ErrorMessage struct {
@@ -40,93 +43,87 @@ func NewErrorMessageWithDefaults() *ErrorMessage {
 	return &this
 }
 
-// GetErrorCode returns the ErrorCode field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ErrorMessage) GetErrorCode() *string {
-	if o == nil {
-		return nil
+// GetErrorCode returns the ErrorCode field value if set, zero value otherwise.
+func (o *ErrorMessage) GetErrorCode() string {
+	if o == nil || IsNil(o.ErrorCode) {
+		var ret string
+		return ret
 	}
-
-	return o.ErrorCode
-
+	return *o.ErrorCode
 }
 
-// GetErrorCodeOk returns a tuple with the ErrorCode field value
+// GetErrorCodeOk returns a tuple with the ErrorCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ErrorMessage) GetErrorCodeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ErrorCode) {
 		return nil, false
 	}
-
 	return o.ErrorCode, true
-}
-
-// SetErrorCode sets field value
-func (o *ErrorMessage) SetErrorCode(v string) {
-
-	o.ErrorCode = &v
-
 }
 
 // HasErrorCode returns a boolean if a field has been set.
 func (o *ErrorMessage) HasErrorCode() bool {
-	if o != nil && o.ErrorCode != nil {
+	if o != nil && !IsNil(o.ErrorCode) {
 		return true
 	}
 
 	return false
 }
 
-// GetMessage returns the Message field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ErrorMessage) GetMessage() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Message
-
+// SetErrorCode gets a reference to the given string and assigns it to the ErrorCode field.
+func (o *ErrorMessage) SetErrorCode(v string) {
+	o.ErrorCode = &v
 }
 
-// GetMessageOk returns a tuple with the Message field value
+// GetMessage returns the Message field value if set, zero value otherwise.
+func (o *ErrorMessage) GetMessage() string {
+	if o == nil || IsNil(o.Message) {
+		var ret string
+		return ret
+	}
+	return *o.Message
+}
+
+// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ErrorMessage) GetMessageOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
-
 	return o.Message, true
-}
-
-// SetMessage sets field value
-func (o *ErrorMessage) SetMessage(v string) {
-
-	o.Message = &v
-
 }
 
 // HasMessage returns a boolean if a field has been set.
 func (o *ErrorMessage) HasMessage() bool {
-	if o != nil && o.Message != nil {
+	if o != nil && !IsNil(o.Message) {
 		return true
 	}
 
 	return false
 }
 
+// SetMessage gets a reference to the given string and assigns it to the Message field.
+func (o *ErrorMessage) SetMessage(v string) {
+	o.Message = &v
+}
+
 func (o ErrorMessage) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ErrorMessage) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ErrorCode != nil {
+	if !IsNil(o.ErrorCode) {
 		toSerialize["errorCode"] = o.ErrorCode
 	}
-
-	if o.Message != nil {
+	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableErrorMessage struct {
