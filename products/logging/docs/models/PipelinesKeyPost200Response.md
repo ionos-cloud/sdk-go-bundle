@@ -1,4 +1,4 @@
-# InlineResponse200
+# PipelinesKeyPost200Response
 
 ## Properties
 
@@ -8,45 +8,45 @@
 
 ## Methods
 
-### NewInlineResponse200
+### NewPipelinesKeyPost200Response
 
-`func NewInlineResponse200() *InlineResponse200`
+`func NewPipelinesKeyPost200Response() *PipelinesKeyPost200Response`
 
-NewInlineResponse200 instantiates a new InlineResponse200 object
+NewPipelinesKeyPost200Response instantiates a new PipelinesKeyPost200Response object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewInlineResponse200WithDefaults
+### NewPipelinesKeyPost200ResponseWithDefaults
 
-`func NewInlineResponse200WithDefaults() *InlineResponse200`
+`func NewPipelinesKeyPost200ResponseWithDefaults() *PipelinesKeyPost200Response`
 
-NewInlineResponse200WithDefaults instantiates a new InlineResponse200 object
+NewPipelinesKeyPost200ResponseWithDefaults instantiates a new PipelinesKeyPost200Response object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetKey
 
-`func (o *InlineResponse200) GetKey() string`
+`func (o *PipelinesKeyPost200Response) GetKey() string`
 
 GetKey returns the Key field if non-nil, zero value otherwise.
 
 ### GetKeyOk
 
-`func (o *InlineResponse200) GetKeyOk() (*string, bool)`
+`func (o *PipelinesKeyPost200Response) GetKeyOk() (*string, bool)`
 
 GetKeyOk returns a tuple with the Key field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetKey
 
-`func (o *InlineResponse200) SetKey(v string)`
+`func (o *PipelinesKeyPost200Response) SetKey(v string)`
 
 SetKey sets Key field to given value.
 
 ### HasKey
 
-`func (o *InlineResponse200) HasKey() bool`
+`func (o *PipelinesKeyPost200Response) HasKey() bool`
 
 HasKey returns a boolean if a field has been set.
 

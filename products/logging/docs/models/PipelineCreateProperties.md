@@ -5,13 +5,13 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**Name** | **string** | The friendly name of your pipeline. | |
-|**Logs** | [**[]Processor**](Processor.md) | The information of the log pipelines | |
+|**Logs** | [**[]PipelineCreatePropertiesLogs**](PipelineCreatePropertiesLogs.md) | The information of the log pipelines | |
 
 ## Methods
 
 ### NewPipelineCreateProperties
 
-`func NewPipelineCreateProperties(name string, logs []Processor, ) *PipelineCreateProperties`
+`func NewPipelineCreateProperties(name string, logs []PipelineCreatePropertiesLogs, ) *PipelineCreateProperties`
 
 NewPipelineCreateProperties instantiates a new PipelineCreateProperties object
 This constructor will assign default values to properties that have it defined,
@@ -48,20 +48,20 @@ SetName sets Name field to given value.
 
 ### GetLogs
 
-`func (o *PipelineCreateProperties) GetLogs() []Processor`
+`func (o *PipelineCreateProperties) GetLogs() []PipelineCreatePropertiesLogs`
 
 GetLogs returns the Logs field if non-nil, zero value otherwise.
 
 ### GetLogsOk
 
-`func (o *PipelineCreateProperties) GetLogsOk() (*[]Processor, bool)`
+`func (o *PipelineCreateProperties) GetLogsOk() (*[]PipelineCreatePropertiesLogs, bool)`
 
 GetLogsOk returns a tuple with the Logs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLogs
 
-`func (o *PipelineCreateProperties) SetLogs(v []Processor)`
+`func (o *PipelineCreateProperties) SetLogs(v []PipelineCreatePropertiesLogs)`
 
 SetLogs sets Logs field to given value.
 

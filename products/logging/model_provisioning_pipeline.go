@@ -14,37 +14,37 @@ import (
 	"encoding/json"
 )
 
-// checks if the Pipeline type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &Pipeline{}
+// checks if the ProvisioningPipeline type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProvisioningPipeline{}
 
-// Pipeline pipeline response
-type Pipeline struct {
+// ProvisioningPipeline pipeline response
+type ProvisioningPipeline struct {
 	// The unique ID of the resource.
-	Id         *string             `json:"id,omitempty"`
-	Metadata   *Metadata           `json:"metadata,omitempty"`
-	Properties *PipelineProperties `json:"properties,omitempty"`
+	Id         *string               `json:"id,omitempty"`
+	Metadata   *ProvisioningMetadata `json:"metadata,omitempty"`
+	Properties *PipelineProperties   `json:"properties,omitempty"`
 }
 
-// NewPipeline instantiates a new Pipeline object
+// NewProvisioningPipeline instantiates a new ProvisioningPipeline object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPipeline() *Pipeline {
-	this := Pipeline{}
+func NewProvisioningPipeline() *ProvisioningPipeline {
+	this := ProvisioningPipeline{}
 
 	return &this
 }
 
-// NewPipelineWithDefaults instantiates a new Pipeline object
+// NewProvisioningPipelineWithDefaults instantiates a new ProvisioningPipeline object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewPipelineWithDefaults() *Pipeline {
-	this := Pipeline{}
+func NewProvisioningPipelineWithDefaults() *ProvisioningPipeline {
+	this := ProvisioningPipeline{}
 	return &this
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
-func (o *Pipeline) GetId() string {
+func (o *ProvisioningPipeline) GetId() string {
 	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
@@ -54,7 +54,7 @@ func (o *Pipeline) GetId() string {
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Pipeline) GetIdOk() (*string, bool) {
+func (o *ProvisioningPipeline) GetIdOk() (*string, bool) {
 	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
@@ -62,7 +62,7 @@ func (o *Pipeline) GetIdOk() (*string, bool) {
 }
 
 // HasId returns a boolean if a field has been set.
-func (o *Pipeline) HasId() bool {
+func (o *ProvisioningPipeline) HasId() bool {
 	if o != nil && !IsNil(o.Id) {
 		return true
 	}
@@ -71,14 +71,14 @@ func (o *Pipeline) HasId() bool {
 }
 
 // SetId gets a reference to the given string and assigns it to the Id field.
-func (o *Pipeline) SetId(v string) {
+func (o *ProvisioningPipeline) SetId(v string) {
 	o.Id = &v
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *Pipeline) GetMetadata() Metadata {
+func (o *ProvisioningPipeline) GetMetadata() ProvisioningMetadata {
 	if o == nil || IsNil(o.Metadata) {
-		var ret Metadata
+		var ret ProvisioningMetadata
 		return ret
 	}
 	return *o.Metadata
@@ -86,7 +86,7 @@ func (o *Pipeline) GetMetadata() Metadata {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Pipeline) GetMetadataOk() (*Metadata, bool) {
+func (o *ProvisioningPipeline) GetMetadataOk() (*ProvisioningMetadata, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
@@ -94,7 +94,7 @@ func (o *Pipeline) GetMetadataOk() (*Metadata, bool) {
 }
 
 // HasMetadata returns a boolean if a field has been set.
-func (o *Pipeline) HasMetadata() bool {
+func (o *ProvisioningPipeline) HasMetadata() bool {
 	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
@@ -102,13 +102,13 @@ func (o *Pipeline) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given Metadata and assigns it to the Metadata field.
-func (o *Pipeline) SetMetadata(v Metadata) {
+// SetMetadata gets a reference to the given ProvisioningMetadata and assigns it to the Metadata field.
+func (o *ProvisioningPipeline) SetMetadata(v ProvisioningMetadata) {
 	o.Metadata = &v
 }
 
 // GetProperties returns the Properties field value if set, zero value otherwise.
-func (o *Pipeline) GetProperties() PipelineProperties {
+func (o *ProvisioningPipeline) GetProperties() PipelineProperties {
 	if o == nil || IsNil(o.Properties) {
 		var ret PipelineProperties
 		return ret
@@ -118,7 +118,7 @@ func (o *Pipeline) GetProperties() PipelineProperties {
 
 // GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Pipeline) GetPropertiesOk() (*PipelineProperties, bool) {
+func (o *ProvisioningPipeline) GetPropertiesOk() (*PipelineProperties, bool) {
 	if o == nil || IsNil(o.Properties) {
 		return nil, false
 	}
@@ -126,7 +126,7 @@ func (o *Pipeline) GetPropertiesOk() (*PipelineProperties, bool) {
 }
 
 // HasProperties returns a boolean if a field has been set.
-func (o *Pipeline) HasProperties() bool {
+func (o *ProvisioningPipeline) HasProperties() bool {
 	if o != nil && !IsNil(o.Properties) {
 		return true
 	}
@@ -135,11 +135,11 @@ func (o *Pipeline) HasProperties() bool {
 }
 
 // SetProperties gets a reference to the given PipelineProperties and assigns it to the Properties field.
-func (o *Pipeline) SetProperties(v PipelineProperties) {
+func (o *ProvisioningPipeline) SetProperties(v PipelineProperties) {
 	o.Properties = &v
 }
 
-func (o Pipeline) MarshalJSON() ([]byte, error) {
+func (o ProvisioningPipeline) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -147,7 +147,7 @@ func (o Pipeline) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o Pipeline) ToMap() (map[string]interface{}, error) {
+func (o ProvisioningPipeline) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
@@ -161,38 +161,38 @@ func (o Pipeline) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-type NullablePipeline struct {
-	value *Pipeline
+type NullableProvisioningPipeline struct {
+	value *ProvisioningPipeline
 	isSet bool
 }
 
-func (v NullablePipeline) Get() *Pipeline {
+func (v NullableProvisioningPipeline) Get() *ProvisioningPipeline {
 	return v.value
 }
 
-func (v *NullablePipeline) Set(val *Pipeline) {
+func (v *NullableProvisioningPipeline) Set(val *ProvisioningPipeline) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullablePipeline) IsSet() bool {
+func (v NullableProvisioningPipeline) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullablePipeline) Unset() {
+func (v *NullableProvisioningPipeline) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullablePipeline(val *Pipeline) *NullablePipeline {
-	return &NullablePipeline{value: val, isSet: true}
+func NewNullableProvisioningPipeline(val *ProvisioningPipeline) *NullableProvisioningPipeline {
+	return &NullableProvisioningPipeline{value: val, isSet: true}
 }
 
-func (v NullablePipeline) MarshalJSON() ([]byte, error) {
+func (v NullableProvisioningPipeline) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullablePipeline) UnmarshalJSON(src []byte) error {
+func (v *NullableProvisioningPipeline) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

@@ -5,7 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**Name** | Pointer to **string** | The friendly name of your pipeline. | [optional] |
-|**Logs** | Pointer to [**[]Processor**](Processor.md) | The information of the log pipelines | [optional] |
+|**Logs** | Pointer to [**[]PipelineCreatePropertiesLogs**](PipelineCreatePropertiesLogs.md) | The information of the log pipelines | [optional] |
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetLogs
 
-`func (o *PipelinePatchProperties) GetLogs() []Processor`
+`func (o *PipelinePatchProperties) GetLogs() []PipelineCreatePropertiesLogs`
 
 GetLogs returns the Logs field if non-nil, zero value otherwise.
 
 ### GetLogsOk
 
-`func (o *PipelinePatchProperties) GetLogsOk() (*[]Processor, bool)`
+`func (o *PipelinePatchProperties) GetLogsOk() (*[]PipelineCreatePropertiesLogs, bool)`
 
 GetLogsOk returns a tuple with the Logs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLogs
 
-`func (o *PipelinePatchProperties) SetLogs(v []Processor)`
+`func (o *PipelinePatchProperties) SetLogs(v []PipelineCreatePropertiesLogs)`
 
 SetLogs sets Logs field to given value.
 

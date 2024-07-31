@@ -14,11 +14,11 @@ import (
 	"encoding/json"
 )
 
-// checks if the Processor type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &Processor{}
+// checks if the PipelineCreatePropertiesLogs type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PipelineCreatePropertiesLogs{}
 
-// Processor struct for Processor
-type Processor struct {
+// PipelineCreatePropertiesLogs struct for PipelineCreatePropertiesLogs
+type PipelineCreatePropertiesLogs struct {
 	// The source parser to be used
 	Source *string `json:"source,omitempty"`
 	// Tag is to distinguish different pipelines. must be unique amongst the pipeline's array items.
@@ -31,26 +31,26 @@ type Processor struct {
 	Destinations []Destination `json:"destinations,omitempty"`
 }
 
-// NewProcessor instantiates a new Processor object
+// NewPipelineCreatePropertiesLogs instantiates a new PipelineCreatePropertiesLogs object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewProcessor() *Processor {
-	this := Processor{}
+func NewPipelineCreatePropertiesLogs() *PipelineCreatePropertiesLogs {
+	this := PipelineCreatePropertiesLogs{}
 
 	return &this
 }
 
-// NewProcessorWithDefaults instantiates a new Processor object
+// NewPipelineCreatePropertiesLogsWithDefaults instantiates a new PipelineCreatePropertiesLogs object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewProcessorWithDefaults() *Processor {
-	this := Processor{}
+func NewPipelineCreatePropertiesLogsWithDefaults() *PipelineCreatePropertiesLogs {
+	this := PipelineCreatePropertiesLogs{}
 	return &this
 }
 
 // GetSource returns the Source field value if set, zero value otherwise.
-func (o *Processor) GetSource() string {
+func (o *PipelineCreatePropertiesLogs) GetSource() string {
 	if o == nil || IsNil(o.Source) {
 		var ret string
 		return ret
@@ -60,7 +60,7 @@ func (o *Processor) GetSource() string {
 
 // GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Processor) GetSourceOk() (*string, bool) {
+func (o *PipelineCreatePropertiesLogs) GetSourceOk() (*string, bool) {
 	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
@@ -68,7 +68,7 @@ func (o *Processor) GetSourceOk() (*string, bool) {
 }
 
 // HasSource returns a boolean if a field has been set.
-func (o *Processor) HasSource() bool {
+func (o *PipelineCreatePropertiesLogs) HasSource() bool {
 	if o != nil && !IsNil(o.Source) {
 		return true
 	}
@@ -77,12 +77,12 @@ func (o *Processor) HasSource() bool {
 }
 
 // SetSource gets a reference to the given string and assigns it to the Source field.
-func (o *Processor) SetSource(v string) {
+func (o *PipelineCreatePropertiesLogs) SetSource(v string) {
 	o.Source = &v
 }
 
 // GetTag returns the Tag field value if set, zero value otherwise.
-func (o *Processor) GetTag() string {
+func (o *PipelineCreatePropertiesLogs) GetTag() string {
 	if o == nil || IsNil(o.Tag) {
 		var ret string
 		return ret
@@ -92,7 +92,7 @@ func (o *Processor) GetTag() string {
 
 // GetTagOk returns a tuple with the Tag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Processor) GetTagOk() (*string, bool) {
+func (o *PipelineCreatePropertiesLogs) GetTagOk() (*string, bool) {
 	if o == nil || IsNil(o.Tag) {
 		return nil, false
 	}
@@ -100,7 +100,7 @@ func (o *Processor) GetTagOk() (*string, bool) {
 }
 
 // HasTag returns a boolean if a field has been set.
-func (o *Processor) HasTag() bool {
+func (o *PipelineCreatePropertiesLogs) HasTag() bool {
 	if o != nil && !IsNil(o.Tag) {
 		return true
 	}
@@ -109,12 +109,12 @@ func (o *Processor) HasTag() bool {
 }
 
 // SetTag gets a reference to the given string and assigns it to the Tag field.
-func (o *Processor) SetTag(v string) {
+func (o *PipelineCreatePropertiesLogs) SetTag(v string) {
 	o.Tag = &v
 }
 
 // GetProtocol returns the Protocol field value if set, zero value otherwise.
-func (o *Processor) GetProtocol() string {
+func (o *PipelineCreatePropertiesLogs) GetProtocol() string {
 	if o == nil || IsNil(o.Protocol) {
 		var ret string
 		return ret
@@ -124,7 +124,7 @@ func (o *Processor) GetProtocol() string {
 
 // GetProtocolOk returns a tuple with the Protocol field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Processor) GetProtocolOk() (*string, bool) {
+func (o *PipelineCreatePropertiesLogs) GetProtocolOk() (*string, bool) {
 	if o == nil || IsNil(o.Protocol) {
 		return nil, false
 	}
@@ -132,7 +132,7 @@ func (o *Processor) GetProtocolOk() (*string, bool) {
 }
 
 // HasProtocol returns a boolean if a field has been set.
-func (o *Processor) HasProtocol() bool {
+func (o *PipelineCreatePropertiesLogs) HasProtocol() bool {
 	if o != nil && !IsNil(o.Protocol) {
 		return true
 	}
@@ -141,12 +141,12 @@ func (o *Processor) HasProtocol() bool {
 }
 
 // SetProtocol gets a reference to the given string and assigns it to the Protocol field.
-func (o *Processor) SetProtocol(v string) {
+func (o *PipelineCreatePropertiesLogs) SetProtocol(v string) {
 	o.Protocol = &v
 }
 
 // GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *Processor) GetLabels() []string {
+func (o *PipelineCreatePropertiesLogs) GetLabels() []string {
 	if o == nil || IsNil(o.Labels) {
 		var ret []string
 		return ret
@@ -156,7 +156,7 @@ func (o *Processor) GetLabels() []string {
 
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Processor) GetLabelsOk() ([]string, bool) {
+func (o *PipelineCreatePropertiesLogs) GetLabelsOk() ([]string, bool) {
 	if o == nil || IsNil(o.Labels) {
 		return nil, false
 	}
@@ -164,7 +164,7 @@ func (o *Processor) GetLabelsOk() ([]string, bool) {
 }
 
 // HasLabels returns a boolean if a field has been set.
-func (o *Processor) HasLabels() bool {
+func (o *PipelineCreatePropertiesLogs) HasLabels() bool {
 	if o != nil && !IsNil(o.Labels) {
 		return true
 	}
@@ -173,12 +173,12 @@ func (o *Processor) HasLabels() bool {
 }
 
 // SetLabels gets a reference to the given []string and assigns it to the Labels field.
-func (o *Processor) SetLabels(v []string) {
+func (o *PipelineCreatePropertiesLogs) SetLabels(v []string) {
 	o.Labels = v
 }
 
 // GetDestinations returns the Destinations field value if set, zero value otherwise.
-func (o *Processor) GetDestinations() []Destination {
+func (o *PipelineCreatePropertiesLogs) GetDestinations() []Destination {
 	if o == nil || IsNil(o.Destinations) {
 		var ret []Destination
 		return ret
@@ -188,7 +188,7 @@ func (o *Processor) GetDestinations() []Destination {
 
 // GetDestinationsOk returns a tuple with the Destinations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Processor) GetDestinationsOk() ([]Destination, bool) {
+func (o *PipelineCreatePropertiesLogs) GetDestinationsOk() ([]Destination, bool) {
 	if o == nil || IsNil(o.Destinations) {
 		return nil, false
 	}
@@ -196,7 +196,7 @@ func (o *Processor) GetDestinationsOk() ([]Destination, bool) {
 }
 
 // HasDestinations returns a boolean if a field has been set.
-func (o *Processor) HasDestinations() bool {
+func (o *PipelineCreatePropertiesLogs) HasDestinations() bool {
 	if o != nil && !IsNil(o.Destinations) {
 		return true
 	}
@@ -205,11 +205,11 @@ func (o *Processor) HasDestinations() bool {
 }
 
 // SetDestinations gets a reference to the given []Destination and assigns it to the Destinations field.
-func (o *Processor) SetDestinations(v []Destination) {
+func (o *PipelineCreatePropertiesLogs) SetDestinations(v []Destination) {
 	o.Destinations = v
 }
 
-func (o Processor) MarshalJSON() ([]byte, error) {
+func (o PipelineCreatePropertiesLogs) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -217,7 +217,7 @@ func (o Processor) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o Processor) ToMap() (map[string]interface{}, error) {
+func (o PipelineCreatePropertiesLogs) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Source) {
 		toSerialize["source"] = o.Source
@@ -237,38 +237,38 @@ func (o Processor) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-type NullableProcessor struct {
-	value *Processor
+type NullablePipelineCreatePropertiesLogs struct {
+	value *PipelineCreatePropertiesLogs
 	isSet bool
 }
 
-func (v NullableProcessor) Get() *Processor {
+func (v NullablePipelineCreatePropertiesLogs) Get() *PipelineCreatePropertiesLogs {
 	return v.value
 }
 
-func (v *NullableProcessor) Set(val *Processor) {
+func (v *NullablePipelineCreatePropertiesLogs) Set(val *PipelineCreatePropertiesLogs) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableProcessor) IsSet() bool {
+func (v NullablePipelineCreatePropertiesLogs) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableProcessor) Unset() {
+func (v *NullablePipelineCreatePropertiesLogs) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableProcessor(val *Processor) *NullableProcessor {
-	return &NullableProcessor{value: val, isSet: true}
+func NewNullablePipelineCreatePropertiesLogs(val *PipelineCreatePropertiesLogs) *NullablePipelineCreatePropertiesLogs {
+	return &NullablePipelineCreatePropertiesLogs{value: val, isSet: true}
 }
 
-func (v NullableProcessor) MarshalJSON() ([]byte, error) {
+func (v NullablePipelineCreatePropertiesLogs) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableProcessor) UnmarshalJSON(src []byte) error {
+func (v *NullablePipelineCreatePropertiesLogs) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
