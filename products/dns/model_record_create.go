@@ -1,9 +1,9 @@
 /*
  * IONOS Cloud - DNS API
  *
- * DNS API Specification
+ * Cloud DNS service helps IONOS Cloud customers to automate DNS Zone and Record management.
  *
- * API version: 1.2.0
+ * API version: 1.16.0
  * Contact: support@cloud.ionos.com
  */
 
@@ -15,9 +15,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the RecordCreate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RecordCreate{}
+
 // RecordCreate struct for RecordCreate
 type RecordCreate struct {
-	Properties *Record `json:"properties"`
+	Properties Record `json:"properties"`
 }
 
 // NewRecordCreate instantiates a new RecordCreate object
@@ -27,7 +30,7 @@ type RecordCreate struct {
 func NewRecordCreate(properties Record) *RecordCreate {
 	this := RecordCreate{}
 
-	this.Properties = &properties
+	this.Properties = properties
 
 	return &this
 }
@@ -41,50 +44,43 @@ func NewRecordCreateWithDefaults() *RecordCreate {
 }
 
 // GetProperties returns the Properties field value
-// If the value is explicit nil, the zero value for Record will be returned
-func (o *RecordCreate) GetProperties() *Record {
+func (o *RecordCreate) GetProperties() Record {
 	if o == nil {
-		return nil
+		var ret Record
+		return ret
 	}
 
 	return o.Properties
-
 }
 
 // GetPropertiesOk returns a tuple with the Properties field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RecordCreate) GetPropertiesOk() (*Record, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Properties, true
+	return &o.Properties, true
 }
 
 // SetProperties sets field value
 func (o *RecordCreate) SetProperties(v Record) {
-
-	o.Properties = &v
-
-}
-
-// HasProperties returns a boolean if a field has been set.
-func (o *RecordCreate) HasProperties() bool {
-	if o != nil && o.Properties != nil {
-		return true
-	}
-
-	return false
+	o.Properties = v
 }
 
 func (o RecordCreate) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RecordCreate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Properties != nil {
+	if !IsZero(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableRecordCreate struct {

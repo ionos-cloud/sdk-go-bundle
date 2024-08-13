@@ -1,9 +1,9 @@
 /*
  * IONOS Cloud - DNS API
  *
- * DNS API Specification
+ * Cloud DNS service helps IONOS Cloud customers to automate DNS Zone and Record management.
  *
- * API version: 1.2.0
+ * API version: 1.16.0
  * Contact: support@cloud.ionos.com
  */
 
@@ -17,15 +17,26 @@ import (
 	"time"
 )
 
+// checks if the MetadataWithStateNameservers type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MetadataWithStateNameservers{}
+
 // MetadataWithStateNameservers struct for MetadataWithStateNameservers
 type MetadataWithStateNameservers struct {
+	// The creation date formatted as yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
+	CreatedDate *IonosTime `json:"createdDate,omitempty"`
+	// Unique name of the identity that created the resource.
+	CreatedBy *string `json:"createdBy,omitempty"`
+	// The unique ID of the user who created the resource.
+	CreatedByUserId *string `json:"createdByUserId,omitempty"`
 	// The date of the last change formatted as yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
 	LastModifiedDate *IonosTime `json:"lastModifiedDate,omitempty"`
-	// The date of creation of the zone formatted as yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
-	CreatedDate *IonosTime         `json:"createdDate,omitempty"`
-	State       *ProvisioningState `json:"state"`
-	// The list of nameservers associated to the zone
-	Nameservers *[]string `json:"nameservers"`
+	// Unique name of the identity that created the resource.
+	LastModifiedBy *string `json:"lastModifiedBy,omitempty"`
+	// The unique ID of the user who last modified the resource.
+	LastModifiedByUserId *string           `json:"lastModifiedByUserId,omitempty"`
+	State                ProvisioningState `json:"state"`
+	// The list of nameservers associated to the zone.  Nameservers are different for primary and secondary zones. For primary zones it would be: - ns-ic.ui-dns.com - ns-ic.ui-dns.de - ns-ic.ui-dns.org - ns-ic.ui-dns.biz  And for secondary zones: - nscs.ui-dns.com - nscs.ui-dns.de - nscs.ui-dns.org - nscs.ui-dns.biz
+	Nameservers []string `json:"nameservers"`
 }
 
 // NewMetadataWithStateNameservers instantiates a new MetadataWithStateNameservers object
@@ -35,8 +46,8 @@ type MetadataWithStateNameservers struct {
 func NewMetadataWithStateNameservers(state ProvisioningState, nameservers []string) *MetadataWithStateNameservers {
 	this := MetadataWithStateNameservers{}
 
-	this.State = &state
-	this.Nameservers = &nameservers
+	this.State = state
+	this.Nameservers = nameservers
 
 	return &this
 }
@@ -49,191 +60,281 @@ func NewMetadataWithStateNameserversWithDefaults() *MetadataWithStateNameservers
 	return &this
 }
 
-// GetLastModifiedDate returns the LastModifiedDate field value
-// If the value is explicit nil, the zero value for time.Time will be returned
-func (o *MetadataWithStateNameservers) GetLastModifiedDate() *time.Time {
-	if o == nil {
-		return nil
+// GetCreatedDate returns the CreatedDate field value if set, zero value otherwise.
+func (o *MetadataWithStateNameservers) GetCreatedDate() time.Time {
+	if o == nil || IsNil(o.CreatedDate) {
+		var ret time.Time
+		return ret
 	}
-
-	if o.LastModifiedDate == nil {
-		return nil
-	}
-	return &o.LastModifiedDate.Time
-
+	return o.CreatedDate.Time
 }
 
-// GetLastModifiedDateOk returns a tuple with the LastModifiedDate field value
+// GetCreatedDateOk returns a tuple with the CreatedDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *MetadataWithStateNameservers) GetLastModifiedDateOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-
-	if o.LastModifiedDate == nil {
-		return nil, false
-	}
-	return &o.LastModifiedDate.Time, true
-
-}
-
-// SetLastModifiedDate sets field value
-func (o *MetadataWithStateNameservers) SetLastModifiedDate(v time.Time) {
-
-	o.LastModifiedDate = &IonosTime{v}
-
-}
-
-// HasLastModifiedDate returns a boolean if a field has been set.
-func (o *MetadataWithStateNameservers) HasLastModifiedDate() bool {
-	if o != nil && o.LastModifiedDate != nil {
-		return true
-	}
-
-	return false
-}
-
-// GetCreatedDate returns the CreatedDate field value
-// If the value is explicit nil, the zero value for time.Time will be returned
-func (o *MetadataWithStateNameservers) GetCreatedDate() *time.Time {
-	if o == nil {
-		return nil
-	}
-
-	if o.CreatedDate == nil {
-		return nil
-	}
-	return &o.CreatedDate.Time
-
-}
-
-// GetCreatedDateOk returns a tuple with the CreatedDate field value
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MetadataWithStateNameservers) GetCreatedDateOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-
-	if o.CreatedDate == nil {
+	if o == nil || IsNil(o.CreatedDate) {
 		return nil, false
 	}
 	return &o.CreatedDate.Time, true
-
-}
-
-// SetCreatedDate sets field value
-func (o *MetadataWithStateNameservers) SetCreatedDate(v time.Time) {
-
-	o.CreatedDate = &IonosTime{v}
-
 }
 
 // HasCreatedDate returns a boolean if a field has been set.
 func (o *MetadataWithStateNameservers) HasCreatedDate() bool {
-	if o != nil && o.CreatedDate != nil {
+	if o != nil && !IsNil(o.CreatedDate) {
 		return true
 	}
 
 	return false
 }
 
+// SetCreatedDate gets a reference to the given time.Time and assigns it to the CreatedDate field.
+func (o *MetadataWithStateNameservers) SetCreatedDate(v time.Time) {
+	o.CreatedDate = &IonosTime{v}
+}
+
+// GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
+func (o *MetadataWithStateNameservers) GetCreatedBy() string {
+	if o == nil || IsNil(o.CreatedBy) {
+		var ret string
+		return ret
+	}
+	return *o.CreatedBy
+}
+
+// GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetadataWithStateNameservers) GetCreatedByOk() (*string, bool) {
+	if o == nil || IsNil(o.CreatedBy) {
+		return nil, false
+	}
+	return o.CreatedBy, true
+}
+
+// HasCreatedBy returns a boolean if a field has been set.
+func (o *MetadataWithStateNameservers) HasCreatedBy() bool {
+	if o != nil && !IsNil(o.CreatedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedBy gets a reference to the given string and assigns it to the CreatedBy field.
+func (o *MetadataWithStateNameservers) SetCreatedBy(v string) {
+	o.CreatedBy = &v
+}
+
+// GetCreatedByUserId returns the CreatedByUserId field value if set, zero value otherwise.
+func (o *MetadataWithStateNameservers) GetCreatedByUserId() string {
+	if o == nil || IsNil(o.CreatedByUserId) {
+		var ret string
+		return ret
+	}
+	return *o.CreatedByUserId
+}
+
+// GetCreatedByUserIdOk returns a tuple with the CreatedByUserId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetadataWithStateNameservers) GetCreatedByUserIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CreatedByUserId) {
+		return nil, false
+	}
+	return o.CreatedByUserId, true
+}
+
+// HasCreatedByUserId returns a boolean if a field has been set.
+func (o *MetadataWithStateNameservers) HasCreatedByUserId() bool {
+	if o != nil && !IsNil(o.CreatedByUserId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedByUserId gets a reference to the given string and assigns it to the CreatedByUserId field.
+func (o *MetadataWithStateNameservers) SetCreatedByUserId(v string) {
+	o.CreatedByUserId = &v
+}
+
+// GetLastModifiedDate returns the LastModifiedDate field value if set, zero value otherwise.
+func (o *MetadataWithStateNameservers) GetLastModifiedDate() time.Time {
+	if o == nil || IsNil(o.LastModifiedDate) {
+		var ret time.Time
+		return ret
+	}
+	return o.LastModifiedDate.Time
+}
+
+// GetLastModifiedDateOk returns a tuple with the LastModifiedDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetadataWithStateNameservers) GetLastModifiedDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastModifiedDate) {
+		return nil, false
+	}
+	return &o.LastModifiedDate.Time, true
+}
+
+// HasLastModifiedDate returns a boolean if a field has been set.
+func (o *MetadataWithStateNameservers) HasLastModifiedDate() bool {
+	if o != nil && !IsNil(o.LastModifiedDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastModifiedDate gets a reference to the given time.Time and assigns it to the LastModifiedDate field.
+func (o *MetadataWithStateNameservers) SetLastModifiedDate(v time.Time) {
+	o.LastModifiedDate = &IonosTime{v}
+}
+
+// GetLastModifiedBy returns the LastModifiedBy field value if set, zero value otherwise.
+func (o *MetadataWithStateNameservers) GetLastModifiedBy() string {
+	if o == nil || IsNil(o.LastModifiedBy) {
+		var ret string
+		return ret
+	}
+	return *o.LastModifiedBy
+}
+
+// GetLastModifiedByOk returns a tuple with the LastModifiedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetadataWithStateNameservers) GetLastModifiedByOk() (*string, bool) {
+	if o == nil || IsNil(o.LastModifiedBy) {
+		return nil, false
+	}
+	return o.LastModifiedBy, true
+}
+
+// HasLastModifiedBy returns a boolean if a field has been set.
+func (o *MetadataWithStateNameservers) HasLastModifiedBy() bool {
+	if o != nil && !IsNil(o.LastModifiedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastModifiedBy gets a reference to the given string and assigns it to the LastModifiedBy field.
+func (o *MetadataWithStateNameservers) SetLastModifiedBy(v string) {
+	o.LastModifiedBy = &v
+}
+
+// GetLastModifiedByUserId returns the LastModifiedByUserId field value if set, zero value otherwise.
+func (o *MetadataWithStateNameservers) GetLastModifiedByUserId() string {
+	if o == nil || IsNil(o.LastModifiedByUserId) {
+		var ret string
+		return ret
+	}
+	return *o.LastModifiedByUserId
+}
+
+// GetLastModifiedByUserIdOk returns a tuple with the LastModifiedByUserId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetadataWithStateNameservers) GetLastModifiedByUserIdOk() (*string, bool) {
+	if o == nil || IsNil(o.LastModifiedByUserId) {
+		return nil, false
+	}
+	return o.LastModifiedByUserId, true
+}
+
+// HasLastModifiedByUserId returns a boolean if a field has been set.
+func (o *MetadataWithStateNameservers) HasLastModifiedByUserId() bool {
+	if o != nil && !IsNil(o.LastModifiedByUserId) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastModifiedByUserId gets a reference to the given string and assigns it to the LastModifiedByUserId field.
+func (o *MetadataWithStateNameservers) SetLastModifiedByUserId(v string) {
+	o.LastModifiedByUserId = &v
+}
+
 // GetState returns the State field value
-// If the value is explicit nil, the zero value for ProvisioningState will be returned
-func (o *MetadataWithStateNameservers) GetState() *ProvisioningState {
+func (o *MetadataWithStateNameservers) GetState() ProvisioningState {
 	if o == nil {
-		return nil
+		var ret ProvisioningState
+		return ret
 	}
 
 	return o.State
-
 }
 
 // GetStateOk returns a tuple with the State field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MetadataWithStateNameservers) GetStateOk() (*ProvisioningState, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.State, true
+	return &o.State, true
 }
 
 // SetState sets field value
 func (o *MetadataWithStateNameservers) SetState(v ProvisioningState) {
-
-	o.State = &v
-
-}
-
-// HasState returns a boolean if a field has been set.
-func (o *MetadataWithStateNameservers) HasState() bool {
-	if o != nil && o.State != nil {
-		return true
-	}
-
-	return false
+	o.State = v
 }
 
 // GetNameservers returns the Nameservers field value
-// If the value is explicit nil, the zero value for []string will be returned
-func (o *MetadataWithStateNameservers) GetNameservers() *[]string {
+func (o *MetadataWithStateNameservers) GetNameservers() []string {
 	if o == nil {
-		return nil
+		var ret []string
+		return ret
 	}
 
 	return o.Nameservers
-
 }
 
 // GetNameserversOk returns a tuple with the Nameservers field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *MetadataWithStateNameservers) GetNameserversOk() (*[]string, bool) {
+func (o *MetadataWithStateNameservers) GetNameserversOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
 	return o.Nameservers, true
 }
 
 // SetNameservers sets field value
 func (o *MetadataWithStateNameservers) SetNameservers(v []string) {
-
-	o.Nameservers = &v
-
-}
-
-// HasNameservers returns a boolean if a field has been set.
-func (o *MetadataWithStateNameservers) HasNameservers() bool {
-	if o != nil && o.Nameservers != nil {
-		return true
-	}
-
-	return false
+	o.Nameservers = v
 }
 
 func (o MetadataWithStateNameservers) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.LastModifiedDate != nil {
-		toSerialize["lastModifiedDate"] = o.LastModifiedDate
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
+	return json.Marshal(toSerialize)
+}
 
-	if o.CreatedDate != nil {
+func (o MetadataWithStateNameservers) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CreatedDate) {
 		toSerialize["createdDate"] = o.CreatedDate
 	}
-
-	if o.State != nil {
+	if !IsNil(o.CreatedBy) {
+		toSerialize["createdBy"] = o.CreatedBy
+	}
+	if !IsNil(o.CreatedByUserId) {
+		toSerialize["createdByUserId"] = o.CreatedByUserId
+	}
+	if !IsNil(o.LastModifiedDate) {
+		toSerialize["lastModifiedDate"] = o.LastModifiedDate
+	}
+	if !IsNil(o.LastModifiedBy) {
+		toSerialize["lastModifiedBy"] = o.LastModifiedBy
+	}
+	if !IsNil(o.LastModifiedByUserId) {
+		toSerialize["lastModifiedByUserId"] = o.LastModifiedByUserId
+	}
+	if !IsZero(o.State) {
 		toSerialize["state"] = o.State
 	}
-
-	if o.Nameservers != nil {
+	if !IsZero(o.Nameservers) {
 		toSerialize["nameservers"] = o.Nameservers
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableMetadataWithStateNameservers struct {

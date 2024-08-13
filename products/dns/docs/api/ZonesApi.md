@@ -8,14 +8,14 @@ All URIs are relative to *https://dns.de-fra.ionos.com*
 |[**ZonesFindById**](ZonesApi.md#ZonesFindById) | **Get** /zones/{zoneId} | Retrieve a zone|
 |[**ZonesGet**](ZonesApi.md#ZonesGet) | **Get** /zones | Retrieve zones|
 |[**ZonesPost**](ZonesApi.md#ZonesPost) | **Post** /zones | Create a zone|
-|[**ZonesPut**](ZonesApi.md#ZonesPut) | **Put** /zones/{zoneId} | Ensure a zone|
+|[**ZonesPut**](ZonesApi.md#ZonesPut) | **Put** /zones/{zoneId} | Update a zone|
 
 
 
 ## ZonesDelete
 
 ```go
-var result  = ZonesDelete(ctx, zoneId)
+var result map[string]interface{} = ZonesDelete(ctx, zoneId)
                       .Execute()
 ```
 
@@ -38,7 +38,7 @@ import (
 )
 
 func main() {
-    zoneId := TODO // string | The ID (UUID) of the DNS zone.
+    zoneId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The ID (UUID) of the DNS zone.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := dns.NewAPIClient(configuration)
@@ -47,6 +47,8 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ZonesApi.ZonesDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
+    // response from `ZonesDelete`: map[string]interface{}
+    fmt.Fprintf(os.Stdout, "Response from `ZonesApi.ZonesDelete`: %v\n", resource)
 }
 ```
 
@@ -56,7 +58,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**zoneId** | [**string**](../models/.md) | The ID (UUID) of the DNS zone. | |
+|**zoneId** | **string** | The ID (UUID) of the DNS zone. | |
 
 ### Other Parameters
 
@@ -68,7 +70,7 @@ Other parameters are passed through a pointer to an apiZonesDeleteRequest struct
 
 ### Return type
 
- (empty response body)
+**map[string]interface{}**
 
 ### HTTP request headers
 
@@ -103,7 +105,7 @@ import (
 )
 
 func main() {
-    zoneId := TODO // string | The ID (UUID) of the DNS zone.
+    zoneId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The ID (UUID) of the DNS zone.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := dns.NewAPIClient(configuration)
@@ -123,7 +125,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**zoneId** | [**string**](../models/.md) | The ID (UUID) of the DNS zone. | |
+|**zoneId** | **string** | The ID (UUID) of the DNS zone. | |
 
 ### Other Parameters
 
@@ -291,7 +293,7 @@ var result ZoneRead = ZonesPut(ctx, zoneId)
                       .Execute()
 ```
 
-Ensure a zone
+Update a zone
 
 
 
@@ -310,7 +312,7 @@ import (
 )
 
 func main() {
-    zoneId := TODO // string | The ID (UUID) of the DNS zone.
+    zoneId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The ID (UUID) of the DNS zone.
     zoneEnsure := *openapiclient.NewZoneEnsure(*openapiclient.NewZone("example.com")) // ZoneEnsure | update zone
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
@@ -331,7 +333,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**zoneId** | [**string**](../models/.md) | The ID (UUID) of the DNS zone. | |
+|**zoneId** | **string** | The ID (UUID) of the DNS zone. | |
 
 ### Other Parameters
 

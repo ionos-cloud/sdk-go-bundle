@@ -1,9 +1,9 @@
 /*
  * IONOS Cloud - DNS API
  *
- * DNS API Specification
+ * Cloud DNS service helps IONOS Cloud customers to automate DNS Zone and Record management.
  *
- * API version: 1.2.0
+ * API version: 1.16.0
  * Contact: support@cloud.ionos.com
  */
 
@@ -15,11 +15,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the MetadataWithStateNameserversAllOf type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MetadataWithStateNameserversAllOf{}
+
 // MetadataWithStateNameserversAllOf struct for MetadataWithStateNameserversAllOf
 type MetadataWithStateNameserversAllOf struct {
-	State *ProvisioningState `json:"state"`
-	// The list of nameservers associated to the zone
-	Nameservers *[]string `json:"nameservers"`
+	State ProvisioningState `json:"state"`
+	// The list of nameservers associated to the zone.  Nameservers are different for primary and secondary zones. For primary zones it would be: - ns-ic.ui-dns.com - ns-ic.ui-dns.de - ns-ic.ui-dns.org - ns-ic.ui-dns.biz  And for secondary zones: - nscs.ui-dns.com - nscs.ui-dns.de - nscs.ui-dns.org - nscs.ui-dns.biz
+	Nameservers []string `json:"nameservers"`
 }
 
 // NewMetadataWithStateNameserversAllOf instantiates a new MetadataWithStateNameserversAllOf object
@@ -29,8 +32,8 @@ type MetadataWithStateNameserversAllOf struct {
 func NewMetadataWithStateNameserversAllOf(state ProvisioningState, nameservers []string) *MetadataWithStateNameserversAllOf {
 	this := MetadataWithStateNameserversAllOf{}
 
-	this.State = &state
-	this.Nameservers = &nameservers
+	this.State = state
+	this.Nameservers = nameservers
 
 	return &this
 }
@@ -44,92 +47,70 @@ func NewMetadataWithStateNameserversAllOfWithDefaults() *MetadataWithStateNamese
 }
 
 // GetState returns the State field value
-// If the value is explicit nil, the zero value for ProvisioningState will be returned
-func (o *MetadataWithStateNameserversAllOf) GetState() *ProvisioningState {
+func (o *MetadataWithStateNameserversAllOf) GetState() ProvisioningState {
 	if o == nil {
-		return nil
+		var ret ProvisioningState
+		return ret
 	}
 
 	return o.State
-
 }
 
 // GetStateOk returns a tuple with the State field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MetadataWithStateNameserversAllOf) GetStateOk() (*ProvisioningState, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.State, true
+	return &o.State, true
 }
 
 // SetState sets field value
 func (o *MetadataWithStateNameserversAllOf) SetState(v ProvisioningState) {
-
-	o.State = &v
-
-}
-
-// HasState returns a boolean if a field has been set.
-func (o *MetadataWithStateNameserversAllOf) HasState() bool {
-	if o != nil && o.State != nil {
-		return true
-	}
-
-	return false
+	o.State = v
 }
 
 // GetNameservers returns the Nameservers field value
-// If the value is explicit nil, the zero value for []string will be returned
-func (o *MetadataWithStateNameserversAllOf) GetNameservers() *[]string {
+func (o *MetadataWithStateNameserversAllOf) GetNameservers() []string {
 	if o == nil {
-		return nil
+		var ret []string
+		return ret
 	}
 
 	return o.Nameservers
-
 }
 
 // GetNameserversOk returns a tuple with the Nameservers field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *MetadataWithStateNameserversAllOf) GetNameserversOk() (*[]string, bool) {
+func (o *MetadataWithStateNameserversAllOf) GetNameserversOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
 	return o.Nameservers, true
 }
 
 // SetNameservers sets field value
 func (o *MetadataWithStateNameserversAllOf) SetNameservers(v []string) {
-
-	o.Nameservers = &v
-
-}
-
-// HasNameservers returns a boolean if a field has been set.
-func (o *MetadataWithStateNameserversAllOf) HasNameservers() bool {
-	if o != nil && o.Nameservers != nil {
-		return true
-	}
-
-	return false
+	o.Nameservers = v
 }
 
 func (o MetadataWithStateNameserversAllOf) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o MetadataWithStateNameserversAllOf) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.State != nil {
+	if !IsZero(o.State) {
 		toSerialize["state"] = o.State
 	}
-
-	if o.Nameservers != nil {
+	if !IsZero(o.Nameservers) {
 		toSerialize["nameservers"] = o.Nameservers
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableMetadataWithStateNameserversAllOf struct {

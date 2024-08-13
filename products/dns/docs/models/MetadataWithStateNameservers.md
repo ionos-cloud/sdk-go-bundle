@@ -4,10 +4,14 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
+|**CreatedDate** | Pointer to [**time.Time**](time.Time.md) | The creation date formatted as yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;. | [optional] [readonly] |
+|**CreatedBy** | Pointer to **string** | Unique name of the identity that created the resource. | [optional] [readonly] |
+|**CreatedByUserId** | Pointer to **string** | The unique ID of the user who created the resource. | [optional] [readonly] |
 |**LastModifiedDate** | Pointer to [**time.Time**](time.Time.md) | The date of the last change formatted as yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;. | [optional] [readonly] |
-|**CreatedDate** | Pointer to [**time.Time**](time.Time.md) | The date of creation of the zone formatted as yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;. | [optional] [readonly] |
+|**LastModifiedBy** | Pointer to **string** | Unique name of the identity that created the resource. | [optional] [readonly] |
+|**LastModifiedByUserId** | Pointer to **string** | The unique ID of the user who last modified the resource. | [optional] [readonly] |
 |**State** | [**ProvisioningState**](ProvisioningState.md) |  | |
-|**Nameservers** | **[]string** | The list of nameservers associated to the zone | |
+|**Nameservers** | **[]string** | The list of nameservers associated to the zone.  Nameservers are different for primary and secondary zones. For primary zones it would be: - ns-ic.ui-dns.com - ns-ic.ui-dns.de - ns-ic.ui-dns.org - ns-ic.ui-dns.biz  And for secondary zones: - nscs.ui-dns.com - nscs.ui-dns.de - nscs.ui-dns.org - nscs.ui-dns.biz  | |
 
 ## Methods
 
@@ -27,6 +31,81 @@ will change when the set of required properties is changed
 NewMetadataWithStateNameserversWithDefaults instantiates a new MetadataWithStateNameservers object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetCreatedDate
+
+`func (o *MetadataWithStateNameservers) GetCreatedDate() time.Time`
+
+GetCreatedDate returns the CreatedDate field if non-nil, zero value otherwise.
+
+### GetCreatedDateOk
+
+`func (o *MetadataWithStateNameservers) GetCreatedDateOk() (*time.Time, bool)`
+
+GetCreatedDateOk returns a tuple with the CreatedDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedDate
+
+`func (o *MetadataWithStateNameservers) SetCreatedDate(v time.Time)`
+
+SetCreatedDate sets CreatedDate field to given value.
+
+### HasCreatedDate
+
+`func (o *MetadataWithStateNameservers) HasCreatedDate() bool`
+
+HasCreatedDate returns a boolean if a field has been set.
+
+### GetCreatedBy
+
+`func (o *MetadataWithStateNameservers) GetCreatedBy() string`
+
+GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
+
+### GetCreatedByOk
+
+`func (o *MetadataWithStateNameservers) GetCreatedByOk() (*string, bool)`
+
+GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedBy
+
+`func (o *MetadataWithStateNameservers) SetCreatedBy(v string)`
+
+SetCreatedBy sets CreatedBy field to given value.
+
+### HasCreatedBy
+
+`func (o *MetadataWithStateNameservers) HasCreatedBy() bool`
+
+HasCreatedBy returns a boolean if a field has been set.
+
+### GetCreatedByUserId
+
+`func (o *MetadataWithStateNameservers) GetCreatedByUserId() string`
+
+GetCreatedByUserId returns the CreatedByUserId field if non-nil, zero value otherwise.
+
+### GetCreatedByUserIdOk
+
+`func (o *MetadataWithStateNameservers) GetCreatedByUserIdOk() (*string, bool)`
+
+GetCreatedByUserIdOk returns a tuple with the CreatedByUserId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedByUserId
+
+`func (o *MetadataWithStateNameservers) SetCreatedByUserId(v string)`
+
+SetCreatedByUserId sets CreatedByUserId field to given value.
+
+### HasCreatedByUserId
+
+`func (o *MetadataWithStateNameservers) HasCreatedByUserId() bool`
+
+HasCreatedByUserId returns a boolean if a field has been set.
 
 ### GetLastModifiedDate
 
@@ -53,30 +132,55 @@ SetLastModifiedDate sets LastModifiedDate field to given value.
 
 HasLastModifiedDate returns a boolean if a field has been set.
 
-### GetCreatedDate
+### GetLastModifiedBy
 
-`func (o *MetadataWithStateNameservers) GetCreatedDate() time.Time`
+`func (o *MetadataWithStateNameservers) GetLastModifiedBy() string`
 
-GetCreatedDate returns the CreatedDate field if non-nil, zero value otherwise.
+GetLastModifiedBy returns the LastModifiedBy field if non-nil, zero value otherwise.
 
-### GetCreatedDateOk
+### GetLastModifiedByOk
 
-`func (o *MetadataWithStateNameservers) GetCreatedDateOk() (*time.Time, bool)`
+`func (o *MetadataWithStateNameservers) GetLastModifiedByOk() (*string, bool)`
 
-GetCreatedDateOk returns a tuple with the CreatedDate field if it's non-nil, zero value otherwise
+GetLastModifiedByOk returns a tuple with the LastModifiedBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCreatedDate
+### SetLastModifiedBy
 
-`func (o *MetadataWithStateNameservers) SetCreatedDate(v time.Time)`
+`func (o *MetadataWithStateNameservers) SetLastModifiedBy(v string)`
 
-SetCreatedDate sets CreatedDate field to given value.
+SetLastModifiedBy sets LastModifiedBy field to given value.
 
-### HasCreatedDate
+### HasLastModifiedBy
 
-`func (o *MetadataWithStateNameservers) HasCreatedDate() bool`
+`func (o *MetadataWithStateNameservers) HasLastModifiedBy() bool`
 
-HasCreatedDate returns a boolean if a field has been set.
+HasLastModifiedBy returns a boolean if a field has been set.
+
+### GetLastModifiedByUserId
+
+`func (o *MetadataWithStateNameservers) GetLastModifiedByUserId() string`
+
+GetLastModifiedByUserId returns the LastModifiedByUserId field if non-nil, zero value otherwise.
+
+### GetLastModifiedByUserIdOk
+
+`func (o *MetadataWithStateNameservers) GetLastModifiedByUserIdOk() (*string, bool)`
+
+GetLastModifiedByUserIdOk returns a tuple with the LastModifiedByUserId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastModifiedByUserId
+
+`func (o *MetadataWithStateNameservers) SetLastModifiedByUserId(v string)`
+
+SetLastModifiedByUserId sets LastModifiedByUserId field to given value.
+
+### HasLastModifiedByUserId
+
+`func (o *MetadataWithStateNameservers) HasLastModifiedByUserId() bool`
+
+HasLastModifiedByUserId returns a boolean if a field has been set.
 
 ### GetState
 

@@ -4,18 +4,19 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
+|**Id** | **string** | ID (UUID) created to identify this action. | |
 |**Type** | **string** |  | |
 |**Href** | **string** |  | [readonly] |
-|**Items** | [**[]ZoneRead**](ZoneRead.md) |  | |
 |**Offset** | **float32** | Pagination offset. | [readonly] |
 |**Limit** | **float32** | Pagination limit. | [readonly] |
 |**Links** | [**Links**](Links.md) |  | |
+|**Items** | [**[]ZoneRead**](ZoneRead.md) |  | |
 
 ## Methods
 
 ### NewZoneReadList
 
-`func NewZoneReadList(type_ string, href string, items []ZoneRead, offset float32, limit float32, links Links, ) *ZoneReadList`
+`func NewZoneReadList(id string, type_ string, href string, offset float32, limit float32, links Links, items []ZoneRead, ) *ZoneReadList`
 
 NewZoneReadList instantiates a new ZoneReadList object
 This constructor will assign default values to properties that have it defined,
@@ -29,6 +30,26 @@ will change when the set of required properties is changed
 NewZoneReadListWithDefaults instantiates a new ZoneReadList object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetId
+
+`func (o *ZoneReadList) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *ZoneReadList) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *ZoneReadList) SetId(v string)`
+
+SetId sets Id field to given value.
+
 
 ### GetType
 
@@ -68,26 +89,6 @@ and a boolean to check if the value has been set.
 `func (o *ZoneReadList) SetHref(v string)`
 
 SetHref sets Href field to given value.
-
-
-### GetItems
-
-`func (o *ZoneReadList) GetItems() []ZoneRead`
-
-GetItems returns the Items field if non-nil, zero value otherwise.
-
-### GetItemsOk
-
-`func (o *ZoneReadList) GetItemsOk() (*[]ZoneRead, bool)`
-
-GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetItems
-
-`func (o *ZoneReadList) SetItems(v []ZoneRead)`
-
-SetItems sets Items field to given value.
 
 
 ### GetOffset
@@ -148,6 +149,26 @@ and a boolean to check if the value has been set.
 `func (o *ZoneReadList) SetLinks(v Links)`
 
 SetLinks sets Links field to given value.
+
+
+### GetItems
+
+`func (o *ZoneReadList) GetItems() []ZoneRead`
+
+GetItems returns the Items field if non-nil, zero value otherwise.
+
+### GetItemsOk
+
+`func (o *ZoneReadList) GetItemsOk() (*[]ZoneRead, bool)`
+
+GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetItems
+
+`func (o *ZoneReadList) SetItems(v []ZoneRead)`
+
+SetItems sets Items field to given value.
 
 
 

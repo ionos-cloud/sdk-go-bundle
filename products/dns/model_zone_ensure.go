@@ -1,9 +1,9 @@
 /*
  * IONOS Cloud - DNS API
  *
- * DNS API Specification
+ * Cloud DNS service helps IONOS Cloud customers to automate DNS Zone and Record management.
  *
- * API version: 1.2.0
+ * API version: 1.16.0
  * Contact: support@cloud.ionos.com
  */
 
@@ -15,9 +15,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the ZoneEnsure type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ZoneEnsure{}
+
 // ZoneEnsure struct for ZoneEnsure
 type ZoneEnsure struct {
-	Properties *Zone `json:"properties"`
+	Properties Zone `json:"properties"`
 }
 
 // NewZoneEnsure instantiates a new ZoneEnsure object
@@ -27,7 +30,7 @@ type ZoneEnsure struct {
 func NewZoneEnsure(properties Zone) *ZoneEnsure {
 	this := ZoneEnsure{}
 
-	this.Properties = &properties
+	this.Properties = properties
 
 	return &this
 }
@@ -41,50 +44,43 @@ func NewZoneEnsureWithDefaults() *ZoneEnsure {
 }
 
 // GetProperties returns the Properties field value
-// If the value is explicit nil, the zero value for Zone will be returned
-func (o *ZoneEnsure) GetProperties() *Zone {
+func (o *ZoneEnsure) GetProperties() Zone {
 	if o == nil {
-		return nil
+		var ret Zone
+		return ret
 	}
 
 	return o.Properties
-
 }
 
 // GetPropertiesOk returns a tuple with the Properties field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ZoneEnsure) GetPropertiesOk() (*Zone, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Properties, true
+	return &o.Properties, true
 }
 
 // SetProperties sets field value
 func (o *ZoneEnsure) SetProperties(v Zone) {
-
-	o.Properties = &v
-
-}
-
-// HasProperties returns a boolean if a field has been set.
-func (o *ZoneEnsure) HasProperties() bool {
-	if o != nil && o.Properties != nil {
-		return true
-	}
-
-	return false
+	o.Properties = v
 }
 
 func (o ZoneEnsure) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ZoneEnsure) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Properties != nil {
+	if !IsZero(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableZoneEnsure struct {

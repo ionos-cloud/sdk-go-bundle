@@ -1,9 +1,9 @@
 /*
  * IONOS Cloud - DNS API
  *
- * DNS API Specification
+ * Cloud DNS service helps IONOS Cloud customers to automate DNS Zone and Record management.
  *
- * API version: 1.2.0
+ * API version: 1.16.0
  * Contact: support@cloud.ionos.com
  */
 
@@ -15,12 +15,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the Record type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Record{}
+
 // Record struct for Record
 type Record struct {
-	Name *string `json:"name"`
+	Name string `json:"name"`
 	// Holds supported DNS resource record types. In the DNS context a record is a DNS resource record.
-	Type    *string `json:"type"`
-	Content *string `json:"content"`
+	Type    string `json:"type"`
+	Content string `json:"content"`
 	// Time to live for the record, recommended 3600.
 	Ttl *int32 `json:"ttl,omitempty"`
 	// Priority value is between 0 and 65535. Priority is mandatory for MX, SRV and URI record types and ignored for all other types.
@@ -36,9 +39,9 @@ type Record struct {
 func NewRecord(name string, type_ string, content string) *Record {
 	this := Record{}
 
-	this.Name = &name
-	this.Type = &type_
-	this.Content = &content
+	this.Name = name
+	this.Type = type_
+	this.Content = content
 	var ttl int32 = 3600
 	this.Ttl = &ttl
 	var enabled bool = true
@@ -60,260 +63,202 @@ func NewRecordWithDefaults() *Record {
 }
 
 // GetName returns the Name field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Record) GetName() *string {
+func (o *Record) GetName() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Name
-
 }
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Record) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Name, true
+	return &o.Name, true
 }
 
 // SetName sets field value
 func (o *Record) SetName(v string) {
-
-	o.Name = &v
-
-}
-
-// HasName returns a boolean if a field has been set.
-func (o *Record) HasName() bool {
-	if o != nil && o.Name != nil {
-		return true
-	}
-
-	return false
+	o.Name = v
 }
 
 // GetType returns the Type field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Record) GetType() *string {
+func (o *Record) GetType() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Type
-
 }
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Record) GetTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Type, true
+	return &o.Type, true
 }
 
 // SetType sets field value
 func (o *Record) SetType(v string) {
-
-	o.Type = &v
-
-}
-
-// HasType returns a boolean if a field has been set.
-func (o *Record) HasType() bool {
-	if o != nil && o.Type != nil {
-		return true
-	}
-
-	return false
+	o.Type = v
 }
 
 // GetContent returns the Content field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Record) GetContent() *string {
+func (o *Record) GetContent() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Content
-
 }
 
 // GetContentOk returns a tuple with the Content field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Record) GetContentOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Content, true
+	return &o.Content, true
 }
 
 // SetContent sets field value
 func (o *Record) SetContent(v string) {
-
-	o.Content = &v
-
+	o.Content = v
 }
 
-// HasContent returns a boolean if a field has been set.
-func (o *Record) HasContent() bool {
-	if o != nil && o.Content != nil {
-		return true
+// GetTtl returns the Ttl field value if set, zero value otherwise.
+func (o *Record) GetTtl() int32 {
+	if o == nil || IsNil(o.Ttl) {
+		var ret int32
+		return ret
 	}
-
-	return false
+	return *o.Ttl
 }
 
-// GetTtl returns the Ttl field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *Record) GetTtl() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.Ttl
-
-}
-
-// GetTtlOk returns a tuple with the Ttl field value
+// GetTtlOk returns a tuple with the Ttl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Record) GetTtlOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Ttl) {
 		return nil, false
 	}
-
 	return o.Ttl, true
-}
-
-// SetTtl sets field value
-func (o *Record) SetTtl(v int32) {
-
-	o.Ttl = &v
-
 }
 
 // HasTtl returns a boolean if a field has been set.
 func (o *Record) HasTtl() bool {
-	if o != nil && o.Ttl != nil {
+	if o != nil && !IsNil(o.Ttl) {
 		return true
 	}
 
 	return false
 }
 
-// GetPriority returns the Priority field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *Record) GetPriority() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.Priority
-
+// SetTtl gets a reference to the given int32 and assigns it to the Ttl field.
+func (o *Record) SetTtl(v int32) {
+	o.Ttl = &v
 }
 
-// GetPriorityOk returns a tuple with the Priority field value
+// GetPriority returns the Priority field value if set, zero value otherwise.
+func (o *Record) GetPriority() int32 {
+	if o == nil || IsNil(o.Priority) {
+		var ret int32
+		return ret
+	}
+	return *o.Priority
+}
+
+// GetPriorityOk returns a tuple with the Priority field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Record) GetPriorityOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Priority) {
 		return nil, false
 	}
-
 	return o.Priority, true
-}
-
-// SetPriority sets field value
-func (o *Record) SetPriority(v int32) {
-
-	o.Priority = &v
-
 }
 
 // HasPriority returns a boolean if a field has been set.
 func (o *Record) HasPriority() bool {
-	if o != nil && o.Priority != nil {
+	if o != nil && !IsNil(o.Priority) {
 		return true
 	}
 
 	return false
 }
 
-// GetEnabled returns the Enabled field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *Record) GetEnabled() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.Enabled
-
+// SetPriority gets a reference to the given int32 and assigns it to the Priority field.
+func (o *Record) SetPriority(v int32) {
+	o.Priority = &v
 }
 
-// GetEnabledOk returns a tuple with the Enabled field value
+// GetEnabled returns the Enabled field value if set, zero value otherwise.
+func (o *Record) GetEnabled() bool {
+	if o == nil || IsNil(o.Enabled) {
+		var ret bool
+		return ret
+	}
+	return *o.Enabled
+}
+
+// GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Record) GetEnabledOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Enabled) {
 		return nil, false
 	}
-
 	return o.Enabled, true
-}
-
-// SetEnabled sets field value
-func (o *Record) SetEnabled(v bool) {
-
-	o.Enabled = &v
-
 }
 
 // HasEnabled returns a boolean if a field has been set.
 func (o *Record) HasEnabled() bool {
-	if o != nil && o.Enabled != nil {
+	if o != nil && !IsNil(o.Enabled) {
 		return true
 	}
 
 	return false
 }
 
+// SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
+func (o *Record) SetEnabled(v bool) {
+	o.Enabled = &v
+}
+
 func (o Record) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Record) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsZero(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-
-	if o.Type != nil {
+	if !IsZero(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-
-	if o.Content != nil {
+	if !IsZero(o.Content) {
 		toSerialize["content"] = o.Content
 	}
-
-	if o.Ttl != nil {
+	if !IsNil(o.Ttl) {
 		toSerialize["ttl"] = o.Ttl
 	}
-
-	if o.Priority != nil {
+	if !IsNil(o.Priority) {
 		toSerialize["priority"] = o.Priority
 	}
-
-	if o.Enabled != nil {
+	if !IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableRecord struct {

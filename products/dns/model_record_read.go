@@ -1,9 +1,9 @@
 /*
  * IONOS Cloud - DNS API
  *
- * DNS API Specification
+ * Cloud DNS service helps IONOS Cloud customers to automate DNS Zone and Record management.
  *
- * API version: 1.2.0
+ * API version: 1.16.0
  * Contact: support@cloud.ionos.com
  */
 
@@ -15,14 +15,17 @@ import (
 	"encoding/json"
 )
 
+// checks if the RecordRead type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RecordRead{}
+
 // RecordRead struct for RecordRead
 type RecordRead struct {
 	// The record ID (UUID).
-	Id         *string                      `json:"id"`
-	Type       *string                      `json:"type"`
-	Href       *string                      `json:"href"`
-	Metadata   *MetadataWithStateFqdnZoneId `json:"metadata"`
-	Properties *Record                      `json:"properties"`
+	Id         string                      `json:"id"`
+	Type       string                      `json:"type"`
+	Href       string                      `json:"href"`
+	Metadata   MetadataWithStateFqdnZoneId `json:"metadata"`
+	Properties Record                      `json:"properties"`
 }
 
 // NewRecordRead instantiates a new RecordRead object
@@ -32,11 +35,11 @@ type RecordRead struct {
 func NewRecordRead(id string, type_ string, href string, metadata MetadataWithStateFqdnZoneId, properties Record) *RecordRead {
 	this := RecordRead{}
 
-	this.Id = &id
-	this.Type = &type_
-	this.Href = &href
-	this.Metadata = &metadata
-	this.Properties = &properties
+	this.Id = id
+	this.Type = type_
+	this.Href = href
+	this.Metadata = metadata
+	this.Properties = properties
 
 	return &this
 }
@@ -50,218 +53,151 @@ func NewRecordReadWithDefaults() *RecordRead {
 }
 
 // GetId returns the Id field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *RecordRead) GetId() *string {
+func (o *RecordRead) GetId() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Id
-
 }
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RecordRead) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Id, true
+	return &o.Id, true
 }
 
 // SetId sets field value
 func (o *RecordRead) SetId(v string) {
-
-	o.Id = &v
-
-}
-
-// HasId returns a boolean if a field has been set.
-func (o *RecordRead) HasId() bool {
-	if o != nil && o.Id != nil {
-		return true
-	}
-
-	return false
+	o.Id = v
 }
 
 // GetType returns the Type field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *RecordRead) GetType() *string {
+func (o *RecordRead) GetType() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Type
-
 }
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RecordRead) GetTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Type, true
+	return &o.Type, true
 }
 
 // SetType sets field value
 func (o *RecordRead) SetType(v string) {
-
-	o.Type = &v
-
-}
-
-// HasType returns a boolean if a field has been set.
-func (o *RecordRead) HasType() bool {
-	if o != nil && o.Type != nil {
-		return true
-	}
-
-	return false
+	o.Type = v
 }
 
 // GetHref returns the Href field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *RecordRead) GetHref() *string {
+func (o *RecordRead) GetHref() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Href
-
 }
 
 // GetHrefOk returns a tuple with the Href field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RecordRead) GetHrefOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Href, true
+	return &o.Href, true
 }
 
 // SetHref sets field value
 func (o *RecordRead) SetHref(v string) {
-
-	o.Href = &v
-
-}
-
-// HasHref returns a boolean if a field has been set.
-func (o *RecordRead) HasHref() bool {
-	if o != nil && o.Href != nil {
-		return true
-	}
-
-	return false
+	o.Href = v
 }
 
 // GetMetadata returns the Metadata field value
-// If the value is explicit nil, the zero value for MetadataWithStateFqdnZoneId will be returned
-func (o *RecordRead) GetMetadata() *MetadataWithStateFqdnZoneId {
+func (o *RecordRead) GetMetadata() MetadataWithStateFqdnZoneId {
 	if o == nil {
-		return nil
+		var ret MetadataWithStateFqdnZoneId
+		return ret
 	}
 
 	return o.Metadata
-
 }
 
 // GetMetadataOk returns a tuple with the Metadata field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RecordRead) GetMetadataOk() (*MetadataWithStateFqdnZoneId, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
 // SetMetadata sets field value
 func (o *RecordRead) SetMetadata(v MetadataWithStateFqdnZoneId) {
-
-	o.Metadata = &v
-
-}
-
-// HasMetadata returns a boolean if a field has been set.
-func (o *RecordRead) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
-		return true
-	}
-
-	return false
+	o.Metadata = v
 }
 
 // GetProperties returns the Properties field value
-// If the value is explicit nil, the zero value for Record will be returned
-func (o *RecordRead) GetProperties() *Record {
+func (o *RecordRead) GetProperties() Record {
 	if o == nil {
-		return nil
+		var ret Record
+		return ret
 	}
 
 	return o.Properties
-
 }
 
 // GetPropertiesOk returns a tuple with the Properties field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RecordRead) GetPropertiesOk() (*Record, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Properties, true
+	return &o.Properties, true
 }
 
 // SetProperties sets field value
 func (o *RecordRead) SetProperties(v Record) {
-
-	o.Properties = &v
-
-}
-
-// HasProperties returns a boolean if a field has been set.
-func (o *RecordRead) HasProperties() bool {
-	if o != nil && o.Properties != nil {
-		return true
-	}
-
-	return false
+	o.Properties = v
 }
 
 func (o RecordRead) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RecordRead) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsZero(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-
-	if o.Type != nil {
+	if !IsZero(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-
-	if o.Href != nil {
+	if !IsZero(o.Href) {
 		toSerialize["href"] = o.Href
 	}
-
-	if o.Metadata != nil {
+	if !IsZero(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
-
-	if o.Properties != nil {
+	if !IsZero(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableRecordRead struct {

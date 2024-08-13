@@ -1,9 +1,9 @@
 /*
  * IONOS Cloud - DNS API
  *
- * DNS API Specification
+ * Cloud DNS service helps IONOS Cloud customers to automate DNS Zone and Record management.
  *
- * API version: 1.2.0
+ * API version: 1.16.0
  * Contact: support@cloud.ionos.com
  */
 
@@ -15,14 +15,17 @@ import (
 	"encoding/json"
 )
 
+// checks if the ZoneRead type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ZoneRead{}
+
 // ZoneRead struct for ZoneRead
 type ZoneRead struct {
 	// The zone ID (UUID).
-	Id         *string                       `json:"id"`
-	Type       *string                       `json:"type"`
-	Href       *string                       `json:"href"`
-	Metadata   *MetadataWithStateNameservers `json:"metadata"`
-	Properties *Zone                         `json:"properties"`
+	Id         string                       `json:"id"`
+	Type       string                       `json:"type"`
+	Href       string                       `json:"href"`
+	Metadata   MetadataWithStateNameservers `json:"metadata"`
+	Properties Zone                         `json:"properties"`
 }
 
 // NewZoneRead instantiates a new ZoneRead object
@@ -32,11 +35,11 @@ type ZoneRead struct {
 func NewZoneRead(id string, type_ string, href string, metadata MetadataWithStateNameservers, properties Zone) *ZoneRead {
 	this := ZoneRead{}
 
-	this.Id = &id
-	this.Type = &type_
-	this.Href = &href
-	this.Metadata = &metadata
-	this.Properties = &properties
+	this.Id = id
+	this.Type = type_
+	this.Href = href
+	this.Metadata = metadata
+	this.Properties = properties
 
 	return &this
 }
@@ -50,218 +53,151 @@ func NewZoneReadWithDefaults() *ZoneRead {
 }
 
 // GetId returns the Id field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ZoneRead) GetId() *string {
+func (o *ZoneRead) GetId() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Id
-
 }
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ZoneRead) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Id, true
+	return &o.Id, true
 }
 
 // SetId sets field value
 func (o *ZoneRead) SetId(v string) {
-
-	o.Id = &v
-
-}
-
-// HasId returns a boolean if a field has been set.
-func (o *ZoneRead) HasId() bool {
-	if o != nil && o.Id != nil {
-		return true
-	}
-
-	return false
+	o.Id = v
 }
 
 // GetType returns the Type field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ZoneRead) GetType() *string {
+func (o *ZoneRead) GetType() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Type
-
 }
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ZoneRead) GetTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Type, true
+	return &o.Type, true
 }
 
 // SetType sets field value
 func (o *ZoneRead) SetType(v string) {
-
-	o.Type = &v
-
-}
-
-// HasType returns a boolean if a field has been set.
-func (o *ZoneRead) HasType() bool {
-	if o != nil && o.Type != nil {
-		return true
-	}
-
-	return false
+	o.Type = v
 }
 
 // GetHref returns the Href field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ZoneRead) GetHref() *string {
+func (o *ZoneRead) GetHref() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Href
-
 }
 
 // GetHrefOk returns a tuple with the Href field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ZoneRead) GetHrefOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Href, true
+	return &o.Href, true
 }
 
 // SetHref sets field value
 func (o *ZoneRead) SetHref(v string) {
-
-	o.Href = &v
-
-}
-
-// HasHref returns a boolean if a field has been set.
-func (o *ZoneRead) HasHref() bool {
-	if o != nil && o.Href != nil {
-		return true
-	}
-
-	return false
+	o.Href = v
 }
 
 // GetMetadata returns the Metadata field value
-// If the value is explicit nil, the zero value for MetadataWithStateNameservers will be returned
-func (o *ZoneRead) GetMetadata() *MetadataWithStateNameservers {
+func (o *ZoneRead) GetMetadata() MetadataWithStateNameservers {
 	if o == nil {
-		return nil
+		var ret MetadataWithStateNameservers
+		return ret
 	}
 
 	return o.Metadata
-
 }
 
 // GetMetadataOk returns a tuple with the Metadata field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ZoneRead) GetMetadataOk() (*MetadataWithStateNameservers, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
 // SetMetadata sets field value
 func (o *ZoneRead) SetMetadata(v MetadataWithStateNameservers) {
-
-	o.Metadata = &v
-
-}
-
-// HasMetadata returns a boolean if a field has been set.
-func (o *ZoneRead) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
-		return true
-	}
-
-	return false
+	o.Metadata = v
 }
 
 // GetProperties returns the Properties field value
-// If the value is explicit nil, the zero value for Zone will be returned
-func (o *ZoneRead) GetProperties() *Zone {
+func (o *ZoneRead) GetProperties() Zone {
 	if o == nil {
-		return nil
+		var ret Zone
+		return ret
 	}
 
 	return o.Properties
-
 }
 
 // GetPropertiesOk returns a tuple with the Properties field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ZoneRead) GetPropertiesOk() (*Zone, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Properties, true
+	return &o.Properties, true
 }
 
 // SetProperties sets field value
 func (o *ZoneRead) SetProperties(v Zone) {
-
-	o.Properties = &v
-
-}
-
-// HasProperties returns a boolean if a field has been set.
-func (o *ZoneRead) HasProperties() bool {
-	if o != nil && o.Properties != nil {
-		return true
-	}
-
-	return false
+	o.Properties = v
 }
 
 func (o ZoneRead) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ZoneRead) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsZero(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-
-	if o.Type != nil {
+	if !IsZero(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-
-	if o.Href != nil {
+	if !IsZero(o.Href) {
 		toSerialize["href"] = o.Href
 	}
-
-	if o.Metadata != nil {
+	if !IsZero(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
-
-	if o.Properties != nil {
+	if !IsZero(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableZoneRead struct {

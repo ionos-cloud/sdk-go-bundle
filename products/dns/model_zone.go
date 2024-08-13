@@ -1,9 +1,9 @@
 /*
  * IONOS Cloud - DNS API
  *
- * DNS API Specification
+ * Cloud DNS service helps IONOS Cloud customers to automate DNS Zone and Record management.
  *
- * API version: 1.2.0
+ * API version: 1.16.0
  * Contact: support@cloud.ionos.com
  */
 
@@ -15,10 +15,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the Zone type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Zone{}
+
 // Zone struct for Zone
 type Zone struct {
 	// The zone name
-	ZoneName *string `json:"zoneName"`
+	ZoneName string `json:"zoneName"`
 	// The hosted zone is used for...
 	Description *string `json:"description,omitempty"`
 	// Users can activate and deactivate zones.
@@ -32,7 +35,7 @@ type Zone struct {
 func NewZone(zoneName string) *Zone {
 	this := Zone{}
 
-	this.ZoneName = &zoneName
+	this.ZoneName = zoneName
 	var enabled bool = true
 	this.Enabled = &enabled
 
@@ -50,134 +53,113 @@ func NewZoneWithDefaults() *Zone {
 }
 
 // GetZoneName returns the ZoneName field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Zone) GetZoneName() *string {
+func (o *Zone) GetZoneName() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.ZoneName
-
 }
 
 // GetZoneNameOk returns a tuple with the ZoneName field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Zone) GetZoneNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.ZoneName, true
+	return &o.ZoneName, true
 }
 
 // SetZoneName sets field value
 func (o *Zone) SetZoneName(v string) {
-
-	o.ZoneName = &v
-
+	o.ZoneName = v
 }
 
-// HasZoneName returns a boolean if a field has been set.
-func (o *Zone) HasZoneName() bool {
-	if o != nil && o.ZoneName != nil {
-		return true
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *Zone) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
 	}
-
-	return false
+	return *o.Description
 }
 
-// GetDescription returns the Description field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Zone) GetDescription() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Description
-
-}
-
-// GetDescriptionOk returns a tuple with the Description field value
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Zone) GetDescriptionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
-
 	return o.Description, true
-}
-
-// SetDescription sets field value
-func (o *Zone) SetDescription(v string) {
-
-	o.Description = &v
-
 }
 
 // HasDescription returns a boolean if a field has been set.
 func (o *Zone) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
 	return false
 }
 
-// GetEnabled returns the Enabled field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *Zone) GetEnabled() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.Enabled
-
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *Zone) SetDescription(v string) {
+	o.Description = &v
 }
 
-// GetEnabledOk returns a tuple with the Enabled field value
+// GetEnabled returns the Enabled field value if set, zero value otherwise.
+func (o *Zone) GetEnabled() bool {
+	if o == nil || IsNil(o.Enabled) {
+		var ret bool
+		return ret
+	}
+	return *o.Enabled
+}
+
+// GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Zone) GetEnabledOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Enabled) {
 		return nil, false
 	}
-
 	return o.Enabled, true
-}
-
-// SetEnabled sets field value
-func (o *Zone) SetEnabled(v bool) {
-
-	o.Enabled = &v
-
 }
 
 // HasEnabled returns a boolean if a field has been set.
 func (o *Zone) HasEnabled() bool {
-	if o != nil && o.Enabled != nil {
+	if o != nil && !IsNil(o.Enabled) {
 		return true
 	}
 
 	return false
 }
 
+// SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
+func (o *Zone) SetEnabled(v bool) {
+	o.Enabled = &v
+}
+
 func (o Zone) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Zone) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ZoneName != nil {
+	if !IsZero(o.ZoneName) {
 		toSerialize["zoneName"] = o.ZoneName
 	}
-
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-
-	if o.Enabled != nil {
+	if !IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableZone struct {

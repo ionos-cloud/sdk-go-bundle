@@ -1,9 +1,9 @@
 /*
  * IONOS Cloud - DNS API
  *
- * DNS API Specification
+ * Cloud DNS service helps IONOS Cloud customers to automate DNS Zone and Record management.
  *
- * API version: 1.2.0
+ * API version: 1.16.0
  * Contact: support@cloud.ionos.com
  */
 
@@ -15,7 +15,7 @@ import (
 	_context "context"
 	"fmt"
 	"github.com/ionos-cloud/sdk-go-bundle/shared"
-	_ioutil "io/ioutil"
+	"io"
 	_nethttp "net/http"
 	_neturl "net/url"
 	"strings"
@@ -35,7 +35,7 @@ type ApiZonesDeleteRequest struct {
 	zoneId     string
 }
 
-func (r ApiZonesDeleteRequest) Execute() (*shared.APIResponse, error) {
+func (r ApiZonesDeleteRequest) Execute() (map[string]interface{}, *shared.APIResponse, error) {
 	return r.ApiService.ZonesDeleteExecute(r)
 }
 
@@ -56,25 +56,27 @@ func (a *ZonesApiService) ZonesDelete(ctx _context.Context, zoneId string) ApiZo
 
 /*
  * Execute executes the request
+ * @return map[string]interface{}
  */
-func (a *ZonesApiService) ZonesDeleteExecute(r ApiZonesDeleteRequest) (*shared.APIResponse, error) {
+func (a *ZonesApiService) ZonesDeleteExecute(r ApiZonesDeleteRequest) (map[string]interface{}, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ZonesApiService.ZonesDelete")
 	if err != nil {
 		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
-		return nil, gerr
+		return localVarReturnValue, nil, gerr
 	}
 
 	localVarPath := localBasePath + "/zones/{zoneId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"zoneId"+"}", _neturl.PathEscape(parameterToString(r.zoneId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"zoneId"+"}", _neturl.PathEscape(parameterValueToString(r.zoneId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -113,7 +115,7 @@ func (a *ZonesApiService) ZonesDeleteExecute(r ApiZonesDeleteRequest) (*shared.A
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
@@ -127,14 +129,14 @@ func (a *ZonesApiService) ZonesDeleteExecute(r ApiZonesDeleteRequest) (*shared.A
 	}
 
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarAPIResponse, err
+		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
-		return localVarAPIResponse, err
+		return localVarReturnValue, localVarAPIResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -147,7 +149,7 @@ func (a *ZonesApiService) ZonesDeleteExecute(r ApiZonesDeleteRequest) (*shared.A
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.SetError(err.Error())
-				return localVarAPIResponse, newErr
+				return localVarReturnValue, localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
 		}
@@ -156,7 +158,7 @@ func (a *ZonesApiService) ZonesDeleteExecute(r ApiZonesDeleteRequest) (*shared.A
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.SetError(err.Error())
-				return localVarAPIResponse, newErr
+				return localVarReturnValue, localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
 		}
@@ -165,7 +167,7 @@ func (a *ZonesApiService) ZonesDeleteExecute(r ApiZonesDeleteRequest) (*shared.A
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.SetError(err.Error())
-				return localVarAPIResponse, newErr
+				return localVarReturnValue, localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
 		}
@@ -174,7 +176,7 @@ func (a *ZonesApiService) ZonesDeleteExecute(r ApiZonesDeleteRequest) (*shared.A
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.SetError(err.Error())
-				return localVarAPIResponse, newErr
+				return localVarReturnValue, localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
 		}
@@ -183,14 +185,23 @@ func (a *ZonesApiService) ZonesDeleteExecute(r ApiZonesDeleteRequest) (*shared.A
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.SetError(err.Error())
-				return localVarAPIResponse, newErr
+				return localVarReturnValue, localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
 		}
-		return localVarAPIResponse, newErr
+		return localVarReturnValue, localVarAPIResponse, newErr
 	}
 
-	return localVarAPIResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := shared.GenericOpenAPIError{}
+		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
+		newErr.SetBody(localVarBody)
+		newErr.SetError(err.Error())
+		return localVarReturnValue, localVarAPIResponse, newErr
+	}
+
+	return localVarReturnValue, localVarAPIResponse, nil
 }
 
 type ApiZonesFindByIdRequest struct {
@@ -205,7 +216,7 @@ func (r ApiZonesFindByIdRequest) Execute() (ZoneRead, *shared.APIResponse, error
 
 /*
  * ZonesFindById Retrieve a zone
- * Returns a DNS zone by ID.
+ * Returns a DNS zone by given ID.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param zoneId The ID (UUID) of the DNS zone.
  * @return ApiZonesFindByIdRequest
@@ -240,7 +251,7 @@ func (a *ZonesApiService) ZonesFindByIdExecute(r ApiZonesFindByIdRequest) (ZoneR
 	}
 
 	localVarPath := localBasePath + "/zones/{zoneId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"zoneId"+"}", _neturl.PathEscape(parameterToString(r.zoneId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"zoneId"+"}", _neturl.PathEscape(parameterValueToString(r.zoneId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -296,7 +307,7 @@ func (a *ZonesApiService) ZonesFindByIdExecute(r ApiZonesFindByIdRequest) (ZoneR
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -439,16 +450,16 @@ func (a *ZonesApiService) ZonesGetExecute(r ApiZonesGetRequest) (ZoneReadList, *
 	localVarFormParams := _neturl.Values{}
 
 	if r.filterState != nil {
-		localVarQueryParams.Add("filter.state", parameterToString(*r.filterState, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filter.state", r.filterState, "")
 	}
 	if r.filterZoneName != nil {
-		localVarQueryParams.Add("filter.zoneName", parameterToString(*r.filterZoneName, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filter.zoneName", r.filterZoneName, "")
 	}
 	if r.offset != nil {
-		localVarQueryParams.Add("offset", parameterToString(*r.offset, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -500,7 +511,7 @@ func (a *ZonesApiService) ZonesGetExecute(r ApiZonesGetRequest) (ZoneReadList, *
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -664,7 +675,7 @@ func (a *ZonesApiService) ZonesPostExecute(r ApiZonesPostRequest) (ZoneRead, *sh
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -744,11 +755,12 @@ func (r ApiZonesPutRequest) Execute() (ZoneRead, *shared.APIResponse, error) {
 }
 
 /*
- * ZonesPut Ensure a zone
- * Ensures that a zone with the provided ID is created or modified. In order to successfully update zone - all JSON parameters must be passed.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param zoneId The ID (UUID) of the DNS zone.
- * @return ApiZonesPutRequest
+* ZonesPut Update a zone
+* Updates or creates a zone for the provided zone ID.
+
+* @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+* @param zoneId The ID (UUID) of the DNS zone.
+* @return ApiZonesPutRequest
  */
 func (a *ZonesApiService) ZonesPut(ctx _context.Context, zoneId string) ApiZonesPutRequest {
 	return ApiZonesPutRequest{
@@ -780,7 +792,7 @@ func (a *ZonesApiService) ZonesPutExecute(r ApiZonesPutRequest) (ZoneRead, *shar
 	}
 
 	localVarPath := localBasePath + "/zones/{zoneId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"zoneId"+"}", _neturl.PathEscape(parameterToString(r.zoneId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"zoneId"+"}", _neturl.PathEscape(parameterValueToString(r.zoneId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -841,7 +853,7 @@ func (a *ZonesApiService) ZonesPutExecute(r ApiZonesPutRequest) (ZoneRead, *shar
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
