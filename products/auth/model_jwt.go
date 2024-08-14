@@ -1,7 +1,7 @@
 /*
  * Auth API
  *
- * Use the Auth API to manage tokens for secure access to IONOS Cloud  APIs (Auth API, Cloud API, Reseller API, Activity Log API, and others).
+ * Use the Auth API to manage tokens for secure access to IONOS Cloud APIs (Auth API, Cloud API, Reseller API, Activity Log API, and others).
  *
  * API version: 1.0
  */
@@ -13,6 +13,9 @@ package auth
 import (
 	"encoding/json"
 )
+
+// checks if the Jwt type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Jwt{}
 
 // Jwt struct for Jwt
 type Jwt struct {
@@ -38,51 +41,52 @@ func NewJwtWithDefaults() *Jwt {
 	return &this
 }
 
-// GetToken returns the Token field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Jwt) GetToken() *string {
-	if o == nil {
-		return nil
+// GetToken returns the Token field value if set, zero value otherwise.
+func (o *Jwt) GetToken() string {
+	if o == nil || IsNil(o.Token) {
+		var ret string
+		return ret
 	}
-
-	return o.Token
-
+	return *o.Token
 }
 
-// GetTokenOk returns a tuple with the Token field value
+// GetTokenOk returns a tuple with the Token field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Jwt) GetTokenOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Token) {
 		return nil, false
 	}
-
 	return o.Token, true
-}
-
-// SetToken sets field value
-func (o *Jwt) SetToken(v string) {
-
-	o.Token = &v
-
 }
 
 // HasToken returns a boolean if a field has been set.
 func (o *Jwt) HasToken() bool {
-	if o != nil && o.Token != nil {
+	if o != nil && !IsNil(o.Token) {
 		return true
 	}
 
 	return false
 }
 
+// SetToken gets a reference to the given string and assigns it to the Token field.
+func (o *Jwt) SetToken(v string) {
+	o.Token = &v
+}
+
 func (o Jwt) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Jwt) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Token != nil {
+	if !IsNil(o.Token) {
 		toSerialize["token"] = o.Token
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableJwt struct {

@@ -1,7 +1,7 @@
 /*
  * Auth API
  *
- * Use the Auth API to manage tokens for secure access to IONOS Cloud  APIs (Auth API, Cloud API, Reseller API, Activity Log API, and others).
+ * Use the Auth API to manage tokens for secure access to IONOS Cloud APIs (Auth API, Cloud API, Reseller API, Activity Log API, and others).
  *
  * API version: 1.0
  */
@@ -14,10 +14,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the Tokens type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Tokens{}
+
 // Tokens struct for Tokens
 type Tokens struct {
 	// Array of items in that collection.
-	Tokens *[]Token `json:"tokens,omitempty"`
+	Tokens []Token `json:"tokens,omitempty"`
 }
 
 // NewTokens instantiates a new Tokens object
@@ -38,51 +41,52 @@ func NewTokensWithDefaults() *Tokens {
 	return &this
 }
 
-// GetTokens returns the Tokens field value
-// If the value is explicit nil, the zero value for []Token will be returned
-func (o *Tokens) GetTokens() *[]Token {
-	if o == nil {
-		return nil
+// GetTokens returns the Tokens field value if set, zero value otherwise.
+func (o *Tokens) GetTokens() []Token {
+	if o == nil || IsNil(o.Tokens) {
+		var ret []Token
+		return ret
 	}
-
 	return o.Tokens
-
 }
 
-// GetTokensOk returns a tuple with the Tokens field value
+// GetTokensOk returns a tuple with the Tokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Tokens) GetTokensOk() (*[]Token, bool) {
-	if o == nil {
+func (o *Tokens) GetTokensOk() ([]Token, bool) {
+	if o == nil || IsNil(o.Tokens) {
 		return nil, false
 	}
-
 	return o.Tokens, true
-}
-
-// SetTokens sets field value
-func (o *Tokens) SetTokens(v []Token) {
-
-	o.Tokens = &v
-
 }
 
 // HasTokens returns a boolean if a field has been set.
 func (o *Tokens) HasTokens() bool {
-	if o != nil && o.Tokens != nil {
+	if o != nil && !IsNil(o.Tokens) {
 		return true
 	}
 
 	return false
 }
 
+// SetTokens gets a reference to the given []Token and assigns it to the Tokens field.
+func (o *Tokens) SetTokens(v []Token) {
+	o.Tokens = v
+}
+
 func (o Tokens) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Tokens) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Tokens != nil {
+	if !IsNil(o.Tokens) {
 		toSerialize["tokens"] = o.Tokens
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableTokens struct {

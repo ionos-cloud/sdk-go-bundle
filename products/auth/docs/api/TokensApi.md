@@ -112,7 +112,7 @@ func main() {
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := auth.NewAPIClient(configuration)
-    resource, resp, err := apiClient.TokensApi.TokensDeleteById(context.Background(), tokenId).XContractNumber(xContractNumber).Execute()
+    resp, err := apiClient.TokensApi.TokensDeleteById(context.Background(), tokenId).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TokensApi.TokensDeleteById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -225,6 +225,7 @@ Other parameters are passed through a pointer to an apiTokensFindByIdRequest str
 ```go
 var result Jwt = TokensGenerate(ctx)
                       .XContractNumber(xContractNumber)
+                      .Ttl(ttl)
                       .Execute()
 ```
 
@@ -248,10 +249,11 @@ import (
 
 func main() {
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which the token is generated. (optional)
+    ttl := int32(56) // int32 | The maximum time that the access token will be valid for use within the application in seconds. (optional) (default to 31536000)
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := auth.NewAPIClient(configuration)
-    resource, resp, err := apiClient.TokensApi.TokensGenerate(context.Background()).XContractNumber(xContractNumber).Execute()
+    resource, resp, err := apiClient.TokensApi.TokensGenerate(context.Background()).XContractNumber(xContractNumber).Ttl(ttl).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TokensApi.TokensGenerate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -273,6 +275,7 @@ Other parameters are passed through a pointer to an apiTokensGenerateRequest str
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which the token is generated. | |
+| **ttl** | **int32** | The maximum time that the access token will be valid for use within the application in seconds. | [default to 31536000]|
 
 ### Return type
 

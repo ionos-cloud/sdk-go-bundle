@@ -1,7 +1,7 @@
 /*
  * Auth API
  *
- * Use the Auth API to manage tokens for secure access to IONOS Cloud  APIs (Auth API, Cloud API, Reseller API, Activity Log API, and others).
+ * Use the Auth API to manage tokens for secure access to IONOS Cloud APIs (Auth API, Cloud API, Reseller API, Activity Log API, and others).
  *
  * API version: 1.0
  */
@@ -13,6 +13,9 @@ package auth
 import (
 	"encoding/json"
 )
+
+// checks if the DeleteResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeleteResponse{}
 
 // DeleteResponse struct for DeleteResponse
 type DeleteResponse struct {
@@ -37,51 +40,52 @@ func NewDeleteResponseWithDefaults() *DeleteResponse {
 	return &this
 }
 
-// GetSuccess returns the Success field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *DeleteResponse) GetSuccess() *bool {
-	if o == nil {
-		return nil
+// GetSuccess returns the Success field value if set, zero value otherwise.
+func (o *DeleteResponse) GetSuccess() bool {
+	if o == nil || IsNil(o.Success) {
+		var ret bool
+		return ret
 	}
-
-	return o.Success
-
+	return *o.Success
 }
 
-// GetSuccessOk returns a tuple with the Success field value
+// GetSuccessOk returns a tuple with the Success field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DeleteResponse) GetSuccessOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Success) {
 		return nil, false
 	}
-
 	return o.Success, true
-}
-
-// SetSuccess sets field value
-func (o *DeleteResponse) SetSuccess(v bool) {
-
-	o.Success = &v
-
 }
 
 // HasSuccess returns a boolean if a field has been set.
 func (o *DeleteResponse) HasSuccess() bool {
-	if o != nil && o.Success != nil {
+	if o != nil && !IsNil(o.Success) {
 		return true
 	}
 
 	return false
 }
 
+// SetSuccess gets a reference to the given bool and assigns it to the Success field.
+func (o *DeleteResponse) SetSuccess(v bool) {
+	o.Success = &v
+}
+
 func (o DeleteResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DeleteResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Success != nil {
+	if !IsNil(o.Success) {
 		toSerialize["success"] = o.Success
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableDeleteResponse struct {

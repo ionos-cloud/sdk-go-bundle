@@ -1,17 +1,10 @@
-module github.com/ionos-cloud/sdk-go-bundle/products/auth
+module github.com/ionos-cloud/sdk-go-bundle/products/auth/v2
 
-go 1.19
-
-require (
-	github.com/ionos-cloud/sdk-go-bundle/shared v0.1.0
-	golang.org/x/oauth2 v0.6.0
-)
+go 1.21
 
 require (
-	github.com/golang/protobuf v1.5.2 // indirect
-	golang.org/x/net v0.8.0 // indirect
-	google.golang.org/appengine v1.6.7 // indirect
-	google.golang.org/protobuf v1.28.0 // indirect
+	golang.org/x/oauth2 v0.21.0
+	github.com/ionos-cloud/sdk-go-bundle/shared v0.1.1
 )
 
 replace github.com/ionos-cloud/sdk-go-bundle/shared => ../../shared
