@@ -8,7 +8,7 @@ All URIs are relative to *https://api.ionos.com/cloudapi/v6*
 |[**DatacentersServersNicsFlowlogsFindById**](FlowLogsApi.md#DatacentersServersNicsFlowlogsFindById) | **Get** /datacenters/{datacenterId}/servers/{serverId}/nics/{nicId}/flowlogs/{flowlogId} | Retrieve Flow Logs|
 |[**DatacentersServersNicsFlowlogsGet**](FlowLogsApi.md#DatacentersServersNicsFlowlogsGet) | **Get** /datacenters/{datacenterId}/servers/{serverId}/nics/{nicId}/flowlogs | List Flow Logs|
 |[**DatacentersServersNicsFlowlogsPatch**](FlowLogsApi.md#DatacentersServersNicsFlowlogsPatch) | **Patch** /datacenters/{datacenterId}/servers/{serverId}/nics/{nicId}/flowlogs/{flowlogId} | Partially modify Flow Logs|
-|[**DatacentersServersNicsFlowlogsPost**](FlowLogsApi.md#DatacentersServersNicsFlowlogsPost) | **Post** /datacenters/{datacenterId}/servers/{serverId}/nics/{nicId}/flowlogs | Create Flow Logs|
+|[**DatacentersServersNicsFlowlogsPost**](FlowLogsApi.md#DatacentersServersNicsFlowlogsPost) | **Post** /datacenters/{datacenterId}/servers/{serverId}/nics/{nicId}/flowlogs | Create a Flow Log|
 |[**DatacentersServersNicsFlowlogsPut**](FlowLogsApi.md#DatacentersServersNicsFlowlogsPut) | **Put** /datacenters/{datacenterId}/servers/{serverId}/nics/{nicId}/flowlogs/{flowlogId} | Modify Flow Logs|
 
 
@@ -50,7 +50,7 @@ func main() {
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
-    resource, resp, err := apiClient.FlowLogsApi.DatacentersServersNicsFlowlogsDelete(context.Background(), datacenterId, serverId, nicId, flowlogId).Pretty(pretty).Depth(depth).Execute()
+    resp, err := apiClient.FlowLogsApi.DatacentersServersNicsFlowlogsDelete(context.Background(), datacenterId, serverId, nicId, flowlogId).Pretty(pretty).Depth(depth).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FlowLogsApi.DatacentersServersNicsFlowlogsDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -344,7 +344,7 @@ var result FlowLog = DatacentersServersNicsFlowlogsPost(ctx, datacenterId, serve
                       .Execute()
 ```
 
-Create Flow Logs
+Create a Flow Log
 
 
 

@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,7 +14,7 @@ import (
 	_context "context"
 	"fmt"
 	"github.com/ionos-cloud/sdk-go-bundle/shared"
-	_ioutil "io/ioutil"
+	"io"
 	_nethttp "net/http"
 	_neturl "net/url"
 	"strings"
@@ -95,19 +95,19 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsDeleteExec
 	}
 
 	localVarPath := localBasePath + "/datacenters/{datacenterId}/loadbalancers/{loadbalancerId}/balancednics/{nicId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"datacenterId"+"}", _neturl.PathEscape(parameterToString(r.datacenterId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"loadbalancerId"+"}", _neturl.PathEscape(parameterToString(r.loadbalancerId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"nicId"+"}", _neturl.PathEscape(parameterToString(r.nicId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"datacenterId"+"}", _neturl.PathEscape(parameterValueToString(r.datacenterId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"loadbalancerId"+"}", _neturl.PathEscape(parameterValueToString(r.loadbalancerId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"nicId"+"}", _neturl.PathEscape(parameterValueToString(r.nicId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -128,12 +128,12 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsDeleteExec
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -163,7 +163,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsDeleteExec
 		return localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -257,19 +257,19 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsFindByNicI
 	}
 
 	localVarPath := localBasePath + "/datacenters/{datacenterId}/loadbalancers/{loadbalancerId}/balancednics/{nicId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"datacenterId"+"}", _neturl.PathEscape(parameterToString(r.datacenterId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"loadbalancerId"+"}", _neturl.PathEscape(parameterToString(r.loadbalancerId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"nicId"+"}", _neturl.PathEscape(parameterToString(r.nicId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"datacenterId"+"}", _neturl.PathEscape(parameterValueToString(r.datacenterId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"loadbalancerId"+"}", _neturl.PathEscape(parameterValueToString(r.loadbalancerId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"nicId"+"}", _neturl.PathEscape(parameterValueToString(r.nicId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -290,12 +290,12 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsFindByNicI
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -325,7 +325,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsFindByNicI
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -448,18 +448,18 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsGetExecute
 	}
 
 	localVarPath := localBasePath + "/datacenters/{datacenterId}/loadbalancers/{loadbalancerId}/balancednics"
-	localVarPath = strings.Replace(localVarPath, "{"+"datacenterId"+"}", _neturl.PathEscape(parameterToString(r.datacenterId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"loadbalancerId"+"}", _neturl.PathEscape(parameterToString(r.loadbalancerId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"datacenterId"+"}", _neturl.PathEscape(parameterValueToString(r.datacenterId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"loadbalancerId"+"}", _neturl.PathEscape(parameterValueToString(r.loadbalancerId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 	if r.orderBy != nil {
 		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
@@ -493,12 +493,12 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsGetExecute
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -528,7 +528,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsGetExecute
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -596,7 +596,7 @@ func (r ApiDatacentersLoadbalancersBalancednicsPostRequest) Execute() (Nic, *sha
 
 /*
  * DatacentersLoadbalancersBalancednicsPost Attach balanced NICs
- * Attach an existing NIC to the specified Load Balancer.
+ * Attachs an existing NIC to the specified Load Balancer.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param datacenterId The unique ID of the data center.
  * @param loadbalancerId The unique ID of the Load Balancer.
@@ -633,8 +633,8 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsPostExecut
 	}
 
 	localVarPath := localBasePath + "/datacenters/{datacenterId}/loadbalancers/{loadbalancerId}/balancednics"
-	localVarPath = strings.Replace(localVarPath, "{"+"datacenterId"+"}", _neturl.PathEscape(parameterToString(r.datacenterId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"loadbalancerId"+"}", _neturl.PathEscape(parameterToString(r.loadbalancerId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"datacenterId"+"}", _neturl.PathEscape(parameterValueToString(r.datacenterId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"loadbalancerId"+"}", _neturl.PathEscape(parameterValueToString(r.loadbalancerId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -644,10 +644,10 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsPostExecut
 	}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -668,14 +668,14 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsPostExecut
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	// body params
 	localVarPostBody = r.nic
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -705,7 +705,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersBalancednicsPostExecut
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -803,18 +803,18 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersDeleteExecute(r ApiDat
 	}
 
 	localVarPath := localBasePath + "/datacenters/{datacenterId}/loadbalancers/{loadbalancerId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"datacenterId"+"}", _neturl.PathEscape(parameterToString(r.datacenterId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"loadbalancerId"+"}", _neturl.PathEscape(parameterToString(r.loadbalancerId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"datacenterId"+"}", _neturl.PathEscape(parameterValueToString(r.datacenterId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"loadbalancerId"+"}", _neturl.PathEscape(parameterValueToString(r.loadbalancerId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -835,12 +835,12 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersDeleteExecute(r ApiDat
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -870,7 +870,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersDeleteExecute(r ApiDat
 		return localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -961,18 +961,18 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersFindByIdExecute(r ApiD
 	}
 
 	localVarPath := localBasePath + "/datacenters/{datacenterId}/loadbalancers/{loadbalancerId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"datacenterId"+"}", _neturl.PathEscape(parameterToString(r.datacenterId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"loadbalancerId"+"}", _neturl.PathEscape(parameterToString(r.loadbalancerId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"datacenterId"+"}", _neturl.PathEscape(parameterValueToString(r.datacenterId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"loadbalancerId"+"}", _neturl.PathEscape(parameterValueToString(r.loadbalancerId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -993,12 +993,12 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersFindByIdExecute(r ApiD
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -1028,7 +1028,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersFindByIdExecute(r ApiD
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -1158,23 +1158,23 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersGetExecute(r ApiDatace
 	}
 
 	localVarPath := localBasePath + "/datacenters/{datacenterId}/loadbalancers"
-	localVarPath = strings.Replace(localVarPath, "{"+"datacenterId"+"}", _neturl.PathEscape(parameterToString(r.datacenterId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"datacenterId"+"}", _neturl.PathEscape(parameterValueToString(r.datacenterId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 	if r.offset != nil {
-		localVarQueryParams.Add("offset", parameterToString(*r.offset, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	if r.orderBy != nil {
 		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
@@ -1208,12 +1208,12 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersGetExecute(r ApiDatace
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -1243,7 +1243,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersGetExecute(r ApiDatace
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -1348,8 +1348,8 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPatchExecute(r ApiData
 	}
 
 	localVarPath := localBasePath + "/datacenters/{datacenterId}/loadbalancers/{loadbalancerId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"datacenterId"+"}", _neturl.PathEscape(parameterToString(r.datacenterId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"loadbalancerId"+"}", _neturl.PathEscape(parameterToString(r.loadbalancerId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"datacenterId"+"}", _neturl.PathEscape(parameterValueToString(r.datacenterId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"loadbalancerId"+"}", _neturl.PathEscape(parameterValueToString(r.loadbalancerId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -1359,10 +1359,10 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPatchExecute(r ApiData
 	}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -1383,14 +1383,14 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPatchExecute(r ApiData
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	// body params
 	localVarPostBody = r.loadbalancer
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -1420,7 +1420,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPatchExecute(r ApiData
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -1486,8 +1486,8 @@ func (r ApiDatacentersLoadbalancersPostRequest) Execute() (Loadbalancer, *shared
 }
 
 /*
- * DatacentersLoadbalancersPost Create Load Balancers
- * Create a Load Balancer within the data center.
+ * DatacentersLoadbalancersPost Create a Load Balancer
+ * Creates a Load Balancer within the data center.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param datacenterId The unique ID of the data center.
  * @return ApiDatacentersLoadbalancersPostRequest
@@ -1522,7 +1522,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPostExecute(r ApiDatac
 	}
 
 	localVarPath := localBasePath + "/datacenters/{datacenterId}/loadbalancers"
-	localVarPath = strings.Replace(localVarPath, "{"+"datacenterId"+"}", _neturl.PathEscape(parameterToString(r.datacenterId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"datacenterId"+"}", _neturl.PathEscape(parameterValueToString(r.datacenterId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -1532,10 +1532,10 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPostExecute(r ApiDatac
 	}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -1556,14 +1556,14 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPostExecute(r ApiDatac
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	// body params
 	localVarPostBody = r.loadbalancer
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -1593,7 +1593,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPostExecute(r ApiDatac
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -1660,8 +1660,8 @@ func (r ApiDatacentersLoadbalancersPutRequest) Execute() (Loadbalancer, *shared.
 }
 
 /*
- * DatacentersLoadbalancersPut Modify Load Balancers
- * Modify the properties of the specified Load Balancer within the data center.
+ * DatacentersLoadbalancersPut Modify a Load Balancer by ID
+ * Modifies the properties of the specified Load Balancer within the data center.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param datacenterId The unique ID of the data center.
  * @param loadbalancerId The unique ID of the Load Balancer.
@@ -1698,8 +1698,8 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPutExecute(r ApiDatace
 	}
 
 	localVarPath := localBasePath + "/datacenters/{datacenterId}/loadbalancers/{loadbalancerId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"datacenterId"+"}", _neturl.PathEscape(parameterToString(r.datacenterId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"loadbalancerId"+"}", _neturl.PathEscape(parameterToString(r.loadbalancerId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"datacenterId"+"}", _neturl.PathEscape(parameterValueToString(r.datacenterId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"loadbalancerId"+"}", _neturl.PathEscape(parameterValueToString(r.loadbalancerId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -1709,10 +1709,10 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPutExecute(r ApiDatace
 	}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -1733,14 +1733,14 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPutExecute(r ApiDatace
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	// body params
 	localVarPostBody = r.loadbalancer
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -1770,7 +1770,7 @@ func (a *LoadBalancersApiService) DatacentersLoadbalancersPutExecute(r ApiDatace
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {

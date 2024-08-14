@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the DataCenterEntities type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DataCenterEntities{}
 
 // DataCenterEntities struct for DataCenterEntities
 type DataCenterEntities struct {
@@ -42,261 +45,227 @@ func NewDataCenterEntitiesWithDefaults() *DataCenterEntities {
 	return &this
 }
 
-// GetServers returns the Servers field value
-// If the value is explicit nil, the zero value for Servers will be returned
-func (o *DataCenterEntities) GetServers() *Servers {
-	if o == nil {
-		return nil
+// GetServers returns the Servers field value if set, zero value otherwise.
+func (o *DataCenterEntities) GetServers() Servers {
+	if o == nil || IsNil(o.Servers) {
+		var ret Servers
+		return ret
 	}
-
-	return o.Servers
-
+	return *o.Servers
 }
 
-// GetServersOk returns a tuple with the Servers field value
+// GetServersOk returns a tuple with the Servers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DataCenterEntities) GetServersOk() (*Servers, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Servers) {
 		return nil, false
 	}
-
 	return o.Servers, true
-}
-
-// SetServers sets field value
-func (o *DataCenterEntities) SetServers(v Servers) {
-
-	o.Servers = &v
-
 }
 
 // HasServers returns a boolean if a field has been set.
 func (o *DataCenterEntities) HasServers() bool {
-	if o != nil && o.Servers != nil {
+	if o != nil && !IsNil(o.Servers) {
 		return true
 	}
 
 	return false
 }
 
-// GetVolumes returns the Volumes field value
-// If the value is explicit nil, the zero value for Volumes will be returned
-func (o *DataCenterEntities) GetVolumes() *Volumes {
-	if o == nil {
-		return nil
-	}
-
-	return o.Volumes
-
+// SetServers gets a reference to the given Servers and assigns it to the Servers field.
+func (o *DataCenterEntities) SetServers(v Servers) {
+	o.Servers = &v
 }
 
-// GetVolumesOk returns a tuple with the Volumes field value
+// GetVolumes returns the Volumes field value if set, zero value otherwise.
+func (o *DataCenterEntities) GetVolumes() Volumes {
+	if o == nil || IsNil(o.Volumes) {
+		var ret Volumes
+		return ret
+	}
+	return *o.Volumes
+}
+
+// GetVolumesOk returns a tuple with the Volumes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DataCenterEntities) GetVolumesOk() (*Volumes, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Volumes) {
 		return nil, false
 	}
-
 	return o.Volumes, true
-}
-
-// SetVolumes sets field value
-func (o *DataCenterEntities) SetVolumes(v Volumes) {
-
-	o.Volumes = &v
-
 }
 
 // HasVolumes returns a boolean if a field has been set.
 func (o *DataCenterEntities) HasVolumes() bool {
-	if o != nil && o.Volumes != nil {
+	if o != nil && !IsNil(o.Volumes) {
 		return true
 	}
 
 	return false
 }
 
-// GetLoadbalancers returns the Loadbalancers field value
-// If the value is explicit nil, the zero value for Loadbalancers will be returned
-func (o *DataCenterEntities) GetLoadbalancers() *Loadbalancers {
-	if o == nil {
-		return nil
-	}
-
-	return o.Loadbalancers
-
+// SetVolumes gets a reference to the given Volumes and assigns it to the Volumes field.
+func (o *DataCenterEntities) SetVolumes(v Volumes) {
+	o.Volumes = &v
 }
 
-// GetLoadbalancersOk returns a tuple with the Loadbalancers field value
+// GetLoadbalancers returns the Loadbalancers field value if set, zero value otherwise.
+func (o *DataCenterEntities) GetLoadbalancers() Loadbalancers {
+	if o == nil || IsNil(o.Loadbalancers) {
+		var ret Loadbalancers
+		return ret
+	}
+	return *o.Loadbalancers
+}
+
+// GetLoadbalancersOk returns a tuple with the Loadbalancers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DataCenterEntities) GetLoadbalancersOk() (*Loadbalancers, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Loadbalancers) {
 		return nil, false
 	}
-
 	return o.Loadbalancers, true
-}
-
-// SetLoadbalancers sets field value
-func (o *DataCenterEntities) SetLoadbalancers(v Loadbalancers) {
-
-	o.Loadbalancers = &v
-
 }
 
 // HasLoadbalancers returns a boolean if a field has been set.
 func (o *DataCenterEntities) HasLoadbalancers() bool {
-	if o != nil && o.Loadbalancers != nil {
+	if o != nil && !IsNil(o.Loadbalancers) {
 		return true
 	}
 
 	return false
 }
 
-// GetLans returns the Lans field value
-// If the value is explicit nil, the zero value for Lans will be returned
-func (o *DataCenterEntities) GetLans() *Lans {
-	if o == nil {
-		return nil
-	}
-
-	return o.Lans
-
+// SetLoadbalancers gets a reference to the given Loadbalancers and assigns it to the Loadbalancers field.
+func (o *DataCenterEntities) SetLoadbalancers(v Loadbalancers) {
+	o.Loadbalancers = &v
 }
 
-// GetLansOk returns a tuple with the Lans field value
+// GetLans returns the Lans field value if set, zero value otherwise.
+func (o *DataCenterEntities) GetLans() Lans {
+	if o == nil || IsNil(o.Lans) {
+		var ret Lans
+		return ret
+	}
+	return *o.Lans
+}
+
+// GetLansOk returns a tuple with the Lans field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DataCenterEntities) GetLansOk() (*Lans, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Lans) {
 		return nil, false
 	}
-
 	return o.Lans, true
-}
-
-// SetLans sets field value
-func (o *DataCenterEntities) SetLans(v Lans) {
-
-	o.Lans = &v
-
 }
 
 // HasLans returns a boolean if a field has been set.
 func (o *DataCenterEntities) HasLans() bool {
-	if o != nil && o.Lans != nil {
+	if o != nil && !IsNil(o.Lans) {
 		return true
 	}
 
 	return false
 }
 
-// GetNetworkloadbalancers returns the Networkloadbalancers field value
-// If the value is explicit nil, the zero value for NetworkLoadBalancers will be returned
-func (o *DataCenterEntities) GetNetworkloadbalancers() *NetworkLoadBalancers {
-	if o == nil {
-		return nil
-	}
-
-	return o.Networkloadbalancers
-
+// SetLans gets a reference to the given Lans and assigns it to the Lans field.
+func (o *DataCenterEntities) SetLans(v Lans) {
+	o.Lans = &v
 }
 
-// GetNetworkloadbalancersOk returns a tuple with the Networkloadbalancers field value
+// GetNetworkloadbalancers returns the Networkloadbalancers field value if set, zero value otherwise.
+func (o *DataCenterEntities) GetNetworkloadbalancers() NetworkLoadBalancers {
+	if o == nil || IsNil(o.Networkloadbalancers) {
+		var ret NetworkLoadBalancers
+		return ret
+	}
+	return *o.Networkloadbalancers
+}
+
+// GetNetworkloadbalancersOk returns a tuple with the Networkloadbalancers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DataCenterEntities) GetNetworkloadbalancersOk() (*NetworkLoadBalancers, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Networkloadbalancers) {
 		return nil, false
 	}
-
 	return o.Networkloadbalancers, true
-}
-
-// SetNetworkloadbalancers sets field value
-func (o *DataCenterEntities) SetNetworkloadbalancers(v NetworkLoadBalancers) {
-
-	o.Networkloadbalancers = &v
-
 }
 
 // HasNetworkloadbalancers returns a boolean if a field has been set.
 func (o *DataCenterEntities) HasNetworkloadbalancers() bool {
-	if o != nil && o.Networkloadbalancers != nil {
+	if o != nil && !IsNil(o.Networkloadbalancers) {
 		return true
 	}
 
 	return false
 }
 
-// GetNatgateways returns the Natgateways field value
-// If the value is explicit nil, the zero value for NatGateways will be returned
-func (o *DataCenterEntities) GetNatgateways() *NatGateways {
-	if o == nil {
-		return nil
-	}
-
-	return o.Natgateways
-
+// SetNetworkloadbalancers gets a reference to the given NetworkLoadBalancers and assigns it to the Networkloadbalancers field.
+func (o *DataCenterEntities) SetNetworkloadbalancers(v NetworkLoadBalancers) {
+	o.Networkloadbalancers = &v
 }
 
-// GetNatgatewaysOk returns a tuple with the Natgateways field value
+// GetNatgateways returns the Natgateways field value if set, zero value otherwise.
+func (o *DataCenterEntities) GetNatgateways() NatGateways {
+	if o == nil || IsNil(o.Natgateways) {
+		var ret NatGateways
+		return ret
+	}
+	return *o.Natgateways
+}
+
+// GetNatgatewaysOk returns a tuple with the Natgateways field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DataCenterEntities) GetNatgatewaysOk() (*NatGateways, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Natgateways) {
 		return nil, false
 	}
-
 	return o.Natgateways, true
-}
-
-// SetNatgateways sets field value
-func (o *DataCenterEntities) SetNatgateways(v NatGateways) {
-
-	o.Natgateways = &v
-
 }
 
 // HasNatgateways returns a boolean if a field has been set.
 func (o *DataCenterEntities) HasNatgateways() bool {
-	if o != nil && o.Natgateways != nil {
+	if o != nil && !IsNil(o.Natgateways) {
 		return true
 	}
 
 	return false
 }
 
+// SetNatgateways gets a reference to the given NatGateways and assigns it to the Natgateways field.
+func (o *DataCenterEntities) SetNatgateways(v NatGateways) {
+	o.Natgateways = &v
+}
+
 func (o DataCenterEntities) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DataCenterEntities) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Servers != nil {
+	if !IsNil(o.Servers) {
 		toSerialize["servers"] = o.Servers
 	}
-
-	if o.Volumes != nil {
+	if !IsNil(o.Volumes) {
 		toSerialize["volumes"] = o.Volumes
 	}
-
-	if o.Loadbalancers != nil {
+	if !IsNil(o.Loadbalancers) {
 		toSerialize["loadbalancers"] = o.Loadbalancers
 	}
-
-	if o.Lans != nil {
+	if !IsNil(o.Lans) {
 		toSerialize["lans"] = o.Lans
 	}
-
-	if o.Networkloadbalancers != nil {
+	if !IsNil(o.Networkloadbalancers) {
 		toSerialize["networkloadbalancers"] = o.Networkloadbalancers
 	}
-
-	if o.Natgateways != nil {
+	if !IsNil(o.Natgateways) {
 		toSerialize["natgateways"] = o.Natgateways
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableDataCenterEntities struct {

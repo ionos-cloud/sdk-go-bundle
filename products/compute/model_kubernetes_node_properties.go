@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,16 +14,19 @@ import (
 	"encoding/json"
 )
 
+// checks if the KubernetesNodeProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KubernetesNodeProperties{}
+
 // KubernetesNodeProperties struct for KubernetesNodeProperties
 type KubernetesNodeProperties struct {
-	// A Kubernetes node name.
-	Name *string `json:"name"`
-	// A valid public IP.
+	// The Kubernetes node name.
+	Name string `json:"name"`
+	// The public IP associated with the node.
 	PublicIP *string `json:"publicIP,omitempty"`
-	// A valid private IP.
+	// The private IP associated with the node.
 	PrivateIP *string `json:"privateIP,omitempty"`
-	// The Kubernetes version the nodepool is running. This imposes restrictions on what Kubernetes versions can be run in a cluster's nodepools. Additionally, not all Kubernetes versions are viable upgrade targets for all prior versions.
-	K8sVersion *string `json:"k8sVersion"`
+	// The Kubernetes version running in the node pool. Note that this imposes restrictions on which Kubernetes versions can run in the node pools of a cluster. Also, not all Kubernetes versions are suitable upgrade targets for all earlier versions.
+	K8sVersion string `json:"k8sVersion"`
 }
 
 // NewKubernetesNodeProperties instantiates a new KubernetesNodeProperties object
@@ -33,8 +36,8 @@ type KubernetesNodeProperties struct {
 func NewKubernetesNodeProperties(name string, k8sVersion string) *KubernetesNodeProperties {
 	this := KubernetesNodeProperties{}
 
-	this.Name = &name
-	this.K8sVersion = &k8sVersion
+	this.Name = name
+	this.K8sVersion = k8sVersion
 
 	return &this
 }
@@ -48,176 +51,140 @@ func NewKubernetesNodePropertiesWithDefaults() *KubernetesNodeProperties {
 }
 
 // GetName returns the Name field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *KubernetesNodeProperties) GetName() *string {
+func (o *KubernetesNodeProperties) GetName() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Name
-
 }
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *KubernetesNodeProperties) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Name, true
+	return &o.Name, true
 }
 
 // SetName sets field value
 func (o *KubernetesNodeProperties) SetName(v string) {
-
-	o.Name = &v
-
+	o.Name = v
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *KubernetesNodeProperties) HasName() bool {
-	if o != nil && o.Name != nil {
-		return true
+// GetPublicIP returns the PublicIP field value if set, zero value otherwise.
+func (o *KubernetesNodeProperties) GetPublicIP() string {
+	if o == nil || IsNil(o.PublicIP) {
+		var ret string
+		return ret
 	}
-
-	return false
+	return *o.PublicIP
 }
 
-// GetPublicIP returns the PublicIP field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *KubernetesNodeProperties) GetPublicIP() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.PublicIP
-
-}
-
-// GetPublicIPOk returns a tuple with the PublicIP field value
+// GetPublicIPOk returns a tuple with the PublicIP field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *KubernetesNodeProperties) GetPublicIPOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.PublicIP) {
 		return nil, false
 	}
-
 	return o.PublicIP, true
-}
-
-// SetPublicIP sets field value
-func (o *KubernetesNodeProperties) SetPublicIP(v string) {
-
-	o.PublicIP = &v
-
 }
 
 // HasPublicIP returns a boolean if a field has been set.
 func (o *KubernetesNodeProperties) HasPublicIP() bool {
-	if o != nil && o.PublicIP != nil {
+	if o != nil && !IsNil(o.PublicIP) {
 		return true
 	}
 
 	return false
 }
 
-// GetPrivateIP returns the PrivateIP field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *KubernetesNodeProperties) GetPrivateIP() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.PrivateIP
-
+// SetPublicIP gets a reference to the given string and assigns it to the PublicIP field.
+func (o *KubernetesNodeProperties) SetPublicIP(v string) {
+	o.PublicIP = &v
 }
 
-// GetPrivateIPOk returns a tuple with the PrivateIP field value
+// GetPrivateIP returns the PrivateIP field value if set, zero value otherwise.
+func (o *KubernetesNodeProperties) GetPrivateIP() string {
+	if o == nil || IsNil(o.PrivateIP) {
+		var ret string
+		return ret
+	}
+	return *o.PrivateIP
+}
+
+// GetPrivateIPOk returns a tuple with the PrivateIP field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *KubernetesNodeProperties) GetPrivateIPOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.PrivateIP) {
 		return nil, false
 	}
-
 	return o.PrivateIP, true
-}
-
-// SetPrivateIP sets field value
-func (o *KubernetesNodeProperties) SetPrivateIP(v string) {
-
-	o.PrivateIP = &v
-
 }
 
 // HasPrivateIP returns a boolean if a field has been set.
 func (o *KubernetesNodeProperties) HasPrivateIP() bool {
-	if o != nil && o.PrivateIP != nil {
+	if o != nil && !IsNil(o.PrivateIP) {
 		return true
 	}
 
 	return false
 }
 
+// SetPrivateIP gets a reference to the given string and assigns it to the PrivateIP field.
+func (o *KubernetesNodeProperties) SetPrivateIP(v string) {
+	o.PrivateIP = &v
+}
+
 // GetK8sVersion returns the K8sVersion field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *KubernetesNodeProperties) GetK8sVersion() *string {
+func (o *KubernetesNodeProperties) GetK8sVersion() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.K8sVersion
-
 }
 
 // GetK8sVersionOk returns a tuple with the K8sVersion field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *KubernetesNodeProperties) GetK8sVersionOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.K8sVersion, true
+	return &o.K8sVersion, true
 }
 
 // SetK8sVersion sets field value
 func (o *KubernetesNodeProperties) SetK8sVersion(v string) {
-
-	o.K8sVersion = &v
-
-}
-
-// HasK8sVersion returns a boolean if a field has been set.
-func (o *KubernetesNodeProperties) HasK8sVersion() bool {
-	if o != nil && o.K8sVersion != nil {
-		return true
-	}
-
-	return false
+	o.K8sVersion = v
 }
 
 func (o KubernetesNodeProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o KubernetesNodeProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsZero(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-
-	if o.PublicIP != nil {
+	if !IsNil(o.PublicIP) {
 		toSerialize["publicIP"] = o.PublicIP
 	}
-
-	if o.PrivateIP != nil {
+	if !IsNil(o.PrivateIP) {
 		toSerialize["privateIP"] = o.PrivateIP
 	}
-
-	if o.K8sVersion != nil {
+	if !IsZero(o.K8sVersion) {
 		toSerialize["k8sVersion"] = o.K8sVersion
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableKubernetesNodeProperties struct {

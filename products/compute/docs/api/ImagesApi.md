@@ -8,7 +8,7 @@ All URIs are relative to *https://api.ionos.com/cloudapi/v6*
 |[**ImagesFindById**](ImagesApi.md#ImagesFindById) | **Get** /images/{imageId} | Retrieve images|
 |[**ImagesGet**](ImagesApi.md#ImagesGet) | **Get** /images | List images|
 |[**ImagesPatch**](ImagesApi.md#ImagesPatch) | **Patch** /images/{imageId} | Partially modify images|
-|[**ImagesPut**](ImagesApi.md#ImagesPut) | **Put** /images/{imageId} | Modify images|
+|[**ImagesPut**](ImagesApi.md#ImagesPut) | **Put** /images/{imageId} | Modify an Image by ID|
 
 
 
@@ -48,7 +48,7 @@ func main() {
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
-    resource, resp, err := apiClient.ImagesApi.ImagesDelete(context.Background(), imageId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    resp, err := apiClient.ImagesApi.ImagesDelete(context.Background(), imageId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.ImagesDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -323,7 +323,7 @@ var result Image = ImagesPut(ctx, imageId)
                       .Execute()
 ```
 
-Modify images
+Modify an Image by ID
 
 
 

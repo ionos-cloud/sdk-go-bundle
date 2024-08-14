@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,11 +14,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserPut type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserPut{}
+
 // UserPut struct for UserPut
 type UserPut struct {
 	// The resource's unique identifier.
-	Id         *string            `json:"id,omitempty"`
-	Properties *UserPropertiesPut `json:"properties"`
+	Id         *string           `json:"id,omitempty"`
+	Properties UserPropertiesPut `json:"properties"`
 }
 
 // NewUserPut instantiates a new UserPut object
@@ -28,7 +31,7 @@ type UserPut struct {
 func NewUserPut(properties UserPropertiesPut) *UserPut {
 	this := UserPut{}
 
-	this.Properties = &properties
+	this.Properties = properties
 
 	return &this
 }
@@ -41,93 +44,79 @@ func NewUserPutWithDefaults() *UserPut {
 	return &this
 }
 
-// GetId returns the Id field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *UserPut) GetId() *string {
-	if o == nil {
-		return nil
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *UserPut) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
 	}
-
-	return o.Id
-
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UserPut) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-
 	return o.Id, true
-}
-
-// SetId sets field value
-func (o *UserPut) SetId(v string) {
-
-	o.Id = &v
-
 }
 
 // HasId returns a boolean if a field has been set.
 func (o *UserPut) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
 	return false
 }
 
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *UserPut) SetId(v string) {
+	o.Id = &v
+}
+
 // GetProperties returns the Properties field value
-// If the value is explicit nil, the zero value for UserPropertiesPut will be returned
-func (o *UserPut) GetProperties() *UserPropertiesPut {
+func (o *UserPut) GetProperties() UserPropertiesPut {
 	if o == nil {
-		return nil
+		var ret UserPropertiesPut
+		return ret
 	}
 
 	return o.Properties
-
 }
 
 // GetPropertiesOk returns a tuple with the Properties field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UserPut) GetPropertiesOk() (*UserPropertiesPut, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Properties, true
+	return &o.Properties, true
 }
 
 // SetProperties sets field value
 func (o *UserPut) SetProperties(v UserPropertiesPut) {
-
-	o.Properties = &v
-
-}
-
-// HasProperties returns a boolean if a field has been set.
-func (o *UserPut) HasProperties() bool {
-	if o != nil && o.Properties != nil {
-		return true
-	}
-
-	return false
+	o.Properties = v
 }
 
 func (o UserPut) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserPut) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-
-	if o.Properties != nil {
+	if !IsZero(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableUserPut struct {

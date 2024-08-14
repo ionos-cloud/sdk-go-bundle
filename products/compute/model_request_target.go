@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the RequestTarget type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestTarget{}
 
 // RequestTarget struct for RequestTarget
 type RequestTarget struct {
@@ -38,93 +41,87 @@ func NewRequestTargetWithDefaults() *RequestTarget {
 	return &this
 }
 
-// GetTarget returns the Target field value
-// If the value is explicit nil, the zero value for ResourceReference will be returned
-func (o *RequestTarget) GetTarget() *ResourceReference {
-	if o == nil {
-		return nil
+// GetTarget returns the Target field value if set, zero value otherwise.
+func (o *RequestTarget) GetTarget() ResourceReference {
+	if o == nil || IsNil(o.Target) {
+		var ret ResourceReference
+		return ret
 	}
-
-	return o.Target
-
+	return *o.Target
 }
 
-// GetTargetOk returns a tuple with the Target field value
+// GetTargetOk returns a tuple with the Target field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RequestTarget) GetTargetOk() (*ResourceReference, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Target) {
 		return nil, false
 	}
-
 	return o.Target, true
-}
-
-// SetTarget sets field value
-func (o *RequestTarget) SetTarget(v ResourceReference) {
-
-	o.Target = &v
-
 }
 
 // HasTarget returns a boolean if a field has been set.
 func (o *RequestTarget) HasTarget() bool {
-	if o != nil && o.Target != nil {
+	if o != nil && !IsNil(o.Target) {
 		return true
 	}
 
 	return false
 }
 
-// GetStatus returns the Status field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *RequestTarget) GetStatus() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Status
-
+// SetTarget gets a reference to the given ResourceReference and assigns it to the Target field.
+func (o *RequestTarget) SetTarget(v ResourceReference) {
+	o.Target = &v
 }
 
-// GetStatusOk returns a tuple with the Status field value
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *RequestTarget) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RequestTarget) GetStatusOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
-
 	return o.Status, true
-}
-
-// SetStatus sets field value
-func (o *RequestTarget) SetStatus(v string) {
-
-	o.Status = &v
-
 }
 
 // HasStatus returns a boolean if a field has been set.
 func (o *RequestTarget) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
 	return false
 }
 
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *RequestTarget) SetStatus(v string) {
+	o.Status = &v
+}
+
 func (o RequestTarget) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestTarget) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Target != nil {
+	if !IsNil(o.Target) {
 		toSerialize["target"] = o.Target
 	}
-
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableRequestTarget struct {

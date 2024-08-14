@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,9 +14,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserPost type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserPost{}
+
 // UserPost struct for UserPost
 type UserPost struct {
-	Properties *UserPropertiesPost `json:"properties"`
+	Properties UserPropertiesPost `json:"properties"`
 }
 
 // NewUserPost instantiates a new UserPost object
@@ -26,7 +29,7 @@ type UserPost struct {
 func NewUserPost(properties UserPropertiesPost) *UserPost {
 	this := UserPost{}
 
-	this.Properties = &properties
+	this.Properties = properties
 
 	return &this
 }
@@ -40,50 +43,43 @@ func NewUserPostWithDefaults() *UserPost {
 }
 
 // GetProperties returns the Properties field value
-// If the value is explicit nil, the zero value for UserPropertiesPost will be returned
-func (o *UserPost) GetProperties() *UserPropertiesPost {
+func (o *UserPost) GetProperties() UserPropertiesPost {
 	if o == nil {
-		return nil
+		var ret UserPropertiesPost
+		return ret
 	}
 
 	return o.Properties
-
 }
 
 // GetPropertiesOk returns a tuple with the Properties field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UserPost) GetPropertiesOk() (*UserPropertiesPost, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Properties, true
+	return &o.Properties, true
 }
 
 // SetProperties sets field value
 func (o *UserPost) SetProperties(v UserPropertiesPost) {
-
-	o.Properties = &v
-
-}
-
-// HasProperties returns a boolean if a field has been set.
-func (o *UserPost) HasProperties() bool {
-	if o != nil && o.Properties != nil {
-		return true
-	}
-
-	return false
+	o.Properties = v
 }
 
 func (o UserPost) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserPost) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Properties != nil {
+	if !IsZero(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableUserPost struct {

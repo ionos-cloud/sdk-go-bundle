@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the NetworkLoadBalancerForwardingRuleTargetHealthCheck type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NetworkLoadBalancerForwardingRuleTargetHealthCheck{}
 
 // NetworkLoadBalancerForwardingRuleTargetHealthCheck struct for NetworkLoadBalancerForwardingRuleTargetHealthCheck
 type NetworkLoadBalancerForwardingRuleTargetHealthCheck struct {
@@ -42,135 +45,122 @@ func NewNetworkLoadBalancerForwardingRuleTargetHealthCheckWithDefaults() *Networ
 	return &this
 }
 
-// GetCheck returns the Check field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *NetworkLoadBalancerForwardingRuleTargetHealthCheck) GetCheck() *bool {
-	if o == nil {
-		return nil
+// GetCheck returns the Check field value if set, zero value otherwise.
+func (o *NetworkLoadBalancerForwardingRuleTargetHealthCheck) GetCheck() bool {
+	if o == nil || IsNil(o.Check) {
+		var ret bool
+		return ret
 	}
-
-	return o.Check
-
+	return *o.Check
 }
 
-// GetCheckOk returns a tuple with the Check field value
+// GetCheckOk returns a tuple with the Check field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NetworkLoadBalancerForwardingRuleTargetHealthCheck) GetCheckOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Check) {
 		return nil, false
 	}
-
 	return o.Check, true
-}
-
-// SetCheck sets field value
-func (o *NetworkLoadBalancerForwardingRuleTargetHealthCheck) SetCheck(v bool) {
-
-	o.Check = &v
-
 }
 
 // HasCheck returns a boolean if a field has been set.
 func (o *NetworkLoadBalancerForwardingRuleTargetHealthCheck) HasCheck() bool {
-	if o != nil && o.Check != nil {
+	if o != nil && !IsNil(o.Check) {
 		return true
 	}
 
 	return false
 }
 
-// GetCheckInterval returns the CheckInterval field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *NetworkLoadBalancerForwardingRuleTargetHealthCheck) GetCheckInterval() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.CheckInterval
-
+// SetCheck gets a reference to the given bool and assigns it to the Check field.
+func (o *NetworkLoadBalancerForwardingRuleTargetHealthCheck) SetCheck(v bool) {
+	o.Check = &v
 }
 
-// GetCheckIntervalOk returns a tuple with the CheckInterval field value
+// GetCheckInterval returns the CheckInterval field value if set, zero value otherwise.
+func (o *NetworkLoadBalancerForwardingRuleTargetHealthCheck) GetCheckInterval() int32 {
+	if o == nil || IsNil(o.CheckInterval) {
+		var ret int32
+		return ret
+	}
+	return *o.CheckInterval
+}
+
+// GetCheckIntervalOk returns a tuple with the CheckInterval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NetworkLoadBalancerForwardingRuleTargetHealthCheck) GetCheckIntervalOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CheckInterval) {
 		return nil, false
 	}
-
 	return o.CheckInterval, true
-}
-
-// SetCheckInterval sets field value
-func (o *NetworkLoadBalancerForwardingRuleTargetHealthCheck) SetCheckInterval(v int32) {
-
-	o.CheckInterval = &v
-
 }
 
 // HasCheckInterval returns a boolean if a field has been set.
 func (o *NetworkLoadBalancerForwardingRuleTargetHealthCheck) HasCheckInterval() bool {
-	if o != nil && o.CheckInterval != nil {
+	if o != nil && !IsNil(o.CheckInterval) {
 		return true
 	}
 
 	return false
 }
 
-// GetMaintenance returns the Maintenance field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *NetworkLoadBalancerForwardingRuleTargetHealthCheck) GetMaintenance() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.Maintenance
-
+// SetCheckInterval gets a reference to the given int32 and assigns it to the CheckInterval field.
+func (o *NetworkLoadBalancerForwardingRuleTargetHealthCheck) SetCheckInterval(v int32) {
+	o.CheckInterval = &v
 }
 
-// GetMaintenanceOk returns a tuple with the Maintenance field value
+// GetMaintenance returns the Maintenance field value if set, zero value otherwise.
+func (o *NetworkLoadBalancerForwardingRuleTargetHealthCheck) GetMaintenance() bool {
+	if o == nil || IsNil(o.Maintenance) {
+		var ret bool
+		return ret
+	}
+	return *o.Maintenance
+}
+
+// GetMaintenanceOk returns a tuple with the Maintenance field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NetworkLoadBalancerForwardingRuleTargetHealthCheck) GetMaintenanceOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Maintenance) {
 		return nil, false
 	}
-
 	return o.Maintenance, true
-}
-
-// SetMaintenance sets field value
-func (o *NetworkLoadBalancerForwardingRuleTargetHealthCheck) SetMaintenance(v bool) {
-
-	o.Maintenance = &v
-
 }
 
 // HasMaintenance returns a boolean if a field has been set.
 func (o *NetworkLoadBalancerForwardingRuleTargetHealthCheck) HasMaintenance() bool {
-	if o != nil && o.Maintenance != nil {
+	if o != nil && !IsNil(o.Maintenance) {
 		return true
 	}
 
 	return false
 }
 
+// SetMaintenance gets a reference to the given bool and assigns it to the Maintenance field.
+func (o *NetworkLoadBalancerForwardingRuleTargetHealthCheck) SetMaintenance(v bool) {
+	o.Maintenance = &v
+}
+
 func (o NetworkLoadBalancerForwardingRuleTargetHealthCheck) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o NetworkLoadBalancerForwardingRuleTargetHealthCheck) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Check != nil {
+	if !IsNil(o.Check) {
 		toSerialize["check"] = o.Check
 	}
-
-	if o.CheckInterval != nil {
+	if !IsNil(o.CheckInterval) {
 		toSerialize["checkInterval"] = o.CheckInterval
 	}
-
-	if o.Maintenance != nil {
+	if !IsNil(o.Maintenance) {
 		toSerialize["maintenance"] = o.Maintenance
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableNetworkLoadBalancerForwardingRuleTargetHealthCheck struct {

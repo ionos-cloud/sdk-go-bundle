@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the NetworkLoadBalancerForwardingRuleHealthCheck type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NetworkLoadBalancerForwardingRuleHealthCheck{}
 
 // NetworkLoadBalancerForwardingRuleHealthCheck struct for NetworkLoadBalancerForwardingRuleHealthCheck
 type NetworkLoadBalancerForwardingRuleHealthCheck struct {
@@ -44,177 +47,157 @@ func NewNetworkLoadBalancerForwardingRuleHealthCheckWithDefaults() *NetworkLoadB
 	return &this
 }
 
-// GetClientTimeout returns the ClientTimeout field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *NetworkLoadBalancerForwardingRuleHealthCheck) GetClientTimeout() *int32 {
-	if o == nil {
-		return nil
+// GetClientTimeout returns the ClientTimeout field value if set, zero value otherwise.
+func (o *NetworkLoadBalancerForwardingRuleHealthCheck) GetClientTimeout() int32 {
+	if o == nil || IsNil(o.ClientTimeout) {
+		var ret int32
+		return ret
 	}
-
-	return o.ClientTimeout
-
+	return *o.ClientTimeout
 }
 
-// GetClientTimeoutOk returns a tuple with the ClientTimeout field value
+// GetClientTimeoutOk returns a tuple with the ClientTimeout field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NetworkLoadBalancerForwardingRuleHealthCheck) GetClientTimeoutOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ClientTimeout) {
 		return nil, false
 	}
-
 	return o.ClientTimeout, true
-}
-
-// SetClientTimeout sets field value
-func (o *NetworkLoadBalancerForwardingRuleHealthCheck) SetClientTimeout(v int32) {
-
-	o.ClientTimeout = &v
-
 }
 
 // HasClientTimeout returns a boolean if a field has been set.
 func (o *NetworkLoadBalancerForwardingRuleHealthCheck) HasClientTimeout() bool {
-	if o != nil && o.ClientTimeout != nil {
+	if o != nil && !IsNil(o.ClientTimeout) {
 		return true
 	}
 
 	return false
 }
 
-// GetConnectTimeout returns the ConnectTimeout field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *NetworkLoadBalancerForwardingRuleHealthCheck) GetConnectTimeout() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.ConnectTimeout
-
+// SetClientTimeout gets a reference to the given int32 and assigns it to the ClientTimeout field.
+func (o *NetworkLoadBalancerForwardingRuleHealthCheck) SetClientTimeout(v int32) {
+	o.ClientTimeout = &v
 }
 
-// GetConnectTimeoutOk returns a tuple with the ConnectTimeout field value
+// GetConnectTimeout returns the ConnectTimeout field value if set, zero value otherwise.
+func (o *NetworkLoadBalancerForwardingRuleHealthCheck) GetConnectTimeout() int32 {
+	if o == nil || IsNil(o.ConnectTimeout) {
+		var ret int32
+		return ret
+	}
+	return *o.ConnectTimeout
+}
+
+// GetConnectTimeoutOk returns a tuple with the ConnectTimeout field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NetworkLoadBalancerForwardingRuleHealthCheck) GetConnectTimeoutOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ConnectTimeout) {
 		return nil, false
 	}
-
 	return o.ConnectTimeout, true
-}
-
-// SetConnectTimeout sets field value
-func (o *NetworkLoadBalancerForwardingRuleHealthCheck) SetConnectTimeout(v int32) {
-
-	o.ConnectTimeout = &v
-
 }
 
 // HasConnectTimeout returns a boolean if a field has been set.
 func (o *NetworkLoadBalancerForwardingRuleHealthCheck) HasConnectTimeout() bool {
-	if o != nil && o.ConnectTimeout != nil {
+	if o != nil && !IsNil(o.ConnectTimeout) {
 		return true
 	}
 
 	return false
 }
 
-// GetTargetTimeout returns the TargetTimeout field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *NetworkLoadBalancerForwardingRuleHealthCheck) GetTargetTimeout() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.TargetTimeout
-
+// SetConnectTimeout gets a reference to the given int32 and assigns it to the ConnectTimeout field.
+func (o *NetworkLoadBalancerForwardingRuleHealthCheck) SetConnectTimeout(v int32) {
+	o.ConnectTimeout = &v
 }
 
-// GetTargetTimeoutOk returns a tuple with the TargetTimeout field value
+// GetTargetTimeout returns the TargetTimeout field value if set, zero value otherwise.
+func (o *NetworkLoadBalancerForwardingRuleHealthCheck) GetTargetTimeout() int32 {
+	if o == nil || IsNil(o.TargetTimeout) {
+		var ret int32
+		return ret
+	}
+	return *o.TargetTimeout
+}
+
+// GetTargetTimeoutOk returns a tuple with the TargetTimeout field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NetworkLoadBalancerForwardingRuleHealthCheck) GetTargetTimeoutOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.TargetTimeout) {
 		return nil, false
 	}
-
 	return o.TargetTimeout, true
-}
-
-// SetTargetTimeout sets field value
-func (o *NetworkLoadBalancerForwardingRuleHealthCheck) SetTargetTimeout(v int32) {
-
-	o.TargetTimeout = &v
-
 }
 
 // HasTargetTimeout returns a boolean if a field has been set.
 func (o *NetworkLoadBalancerForwardingRuleHealthCheck) HasTargetTimeout() bool {
-	if o != nil && o.TargetTimeout != nil {
+	if o != nil && !IsNil(o.TargetTimeout) {
 		return true
 	}
 
 	return false
 }
 
-// GetRetries returns the Retries field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *NetworkLoadBalancerForwardingRuleHealthCheck) GetRetries() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.Retries
-
+// SetTargetTimeout gets a reference to the given int32 and assigns it to the TargetTimeout field.
+func (o *NetworkLoadBalancerForwardingRuleHealthCheck) SetTargetTimeout(v int32) {
+	o.TargetTimeout = &v
 }
 
-// GetRetriesOk returns a tuple with the Retries field value
+// GetRetries returns the Retries field value if set, zero value otherwise.
+func (o *NetworkLoadBalancerForwardingRuleHealthCheck) GetRetries() int32 {
+	if o == nil || IsNil(o.Retries) {
+		var ret int32
+		return ret
+	}
+	return *o.Retries
+}
+
+// GetRetriesOk returns a tuple with the Retries field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NetworkLoadBalancerForwardingRuleHealthCheck) GetRetriesOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Retries) {
 		return nil, false
 	}
-
 	return o.Retries, true
-}
-
-// SetRetries sets field value
-func (o *NetworkLoadBalancerForwardingRuleHealthCheck) SetRetries(v int32) {
-
-	o.Retries = &v
-
 }
 
 // HasRetries returns a boolean if a field has been set.
 func (o *NetworkLoadBalancerForwardingRuleHealthCheck) HasRetries() bool {
-	if o != nil && o.Retries != nil {
+	if o != nil && !IsNil(o.Retries) {
 		return true
 	}
 
 	return false
 }
 
+// SetRetries gets a reference to the given int32 and assigns it to the Retries field.
+func (o *NetworkLoadBalancerForwardingRuleHealthCheck) SetRetries(v int32) {
+	o.Retries = &v
+}
+
 func (o NetworkLoadBalancerForwardingRuleHealthCheck) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o NetworkLoadBalancerForwardingRuleHealthCheck) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ClientTimeout != nil {
+	if !IsNil(o.ClientTimeout) {
 		toSerialize["clientTimeout"] = o.ClientTimeout
 	}
-
-	if o.ConnectTimeout != nil {
+	if !IsNil(o.ConnectTimeout) {
 		toSerialize["connectTimeout"] = o.ConnectTimeout
 	}
-
-	if o.TargetTimeout != nil {
+	if !IsNil(o.TargetTimeout) {
 		toSerialize["targetTimeout"] = o.TargetTimeout
 	}
-
-	if o.Retries != nil {
+	if !IsNil(o.Retries) {
 		toSerialize["retries"] = o.Retries
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableNetworkLoadBalancerForwardingRuleHealthCheck struct {

@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,16 +14,19 @@ import (
 	"encoding/json"
 )
 
+// checks if the LocationProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LocationProperties{}
+
 // LocationProperties struct for LocationProperties
 type LocationProperties struct {
-	// The name of the  resource.
+	// The location name.
 	Name *string `json:"name,omitempty"`
-	// List of features supported by the location
-	Features *[]string `json:"features,omitempty"`
-	// List of image aliases available for the location
-	ImageAliases *[]string `json:"imageAliases,omitempty"`
-	// Array of features and CPU families available in a location
-	CpuArchitecture *[]CpuArchitectureProperties `json:"cpuArchitecture,omitempty"`
+	// A list of available features in the location.
+	Features []string `json:"features,omitempty"`
+	// A list of image aliases available in the location.
+	ImageAliases []string `json:"imageAliases,omitempty"`
+	// A list of available CPU types and related resources available in the location.
+	CpuArchitecture []CpuArchitectureProperties `json:"cpuArchitecture,omitempty"`
 }
 
 // NewLocationProperties instantiates a new LocationProperties object
@@ -44,177 +47,157 @@ func NewLocationPropertiesWithDefaults() *LocationProperties {
 	return &this
 }
 
-// GetName returns the Name field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *LocationProperties) GetName() *string {
-	if o == nil {
-		return nil
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *LocationProperties) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
 	}
-
-	return o.Name
-
+	return *o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *LocationProperties) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-
 	return o.Name, true
-}
-
-// SetName sets field value
-func (o *LocationProperties) SetName(v string) {
-
-	o.Name = &v
-
 }
 
 // HasName returns a boolean if a field has been set.
 func (o *LocationProperties) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
 	return false
 }
 
-// GetFeatures returns the Features field value
-// If the value is explicit nil, the zero value for []string will be returned
-func (o *LocationProperties) GetFeatures() *[]string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Features
-
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *LocationProperties) SetName(v string) {
+	o.Name = &v
 }
 
-// GetFeaturesOk returns a tuple with the Features field value
+// GetFeatures returns the Features field value if set, zero value otherwise.
+func (o *LocationProperties) GetFeatures() []string {
+	if o == nil || IsNil(o.Features) {
+		var ret []string
+		return ret
+	}
+	return o.Features
+}
+
+// GetFeaturesOk returns a tuple with the Features field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *LocationProperties) GetFeaturesOk() (*[]string, bool) {
-	if o == nil {
+func (o *LocationProperties) GetFeaturesOk() ([]string, bool) {
+	if o == nil || IsNil(o.Features) {
 		return nil, false
 	}
-
 	return o.Features, true
-}
-
-// SetFeatures sets field value
-func (o *LocationProperties) SetFeatures(v []string) {
-
-	o.Features = &v
-
 }
 
 // HasFeatures returns a boolean if a field has been set.
 func (o *LocationProperties) HasFeatures() bool {
-	if o != nil && o.Features != nil {
+	if o != nil && !IsNil(o.Features) {
 		return true
 	}
 
 	return false
 }
 
-// GetImageAliases returns the ImageAliases field value
-// If the value is explicit nil, the zero value for []string will be returned
-func (o *LocationProperties) GetImageAliases() *[]string {
-	if o == nil {
-		return nil
-	}
-
-	return o.ImageAliases
-
+// SetFeatures gets a reference to the given []string and assigns it to the Features field.
+func (o *LocationProperties) SetFeatures(v []string) {
+	o.Features = v
 }
 
-// GetImageAliasesOk returns a tuple with the ImageAliases field value
+// GetImageAliases returns the ImageAliases field value if set, zero value otherwise.
+func (o *LocationProperties) GetImageAliases() []string {
+	if o == nil || IsNil(o.ImageAliases) {
+		var ret []string
+		return ret
+	}
+	return o.ImageAliases
+}
+
+// GetImageAliasesOk returns a tuple with the ImageAliases field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *LocationProperties) GetImageAliasesOk() (*[]string, bool) {
-	if o == nil {
+func (o *LocationProperties) GetImageAliasesOk() ([]string, bool) {
+	if o == nil || IsNil(o.ImageAliases) {
 		return nil, false
 	}
-
 	return o.ImageAliases, true
-}
-
-// SetImageAliases sets field value
-func (o *LocationProperties) SetImageAliases(v []string) {
-
-	o.ImageAliases = &v
-
 }
 
 // HasImageAliases returns a boolean if a field has been set.
 func (o *LocationProperties) HasImageAliases() bool {
-	if o != nil && o.ImageAliases != nil {
+	if o != nil && !IsNil(o.ImageAliases) {
 		return true
 	}
 
 	return false
 }
 
-// GetCpuArchitecture returns the CpuArchitecture field value
-// If the value is explicit nil, the zero value for []CpuArchitectureProperties will be returned
-func (o *LocationProperties) GetCpuArchitecture() *[]CpuArchitectureProperties {
-	if o == nil {
-		return nil
-	}
-
-	return o.CpuArchitecture
-
+// SetImageAliases gets a reference to the given []string and assigns it to the ImageAliases field.
+func (o *LocationProperties) SetImageAliases(v []string) {
+	o.ImageAliases = v
 }
 
-// GetCpuArchitectureOk returns a tuple with the CpuArchitecture field value
+// GetCpuArchitecture returns the CpuArchitecture field value if set, zero value otherwise.
+func (o *LocationProperties) GetCpuArchitecture() []CpuArchitectureProperties {
+	if o == nil || IsNil(o.CpuArchitecture) {
+		var ret []CpuArchitectureProperties
+		return ret
+	}
+	return o.CpuArchitecture
+}
+
+// GetCpuArchitectureOk returns a tuple with the CpuArchitecture field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *LocationProperties) GetCpuArchitectureOk() (*[]CpuArchitectureProperties, bool) {
-	if o == nil {
+func (o *LocationProperties) GetCpuArchitectureOk() ([]CpuArchitectureProperties, bool) {
+	if o == nil || IsNil(o.CpuArchitecture) {
 		return nil, false
 	}
-
 	return o.CpuArchitecture, true
-}
-
-// SetCpuArchitecture sets field value
-func (o *LocationProperties) SetCpuArchitecture(v []CpuArchitectureProperties) {
-
-	o.CpuArchitecture = &v
-
 }
 
 // HasCpuArchitecture returns a boolean if a field has been set.
 func (o *LocationProperties) HasCpuArchitecture() bool {
-	if o != nil && o.CpuArchitecture != nil {
+	if o != nil && !IsNil(o.CpuArchitecture) {
 		return true
 	}
 
 	return false
 }
 
+// SetCpuArchitecture gets a reference to the given []CpuArchitectureProperties and assigns it to the CpuArchitecture field.
+func (o *LocationProperties) SetCpuArchitecture(v []CpuArchitectureProperties) {
+	o.CpuArchitecture = v
+}
+
 func (o LocationProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LocationProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-
-	if o.Features != nil {
+	if !IsNil(o.Features) {
 		toSerialize["features"] = o.Features
 	}
-
-	if o.ImageAliases != nil {
+	if !IsNil(o.ImageAliases) {
 		toSerialize["imageAliases"] = o.ImageAliases
 	}
-
-	if o.CpuArchitecture != nil {
+	if !IsNil(o.CpuArchitecture) {
 		toSerialize["cpuArchitecture"] = o.CpuArchitecture
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableLocationProperties struct {

@@ -7,30 +7,35 @@ All URIs are relative to *https://api.ionos.com/cloudapi/v6*
 |[**DatacentersLabelsDelete**](LabelsApi.md#DatacentersLabelsDelete) | **Delete** /datacenters/{datacenterId}/labels/{key} | Delete data center labels|
 |[**DatacentersLabelsFindByKey**](LabelsApi.md#DatacentersLabelsFindByKey) | **Get** /datacenters/{datacenterId}/labels/{key} | Retrieve data center labels|
 |[**DatacentersLabelsGet**](LabelsApi.md#DatacentersLabelsGet) | **Get** /datacenters/{datacenterId}/labels | List data center labels|
-|[**DatacentersLabelsPost**](LabelsApi.md#DatacentersLabelsPost) | **Post** /datacenters/{datacenterId}/labels | Create data center labels|
-|[**DatacentersLabelsPut**](LabelsApi.md#DatacentersLabelsPut) | **Put** /datacenters/{datacenterId}/labels/{key} | Modify data center labels|
+|[**DatacentersLabelsPost**](LabelsApi.md#DatacentersLabelsPost) | **Post** /datacenters/{datacenterId}/labels | Create a Data Center Label|
+|[**DatacentersLabelsPut**](LabelsApi.md#DatacentersLabelsPut) | **Put** /datacenters/{datacenterId}/labels/{key} | Modify a Data Center Label by Key|
 |[**DatacentersServersLabelsDelete**](LabelsApi.md#DatacentersServersLabelsDelete) | **Delete** /datacenters/{datacenterId}/servers/{serverId}/labels/{key} | Delete server labels|
 |[**DatacentersServersLabelsFindByKey**](LabelsApi.md#DatacentersServersLabelsFindByKey) | **Get** /datacenters/{datacenterId}/servers/{serverId}/labels/{key} | Retrieve server labels|
 |[**DatacentersServersLabelsGet**](LabelsApi.md#DatacentersServersLabelsGet) | **Get** /datacenters/{datacenterId}/servers/{serverId}/labels | List server labels|
-|[**DatacentersServersLabelsPost**](LabelsApi.md#DatacentersServersLabelsPost) | **Post** /datacenters/{datacenterId}/servers/{serverId}/labels | Create server labels|
-|[**DatacentersServersLabelsPut**](LabelsApi.md#DatacentersServersLabelsPut) | **Put** /datacenters/{datacenterId}/servers/{serverId}/labels/{key} | Modify server labels|
+|[**DatacentersServersLabelsPost**](LabelsApi.md#DatacentersServersLabelsPost) | **Post** /datacenters/{datacenterId}/servers/{serverId}/labels | Create a Server Label|
+|[**DatacentersServersLabelsPut**](LabelsApi.md#DatacentersServersLabelsPut) | **Put** /datacenters/{datacenterId}/servers/{serverId}/labels/{key} | Modify a Server Label|
 |[**DatacentersVolumesLabelsDelete**](LabelsApi.md#DatacentersVolumesLabelsDelete) | **Delete** /datacenters/{datacenterId}/volumes/{volumeId}/labels/{key} | Delete volume labels|
 |[**DatacentersVolumesLabelsFindByKey**](LabelsApi.md#DatacentersVolumesLabelsFindByKey) | **Get** /datacenters/{datacenterId}/volumes/{volumeId}/labels/{key} | Retrieve volume labels|
 |[**DatacentersVolumesLabelsGet**](LabelsApi.md#DatacentersVolumesLabelsGet) | **Get** /datacenters/{datacenterId}/volumes/{volumeId}/labels | List volume labels|
-|[**DatacentersVolumesLabelsPost**](LabelsApi.md#DatacentersVolumesLabelsPost) | **Post** /datacenters/{datacenterId}/volumes/{volumeId}/labels | Create volume labels|
-|[**DatacentersVolumesLabelsPut**](LabelsApi.md#DatacentersVolumesLabelsPut) | **Put** /datacenters/{datacenterId}/volumes/{volumeId}/labels/{key} | Modify volume labels|
+|[**DatacentersVolumesLabelsPost**](LabelsApi.md#DatacentersVolumesLabelsPost) | **Post** /datacenters/{datacenterId}/volumes/{volumeId}/labels | Create a Volume Label|
+|[**DatacentersVolumesLabelsPut**](LabelsApi.md#DatacentersVolumesLabelsPut) | **Put** /datacenters/{datacenterId}/volumes/{volumeId}/labels/{key} | Modify a Volume Label|
+|[**ImagesLabelsDelete**](LabelsApi.md#ImagesLabelsDelete) | **Delete** /images/{imageId}/labels/{key} | Delete image label|
+|[**ImagesLabelsFindByKey**](LabelsApi.md#ImagesLabelsFindByKey) | **Get** /images/{imageId}/labels/{key} | Retrieve image labels|
+|[**ImagesLabelsGet**](LabelsApi.md#ImagesLabelsGet) | **Get** /images/{imageId}/labels | List image labels|
+|[**ImagesLabelsPost**](LabelsApi.md#ImagesLabelsPost) | **Post** /images/{imageId}/labels | Create an Image Label|
+|[**ImagesLabelsPut**](LabelsApi.md#ImagesLabelsPut) | **Put** /images/{imageId}/labels/{key} | Modify an Image Label by Key|
 |[**IpblocksLabelsDelete**](LabelsApi.md#IpblocksLabelsDelete) | **Delete** /ipblocks/{ipblockId}/labels/{key} | Delete IP block labels|
 |[**IpblocksLabelsFindByKey**](LabelsApi.md#IpblocksLabelsFindByKey) | **Get** /ipblocks/{ipblockId}/labels/{key} | Retrieve IP block labels|
 |[**IpblocksLabelsGet**](LabelsApi.md#IpblocksLabelsGet) | **Get** /ipblocks/{ipblockId}/labels | List IP block labels|
 |[**IpblocksLabelsPost**](LabelsApi.md#IpblocksLabelsPost) | **Post** /ipblocks/{ipblockId}/labels | Create IP block labels|
-|[**IpblocksLabelsPut**](LabelsApi.md#IpblocksLabelsPut) | **Put** /ipblocks/{ipblockId}/labels/{key} | Modify IP block labels|
+|[**IpblocksLabelsPut**](LabelsApi.md#IpblocksLabelsPut) | **Put** /ipblocks/{ipblockId}/labels/{key} | Modify a IP Block Label by ID|
 |[**LabelsFindByUrn**](LabelsApi.md#LabelsFindByUrn) | **Get** /labels/{labelurn} | Retrieve labels by URN|
 |[**LabelsGet**](LabelsApi.md#LabelsGet) | **Get** /labels | List labels |
 |[**SnapshotsLabelsDelete**](LabelsApi.md#SnapshotsLabelsDelete) | **Delete** /snapshots/{snapshotId}/labels/{key} | Delete snapshot labels|
 |[**SnapshotsLabelsFindByKey**](LabelsApi.md#SnapshotsLabelsFindByKey) | **Get** /snapshots/{snapshotId}/labels/{key} | Retrieve snapshot labels|
 |[**SnapshotsLabelsGet**](LabelsApi.md#SnapshotsLabelsGet) | **Get** /snapshots/{snapshotId}/labels | List snapshot labels|
-|[**SnapshotsLabelsPost**](LabelsApi.md#SnapshotsLabelsPost) | **Post** /snapshots/{snapshotId}/labels | Create snapshot labels|
-|[**SnapshotsLabelsPut**](LabelsApi.md#SnapshotsLabelsPut) | **Put** /snapshots/{snapshotId}/labels/{key} | Modify snapshot labels|
+|[**SnapshotsLabelsPost**](LabelsApi.md#SnapshotsLabelsPost) | **Post** /snapshots/{snapshotId}/labels | Create a Snapshot Label|
+|[**SnapshotsLabelsPut**](LabelsApi.md#SnapshotsLabelsPut) | **Put** /snapshots/{snapshotId}/labels/{key} | Modify a Snapshot Label by ID|
 
 
 
@@ -71,7 +76,7 @@ func main() {
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
-    resource, resp, err := apiClient.LabelsApi.DatacentersLabelsDelete(context.Background(), datacenterId, key).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    resp, err := apiClient.LabelsApi.DatacentersLabelsDelete(context.Background(), datacenterId, key).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `LabelsApi.DatacentersLabelsDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -275,7 +280,7 @@ var result LabelResource = DatacentersLabelsPost(ctx, datacenterId)
                       .Execute()
 ```
 
-Create data center labels
+Create a Data Center Label
 
 
 
@@ -354,7 +359,7 @@ var result LabelResource = DatacentersLabelsPut(ctx, datacenterId, key)
                       .Execute()
 ```
 
-Modify data center labels
+Modify a Data Center Label by Key
 
 
 
@@ -462,7 +467,7 @@ func main() {
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
-    resource, resp, err := apiClient.LabelsApi.DatacentersServersLabelsDelete(context.Background(), datacenterId, serverId, key).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    resp, err := apiClient.LabelsApi.DatacentersServersLabelsDelete(context.Background(), datacenterId, serverId, key).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `LabelsApi.DatacentersServersLabelsDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -671,7 +676,7 @@ var result LabelResource = DatacentersServersLabelsPost(ctx, datacenterId, serve
                       .Execute()
 ```
 
-Create server labels
+Create a Server Label
 
 
 
@@ -752,7 +757,7 @@ var result LabelResource = DatacentersServersLabelsPut(ctx, datacenterId, server
                       .Execute()
 ```
 
-Modify server labels
+Modify a Server Label
 
 
 
@@ -862,7 +867,7 @@ func main() {
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
-    resource, resp, err := apiClient.LabelsApi.DatacentersVolumesLabelsDelete(context.Background(), datacenterId, volumeId, key).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    resp, err := apiClient.LabelsApi.DatacentersVolumesLabelsDelete(context.Background(), datacenterId, volumeId, key).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `LabelsApi.DatacentersVolumesLabelsDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -1071,7 +1076,7 @@ var result LabelResource = DatacentersVolumesLabelsPost(ctx, datacenterId, volum
                       .Execute()
 ```
 
-Create volume labels
+Create a Volume Label
 
 
 
@@ -1152,7 +1157,7 @@ var result LabelResource = DatacentersVolumesLabelsPut(ctx, datacenterId, volume
                       .Execute()
 ```
 
-Modify volume labels
+Modify a Volume Label
 
 
 
@@ -1224,6 +1229,396 @@ Other parameters are passed through a pointer to an apiDatacentersVolumesLabelsP
 
 
 
+## ImagesLabelsDelete
+
+```go
+var result  = ImagesLabelsDelete(ctx, imageId, key)
+                      .Pretty(pretty)
+                      .Depth(depth)
+                      .XContractNumber(xContractNumber)
+                      .Execute()
+```
+
+Delete image label
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
+)
+
+func main() {
+    imageId := "imageId_example" // string | The unique ID of the image.
+    key := "key_example" // string | The label key
+    pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
+    depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
+    xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
+
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resp, err := apiClient.LabelsApi.ImagesLabelsDelete(context.Background(), imageId, key).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `LabelsApi.ImagesLabelsDelete``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
+    }
+}
+```
+
+### Path Parameters
+
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+|**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
+|**imageId** | **string** | The unique ID of the image. | |
+|**key** | **string** | The label key | |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to an apiImagesLabelsDeleteRequest struct via the builder pattern
+
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
+| **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
+| **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
+
+### Return type
+
+ (empty response body)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+
+## ImagesLabelsFindByKey
+
+```go
+var result LabelResource = ImagesLabelsFindByKey(ctx, imageId, key)
+                      .Pretty(pretty)
+                      .Depth(depth)
+                      .XContractNumber(xContractNumber)
+                      .Execute()
+```
+
+Retrieve image labels
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
+)
+
+func main() {
+    imageId := "imageId_example" // string | The unique ID of the image.
+    key := "key_example" // string | The label key
+    pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
+    depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
+    xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
+
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.LabelsApi.ImagesLabelsFindByKey(context.Background(), imageId, key).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `LabelsApi.ImagesLabelsFindByKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
+    }
+    // response from `ImagesLabelsFindByKey`: LabelResource
+    fmt.Fprintf(os.Stdout, "Response from `LabelsApi.ImagesLabelsFindByKey`: %v\n", resource)
+}
+```
+
+### Path Parameters
+
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+|**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
+|**imageId** | **string** | The unique ID of the image. | |
+|**key** | **string** | The label key | |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to an apiImagesLabelsFindByKeyRequest struct via the builder pattern
+
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
+| **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
+| **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
+
+### Return type
+
+[**LabelResource**](../models/LabelResource.md)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+
+## ImagesLabelsGet
+
+```go
+var result LabelResources = ImagesLabelsGet(ctx, imageId)
+                      .Pretty(pretty)
+                      .Depth(depth)
+                      .XContractNumber(xContractNumber)
+                      .Execute()
+```
+
+List image labels
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
+)
+
+func main() {
+    imageId := "imageId_example" // string | The unique ID of the image.
+    pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
+    depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
+    xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
+
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.LabelsApi.ImagesLabelsGet(context.Background(), imageId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `LabelsApi.ImagesLabelsGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
+    }
+    // response from `ImagesLabelsGet`: LabelResources
+    fmt.Fprintf(os.Stdout, "Response from `LabelsApi.ImagesLabelsGet`: %v\n", resource)
+}
+```
+
+### Path Parameters
+
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+|**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
+|**imageId** | **string** | The unique ID of the image. | |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to an apiImagesLabelsGetRequest struct via the builder pattern
+
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
+| **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
+| **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
+
+### Return type
+
+[**LabelResources**](../models/LabelResources.md)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+
+## ImagesLabelsPost
+
+```go
+var result LabelResource = ImagesLabelsPost(ctx, imageId)
+                      .Label(label)
+                      .Pretty(pretty)
+                      .Depth(depth)
+                      .XContractNumber(xContractNumber)
+                      .Execute()
+```
+
+Create an Image Label
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
+)
+
+func main() {
+    imageId := "imageId_example" // string | The unique ID of the image
+    label := *openapiclient.NewLabelResource(*openapiclient.NewLabelResourceProperties()) // LabelResource | The label to create.
+    pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
+    depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
+    xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
+
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.LabelsApi.ImagesLabelsPost(context.Background(), imageId).Label(label).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `LabelsApi.ImagesLabelsPost``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
+    }
+    // response from `ImagesLabelsPost`: LabelResource
+    fmt.Fprintf(os.Stdout, "Response from `LabelsApi.ImagesLabelsPost`: %v\n", resource)
+}
+```
+
+### Path Parameters
+
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+|**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
+|**imageId** | **string** | The unique ID of the image | |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to an apiImagesLabelsPostRequest struct via the builder pattern
+
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **label** | [**LabelResource**](../models/LabelResource.md) | The label to create. | |
+| **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
+| **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
+| **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
+
+### Return type
+
+[**LabelResource**](../models/LabelResource.md)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+
+## ImagesLabelsPut
+
+```go
+var result LabelResource = ImagesLabelsPut(ctx, imageId, key)
+                      .Label(label)
+                      .Pretty(pretty)
+                      .Depth(depth)
+                      .XContractNumber(xContractNumber)
+                      .Execute()
+```
+
+Modify an Image Label by Key
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+
+    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
+)
+
+func main() {
+    imageId := "imageId_example" // string | The unique ID of the image.
+    key := "key_example" // string | The label key
+    label := *openapiclient.NewLabelResource(*openapiclient.NewLabelResourceProperties()) // LabelResource | The modified label
+    pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
+    depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
+    xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
+
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := compute.NewAPIClient(configuration)
+    resource, resp, err := apiClient.LabelsApi.ImagesLabelsPut(context.Background(), imageId, key).Label(label).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `LabelsApi.ImagesLabelsPut``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
+    }
+    // response from `ImagesLabelsPut`: LabelResource
+    fmt.Fprintf(os.Stdout, "Response from `LabelsApi.ImagesLabelsPut`: %v\n", resource)
+}
+```
+
+### Path Parameters
+
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+|**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
+|**imageId** | **string** | The unique ID of the image. | |
+|**key** | **string** | The label key | |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to an apiImagesLabelsPutRequest struct via the builder pattern
+
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **label** | [**LabelResource**](../models/LabelResource.md) | The modified label | |
+| **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
+| **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
+| **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
+
+### Return type
+
+[**LabelResource**](../models/LabelResource.md)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+
 ## IpblocksLabelsDelete
 
 ```go
@@ -1261,7 +1656,7 @@ func main() {
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
-    resource, resp, err := apiClient.LabelsApi.IpblocksLabelsDelete(context.Background(), ipblockId, key).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    resp, err := apiClient.LabelsApi.IpblocksLabelsDelete(context.Background(), ipblockId, key).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `LabelsApi.IpblocksLabelsDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -1544,7 +1939,7 @@ var result LabelResource = IpblocksLabelsPut(ctx, ipblockId, key)
                       .Execute()
 ```
 
-Modify IP block labels
+Modify a IP Block Label by ID
 
 
 
@@ -1798,7 +2193,7 @@ func main() {
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
-    resource, resp, err := apiClient.LabelsApi.SnapshotsLabelsDelete(context.Background(), snapshotId, key).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    resp, err := apiClient.LabelsApi.SnapshotsLabelsDelete(context.Background(), snapshotId, key).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `LabelsApi.SnapshotsLabelsDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -2002,7 +2397,7 @@ var result LabelResource = SnapshotsLabelsPost(ctx, snapshotId)
                       .Execute()
 ```
 
-Create snapshot labels
+Create a Snapshot Label
 
 
 
@@ -2081,7 +2476,7 @@ var result LabelResource = SnapshotsLabelsPut(ctx, snapshotId, key)
                       .Execute()
 ```
 
-Modify snapshot labels
+Modify a Snapshot Label by ID
 
 
 

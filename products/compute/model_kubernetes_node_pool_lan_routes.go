@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the KubernetesNodePoolLanRoutes type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KubernetesNodePoolLanRoutes{}
 
 // KubernetesNodePoolLanRoutes struct for KubernetesNodePoolLanRoutes
 type KubernetesNodePoolLanRoutes struct {
@@ -40,93 +43,87 @@ func NewKubernetesNodePoolLanRoutesWithDefaults() *KubernetesNodePoolLanRoutes {
 	return &this
 }
 
-// GetNetwork returns the Network field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *KubernetesNodePoolLanRoutes) GetNetwork() *string {
-	if o == nil {
-		return nil
+// GetNetwork returns the Network field value if set, zero value otherwise.
+func (o *KubernetesNodePoolLanRoutes) GetNetwork() string {
+	if o == nil || IsNil(o.Network) {
+		var ret string
+		return ret
 	}
-
-	return o.Network
-
+	return *o.Network
 }
 
-// GetNetworkOk returns a tuple with the Network field value
+// GetNetworkOk returns a tuple with the Network field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *KubernetesNodePoolLanRoutes) GetNetworkOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Network) {
 		return nil, false
 	}
-
 	return o.Network, true
-}
-
-// SetNetwork sets field value
-func (o *KubernetesNodePoolLanRoutes) SetNetwork(v string) {
-
-	o.Network = &v
-
 }
 
 // HasNetwork returns a boolean if a field has been set.
 func (o *KubernetesNodePoolLanRoutes) HasNetwork() bool {
-	if o != nil && o.Network != nil {
+	if o != nil && !IsNil(o.Network) {
 		return true
 	}
 
 	return false
 }
 
-// GetGatewayIp returns the GatewayIp field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *KubernetesNodePoolLanRoutes) GetGatewayIp() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.GatewayIp
-
+// SetNetwork gets a reference to the given string and assigns it to the Network field.
+func (o *KubernetesNodePoolLanRoutes) SetNetwork(v string) {
+	o.Network = &v
 }
 
-// GetGatewayIpOk returns a tuple with the GatewayIp field value
+// GetGatewayIp returns the GatewayIp field value if set, zero value otherwise.
+func (o *KubernetesNodePoolLanRoutes) GetGatewayIp() string {
+	if o == nil || IsNil(o.GatewayIp) {
+		var ret string
+		return ret
+	}
+	return *o.GatewayIp
+}
+
+// GetGatewayIpOk returns a tuple with the GatewayIp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *KubernetesNodePoolLanRoutes) GetGatewayIpOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.GatewayIp) {
 		return nil, false
 	}
-
 	return o.GatewayIp, true
-}
-
-// SetGatewayIp sets field value
-func (o *KubernetesNodePoolLanRoutes) SetGatewayIp(v string) {
-
-	o.GatewayIp = &v
-
 }
 
 // HasGatewayIp returns a boolean if a field has been set.
 func (o *KubernetesNodePoolLanRoutes) HasGatewayIp() bool {
-	if o != nil && o.GatewayIp != nil {
+	if o != nil && !IsNil(o.GatewayIp) {
 		return true
 	}
 
 	return false
 }
 
+// SetGatewayIp gets a reference to the given string and assigns it to the GatewayIp field.
+func (o *KubernetesNodePoolLanRoutes) SetGatewayIp(v string) {
+	o.GatewayIp = &v
+}
+
 func (o KubernetesNodePoolLanRoutes) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o KubernetesNodePoolLanRoutes) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Network != nil {
+	if !IsNil(o.Network) {
 		toSerialize["network"] = o.Network
 	}
-
-	if o.GatewayIp != nil {
+	if !IsNil(o.GatewayIp) {
 		toSerialize["gatewayIp"] = o.GatewayIp
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableKubernetesNodePoolLanRoutes struct {

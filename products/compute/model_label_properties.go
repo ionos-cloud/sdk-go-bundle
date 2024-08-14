@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the LabelProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LabelProperties{}
 
 // LabelProperties struct for LabelProperties
 type LabelProperties struct {
@@ -46,219 +49,192 @@ func NewLabelPropertiesWithDefaults() *LabelProperties {
 	return &this
 }
 
-// GetKey returns the Key field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *LabelProperties) GetKey() *string {
-	if o == nil {
-		return nil
+// GetKey returns the Key field value if set, zero value otherwise.
+func (o *LabelProperties) GetKey() string {
+	if o == nil || IsNil(o.Key) {
+		var ret string
+		return ret
 	}
-
-	return o.Key
-
+	return *o.Key
 }
 
-// GetKeyOk returns a tuple with the Key field value
+// GetKeyOk returns a tuple with the Key field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *LabelProperties) GetKeyOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Key) {
 		return nil, false
 	}
-
 	return o.Key, true
-}
-
-// SetKey sets field value
-func (o *LabelProperties) SetKey(v string) {
-
-	o.Key = &v
-
 }
 
 // HasKey returns a boolean if a field has been set.
 func (o *LabelProperties) HasKey() bool {
-	if o != nil && o.Key != nil {
+	if o != nil && !IsNil(o.Key) {
 		return true
 	}
 
 	return false
 }
 
-// GetValue returns the Value field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *LabelProperties) GetValue() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Value
-
+// SetKey gets a reference to the given string and assigns it to the Key field.
+func (o *LabelProperties) SetKey(v string) {
+	o.Key = &v
 }
 
-// GetValueOk returns a tuple with the Value field value
+// GetValue returns the Value field value if set, zero value otherwise.
+func (o *LabelProperties) GetValue() string {
+	if o == nil || IsNil(o.Value) {
+		var ret string
+		return ret
+	}
+	return *o.Value
+}
+
+// GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *LabelProperties) GetValueOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
-
 	return o.Value, true
-}
-
-// SetValue sets field value
-func (o *LabelProperties) SetValue(v string) {
-
-	o.Value = &v
-
 }
 
 // HasValue returns a boolean if a field has been set.
 func (o *LabelProperties) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
 	return false
 }
 
-// GetResourceId returns the ResourceId field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *LabelProperties) GetResourceId() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.ResourceId
-
+// SetValue gets a reference to the given string and assigns it to the Value field.
+func (o *LabelProperties) SetValue(v string) {
+	o.Value = &v
 }
 
-// GetResourceIdOk returns a tuple with the ResourceId field value
+// GetResourceId returns the ResourceId field value if set, zero value otherwise.
+func (o *LabelProperties) GetResourceId() string {
+	if o == nil || IsNil(o.ResourceId) {
+		var ret string
+		return ret
+	}
+	return *o.ResourceId
+}
+
+// GetResourceIdOk returns a tuple with the ResourceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *LabelProperties) GetResourceIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ResourceId) {
 		return nil, false
 	}
-
 	return o.ResourceId, true
-}
-
-// SetResourceId sets field value
-func (o *LabelProperties) SetResourceId(v string) {
-
-	o.ResourceId = &v
-
 }
 
 // HasResourceId returns a boolean if a field has been set.
 func (o *LabelProperties) HasResourceId() bool {
-	if o != nil && o.ResourceId != nil {
+	if o != nil && !IsNil(o.ResourceId) {
 		return true
 	}
 
 	return false
 }
 
-// GetResourceType returns the ResourceType field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *LabelProperties) GetResourceType() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.ResourceType
-
+// SetResourceId gets a reference to the given string and assigns it to the ResourceId field.
+func (o *LabelProperties) SetResourceId(v string) {
+	o.ResourceId = &v
 }
 
-// GetResourceTypeOk returns a tuple with the ResourceType field value
+// GetResourceType returns the ResourceType field value if set, zero value otherwise.
+func (o *LabelProperties) GetResourceType() string {
+	if o == nil || IsNil(o.ResourceType) {
+		var ret string
+		return ret
+	}
+	return *o.ResourceType
+}
+
+// GetResourceTypeOk returns a tuple with the ResourceType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *LabelProperties) GetResourceTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ResourceType) {
 		return nil, false
 	}
-
 	return o.ResourceType, true
-}
-
-// SetResourceType sets field value
-func (o *LabelProperties) SetResourceType(v string) {
-
-	o.ResourceType = &v
-
 }
 
 // HasResourceType returns a boolean if a field has been set.
 func (o *LabelProperties) HasResourceType() bool {
-	if o != nil && o.ResourceType != nil {
+	if o != nil && !IsNil(o.ResourceType) {
 		return true
 	}
 
 	return false
 }
 
-// GetResourceHref returns the ResourceHref field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *LabelProperties) GetResourceHref() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.ResourceHref
-
+// SetResourceType gets a reference to the given string and assigns it to the ResourceType field.
+func (o *LabelProperties) SetResourceType(v string) {
+	o.ResourceType = &v
 }
 
-// GetResourceHrefOk returns a tuple with the ResourceHref field value
+// GetResourceHref returns the ResourceHref field value if set, zero value otherwise.
+func (o *LabelProperties) GetResourceHref() string {
+	if o == nil || IsNil(o.ResourceHref) {
+		var ret string
+		return ret
+	}
+	return *o.ResourceHref
+}
+
+// GetResourceHrefOk returns a tuple with the ResourceHref field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *LabelProperties) GetResourceHrefOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ResourceHref) {
 		return nil, false
 	}
-
 	return o.ResourceHref, true
-}
-
-// SetResourceHref sets field value
-func (o *LabelProperties) SetResourceHref(v string) {
-
-	o.ResourceHref = &v
-
 }
 
 // HasResourceHref returns a boolean if a field has been set.
 func (o *LabelProperties) HasResourceHref() bool {
-	if o != nil && o.ResourceHref != nil {
+	if o != nil && !IsNil(o.ResourceHref) {
 		return true
 	}
 
 	return false
 }
 
+// SetResourceHref gets a reference to the given string and assigns it to the ResourceHref field.
+func (o *LabelProperties) SetResourceHref(v string) {
+	o.ResourceHref = &v
+}
+
 func (o LabelProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LabelProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Key != nil {
+	if !IsNil(o.Key) {
 		toSerialize["key"] = o.Key
 	}
-
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
-
-	if o.ResourceId != nil {
+	if !IsNil(o.ResourceId) {
 		toSerialize["resourceId"] = o.ResourceId
 	}
-
-	if o.ResourceType != nil {
+	if !IsNil(o.ResourceType) {
 		toSerialize["resourceType"] = o.ResourceType
 	}
-
-	if o.ResourceHref != nil {
+	if !IsNil(o.ResourceHref) {
 		toSerialize["resourceHref"] = o.ResourceHref
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableLabelProperties struct {

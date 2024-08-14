@@ -7,9 +7,9 @@ All URIs are relative to *https://api.ionos.com/cloudapi/v6*
 |[**DatacentersDelete**](DataCentersApi.md#DatacentersDelete) | **Delete** /datacenters/{datacenterId} | Delete data centers|
 |[**DatacentersFindById**](DataCentersApi.md#DatacentersFindById) | **Get** /datacenters/{datacenterId} | Retrieve data centers|
 |[**DatacentersGet**](DataCentersApi.md#DatacentersGet) | **Get** /datacenters | List your data centers|
-|[**DatacentersPatch**](DataCentersApi.md#DatacentersPatch) | **Patch** /datacenters/{datacenterId} | Partially modify data centers|
-|[**DatacentersPost**](DataCentersApi.md#DatacentersPost) | **Post** /datacenters | Create data centers|
-|[**DatacentersPut**](DataCentersApi.md#DatacentersPut) | **Put** /datacenters/{datacenterId} | Modify data centers|
+|[**DatacentersPatch**](DataCentersApi.md#DatacentersPatch) | **Patch** /datacenters/{datacenterId} | Partially modify a Data Center by ID|
+|[**DatacentersPost**](DataCentersApi.md#DatacentersPost) | **Post** /datacenters | Create a Data Center|
+|[**DatacentersPut**](DataCentersApi.md#DatacentersPut) | **Put** /datacenters/{datacenterId} | Modify a Data Center by ID|
 
 
 
@@ -49,7 +49,7 @@ func main() {
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
-    resource, resp, err := apiClient.DataCentersApi.DatacentersDelete(context.Background(), datacenterId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    resp, err := apiClient.DataCentersApi.DatacentersDelete(context.Background(), datacenterId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DataCentersApi.DatacentersDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -251,7 +251,7 @@ var result Datacenter = DatacentersPatch(ctx, datacenterId)
                       .Execute()
 ```
 
-Partially modify data centers
+Partially modify a Data Center by ID
 
 
 
@@ -330,7 +330,7 @@ var result Datacenter = DatacentersPost(ctx)
                       .Execute()
 ```
 
-Create data centers
+Create a Data Center
 
 
 
@@ -404,7 +404,7 @@ var result Datacenter = DatacentersPut(ctx, datacenterId)
                       .Execute()
 ```
 
-Modify data centers
+Modify a Data Center by ID
 
 
 

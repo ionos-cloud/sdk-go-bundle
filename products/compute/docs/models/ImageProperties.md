@@ -4,10 +4,10 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Name** | Pointer to **string** | The name of the  resource. | [optional] |
+|**Name** | Pointer to **string** | The resource name. | [optional] |
 |**Description** | Pointer to **string** | Human-readable description. | [optional] |
-|**Location** | Pointer to **string** | Location of that image/snapshot.  | [optional] [readonly] |
-|**Size** | Pointer to **float32** | The size of the image in GB. | [optional] [readonly] |
+|**Location** | Pointer to **string** | The location of this image/snapshot. | [optional] [readonly] |
+|**Size** | Pointer to **float32** | The image size in GB. | [optional] [readonly] |
 |**CpuHotPlug** | Pointer to **bool** | Hot-plug capable CPU (no reboot required). | [optional] |
 |**CpuHotUnplug** | Pointer to **bool** | Hot-unplug capable CPU (no reboot required). | [optional] |
 |**RamHotPlug** | Pointer to **bool** | Hot-plug capable RAM (no reboot required). | [optional] |
@@ -18,10 +18,11 @@
 |**DiscVirtioHotUnplug** | Pointer to **bool** | Hot-unplug capable Virt-IO drive (no reboot required). Not supported with Windows VMs. | [optional] |
 |**DiscScsiHotPlug** | Pointer to **bool** | Hot-plug capable SCSI drive (no reboot required). | [optional] |
 |**DiscScsiHotUnplug** | Pointer to **bool** | Hot-unplug capable SCSI drive (no reboot required). Not supported with Windows VMs. | [optional] |
-|**LicenceType** | **string** | OS type for this image. | |
+|**ExposeSerial** | Pointer to **bool** | If set to &#x60;true&#x60; will expose the serial id of the disk attached to the server. If set to &#x60;false&#x60; will not expose the serial id. Some operating systems or software solutions require the serial id to be exposed to work properly. Exposing the serial  can influence licensed software (e.g. Windows) behavior | [optional] [default to false]|
+|**LicenceType** | **string** | The OS type of this image. | |
 |**ImageType** | Pointer to **string** | The image type. | [optional] [readonly] |
 |**Public** | Pointer to **bool** | Indicates whether the image is part of a public repository. | [optional] [readonly] |
-|**ImageAliases** | Pointer to **[]string** | List of image aliases mapped for this Image | [optional] [readonly] |
+|**ImageAliases** | Pointer to **[]string** | List of image aliases mapped for this image | [optional] [readonly] |
 |**CloudInit** | Pointer to **string** | Cloud init compatibility. | [optional] |
 
 ## Methods
@@ -392,6 +393,31 @@ SetDiscScsiHotUnplug sets DiscScsiHotUnplug field to given value.
 `func (o *ImageProperties) HasDiscScsiHotUnplug() bool`
 
 HasDiscScsiHotUnplug returns a boolean if a field has been set.
+
+### GetExposeSerial
+
+`func (o *ImageProperties) GetExposeSerial() bool`
+
+GetExposeSerial returns the ExposeSerial field if non-nil, zero value otherwise.
+
+### GetExposeSerialOk
+
+`func (o *ImageProperties) GetExposeSerialOk() (*bool, bool)`
+
+GetExposeSerialOk returns a tuple with the ExposeSerial field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExposeSerial
+
+`func (o *ImageProperties) SetExposeSerial(v bool)`
+
+SetExposeSerial sets ExposeSerial field to given value.
+
+### HasExposeSerial
+
+`func (o *ImageProperties) HasExposeSerial() bool`
+
+HasExposeSerial returns a boolean if a field has been set.
 
 ### GetLicenceType
 

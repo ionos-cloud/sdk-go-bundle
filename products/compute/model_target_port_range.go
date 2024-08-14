@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the TargetPortRange type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TargetPortRange{}
 
 // TargetPortRange struct for TargetPortRange
 type TargetPortRange struct {
@@ -40,93 +43,87 @@ func NewTargetPortRangeWithDefaults() *TargetPortRange {
 	return &this
 }
 
-// GetStart returns the Start field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *TargetPortRange) GetStart() *int32 {
-	if o == nil {
-		return nil
+// GetStart returns the Start field value if set, zero value otherwise.
+func (o *TargetPortRange) GetStart() int32 {
+	if o == nil || IsNil(o.Start) {
+		var ret int32
+		return ret
 	}
-
-	return o.Start
-
+	return *o.Start
 }
 
-// GetStartOk returns a tuple with the Start field value
+// GetStartOk returns a tuple with the Start field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TargetPortRange) GetStartOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Start) {
 		return nil, false
 	}
-
 	return o.Start, true
-}
-
-// SetStart sets field value
-func (o *TargetPortRange) SetStart(v int32) {
-
-	o.Start = &v
-
 }
 
 // HasStart returns a boolean if a field has been set.
 func (o *TargetPortRange) HasStart() bool {
-	if o != nil && o.Start != nil {
+	if o != nil && !IsNil(o.Start) {
 		return true
 	}
 
 	return false
 }
 
-// GetEnd returns the End field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *TargetPortRange) GetEnd() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.End
-
+// SetStart gets a reference to the given int32 and assigns it to the Start field.
+func (o *TargetPortRange) SetStart(v int32) {
+	o.Start = &v
 }
 
-// GetEndOk returns a tuple with the End field value
+// GetEnd returns the End field value if set, zero value otherwise.
+func (o *TargetPortRange) GetEnd() int32 {
+	if o == nil || IsNil(o.End) {
+		var ret int32
+		return ret
+	}
+	return *o.End
+}
+
+// GetEndOk returns a tuple with the End field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TargetPortRange) GetEndOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.End) {
 		return nil, false
 	}
-
 	return o.End, true
-}
-
-// SetEnd sets field value
-func (o *TargetPortRange) SetEnd(v int32) {
-
-	o.End = &v
-
 }
 
 // HasEnd returns a boolean if a field has been set.
 func (o *TargetPortRange) HasEnd() bool {
-	if o != nil && o.End != nil {
+	if o != nil && !IsNil(o.End) {
 		return true
 	}
 
 	return false
 }
 
+// SetEnd gets a reference to the given int32 and assigns it to the End field.
+func (o *TargetPortRange) SetEnd(v int32) {
+	o.End = &v
+}
+
 func (o TargetPortRange) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TargetPortRange) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Start != nil {
+	if !IsNil(o.Start) {
 		toSerialize["start"] = o.Start
 	}
-
-	if o.End != nil {
+	if !IsNil(o.End) {
 		toSerialize["end"] = o.End
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableTargetPortRange struct {

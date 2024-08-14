@@ -8,7 +8,7 @@ All URIs are relative to *https://api.ionos.com/cloudapi/v6*
 |[**SnapshotsFindById**](SnapshotsApi.md#SnapshotsFindById) | **Get** /snapshots/{snapshotId} | Retrieve snapshots by ID|
 |[**SnapshotsGet**](SnapshotsApi.md#SnapshotsGet) | **Get** /snapshots | List snapshots|
 |[**SnapshotsPatch**](SnapshotsApi.md#SnapshotsPatch) | **Patch** /snapshots/{snapshotId} | Partially modify snapshots|
-|[**SnapshotsPut**](SnapshotsApi.md#SnapshotsPut) | **Put** /snapshots/{snapshotId} | Modify snapshots|
+|[**SnapshotsPut**](SnapshotsApi.md#SnapshotsPut) | **Put** /snapshots/{snapshotId} | Modify a Snapshot by ID|
 
 
 
@@ -48,7 +48,7 @@ func main() {
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
-    resource, resp, err := apiClient.SnapshotsApi.SnapshotsDelete(context.Background(), snapshotId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    resp, err := apiClient.SnapshotsApi.SnapshotsDelete(context.Background(), snapshotId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SnapshotsApi.SnapshotsDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -323,7 +323,7 @@ var result Snapshot = SnapshotsPut(ctx, snapshotId)
                       .Execute()
 ```
 
-Modify snapshots
+Modify a Snapshot by ID
 
 
 

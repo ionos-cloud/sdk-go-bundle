@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,7 +14,7 @@ import (
 	_context "context"
 	"fmt"
 	"github.com/ionos-cloud/sdk-go-bundle/shared"
-	_ioutil "io/ioutil"
+	"io"
 	_nethttp "net/http"
 	_neturl "net/url"
 	"strings"
@@ -89,17 +89,17 @@ func (a *SnapshotsApiService) SnapshotsDeleteExecute(r ApiSnapshotsDeleteRequest
 	}
 
 	localVarPath := localBasePath + "/snapshots/{snapshotId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"snapshotId"+"}", _neturl.PathEscape(parameterToString(r.snapshotId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"snapshotId"+"}", _neturl.PathEscape(parameterValueToString(r.snapshotId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -120,12 +120,12 @@ func (a *SnapshotsApiService) SnapshotsDeleteExecute(r ApiSnapshotsDeleteRequest
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -155,7 +155,7 @@ func (a *SnapshotsApiService) SnapshotsDeleteExecute(r ApiSnapshotsDeleteRequest
 		return localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -243,17 +243,17 @@ func (a *SnapshotsApiService) SnapshotsFindByIdExecute(r ApiSnapshotsFindByIdReq
 	}
 
 	localVarPath := localBasePath + "/snapshots/{snapshotId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"snapshotId"+"}", _neturl.PathEscape(parameterToString(r.snapshotId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"snapshotId"+"}", _neturl.PathEscape(parameterValueToString(r.snapshotId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -274,12 +274,12 @@ func (a *SnapshotsApiService) SnapshotsFindByIdExecute(r ApiSnapshotsFindByIdReq
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -309,7 +309,7 @@ func (a *SnapshotsApiService) SnapshotsFindByIdExecute(r ApiSnapshotsFindByIdReq
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -432,10 +432,10 @@ func (a *SnapshotsApiService) SnapshotsGetExecute(r ApiSnapshotsGetRequest) (Sna
 	localVarFormParams := _neturl.Values{}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 	if r.orderBy != nil {
 		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
@@ -469,12 +469,12 @@ func (a *SnapshotsApiService) SnapshotsGetExecute(r ApiSnapshotsGetRequest) (Sna
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -504,7 +504,7 @@ func (a *SnapshotsApiService) SnapshotsGetExecute(r ApiSnapshotsGetRequest) (Sna
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -606,7 +606,7 @@ func (a *SnapshotsApiService) SnapshotsPatchExecute(r ApiSnapshotsPatchRequest) 
 	}
 
 	localVarPath := localBasePath + "/snapshots/{snapshotId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"snapshotId"+"}", _neturl.PathEscape(parameterToString(r.snapshotId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"snapshotId"+"}", _neturl.PathEscape(parameterValueToString(r.snapshotId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -616,10 +616,10 @@ func (a *SnapshotsApiService) SnapshotsPatchExecute(r ApiSnapshotsPatchRequest) 
 	}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -640,14 +640,14 @@ func (a *SnapshotsApiService) SnapshotsPatchExecute(r ApiSnapshotsPatchRequest) 
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	// body params
 	localVarPostBody = r.snapshot
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -677,7 +677,7 @@ func (a *SnapshotsApiService) SnapshotsPatchExecute(r ApiSnapshotsPatchRequest) 
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -743,8 +743,8 @@ func (r ApiSnapshotsPutRequest) Execute() (Snapshot, *shared.APIResponse, error)
 }
 
 /*
- * SnapshotsPut Modify snapshots
- * Modify the properties of the specified snapshot.
+ * SnapshotsPut Modify a Snapshot by ID
+ * Modifies the properties of the specified snapshot.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param snapshotId The unique ID of the snapshot.
  * @return ApiSnapshotsPutRequest
@@ -779,7 +779,7 @@ func (a *SnapshotsApiService) SnapshotsPutExecute(r ApiSnapshotsPutRequest) (Sna
 	}
 
 	localVarPath := localBasePath + "/snapshots/{snapshotId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"snapshotId"+"}", _neturl.PathEscape(parameterToString(r.snapshotId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"snapshotId"+"}", _neturl.PathEscape(parameterValueToString(r.snapshotId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -789,10 +789,10 @@ func (a *SnapshotsApiService) SnapshotsPutExecute(r ApiSnapshotsPutRequest) (Sna
 	}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -813,14 +813,14 @@ func (a *SnapshotsApiService) SnapshotsPutExecute(r ApiSnapshotsPutRequest) (Sna
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	// body params
 	localVarPostBody = r.snapshot
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -850,7 +850,7 @@ func (a *SnapshotsApiService) SnapshotsPutExecute(r ApiSnapshotsPutRequest) (Sna
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {

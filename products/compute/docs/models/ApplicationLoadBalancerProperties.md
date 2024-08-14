@@ -4,11 +4,13 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Name** | **string** | The name of the Application Load Balancer. | |
-|**ListenerLan** | **int32** | ID of the listening (inbound) LAN. | |
-|**Ips** | Pointer to **[]string** | Collection of the Application Load Balancer IP addresses. (Inbound and outbound) IPs of the listenerLan are customer-reserved public IPs for the public Load Balancers, and private IPs for the private Load Balancers. | [optional] |
-|**TargetLan** | **int32** | ID of the balanced private target LAN (outbound). | |
+|**Name** | **string** | The Application Load Balancer name. | |
+|**ListenerLan** | **int32** | The ID of the listening (inbound) LAN. | |
+|**Ips** | Pointer to **[]string** | Collection of the Application Load Balancer IP addresses. (Inbound and outbound) IPs of the &#39;listenerLan&#39; are customer-reserved public IPs for the public load balancers, and private IPs for the private load balancers. | [optional] |
+|**TargetLan** | **int32** | The ID of the balanced private target LAN (outbound). | |
 |**LbPrivateIps** | Pointer to **[]string** | Collection of private IP addresses with the subnet mask of the Application Load Balancer. IPs must contain valid a subnet mask. If no IP is provided, the system will generate an IP with /24 subnet. | [optional] |
+|**CentralLogging** | Pointer to **bool** | Turn logging on and off for this product. Default value is &#39;false&#39;. | [optional] |
+|**LoggingFormat** | Pointer to **string** | Specifies the format of the logs. | [optional] |
 
 ## Methods
 
@@ -138,5 +140,55 @@ SetLbPrivateIps sets LbPrivateIps field to given value.
 `func (o *ApplicationLoadBalancerProperties) HasLbPrivateIps() bool`
 
 HasLbPrivateIps returns a boolean if a field has been set.
+
+### GetCentralLogging
+
+`func (o *ApplicationLoadBalancerProperties) GetCentralLogging() bool`
+
+GetCentralLogging returns the CentralLogging field if non-nil, zero value otherwise.
+
+### GetCentralLoggingOk
+
+`func (o *ApplicationLoadBalancerProperties) GetCentralLoggingOk() (*bool, bool)`
+
+GetCentralLoggingOk returns a tuple with the CentralLogging field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCentralLogging
+
+`func (o *ApplicationLoadBalancerProperties) SetCentralLogging(v bool)`
+
+SetCentralLogging sets CentralLogging field to given value.
+
+### HasCentralLogging
+
+`func (o *ApplicationLoadBalancerProperties) HasCentralLogging() bool`
+
+HasCentralLogging returns a boolean if a field has been set.
+
+### GetLoggingFormat
+
+`func (o *ApplicationLoadBalancerProperties) GetLoggingFormat() string`
+
+GetLoggingFormat returns the LoggingFormat field if non-nil, zero value otherwise.
+
+### GetLoggingFormatOk
+
+`func (o *ApplicationLoadBalancerProperties) GetLoggingFormatOk() (*string, bool)`
+
+GetLoggingFormatOk returns a tuple with the LoggingFormat field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLoggingFormat
+
+`func (o *ApplicationLoadBalancerProperties) SetLoggingFormat(v string)`
+
+SetLoggingFormat sets LoggingFormat field to given value.
+
+### HasLoggingFormat
+
+`func (o *ApplicationLoadBalancerProperties) HasLoggingFormat() bool`
+
+HasLoggingFormat returns a boolean if a field has been set.
 
 

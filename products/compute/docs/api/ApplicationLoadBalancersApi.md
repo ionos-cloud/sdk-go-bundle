@@ -4,24 +4,24 @@ All URIs are relative to *https://api.ionos.com/cloudapi/v6*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**DatacentersApplicationloadbalancersDelete**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersDelete) | **Delete** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId} | Delete Application Load Balancers|
-|[**DatacentersApplicationloadbalancersFindByApplicationLoadBalancerId**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersFindByApplicationLoadBalancerId) | **Get** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId} | Retrieve Application Load Balancers|
-|[**DatacentersApplicationloadbalancersFlowlogsDelete**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersFlowlogsDelete) | **Delete** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId}/flowlogs/{flowLogId} | Delete ALB Flow Logs|
-|[**DatacentersApplicationloadbalancersFlowlogsFindByFlowLogId**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersFlowlogsFindByFlowLogId) | **Get** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId}/flowlogs/{flowLogId} | Retrieve ALB Flow Logs|
-|[**DatacentersApplicationloadbalancersFlowlogsGet**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersFlowlogsGet) | **Get** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId}/flowlogs | List ALB Flow Logs|
-|[**DatacentersApplicationloadbalancersFlowlogsPatch**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersFlowlogsPatch) | **Patch** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId}/flowlogs/{flowLogId} | Partially modify ALB Flow Logs|
-|[**DatacentersApplicationloadbalancersFlowlogsPost**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersFlowlogsPost) | **Post** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId}/flowlogs | Create ALB Flow Logs|
-|[**DatacentersApplicationloadbalancersFlowlogsPut**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersFlowlogsPut) | **Put** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId}/flowlogs/{flowLogId} | Modify ALB Flow Logs|
-|[**DatacentersApplicationloadbalancersForwardingrulesDelete**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersForwardingrulesDelete) | **Delete** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId}/forwardingrules/{forwardingRuleId} | Delete ALB forwarding rules|
-|[**DatacentersApplicationloadbalancersForwardingrulesFindByForwardingRuleId**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersForwardingrulesFindByForwardingRuleId) | **Get** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId}/forwardingrules/{forwardingRuleId} | Retrieve ALB forwarding rules|
-|[**DatacentersApplicationloadbalancersForwardingrulesGet**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersForwardingrulesGet) | **Get** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId}/forwardingrules | List ALB forwarding rules|
-|[**DatacentersApplicationloadbalancersForwardingrulesPatch**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersForwardingrulesPatch) | **Patch** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId}/forwardingrules/{forwardingRuleId} | Partially modify ALB forwarding rules|
-|[**DatacentersApplicationloadbalancersForwardingrulesPost**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersForwardingrulesPost) | **Post** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId}/forwardingrules | Create ALB forwarding rules|
-|[**DatacentersApplicationloadbalancersForwardingrulesPut**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersForwardingrulesPut) | **Put** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId}/forwardingrules/{forwardingRuleId} | Modify ALB forwarding rules|
-|[**DatacentersApplicationloadbalancersGet**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersGet) | **Get** /datacenters/{datacenterId}/applicationloadbalancers | List Application Load Balancers|
-|[**DatacentersApplicationloadbalancersPatch**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersPatch) | **Patch** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId} | Partially modify Application Load Balancers|
-|[**DatacentersApplicationloadbalancersPost**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersPost) | **Post** /datacenters/{datacenterId}/applicationloadbalancers | Create Application Load Balancers|
-|[**DatacentersApplicationloadbalancersPut**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersPut) | **Put** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId} | Modify Application Load Balancers|
+|[**DatacentersApplicationloadbalancersDelete**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersDelete) | **Delete** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId} | Delete an Application Load Balancer by ID|
+|[**DatacentersApplicationloadbalancersFindByApplicationLoadBalancerId**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersFindByApplicationLoadBalancerId) | **Get** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId} | Get an Application Load Balancer by ID|
+|[**DatacentersApplicationloadbalancersFlowlogsDelete**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersFlowlogsDelete) | **Delete** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId}/flowlogs/{flowLogId} | Delete an ALB Flow Log by ID|
+|[**DatacentersApplicationloadbalancersFlowlogsFindByFlowLogId**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersFlowlogsFindByFlowLogId) | **Get** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId}/flowlogs/{flowLogId} | Get an ALB Flow Log by ID|
+|[**DatacentersApplicationloadbalancersFlowlogsGet**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersFlowlogsGet) | **Get** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId}/flowlogs | Get ALB Flow Logs|
+|[**DatacentersApplicationloadbalancersFlowlogsPatch**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersFlowlogsPatch) | **Patch** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId}/flowlogs/{flowLogId} | Partially Modify an ALB Flow Log by ID|
+|[**DatacentersApplicationloadbalancersFlowlogsPost**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersFlowlogsPost) | **Post** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId}/flowlogs | Create an ALB Flow Log|
+|[**DatacentersApplicationloadbalancersFlowlogsPut**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersFlowlogsPut) | **Put** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId}/flowlogs/{flowLogId} | Modify an ALB Flow Log by ID|
+|[**DatacentersApplicationloadbalancersForwardingrulesDelete**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersForwardingrulesDelete) | **Delete** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId}/forwardingrules/{forwardingRuleId} | Delete an ALB Forwarding Rule by ID|
+|[**DatacentersApplicationloadbalancersForwardingrulesFindByForwardingRuleId**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersForwardingrulesFindByForwardingRuleId) | **Get** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId}/forwardingrules/{forwardingRuleId} | Get an ALB Forwarding Rule by ID|
+|[**DatacentersApplicationloadbalancersForwardingrulesGet**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersForwardingrulesGet) | **Get** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId}/forwardingrules | Get ALB Forwarding Rules|
+|[**DatacentersApplicationloadbalancersForwardingrulesPatch**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersForwardingrulesPatch) | **Patch** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId}/forwardingrules/{forwardingRuleId} | Partially modify an ALB Forwarding Rule by ID|
+|[**DatacentersApplicationloadbalancersForwardingrulesPost**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersForwardingrulesPost) | **Post** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId}/forwardingrules | Create an ALB Forwarding Rule|
+|[**DatacentersApplicationloadbalancersForwardingrulesPut**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersForwardingrulesPut) | **Put** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId}/forwardingrules/{forwardingRuleId} | Modify an ALB Forwarding Rule by ID|
+|[**DatacentersApplicationloadbalancersGet**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersGet) | **Get** /datacenters/{datacenterId}/applicationloadbalancers | Get Application Load Balancers|
+|[**DatacentersApplicationloadbalancersPatch**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersPatch) | **Patch** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId} | Partially Modify an Application Load Balancer by ID|
+|[**DatacentersApplicationloadbalancersPost**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersPost) | **Post** /datacenters/{datacenterId}/applicationloadbalancers | Create an Application Load Balancer|
+|[**DatacentersApplicationloadbalancersPut**](ApplicationLoadBalancersApi.md#DatacentersApplicationloadbalancersPut) | **Put** /datacenters/{datacenterId}/applicationloadbalancers/{applicationLoadBalancerId} | Modify an Application Load Balancer by ID|
 
 
 
@@ -35,7 +35,7 @@ var result  = DatacentersApplicationloadbalancersDelete(ctx, datacenterId, appli
                       .Execute()
 ```
 
-Delete Application Load Balancers
+Delete an Application Load Balancer by ID
 
 
 
@@ -62,7 +62,7 @@ func main() {
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
-    resource, resp, err := apiClient.ApplicationLoadBalancersApi.DatacentersApplicationloadbalancersDelete(context.Background(), datacenterId, applicationLoadBalancerId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    resp, err := apiClient.ApplicationLoadBalancersApi.DatacentersApplicationloadbalancersDelete(context.Background(), datacenterId, applicationLoadBalancerId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ApplicationLoadBalancersApi.DatacentersApplicationloadbalancersDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -111,7 +111,7 @@ var result ApplicationLoadBalancer = DatacentersApplicationloadbalancersFindByAp
                       .Execute()
 ```
 
-Retrieve Application Load Balancers
+Get an Application Load Balancer by ID
 
 
 
@@ -189,7 +189,7 @@ var result  = DatacentersApplicationloadbalancersFlowlogsDelete(ctx, datacenterI
                       .Execute()
 ```
 
-Delete ALB Flow Logs
+Delete an ALB Flow Log by ID
 
 
 
@@ -210,14 +210,14 @@ import (
 func main() {
     datacenterId := "datacenterId_example" // string | The unique ID of the data center.
     applicationLoadBalancerId := "applicationLoadBalancerId_example" // string | The unique ID of the Application Load Balancer.
-    flowLogId := "flowLogId_example" // string | The unique ID of the Flow Log.
+    flowLogId := "flowLogId_example" // string | The unique ID of the flow log.
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
-    resource, resp, err := apiClient.ApplicationLoadBalancersApi.DatacentersApplicationloadbalancersFlowlogsDelete(context.Background(), datacenterId, applicationLoadBalancerId, flowLogId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    resp, err := apiClient.ApplicationLoadBalancersApi.DatacentersApplicationloadbalancersFlowlogsDelete(context.Background(), datacenterId, applicationLoadBalancerId, flowLogId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ApplicationLoadBalancersApi.DatacentersApplicationloadbalancersFlowlogsDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -233,7 +233,7 @@ func main() {
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
 |**datacenterId** | **string** | The unique ID of the data center. | |
 |**applicationLoadBalancerId** | **string** | The unique ID of the Application Load Balancer. | |
-|**flowLogId** | **string** | The unique ID of the Flow Log. | |
+|**flowLogId** | **string** | The unique ID of the flow log. | |
 
 ### Other Parameters
 
@@ -267,7 +267,7 @@ var result FlowLog = DatacentersApplicationloadbalancersFlowlogsFindByFlowLogId(
                       .Execute()
 ```
 
-Retrieve ALB Flow Logs
+Get an ALB Flow Log by ID
 
 
 
@@ -288,7 +288,7 @@ import (
 func main() {
     datacenterId := "datacenterId_example" // string | The unique ID of the data center.
     applicationLoadBalancerId := "applicationLoadBalancerId_example" // string | The unique ID of the Application Load Balancer.
-    flowLogId := "flowLogId_example" // string | The unique ID of the Flow Log.
+    flowLogId := "flowLogId_example" // string | The unique ID of the flow log.
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
@@ -313,7 +313,7 @@ func main() {
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
 |**datacenterId** | **string** | The unique ID of the data center. | |
 |**applicationLoadBalancerId** | **string** | The unique ID of the Application Load Balancer. | |
-|**flowLogId** | **string** | The unique ID of the Flow Log. | |
+|**flowLogId** | **string** | The unique ID of the flow log. | |
 
 ### Other Parameters
 
@@ -347,7 +347,7 @@ var result FlowLogs = DatacentersApplicationloadbalancersFlowlogsGet(ctx, datace
                       .Execute()
 ```
 
-List ALB Flow Logs
+Get ALB Flow Logs
 
 
 
@@ -426,7 +426,7 @@ var result FlowLog = DatacentersApplicationloadbalancersFlowlogsPatch(ctx, datac
                       .Execute()
 ```
 
-Partially modify ALB Flow Logs
+Partially Modify an ALB Flow Log by ID
 
 
 
@@ -447,8 +447,8 @@ import (
 func main() {
     datacenterId := "datacenterId_example" // string | The unique ID of the data center.
     applicationLoadBalancerId := "applicationLoadBalancerId_example" // string | The unique ID of the Application Load Balancer.
-    flowLogId := "flowLogId_example" // string | The unique ID of the Flow Log.
-    applicationLoadBalancerFlowLogProperties := *openapiclient.NewFlowLogProperties("My resource", "ACCEPTED", "INGRESS", "bucketName/key") // FlowLogProperties | The properties of the ALB Flow Log to be updated.
+    flowLogId := "flowLogId_example" // string | The unique ID of the flow log.
+    applicationLoadBalancerFlowLogProperties := *openapiclient.NewFlowLogProperties("My resource", "ACCEPTED", "INGRESS", "bucketName/key") // FlowLogProperties | The properties of the ALB flow log to be updated.
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
@@ -473,7 +473,7 @@ func main() {
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
 |**datacenterId** | **string** | The unique ID of the data center. | |
 |**applicationLoadBalancerId** | **string** | The unique ID of the Application Load Balancer. | |
-|**flowLogId** | **string** | The unique ID of the Flow Log. | |
+|**flowLogId** | **string** | The unique ID of the flow log. | |
 
 ### Other Parameters
 
@@ -482,7 +482,7 @@ Other parameters are passed through a pointer to an apiDatacentersApplicationloa
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **applicationLoadBalancerFlowLogProperties** | [**FlowLogProperties**](../models/FlowLogProperties.md) | The properties of the ALB Flow Log to be updated. | |
+| **applicationLoadBalancerFlowLogProperties** | [**FlowLogProperties**](../models/FlowLogProperties.md) | The properties of the ALB flow log to be updated. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
@@ -509,7 +509,7 @@ var result FlowLog = DatacentersApplicationloadbalancersFlowlogsPost(ctx, datace
                       .Execute()
 ```
 
-Create ALB Flow Logs
+Create an ALB Flow Log
 
 
 
@@ -530,7 +530,7 @@ import (
 func main() {
     datacenterId := "datacenterId_example" // string | The unique ID of the data center.
     applicationLoadBalancerId := "applicationLoadBalancerId_example" // string | The unique ID of the Application Load Balancer.
-    applicationLoadBalancerFlowLog := *openapiclient.NewFlowLog(*openapiclient.NewFlowLogProperties("My resource", "ACCEPTED", "INGRESS", "bucketName/key")) // FlowLog | The Flow Log to create.
+    applicationLoadBalancerFlowLog := *openapiclient.NewFlowLog(*openapiclient.NewFlowLogProperties("My resource", "ACCEPTED", "INGRESS", "bucketName/key")) // FlowLog | The flow log to create.
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
@@ -563,7 +563,7 @@ Other parameters are passed through a pointer to an apiDatacentersApplicationloa
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **applicationLoadBalancerFlowLog** | [**FlowLog**](../models/FlowLog.md) | The Flow Log to create. | |
+| **applicationLoadBalancerFlowLog** | [**FlowLog**](../models/FlowLog.md) | The flow log to create. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
@@ -590,7 +590,7 @@ var result FlowLog = DatacentersApplicationloadbalancersFlowlogsPut(ctx, datacen
                       .Execute()
 ```
 
-Modify ALB Flow Logs
+Modify an ALB Flow Log by ID
 
 
 
@@ -611,8 +611,8 @@ import (
 func main() {
     datacenterId := "datacenterId_example" // string | The unique ID of the data center.
     applicationLoadBalancerId := "applicationLoadBalancerId_example" // string | The unique ID of the Application Load Balancer.
-    flowLogId := "flowLogId_example" // string | The unique ID of the Flow Log.
-    applicationLoadBalancerFlowLog := *openapiclient.NewFlowLogPut(*openapiclient.NewFlowLogProperties("My resource", "ACCEPTED", "INGRESS", "bucketName/key")) // FlowLogPut | The modified ALB Flow Log.
+    flowLogId := "flowLogId_example" // string | The unique ID of the flow log.
+    applicationLoadBalancerFlowLog := *openapiclient.NewFlowLogPut(*openapiclient.NewFlowLogProperties("My resource", "ACCEPTED", "INGRESS", "bucketName/key")) // FlowLogPut | The modified ALB flow log.
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
@@ -637,7 +637,7 @@ func main() {
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
 |**datacenterId** | **string** | The unique ID of the data center. | |
 |**applicationLoadBalancerId** | **string** | The unique ID of the Application Load Balancer. | |
-|**flowLogId** | **string** | The unique ID of the Flow Log. | |
+|**flowLogId** | **string** | The unique ID of the flow log. | |
 
 ### Other Parameters
 
@@ -646,7 +646,7 @@ Other parameters are passed through a pointer to an apiDatacentersApplicationloa
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **applicationLoadBalancerFlowLog** | [**FlowLogPut**](../models/FlowLogPut.md) | The modified ALB Flow Log. | |
+| **applicationLoadBalancerFlowLog** | [**FlowLogPut**](../models/FlowLogPut.md) | The modified ALB flow log. | |
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
@@ -672,7 +672,7 @@ var result  = DatacentersApplicationloadbalancersForwardingrulesDelete(ctx, data
                       .Execute()
 ```
 
-Delete ALB forwarding rules
+Delete an ALB Forwarding Rule by ID
 
 
 
@@ -700,7 +700,7 @@ func main() {
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
-    resource, resp, err := apiClient.ApplicationLoadBalancersApi.DatacentersApplicationloadbalancersForwardingrulesDelete(context.Background(), datacenterId, applicationLoadBalancerId, forwardingRuleId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    resp, err := apiClient.ApplicationLoadBalancersApi.DatacentersApplicationloadbalancersForwardingrulesDelete(context.Background(), datacenterId, applicationLoadBalancerId, forwardingRuleId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ApplicationLoadBalancersApi.DatacentersApplicationloadbalancersForwardingrulesDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -750,7 +750,7 @@ var result ApplicationLoadBalancerForwardingRule = DatacentersApplicationloadbal
                       .Execute()
 ```
 
-Retrieve ALB forwarding rules
+Get an ALB Forwarding Rule by ID
 
 
 
@@ -830,7 +830,7 @@ var result ApplicationLoadBalancerForwardingRules = DatacentersApplicationloadba
                       .Execute()
 ```
 
-List ALB forwarding rules
+Get ALB Forwarding Rules
 
 
 
@@ -909,7 +909,7 @@ var result ApplicationLoadBalancerForwardingRule = DatacentersApplicationloadbal
                       .Execute()
 ```
 
-Partially modify ALB forwarding rules
+Partially modify an ALB Forwarding Rule by ID
 
 
 
@@ -992,7 +992,7 @@ var result ApplicationLoadBalancerForwardingRule = DatacentersApplicationloadbal
                       .Execute()
 ```
 
-Create ALB forwarding rules
+Create an ALB Forwarding Rule
 
 
 
@@ -1073,7 +1073,7 @@ var result ApplicationLoadBalancerForwardingRule = DatacentersApplicationloadbal
                       .Execute()
 ```
 
-Modify ALB forwarding rules
+Modify an ALB Forwarding Rule by ID
 
 
 
@@ -1157,7 +1157,7 @@ var result ApplicationLoadBalancers = DatacentersApplicationloadbalancersGet(ctx
                       .Execute()
 ```
 
-List Application Load Balancers
+Get Application Load Balancers
 
 
 
@@ -1238,7 +1238,7 @@ var result ApplicationLoadBalancer = DatacentersApplicationloadbalancersPatch(ct
                       .Execute()
 ```
 
-Partially modify Application Load Balancers
+Partially Modify an Application Load Balancer by ID
 
 
 
@@ -1319,7 +1319,7 @@ var result ApplicationLoadBalancer = DatacentersApplicationloadbalancersPost(ctx
                       .Execute()
 ```
 
-Create Application Load Balancers
+Create an Application Load Balancer
 
 
 
@@ -1398,7 +1398,7 @@ var result ApplicationLoadBalancer = DatacentersApplicationloadbalancersPut(ctx,
                       .Execute()
 ```
 
-Modify Application Load Balancers
+Modify an Application Load Balancer by ID
 
 
 

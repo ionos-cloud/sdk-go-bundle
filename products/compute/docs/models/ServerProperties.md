@@ -6,21 +6,22 @@
 |------------ | ------------- | ------------- | -------------|
 |**TemplateUuid** | Pointer to **string** | The ID of the template for creating a CUBE server; the available templates for CUBE servers can be found on the templates resource. | [optional] |
 |**Name** | Pointer to **string** | The name of the  resource. | [optional] |
-|**Cores** | **int32** | The total number of cores for the server. | |
-|**Ram** | **int32** | The memory size for the server in MB, such as 2048. Size must be specified in multiples of 256 MB with a minimum of 256 MB; however, if you set ramHotPlug to TRUE then you must use a minimum of 1024 MB. If you set the RAM size more than 240GB, then ramHotPlug will be set to FALSE and can not be set to TRUE unless RAM size not set to less than 240GB. | |
-|**PlacementGroupId** | Pointer to **string** | The placement group ID that belongs to this server; Requires system privileges | [optional] |
+|**Hostname** | Pointer to **string** | The hostname of the  resource. Allowed characters are a-z, 0-9 and - (minus). Hostname should not start with minus and should not be longer than 63 characters. | [optional] |
+|**Cores** | Pointer to **int32** | The total number of cores for the enterprise server. | [optional] |
+|**Ram** | Pointer to **int32** | The memory size for the enterprise server in MB, such as 2048. Size must be specified in multiples of 256 MB with a minimum of 256 MB; however, if you set ramHotPlug to TRUE then you must use a minimum of 1024 MB. If you set the RAM size more than 240GB, then ramHotPlug will be set to FALSE and can not be set to TRUE unless RAM size not set to less than 240GB. | [optional] |
 |**AvailabilityZone** | Pointer to **string** | The availability zone in which the server should be provisioned. | [optional] |
 |**VmState** | Pointer to **string** | Status of the virtual machine. | [optional] [readonly] |
 |**BootCdrom** | Pointer to [**ResourceReference**](ResourceReference.md) |  | [optional] |
 |**BootVolume** | Pointer to [**ResourceReference**](ResourceReference.md) |  | [optional] |
-|**CpuFamily** | Pointer to **string** | CPU architecture on which server gets provisioned; not all CPU architectures are available in all datacenter regions; available CPU architectures can be retrieved from the datacenter resource. | [optional] |
-|**Type** | Pointer to **string** | server usages: ENTERPRISE or CUBE | [optional] |
+|**CpuFamily** | Pointer to **string** | CPU architecture on which server gets provisioned; not all CPU architectures are available in all datacenter regions; available CPU architectures can be retrieved from the datacenter resource; must not be provided for CUBE and VCPU servers. | [optional] |
+|**Type** | Pointer to **string** | Server type: CUBE, ENTERPRISE or VCPU. | [optional] |
+|**PlacementGroupId** | Pointer to **string** | The placement group ID that belongs to this server; Requires system privileges, for internal usage only | [optional] |
 
 ## Methods
 
 ### NewServerProperties
 
-`func NewServerProperties(cores int32, ram int32, ) *ServerProperties`
+`func NewServerProperties() *ServerProperties`
 
 NewServerProperties instantiates a new ServerProperties object
 This constructor will assign default values to properties that have it defined,
@@ -85,6 +86,31 @@ SetName sets Name field to given value.
 
 HasName returns a boolean if a field has been set.
 
+### GetHostname
+
+`func (o *ServerProperties) GetHostname() string`
+
+GetHostname returns the Hostname field if non-nil, zero value otherwise.
+
+### GetHostnameOk
+
+`func (o *ServerProperties) GetHostnameOk() (*string, bool)`
+
+GetHostnameOk returns a tuple with the Hostname field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHostname
+
+`func (o *ServerProperties) SetHostname(v string)`
+
+SetHostname sets Hostname field to given value.
+
+### HasHostname
+
+`func (o *ServerProperties) HasHostname() bool`
+
+HasHostname returns a boolean if a field has been set.
+
 ### GetCores
 
 `func (o *ServerProperties) GetCores() int32`
@@ -104,6 +130,11 @@ and a boolean to check if the value has been set.
 
 SetCores sets Cores field to given value.
 
+### HasCores
+
+`func (o *ServerProperties) HasCores() bool`
+
+HasCores returns a boolean if a field has been set.
 
 ### GetRam
 
@@ -124,31 +155,11 @@ and a boolean to check if the value has been set.
 
 SetRam sets Ram field to given value.
 
+### HasRam
 
-### GetPlacementGroupId
+`func (o *ServerProperties) HasRam() bool`
 
-`func (o *ServerProperties) GetPlacementGroupId() string`
-
-GetPlacementGroupId returns the PlacementGroupId field if non-nil, zero value otherwise.
-
-### GetPlacementGroupIdOk
-
-`func (o *ServerProperties) GetPlacementGroupIdOk() (*string, bool)`
-
-GetPlacementGroupIdOk returns a tuple with the PlacementGroupId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPlacementGroupId
-
-`func (o *ServerProperties) SetPlacementGroupId(v string)`
-
-SetPlacementGroupId sets PlacementGroupId field to given value.
-
-### HasPlacementGroupId
-
-`func (o *ServerProperties) HasPlacementGroupId() bool`
-
-HasPlacementGroupId returns a boolean if a field has been set.
+HasRam returns a boolean if a field has been set.
 
 ### GetAvailabilityZone
 
@@ -299,5 +310,30 @@ SetType sets Type field to given value.
 `func (o *ServerProperties) HasType() bool`
 
 HasType returns a boolean if a field has been set.
+
+### GetPlacementGroupId
+
+`func (o *ServerProperties) GetPlacementGroupId() string`
+
+GetPlacementGroupId returns the PlacementGroupId field if non-nil, zero value otherwise.
+
+### GetPlacementGroupIdOk
+
+`func (o *ServerProperties) GetPlacementGroupIdOk() (*string, bool)`
+
+GetPlacementGroupIdOk returns a tuple with the PlacementGroupId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPlacementGroupId
+
+`func (o *ServerProperties) SetPlacementGroupId(v string)`
+
+SetPlacementGroupId sets PlacementGroupId field to given value.
+
+### HasPlacementGroupId
+
+`func (o *ServerProperties) HasPlacementGroupId() bool`
+
+HasPlacementGroupId returns a boolean if a field has been set.
 
 

@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the ApplicationLoadBalancerEntities type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApplicationLoadBalancerEntities{}
 
 // ApplicationLoadBalancerEntities struct for ApplicationLoadBalancerEntities
 type ApplicationLoadBalancerEntities struct {
@@ -37,51 +40,52 @@ func NewApplicationLoadBalancerEntitiesWithDefaults() *ApplicationLoadBalancerEn
 	return &this
 }
 
-// GetForwardingrules returns the Forwardingrules field value
-// If the value is explicit nil, the zero value for ApplicationLoadBalancerForwardingRules will be returned
-func (o *ApplicationLoadBalancerEntities) GetForwardingrules() *ApplicationLoadBalancerForwardingRules {
-	if o == nil {
-		return nil
+// GetForwardingrules returns the Forwardingrules field value if set, zero value otherwise.
+func (o *ApplicationLoadBalancerEntities) GetForwardingrules() ApplicationLoadBalancerForwardingRules {
+	if o == nil || IsNil(o.Forwardingrules) {
+		var ret ApplicationLoadBalancerForwardingRules
+		return ret
 	}
-
-	return o.Forwardingrules
-
+	return *o.Forwardingrules
 }
 
-// GetForwardingrulesOk returns a tuple with the Forwardingrules field value
+// GetForwardingrulesOk returns a tuple with the Forwardingrules field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ApplicationLoadBalancerEntities) GetForwardingrulesOk() (*ApplicationLoadBalancerForwardingRules, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Forwardingrules) {
 		return nil, false
 	}
-
 	return o.Forwardingrules, true
-}
-
-// SetForwardingrules sets field value
-func (o *ApplicationLoadBalancerEntities) SetForwardingrules(v ApplicationLoadBalancerForwardingRules) {
-
-	o.Forwardingrules = &v
-
 }
 
 // HasForwardingrules returns a boolean if a field has been set.
 func (o *ApplicationLoadBalancerEntities) HasForwardingrules() bool {
-	if o != nil && o.Forwardingrules != nil {
+	if o != nil && !IsNil(o.Forwardingrules) {
 		return true
 	}
 
 	return false
 }
 
+// SetForwardingrules gets a reference to the given ApplicationLoadBalancerForwardingRules and assigns it to the Forwardingrules field.
+func (o *ApplicationLoadBalancerEntities) SetForwardingrules(v ApplicationLoadBalancerForwardingRules) {
+	o.Forwardingrules = &v
+}
+
 func (o ApplicationLoadBalancerEntities) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ApplicationLoadBalancerEntities) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Forwardingrules != nil {
+	if !IsNil(o.Forwardingrules) {
 		toSerialize["forwardingrules"] = o.Forwardingrules
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableApplicationLoadBalancerEntities struct {

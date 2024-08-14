@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,12 +14,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the KubernetesMaintenanceWindow type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KubernetesMaintenanceWindow{}
+
 // KubernetesMaintenanceWindow struct for KubernetesMaintenanceWindow
 type KubernetesMaintenanceWindow struct {
-	// The day of the week for a maintenance window.
-	DayOfTheWeek *string `json:"dayOfTheWeek"`
-	// The time to use for a maintenance window. Accepted formats are: HH:mm:ss; HH:mm:ss\"Z\"; HH:mm:ssZ. This time may varies by 15 minutes.
-	Time *string `json:"time"`
+	// The weekday for a maintenance window.
+	DayOfTheWeek string `json:"dayOfTheWeek"`
+	// The time to use for a maintenance window. Accepted formats are: HH:mm:ss; HH:mm:ss\"Z\"; HH:mm:ssZ. This time may vary by 15 minutes.
+	Time string `json:"time"`
 }
 
 // NewKubernetesMaintenanceWindow instantiates a new KubernetesMaintenanceWindow object
@@ -29,8 +32,8 @@ type KubernetesMaintenanceWindow struct {
 func NewKubernetesMaintenanceWindow(dayOfTheWeek string, time string) *KubernetesMaintenanceWindow {
 	this := KubernetesMaintenanceWindow{}
 
-	this.DayOfTheWeek = &dayOfTheWeek
-	this.Time = &time
+	this.DayOfTheWeek = dayOfTheWeek
+	this.Time = time
 
 	return &this
 }
@@ -44,92 +47,70 @@ func NewKubernetesMaintenanceWindowWithDefaults() *KubernetesMaintenanceWindow {
 }
 
 // GetDayOfTheWeek returns the DayOfTheWeek field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *KubernetesMaintenanceWindow) GetDayOfTheWeek() *string {
+func (o *KubernetesMaintenanceWindow) GetDayOfTheWeek() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.DayOfTheWeek
-
 }
 
 // GetDayOfTheWeekOk returns a tuple with the DayOfTheWeek field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *KubernetesMaintenanceWindow) GetDayOfTheWeekOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.DayOfTheWeek, true
+	return &o.DayOfTheWeek, true
 }
 
 // SetDayOfTheWeek sets field value
 func (o *KubernetesMaintenanceWindow) SetDayOfTheWeek(v string) {
-
-	o.DayOfTheWeek = &v
-
-}
-
-// HasDayOfTheWeek returns a boolean if a field has been set.
-func (o *KubernetesMaintenanceWindow) HasDayOfTheWeek() bool {
-	if o != nil && o.DayOfTheWeek != nil {
-		return true
-	}
-
-	return false
+	o.DayOfTheWeek = v
 }
 
 // GetTime returns the Time field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *KubernetesMaintenanceWindow) GetTime() *string {
+func (o *KubernetesMaintenanceWindow) GetTime() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Time
-
 }
 
 // GetTimeOk returns a tuple with the Time field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *KubernetesMaintenanceWindow) GetTimeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Time, true
+	return &o.Time, true
 }
 
 // SetTime sets field value
 func (o *KubernetesMaintenanceWindow) SetTime(v string) {
-
-	o.Time = &v
-
-}
-
-// HasTime returns a boolean if a field has been set.
-func (o *KubernetesMaintenanceWindow) HasTime() bool {
-	if o != nil && o.Time != nil {
-		return true
-	}
-
-	return false
+	o.Time = v
 }
 
 func (o KubernetesMaintenanceWindow) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o KubernetesMaintenanceWindow) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.DayOfTheWeek != nil {
+	if !IsZero(o.DayOfTheWeek) {
 		toSerialize["dayOfTheWeek"] = o.DayOfTheWeek
 	}
-
-	if o.Time != nil {
+	if !IsZero(o.Time) {
 		toSerialize["time"] = o.Time
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableKubernetesMaintenanceWindow struct {

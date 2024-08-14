@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,11 +14,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the Contract type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Contract{}
+
 // Contract struct for Contract
 type Contract struct {
 	// The type of the resource.
-	Type       *Type               `json:"type,omitempty"`
-	Properties *ContractProperties `json:"properties"`
+	Type       *Type              `json:"type,omitempty"`
+	Properties ContractProperties `json:"properties"`
 }
 
 // NewContract instantiates a new Contract object
@@ -28,7 +31,7 @@ type Contract struct {
 func NewContract(properties ContractProperties) *Contract {
 	this := Contract{}
 
-	this.Properties = &properties
+	this.Properties = properties
 
 	return &this
 }
@@ -41,93 +44,79 @@ func NewContractWithDefaults() *Contract {
 	return &this
 }
 
-// GetType returns the Type field value
-// If the value is explicit nil, the zero value for Type will be returned
-func (o *Contract) GetType() *Type {
-	if o == nil {
-		return nil
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *Contract) GetType() Type {
+	if o == nil || IsNil(o.Type) {
+		var ret Type
+		return ret
 	}
-
-	return o.Type
-
+	return *o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Contract) GetTypeOk() (*Type, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
-
 	return o.Type, true
-}
-
-// SetType sets field value
-func (o *Contract) SetType(v Type) {
-
-	o.Type = &v
-
 }
 
 // HasType returns a boolean if a field has been set.
 func (o *Contract) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
 	return false
 }
 
+// SetType gets a reference to the given Type and assigns it to the Type field.
+func (o *Contract) SetType(v Type) {
+	o.Type = &v
+}
+
 // GetProperties returns the Properties field value
-// If the value is explicit nil, the zero value for ContractProperties will be returned
-func (o *Contract) GetProperties() *ContractProperties {
+func (o *Contract) GetProperties() ContractProperties {
 	if o == nil {
-		return nil
+		var ret ContractProperties
+		return ret
 	}
 
 	return o.Properties
-
 }
 
 // GetPropertiesOk returns a tuple with the Properties field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Contract) GetPropertiesOk() (*ContractProperties, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Properties, true
+	return &o.Properties, true
 }
 
 // SetProperties sets field value
 func (o *Contract) SetProperties(v ContractProperties) {
-
-	o.Properties = &v
-
-}
-
-// HasProperties returns a boolean if a field has been set.
-func (o *Contract) HasProperties() bool {
-	if o != nil && o.Properties != nil {
-		return true
-	}
-
-	return false
+	o.Properties = v
 }
 
 func (o Contract) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Contract) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-
-	if o.Properties != nil {
+	if !IsZero(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableContract struct {

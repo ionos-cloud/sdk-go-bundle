@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the UserPropertiesPost type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserPropertiesPost{}
 
 // UserPropertiesPost struct for UserPropertiesPost
 type UserPropertiesPost struct {
@@ -52,345 +55,297 @@ func NewUserPropertiesPostWithDefaults() *UserPropertiesPost {
 	return &this
 }
 
-// GetFirstname returns the Firstname field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *UserPropertiesPost) GetFirstname() *string {
-	if o == nil {
-		return nil
+// GetFirstname returns the Firstname field value if set, zero value otherwise.
+func (o *UserPropertiesPost) GetFirstname() string {
+	if o == nil || IsNil(o.Firstname) {
+		var ret string
+		return ret
 	}
-
-	return o.Firstname
-
+	return *o.Firstname
 }
 
-// GetFirstnameOk returns a tuple with the Firstname field value
+// GetFirstnameOk returns a tuple with the Firstname field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UserPropertiesPost) GetFirstnameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Firstname) {
 		return nil, false
 	}
-
 	return o.Firstname, true
-}
-
-// SetFirstname sets field value
-func (o *UserPropertiesPost) SetFirstname(v string) {
-
-	o.Firstname = &v
-
 }
 
 // HasFirstname returns a boolean if a field has been set.
 func (o *UserPropertiesPost) HasFirstname() bool {
-	if o != nil && o.Firstname != nil {
+	if o != nil && !IsNil(o.Firstname) {
 		return true
 	}
 
 	return false
 }
 
-// GetLastname returns the Lastname field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *UserPropertiesPost) GetLastname() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Lastname
-
+// SetFirstname gets a reference to the given string and assigns it to the Firstname field.
+func (o *UserPropertiesPost) SetFirstname(v string) {
+	o.Firstname = &v
 }
 
-// GetLastnameOk returns a tuple with the Lastname field value
+// GetLastname returns the Lastname field value if set, zero value otherwise.
+func (o *UserPropertiesPost) GetLastname() string {
+	if o == nil || IsNil(o.Lastname) {
+		var ret string
+		return ret
+	}
+	return *o.Lastname
+}
+
+// GetLastnameOk returns a tuple with the Lastname field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UserPropertiesPost) GetLastnameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Lastname) {
 		return nil, false
 	}
-
 	return o.Lastname, true
-}
-
-// SetLastname sets field value
-func (o *UserPropertiesPost) SetLastname(v string) {
-
-	o.Lastname = &v
-
 }
 
 // HasLastname returns a boolean if a field has been set.
 func (o *UserPropertiesPost) HasLastname() bool {
-	if o != nil && o.Lastname != nil {
+	if o != nil && !IsNil(o.Lastname) {
 		return true
 	}
 
 	return false
 }
 
-// GetEmail returns the Email field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *UserPropertiesPost) GetEmail() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Email
-
+// SetLastname gets a reference to the given string and assigns it to the Lastname field.
+func (o *UserPropertiesPost) SetLastname(v string) {
+	o.Lastname = &v
 }
 
-// GetEmailOk returns a tuple with the Email field value
+// GetEmail returns the Email field value if set, zero value otherwise.
+func (o *UserPropertiesPost) GetEmail() string {
+	if o == nil || IsNil(o.Email) {
+		var ret string
+		return ret
+	}
+	return *o.Email
+}
+
+// GetEmailOk returns a tuple with the Email field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UserPropertiesPost) GetEmailOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Email) {
 		return nil, false
 	}
-
 	return o.Email, true
-}
-
-// SetEmail sets field value
-func (o *UserPropertiesPost) SetEmail(v string) {
-
-	o.Email = &v
-
 }
 
 // HasEmail returns a boolean if a field has been set.
 func (o *UserPropertiesPost) HasEmail() bool {
-	if o != nil && o.Email != nil {
+	if o != nil && !IsNil(o.Email) {
 		return true
 	}
 
 	return false
 }
 
-// GetAdministrator returns the Administrator field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *UserPropertiesPost) GetAdministrator() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.Administrator
-
+// SetEmail gets a reference to the given string and assigns it to the Email field.
+func (o *UserPropertiesPost) SetEmail(v string) {
+	o.Email = &v
 }
 
-// GetAdministratorOk returns a tuple with the Administrator field value
+// GetAdministrator returns the Administrator field value if set, zero value otherwise.
+func (o *UserPropertiesPost) GetAdministrator() bool {
+	if o == nil || IsNil(o.Administrator) {
+		var ret bool
+		return ret
+	}
+	return *o.Administrator
+}
+
+// GetAdministratorOk returns a tuple with the Administrator field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UserPropertiesPost) GetAdministratorOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Administrator) {
 		return nil, false
 	}
-
 	return o.Administrator, true
-}
-
-// SetAdministrator sets field value
-func (o *UserPropertiesPost) SetAdministrator(v bool) {
-
-	o.Administrator = &v
-
 }
 
 // HasAdministrator returns a boolean if a field has been set.
 func (o *UserPropertiesPost) HasAdministrator() bool {
-	if o != nil && o.Administrator != nil {
+	if o != nil && !IsNil(o.Administrator) {
 		return true
 	}
 
 	return false
 }
 
-// GetForceSecAuth returns the ForceSecAuth field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *UserPropertiesPost) GetForceSecAuth() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.ForceSecAuth
-
+// SetAdministrator gets a reference to the given bool and assigns it to the Administrator field.
+func (o *UserPropertiesPost) SetAdministrator(v bool) {
+	o.Administrator = &v
 }
 
-// GetForceSecAuthOk returns a tuple with the ForceSecAuth field value
+// GetForceSecAuth returns the ForceSecAuth field value if set, zero value otherwise.
+func (o *UserPropertiesPost) GetForceSecAuth() bool {
+	if o == nil || IsNil(o.ForceSecAuth) {
+		var ret bool
+		return ret
+	}
+	return *o.ForceSecAuth
+}
+
+// GetForceSecAuthOk returns a tuple with the ForceSecAuth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UserPropertiesPost) GetForceSecAuthOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ForceSecAuth) {
 		return nil, false
 	}
-
 	return o.ForceSecAuth, true
-}
-
-// SetForceSecAuth sets field value
-func (o *UserPropertiesPost) SetForceSecAuth(v bool) {
-
-	o.ForceSecAuth = &v
-
 }
 
 // HasForceSecAuth returns a boolean if a field has been set.
 func (o *UserPropertiesPost) HasForceSecAuth() bool {
-	if o != nil && o.ForceSecAuth != nil {
+	if o != nil && !IsNil(o.ForceSecAuth) {
 		return true
 	}
 
 	return false
 }
 
-// GetSecAuthActive returns the SecAuthActive field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *UserPropertiesPost) GetSecAuthActive() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.SecAuthActive
-
+// SetForceSecAuth gets a reference to the given bool and assigns it to the ForceSecAuth field.
+func (o *UserPropertiesPost) SetForceSecAuth(v bool) {
+	o.ForceSecAuth = &v
 }
 
-// GetSecAuthActiveOk returns a tuple with the SecAuthActive field value
+// GetSecAuthActive returns the SecAuthActive field value if set, zero value otherwise.
+func (o *UserPropertiesPost) GetSecAuthActive() bool {
+	if o == nil || IsNil(o.SecAuthActive) {
+		var ret bool
+		return ret
+	}
+	return *o.SecAuthActive
+}
+
+// GetSecAuthActiveOk returns a tuple with the SecAuthActive field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UserPropertiesPost) GetSecAuthActiveOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.SecAuthActive) {
 		return nil, false
 	}
-
 	return o.SecAuthActive, true
-}
-
-// SetSecAuthActive sets field value
-func (o *UserPropertiesPost) SetSecAuthActive(v bool) {
-
-	o.SecAuthActive = &v
-
 }
 
 // HasSecAuthActive returns a boolean if a field has been set.
 func (o *UserPropertiesPost) HasSecAuthActive() bool {
-	if o != nil && o.SecAuthActive != nil {
+	if o != nil && !IsNil(o.SecAuthActive) {
 		return true
 	}
 
 	return false
 }
 
-// GetPassword returns the Password field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *UserPropertiesPost) GetPassword() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Password
-
+// SetSecAuthActive gets a reference to the given bool and assigns it to the SecAuthActive field.
+func (o *UserPropertiesPost) SetSecAuthActive(v bool) {
+	o.SecAuthActive = &v
 }
 
-// GetPasswordOk returns a tuple with the Password field value
+// GetPassword returns the Password field value if set, zero value otherwise.
+func (o *UserPropertiesPost) GetPassword() string {
+	if o == nil || IsNil(o.Password) {
+		var ret string
+		return ret
+	}
+	return *o.Password
+}
+
+// GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UserPropertiesPost) GetPasswordOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
-
 	return o.Password, true
-}
-
-// SetPassword sets field value
-func (o *UserPropertiesPost) SetPassword(v string) {
-
-	o.Password = &v
-
 }
 
 // HasPassword returns a boolean if a field has been set.
 func (o *UserPropertiesPost) HasPassword() bool {
-	if o != nil && o.Password != nil {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
 	return false
 }
 
-// GetActive returns the Active field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *UserPropertiesPost) GetActive() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.Active
-
+// SetPassword gets a reference to the given string and assigns it to the Password field.
+func (o *UserPropertiesPost) SetPassword(v string) {
+	o.Password = &v
 }
 
-// GetActiveOk returns a tuple with the Active field value
+// GetActive returns the Active field value if set, zero value otherwise.
+func (o *UserPropertiesPost) GetActive() bool {
+	if o == nil || IsNil(o.Active) {
+		var ret bool
+		return ret
+	}
+	return *o.Active
+}
+
+// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UserPropertiesPost) GetActiveOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Active) {
 		return nil, false
 	}
-
 	return o.Active, true
-}
-
-// SetActive sets field value
-func (o *UserPropertiesPost) SetActive(v bool) {
-
-	o.Active = &v
-
 }
 
 // HasActive returns a boolean if a field has been set.
 func (o *UserPropertiesPost) HasActive() bool {
-	if o != nil && o.Active != nil {
+	if o != nil && !IsNil(o.Active) {
 		return true
 	}
 
 	return false
 }
 
+// SetActive gets a reference to the given bool and assigns it to the Active field.
+func (o *UserPropertiesPost) SetActive(v bool) {
+	o.Active = &v
+}
+
 func (o UserPropertiesPost) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UserPropertiesPost) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Firstname != nil {
+	if !IsNil(o.Firstname) {
 		toSerialize["firstname"] = o.Firstname
 	}
-
-	if o.Lastname != nil {
+	if !IsNil(o.Lastname) {
 		toSerialize["lastname"] = o.Lastname
 	}
-
-	if o.Email != nil {
+	if !IsNil(o.Email) {
 		toSerialize["email"] = o.Email
 	}
-
-	if o.Administrator != nil {
+	if !IsNil(o.Administrator) {
 		toSerialize["administrator"] = o.Administrator
 	}
-
-	if o.ForceSecAuth != nil {
+	if !IsNil(o.ForceSecAuth) {
 		toSerialize["forceSecAuth"] = o.ForceSecAuth
 	}
-
-	if o.SecAuthActive != nil {
+	if !IsNil(o.SecAuthActive) {
 		toSerialize["secAuthActive"] = o.SecAuthActive
 	}
-
-	if o.Password != nil {
+	if !IsNil(o.Password) {
 		toSerialize["password"] = o.Password
 	}
-
-	if o.Active != nil {
+	if !IsNil(o.Active) {
 		toSerialize["active"] = o.Active
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableUserPropertiesPost struct {

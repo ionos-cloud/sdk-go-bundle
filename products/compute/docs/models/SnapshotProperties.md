@@ -18,6 +18,7 @@
 |**DiscVirtioHotPlug** | Pointer to **bool** | Hot-plug capable Virt-IO drive (no reboot required). | [optional] |
 |**DiscVirtioHotUnplug** | Pointer to **bool** | Hot-unplug capable Virt-IO drive (no reboot required). Not supported with Windows VMs. | [optional] |
 |**DiscScsiHotPlug** | Pointer to **bool** | Hot-plug capable SCSI drive (no reboot required). | [optional] |
+|**ExposeSerial** | Pointer to **bool** | If set to &#x60;true&#x60; will expose the serial id of the disk attached to the server. If set to &#x60;false&#x60; will not expose the serial id. Some operating systems or software solutions require the serial id to be exposed to work properly. Exposing the serial  can influence licensed software (e.g. Windows) behavior | [optional] [default to false]|
 |**DiscScsiHotUnplug** | Pointer to **bool** | Is capable of SCSI drive hot unplug (no reboot required). This works only for non-Windows virtual Machines. | [optional] |
 |**LicenceType** | Pointer to **string** | OS type of this snapshot | [optional] |
 
@@ -389,6 +390,31 @@ SetDiscScsiHotPlug sets DiscScsiHotPlug field to given value.
 `func (o *SnapshotProperties) HasDiscScsiHotPlug() bool`
 
 HasDiscScsiHotPlug returns a boolean if a field has been set.
+
+### GetExposeSerial
+
+`func (o *SnapshotProperties) GetExposeSerial() bool`
+
+GetExposeSerial returns the ExposeSerial field if non-nil, zero value otherwise.
+
+### GetExposeSerialOk
+
+`func (o *SnapshotProperties) GetExposeSerialOk() (*bool, bool)`
+
+GetExposeSerialOk returns a tuple with the ExposeSerial field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExposeSerial
+
+`func (o *SnapshotProperties) SetExposeSerial(v bool)`
+
+SetExposeSerial sets ExposeSerial field to given value.
+
+### HasExposeSerial
+
+`func (o *SnapshotProperties) HasExposeSerial() bool`
+
+HasExposeSerial returns a boolean if a field has been set.
 
 ### GetDiscScsiHotUnplug
 

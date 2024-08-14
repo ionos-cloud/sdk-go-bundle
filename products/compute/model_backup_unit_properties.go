@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,10 +14,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the BackupUnitProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BackupUnitProperties{}
+
 // BackupUnitProperties struct for BackupUnitProperties
 type BackupUnitProperties struct {
 	// The name of the  resource (alphanumeric characters only).
-	Name *string `json:"name"`
+	Name string `json:"name"`
 	// The password associated with that resource.
 	Password *string `json:"password,omitempty"`
 	// The email associated with the backup unit. Bear in mind that this email does not be the same email as of the user.
@@ -31,7 +34,7 @@ type BackupUnitProperties struct {
 func NewBackupUnitProperties(name string) *BackupUnitProperties {
 	this := BackupUnitProperties{}
 
-	this.Name = &name
+	this.Name = name
 
 	return &this
 }
@@ -45,134 +48,113 @@ func NewBackupUnitPropertiesWithDefaults() *BackupUnitProperties {
 }
 
 // GetName returns the Name field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *BackupUnitProperties) GetName() *string {
+func (o *BackupUnitProperties) GetName() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Name
-
 }
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BackupUnitProperties) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Name, true
+	return &o.Name, true
 }
 
 // SetName sets field value
 func (o *BackupUnitProperties) SetName(v string) {
-
-	o.Name = &v
-
+	o.Name = v
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *BackupUnitProperties) HasName() bool {
-	if o != nil && o.Name != nil {
-		return true
+// GetPassword returns the Password field value if set, zero value otherwise.
+func (o *BackupUnitProperties) GetPassword() string {
+	if o == nil || IsNil(o.Password) {
+		var ret string
+		return ret
 	}
-
-	return false
+	return *o.Password
 }
 
-// GetPassword returns the Password field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *BackupUnitProperties) GetPassword() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Password
-
-}
-
-// GetPasswordOk returns a tuple with the Password field value
+// GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BackupUnitProperties) GetPasswordOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
-
 	return o.Password, true
-}
-
-// SetPassword sets field value
-func (o *BackupUnitProperties) SetPassword(v string) {
-
-	o.Password = &v
-
 }
 
 // HasPassword returns a boolean if a field has been set.
 func (o *BackupUnitProperties) HasPassword() bool {
-	if o != nil && o.Password != nil {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
 	return false
 }
 
-// GetEmail returns the Email field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *BackupUnitProperties) GetEmail() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Email
-
+// SetPassword gets a reference to the given string and assigns it to the Password field.
+func (o *BackupUnitProperties) SetPassword(v string) {
+	o.Password = &v
 }
 
-// GetEmailOk returns a tuple with the Email field value
+// GetEmail returns the Email field value if set, zero value otherwise.
+func (o *BackupUnitProperties) GetEmail() string {
+	if o == nil || IsNil(o.Email) {
+		var ret string
+		return ret
+	}
+	return *o.Email
+}
+
+// GetEmailOk returns a tuple with the Email field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BackupUnitProperties) GetEmailOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Email) {
 		return nil, false
 	}
-
 	return o.Email, true
-}
-
-// SetEmail sets field value
-func (o *BackupUnitProperties) SetEmail(v string) {
-
-	o.Email = &v
-
 }
 
 // HasEmail returns a boolean if a field has been set.
 func (o *BackupUnitProperties) HasEmail() bool {
-	if o != nil && o.Email != nil {
+	if o != nil && !IsNil(o.Email) {
 		return true
 	}
 
 	return false
 }
 
+// SetEmail gets a reference to the given string and assigns it to the Email field.
+func (o *BackupUnitProperties) SetEmail(v string) {
+	o.Email = &v
+}
+
 func (o BackupUnitProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BackupUnitProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsZero(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-
-	if o.Password != nil {
+	if !IsNil(o.Password) {
 		toSerialize["password"] = o.Password
 	}
-
-	if o.Email != nil {
+	if !IsNil(o.Email) {
 		toSerialize["email"] = o.Email
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableBackupUnitProperties struct {

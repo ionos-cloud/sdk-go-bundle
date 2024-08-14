@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -15,6 +15,9 @@ import (
 
 	"time"
 )
+
+// checks if the DatacenterElementMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DatacenterElementMetadata{}
 
 // DatacenterElementMetadata struct for DatacenterElementMetadata
 type DatacenterElementMetadata struct {
@@ -32,7 +35,7 @@ type DatacenterElementMetadata struct {
 	LastModifiedBy *string `json:"lastModifiedBy,omitempty"`
 	// The unique ID of the user who last modified the resource.
 	LastModifiedByUserId *string `json:"lastModifiedByUserId,omitempty"`
-	// State of the resource. *AVAILABLE* There are no pending modification requests for this item; *BUSY* There is at least one modification request pending and all following requests will be queued; *INACTIVE* Resource has been de-provisioned; *DEPLOYING* Resource state DEPLOYING - relevant for Kubernetes cluster/nodepool; *ACTIVE* Resource state ACTIVE - relevant for Kubernetes cluster/nodepool; *FAILED* Resource state FAILED - relevant for Kubernetes cluster/nodepool; *SUSPENDED* Resource state SUSPENDED - relevant for Kubernetes cluster/nodepool; *FAILED_SUSPENDED* Resource state FAILED_SUSPENDED - relevant for Kubernetes cluster; *UPDATING* Resource state UPDATING - relevant for Kubernetes cluster/nodepool; *FAILED_UPDATING* Resource state FAILED_UPDATING - relevant for Kubernetes cluster/nodepool; *DESTROYING* Resource state DESTROYING - relevant for Kubernetes cluster; *FAILED_DESTROYING* Resource state FAILED_DESTROYING - relevant for Kubernetes cluster/nodepool; *TERMINATED* Resource state TERMINATED - relevant for Kubernetes cluster/nodepool.
+	// State of the resource. *AVAILABLE* There are no pending modification requests for this item; *BUSY* There is at least one modification request pending and all following requests will be queued; *INACTIVE* Resource has been de-provisioned; *DEPLOYING* Resource state DEPLOYING - relevant for Kubernetes cluster/nodepool; *ACTIVE* Resource state ACTIVE - relevant for Kubernetes cluster/nodepool; *FAILED* Resource state FAILED - relevant for Kubernetes cluster/nodepool; *SUSPENDED* Resource state SUSPENDED - relevant for Kubernetes cluster/nodepool; *FAILED_SUSPENDED* Resource state FAILED_SUSPENDED - relevant for Kubernetes cluster; *UPDATING* Resource state UPDATING - relevant for Kubernetes cluster/nodepool; *FAILED_UPDATING* Resource state FAILED_UPDATING - relevant for Kubernetes cluster/nodepool; *DESTROYING* Resource state DESTROYING - relevant for Kubernetes cluster; *FAILED_DESTROYING* Resource state FAILED_DESTROYING - relevant for Kubernetes cluster/nodepool; *TERMINATED* Resource state TERMINATED - relevant for Kubernetes cluster/nodepool; *HIBERNATING* Resource state HIBERNATING - relevant for Kubernetes cluster/nodepool; *FAILED_HIBERNATING* Resource state FAILED_HIBERNATING - relevant for Kubernetes cluster/nodepool; *MAINTENANCE* Resource state MAINTENANCE - relevant for Kubernetes cluster/nodepool; *FAILED_HIBERNATING* Resource state FAILED_HIBERNATING - relevant for Kubernetes cluster/nodepool.
 	State *string `json:"state,omitempty"`
 }
 
@@ -54,359 +57,297 @@ func NewDatacenterElementMetadataWithDefaults() *DatacenterElementMetadata {
 	return &this
 }
 
-// GetEtag returns the Etag field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *DatacenterElementMetadata) GetEtag() *string {
-	if o == nil {
-		return nil
+// GetEtag returns the Etag field value if set, zero value otherwise.
+func (o *DatacenterElementMetadata) GetEtag() string {
+	if o == nil || IsNil(o.Etag) {
+		var ret string
+		return ret
 	}
-
-	return o.Etag
-
+	return *o.Etag
 }
 
-// GetEtagOk returns a tuple with the Etag field value
+// GetEtagOk returns a tuple with the Etag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DatacenterElementMetadata) GetEtagOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Etag) {
 		return nil, false
 	}
-
 	return o.Etag, true
-}
-
-// SetEtag sets field value
-func (o *DatacenterElementMetadata) SetEtag(v string) {
-
-	o.Etag = &v
-
 }
 
 // HasEtag returns a boolean if a field has been set.
 func (o *DatacenterElementMetadata) HasEtag() bool {
-	if o != nil && o.Etag != nil {
+	if o != nil && !IsNil(o.Etag) {
 		return true
 	}
 
 	return false
 }
 
-// GetCreatedDate returns the CreatedDate field value
-// If the value is explicit nil, the zero value for time.Time will be returned
-func (o *DatacenterElementMetadata) GetCreatedDate() *time.Time {
-	if o == nil {
-		return nil
-	}
-
-	if o.CreatedDate == nil {
-		return nil
-	}
-	return &o.CreatedDate.Time
-
+// SetEtag gets a reference to the given string and assigns it to the Etag field.
+func (o *DatacenterElementMetadata) SetEtag(v string) {
+	o.Etag = &v
 }
 
-// GetCreatedDateOk returns a tuple with the CreatedDate field value
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *DatacenterElementMetadata) GetCreatedDateOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
+// GetCreatedDate returns the CreatedDate field value if set, zero value otherwise.
+func (o *DatacenterElementMetadata) GetCreatedDate() time.Time {
+	if o == nil || IsNil(o.CreatedDate) {
+		var ret time.Time
+		return ret
 	}
+	return o.CreatedDate.Time
+}
 
-	if o.CreatedDate == nil {
+// GetCreatedDateOk returns a tuple with the CreatedDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DatacenterElementMetadata) GetCreatedDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CreatedDate) {
 		return nil, false
 	}
 	return &o.CreatedDate.Time, true
-
-}
-
-// SetCreatedDate sets field value
-func (o *DatacenterElementMetadata) SetCreatedDate(v time.Time) {
-
-	o.CreatedDate = &IonosTime{v}
-
 }
 
 // HasCreatedDate returns a boolean if a field has been set.
 func (o *DatacenterElementMetadata) HasCreatedDate() bool {
-	if o != nil && o.CreatedDate != nil {
+	if o != nil && !IsNil(o.CreatedDate) {
 		return true
 	}
 
 	return false
 }
 
-// GetCreatedBy returns the CreatedBy field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *DatacenterElementMetadata) GetCreatedBy() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.CreatedBy
-
+// SetCreatedDate gets a reference to the given time.Time and assigns it to the CreatedDate field.
+func (o *DatacenterElementMetadata) SetCreatedDate(v time.Time) {
+	o.CreatedDate = &IonosTime{v}
 }
 
-// GetCreatedByOk returns a tuple with the CreatedBy field value
+// GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
+func (o *DatacenterElementMetadata) GetCreatedBy() string {
+	if o == nil || IsNil(o.CreatedBy) {
+		var ret string
+		return ret
+	}
+	return *o.CreatedBy
+}
+
+// GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DatacenterElementMetadata) GetCreatedByOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		return nil, false
 	}
-
 	return o.CreatedBy, true
-}
-
-// SetCreatedBy sets field value
-func (o *DatacenterElementMetadata) SetCreatedBy(v string) {
-
-	o.CreatedBy = &v
-
 }
 
 // HasCreatedBy returns a boolean if a field has been set.
 func (o *DatacenterElementMetadata) HasCreatedBy() bool {
-	if o != nil && o.CreatedBy != nil {
+	if o != nil && !IsNil(o.CreatedBy) {
 		return true
 	}
 
 	return false
 }
 
-// GetCreatedByUserId returns the CreatedByUserId field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *DatacenterElementMetadata) GetCreatedByUserId() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.CreatedByUserId
-
+// SetCreatedBy gets a reference to the given string and assigns it to the CreatedBy field.
+func (o *DatacenterElementMetadata) SetCreatedBy(v string) {
+	o.CreatedBy = &v
 }
 
-// GetCreatedByUserIdOk returns a tuple with the CreatedByUserId field value
+// GetCreatedByUserId returns the CreatedByUserId field value if set, zero value otherwise.
+func (o *DatacenterElementMetadata) GetCreatedByUserId() string {
+	if o == nil || IsNil(o.CreatedByUserId) {
+		var ret string
+		return ret
+	}
+	return *o.CreatedByUserId
+}
+
+// GetCreatedByUserIdOk returns a tuple with the CreatedByUserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DatacenterElementMetadata) GetCreatedByUserIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CreatedByUserId) {
 		return nil, false
 	}
-
 	return o.CreatedByUserId, true
-}
-
-// SetCreatedByUserId sets field value
-func (o *DatacenterElementMetadata) SetCreatedByUserId(v string) {
-
-	o.CreatedByUserId = &v
-
 }
 
 // HasCreatedByUserId returns a boolean if a field has been set.
 func (o *DatacenterElementMetadata) HasCreatedByUserId() bool {
-	if o != nil && o.CreatedByUserId != nil {
+	if o != nil && !IsNil(o.CreatedByUserId) {
 		return true
 	}
 
 	return false
 }
 
-// GetLastModifiedDate returns the LastModifiedDate field value
-// If the value is explicit nil, the zero value for time.Time will be returned
-func (o *DatacenterElementMetadata) GetLastModifiedDate() *time.Time {
-	if o == nil {
-		return nil
-	}
-
-	if o.LastModifiedDate == nil {
-		return nil
-	}
-	return &o.LastModifiedDate.Time
-
+// SetCreatedByUserId gets a reference to the given string and assigns it to the CreatedByUserId field.
+func (o *DatacenterElementMetadata) SetCreatedByUserId(v string) {
+	o.CreatedByUserId = &v
 }
 
-// GetLastModifiedDateOk returns a tuple with the LastModifiedDate field value
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *DatacenterElementMetadata) GetLastModifiedDateOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
+// GetLastModifiedDate returns the LastModifiedDate field value if set, zero value otherwise.
+func (o *DatacenterElementMetadata) GetLastModifiedDate() time.Time {
+	if o == nil || IsNil(o.LastModifiedDate) {
+		var ret time.Time
+		return ret
 	}
+	return o.LastModifiedDate.Time
+}
 
-	if o.LastModifiedDate == nil {
+// GetLastModifiedDateOk returns a tuple with the LastModifiedDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DatacenterElementMetadata) GetLastModifiedDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastModifiedDate) {
 		return nil, false
 	}
 	return &o.LastModifiedDate.Time, true
-
-}
-
-// SetLastModifiedDate sets field value
-func (o *DatacenterElementMetadata) SetLastModifiedDate(v time.Time) {
-
-	o.LastModifiedDate = &IonosTime{v}
-
 }
 
 // HasLastModifiedDate returns a boolean if a field has been set.
 func (o *DatacenterElementMetadata) HasLastModifiedDate() bool {
-	if o != nil && o.LastModifiedDate != nil {
+	if o != nil && !IsNil(o.LastModifiedDate) {
 		return true
 	}
 
 	return false
 }
 
-// GetLastModifiedBy returns the LastModifiedBy field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *DatacenterElementMetadata) GetLastModifiedBy() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.LastModifiedBy
-
+// SetLastModifiedDate gets a reference to the given time.Time and assigns it to the LastModifiedDate field.
+func (o *DatacenterElementMetadata) SetLastModifiedDate(v time.Time) {
+	o.LastModifiedDate = &IonosTime{v}
 }
 
-// GetLastModifiedByOk returns a tuple with the LastModifiedBy field value
+// GetLastModifiedBy returns the LastModifiedBy field value if set, zero value otherwise.
+func (o *DatacenterElementMetadata) GetLastModifiedBy() string {
+	if o == nil || IsNil(o.LastModifiedBy) {
+		var ret string
+		return ret
+	}
+	return *o.LastModifiedBy
+}
+
+// GetLastModifiedByOk returns a tuple with the LastModifiedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DatacenterElementMetadata) GetLastModifiedByOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.LastModifiedBy) {
 		return nil, false
 	}
-
 	return o.LastModifiedBy, true
-}
-
-// SetLastModifiedBy sets field value
-func (o *DatacenterElementMetadata) SetLastModifiedBy(v string) {
-
-	o.LastModifiedBy = &v
-
 }
 
 // HasLastModifiedBy returns a boolean if a field has been set.
 func (o *DatacenterElementMetadata) HasLastModifiedBy() bool {
-	if o != nil && o.LastModifiedBy != nil {
+	if o != nil && !IsNil(o.LastModifiedBy) {
 		return true
 	}
 
 	return false
 }
 
-// GetLastModifiedByUserId returns the LastModifiedByUserId field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *DatacenterElementMetadata) GetLastModifiedByUserId() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.LastModifiedByUserId
-
+// SetLastModifiedBy gets a reference to the given string and assigns it to the LastModifiedBy field.
+func (o *DatacenterElementMetadata) SetLastModifiedBy(v string) {
+	o.LastModifiedBy = &v
 }
 
-// GetLastModifiedByUserIdOk returns a tuple with the LastModifiedByUserId field value
+// GetLastModifiedByUserId returns the LastModifiedByUserId field value if set, zero value otherwise.
+func (o *DatacenterElementMetadata) GetLastModifiedByUserId() string {
+	if o == nil || IsNil(o.LastModifiedByUserId) {
+		var ret string
+		return ret
+	}
+	return *o.LastModifiedByUserId
+}
+
+// GetLastModifiedByUserIdOk returns a tuple with the LastModifiedByUserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DatacenterElementMetadata) GetLastModifiedByUserIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.LastModifiedByUserId) {
 		return nil, false
 	}
-
 	return o.LastModifiedByUserId, true
-}
-
-// SetLastModifiedByUserId sets field value
-func (o *DatacenterElementMetadata) SetLastModifiedByUserId(v string) {
-
-	o.LastModifiedByUserId = &v
-
 }
 
 // HasLastModifiedByUserId returns a boolean if a field has been set.
 func (o *DatacenterElementMetadata) HasLastModifiedByUserId() bool {
-	if o != nil && o.LastModifiedByUserId != nil {
+	if o != nil && !IsNil(o.LastModifiedByUserId) {
 		return true
 	}
 
 	return false
 }
 
-// GetState returns the State field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *DatacenterElementMetadata) GetState() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.State
-
+// SetLastModifiedByUserId gets a reference to the given string and assigns it to the LastModifiedByUserId field.
+func (o *DatacenterElementMetadata) SetLastModifiedByUserId(v string) {
+	o.LastModifiedByUserId = &v
 }
 
-// GetStateOk returns a tuple with the State field value
+// GetState returns the State field value if set, zero value otherwise.
+func (o *DatacenterElementMetadata) GetState() string {
+	if o == nil || IsNil(o.State) {
+		var ret string
+		return ret
+	}
+	return *o.State
+}
+
+// GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DatacenterElementMetadata) GetStateOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
-
 	return o.State, true
-}
-
-// SetState sets field value
-func (o *DatacenterElementMetadata) SetState(v string) {
-
-	o.State = &v
-
 }
 
 // HasState returns a boolean if a field has been set.
 func (o *DatacenterElementMetadata) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
 	return false
 }
 
+// SetState gets a reference to the given string and assigns it to the State field.
+func (o *DatacenterElementMetadata) SetState(v string) {
+	o.State = &v
+}
+
 func (o DatacenterElementMetadata) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DatacenterElementMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Etag != nil {
+	if !IsNil(o.Etag) {
 		toSerialize["etag"] = o.Etag
 	}
-
-	if o.CreatedDate != nil {
+	if !IsNil(o.CreatedDate) {
 		toSerialize["createdDate"] = o.CreatedDate
 	}
-
-	if o.CreatedBy != nil {
+	if !IsNil(o.CreatedBy) {
 		toSerialize["createdBy"] = o.CreatedBy
 	}
-
-	if o.CreatedByUserId != nil {
+	if !IsNil(o.CreatedByUserId) {
 		toSerialize["createdByUserId"] = o.CreatedByUserId
 	}
-
-	if o.LastModifiedDate != nil {
+	if !IsNil(o.LastModifiedDate) {
 		toSerialize["lastModifiedDate"] = o.LastModifiedDate
 	}
-
-	if o.LastModifiedBy != nil {
+	if !IsNil(o.LastModifiedBy) {
 		toSerialize["lastModifiedBy"] = o.LastModifiedBy
 	}
-
-	if o.LastModifiedByUserId != nil {
+	if !IsNil(o.LastModifiedByUserId) {
 		toSerialize["lastModifiedByUserId"] = o.LastModifiedByUserId
 	}
-
-	if o.State != nil {
+	if !IsNil(o.State) {
 		toSerialize["state"] = o.State
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableDatacenterElementMetadata struct {

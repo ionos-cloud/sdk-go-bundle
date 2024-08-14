@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the CpuArchitectureProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CpuArchitectureProperties{}
 
 // CpuArchitectureProperties struct for CpuArchitectureProperties
 type CpuArchitectureProperties struct {
@@ -44,177 +47,157 @@ func NewCpuArchitecturePropertiesWithDefaults() *CpuArchitectureProperties {
 	return &this
 }
 
-// GetCpuFamily returns the CpuFamily field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *CpuArchitectureProperties) GetCpuFamily() *string {
-	if o == nil {
-		return nil
+// GetCpuFamily returns the CpuFamily field value if set, zero value otherwise.
+func (o *CpuArchitectureProperties) GetCpuFamily() string {
+	if o == nil || IsNil(o.CpuFamily) {
+		var ret string
+		return ret
 	}
-
-	return o.CpuFamily
-
+	return *o.CpuFamily
 }
 
-// GetCpuFamilyOk returns a tuple with the CpuFamily field value
+// GetCpuFamilyOk returns a tuple with the CpuFamily field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CpuArchitectureProperties) GetCpuFamilyOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CpuFamily) {
 		return nil, false
 	}
-
 	return o.CpuFamily, true
-}
-
-// SetCpuFamily sets field value
-func (o *CpuArchitectureProperties) SetCpuFamily(v string) {
-
-	o.CpuFamily = &v
-
 }
 
 // HasCpuFamily returns a boolean if a field has been set.
 func (o *CpuArchitectureProperties) HasCpuFamily() bool {
-	if o != nil && o.CpuFamily != nil {
+	if o != nil && !IsNil(o.CpuFamily) {
 		return true
 	}
 
 	return false
 }
 
-// GetMaxCores returns the MaxCores field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *CpuArchitectureProperties) GetMaxCores() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.MaxCores
-
+// SetCpuFamily gets a reference to the given string and assigns it to the CpuFamily field.
+func (o *CpuArchitectureProperties) SetCpuFamily(v string) {
+	o.CpuFamily = &v
 }
 
-// GetMaxCoresOk returns a tuple with the MaxCores field value
+// GetMaxCores returns the MaxCores field value if set, zero value otherwise.
+func (o *CpuArchitectureProperties) GetMaxCores() int32 {
+	if o == nil || IsNil(o.MaxCores) {
+		var ret int32
+		return ret
+	}
+	return *o.MaxCores
+}
+
+// GetMaxCoresOk returns a tuple with the MaxCores field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CpuArchitectureProperties) GetMaxCoresOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.MaxCores) {
 		return nil, false
 	}
-
 	return o.MaxCores, true
-}
-
-// SetMaxCores sets field value
-func (o *CpuArchitectureProperties) SetMaxCores(v int32) {
-
-	o.MaxCores = &v
-
 }
 
 // HasMaxCores returns a boolean if a field has been set.
 func (o *CpuArchitectureProperties) HasMaxCores() bool {
-	if o != nil && o.MaxCores != nil {
+	if o != nil && !IsNil(o.MaxCores) {
 		return true
 	}
 
 	return false
 }
 
-// GetMaxRam returns the MaxRam field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *CpuArchitectureProperties) GetMaxRam() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.MaxRam
-
+// SetMaxCores gets a reference to the given int32 and assigns it to the MaxCores field.
+func (o *CpuArchitectureProperties) SetMaxCores(v int32) {
+	o.MaxCores = &v
 }
 
-// GetMaxRamOk returns a tuple with the MaxRam field value
+// GetMaxRam returns the MaxRam field value if set, zero value otherwise.
+func (o *CpuArchitectureProperties) GetMaxRam() int32 {
+	if o == nil || IsNil(o.MaxRam) {
+		var ret int32
+		return ret
+	}
+	return *o.MaxRam
+}
+
+// GetMaxRamOk returns a tuple with the MaxRam field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CpuArchitectureProperties) GetMaxRamOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.MaxRam) {
 		return nil, false
 	}
-
 	return o.MaxRam, true
-}
-
-// SetMaxRam sets field value
-func (o *CpuArchitectureProperties) SetMaxRam(v int32) {
-
-	o.MaxRam = &v
-
 }
 
 // HasMaxRam returns a boolean if a field has been set.
 func (o *CpuArchitectureProperties) HasMaxRam() bool {
-	if o != nil && o.MaxRam != nil {
+	if o != nil && !IsNil(o.MaxRam) {
 		return true
 	}
 
 	return false
 }
 
-// GetVendor returns the Vendor field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *CpuArchitectureProperties) GetVendor() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Vendor
-
+// SetMaxRam gets a reference to the given int32 and assigns it to the MaxRam field.
+func (o *CpuArchitectureProperties) SetMaxRam(v int32) {
+	o.MaxRam = &v
 }
 
-// GetVendorOk returns a tuple with the Vendor field value
+// GetVendor returns the Vendor field value if set, zero value otherwise.
+func (o *CpuArchitectureProperties) GetVendor() string {
+	if o == nil || IsNil(o.Vendor) {
+		var ret string
+		return ret
+	}
+	return *o.Vendor
+}
+
+// GetVendorOk returns a tuple with the Vendor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CpuArchitectureProperties) GetVendorOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Vendor) {
 		return nil, false
 	}
-
 	return o.Vendor, true
-}
-
-// SetVendor sets field value
-func (o *CpuArchitectureProperties) SetVendor(v string) {
-
-	o.Vendor = &v
-
 }
 
 // HasVendor returns a boolean if a field has been set.
 func (o *CpuArchitectureProperties) HasVendor() bool {
-	if o != nil && o.Vendor != nil {
+	if o != nil && !IsNil(o.Vendor) {
 		return true
 	}
 
 	return false
 }
 
+// SetVendor gets a reference to the given string and assigns it to the Vendor field.
+func (o *CpuArchitectureProperties) SetVendor(v string) {
+	o.Vendor = &v
+}
+
 func (o CpuArchitectureProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CpuArchitectureProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CpuFamily != nil {
+	if !IsNil(o.CpuFamily) {
 		toSerialize["cpuFamily"] = o.CpuFamily
 	}
-
-	if o.MaxCores != nil {
+	if !IsNil(o.MaxCores) {
 		toSerialize["maxCores"] = o.MaxCores
 	}
-
-	if o.MaxRam != nil {
+	if !IsNil(o.MaxRam) {
 		toSerialize["maxRam"] = o.MaxRam
 	}
-
-	if o.Vendor != nil {
+	if !IsNil(o.Vendor) {
 		toSerialize["vendor"] = o.Vendor
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableCpuArchitectureProperties struct {

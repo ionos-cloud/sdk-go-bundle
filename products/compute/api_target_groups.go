@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,7 +14,7 @@ import (
 	_context "context"
 	"fmt"
 	"github.com/ionos-cloud/sdk-go-bundle/shared"
-	_ioutil "io/ioutil"
+	"io"
 	_nethttp "net/http"
 	_neturl "net/url"
 	"strings"
@@ -55,8 +55,8 @@ func (r ApiTargetGroupsDeleteRequest) Execute() (*shared.APIResponse, error) {
 }
 
 /*
- * TargetGroupsDelete Remove target groups
- * Remove the specified target group.
+ * TargetGroupsDelete Delete a Target Group by ID
+ * Deletes the target group specified by its ID.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param targetGroupId The unique ID of the target group.
  * @return ApiTargetGroupsDeleteRequest
@@ -89,17 +89,17 @@ func (a *TargetGroupsApiService) TargetGroupsDeleteExecute(r ApiTargetGroupsDele
 	}
 
 	localVarPath := localBasePath + "/targetgroups/{targetGroupId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"targetGroupId"+"}", _neturl.PathEscape(parameterToString(r.targetGroupId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"targetGroupId"+"}", _neturl.PathEscape(parameterValueToString(r.targetGroupId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -120,12 +120,12 @@ func (a *TargetGroupsApiService) TargetGroupsDeleteExecute(r ApiTargetGroupsDele
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -155,7 +155,7 @@ func (a *TargetGroupsApiService) TargetGroupsDeleteExecute(r ApiTargetGroupsDele
 		return localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -207,8 +207,8 @@ func (r ApiTargetgroupsFindByTargetGroupIdRequest) Execute() (TargetGroup, *shar
 }
 
 /*
- * TargetgroupsFindByTargetGroupId Retrieve target groups
- * Retrieve the properties of the specified target group.
+ * TargetgroupsFindByTargetGroupId Get a Target Group by ID
+ * Retrieves the properties of the target group specified by its ID.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param targetGroupId The unique ID of the target group.
  * @return ApiTargetgroupsFindByTargetGroupIdRequest
@@ -243,17 +243,17 @@ func (a *TargetGroupsApiService) TargetgroupsFindByTargetGroupIdExecute(r ApiTar
 	}
 
 	localVarPath := localBasePath + "/targetgroups/{targetGroupId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"targetGroupId"+"}", _neturl.PathEscape(parameterToString(r.targetGroupId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"targetGroupId"+"}", _neturl.PathEscape(parameterValueToString(r.targetGroupId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -274,12 +274,12 @@ func (a *TargetGroupsApiService) TargetgroupsFindByTargetGroupIdExecute(r ApiTar
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -309,7 +309,7 @@ func (a *TargetGroupsApiService) TargetgroupsFindByTargetGroupIdExecute(r ApiTar
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -401,11 +401,13 @@ func (r ApiTargetgroupsGetRequest) Execute() (TargetGroups, *shared.APIResponse,
 }
 
 /*
- * TargetgroupsGet List target groups
- * List all target groups.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiTargetgroupsGetRequest
- */
+  - TargetgroupsGet Get Target Groups
+  - Lists target groups.
+
+A target group is a set of one or more registered targets. You must specify an IP address, a port number, and a weight for each target. Any object with an IP address in your VDC can be a target, for example, a VM, another load balancer, etc. You can register a target with multiple target groups.
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @return ApiTargetgroupsGetRequest
+*/
 func (a *TargetGroupsApiService) TargetgroupsGet(ctx _context.Context) ApiTargetgroupsGetRequest {
 	return ApiTargetgroupsGetRequest{
 		ApiService: a,
@@ -442,16 +444,16 @@ func (a *TargetGroupsApiService) TargetgroupsGetExecute(r ApiTargetgroupsGetRequ
 	localVarFormParams := _neturl.Values{}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 	if r.offset != nil {
-		localVarQueryParams.Add("offset", parameterToString(*r.offset, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	if r.orderBy != nil {
 		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
@@ -485,12 +487,12 @@ func (a *TargetGroupsApiService) TargetgroupsGetExecute(r ApiTargetgroupsGetRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -520,7 +522,7 @@ func (a *TargetGroupsApiService) TargetgroupsGetExecute(r ApiTargetgroupsGetRequ
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -586,8 +588,8 @@ func (r ApiTargetgroupsPatchRequest) Execute() (TargetGroup, *shared.APIResponse
 }
 
 /*
- * TargetgroupsPatch Partially modify target groups
- * Update the properties of the specified target group.
+ * TargetgroupsPatch Partially Modify a Target Group by ID
+ * Updates the properties of the target group specified by its ID.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param targetGroupId The unique ID of the target group.
  * @return ApiTargetgroupsPatchRequest
@@ -622,7 +624,7 @@ func (a *TargetGroupsApiService) TargetgroupsPatchExecute(r ApiTargetgroupsPatch
 	}
 
 	localVarPath := localBasePath + "/targetgroups/{targetGroupId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"targetGroupId"+"}", _neturl.PathEscape(parameterToString(r.targetGroupId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"targetGroupId"+"}", _neturl.PathEscape(parameterValueToString(r.targetGroupId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -632,10 +634,10 @@ func (a *TargetGroupsApiService) TargetgroupsPatchExecute(r ApiTargetgroupsPatch
 	}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -656,14 +658,14 @@ func (a *TargetGroupsApiService) TargetgroupsPatchExecute(r ApiTargetgroupsPatch
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	// body params
 	localVarPostBody = r.targetGroupProperties
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -693,7 +695,7 @@ func (a *TargetGroupsApiService) TargetgroupsPatchExecute(r ApiTargetgroupsPatch
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -758,8 +760,8 @@ func (r ApiTargetgroupsPostRequest) Execute() (TargetGroup, *shared.APIResponse,
 }
 
 /*
- * TargetgroupsPost Create target groups
- * Create a target group.
+ * TargetgroupsPost Create a Target Group
+ * Creates a target group.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @return ApiTargetgroupsPostRequest
  */
@@ -801,10 +803,10 @@ func (a *TargetGroupsApiService) TargetgroupsPostExecute(r ApiTargetgroupsPostRe
 	}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -825,14 +827,14 @@ func (a *TargetGroupsApiService) TargetgroupsPostExecute(r ApiTargetgroupsPostRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	// body params
 	localVarPostBody = r.targetGroup
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -862,7 +864,7 @@ func (a *TargetGroupsApiService) TargetgroupsPostExecute(r ApiTargetgroupsPostRe
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -928,8 +930,8 @@ func (r ApiTargetgroupsPutRequest) Execute() (TargetGroup, *shared.APIResponse, 
 }
 
 /*
- * TargetgroupsPut Modify target groups
- * Modify the properties of the specified target group.
+ * TargetgroupsPut Modify a Target Group by ID
+ * Modifies the properties of the target group specified by its ID.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param targetGroupId The unique ID of the target group.
  * @return ApiTargetgroupsPutRequest
@@ -964,7 +966,7 @@ func (a *TargetGroupsApiService) TargetgroupsPutExecute(r ApiTargetgroupsPutRequ
 	}
 
 	localVarPath := localBasePath + "/targetgroups/{targetGroupId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"targetGroupId"+"}", _neturl.PathEscape(parameterToString(r.targetGroupId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"targetGroupId"+"}", _neturl.PathEscape(parameterValueToString(r.targetGroupId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -974,10 +976,10 @@ func (a *TargetGroupsApiService) TargetgroupsPutExecute(r ApiTargetgroupsPutRequ
 	}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -998,14 +1000,14 @@ func (a *TargetGroupsApiService) TargetgroupsPutExecute(r ApiTargetgroupsPutRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	// body params
 	localVarPostBody = r.targetGroup
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -1035,7 +1037,7 @@ func (a *TargetGroupsApiService) TargetgroupsPutExecute(r ApiTargetgroupsPutRequ
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {

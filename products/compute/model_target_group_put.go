@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,15 +14,18 @@ import (
 	"encoding/json"
 )
 
+// checks if the TargetGroupPut type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TargetGroupPut{}
+
 // TargetGroupPut struct for TargetGroupPut
 type TargetGroupPut struct {
 	// The resource's unique identifier.
 	Id *string `json:"id,omitempty"`
 	// The type of object that has been created.
 	Type *Type `json:"type,omitempty"`
-	// URL to the object representation (absolute path).
-	Href       *string                `json:"href,omitempty"`
-	Properties *TargetGroupProperties `json:"properties"`
+	// The URL to the object representation (absolute path).
+	Href       *string               `json:"href,omitempty"`
+	Properties TargetGroupProperties `json:"properties"`
 }
 
 // NewTargetGroupPut instantiates a new TargetGroupPut object
@@ -32,7 +35,7 @@ type TargetGroupPut struct {
 func NewTargetGroupPut(properties TargetGroupProperties) *TargetGroupPut {
 	this := TargetGroupPut{}
 
-	this.Properties = &properties
+	this.Properties = properties
 
 	return &this
 }
@@ -45,177 +48,149 @@ func NewTargetGroupPutWithDefaults() *TargetGroupPut {
 	return &this
 }
 
-// GetId returns the Id field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *TargetGroupPut) GetId() *string {
-	if o == nil {
-		return nil
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *TargetGroupPut) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
 	}
-
-	return o.Id
-
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TargetGroupPut) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-
 	return o.Id, true
-}
-
-// SetId sets field value
-func (o *TargetGroupPut) SetId(v string) {
-
-	o.Id = &v
-
 }
 
 // HasId returns a boolean if a field has been set.
 func (o *TargetGroupPut) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
 	return false
 }
 
-// GetType returns the Type field value
-// If the value is explicit nil, the zero value for Type will be returned
-func (o *TargetGroupPut) GetType() *Type {
-	if o == nil {
-		return nil
-	}
-
-	return o.Type
-
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *TargetGroupPut) SetId(v string) {
+	o.Id = &v
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *TargetGroupPut) GetType() Type {
+	if o == nil || IsNil(o.Type) {
+		var ret Type
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TargetGroupPut) GetTypeOk() (*Type, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
-
 	return o.Type, true
-}
-
-// SetType sets field value
-func (o *TargetGroupPut) SetType(v Type) {
-
-	o.Type = &v
-
 }
 
 // HasType returns a boolean if a field has been set.
 func (o *TargetGroupPut) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
 	return false
 }
 
-// GetHref returns the Href field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *TargetGroupPut) GetHref() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Href
-
+// SetType gets a reference to the given Type and assigns it to the Type field.
+func (o *TargetGroupPut) SetType(v Type) {
+	o.Type = &v
 }
 
-// GetHrefOk returns a tuple with the Href field value
+// GetHref returns the Href field value if set, zero value otherwise.
+func (o *TargetGroupPut) GetHref() string {
+	if o == nil || IsNil(o.Href) {
+		var ret string
+		return ret
+	}
+	return *o.Href
+}
+
+// GetHrefOk returns a tuple with the Href field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TargetGroupPut) GetHrefOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Href) {
 		return nil, false
 	}
-
 	return o.Href, true
-}
-
-// SetHref sets field value
-func (o *TargetGroupPut) SetHref(v string) {
-
-	o.Href = &v
-
 }
 
 // HasHref returns a boolean if a field has been set.
 func (o *TargetGroupPut) HasHref() bool {
-	if o != nil && o.Href != nil {
+	if o != nil && !IsNil(o.Href) {
 		return true
 	}
 
 	return false
 }
 
+// SetHref gets a reference to the given string and assigns it to the Href field.
+func (o *TargetGroupPut) SetHref(v string) {
+	o.Href = &v
+}
+
 // GetProperties returns the Properties field value
-// If the value is explicit nil, the zero value for TargetGroupProperties will be returned
-func (o *TargetGroupPut) GetProperties() *TargetGroupProperties {
+func (o *TargetGroupPut) GetProperties() TargetGroupProperties {
 	if o == nil {
-		return nil
+		var ret TargetGroupProperties
+		return ret
 	}
 
 	return o.Properties
-
 }
 
 // GetPropertiesOk returns a tuple with the Properties field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TargetGroupPut) GetPropertiesOk() (*TargetGroupProperties, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Properties, true
+	return &o.Properties, true
 }
 
 // SetProperties sets field value
 func (o *TargetGroupPut) SetProperties(v TargetGroupProperties) {
-
-	o.Properties = &v
-
-}
-
-// HasProperties returns a boolean if a field has been set.
-func (o *TargetGroupPut) HasProperties() bool {
-	if o != nil && o.Properties != nil {
-		return true
-	}
-
-	return false
+	o.Properties = v
 }
 
 func (o TargetGroupPut) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TargetGroupPut) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-
-	if o.Href != nil {
+	if !IsNil(o.Href) {
 		toSerialize["href"] = o.Href
 	}
-
-	if o.Properties != nil {
+	if !IsZero(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableTargetGroupPut struct {

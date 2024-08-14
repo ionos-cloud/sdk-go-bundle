@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,7 +14,7 @@ import (
 	_context "context"
 	"fmt"
 	"github.com/ionos-cloud/sdk-go-bundle/shared"
-	_ioutil "io/ioutil"
+	"io"
 	_nethttp "net/http"
 	_neturl "net/url"
 	"strings"
@@ -55,8 +55,8 @@ func (r ApiK8sDeleteRequest) Execute() (*shared.APIResponse, error) {
 }
 
 /*
- * K8sDelete Delete Kubernetes clusters
- * Delete the specified Kubernetes cluster.
+ * K8sDelete Delete a Kubernetes Cluster by ID
+ * Deletes the K8s cluster specified  by its ID.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param k8sClusterId The unique ID of the Kubernetes cluster.
  * @return ApiK8sDeleteRequest
@@ -89,17 +89,17 @@ func (a *KubernetesApiService) K8sDeleteExecute(r ApiK8sDeleteRequest) (*shared.
 	}
 
 	localVarPath := localBasePath + "/k8s/{k8sClusterId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterToString(r.k8sClusterId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterValueToString(r.k8sClusterId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -120,12 +120,12 @@ func (a *KubernetesApiService) K8sDeleteExecute(r ApiK8sDeleteRequest) (*shared.
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -155,7 +155,7 @@ func (a *KubernetesApiService) K8sDeleteExecute(r ApiK8sDeleteRequest) (*shared.
 		return localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -207,10 +207,10 @@ func (r ApiK8sFindByClusterIdRequest) Execute() (KubernetesCluster, *shared.APIR
 }
 
 /*
- * K8sFindByClusterId Retrieve Kubernetes clusters
- * Retrieve the specified Kubernetes cluster.
+ * K8sFindByClusterId Get a Kubernetes Cluster by ID
+ * Retrieves the K8s cluster specified by its ID.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param k8sClusterId The unique ID of the Kubernetes cluster.
+ * @param k8sClusterId The unique ID of the K8s cluster to be retrieved.
  * @return ApiK8sFindByClusterIdRequest
  */
 func (a *KubernetesApiService) K8sFindByClusterId(ctx _context.Context, k8sClusterId string) ApiK8sFindByClusterIdRequest {
@@ -243,17 +243,17 @@ func (a *KubernetesApiService) K8sFindByClusterIdExecute(r ApiK8sFindByClusterId
 	}
 
 	localVarPath := localBasePath + "/k8s/{k8sClusterId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterToString(r.k8sClusterId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterValueToString(r.k8sClusterId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -274,12 +274,12 @@ func (a *KubernetesApiService) K8sFindByClusterIdExecute(r ApiK8sFindByClusterId
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -309,7 +309,7 @@ func (a *KubernetesApiService) K8sFindByClusterIdExecute(r ApiK8sFindByClusterId
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -391,8 +391,8 @@ func (r ApiK8sGetRequest) Execute() (KubernetesClusters, *shared.APIResponse, er
 }
 
 /*
- * K8sGet List Kubernetes clusters
- * List all available Kubernetes clusters.
+ * K8sGet Get Kubernetes Clusters
+ * Retrieves a list of all K8s clusters provisioned under your account.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @return ApiK8sGetRequest
  */
@@ -432,10 +432,10 @@ func (a *KubernetesApiService) K8sGetExecute(r ApiK8sGetRequest) (KubernetesClus
 	localVarFormParams := _neturl.Values{}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 	if r.orderBy != nil {
 		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
@@ -469,12 +469,12 @@ func (a *KubernetesApiService) K8sGetExecute(r ApiK8sGetRequest) (KubernetesClus
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -504,7 +504,7 @@ func (a *KubernetesApiService) K8sGetExecute(r ApiK8sGetRequest) (KubernetesClus
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -587,8 +587,8 @@ func (r ApiK8sKubeconfigGetRequest) Execute() (string, *shared.APIResponse, erro
 }
 
 /*
- * K8sKubeconfigGet Retrieve Kubernetes configuration files
- * Retrieve a configuration file for the specified Kubernetes cluster, in YAML or JSON format as defined in the Accept header; the default Accept header is application/yaml.
+ * K8sKubeconfigGet Get Kubernetes Configuration File
+ * Retrieves the configuration file for the specified K8s cluster. You can define the format (YAML or JSON) of the returned file in the Accept header. By default, 'application/yaml' is specified.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param k8sClusterId The unique ID of the Kubernetes cluster.
  * @return ApiK8sKubeconfigGetRequest
@@ -624,17 +624,17 @@ func (a *KubernetesApiService) K8sKubeconfigGetExecute(r ApiK8sKubeconfigGetRequ
 	}
 
 	localVarPath := localBasePath + "/k8s/{k8sClusterId}/kubeconfig"
-	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterToString(r.k8sClusterId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterValueToString(r.k8sClusterId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 	if r.orderBy != nil {
 		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
@@ -668,12 +668,12 @@ func (a *KubernetesApiService) K8sKubeconfigGetExecute(r ApiK8sKubeconfigGetRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -703,7 +703,7 @@ func (a *KubernetesApiService) K8sKubeconfigGetExecute(r ApiK8sKubeconfigGetRequ
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -765,8 +765,8 @@ func (r ApiK8sNodepoolsDeleteRequest) Execute() (*shared.APIResponse, error) {
 }
 
 /*
- * K8sNodepoolsDelete Delete Kubernetes node pools
- * Delete the specified Kubernetes node pool.
+ * K8sNodepoolsDelete Delete a Kubernetes Node Pool by ID
+ * Deletes the K8s node pool specified by its ID.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param k8sClusterId The unique ID of the Kubernetes cluster.
  * @param nodepoolId The unique ID of the Kubernetes node pool.
@@ -801,18 +801,18 @@ func (a *KubernetesApiService) K8sNodepoolsDeleteExecute(r ApiK8sNodepoolsDelete
 	}
 
 	localVarPath := localBasePath + "/k8s/{k8sClusterId}/nodepools/{nodepoolId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterToString(r.k8sClusterId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"nodepoolId"+"}", _neturl.PathEscape(parameterToString(r.nodepoolId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterValueToString(r.k8sClusterId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"nodepoolId"+"}", _neturl.PathEscape(parameterValueToString(r.nodepoolId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -833,12 +833,12 @@ func (a *KubernetesApiService) K8sNodepoolsDeleteExecute(r ApiK8sNodepoolsDelete
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -868,7 +868,7 @@ func (a *KubernetesApiService) K8sNodepoolsDeleteExecute(r ApiK8sNodepoolsDelete
 		return localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -921,8 +921,8 @@ func (r ApiK8sNodepoolsFindByIdRequest) Execute() (KubernetesNodePool, *shared.A
 }
 
 /*
- * K8sNodepoolsFindById Retrieve Kubernetes node pools
- * Retrieve the specified Kubernetes node pool.
+ * K8sNodepoolsFindById Get a Kubernetes Node Pool by ID
+ * Retrieves the K8s node pool specified by its ID.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param k8sClusterId The unique ID of the Kubernetes cluster.
  * @param nodepoolId The unique ID of the Kubernetes node pool.
@@ -959,18 +959,18 @@ func (a *KubernetesApiService) K8sNodepoolsFindByIdExecute(r ApiK8sNodepoolsFind
 	}
 
 	localVarPath := localBasePath + "/k8s/{k8sClusterId}/nodepools/{nodepoolId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterToString(r.k8sClusterId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"nodepoolId"+"}", _neturl.PathEscape(parameterToString(r.nodepoolId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterValueToString(r.k8sClusterId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"nodepoolId"+"}", _neturl.PathEscape(parameterValueToString(r.nodepoolId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -991,12 +991,12 @@ func (a *KubernetesApiService) K8sNodepoolsFindByIdExecute(r ApiK8sNodepoolsFind
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -1026,7 +1026,7 @@ func (a *KubernetesApiService) K8sNodepoolsFindByIdExecute(r ApiK8sNodepoolsFind
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -1109,8 +1109,8 @@ func (r ApiK8sNodepoolsGetRequest) Execute() (KubernetesNodePools, *shared.APIRe
 }
 
 /*
- * K8sNodepoolsGet List Kubernetes node pools
- * List all Kubernetes node pools, included the specified Kubernetes cluster.
+ * K8sNodepoolsGet Get Kubernetes Node Pools
+ * Retrieves a list of K8s node pools of a cluster specified by its ID.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param k8sClusterId The unique ID of the Kubernetes cluster.
  * @return ApiK8sNodepoolsGetRequest
@@ -1146,17 +1146,17 @@ func (a *KubernetesApiService) K8sNodepoolsGetExecute(r ApiK8sNodepoolsGetReques
 	}
 
 	localVarPath := localBasePath + "/k8s/{k8sClusterId}/nodepools"
-	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterToString(r.k8sClusterId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterValueToString(r.k8sClusterId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 	if r.orderBy != nil {
 		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
@@ -1190,12 +1190,12 @@ func (a *KubernetesApiService) K8sNodepoolsGetExecute(r ApiK8sNodepoolsGetReques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -1225,7 +1225,7 @@ func (a *KubernetesApiService) K8sNodepoolsGetExecute(r ApiK8sNodepoolsGetReques
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -1288,8 +1288,8 @@ func (r ApiK8sNodepoolsNodesDeleteRequest) Execute() (*shared.APIResponse, error
 }
 
 /*
- * K8sNodepoolsNodesDelete Delete Kubernetes nodes
- * Delete the specified Kubernetes node.
+ * K8sNodepoolsNodesDelete Delete a Kubernetes Node by ID
+ * Deletes the K8s node specified by its ID.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param k8sClusterId The unique ID of the Kubernetes cluster.
  * @param nodepoolId The unique ID of the Kubernetes node pool.
@@ -1326,19 +1326,19 @@ func (a *KubernetesApiService) K8sNodepoolsNodesDeleteExecute(r ApiK8sNodepoolsN
 	}
 
 	localVarPath := localBasePath + "/k8s/{k8sClusterId}/nodepools/{nodepoolId}/nodes/{nodeId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterToString(r.k8sClusterId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"nodepoolId"+"}", _neturl.PathEscape(parameterToString(r.nodepoolId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"nodeId"+"}", _neturl.PathEscape(parameterToString(r.nodeId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterValueToString(r.k8sClusterId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"nodepoolId"+"}", _neturl.PathEscape(parameterValueToString(r.nodepoolId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"nodeId"+"}", _neturl.PathEscape(parameterValueToString(r.nodeId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -1359,12 +1359,12 @@ func (a *KubernetesApiService) K8sNodepoolsNodesDeleteExecute(r ApiK8sNodepoolsN
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -1394,7 +1394,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesDeleteExecute(r ApiK8sNodepoolsN
 		return localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -1448,8 +1448,8 @@ func (r ApiK8sNodepoolsNodesFindByIdRequest) Execute() (KubernetesNode, *shared.
 }
 
 /*
- * K8sNodepoolsNodesFindById Retrieve Kubernetes nodes
- * Retrieve the specified Kubernetes node.
+ * K8sNodepoolsNodesFindById Get Kubernetes Node by ID
+ * Retrieves the K8s node specified by its ID.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param k8sClusterId The unique ID of the Kubernetes cluster.
  * @param nodepoolId The unique ID of the Kubernetes node pool.
@@ -1488,19 +1488,19 @@ func (a *KubernetesApiService) K8sNodepoolsNodesFindByIdExecute(r ApiK8sNodepool
 	}
 
 	localVarPath := localBasePath + "/k8s/{k8sClusterId}/nodepools/{nodepoolId}/nodes/{nodeId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterToString(r.k8sClusterId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"nodepoolId"+"}", _neturl.PathEscape(parameterToString(r.nodepoolId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"nodeId"+"}", _neturl.PathEscape(parameterToString(r.nodeId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterValueToString(r.k8sClusterId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"nodepoolId"+"}", _neturl.PathEscape(parameterValueToString(r.nodepoolId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"nodeId"+"}", _neturl.PathEscape(parameterValueToString(r.nodeId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -1521,12 +1521,12 @@ func (a *KubernetesApiService) K8sNodepoolsNodesFindByIdExecute(r ApiK8sNodepool
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -1556,7 +1556,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesFindByIdExecute(r ApiK8sNodepool
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -1640,8 +1640,8 @@ func (r ApiK8sNodepoolsNodesGetRequest) Execute() (KubernetesNodes, *shared.APIR
 }
 
 /*
- * K8sNodepoolsNodesGet List Kubernetes nodes
- * List all the nodes, included in the specified Kubernetes node pool.
+ * K8sNodepoolsNodesGet Get Kubernetes Nodes
+ * Retrieves the list of all K8s nodes of the specified node pool.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param k8sClusterId The unique ID of the Kubernetes cluster.
  * @param nodepoolId The unique ID of the Kubernetes node pool.
@@ -1679,18 +1679,18 @@ func (a *KubernetesApiService) K8sNodepoolsNodesGetExecute(r ApiK8sNodepoolsNode
 	}
 
 	localVarPath := localBasePath + "/k8s/{k8sClusterId}/nodepools/{nodepoolId}/nodes"
-	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterToString(r.k8sClusterId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"nodepoolId"+"}", _neturl.PathEscape(parameterToString(r.nodepoolId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterValueToString(r.k8sClusterId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"nodepoolId"+"}", _neturl.PathEscape(parameterValueToString(r.nodepoolId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 	if r.orderBy != nil {
 		localVarQueryParams.Add("orderBy", parameterToString(*r.orderBy, ""))
@@ -1724,12 +1724,12 @@ func (a *KubernetesApiService) K8sNodepoolsNodesGetExecute(r ApiK8sNodepoolsNode
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -1759,7 +1759,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesGetExecute(r ApiK8sNodepoolsNode
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -1822,10 +1822,10 @@ func (r ApiK8sNodepoolsNodesReplacePostRequest) Execute() (*shared.APIResponse, 
 }
 
 /*
-  - K8sNodepoolsNodesReplacePost Recreate Kubernetes nodes
-  - Recreate the specified Kubernetes node.
+  - K8sNodepoolsNodesReplacePost Recreate a Kubernetes Node by ID
+  - Recreates the K8s node specified by its ID.
 
-A new node is created and configured by Managed Kubernetes, based on the node pool template. Once the status is  "Active", all the pods are migrated from the faulty node, which is then deleted once empty. During this operation, the node pool will have an additional billable  "Active" node.
+If a node becomes unusable, Managed Kubernetes allows you to recreate it with a configuration based on the node pool template. Once the status is 'Active,' all the pods from the failed node will be migrated to the new node. The node pool has an additional billable 'active' node during this process.
   - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
   - @param k8sClusterId The unique ID of the Kubernetes cluster.
   - @param nodepoolId The unique ID of the Kubernetes node pool.
@@ -1862,19 +1862,19 @@ func (a *KubernetesApiService) K8sNodepoolsNodesReplacePostExecute(r ApiK8sNodep
 	}
 
 	localVarPath := localBasePath + "/k8s/{k8sClusterId}/nodepools/{nodepoolId}/nodes/{nodeId}/replace"
-	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterToString(r.k8sClusterId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"nodepoolId"+"}", _neturl.PathEscape(parameterToString(r.nodepoolId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"nodeId"+"}", _neturl.PathEscape(parameterToString(r.nodeId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterValueToString(r.k8sClusterId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"nodepoolId"+"}", _neturl.PathEscape(parameterValueToString(r.nodepoolId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"nodeId"+"}", _neturl.PathEscape(parameterValueToString(r.nodeId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -1895,12 +1895,12 @@ func (a *KubernetesApiService) K8sNodepoolsNodesReplacePostExecute(r ApiK8sNodep
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -1930,7 +1930,7 @@ func (a *KubernetesApiService) K8sNodepoolsNodesReplacePostExecute(r ApiK8sNodep
 		return localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -1987,8 +1987,8 @@ func (r ApiK8sNodepoolsPostRequest) Execute() (KubernetesNodePool, *shared.APIRe
 }
 
 /*
- * K8sNodepoolsPost Create Kubernetes node pools
- * Create a Kubernetes node pool inside the specified Kubernetes cluster.
+ * K8sNodepoolsPost Create a Kubernetes Node Pool
+ * Creates a node pool inside the specified K8s cluster.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param k8sClusterId The unique ID of the Kubernetes cluster.
  * @return ApiK8sNodepoolsPostRequest
@@ -2023,7 +2023,7 @@ func (a *KubernetesApiService) K8sNodepoolsPostExecute(r ApiK8sNodepoolsPostRequ
 	}
 
 	localVarPath := localBasePath + "/k8s/{k8sClusterId}/nodepools"
-	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterToString(r.k8sClusterId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterValueToString(r.k8sClusterId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -2033,10 +2033,10 @@ func (a *KubernetesApiService) K8sNodepoolsPostExecute(r ApiK8sNodepoolsPostRequ
 	}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -2057,14 +2057,14 @@ func (a *KubernetesApiService) K8sNodepoolsPostExecute(r ApiK8sNodepoolsPostRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	// body params
 	localVarPostBody = r.kubernetesNodePool
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -2094,7 +2094,7 @@ func (a *KubernetesApiService) K8sNodepoolsPostExecute(r ApiK8sNodepoolsPostRequ
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -2161,8 +2161,8 @@ func (r ApiK8sNodepoolsPutRequest) Execute() (KubernetesNodePool, *shared.APIRes
 }
 
 /*
- * K8sNodepoolsPut Modify Kubernetes node pools
- * Modify the specified Kubernetes node pool.
+ * K8sNodepoolsPut Modify a Kubernetes Node Pool by ID
+ * Modifies the K8s node pool specified by its ID.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param k8sClusterId The unique ID of the Kubernetes cluster.
  * @param nodepoolId The unique ID of the Kubernetes node pool.
@@ -2199,8 +2199,8 @@ func (a *KubernetesApiService) K8sNodepoolsPutExecute(r ApiK8sNodepoolsPutReques
 	}
 
 	localVarPath := localBasePath + "/k8s/{k8sClusterId}/nodepools/{nodepoolId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterToString(r.k8sClusterId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"nodepoolId"+"}", _neturl.PathEscape(parameterToString(r.nodepoolId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterValueToString(r.k8sClusterId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"nodepoolId"+"}", _neturl.PathEscape(parameterValueToString(r.nodepoolId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -2210,10 +2210,10 @@ func (a *KubernetesApiService) K8sNodepoolsPutExecute(r ApiK8sNodepoolsPutReques
 	}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -2234,14 +2234,14 @@ func (a *KubernetesApiService) K8sNodepoolsPutExecute(r ApiK8sNodepoolsPutReques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	// body params
 	localVarPostBody = r.kubernetesNodePool
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -2271,7 +2271,7 @@ func (a *KubernetesApiService) K8sNodepoolsPutExecute(r ApiK8sNodepoolsPutReques
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -2336,8 +2336,8 @@ func (r ApiK8sPostRequest) Execute() (KubernetesCluster, *shared.APIResponse, er
 }
 
 /*
- * K8sPost Create Kubernetes clusters
- * Create a Kubernetes cluster.
+ * K8sPost Create a Kubernetes Cluster
+ * Creates a K8s cluster provisioned under your account.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @return ApiK8sPostRequest
  */
@@ -2379,10 +2379,10 @@ func (a *KubernetesApiService) K8sPostExecute(r ApiK8sPostRequest) (KubernetesCl
 	}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -2403,14 +2403,14 @@ func (a *KubernetesApiService) K8sPostExecute(r ApiK8sPostRequest) (KubernetesCl
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	// body params
 	localVarPostBody = r.kubernetesCluster
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -2440,7 +2440,7 @@ func (a *KubernetesApiService) K8sPostExecute(r ApiK8sPostRequest) (KubernetesCl
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -2506,8 +2506,8 @@ func (r ApiK8sPutRequest) Execute() (KubernetesCluster, *shared.APIResponse, err
 }
 
 /*
- * K8sPut Modify Kubernetes clusters
- * Modify the specified Kubernetes cluster.
+ * K8sPut Modify a Kubernetes Cluster by ID
+ * Modifies the K8s cluster specified by its ID.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param k8sClusterId The unique ID of the Kubernetes cluster.
  * @return ApiK8sPutRequest
@@ -2542,7 +2542,7 @@ func (a *KubernetesApiService) K8sPutExecute(r ApiK8sPutRequest) (KubernetesClus
 	}
 
 	localVarPath := localBasePath + "/k8s/{k8sClusterId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterToString(r.k8sClusterId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"k8sClusterId"+"}", _neturl.PathEscape(parameterValueToString(r.k8sClusterId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -2552,10 +2552,10 @@ func (a *KubernetesApiService) K8sPutExecute(r ApiK8sPutRequest) (KubernetesClus
 	}
 
 	if r.pretty != nil {
-		localVarQueryParams.Add("pretty", parameterToString(*r.pretty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pretty", r.pretty, "")
 	}
 	if r.depth != nil {
-		localVarQueryParams.Add("depth", parameterToString(*r.depth, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "")
 	}
 
 	// to determine the Content-Type header
@@ -2576,14 +2576,14 @@ func (a *KubernetesApiService) K8sPutExecute(r ApiK8sPutRequest) (KubernetesClus
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xContractNumber != nil {
-		localVarHeaderParams["X-Contract-Number"] = parameterToString(*r.xContractNumber, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
 	// body params
 	localVarPostBody = r.kubernetesCluster
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -2613,7 +2613,7 @@ func (a *KubernetesApiService) K8sPutExecute(r ApiK8sPutRequest) (KubernetesClus
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -2679,8 +2679,8 @@ func (r ApiK8sVersionsDefaultGetRequest) Execute() (string, *shared.APIResponse,
 }
 
 /*
- * K8sVersionsDefaultGet Retrieve current default Kubernetes version
- * Retrieve current default Kubernetes version for clusters and nodepools.
+ * K8sVersionsDefaultGet Get Default Kubernetes Version
+ * Retrieves the current default K8s version to be used by the clusters and node pools.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @return ApiK8sVersionsDefaultGetRequest
  */
@@ -2753,7 +2753,7 @@ func (a *KubernetesApiService) K8sVersionsDefaultGetExecute(r ApiK8sVersionsDefa
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -2783,7 +2783,7 @@ func (a *KubernetesApiService) K8sVersionsDefaultGetExecute(r ApiK8sVersionsDefa
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -2849,8 +2849,8 @@ func (r ApiK8sVersionsGetRequest) Execute() ([]string, *shared.APIResponse, erro
 }
 
 /*
- * K8sVersionsGet List Kubernetes versions
- * List available Kubernetes versions.
+ * K8sVersionsGet Get Kubernetes Versions
+ * Lists available K8s versions.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @return ApiK8sVersionsGetRequest
  */
@@ -2923,7 +2923,7 @@ func (a *KubernetesApiService) K8sVersionsGetExecute(r ApiK8sVersionsGetRequest)
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
-			if apiKey, ok := auth["Token Authentication"]; ok {
+			if apiKey, ok := auth["TokenAuthentication"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
 					key = apiKey.Prefix + " " + apiKey.Key
@@ -2953,7 +2953,7 @@ func (a *KubernetesApiService) K8sVersionsGetExecute(r ApiK8sVersionsGetRequest)
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {

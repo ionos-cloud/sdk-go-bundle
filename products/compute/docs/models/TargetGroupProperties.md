@@ -4,9 +4,10 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Name** | **string** | The name of the target group. | |
-|**Algorithm** | **string** | Balancing algorithm | |
-|**Protocol** | **string** | Balancing protocol | |
+|**Name** | **string** | The target group name. | |
+|**Algorithm** | **string** | The balancing algorithm. A balancing algorithm consists of predefined rules with the logic that a load balancer uses to distribute network traffic between servers.  - **Round Robin**: Targets are served alternately according to their weighting.  - **Least Connection**: The target with the least active connection is served.  - **Random**: The targets are served based on a consistent pseudorandom algorithm.  - **Source IP**: It is ensured that the same client IP address reaches the same target. | |
+|**Protocol** | **string** | The forwarding protocol. Only the value &#39;HTTP&#39; is allowed. | |
+|**ProtocolVersion** | Pointer to **string** | The forwarding protocol version. Value is ignored when protocol is not &#39;HTTP&#39;. | [optional] |
 |**Targets** | Pointer to [**[]TargetGroupTarget**](TargetGroupTarget.md) | Array of items in the collection. | [optional] |
 |**HealthCheck** | Pointer to [**TargetGroupHealthCheck**](TargetGroupHealthCheck.md) |  | [optional] |
 |**HttpHealthCheck** | Pointer to [**TargetGroupHttpHealthCheck**](TargetGroupHttpHealthCheck.md) |  | [optional] |
@@ -89,6 +90,31 @@ and a boolean to check if the value has been set.
 
 SetProtocol sets Protocol field to given value.
 
+
+### GetProtocolVersion
+
+`func (o *TargetGroupProperties) GetProtocolVersion() string`
+
+GetProtocolVersion returns the ProtocolVersion field if non-nil, zero value otherwise.
+
+### GetProtocolVersionOk
+
+`func (o *TargetGroupProperties) GetProtocolVersionOk() (*string, bool)`
+
+GetProtocolVersionOk returns a tuple with the ProtocolVersion field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProtocolVersion
+
+`func (o *TargetGroupProperties) SetProtocolVersion(v string)`
+
+SetProtocolVersion sets ProtocolVersion field to given value.
+
+### HasProtocolVersion
+
+`func (o *TargetGroupProperties) HasProtocolVersion() bool`
+
+HasProtocolVersion returns a boolean if a field has been set.
 
 ### GetTargets
 

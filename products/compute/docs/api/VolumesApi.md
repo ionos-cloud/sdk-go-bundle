@@ -9,8 +9,8 @@ All URIs are relative to *https://api.ionos.com/cloudapi/v6*
 |[**DatacentersVolumesFindById**](VolumesApi.md#DatacentersVolumesFindById) | **Get** /datacenters/{datacenterId}/volumes/{volumeId} | Retrieve volumes|
 |[**DatacentersVolumesGet**](VolumesApi.md#DatacentersVolumesGet) | **Get** /datacenters/{datacenterId}/volumes | List volumes|
 |[**DatacentersVolumesPatch**](VolumesApi.md#DatacentersVolumesPatch) | **Patch** /datacenters/{datacenterId}/volumes/{volumeId} | Partially modify volumes|
-|[**DatacentersVolumesPost**](VolumesApi.md#DatacentersVolumesPost) | **Post** /datacenters/{datacenterId}/volumes | Create volumes|
-|[**DatacentersVolumesPut**](VolumesApi.md#DatacentersVolumesPut) | **Put** /datacenters/{datacenterId}/volumes/{volumeId} | Modify volumes|
+|[**DatacentersVolumesPost**](VolumesApi.md#DatacentersVolumesPost) | **Post** /datacenters/{datacenterId}/volumes | Create a Volume|
+|[**DatacentersVolumesPut**](VolumesApi.md#DatacentersVolumesPut) | **Put** /datacenters/{datacenterId}/volumes/{volumeId} | Modify a Volume by ID|
 |[**DatacentersVolumesRestoreSnapshotPost**](VolumesApi.md#DatacentersVolumesRestoreSnapshotPost) | **Post** /datacenters/{datacenterId}/volumes/{volumeId}/restore-snapshot | Restore volume snapshots|
 
 
@@ -53,10 +53,10 @@ func main() {
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
-    name := "name_example" // string | Snapshot name (optional)
-    description := "description_example" // string | Snapshot description (optional)
-    secAuthProtection := true // bool | Flag for enabling extra protection for this snapshot, such as two-step verification. (optional)
-    licenceType := "licenceType_example" // string | The OS type for this snapshot. (optional)
+    name := "name_example" // string | The name of the snapshot (optional)
+    description := "description_example" // string | The description of the snapshot (optional)
+    secAuthProtection := true // bool | Flag representing if extra protection is enabled on snapshot e.g. Two Factor protection etc. (optional)
+    licenceType := "licenceType_example" // string | OS type of this Snapshot (optional)
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
@@ -89,10 +89,10 @@ Other parameters are passed through a pointer to an apiDatacentersVolumesCreateS
 | **pretty** | **bool** | Controls whether the response is pretty-printed (with indentations and new lines). | [default to true]|
 | **depth** | **int32** | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth&#x3D;0: Only direct properties are included; children (servers and other elements) are not included.  - depth&#x3D;1: Direct properties and children references are included.  - depth&#x3D;2: Direct properties and children properties are included.  - depth&#x3D;3: Direct properties and children properties and children&#39;s children are included.  - depth&#x3D;... and so on | [default to 0]|
 | **xContractNumber** | **int32** | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. | |
-| **name** | **string** | Snapshot name | |
-| **description** | **string** | Snapshot description | |
-| **secAuthProtection** | **bool** | Flag for enabling extra protection for this snapshot, such as two-step verification. | |
-| **licenceType** | **string** | The OS type for this snapshot. | |
+| **name** | **string** | The name of the snapshot | |
+| **description** | **string** | The description of the snapshot | |
+| **secAuthProtection** | **bool** | Flag representing if extra protection is enabled on snapshot e.g. Two Factor protection etc. | |
+| **licenceType** | **string** | OS type of this Snapshot | |
 
 ### Return type
 
@@ -142,7 +142,7 @@ func main() {
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
-    resource, resp, err := apiClient.VolumesApi.DatacentersVolumesDelete(context.Background(), datacenterId, volumeId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    resp, err := apiClient.VolumesApi.DatacentersVolumesDelete(context.Background(), datacenterId, volumeId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `VolumesApi.DatacentersVolumesDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -373,7 +373,7 @@ import (
 func main() {
     datacenterId := "datacenterId_example" // string | The unique ID of the data center.
     volumeId := "volumeId_example" // string | The unique ID of the volume.
-    volume := *openapiclient.NewVolumeProperties(float32(100.0)) // VolumeProperties | The properties of the volume to be updated.
+    volume := *openapiclient.NewVolumeProperties(float32(100)) // VolumeProperties | The properties of the volume to be updated.
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
@@ -433,7 +433,7 @@ var result Volume = DatacentersVolumesPost(ctx, datacenterId)
                       .Execute()
 ```
 
-Create volumes
+Create a Volume
 
 
 
@@ -453,7 +453,7 @@ import (
 
 func main() {
     datacenterId := "datacenterId_example" // string | The unique ID of the data center.
-    volume := *openapiclient.NewVolume(*openapiclient.NewVolumeProperties(float32(100.0))) // Volume | The volume to create.
+    volume := *openapiclient.NewVolume(*openapiclient.NewVolumeProperties(float32(100))) // Volume | The volume to create.
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
@@ -512,7 +512,7 @@ var result Volume = DatacentersVolumesPut(ctx, datacenterId, volumeId)
                       .Execute()
 ```
 
-Modify volumes
+Modify a Volume by ID
 
 
 
@@ -533,7 +533,7 @@ import (
 func main() {
     datacenterId := "datacenterId_example" // string | The unique ID of the data center.
     volumeId := "volumeId_example" // string | The unique ID of the volume.
-    volume := *openapiclient.NewVolume(*openapiclient.NewVolumeProperties(float32(100.0))) // Volume | The modified volume
+    volume := *openapiclient.NewVolume(*openapiclient.NewVolumeProperties(float32(100))) // Volume | The modified volume
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)

@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -16,12 +16,25 @@ import (
 	"time"
 )
 
+// checks if the S3KeyMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &S3KeyMetadata{}
+
 // S3KeyMetadata struct for S3KeyMetadata
 type S3KeyMetadata struct {
 	// Resource's Entity Tag as defined in http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.11  Entity Tag is also added as an 'ETag response header to requests which don't use 'depth' parameter.
 	Etag *string `json:"etag,omitempty"`
 	// The time when the S3 key was created.
 	CreatedDate *IonosTime `json:"createdDate,omitempty"`
+	// Unique name of the identity that created the resource.
+	CreatedBy *string `json:"createdBy,omitempty"`
+	// The unique ID of the user who created the S3 key.
+	CreatedByUserId *string `json:"createdByUserId,omitempty"`
+	// The last time the S3 key was modified.
+	LastModifiedDate *IonosTime `json:"lastModifiedDate,omitempty"`
+	// Unique name of the identity that last modified the S3 key.
+	LastModifiedBy *string `json:"lastModifiedBy,omitempty"`
+	// The unique ID of the user who last modified the S3 key.
+	LastModifiedByUserId *string `json:"lastModifiedByUserId,omitempty"`
 }
 
 // NewS3KeyMetadata instantiates a new S3KeyMetadata object
@@ -42,100 +55,262 @@ func NewS3KeyMetadataWithDefaults() *S3KeyMetadata {
 	return &this
 }
 
-// GetEtag returns the Etag field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *S3KeyMetadata) GetEtag() *string {
-	if o == nil {
-		return nil
+// GetEtag returns the Etag field value if set, zero value otherwise.
+func (o *S3KeyMetadata) GetEtag() string {
+	if o == nil || IsNil(o.Etag) {
+		var ret string
+		return ret
 	}
-
-	return o.Etag
-
+	return *o.Etag
 }
 
-// GetEtagOk returns a tuple with the Etag field value
+// GetEtagOk returns a tuple with the Etag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *S3KeyMetadata) GetEtagOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Etag) {
 		return nil, false
 	}
-
 	return o.Etag, true
-}
-
-// SetEtag sets field value
-func (o *S3KeyMetadata) SetEtag(v string) {
-
-	o.Etag = &v
-
 }
 
 // HasEtag returns a boolean if a field has been set.
 func (o *S3KeyMetadata) HasEtag() bool {
-	if o != nil && o.Etag != nil {
+	if o != nil && !IsNil(o.Etag) {
 		return true
 	}
 
 	return false
 }
 
-// GetCreatedDate returns the CreatedDate field value
-// If the value is explicit nil, the zero value for time.Time will be returned
-func (o *S3KeyMetadata) GetCreatedDate() *time.Time {
-	if o == nil {
-		return nil
-	}
-
-	if o.CreatedDate == nil {
-		return nil
-	}
-	return &o.CreatedDate.Time
-
+// SetEtag gets a reference to the given string and assigns it to the Etag field.
+func (o *S3KeyMetadata) SetEtag(v string) {
+	o.Etag = &v
 }
 
-// GetCreatedDateOk returns a tuple with the CreatedDate field value
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *S3KeyMetadata) GetCreatedDateOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
+// GetCreatedDate returns the CreatedDate field value if set, zero value otherwise.
+func (o *S3KeyMetadata) GetCreatedDate() time.Time {
+	if o == nil || IsNil(o.CreatedDate) {
+		var ret time.Time
+		return ret
 	}
+	return o.CreatedDate.Time
+}
 
-	if o.CreatedDate == nil {
+// GetCreatedDateOk returns a tuple with the CreatedDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *S3KeyMetadata) GetCreatedDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CreatedDate) {
 		return nil, false
 	}
 	return &o.CreatedDate.Time, true
-
-}
-
-// SetCreatedDate sets field value
-func (o *S3KeyMetadata) SetCreatedDate(v time.Time) {
-
-	o.CreatedDate = &IonosTime{v}
-
 }
 
 // HasCreatedDate returns a boolean if a field has been set.
 func (o *S3KeyMetadata) HasCreatedDate() bool {
-	if o != nil && o.CreatedDate != nil {
+	if o != nil && !IsNil(o.CreatedDate) {
 		return true
 	}
 
 	return false
 }
 
+// SetCreatedDate gets a reference to the given time.Time and assigns it to the CreatedDate field.
+func (o *S3KeyMetadata) SetCreatedDate(v time.Time) {
+	o.CreatedDate = &IonosTime{v}
+}
+
+// GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
+func (o *S3KeyMetadata) GetCreatedBy() string {
+	if o == nil || IsNil(o.CreatedBy) {
+		var ret string
+		return ret
+	}
+	return *o.CreatedBy
+}
+
+// GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *S3KeyMetadata) GetCreatedByOk() (*string, bool) {
+	if o == nil || IsNil(o.CreatedBy) {
+		return nil, false
+	}
+	return o.CreatedBy, true
+}
+
+// HasCreatedBy returns a boolean if a field has been set.
+func (o *S3KeyMetadata) HasCreatedBy() bool {
+	if o != nil && !IsNil(o.CreatedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedBy gets a reference to the given string and assigns it to the CreatedBy field.
+func (o *S3KeyMetadata) SetCreatedBy(v string) {
+	o.CreatedBy = &v
+}
+
+// GetCreatedByUserId returns the CreatedByUserId field value if set, zero value otherwise.
+func (o *S3KeyMetadata) GetCreatedByUserId() string {
+	if o == nil || IsNil(o.CreatedByUserId) {
+		var ret string
+		return ret
+	}
+	return *o.CreatedByUserId
+}
+
+// GetCreatedByUserIdOk returns a tuple with the CreatedByUserId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *S3KeyMetadata) GetCreatedByUserIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CreatedByUserId) {
+		return nil, false
+	}
+	return o.CreatedByUserId, true
+}
+
+// HasCreatedByUserId returns a boolean if a field has been set.
+func (o *S3KeyMetadata) HasCreatedByUserId() bool {
+	if o != nil && !IsNil(o.CreatedByUserId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedByUserId gets a reference to the given string and assigns it to the CreatedByUserId field.
+func (o *S3KeyMetadata) SetCreatedByUserId(v string) {
+	o.CreatedByUserId = &v
+}
+
+// GetLastModifiedDate returns the LastModifiedDate field value if set, zero value otherwise.
+func (o *S3KeyMetadata) GetLastModifiedDate() time.Time {
+	if o == nil || IsNil(o.LastModifiedDate) {
+		var ret time.Time
+		return ret
+	}
+	return o.LastModifiedDate.Time
+}
+
+// GetLastModifiedDateOk returns a tuple with the LastModifiedDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *S3KeyMetadata) GetLastModifiedDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastModifiedDate) {
+		return nil, false
+	}
+	return &o.LastModifiedDate.Time, true
+}
+
+// HasLastModifiedDate returns a boolean if a field has been set.
+func (o *S3KeyMetadata) HasLastModifiedDate() bool {
+	if o != nil && !IsNil(o.LastModifiedDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastModifiedDate gets a reference to the given time.Time and assigns it to the LastModifiedDate field.
+func (o *S3KeyMetadata) SetLastModifiedDate(v time.Time) {
+	o.LastModifiedDate = &IonosTime{v}
+}
+
+// GetLastModifiedBy returns the LastModifiedBy field value if set, zero value otherwise.
+func (o *S3KeyMetadata) GetLastModifiedBy() string {
+	if o == nil || IsNil(o.LastModifiedBy) {
+		var ret string
+		return ret
+	}
+	return *o.LastModifiedBy
+}
+
+// GetLastModifiedByOk returns a tuple with the LastModifiedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *S3KeyMetadata) GetLastModifiedByOk() (*string, bool) {
+	if o == nil || IsNil(o.LastModifiedBy) {
+		return nil, false
+	}
+	return o.LastModifiedBy, true
+}
+
+// HasLastModifiedBy returns a boolean if a field has been set.
+func (o *S3KeyMetadata) HasLastModifiedBy() bool {
+	if o != nil && !IsNil(o.LastModifiedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastModifiedBy gets a reference to the given string and assigns it to the LastModifiedBy field.
+func (o *S3KeyMetadata) SetLastModifiedBy(v string) {
+	o.LastModifiedBy = &v
+}
+
+// GetLastModifiedByUserId returns the LastModifiedByUserId field value if set, zero value otherwise.
+func (o *S3KeyMetadata) GetLastModifiedByUserId() string {
+	if o == nil || IsNil(o.LastModifiedByUserId) {
+		var ret string
+		return ret
+	}
+	return *o.LastModifiedByUserId
+}
+
+// GetLastModifiedByUserIdOk returns a tuple with the LastModifiedByUserId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *S3KeyMetadata) GetLastModifiedByUserIdOk() (*string, bool) {
+	if o == nil || IsNil(o.LastModifiedByUserId) {
+		return nil, false
+	}
+	return o.LastModifiedByUserId, true
+}
+
+// HasLastModifiedByUserId returns a boolean if a field has been set.
+func (o *S3KeyMetadata) HasLastModifiedByUserId() bool {
+	if o != nil && !IsNil(o.LastModifiedByUserId) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastModifiedByUserId gets a reference to the given string and assigns it to the LastModifiedByUserId field.
+func (o *S3KeyMetadata) SetLastModifiedByUserId(v string) {
+	o.LastModifiedByUserId = &v
+}
+
 func (o S3KeyMetadata) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o S3KeyMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Etag != nil {
+	if !IsNil(o.Etag) {
 		toSerialize["etag"] = o.Etag
 	}
-
-	if o.CreatedDate != nil {
+	if !IsNil(o.CreatedDate) {
 		toSerialize["createdDate"] = o.CreatedDate
 	}
-
-	return json.Marshal(toSerialize)
+	if !IsNil(o.CreatedBy) {
+		toSerialize["createdBy"] = o.CreatedBy
+	}
+	if !IsNil(o.CreatedByUserId) {
+		toSerialize["createdByUserId"] = o.CreatedByUserId
+	}
+	if !IsNil(o.LastModifiedDate) {
+		toSerialize["lastModifiedDate"] = o.LastModifiedDate
+	}
+	if !IsNil(o.LastModifiedBy) {
+		toSerialize["lastModifiedBy"] = o.LastModifiedBy
+	}
+	if !IsNil(o.LastModifiedByUserId) {
+		toSerialize["lastModifiedByUserId"] = o.LastModifiedByUserId
+	}
+	return toSerialize, nil
 }
 
 type NullableS3KeyMetadata struct {

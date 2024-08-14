@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,17 +14,20 @@ import (
 	"encoding/json"
 )
 
+// checks if the KubernetesClusterPropertiesForPut type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KubernetesClusterPropertiesForPut{}
+
 // KubernetesClusterPropertiesForPut struct for KubernetesClusterPropertiesForPut
 type KubernetesClusterPropertiesForPut struct {
 	// A Kubernetes cluster name. Valid Kubernetes cluster name must be 63 characters or less and must be empty or begin and end with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), underscores (_), dots (.), and alphanumerics between.
-	Name *string `json:"name"`
-	// The Kubernetes version the cluster is running. This imposes restrictions on what Kubernetes versions can be run in a cluster's nodepools. Additionally, not all Kubernetes versions are viable upgrade targets for all prior versions.
+	Name string `json:"name"`
+	// The Kubernetes version that the cluster is running. This limits which Kubernetes versions can run in a cluster's node pools. Also, not all Kubernetes versions are suitable upgrade targets for all earlier versions.
 	K8sVersion        *string                      `json:"k8sVersion,omitempty"`
 	MaintenanceWindow *KubernetesMaintenanceWindow `json:"maintenanceWindow,omitempty"`
-	// Access to the K8s API server is restricted to these CIDRs. Traffic, internal to the cluster, is not affected by this restriction. If no allowlist is specified, access is not restricted. If an IP without subnet mask is provided, the default value is used: 32 for IPv4 and 128 for IPv6.
-	ApiSubnetAllowList *[]string `json:"apiSubnetAllowList,omitempty"`
-	// List of S3 bucket configured for K8s usage. For now it contains only an S3 bucket used to store K8s API audit logs
-	S3Buckets *[]S3Bucket `json:"s3Buckets,omitempty"`
+	// Access to the K8s API server is restricted to these CIDRs. Intra-cluster traffic is not affected by this restriction. If no AllowList is specified, access is not limited. If an IP is specified without a subnet mask, the default value is 32 for IPv4 and 128 for IPv6.
+	ApiSubnetAllowList []string `json:"apiSubnetAllowList,omitempty"`
+	// List of S3 buckets configured for K8s usage. At the moment, it contains only one S3 bucket that is used to store K8s API audit logs.
+	S3Buckets []S3Bucket `json:"s3Buckets,omitempty"`
 }
 
 // NewKubernetesClusterPropertiesForPut instantiates a new KubernetesClusterPropertiesForPut object
@@ -34,7 +37,7 @@ type KubernetesClusterPropertiesForPut struct {
 func NewKubernetesClusterPropertiesForPut(name string) *KubernetesClusterPropertiesForPut {
 	this := KubernetesClusterPropertiesForPut{}
 
-	this.Name = &name
+	this.Name = name
 
 	return &this
 }
@@ -48,218 +51,183 @@ func NewKubernetesClusterPropertiesForPutWithDefaults() *KubernetesClusterProper
 }
 
 // GetName returns the Name field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *KubernetesClusterPropertiesForPut) GetName() *string {
+func (o *KubernetesClusterPropertiesForPut) GetName() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Name
-
 }
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *KubernetesClusterPropertiesForPut) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Name, true
+	return &o.Name, true
 }
 
 // SetName sets field value
 func (o *KubernetesClusterPropertiesForPut) SetName(v string) {
-
-	o.Name = &v
-
+	o.Name = v
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *KubernetesClusterPropertiesForPut) HasName() bool {
-	if o != nil && o.Name != nil {
-		return true
+// GetK8sVersion returns the K8sVersion field value if set, zero value otherwise.
+func (o *KubernetesClusterPropertiesForPut) GetK8sVersion() string {
+	if o == nil || IsNil(o.K8sVersion) {
+		var ret string
+		return ret
 	}
-
-	return false
+	return *o.K8sVersion
 }
 
-// GetK8sVersion returns the K8sVersion field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *KubernetesClusterPropertiesForPut) GetK8sVersion() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.K8sVersion
-
-}
-
-// GetK8sVersionOk returns a tuple with the K8sVersion field value
+// GetK8sVersionOk returns a tuple with the K8sVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *KubernetesClusterPropertiesForPut) GetK8sVersionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.K8sVersion) {
 		return nil, false
 	}
-
 	return o.K8sVersion, true
-}
-
-// SetK8sVersion sets field value
-func (o *KubernetesClusterPropertiesForPut) SetK8sVersion(v string) {
-
-	o.K8sVersion = &v
-
 }
 
 // HasK8sVersion returns a boolean if a field has been set.
 func (o *KubernetesClusterPropertiesForPut) HasK8sVersion() bool {
-	if o != nil && o.K8sVersion != nil {
+	if o != nil && !IsNil(o.K8sVersion) {
 		return true
 	}
 
 	return false
 }
 
-// GetMaintenanceWindow returns the MaintenanceWindow field value
-// If the value is explicit nil, the zero value for KubernetesMaintenanceWindow will be returned
-func (o *KubernetesClusterPropertiesForPut) GetMaintenanceWindow() *KubernetesMaintenanceWindow {
-	if o == nil {
-		return nil
-	}
-
-	return o.MaintenanceWindow
-
+// SetK8sVersion gets a reference to the given string and assigns it to the K8sVersion field.
+func (o *KubernetesClusterPropertiesForPut) SetK8sVersion(v string) {
+	o.K8sVersion = &v
 }
 
-// GetMaintenanceWindowOk returns a tuple with the MaintenanceWindow field value
+// GetMaintenanceWindow returns the MaintenanceWindow field value if set, zero value otherwise.
+func (o *KubernetesClusterPropertiesForPut) GetMaintenanceWindow() KubernetesMaintenanceWindow {
+	if o == nil || IsNil(o.MaintenanceWindow) {
+		var ret KubernetesMaintenanceWindow
+		return ret
+	}
+	return *o.MaintenanceWindow
+}
+
+// GetMaintenanceWindowOk returns a tuple with the MaintenanceWindow field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *KubernetesClusterPropertiesForPut) GetMaintenanceWindowOk() (*KubernetesMaintenanceWindow, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.MaintenanceWindow) {
 		return nil, false
 	}
-
 	return o.MaintenanceWindow, true
-}
-
-// SetMaintenanceWindow sets field value
-func (o *KubernetesClusterPropertiesForPut) SetMaintenanceWindow(v KubernetesMaintenanceWindow) {
-
-	o.MaintenanceWindow = &v
-
 }
 
 // HasMaintenanceWindow returns a boolean if a field has been set.
 func (o *KubernetesClusterPropertiesForPut) HasMaintenanceWindow() bool {
-	if o != nil && o.MaintenanceWindow != nil {
+	if o != nil && !IsNil(o.MaintenanceWindow) {
 		return true
 	}
 
 	return false
 }
 
-// GetApiSubnetAllowList returns the ApiSubnetAllowList field value
-// If the value is explicit nil, the zero value for []string will be returned
-func (o *KubernetesClusterPropertiesForPut) GetApiSubnetAllowList() *[]string {
-	if o == nil {
-		return nil
-	}
-
-	return o.ApiSubnetAllowList
-
+// SetMaintenanceWindow gets a reference to the given KubernetesMaintenanceWindow and assigns it to the MaintenanceWindow field.
+func (o *KubernetesClusterPropertiesForPut) SetMaintenanceWindow(v KubernetesMaintenanceWindow) {
+	o.MaintenanceWindow = &v
 }
 
-// GetApiSubnetAllowListOk returns a tuple with the ApiSubnetAllowList field value
+// GetApiSubnetAllowList returns the ApiSubnetAllowList field value if set, zero value otherwise.
+func (o *KubernetesClusterPropertiesForPut) GetApiSubnetAllowList() []string {
+	if o == nil || IsNil(o.ApiSubnetAllowList) {
+		var ret []string
+		return ret
+	}
+	return o.ApiSubnetAllowList
+}
+
+// GetApiSubnetAllowListOk returns a tuple with the ApiSubnetAllowList field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *KubernetesClusterPropertiesForPut) GetApiSubnetAllowListOk() (*[]string, bool) {
-	if o == nil {
+func (o *KubernetesClusterPropertiesForPut) GetApiSubnetAllowListOk() ([]string, bool) {
+	if o == nil || IsNil(o.ApiSubnetAllowList) {
 		return nil, false
 	}
-
 	return o.ApiSubnetAllowList, true
-}
-
-// SetApiSubnetAllowList sets field value
-func (o *KubernetesClusterPropertiesForPut) SetApiSubnetAllowList(v []string) {
-
-	o.ApiSubnetAllowList = &v
-
 }
 
 // HasApiSubnetAllowList returns a boolean if a field has been set.
 func (o *KubernetesClusterPropertiesForPut) HasApiSubnetAllowList() bool {
-	if o != nil && o.ApiSubnetAllowList != nil {
+	if o != nil && !IsNil(o.ApiSubnetAllowList) {
 		return true
 	}
 
 	return false
 }
 
-// GetS3Buckets returns the S3Buckets field value
-// If the value is explicit nil, the zero value for []S3Bucket will be returned
-func (o *KubernetesClusterPropertiesForPut) GetS3Buckets() *[]S3Bucket {
-	if o == nil {
-		return nil
-	}
-
-	return o.S3Buckets
-
+// SetApiSubnetAllowList gets a reference to the given []string and assigns it to the ApiSubnetAllowList field.
+func (o *KubernetesClusterPropertiesForPut) SetApiSubnetAllowList(v []string) {
+	o.ApiSubnetAllowList = v
 }
 
-// GetS3BucketsOk returns a tuple with the S3Buckets field value
+// GetS3Buckets returns the S3Buckets field value if set, zero value otherwise.
+func (o *KubernetesClusterPropertiesForPut) GetS3Buckets() []S3Bucket {
+	if o == nil || IsNil(o.S3Buckets) {
+		var ret []S3Bucket
+		return ret
+	}
+	return o.S3Buckets
+}
+
+// GetS3BucketsOk returns a tuple with the S3Buckets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *KubernetesClusterPropertiesForPut) GetS3BucketsOk() (*[]S3Bucket, bool) {
-	if o == nil {
+func (o *KubernetesClusterPropertiesForPut) GetS3BucketsOk() ([]S3Bucket, bool) {
+	if o == nil || IsNil(o.S3Buckets) {
 		return nil, false
 	}
-
 	return o.S3Buckets, true
-}
-
-// SetS3Buckets sets field value
-func (o *KubernetesClusterPropertiesForPut) SetS3Buckets(v []S3Bucket) {
-
-	o.S3Buckets = &v
-
 }
 
 // HasS3Buckets returns a boolean if a field has been set.
 func (o *KubernetesClusterPropertiesForPut) HasS3Buckets() bool {
-	if o != nil && o.S3Buckets != nil {
+	if o != nil && !IsNil(o.S3Buckets) {
 		return true
 	}
 
 	return false
 }
 
+// SetS3Buckets gets a reference to the given []S3Bucket and assigns it to the S3Buckets field.
+func (o *KubernetesClusterPropertiesForPut) SetS3Buckets(v []S3Bucket) {
+	o.S3Buckets = v
+}
+
 func (o KubernetesClusterPropertiesForPut) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o KubernetesClusterPropertiesForPut) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsZero(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-
-	if o.K8sVersion != nil {
+	if !IsNil(o.K8sVersion) {
 		toSerialize["k8sVersion"] = o.K8sVersion
 	}
-
-	if o.MaintenanceWindow != nil {
+	if !IsNil(o.MaintenanceWindow) {
 		toSerialize["maintenanceWindow"] = o.MaintenanceWindow
 	}
-
-	if o.ApiSubnetAllowList != nil {
+	if !IsNil(o.ApiSubnetAllowList) {
 		toSerialize["apiSubnetAllowList"] = o.ApiSubnetAllowList
 	}
-
-	if o.S3Buckets != nil {
+	if !IsNil(o.S3Buckets) {
 		toSerialize["s3Buckets"] = o.S3Buckets
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableKubernetesClusterPropertiesForPut struct {

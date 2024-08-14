@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the KubernetesClusterEntities type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KubernetesClusterEntities{}
 
 // KubernetesClusterEntities struct for KubernetesClusterEntities
 type KubernetesClusterEntities struct {
@@ -37,51 +40,52 @@ func NewKubernetesClusterEntitiesWithDefaults() *KubernetesClusterEntities {
 	return &this
 }
 
-// GetNodepools returns the Nodepools field value
-// If the value is explicit nil, the zero value for KubernetesNodePools will be returned
-func (o *KubernetesClusterEntities) GetNodepools() *KubernetesNodePools {
-	if o == nil {
-		return nil
+// GetNodepools returns the Nodepools field value if set, zero value otherwise.
+func (o *KubernetesClusterEntities) GetNodepools() KubernetesNodePools {
+	if o == nil || IsNil(o.Nodepools) {
+		var ret KubernetesNodePools
+		return ret
 	}
-
-	return o.Nodepools
-
+	return *o.Nodepools
 }
 
-// GetNodepoolsOk returns a tuple with the Nodepools field value
+// GetNodepoolsOk returns a tuple with the Nodepools field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *KubernetesClusterEntities) GetNodepoolsOk() (*KubernetesNodePools, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Nodepools) {
 		return nil, false
 	}
-
 	return o.Nodepools, true
-}
-
-// SetNodepools sets field value
-func (o *KubernetesClusterEntities) SetNodepools(v KubernetesNodePools) {
-
-	o.Nodepools = &v
-
 }
 
 // HasNodepools returns a boolean if a field has been set.
 func (o *KubernetesClusterEntities) HasNodepools() bool {
-	if o != nil && o.Nodepools != nil {
+	if o != nil && !IsNil(o.Nodepools) {
 		return true
 	}
 
 	return false
 }
 
+// SetNodepools gets a reference to the given KubernetesNodePools and assigns it to the Nodepools field.
+func (o *KubernetesClusterEntities) SetNodepools(v KubernetesNodePools) {
+	o.Nodepools = &v
+}
+
 func (o KubernetesClusterEntities) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o KubernetesClusterEntities) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Nodepools != nil {
+	if !IsNil(o.Nodepools) {
 		toSerialize["nodepools"] = o.Nodepools
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableKubernetesClusterEntities struct {

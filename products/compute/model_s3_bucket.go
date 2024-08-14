@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,10 +14,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the S3Bucket type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &S3Bucket{}
+
 // S3Bucket struct for S3Bucket
 type S3Bucket struct {
-	// Name of the S3 bucket
-	Name *string `json:"name"`
+	// The name of the S3 bucket.
+	Name string `json:"name"`
 }
 
 // NewS3Bucket instantiates a new S3Bucket object
@@ -27,7 +30,7 @@ type S3Bucket struct {
 func NewS3Bucket(name string) *S3Bucket {
 	this := S3Bucket{}
 
-	this.Name = &name
+	this.Name = name
 
 	return &this
 }
@@ -41,50 +44,43 @@ func NewS3BucketWithDefaults() *S3Bucket {
 }
 
 // GetName returns the Name field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *S3Bucket) GetName() *string {
+func (o *S3Bucket) GetName() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Name
-
 }
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *S3Bucket) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Name, true
+	return &o.Name, true
 }
 
 // SetName sets field value
 func (o *S3Bucket) SetName(v string) {
-
-	o.Name = &v
-
-}
-
-// HasName returns a boolean if a field has been set.
-func (o *S3Bucket) HasName() bool {
-	if o != nil && o.Name != nil {
-		return true
-	}
-
-	return false
+	o.Name = v
 }
 
 func (o S3Bucket) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o S3Bucket) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsZero(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableS3Bucket struct {

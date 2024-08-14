@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the SnapshotProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SnapshotProperties{}
 
 // SnapshotProperties struct for SnapshotProperties
 type SnapshotProperties struct {
@@ -44,6 +47,8 @@ type SnapshotProperties struct {
 	DiscVirtioHotUnplug *bool `json:"discVirtioHotUnplug,omitempty"`
 	// Hot-plug capable SCSI drive (no reboot required).
 	DiscScsiHotPlug *bool `json:"discScsiHotPlug,omitempty"`
+	// If set to `true` will expose the serial id of the disk attached to the server. If set to `false` will not expose the serial id. Some operating systems or software solutions require the serial id to be exposed to work properly. Exposing the serial  can influence licensed software (e.g. Windows) behavior
+	ExposeSerial *bool `json:"exposeSerial,omitempty"`
 	// Is capable of SCSI drive hot unplug (no reboot required). This works only for non-Windows virtual Machines.
 	DiscScsiHotUnplug *bool `json:"discScsiHotUnplug,omitempty"`
 	// OS type of this snapshot
@@ -57,6 +62,9 @@ type SnapshotProperties struct {
 func NewSnapshotProperties() *SnapshotProperties {
 	this := SnapshotProperties{}
 
+	var exposeSerial bool = false
+	this.ExposeSerial = &exposeSerial
+
 	return &this
 }
 
@@ -65,684 +73,617 @@ func NewSnapshotProperties() *SnapshotProperties {
 // but it doesn't guarantee that properties required by API are set
 func NewSnapshotPropertiesWithDefaults() *SnapshotProperties {
 	this := SnapshotProperties{}
+	var exposeSerial bool = false
+	this.ExposeSerial = &exposeSerial
 	return &this
 }
 
-// GetName returns the Name field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *SnapshotProperties) GetName() *string {
-	if o == nil {
-		return nil
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *SnapshotProperties) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
 	}
-
-	return o.Name
-
+	return *o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SnapshotProperties) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-
 	return o.Name, true
-}
-
-// SetName sets field value
-func (o *SnapshotProperties) SetName(v string) {
-
-	o.Name = &v
-
 }
 
 // HasName returns a boolean if a field has been set.
 func (o *SnapshotProperties) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
 	return false
 }
 
-// GetDescription returns the Description field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *SnapshotProperties) GetDescription() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Description
-
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *SnapshotProperties) SetName(v string) {
+	o.Name = &v
 }
 
-// GetDescriptionOk returns a tuple with the Description field value
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *SnapshotProperties) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SnapshotProperties) GetDescriptionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
-
 	return o.Description, true
-}
-
-// SetDescription sets field value
-func (o *SnapshotProperties) SetDescription(v string) {
-
-	o.Description = &v
-
 }
 
 // HasDescription returns a boolean if a field has been set.
 func (o *SnapshotProperties) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
 	return false
 }
 
-// GetLocation returns the Location field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *SnapshotProperties) GetLocation() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Location
-
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *SnapshotProperties) SetDescription(v string) {
+	o.Description = &v
 }
 
-// GetLocationOk returns a tuple with the Location field value
+// GetLocation returns the Location field value if set, zero value otherwise.
+func (o *SnapshotProperties) GetLocation() string {
+	if o == nil || IsNil(o.Location) {
+		var ret string
+		return ret
+	}
+	return *o.Location
+}
+
+// GetLocationOk returns a tuple with the Location field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SnapshotProperties) GetLocationOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Location) {
 		return nil, false
 	}
-
 	return o.Location, true
-}
-
-// SetLocation sets field value
-func (o *SnapshotProperties) SetLocation(v string) {
-
-	o.Location = &v
-
 }
 
 // HasLocation returns a boolean if a field has been set.
 func (o *SnapshotProperties) HasLocation() bool {
-	if o != nil && o.Location != nil {
+	if o != nil && !IsNil(o.Location) {
 		return true
 	}
 
 	return false
 }
 
-// GetSize returns the Size field value
-// If the value is explicit nil, the zero value for float32 will be returned
-func (o *SnapshotProperties) GetSize() *float32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.Size
-
+// SetLocation gets a reference to the given string and assigns it to the Location field.
+func (o *SnapshotProperties) SetLocation(v string) {
+	o.Location = &v
 }
 
-// GetSizeOk returns a tuple with the Size field value
+// GetSize returns the Size field value if set, zero value otherwise.
+func (o *SnapshotProperties) GetSize() float32 {
+	if o == nil || IsNil(o.Size) {
+		var ret float32
+		return ret
+	}
+	return *o.Size
+}
+
+// GetSizeOk returns a tuple with the Size field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SnapshotProperties) GetSizeOk() (*float32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Size) {
 		return nil, false
 	}
-
 	return o.Size, true
-}
-
-// SetSize sets field value
-func (o *SnapshotProperties) SetSize(v float32) {
-
-	o.Size = &v
-
 }
 
 // HasSize returns a boolean if a field has been set.
 func (o *SnapshotProperties) HasSize() bool {
-	if o != nil && o.Size != nil {
+	if o != nil && !IsNil(o.Size) {
 		return true
 	}
 
 	return false
 }
 
-// GetSecAuthProtection returns the SecAuthProtection field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *SnapshotProperties) GetSecAuthProtection() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.SecAuthProtection
-
+// SetSize gets a reference to the given float32 and assigns it to the Size field.
+func (o *SnapshotProperties) SetSize(v float32) {
+	o.Size = &v
 }
 
-// GetSecAuthProtectionOk returns a tuple with the SecAuthProtection field value
+// GetSecAuthProtection returns the SecAuthProtection field value if set, zero value otherwise.
+func (o *SnapshotProperties) GetSecAuthProtection() bool {
+	if o == nil || IsNil(o.SecAuthProtection) {
+		var ret bool
+		return ret
+	}
+	return *o.SecAuthProtection
+}
+
+// GetSecAuthProtectionOk returns a tuple with the SecAuthProtection field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SnapshotProperties) GetSecAuthProtectionOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.SecAuthProtection) {
 		return nil, false
 	}
-
 	return o.SecAuthProtection, true
-}
-
-// SetSecAuthProtection sets field value
-func (o *SnapshotProperties) SetSecAuthProtection(v bool) {
-
-	o.SecAuthProtection = &v
-
 }
 
 // HasSecAuthProtection returns a boolean if a field has been set.
 func (o *SnapshotProperties) HasSecAuthProtection() bool {
-	if o != nil && o.SecAuthProtection != nil {
+	if o != nil && !IsNil(o.SecAuthProtection) {
 		return true
 	}
 
 	return false
 }
 
-// GetCpuHotPlug returns the CpuHotPlug field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *SnapshotProperties) GetCpuHotPlug() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.CpuHotPlug
-
+// SetSecAuthProtection gets a reference to the given bool and assigns it to the SecAuthProtection field.
+func (o *SnapshotProperties) SetSecAuthProtection(v bool) {
+	o.SecAuthProtection = &v
 }
 
-// GetCpuHotPlugOk returns a tuple with the CpuHotPlug field value
+// GetCpuHotPlug returns the CpuHotPlug field value if set, zero value otherwise.
+func (o *SnapshotProperties) GetCpuHotPlug() bool {
+	if o == nil || IsNil(o.CpuHotPlug) {
+		var ret bool
+		return ret
+	}
+	return *o.CpuHotPlug
+}
+
+// GetCpuHotPlugOk returns a tuple with the CpuHotPlug field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SnapshotProperties) GetCpuHotPlugOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CpuHotPlug) {
 		return nil, false
 	}
-
 	return o.CpuHotPlug, true
-}
-
-// SetCpuHotPlug sets field value
-func (o *SnapshotProperties) SetCpuHotPlug(v bool) {
-
-	o.CpuHotPlug = &v
-
 }
 
 // HasCpuHotPlug returns a boolean if a field has been set.
 func (o *SnapshotProperties) HasCpuHotPlug() bool {
-	if o != nil && o.CpuHotPlug != nil {
+	if o != nil && !IsNil(o.CpuHotPlug) {
 		return true
 	}
 
 	return false
 }
 
-// GetCpuHotUnplug returns the CpuHotUnplug field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *SnapshotProperties) GetCpuHotUnplug() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.CpuHotUnplug
-
+// SetCpuHotPlug gets a reference to the given bool and assigns it to the CpuHotPlug field.
+func (o *SnapshotProperties) SetCpuHotPlug(v bool) {
+	o.CpuHotPlug = &v
 }
 
-// GetCpuHotUnplugOk returns a tuple with the CpuHotUnplug field value
+// GetCpuHotUnplug returns the CpuHotUnplug field value if set, zero value otherwise.
+func (o *SnapshotProperties) GetCpuHotUnplug() bool {
+	if o == nil || IsNil(o.CpuHotUnplug) {
+		var ret bool
+		return ret
+	}
+	return *o.CpuHotUnplug
+}
+
+// GetCpuHotUnplugOk returns a tuple with the CpuHotUnplug field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SnapshotProperties) GetCpuHotUnplugOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CpuHotUnplug) {
 		return nil, false
 	}
-
 	return o.CpuHotUnplug, true
-}
-
-// SetCpuHotUnplug sets field value
-func (o *SnapshotProperties) SetCpuHotUnplug(v bool) {
-
-	o.CpuHotUnplug = &v
-
 }
 
 // HasCpuHotUnplug returns a boolean if a field has been set.
 func (o *SnapshotProperties) HasCpuHotUnplug() bool {
-	if o != nil && o.CpuHotUnplug != nil {
+	if o != nil && !IsNil(o.CpuHotUnplug) {
 		return true
 	}
 
 	return false
 }
 
-// GetRamHotPlug returns the RamHotPlug field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *SnapshotProperties) GetRamHotPlug() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.RamHotPlug
-
+// SetCpuHotUnplug gets a reference to the given bool and assigns it to the CpuHotUnplug field.
+func (o *SnapshotProperties) SetCpuHotUnplug(v bool) {
+	o.CpuHotUnplug = &v
 }
 
-// GetRamHotPlugOk returns a tuple with the RamHotPlug field value
+// GetRamHotPlug returns the RamHotPlug field value if set, zero value otherwise.
+func (o *SnapshotProperties) GetRamHotPlug() bool {
+	if o == nil || IsNil(o.RamHotPlug) {
+		var ret bool
+		return ret
+	}
+	return *o.RamHotPlug
+}
+
+// GetRamHotPlugOk returns a tuple with the RamHotPlug field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SnapshotProperties) GetRamHotPlugOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.RamHotPlug) {
 		return nil, false
 	}
-
 	return o.RamHotPlug, true
-}
-
-// SetRamHotPlug sets field value
-func (o *SnapshotProperties) SetRamHotPlug(v bool) {
-
-	o.RamHotPlug = &v
-
 }
 
 // HasRamHotPlug returns a boolean if a field has been set.
 func (o *SnapshotProperties) HasRamHotPlug() bool {
-	if o != nil && o.RamHotPlug != nil {
+	if o != nil && !IsNil(o.RamHotPlug) {
 		return true
 	}
 
 	return false
 }
 
-// GetRamHotUnplug returns the RamHotUnplug field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *SnapshotProperties) GetRamHotUnplug() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.RamHotUnplug
-
+// SetRamHotPlug gets a reference to the given bool and assigns it to the RamHotPlug field.
+func (o *SnapshotProperties) SetRamHotPlug(v bool) {
+	o.RamHotPlug = &v
 }
 
-// GetRamHotUnplugOk returns a tuple with the RamHotUnplug field value
+// GetRamHotUnplug returns the RamHotUnplug field value if set, zero value otherwise.
+func (o *SnapshotProperties) GetRamHotUnplug() bool {
+	if o == nil || IsNil(o.RamHotUnplug) {
+		var ret bool
+		return ret
+	}
+	return *o.RamHotUnplug
+}
+
+// GetRamHotUnplugOk returns a tuple with the RamHotUnplug field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SnapshotProperties) GetRamHotUnplugOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.RamHotUnplug) {
 		return nil, false
 	}
-
 	return o.RamHotUnplug, true
-}
-
-// SetRamHotUnplug sets field value
-func (o *SnapshotProperties) SetRamHotUnplug(v bool) {
-
-	o.RamHotUnplug = &v
-
 }
 
 // HasRamHotUnplug returns a boolean if a field has been set.
 func (o *SnapshotProperties) HasRamHotUnplug() bool {
-	if o != nil && o.RamHotUnplug != nil {
+	if o != nil && !IsNil(o.RamHotUnplug) {
 		return true
 	}
 
 	return false
 }
 
-// GetNicHotPlug returns the NicHotPlug field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *SnapshotProperties) GetNicHotPlug() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.NicHotPlug
-
+// SetRamHotUnplug gets a reference to the given bool and assigns it to the RamHotUnplug field.
+func (o *SnapshotProperties) SetRamHotUnplug(v bool) {
+	o.RamHotUnplug = &v
 }
 
-// GetNicHotPlugOk returns a tuple with the NicHotPlug field value
+// GetNicHotPlug returns the NicHotPlug field value if set, zero value otherwise.
+func (o *SnapshotProperties) GetNicHotPlug() bool {
+	if o == nil || IsNil(o.NicHotPlug) {
+		var ret bool
+		return ret
+	}
+	return *o.NicHotPlug
+}
+
+// GetNicHotPlugOk returns a tuple with the NicHotPlug field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SnapshotProperties) GetNicHotPlugOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.NicHotPlug) {
 		return nil, false
 	}
-
 	return o.NicHotPlug, true
-}
-
-// SetNicHotPlug sets field value
-func (o *SnapshotProperties) SetNicHotPlug(v bool) {
-
-	o.NicHotPlug = &v
-
 }
 
 // HasNicHotPlug returns a boolean if a field has been set.
 func (o *SnapshotProperties) HasNicHotPlug() bool {
-	if o != nil && o.NicHotPlug != nil {
+	if o != nil && !IsNil(o.NicHotPlug) {
 		return true
 	}
 
 	return false
 }
 
-// GetNicHotUnplug returns the NicHotUnplug field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *SnapshotProperties) GetNicHotUnplug() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.NicHotUnplug
-
+// SetNicHotPlug gets a reference to the given bool and assigns it to the NicHotPlug field.
+func (o *SnapshotProperties) SetNicHotPlug(v bool) {
+	o.NicHotPlug = &v
 }
 
-// GetNicHotUnplugOk returns a tuple with the NicHotUnplug field value
+// GetNicHotUnplug returns the NicHotUnplug field value if set, zero value otherwise.
+func (o *SnapshotProperties) GetNicHotUnplug() bool {
+	if o == nil || IsNil(o.NicHotUnplug) {
+		var ret bool
+		return ret
+	}
+	return *o.NicHotUnplug
+}
+
+// GetNicHotUnplugOk returns a tuple with the NicHotUnplug field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SnapshotProperties) GetNicHotUnplugOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.NicHotUnplug) {
 		return nil, false
 	}
-
 	return o.NicHotUnplug, true
-}
-
-// SetNicHotUnplug sets field value
-func (o *SnapshotProperties) SetNicHotUnplug(v bool) {
-
-	o.NicHotUnplug = &v
-
 }
 
 // HasNicHotUnplug returns a boolean if a field has been set.
 func (o *SnapshotProperties) HasNicHotUnplug() bool {
-	if o != nil && o.NicHotUnplug != nil {
+	if o != nil && !IsNil(o.NicHotUnplug) {
 		return true
 	}
 
 	return false
 }
 
-// GetDiscVirtioHotPlug returns the DiscVirtioHotPlug field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *SnapshotProperties) GetDiscVirtioHotPlug() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.DiscVirtioHotPlug
-
+// SetNicHotUnplug gets a reference to the given bool and assigns it to the NicHotUnplug field.
+func (o *SnapshotProperties) SetNicHotUnplug(v bool) {
+	o.NicHotUnplug = &v
 }
 
-// GetDiscVirtioHotPlugOk returns a tuple with the DiscVirtioHotPlug field value
+// GetDiscVirtioHotPlug returns the DiscVirtioHotPlug field value if set, zero value otherwise.
+func (o *SnapshotProperties) GetDiscVirtioHotPlug() bool {
+	if o == nil || IsNil(o.DiscVirtioHotPlug) {
+		var ret bool
+		return ret
+	}
+	return *o.DiscVirtioHotPlug
+}
+
+// GetDiscVirtioHotPlugOk returns a tuple with the DiscVirtioHotPlug field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SnapshotProperties) GetDiscVirtioHotPlugOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.DiscVirtioHotPlug) {
 		return nil, false
 	}
-
 	return o.DiscVirtioHotPlug, true
-}
-
-// SetDiscVirtioHotPlug sets field value
-func (o *SnapshotProperties) SetDiscVirtioHotPlug(v bool) {
-
-	o.DiscVirtioHotPlug = &v
-
 }
 
 // HasDiscVirtioHotPlug returns a boolean if a field has been set.
 func (o *SnapshotProperties) HasDiscVirtioHotPlug() bool {
-	if o != nil && o.DiscVirtioHotPlug != nil {
+	if o != nil && !IsNil(o.DiscVirtioHotPlug) {
 		return true
 	}
 
 	return false
 }
 
-// GetDiscVirtioHotUnplug returns the DiscVirtioHotUnplug field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *SnapshotProperties) GetDiscVirtioHotUnplug() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.DiscVirtioHotUnplug
-
+// SetDiscVirtioHotPlug gets a reference to the given bool and assigns it to the DiscVirtioHotPlug field.
+func (o *SnapshotProperties) SetDiscVirtioHotPlug(v bool) {
+	o.DiscVirtioHotPlug = &v
 }
 
-// GetDiscVirtioHotUnplugOk returns a tuple with the DiscVirtioHotUnplug field value
+// GetDiscVirtioHotUnplug returns the DiscVirtioHotUnplug field value if set, zero value otherwise.
+func (o *SnapshotProperties) GetDiscVirtioHotUnplug() bool {
+	if o == nil || IsNil(o.DiscVirtioHotUnplug) {
+		var ret bool
+		return ret
+	}
+	return *o.DiscVirtioHotUnplug
+}
+
+// GetDiscVirtioHotUnplugOk returns a tuple with the DiscVirtioHotUnplug field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SnapshotProperties) GetDiscVirtioHotUnplugOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.DiscVirtioHotUnplug) {
 		return nil, false
 	}
-
 	return o.DiscVirtioHotUnplug, true
-}
-
-// SetDiscVirtioHotUnplug sets field value
-func (o *SnapshotProperties) SetDiscVirtioHotUnplug(v bool) {
-
-	o.DiscVirtioHotUnplug = &v
-
 }
 
 // HasDiscVirtioHotUnplug returns a boolean if a field has been set.
 func (o *SnapshotProperties) HasDiscVirtioHotUnplug() bool {
-	if o != nil && o.DiscVirtioHotUnplug != nil {
+	if o != nil && !IsNil(o.DiscVirtioHotUnplug) {
 		return true
 	}
 
 	return false
 }
 
-// GetDiscScsiHotPlug returns the DiscScsiHotPlug field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *SnapshotProperties) GetDiscScsiHotPlug() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.DiscScsiHotPlug
-
+// SetDiscVirtioHotUnplug gets a reference to the given bool and assigns it to the DiscVirtioHotUnplug field.
+func (o *SnapshotProperties) SetDiscVirtioHotUnplug(v bool) {
+	o.DiscVirtioHotUnplug = &v
 }
 
-// GetDiscScsiHotPlugOk returns a tuple with the DiscScsiHotPlug field value
+// GetDiscScsiHotPlug returns the DiscScsiHotPlug field value if set, zero value otherwise.
+func (o *SnapshotProperties) GetDiscScsiHotPlug() bool {
+	if o == nil || IsNil(o.DiscScsiHotPlug) {
+		var ret bool
+		return ret
+	}
+	return *o.DiscScsiHotPlug
+}
+
+// GetDiscScsiHotPlugOk returns a tuple with the DiscScsiHotPlug field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SnapshotProperties) GetDiscScsiHotPlugOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.DiscScsiHotPlug) {
 		return nil, false
 	}
-
 	return o.DiscScsiHotPlug, true
-}
-
-// SetDiscScsiHotPlug sets field value
-func (o *SnapshotProperties) SetDiscScsiHotPlug(v bool) {
-
-	o.DiscScsiHotPlug = &v
-
 }
 
 // HasDiscScsiHotPlug returns a boolean if a field has been set.
 func (o *SnapshotProperties) HasDiscScsiHotPlug() bool {
-	if o != nil && o.DiscScsiHotPlug != nil {
+	if o != nil && !IsNil(o.DiscScsiHotPlug) {
 		return true
 	}
 
 	return false
 }
 
-// GetDiscScsiHotUnplug returns the DiscScsiHotUnplug field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *SnapshotProperties) GetDiscScsiHotUnplug() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.DiscScsiHotUnplug
-
+// SetDiscScsiHotPlug gets a reference to the given bool and assigns it to the DiscScsiHotPlug field.
+func (o *SnapshotProperties) SetDiscScsiHotPlug(v bool) {
+	o.DiscScsiHotPlug = &v
 }
 
-// GetDiscScsiHotUnplugOk returns a tuple with the DiscScsiHotUnplug field value
+// GetExposeSerial returns the ExposeSerial field value if set, zero value otherwise.
+func (o *SnapshotProperties) GetExposeSerial() bool {
+	if o == nil || IsNil(o.ExposeSerial) {
+		var ret bool
+		return ret
+	}
+	return *o.ExposeSerial
+}
+
+// GetExposeSerialOk returns a tuple with the ExposeSerial field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *SnapshotProperties) GetDiscScsiHotUnplugOk() (*bool, bool) {
-	if o == nil {
+func (o *SnapshotProperties) GetExposeSerialOk() (*bool, bool) {
+	if o == nil || IsNil(o.ExposeSerial) {
 		return nil, false
 	}
-
-	return o.DiscScsiHotUnplug, true
+	return o.ExposeSerial, true
 }
 
-// SetDiscScsiHotUnplug sets field value
-func (o *SnapshotProperties) SetDiscScsiHotUnplug(v bool) {
+// HasExposeSerial returns a boolean if a field has been set.
+func (o *SnapshotProperties) HasExposeSerial() bool {
+	if o != nil && !IsNil(o.ExposeSerial) {
+		return true
+	}
 
-	o.DiscScsiHotUnplug = &v
+	return false
+}
 
+// SetExposeSerial gets a reference to the given bool and assigns it to the ExposeSerial field.
+func (o *SnapshotProperties) SetExposeSerial(v bool) {
+	o.ExposeSerial = &v
+}
+
+// GetDiscScsiHotUnplug returns the DiscScsiHotUnplug field value if set, zero value otherwise.
+func (o *SnapshotProperties) GetDiscScsiHotUnplug() bool {
+	if o == nil || IsNil(o.DiscScsiHotUnplug) {
+		var ret bool
+		return ret
+	}
+	return *o.DiscScsiHotUnplug
+}
+
+// GetDiscScsiHotUnplugOk returns a tuple with the DiscScsiHotUnplug field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SnapshotProperties) GetDiscScsiHotUnplugOk() (*bool, bool) {
+	if o == nil || IsNil(o.DiscScsiHotUnplug) {
+		return nil, false
+	}
+	return o.DiscScsiHotUnplug, true
 }
 
 // HasDiscScsiHotUnplug returns a boolean if a field has been set.
 func (o *SnapshotProperties) HasDiscScsiHotUnplug() bool {
-	if o != nil && o.DiscScsiHotUnplug != nil {
+	if o != nil && !IsNil(o.DiscScsiHotUnplug) {
 		return true
 	}
 
 	return false
 }
 
-// GetLicenceType returns the LicenceType field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *SnapshotProperties) GetLicenceType() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.LicenceType
-
+// SetDiscScsiHotUnplug gets a reference to the given bool and assigns it to the DiscScsiHotUnplug field.
+func (o *SnapshotProperties) SetDiscScsiHotUnplug(v bool) {
+	o.DiscScsiHotUnplug = &v
 }
 
-// GetLicenceTypeOk returns a tuple with the LicenceType field value
+// GetLicenceType returns the LicenceType field value if set, zero value otherwise.
+func (o *SnapshotProperties) GetLicenceType() string {
+	if o == nil || IsNil(o.LicenceType) {
+		var ret string
+		return ret
+	}
+	return *o.LicenceType
+}
+
+// GetLicenceTypeOk returns a tuple with the LicenceType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SnapshotProperties) GetLicenceTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.LicenceType) {
 		return nil, false
 	}
-
 	return o.LicenceType, true
-}
-
-// SetLicenceType sets field value
-func (o *SnapshotProperties) SetLicenceType(v string) {
-
-	o.LicenceType = &v
-
 }
 
 // HasLicenceType returns a boolean if a field has been set.
 func (o *SnapshotProperties) HasLicenceType() bool {
-	if o != nil && o.LicenceType != nil {
+	if o != nil && !IsNil(o.LicenceType) {
 		return true
 	}
 
 	return false
 }
 
+// SetLicenceType gets a reference to the given string and assigns it to the LicenceType field.
+func (o *SnapshotProperties) SetLicenceType(v string) {
+	o.LicenceType = &v
+}
+
 func (o SnapshotProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SnapshotProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-
-	if o.Location != nil {
+	if !IsNil(o.Location) {
 		toSerialize["location"] = o.Location
 	}
-
-	if o.Size != nil {
+	if !IsNil(o.Size) {
 		toSerialize["size"] = o.Size
 	}
-
-	if o.SecAuthProtection != nil {
+	if !IsNil(o.SecAuthProtection) {
 		toSerialize["secAuthProtection"] = o.SecAuthProtection
 	}
-
-	if o.CpuHotPlug != nil {
+	if !IsNil(o.CpuHotPlug) {
 		toSerialize["cpuHotPlug"] = o.CpuHotPlug
 	}
-
-	if o.CpuHotUnplug != nil {
+	if !IsNil(o.CpuHotUnplug) {
 		toSerialize["cpuHotUnplug"] = o.CpuHotUnplug
 	}
-
-	if o.RamHotPlug != nil {
+	if !IsNil(o.RamHotPlug) {
 		toSerialize["ramHotPlug"] = o.RamHotPlug
 	}
-
-	if o.RamHotUnplug != nil {
+	if !IsNil(o.RamHotUnplug) {
 		toSerialize["ramHotUnplug"] = o.RamHotUnplug
 	}
-
-	if o.NicHotPlug != nil {
+	if !IsNil(o.NicHotPlug) {
 		toSerialize["nicHotPlug"] = o.NicHotPlug
 	}
-
-	if o.NicHotUnplug != nil {
+	if !IsNil(o.NicHotUnplug) {
 		toSerialize["nicHotUnplug"] = o.NicHotUnplug
 	}
-
-	if o.DiscVirtioHotPlug != nil {
+	if !IsNil(o.DiscVirtioHotPlug) {
 		toSerialize["discVirtioHotPlug"] = o.DiscVirtioHotPlug
 	}
-
-	if o.DiscVirtioHotUnplug != nil {
+	if !IsNil(o.DiscVirtioHotUnplug) {
 		toSerialize["discVirtioHotUnplug"] = o.DiscVirtioHotUnplug
 	}
-
-	if o.DiscScsiHotPlug != nil {
+	if !IsNil(o.DiscScsiHotPlug) {
 		toSerialize["discScsiHotPlug"] = o.DiscScsiHotPlug
 	}
-
-	if o.DiscScsiHotUnplug != nil {
+	if !IsNil(o.ExposeSerial) {
+		toSerialize["exposeSerial"] = o.ExposeSerial
+	}
+	if !IsNil(o.DiscScsiHotUnplug) {
 		toSerialize["discScsiHotUnplug"] = o.DiscScsiHotUnplug
 	}
-
-	if o.LicenceType != nil {
+	if !IsNil(o.LicenceType) {
 		toSerialize["licenceType"] = o.LicenceType
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableSnapshotProperties struct {

@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the NicEntities type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NicEntities{}
 
 // NicEntities struct for NicEntities
 type NicEntities struct {
@@ -38,93 +41,87 @@ func NewNicEntitiesWithDefaults() *NicEntities {
 	return &this
 }
 
-// GetFlowlogs returns the Flowlogs field value
-// If the value is explicit nil, the zero value for FlowLogs will be returned
-func (o *NicEntities) GetFlowlogs() *FlowLogs {
-	if o == nil {
-		return nil
+// GetFlowlogs returns the Flowlogs field value if set, zero value otherwise.
+func (o *NicEntities) GetFlowlogs() FlowLogs {
+	if o == nil || IsNil(o.Flowlogs) {
+		var ret FlowLogs
+		return ret
 	}
-
-	return o.Flowlogs
-
+	return *o.Flowlogs
 }
 
-// GetFlowlogsOk returns a tuple with the Flowlogs field value
+// GetFlowlogsOk returns a tuple with the Flowlogs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NicEntities) GetFlowlogsOk() (*FlowLogs, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Flowlogs) {
 		return nil, false
 	}
-
 	return o.Flowlogs, true
-}
-
-// SetFlowlogs sets field value
-func (o *NicEntities) SetFlowlogs(v FlowLogs) {
-
-	o.Flowlogs = &v
-
 }
 
 // HasFlowlogs returns a boolean if a field has been set.
 func (o *NicEntities) HasFlowlogs() bool {
-	if o != nil && o.Flowlogs != nil {
+	if o != nil && !IsNil(o.Flowlogs) {
 		return true
 	}
 
 	return false
 }
 
-// GetFirewallrules returns the Firewallrules field value
-// If the value is explicit nil, the zero value for FirewallRules will be returned
-func (o *NicEntities) GetFirewallrules() *FirewallRules {
-	if o == nil {
-		return nil
-	}
-
-	return o.Firewallrules
-
+// SetFlowlogs gets a reference to the given FlowLogs and assigns it to the Flowlogs field.
+func (o *NicEntities) SetFlowlogs(v FlowLogs) {
+	o.Flowlogs = &v
 }
 
-// GetFirewallrulesOk returns a tuple with the Firewallrules field value
+// GetFirewallrules returns the Firewallrules field value if set, zero value otherwise.
+func (o *NicEntities) GetFirewallrules() FirewallRules {
+	if o == nil || IsNil(o.Firewallrules) {
+		var ret FirewallRules
+		return ret
+	}
+	return *o.Firewallrules
+}
+
+// GetFirewallrulesOk returns a tuple with the Firewallrules field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NicEntities) GetFirewallrulesOk() (*FirewallRules, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Firewallrules) {
 		return nil, false
 	}
-
 	return o.Firewallrules, true
-}
-
-// SetFirewallrules sets field value
-func (o *NicEntities) SetFirewallrules(v FirewallRules) {
-
-	o.Firewallrules = &v
-
 }
 
 // HasFirewallrules returns a boolean if a field has been set.
 func (o *NicEntities) HasFirewallrules() bool {
-	if o != nil && o.Firewallrules != nil {
+	if o != nil && !IsNil(o.Firewallrules) {
 		return true
 	}
 
 	return false
 }
 
+// SetFirewallrules gets a reference to the given FirewallRules and assigns it to the Firewallrules field.
+func (o *NicEntities) SetFirewallrules(v FirewallRules) {
+	o.Firewallrules = &v
+}
+
 func (o NicEntities) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o NicEntities) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Flowlogs != nil {
+	if !IsNil(o.Flowlogs) {
 		toSerialize["flowlogs"] = o.Flowlogs
 	}
-
-	if o.Firewallrules != nil {
+	if !IsNil(o.Firewallrules) {
 		toSerialize["firewallrules"] = o.Firewallrules
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableNicEntities struct {

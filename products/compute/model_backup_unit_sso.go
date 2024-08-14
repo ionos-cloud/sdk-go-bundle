@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the BackupUnitSSO type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BackupUnitSSO{}
 
 // BackupUnitSSO struct for BackupUnitSSO
 type BackupUnitSSO struct {
@@ -38,51 +41,52 @@ func NewBackupUnitSSOWithDefaults() *BackupUnitSSO {
 	return &this
 }
 
-// GetSsoUrl returns the SsoUrl field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *BackupUnitSSO) GetSsoUrl() *string {
-	if o == nil {
-		return nil
+// GetSsoUrl returns the SsoUrl field value if set, zero value otherwise.
+func (o *BackupUnitSSO) GetSsoUrl() string {
+	if o == nil || IsNil(o.SsoUrl) {
+		var ret string
+		return ret
 	}
-
-	return o.SsoUrl
-
+	return *o.SsoUrl
 }
 
-// GetSsoUrlOk returns a tuple with the SsoUrl field value
+// GetSsoUrlOk returns a tuple with the SsoUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BackupUnitSSO) GetSsoUrlOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.SsoUrl) {
 		return nil, false
 	}
-
 	return o.SsoUrl, true
-}
-
-// SetSsoUrl sets field value
-func (o *BackupUnitSSO) SetSsoUrl(v string) {
-
-	o.SsoUrl = &v
-
 }
 
 // HasSsoUrl returns a boolean if a field has been set.
 func (o *BackupUnitSSO) HasSsoUrl() bool {
-	if o != nil && o.SsoUrl != nil {
+	if o != nil && !IsNil(o.SsoUrl) {
 		return true
 	}
 
 	return false
 }
 
+// SetSsoUrl gets a reference to the given string and assigns it to the SsoUrl field.
+func (o *BackupUnitSSO) SetSsoUrl(v string) {
+	o.SsoUrl = &v
+}
+
 func (o BackupUnitSSO) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BackupUnitSSO) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.SsoUrl != nil {
+	if !IsNil(o.SsoUrl) {
 		toSerialize["ssoUrl"] = o.SsoUrl
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableBackupUnitSSO struct {

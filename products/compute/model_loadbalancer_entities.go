@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the LoadbalancerEntities type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LoadbalancerEntities{}
 
 // LoadbalancerEntities struct for LoadbalancerEntities
 type LoadbalancerEntities struct {
@@ -37,51 +40,52 @@ func NewLoadbalancerEntitiesWithDefaults() *LoadbalancerEntities {
 	return &this
 }
 
-// GetBalancednics returns the Balancednics field value
-// If the value is explicit nil, the zero value for BalancedNics will be returned
-func (o *LoadbalancerEntities) GetBalancednics() *BalancedNics {
-	if o == nil {
-		return nil
+// GetBalancednics returns the Balancednics field value if set, zero value otherwise.
+func (o *LoadbalancerEntities) GetBalancednics() BalancedNics {
+	if o == nil || IsNil(o.Balancednics) {
+		var ret BalancedNics
+		return ret
 	}
-
-	return o.Balancednics
-
+	return *o.Balancednics
 }
 
-// GetBalancednicsOk returns a tuple with the Balancednics field value
+// GetBalancednicsOk returns a tuple with the Balancednics field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *LoadbalancerEntities) GetBalancednicsOk() (*BalancedNics, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Balancednics) {
 		return nil, false
 	}
-
 	return o.Balancednics, true
-}
-
-// SetBalancednics sets field value
-func (o *LoadbalancerEntities) SetBalancednics(v BalancedNics) {
-
-	o.Balancednics = &v
-
 }
 
 // HasBalancednics returns a boolean if a field has been set.
 func (o *LoadbalancerEntities) HasBalancednics() bool {
-	if o != nil && o.Balancednics != nil {
+	if o != nil && !IsNil(o.Balancednics) {
 		return true
 	}
 
 	return false
 }
 
+// SetBalancednics gets a reference to the given BalancedNics and assigns it to the Balancednics field.
+func (o *LoadbalancerEntities) SetBalancednics(v BalancedNics) {
+	o.Balancednics = &v
+}
+
 func (o LoadbalancerEntities) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LoadbalancerEntities) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Balancednics != nil {
+	if !IsNil(o.Balancednics) {
 		toSerialize["balancednics"] = o.Balancednics
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableLoadbalancerEntities struct {

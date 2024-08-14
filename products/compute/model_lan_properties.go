@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,15 +14,22 @@ import (
 	"encoding/json"
 )
 
+// checks if the LanProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LanProperties{}
+
 // LanProperties struct for LanProperties
 type LanProperties struct {
 	// The name of the  resource.
 	Name *string `json:"name,omitempty"`
 	// IP failover configurations for lan
-	IpFailover *[]IPFailover `json:"ipFailover,omitempty"`
-	// The unique identifier of the private Cross-Connect the LAN is connected to, if any.
+	IpFailover []IPFailover `json:"ipFailover,omitempty"`
+	// For public LANs this property is null, for private LANs it contains the private IPv4 CIDR range. This property is a read only property.
+	Ipv4CidrBlock NullableString `json:"ipv4CidrBlock,omitempty"`
+	// For a GET request, this value is either 'null' or contains the LAN's /64 IPv6 CIDR block if this LAN is IPv6 enabled. For POST/PUT/PATCH requests, 'AUTO' will result in enabling this LAN for IPv6 and automatically assign a /64 IPv6 CIDR block to this LAN and /80 IPv6 CIDR blocks to the NICs and one /128 IPv6 address to each connected NIC. If you choose the IPv6 CIDR block for the LAN on your own, then you must provide a /64 block, which is inside the IPv6 CIDR block of the virtual datacenter and unique inside all LANs from this virtual datacenter. If you enable IPv6 on a LAN with NICs, those NICs will get a /80 IPv6 CIDR block and one IPv6 address assigned to each automatically, unless you specify them explicitly on the LAN and on the NICs. A virtual data center is limited to a maximum of 256 IPv6-enabled LANs.
+	Ipv6CidrBlock NullableString `json:"ipv6CidrBlock,omitempty"`
+	// The unique identifier of the Cross Connect the LAN is connected to, if any. It needs to be ensured that IP addresses of the NICs of all LANs connected to a given Cross Connect is not duplicated and belongs to the same subnet range.
 	Pcc *string `json:"pcc,omitempty"`
-	// This LAN faces the public Internet.
+	// Indicates if the LAN is connected to the internet or not.
 	Public *bool `json:"public,omitempty"`
 }
 
@@ -44,177 +51,249 @@ func NewLanPropertiesWithDefaults() *LanProperties {
 	return &this
 }
 
-// GetName returns the Name field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *LanProperties) GetName() *string {
-	if o == nil {
-		return nil
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *LanProperties) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
 	}
-
-	return o.Name
-
+	return *o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *LanProperties) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-
 	return o.Name, true
-}
-
-// SetName sets field value
-func (o *LanProperties) SetName(v string) {
-
-	o.Name = &v
-
 }
 
 // HasName returns a boolean if a field has been set.
 func (o *LanProperties) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
 	return false
 }
 
-// GetIpFailover returns the IpFailover field value
-// If the value is explicit nil, the zero value for []IPFailover will be returned
-func (o *LanProperties) GetIpFailover() *[]IPFailover {
-	if o == nil {
-		return nil
-	}
-
-	return o.IpFailover
-
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *LanProperties) SetName(v string) {
+	o.Name = &v
 }
 
-// GetIpFailoverOk returns a tuple with the IpFailover field value
+// GetIpFailover returns the IpFailover field value if set, zero value otherwise.
+func (o *LanProperties) GetIpFailover() []IPFailover {
+	if o == nil || IsNil(o.IpFailover) {
+		var ret []IPFailover
+		return ret
+	}
+	return o.IpFailover
+}
+
+// GetIpFailoverOk returns a tuple with the IpFailover field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *LanProperties) GetIpFailoverOk() (*[]IPFailover, bool) {
-	if o == nil {
+func (o *LanProperties) GetIpFailoverOk() ([]IPFailover, bool) {
+	if o == nil || IsNil(o.IpFailover) {
 		return nil, false
 	}
-
 	return o.IpFailover, true
-}
-
-// SetIpFailover sets field value
-func (o *LanProperties) SetIpFailover(v []IPFailover) {
-
-	o.IpFailover = &v
-
 }
 
 // HasIpFailover returns a boolean if a field has been set.
 func (o *LanProperties) HasIpFailover() bool {
-	if o != nil && o.IpFailover != nil {
+	if o != nil && !IsNil(o.IpFailover) {
 		return true
 	}
 
 	return false
 }
 
-// GetPcc returns the Pcc field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *LanProperties) GetPcc() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Pcc
-
+// SetIpFailover gets a reference to the given []IPFailover and assigns it to the IpFailover field.
+func (o *LanProperties) SetIpFailover(v []IPFailover) {
+	o.IpFailover = v
 }
 
-// GetPccOk returns a tuple with the Pcc field value
+// GetIpv4CidrBlock returns the Ipv4CidrBlock field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *LanProperties) GetIpv4CidrBlock() string {
+	if o == nil || IsNil(o.Ipv4CidrBlock.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Ipv4CidrBlock.Get()
+}
+
+// GetIpv4CidrBlockOk returns a tuple with the Ipv4CidrBlock field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *LanProperties) GetPccOk() (*string, bool) {
+func (o *LanProperties) GetIpv4CidrBlockOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Pcc, true
+	return o.Ipv4CidrBlock.Get(), o.Ipv4CidrBlock.IsSet()
 }
 
-// SetPcc sets field value
-func (o *LanProperties) SetPcc(v string) {
+// HasIpv4CidrBlock returns a boolean if a field has been set.
+func (o *LanProperties) HasIpv4CidrBlock() bool {
+	if o != nil && o.Ipv4CidrBlock.IsSet() {
+		return true
+	}
 
-	o.Pcc = &v
+	return false
+}
 
+// SetIpv4CidrBlock gets a reference to the given NullableString and assigns it to the Ipv4CidrBlock field.
+func (o *LanProperties) SetIpv4CidrBlock(v string) {
+	o.Ipv4CidrBlock.Set(&v)
+}
+
+// SetIpv4CidrBlockNil sets the value for Ipv4CidrBlock to be an explicit nil
+func (o *LanProperties) SetIpv4CidrBlockNil() {
+	o.Ipv4CidrBlock.Set(nil)
+}
+
+// UnsetIpv4CidrBlock ensures that no value is present for Ipv4CidrBlock, not even an explicit nil
+func (o *LanProperties) UnsetIpv4CidrBlock() {
+	o.Ipv4CidrBlock.Unset()
+}
+
+// GetIpv6CidrBlock returns the Ipv6CidrBlock field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *LanProperties) GetIpv6CidrBlock() string {
+	if o == nil || IsNil(o.Ipv6CidrBlock.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Ipv6CidrBlock.Get()
+}
+
+// GetIpv6CidrBlockOk returns a tuple with the Ipv6CidrBlock field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *LanProperties) GetIpv6CidrBlockOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Ipv6CidrBlock.Get(), o.Ipv6CidrBlock.IsSet()
+}
+
+// HasIpv6CidrBlock returns a boolean if a field has been set.
+func (o *LanProperties) HasIpv6CidrBlock() bool {
+	if o != nil && o.Ipv6CidrBlock.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetIpv6CidrBlock gets a reference to the given NullableString and assigns it to the Ipv6CidrBlock field.
+func (o *LanProperties) SetIpv6CidrBlock(v string) {
+	o.Ipv6CidrBlock.Set(&v)
+}
+
+// SetIpv6CidrBlockNil sets the value for Ipv6CidrBlock to be an explicit nil
+func (o *LanProperties) SetIpv6CidrBlockNil() {
+	o.Ipv6CidrBlock.Set(nil)
+}
+
+// UnsetIpv6CidrBlock ensures that no value is present for Ipv6CidrBlock, not even an explicit nil
+func (o *LanProperties) UnsetIpv6CidrBlock() {
+	o.Ipv6CidrBlock.Unset()
+}
+
+// GetPcc returns the Pcc field value if set, zero value otherwise.
+func (o *LanProperties) GetPcc() string {
+	if o == nil || IsNil(o.Pcc) {
+		var ret string
+		return ret
+	}
+	return *o.Pcc
+}
+
+// GetPccOk returns a tuple with the Pcc field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LanProperties) GetPccOk() (*string, bool) {
+	if o == nil || IsNil(o.Pcc) {
+		return nil, false
+	}
+	return o.Pcc, true
 }
 
 // HasPcc returns a boolean if a field has been set.
 func (o *LanProperties) HasPcc() bool {
-	if o != nil && o.Pcc != nil {
+	if o != nil && !IsNil(o.Pcc) {
 		return true
 	}
 
 	return false
 }
 
-// GetPublic returns the Public field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *LanProperties) GetPublic() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.Public
-
+// SetPcc gets a reference to the given string and assigns it to the Pcc field.
+func (o *LanProperties) SetPcc(v string) {
+	o.Pcc = &v
 }
 
-// GetPublicOk returns a tuple with the Public field value
+// GetPublic returns the Public field value if set, zero value otherwise.
+func (o *LanProperties) GetPublic() bool {
+	if o == nil || IsNil(o.Public) {
+		var ret bool
+		return ret
+	}
+	return *o.Public
+}
+
+// GetPublicOk returns a tuple with the Public field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *LanProperties) GetPublicOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Public) {
 		return nil, false
 	}
-
 	return o.Public, true
-}
-
-// SetPublic sets field value
-func (o *LanProperties) SetPublic(v bool) {
-
-	o.Public = &v
-
 }
 
 // HasPublic returns a boolean if a field has been set.
 func (o *LanProperties) HasPublic() bool {
-	if o != nil && o.Public != nil {
+	if o != nil && !IsNil(o.Public) {
 		return true
 	}
 
 	return false
 }
 
+// SetPublic gets a reference to the given bool and assigns it to the Public field.
+func (o *LanProperties) SetPublic(v bool) {
+	o.Public = &v
+}
+
 func (o LanProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LanProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-
-	if o.IpFailover != nil {
+	if !IsNil(o.IpFailover) {
 		toSerialize["ipFailover"] = o.IpFailover
 	}
-
-	if o.Pcc != nil {
+	if o.Ipv4CidrBlock.IsSet() {
+		toSerialize["ipv4CidrBlock"] = o.Ipv4CidrBlock.Get()
+	}
+	if o.Ipv6CidrBlock.IsSet() {
+		toSerialize["ipv6CidrBlock"] = o.Ipv6CidrBlock.Get()
+	}
+	if !IsNil(o.Pcc) {
 		toSerialize["pcc"] = o.Pcc
 	}
-
-	if o.Public != nil {
+	if !IsNil(o.Public) {
 		toSerialize["public"] = o.Public
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableLanProperties struct {

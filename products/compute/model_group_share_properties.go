@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the GroupShareProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GroupShareProperties{}
 
 // GroupShareProperties struct for GroupShareProperties
 type GroupShareProperties struct {
@@ -40,93 +43,87 @@ func NewGroupSharePropertiesWithDefaults() *GroupShareProperties {
 	return &this
 }
 
-// GetEditPrivilege returns the EditPrivilege field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *GroupShareProperties) GetEditPrivilege() *bool {
-	if o == nil {
-		return nil
+// GetEditPrivilege returns the EditPrivilege field value if set, zero value otherwise.
+func (o *GroupShareProperties) GetEditPrivilege() bool {
+	if o == nil || IsNil(o.EditPrivilege) {
+		var ret bool
+		return ret
 	}
-
-	return o.EditPrivilege
-
+	return *o.EditPrivilege
 }
 
-// GetEditPrivilegeOk returns a tuple with the EditPrivilege field value
+// GetEditPrivilegeOk returns a tuple with the EditPrivilege field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GroupShareProperties) GetEditPrivilegeOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.EditPrivilege) {
 		return nil, false
 	}
-
 	return o.EditPrivilege, true
-}
-
-// SetEditPrivilege sets field value
-func (o *GroupShareProperties) SetEditPrivilege(v bool) {
-
-	o.EditPrivilege = &v
-
 }
 
 // HasEditPrivilege returns a boolean if a field has been set.
 func (o *GroupShareProperties) HasEditPrivilege() bool {
-	if o != nil && o.EditPrivilege != nil {
+	if o != nil && !IsNil(o.EditPrivilege) {
 		return true
 	}
 
 	return false
 }
 
-// GetSharePrivilege returns the SharePrivilege field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *GroupShareProperties) GetSharePrivilege() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.SharePrivilege
-
+// SetEditPrivilege gets a reference to the given bool and assigns it to the EditPrivilege field.
+func (o *GroupShareProperties) SetEditPrivilege(v bool) {
+	o.EditPrivilege = &v
 }
 
-// GetSharePrivilegeOk returns a tuple with the SharePrivilege field value
+// GetSharePrivilege returns the SharePrivilege field value if set, zero value otherwise.
+func (o *GroupShareProperties) GetSharePrivilege() bool {
+	if o == nil || IsNil(o.SharePrivilege) {
+		var ret bool
+		return ret
+	}
+	return *o.SharePrivilege
+}
+
+// GetSharePrivilegeOk returns a tuple with the SharePrivilege field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GroupShareProperties) GetSharePrivilegeOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.SharePrivilege) {
 		return nil, false
 	}
-
 	return o.SharePrivilege, true
-}
-
-// SetSharePrivilege sets field value
-func (o *GroupShareProperties) SetSharePrivilege(v bool) {
-
-	o.SharePrivilege = &v
-
 }
 
 // HasSharePrivilege returns a boolean if a field has been set.
 func (o *GroupShareProperties) HasSharePrivilege() bool {
-	if o != nil && o.SharePrivilege != nil {
+	if o != nil && !IsNil(o.SharePrivilege) {
 		return true
 	}
 
 	return false
 }
 
+// SetSharePrivilege gets a reference to the given bool and assigns it to the SharePrivilege field.
+func (o *GroupShareProperties) SetSharePrivilege(v bool) {
+	o.SharePrivilege = &v
+}
+
 func (o GroupShareProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GroupShareProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.EditPrivilege != nil {
+	if !IsNil(o.EditPrivilege) {
 		toSerialize["editPrivilege"] = o.EditPrivilege
 	}
-
-	if o.SharePrivilege != nil {
+	if !IsNil(o.SharePrivilege) {
 		toSerialize["sharePrivilege"] = o.SharePrivilege
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableGroupShareProperties struct {

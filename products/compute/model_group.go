@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Group type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Group{}
+
 // Group struct for Group
 type Group struct {
 	// The resource's unique identifier.
@@ -21,9 +24,9 @@ type Group struct {
 	// The type of the resource.
 	Type *Type `json:"type,omitempty"`
 	// URL to the object representation (absolute path).
-	Href       *string          `json:"href,omitempty"`
-	Properties *GroupProperties `json:"properties"`
-	Entities   *GroupEntities   `json:"entities,omitempty"`
+	Href       *string         `json:"href,omitempty"`
+	Properties GroupProperties `json:"properties"`
+	Entities   *GroupEntities  `json:"entities,omitempty"`
 }
 
 // NewGroup instantiates a new Group object
@@ -33,7 +36,7 @@ type Group struct {
 func NewGroup(properties GroupProperties) *Group {
 	this := Group{}
 
-	this.Properties = &properties
+	this.Properties = properties
 
 	return &this
 }
@@ -46,219 +49,184 @@ func NewGroupWithDefaults() *Group {
 	return &this
 }
 
-// GetId returns the Id field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Group) GetId() *string {
-	if o == nil {
-		return nil
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *Group) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
 	}
-
-	return o.Id
-
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Group) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-
 	return o.Id, true
-}
-
-// SetId sets field value
-func (o *Group) SetId(v string) {
-
-	o.Id = &v
-
 }
 
 // HasId returns a boolean if a field has been set.
 func (o *Group) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
 	return false
 }
 
-// GetType returns the Type field value
-// If the value is explicit nil, the zero value for Type will be returned
-func (o *Group) GetType() *Type {
-	if o == nil {
-		return nil
-	}
-
-	return o.Type
-
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *Group) SetId(v string) {
+	o.Id = &v
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *Group) GetType() Type {
+	if o == nil || IsNil(o.Type) {
+		var ret Type
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Group) GetTypeOk() (*Type, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
-
 	return o.Type, true
-}
-
-// SetType sets field value
-func (o *Group) SetType(v Type) {
-
-	o.Type = &v
-
 }
 
 // HasType returns a boolean if a field has been set.
 func (o *Group) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
 	return false
 }
 
-// GetHref returns the Href field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Group) GetHref() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Href
-
+// SetType gets a reference to the given Type and assigns it to the Type field.
+func (o *Group) SetType(v Type) {
+	o.Type = &v
 }
 
-// GetHrefOk returns a tuple with the Href field value
+// GetHref returns the Href field value if set, zero value otherwise.
+func (o *Group) GetHref() string {
+	if o == nil || IsNil(o.Href) {
+		var ret string
+		return ret
+	}
+	return *o.Href
+}
+
+// GetHrefOk returns a tuple with the Href field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Group) GetHrefOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Href) {
 		return nil, false
 	}
-
 	return o.Href, true
-}
-
-// SetHref sets field value
-func (o *Group) SetHref(v string) {
-
-	o.Href = &v
-
 }
 
 // HasHref returns a boolean if a field has been set.
 func (o *Group) HasHref() bool {
-	if o != nil && o.Href != nil {
+	if o != nil && !IsNil(o.Href) {
 		return true
 	}
 
 	return false
 }
 
+// SetHref gets a reference to the given string and assigns it to the Href field.
+func (o *Group) SetHref(v string) {
+	o.Href = &v
+}
+
 // GetProperties returns the Properties field value
-// If the value is explicit nil, the zero value for GroupProperties will be returned
-func (o *Group) GetProperties() *GroupProperties {
+func (o *Group) GetProperties() GroupProperties {
 	if o == nil {
-		return nil
+		var ret GroupProperties
+		return ret
 	}
 
 	return o.Properties
-
 }
 
 // GetPropertiesOk returns a tuple with the Properties field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Group) GetPropertiesOk() (*GroupProperties, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Properties, true
+	return &o.Properties, true
 }
 
 // SetProperties sets field value
 func (o *Group) SetProperties(v GroupProperties) {
-
-	o.Properties = &v
-
+	o.Properties = v
 }
 
-// HasProperties returns a boolean if a field has been set.
-func (o *Group) HasProperties() bool {
-	if o != nil && o.Properties != nil {
-		return true
+// GetEntities returns the Entities field value if set, zero value otherwise.
+func (o *Group) GetEntities() GroupEntities {
+	if o == nil || IsNil(o.Entities) {
+		var ret GroupEntities
+		return ret
 	}
-
-	return false
+	return *o.Entities
 }
 
-// GetEntities returns the Entities field value
-// If the value is explicit nil, the zero value for GroupEntities will be returned
-func (o *Group) GetEntities() *GroupEntities {
-	if o == nil {
-		return nil
-	}
-
-	return o.Entities
-
-}
-
-// GetEntitiesOk returns a tuple with the Entities field value
+// GetEntitiesOk returns a tuple with the Entities field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Group) GetEntitiesOk() (*GroupEntities, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Entities) {
 		return nil, false
 	}
-
 	return o.Entities, true
-}
-
-// SetEntities sets field value
-func (o *Group) SetEntities(v GroupEntities) {
-
-	o.Entities = &v
-
 }
 
 // HasEntities returns a boolean if a field has been set.
 func (o *Group) HasEntities() bool {
-	if o != nil && o.Entities != nil {
+	if o != nil && !IsNil(o.Entities) {
 		return true
 	}
 
 	return false
 }
 
+// SetEntities gets a reference to the given GroupEntities and assigns it to the Entities field.
+func (o *Group) SetEntities(v GroupEntities) {
+	o.Entities = &v
+}
+
 func (o Group) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Group) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-
-	if o.Href != nil {
+	if !IsNil(o.Href) {
 		toSerialize["href"] = o.Href
 	}
-
-	if o.Properties != nil {
+	if !IsZero(o.Properties) {
 		toSerialize["properties"] = o.Properties
 	}
-
-	if o.Entities != nil {
+	if !IsNil(o.Entities) {
 		toSerialize["entities"] = o.Entities
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableGroup struct {

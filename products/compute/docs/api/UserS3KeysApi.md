@@ -8,7 +8,7 @@ All URIs are relative to *https://api.ionos.com/cloudapi/v6*
 |[**UmUsersS3keysFindByKeyId**](UserS3KeysApi.md#UmUsersS3keysFindByKeyId) | **Get** /um/users/{userId}/s3keys/{keyId} | Retrieve user S3 keys by key ID|
 |[**UmUsersS3keysGet**](UserS3KeysApi.md#UmUsersS3keysGet) | **Get** /um/users/{userId}/s3keys | List user S3 keys|
 |[**UmUsersS3keysPost**](UserS3KeysApi.md#UmUsersS3keysPost) | **Post** /um/users/{userId}/s3keys | Create user S3 keys|
-|[**UmUsersS3keysPut**](UserS3KeysApi.md#UmUsersS3keysPut) | **Put** /um/users/{userId}/s3keys/{keyId} | Modify S3 keys by key ID|
+|[**UmUsersS3keysPut**](UserS3KeysApi.md#UmUsersS3keysPut) | **Put** /um/users/{userId}/s3keys/{keyId} | Modify a S3 Key by Key ID|
 |[**UmUsersS3ssourlGet**](UserS3KeysApi.md#UmUsersS3ssourlGet) | **Get** /um/users/{userId}/s3ssourl | Retrieve S3 single sign-on URLs|
 
 
@@ -50,7 +50,7 @@ func main() {
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
-    resource, resp, err := apiClient.UserS3KeysApi.UmUsersS3keysDelete(context.Background(), userId, keyId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    resp, err := apiClient.UserS3KeysApi.UmUsersS3keysDelete(context.Background(), userId, keyId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserS3KeysApi.UmUsersS3keysDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -330,7 +330,7 @@ var result S3Key = UmUsersS3keysPut(ctx, userId, keyId)
                       .Execute()
 ```
 
-Modify S3 keys by key ID
+Modify a S3 Key by Key ID
 
 
 

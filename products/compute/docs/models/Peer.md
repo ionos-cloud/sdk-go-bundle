@@ -4,11 +4,11 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Id** | Pointer to **string** |  | [optional] |
-|**Name** | Pointer to **string** |  | [optional] |
-|**DatacenterId** | Pointer to **string** |  | [optional] |
-|**DatacenterName** | Pointer to **string** |  | [optional] |
-|**Location** | Pointer to **string** |  | [optional] |
+|**Id** | Pointer to **string** | Identifier of the LAN connected to the Cross Connect. | [optional] |
+|**Name** | Pointer to **string** | Name of the LAN connected to the Cross Connect. | [optional] |
+|**DatacenterId** | Pointer to **string** | Identifier of the virtual data center connected to the Cross Connect. | [optional] |
+|**DatacenterName** | Pointer to **string** | Name of the virtual data center connected to the Cross Connect. | [optional] |
+|**Location** | Pointer to **string** | Location of the virtual data center connected to the Cross Connect. | [optional] |
 
 ## Methods
 

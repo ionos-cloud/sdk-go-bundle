@@ -9,6 +9,8 @@
 |**Ips** | Pointer to **[]string** | Collection of the Network Load Balancer IP addresses. (Inbound and outbound) IPs of the listenerLan must be customer-reserved IPs for public Load Balancers, and private IPs for private Load Balancers. | [optional] |
 |**TargetLan** | **int32** | ID of the balanced private target LAN (outbound). | |
 |**LbPrivateIps** | Pointer to **[]string** | Collection of private IP addresses with subnet mask of the Network Load Balancer. IPs must contain a valid subnet mask. If no IP is provided, the system will generate an IP with /24 subnet. | [optional] |
+|**CentralLogging** | Pointer to **bool** | Turn logging on and off for this product. Default value is &#39;false&#39;. | [optional] |
+|**LoggingFormat** | Pointer to **string** | Specifies the format of the logs. | [optional] |
 
 ## Methods
 
@@ -138,5 +140,55 @@ SetLbPrivateIps sets LbPrivateIps field to given value.
 `func (o *NetworkLoadBalancerProperties) HasLbPrivateIps() bool`
 
 HasLbPrivateIps returns a boolean if a field has been set.
+
+### GetCentralLogging
+
+`func (o *NetworkLoadBalancerProperties) GetCentralLogging() bool`
+
+GetCentralLogging returns the CentralLogging field if non-nil, zero value otherwise.
+
+### GetCentralLoggingOk
+
+`func (o *NetworkLoadBalancerProperties) GetCentralLoggingOk() (*bool, bool)`
+
+GetCentralLoggingOk returns a tuple with the CentralLogging field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCentralLogging
+
+`func (o *NetworkLoadBalancerProperties) SetCentralLogging(v bool)`
+
+SetCentralLogging sets CentralLogging field to given value.
+
+### HasCentralLogging
+
+`func (o *NetworkLoadBalancerProperties) HasCentralLogging() bool`
+
+HasCentralLogging returns a boolean if a field has been set.
+
+### GetLoggingFormat
+
+`func (o *NetworkLoadBalancerProperties) GetLoggingFormat() string`
+
+GetLoggingFormat returns the LoggingFormat field if non-nil, zero value otherwise.
+
+### GetLoggingFormatOk
+
+`func (o *NetworkLoadBalancerProperties) GetLoggingFormatOk() (*string, bool)`
+
+GetLoggingFormatOk returns a tuple with the LoggingFormat field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLoggingFormat
+
+`func (o *NetworkLoadBalancerProperties) SetLoggingFormat(v string)`
+
+SetLoggingFormat sets LoggingFormat field to given value.
+
+### HasLoggingFormat
+
+`func (o *NetworkLoadBalancerProperties) HasLoggingFormat() bool`
+
+HasLoggingFormat returns a boolean if a field has been set.
 
 

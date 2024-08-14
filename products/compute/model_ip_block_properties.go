@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,18 +14,21 @@ import (
 	"encoding/json"
 )
 
+// checks if the IpBlockProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IpBlockProperties{}
+
 // IpBlockProperties struct for IpBlockProperties
 type IpBlockProperties struct {
 	// Collection of IPs, associated with the IP Block.
-	Ips *[]string `json:"ips,omitempty"`
+	Ips []string `json:"ips,omitempty"`
 	// Location of that IP block. Property cannot be modified after it is created (disallowed in update requests).
-	Location *string `json:"location"`
+	Location string `json:"location"`
 	// The size of the IP block.
-	Size *int32 `json:"size"`
+	Size int32 `json:"size"`
 	// The name of the  resource.
 	Name *string `json:"name,omitempty"`
 	// Read-Only attribute. Lists consumption detail for an individual IP
-	IpConsumers *[]IpConsumer `json:"ipConsumers,omitempty"`
+	IpConsumers []IpConsumer `json:"ipConsumers,omitempty"`
 }
 
 // NewIpBlockProperties instantiates a new IpBlockProperties object
@@ -35,8 +38,8 @@ type IpBlockProperties struct {
 func NewIpBlockProperties(location string, size int32) *IpBlockProperties {
 	this := IpBlockProperties{}
 
-	this.Location = &location
-	this.Size = &size
+	this.Location = location
+	this.Size = size
 
 	return &this
 }
@@ -49,219 +52,176 @@ func NewIpBlockPropertiesWithDefaults() *IpBlockProperties {
 	return &this
 }
 
-// GetIps returns the Ips field value
-// If the value is explicit nil, the zero value for []string will be returned
-func (o *IpBlockProperties) GetIps() *[]string {
-	if o == nil {
-		return nil
+// GetIps returns the Ips field value if set, zero value otherwise.
+func (o *IpBlockProperties) GetIps() []string {
+	if o == nil || IsNil(o.Ips) {
+		var ret []string
+		return ret
 	}
-
 	return o.Ips
-
 }
 
-// GetIpsOk returns a tuple with the Ips field value
+// GetIpsOk returns a tuple with the Ips field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *IpBlockProperties) GetIpsOk() (*[]string, bool) {
-	if o == nil {
+func (o *IpBlockProperties) GetIpsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Ips) {
 		return nil, false
 	}
-
 	return o.Ips, true
-}
-
-// SetIps sets field value
-func (o *IpBlockProperties) SetIps(v []string) {
-
-	o.Ips = &v
-
 }
 
 // HasIps returns a boolean if a field has been set.
 func (o *IpBlockProperties) HasIps() bool {
-	if o != nil && o.Ips != nil {
+	if o != nil && !IsNil(o.Ips) {
 		return true
 	}
 
 	return false
 }
 
+// SetIps gets a reference to the given []string and assigns it to the Ips field.
+func (o *IpBlockProperties) SetIps(v []string) {
+	o.Ips = v
+}
+
 // GetLocation returns the Location field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *IpBlockProperties) GetLocation() *string {
+func (o *IpBlockProperties) GetLocation() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Location
-
 }
 
 // GetLocationOk returns a tuple with the Location field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *IpBlockProperties) GetLocationOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Location, true
+	return &o.Location, true
 }
 
 // SetLocation sets field value
 func (o *IpBlockProperties) SetLocation(v string) {
-
-	o.Location = &v
-
-}
-
-// HasLocation returns a boolean if a field has been set.
-func (o *IpBlockProperties) HasLocation() bool {
-	if o != nil && o.Location != nil {
-		return true
-	}
-
-	return false
+	o.Location = v
 }
 
 // GetSize returns the Size field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *IpBlockProperties) GetSize() *int32 {
+func (o *IpBlockProperties) GetSize() int32 {
 	if o == nil {
-		return nil
+		var ret int32
+		return ret
 	}
 
 	return o.Size
-
 }
 
 // GetSizeOk returns a tuple with the Size field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *IpBlockProperties) GetSizeOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Size, true
+	return &o.Size, true
 }
 
 // SetSize sets field value
 func (o *IpBlockProperties) SetSize(v int32) {
-
-	o.Size = &v
-
+	o.Size = v
 }
 
-// HasSize returns a boolean if a field has been set.
-func (o *IpBlockProperties) HasSize() bool {
-	if o != nil && o.Size != nil {
-		return true
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *IpBlockProperties) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
 	}
-
-	return false
+	return *o.Name
 }
 
-// GetName returns the Name field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *IpBlockProperties) GetName() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Name
-
-}
-
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *IpBlockProperties) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-
 	return o.Name, true
-}
-
-// SetName sets field value
-func (o *IpBlockProperties) SetName(v string) {
-
-	o.Name = &v
-
 }
 
 // HasName returns a boolean if a field has been set.
 func (o *IpBlockProperties) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
 	return false
 }
 
-// GetIpConsumers returns the IpConsumers field value
-// If the value is explicit nil, the zero value for []IpConsumer will be returned
-func (o *IpBlockProperties) GetIpConsumers() *[]IpConsumer {
-	if o == nil {
-		return nil
-	}
-
-	return o.IpConsumers
-
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *IpBlockProperties) SetName(v string) {
+	o.Name = &v
 }
 
-// GetIpConsumersOk returns a tuple with the IpConsumers field value
+// GetIpConsumers returns the IpConsumers field value if set, zero value otherwise.
+func (o *IpBlockProperties) GetIpConsumers() []IpConsumer {
+	if o == nil || IsNil(o.IpConsumers) {
+		var ret []IpConsumer
+		return ret
+	}
+	return o.IpConsumers
+}
+
+// GetIpConsumersOk returns a tuple with the IpConsumers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *IpBlockProperties) GetIpConsumersOk() (*[]IpConsumer, bool) {
-	if o == nil {
+func (o *IpBlockProperties) GetIpConsumersOk() ([]IpConsumer, bool) {
+	if o == nil || IsNil(o.IpConsumers) {
 		return nil, false
 	}
-
 	return o.IpConsumers, true
-}
-
-// SetIpConsumers sets field value
-func (o *IpBlockProperties) SetIpConsumers(v []IpConsumer) {
-
-	o.IpConsumers = &v
-
 }
 
 // HasIpConsumers returns a boolean if a field has been set.
 func (o *IpBlockProperties) HasIpConsumers() bool {
-	if o != nil && o.IpConsumers != nil {
+	if o != nil && !IsNil(o.IpConsumers) {
 		return true
 	}
 
 	return false
 }
 
+// SetIpConsumers gets a reference to the given []IpConsumer and assigns it to the IpConsumers field.
+func (o *IpBlockProperties) SetIpConsumers(v []IpConsumer) {
+	o.IpConsumers = v
+}
+
 func (o IpBlockProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IpBlockProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Ips != nil {
+	if !IsNil(o.Ips) {
 		toSerialize["ips"] = o.Ips
 	}
-
-	if o.Location != nil {
+	if !IsZero(o.Location) {
 		toSerialize["location"] = o.Location
 	}
-
-	if o.Size != nil {
+	if !IsZero(o.Size) {
 		toSerialize["size"] = o.Size
 	}
-
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-
-	if o.IpConsumers != nil {
+	if !IsNil(o.IpConsumers) {
 		toSerialize["ipConsumers"] = o.IpConsumers
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableIpBlockProperties struct {

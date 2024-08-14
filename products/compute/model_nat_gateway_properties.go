@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,14 +14,17 @@ import (
 	"encoding/json"
 )
 
+// checks if the NatGatewayProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NatGatewayProperties{}
+
 // NatGatewayProperties struct for NatGatewayProperties
 type NatGatewayProperties struct {
 	// Name of the NAT Gateway.
-	Name *string `json:"name"`
+	Name string `json:"name"`
 	// Collection of public IP addresses of the NAT Gateway. Should be customer reserved IP addresses in that location.
-	PublicIps *[]string `json:"publicIps"`
+	PublicIps []string `json:"publicIps"`
 	// Collection of LANs connected to the NAT Gateway. IPs must contain a valid subnet mask. If no IP is provided, the system will generate an IP with /24 subnet.
-	Lans *[]NatGatewayLanProperties `json:"lans,omitempty"`
+	Lans []NatGatewayLanProperties `json:"lans,omitempty"`
 }
 
 // NewNatGatewayProperties instantiates a new NatGatewayProperties object
@@ -31,8 +34,8 @@ type NatGatewayProperties struct {
 func NewNatGatewayProperties(name string, publicIps []string) *NatGatewayProperties {
 	this := NatGatewayProperties{}
 
-	this.Name = &name
-	this.PublicIps = &publicIps
+	this.Name = name
+	this.PublicIps = publicIps
 
 	return &this
 }
@@ -46,134 +49,105 @@ func NewNatGatewayPropertiesWithDefaults() *NatGatewayProperties {
 }
 
 // GetName returns the Name field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *NatGatewayProperties) GetName() *string {
+func (o *NatGatewayProperties) GetName() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Name
-
 }
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NatGatewayProperties) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Name, true
+	return &o.Name, true
 }
 
 // SetName sets field value
 func (o *NatGatewayProperties) SetName(v string) {
-
-	o.Name = &v
-
-}
-
-// HasName returns a boolean if a field has been set.
-func (o *NatGatewayProperties) HasName() bool {
-	if o != nil && o.Name != nil {
-		return true
-	}
-
-	return false
+	o.Name = v
 }
 
 // GetPublicIps returns the PublicIps field value
-// If the value is explicit nil, the zero value for []string will be returned
-func (o *NatGatewayProperties) GetPublicIps() *[]string {
+func (o *NatGatewayProperties) GetPublicIps() []string {
 	if o == nil {
-		return nil
+		var ret []string
+		return ret
 	}
 
 	return o.PublicIps
-
 }
 
 // GetPublicIpsOk returns a tuple with the PublicIps field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *NatGatewayProperties) GetPublicIpsOk() (*[]string, bool) {
+func (o *NatGatewayProperties) GetPublicIpsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
 	return o.PublicIps, true
 }
 
 // SetPublicIps sets field value
 func (o *NatGatewayProperties) SetPublicIps(v []string) {
-
-	o.PublicIps = &v
-
+	o.PublicIps = v
 }
 
-// HasPublicIps returns a boolean if a field has been set.
-func (o *NatGatewayProperties) HasPublicIps() bool {
-	if o != nil && o.PublicIps != nil {
-		return true
+// GetLans returns the Lans field value if set, zero value otherwise.
+func (o *NatGatewayProperties) GetLans() []NatGatewayLanProperties {
+	if o == nil || IsNil(o.Lans) {
+		var ret []NatGatewayLanProperties
+		return ret
 	}
-
-	return false
-}
-
-// GetLans returns the Lans field value
-// If the value is explicit nil, the zero value for []NatGatewayLanProperties will be returned
-func (o *NatGatewayProperties) GetLans() *[]NatGatewayLanProperties {
-	if o == nil {
-		return nil
-	}
-
 	return o.Lans
-
 }
 
-// GetLansOk returns a tuple with the Lans field value
+// GetLansOk returns a tuple with the Lans field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *NatGatewayProperties) GetLansOk() (*[]NatGatewayLanProperties, bool) {
-	if o == nil {
+func (o *NatGatewayProperties) GetLansOk() ([]NatGatewayLanProperties, bool) {
+	if o == nil || IsNil(o.Lans) {
 		return nil, false
 	}
-
 	return o.Lans, true
-}
-
-// SetLans sets field value
-func (o *NatGatewayProperties) SetLans(v []NatGatewayLanProperties) {
-
-	o.Lans = &v
-
 }
 
 // HasLans returns a boolean if a field has been set.
 func (o *NatGatewayProperties) HasLans() bool {
-	if o != nil && o.Lans != nil {
+	if o != nil && !IsNil(o.Lans) {
 		return true
 	}
 
 	return false
 }
 
+// SetLans gets a reference to the given []NatGatewayLanProperties and assigns it to the Lans field.
+func (o *NatGatewayProperties) SetLans(v []NatGatewayLanProperties) {
+	o.Lans = v
+}
+
 func (o NatGatewayProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o NatGatewayProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsZero(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-
-	if o.PublicIps != nil {
+	if !IsZero(o.PublicIps) {
 		toSerialize["publicIps"] = o.PublicIps
 	}
-
-	if o.Lans != nil {
+	if !IsNil(o.Lans) {
 		toSerialize["lans"] = o.Lans
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableNatGatewayProperties struct {

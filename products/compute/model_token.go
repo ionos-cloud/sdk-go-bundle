@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the Token type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Token{}
 
 // Token struct for Token
 type Token struct {
@@ -38,51 +41,52 @@ func NewTokenWithDefaults() *Token {
 	return &this
 }
 
-// GetToken returns the Token field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Token) GetToken() *string {
-	if o == nil {
-		return nil
+// GetToken returns the Token field value if set, zero value otherwise.
+func (o *Token) GetToken() string {
+	if o == nil || IsNil(o.Token) {
+		var ret string
+		return ret
 	}
-
-	return o.Token
-
+	return *o.Token
 }
 
-// GetTokenOk returns a tuple with the Token field value
+// GetTokenOk returns a tuple with the Token field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Token) GetTokenOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Token) {
 		return nil, false
 	}
-
 	return o.Token, true
-}
-
-// SetToken sets field value
-func (o *Token) SetToken(v string) {
-
-	o.Token = &v
-
 }
 
 // HasToken returns a boolean if a field has been set.
 func (o *Token) HasToken() bool {
-	if o != nil && o.Token != nil {
+	if o != nil && !IsNil(o.Token) {
 		return true
 	}
 
 	return false
 }
 
+// SetToken gets a reference to the given string and assigns it to the Token field.
+func (o *Token) SetToken(v string) {
+	o.Token = &v
+}
+
 func (o Token) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Token) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Token != nil {
+	if !IsNil(o.Token) {
 		toSerialize["token"] = o.Token
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableToken struct {

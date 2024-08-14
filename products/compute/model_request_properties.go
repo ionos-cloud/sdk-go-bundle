@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the RequestProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestProperties{}
 
 // RequestProperties struct for RequestProperties
 type RequestProperties struct {
@@ -40,177 +43,157 @@ func NewRequestPropertiesWithDefaults() *RequestProperties {
 	return &this
 }
 
-// GetMethod returns the Method field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *RequestProperties) GetMethod() *string {
-	if o == nil {
-		return nil
+// GetMethod returns the Method field value if set, zero value otherwise.
+func (o *RequestProperties) GetMethod() string {
+	if o == nil || IsNil(o.Method) {
+		var ret string
+		return ret
 	}
-
-	return o.Method
-
+	return *o.Method
 }
 
-// GetMethodOk returns a tuple with the Method field value
+// GetMethodOk returns a tuple with the Method field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RequestProperties) GetMethodOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Method) {
 		return nil, false
 	}
-
 	return o.Method, true
-}
-
-// SetMethod sets field value
-func (o *RequestProperties) SetMethod(v string) {
-
-	o.Method = &v
-
 }
 
 // HasMethod returns a boolean if a field has been set.
 func (o *RequestProperties) HasMethod() bool {
-	if o != nil && o.Method != nil {
+	if o != nil && !IsNil(o.Method) {
 		return true
 	}
 
 	return false
 }
 
-// GetHeaders returns the Headers field value
-// If the value is explicit nil, the zero value for map[string]string will be returned
-func (o *RequestProperties) GetHeaders() *map[string]string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Headers
-
+// SetMethod gets a reference to the given string and assigns it to the Method field.
+func (o *RequestProperties) SetMethod(v string) {
+	o.Method = &v
 }
 
-// GetHeadersOk returns a tuple with the Headers field value
+// GetHeaders returns the Headers field value if set, zero value otherwise.
+func (o *RequestProperties) GetHeaders() map[string]string {
+	if o == nil || IsNil(o.Headers) {
+		var ret map[string]string
+		return ret
+	}
+	return *o.Headers
+}
+
+// GetHeadersOk returns a tuple with the Headers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RequestProperties) GetHeadersOk() (*map[string]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Headers) {
 		return nil, false
 	}
-
 	return o.Headers, true
-}
-
-// SetHeaders sets field value
-func (o *RequestProperties) SetHeaders(v map[string]string) {
-
-	o.Headers = &v
-
 }
 
 // HasHeaders returns a boolean if a field has been set.
 func (o *RequestProperties) HasHeaders() bool {
-	if o != nil && o.Headers != nil {
+	if o != nil && !IsNil(o.Headers) {
 		return true
 	}
 
 	return false
 }
 
-// GetBody returns the Body field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *RequestProperties) GetBody() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Body
-
+// SetHeaders gets a reference to the given map[string]string and assigns it to the Headers field.
+func (o *RequestProperties) SetHeaders(v map[string]string) {
+	o.Headers = &v
 }
 
-// GetBodyOk returns a tuple with the Body field value
+// GetBody returns the Body field value if set, zero value otherwise.
+func (o *RequestProperties) GetBody() string {
+	if o == nil || IsNil(o.Body) {
+		var ret string
+		return ret
+	}
+	return *o.Body
+}
+
+// GetBodyOk returns a tuple with the Body field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RequestProperties) GetBodyOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Body) {
 		return nil, false
 	}
-
 	return o.Body, true
-}
-
-// SetBody sets field value
-func (o *RequestProperties) SetBody(v string) {
-
-	o.Body = &v
-
 }
 
 // HasBody returns a boolean if a field has been set.
 func (o *RequestProperties) HasBody() bool {
-	if o != nil && o.Body != nil {
+	if o != nil && !IsNil(o.Body) {
 		return true
 	}
 
 	return false
 }
 
-// GetUrl returns the Url field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *RequestProperties) GetUrl() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Url
-
+// SetBody gets a reference to the given string and assigns it to the Body field.
+func (o *RequestProperties) SetBody(v string) {
+	o.Body = &v
 }
 
-// GetUrlOk returns a tuple with the Url field value
+// GetUrl returns the Url field value if set, zero value otherwise.
+func (o *RequestProperties) GetUrl() string {
+	if o == nil || IsNil(o.Url) {
+		var ret string
+		return ret
+	}
+	return *o.Url
+}
+
+// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RequestProperties) GetUrlOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Url) {
 		return nil, false
 	}
-
 	return o.Url, true
-}
-
-// SetUrl sets field value
-func (o *RequestProperties) SetUrl(v string) {
-
-	o.Url = &v
-
 }
 
 // HasUrl returns a boolean if a field has been set.
 func (o *RequestProperties) HasUrl() bool {
-	if o != nil && o.Url != nil {
+	if o != nil && !IsNil(o.Url) {
 		return true
 	}
 
 	return false
 }
 
+// SetUrl gets a reference to the given string and assigns it to the Url field.
+func (o *RequestProperties) SetUrl(v string) {
+	o.Url = &v
+}
+
 func (o RequestProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Method != nil {
+	if !IsNil(o.Method) {
 		toSerialize["method"] = o.Method
 	}
-
-	if o.Headers != nil {
+	if !IsNil(o.Headers) {
 		toSerialize["headers"] = o.Headers
 	}
-
-	if o.Body != nil {
+	if !IsNil(o.Body) {
 		toSerialize["body"] = o.Body
 	}
-
-	if o.Url != nil {
+	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableRequestProperties struct {

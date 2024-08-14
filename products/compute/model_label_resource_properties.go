@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the LabelResourceProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LabelResourceProperties{}
 
 // LabelResourceProperties struct for LabelResourceProperties
 type LabelResourceProperties struct {
@@ -40,93 +43,87 @@ func NewLabelResourcePropertiesWithDefaults() *LabelResourceProperties {
 	return &this
 }
 
-// GetKey returns the Key field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *LabelResourceProperties) GetKey() *string {
-	if o == nil {
-		return nil
+// GetKey returns the Key field value if set, zero value otherwise.
+func (o *LabelResourceProperties) GetKey() string {
+	if o == nil || IsNil(o.Key) {
+		var ret string
+		return ret
 	}
-
-	return o.Key
-
+	return *o.Key
 }
 
-// GetKeyOk returns a tuple with the Key field value
+// GetKeyOk returns a tuple with the Key field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *LabelResourceProperties) GetKeyOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Key) {
 		return nil, false
 	}
-
 	return o.Key, true
-}
-
-// SetKey sets field value
-func (o *LabelResourceProperties) SetKey(v string) {
-
-	o.Key = &v
-
 }
 
 // HasKey returns a boolean if a field has been set.
 func (o *LabelResourceProperties) HasKey() bool {
-	if o != nil && o.Key != nil {
+	if o != nil && !IsNil(o.Key) {
 		return true
 	}
 
 	return false
 }
 
-// GetValue returns the Value field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *LabelResourceProperties) GetValue() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Value
-
+// SetKey gets a reference to the given string and assigns it to the Key field.
+func (o *LabelResourceProperties) SetKey(v string) {
+	o.Key = &v
 }
 
-// GetValueOk returns a tuple with the Value field value
+// GetValue returns the Value field value if set, zero value otherwise.
+func (o *LabelResourceProperties) GetValue() string {
+	if o == nil || IsNil(o.Value) {
+		var ret string
+		return ret
+	}
+	return *o.Value
+}
+
+// GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *LabelResourceProperties) GetValueOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
-
 	return o.Value, true
-}
-
-// SetValue sets field value
-func (o *LabelResourceProperties) SetValue(v string) {
-
-	o.Value = &v
-
 }
 
 // HasValue returns a boolean if a field has been set.
 func (o *LabelResourceProperties) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
 	return false
 }
 
+// SetValue gets a reference to the given string and assigns it to the Value field.
+func (o *LabelResourceProperties) SetValue(v string) {
+	o.Value = &v
+}
+
 func (o LabelResourceProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LabelResourceProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Key != nil {
+	if !IsNil(o.Key) {
 		toSerialize["key"] = o.Key
 	}
-
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableLabelResourceProperties struct {

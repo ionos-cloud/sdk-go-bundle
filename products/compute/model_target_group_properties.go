@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,16 +14,21 @@ import (
 	"encoding/json"
 )
 
+// checks if the TargetGroupProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TargetGroupProperties{}
+
 // TargetGroupProperties struct for TargetGroupProperties
 type TargetGroupProperties struct {
-	// The name of the target group.
-	Name *string `json:"name"`
-	// Balancing algorithm
-	Algorithm *string `json:"algorithm"`
-	// Balancing protocol
-	Protocol *string `json:"protocol"`
+	// The target group name.
+	Name string `json:"name"`
+	// The balancing algorithm. A balancing algorithm consists of predefined rules with the logic that a load balancer uses to distribute network traffic between servers.  - **Round Robin**: Targets are served alternately according to their weighting.  - **Least Connection**: The target with the least active connection is served.  - **Random**: The targets are served based on a consistent pseudorandom algorithm.  - **Source IP**: It is ensured that the same client IP address reaches the same target.
+	Algorithm string `json:"algorithm"`
+	// The forwarding protocol. Only the value 'HTTP' is allowed.
+	Protocol string `json:"protocol"`
+	// The forwarding protocol version. Value is ignored when protocol is not 'HTTP'.
+	ProtocolVersion *string `json:"protocolVersion,omitempty"`
 	// Array of items in the collection.
-	Targets         *[]TargetGroupTarget        `json:"targets,omitempty"`
+	Targets         []TargetGroupTarget         `json:"targets,omitempty"`
 	HealthCheck     *TargetGroupHealthCheck     `json:"healthCheck,omitempty"`
 	HttpHealthCheck *TargetGroupHttpHealthCheck `json:"httpHealthCheck,omitempty"`
 }
@@ -35,9 +40,9 @@ type TargetGroupProperties struct {
 func NewTargetGroupProperties(name string, algorithm string, protocol string) *TargetGroupProperties {
 	this := TargetGroupProperties{}
 
-	this.Name = &name
-	this.Algorithm = &algorithm
-	this.Protocol = &protocol
+	this.Name = name
+	this.Algorithm = algorithm
+	this.Protocol = protocol
 
 	return &this
 }
@@ -51,260 +56,237 @@ func NewTargetGroupPropertiesWithDefaults() *TargetGroupProperties {
 }
 
 // GetName returns the Name field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *TargetGroupProperties) GetName() *string {
+func (o *TargetGroupProperties) GetName() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Name
-
 }
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TargetGroupProperties) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Name, true
+	return &o.Name, true
 }
 
 // SetName sets field value
 func (o *TargetGroupProperties) SetName(v string) {
-
-	o.Name = &v
-
-}
-
-// HasName returns a boolean if a field has been set.
-func (o *TargetGroupProperties) HasName() bool {
-	if o != nil && o.Name != nil {
-		return true
-	}
-
-	return false
+	o.Name = v
 }
 
 // GetAlgorithm returns the Algorithm field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *TargetGroupProperties) GetAlgorithm() *string {
+func (o *TargetGroupProperties) GetAlgorithm() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Algorithm
-
 }
 
 // GetAlgorithmOk returns a tuple with the Algorithm field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TargetGroupProperties) GetAlgorithmOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Algorithm, true
+	return &o.Algorithm, true
 }
 
 // SetAlgorithm sets field value
 func (o *TargetGroupProperties) SetAlgorithm(v string) {
-
-	o.Algorithm = &v
-
-}
-
-// HasAlgorithm returns a boolean if a field has been set.
-func (o *TargetGroupProperties) HasAlgorithm() bool {
-	if o != nil && o.Algorithm != nil {
-		return true
-	}
-
-	return false
+	o.Algorithm = v
 }
 
 // GetProtocol returns the Protocol field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *TargetGroupProperties) GetProtocol() *string {
+func (o *TargetGroupProperties) GetProtocol() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Protocol
-
 }
 
 // GetProtocolOk returns a tuple with the Protocol field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TargetGroupProperties) GetProtocolOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Protocol, true
+	return &o.Protocol, true
 }
 
 // SetProtocol sets field value
 func (o *TargetGroupProperties) SetProtocol(v string) {
-
-	o.Protocol = &v
-
+	o.Protocol = v
 }
 
-// HasProtocol returns a boolean if a field has been set.
-func (o *TargetGroupProperties) HasProtocol() bool {
-	if o != nil && o.Protocol != nil {
+// GetProtocolVersion returns the ProtocolVersion field value if set, zero value otherwise.
+func (o *TargetGroupProperties) GetProtocolVersion() string {
+	if o == nil || IsNil(o.ProtocolVersion) {
+		var ret string
+		return ret
+	}
+	return *o.ProtocolVersion
+}
+
+// GetProtocolVersionOk returns a tuple with the ProtocolVersion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TargetGroupProperties) GetProtocolVersionOk() (*string, bool) {
+	if o == nil || IsNil(o.ProtocolVersion) {
+		return nil, false
+	}
+	return o.ProtocolVersion, true
+}
+
+// HasProtocolVersion returns a boolean if a field has been set.
+func (o *TargetGroupProperties) HasProtocolVersion() bool {
+	if o != nil && !IsNil(o.ProtocolVersion) {
 		return true
 	}
 
 	return false
 }
 
-// GetTargets returns the Targets field value
-// If the value is explicit nil, the zero value for []TargetGroupTarget will be returned
-func (o *TargetGroupProperties) GetTargets() *[]TargetGroupTarget {
-	if o == nil {
-		return nil
-	}
-
-	return o.Targets
-
+// SetProtocolVersion gets a reference to the given string and assigns it to the ProtocolVersion field.
+func (o *TargetGroupProperties) SetProtocolVersion(v string) {
+	o.ProtocolVersion = &v
 }
 
-// GetTargetsOk returns a tuple with the Targets field value
+// GetTargets returns the Targets field value if set, zero value otherwise.
+func (o *TargetGroupProperties) GetTargets() []TargetGroupTarget {
+	if o == nil || IsNil(o.Targets) {
+		var ret []TargetGroupTarget
+		return ret
+	}
+	return o.Targets
+}
+
+// GetTargetsOk returns a tuple with the Targets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TargetGroupProperties) GetTargetsOk() (*[]TargetGroupTarget, bool) {
-	if o == nil {
+func (o *TargetGroupProperties) GetTargetsOk() ([]TargetGroupTarget, bool) {
+	if o == nil || IsNil(o.Targets) {
 		return nil, false
 	}
-
 	return o.Targets, true
-}
-
-// SetTargets sets field value
-func (o *TargetGroupProperties) SetTargets(v []TargetGroupTarget) {
-
-	o.Targets = &v
-
 }
 
 // HasTargets returns a boolean if a field has been set.
 func (o *TargetGroupProperties) HasTargets() bool {
-	if o != nil && o.Targets != nil {
+	if o != nil && !IsNil(o.Targets) {
 		return true
 	}
 
 	return false
 }
 
-// GetHealthCheck returns the HealthCheck field value
-// If the value is explicit nil, the zero value for TargetGroupHealthCheck will be returned
-func (o *TargetGroupProperties) GetHealthCheck() *TargetGroupHealthCheck {
-	if o == nil {
-		return nil
-	}
-
-	return o.HealthCheck
-
+// SetTargets gets a reference to the given []TargetGroupTarget and assigns it to the Targets field.
+func (o *TargetGroupProperties) SetTargets(v []TargetGroupTarget) {
+	o.Targets = v
 }
 
-// GetHealthCheckOk returns a tuple with the HealthCheck field value
+// GetHealthCheck returns the HealthCheck field value if set, zero value otherwise.
+func (o *TargetGroupProperties) GetHealthCheck() TargetGroupHealthCheck {
+	if o == nil || IsNil(o.HealthCheck) {
+		var ret TargetGroupHealthCheck
+		return ret
+	}
+	return *o.HealthCheck
+}
+
+// GetHealthCheckOk returns a tuple with the HealthCheck field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TargetGroupProperties) GetHealthCheckOk() (*TargetGroupHealthCheck, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.HealthCheck) {
 		return nil, false
 	}
-
 	return o.HealthCheck, true
-}
-
-// SetHealthCheck sets field value
-func (o *TargetGroupProperties) SetHealthCheck(v TargetGroupHealthCheck) {
-
-	o.HealthCheck = &v
-
 }
 
 // HasHealthCheck returns a boolean if a field has been set.
 func (o *TargetGroupProperties) HasHealthCheck() bool {
-	if o != nil && o.HealthCheck != nil {
+	if o != nil && !IsNil(o.HealthCheck) {
 		return true
 	}
 
 	return false
 }
 
-// GetHttpHealthCheck returns the HttpHealthCheck field value
-// If the value is explicit nil, the zero value for TargetGroupHttpHealthCheck will be returned
-func (o *TargetGroupProperties) GetHttpHealthCheck() *TargetGroupHttpHealthCheck {
-	if o == nil {
-		return nil
-	}
-
-	return o.HttpHealthCheck
-
+// SetHealthCheck gets a reference to the given TargetGroupHealthCheck and assigns it to the HealthCheck field.
+func (o *TargetGroupProperties) SetHealthCheck(v TargetGroupHealthCheck) {
+	o.HealthCheck = &v
 }
 
-// GetHttpHealthCheckOk returns a tuple with the HttpHealthCheck field value
+// GetHttpHealthCheck returns the HttpHealthCheck field value if set, zero value otherwise.
+func (o *TargetGroupProperties) GetHttpHealthCheck() TargetGroupHttpHealthCheck {
+	if o == nil || IsNil(o.HttpHealthCheck) {
+		var ret TargetGroupHttpHealthCheck
+		return ret
+	}
+	return *o.HttpHealthCheck
+}
+
+// GetHttpHealthCheckOk returns a tuple with the HttpHealthCheck field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TargetGroupProperties) GetHttpHealthCheckOk() (*TargetGroupHttpHealthCheck, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.HttpHealthCheck) {
 		return nil, false
 	}
-
 	return o.HttpHealthCheck, true
-}
-
-// SetHttpHealthCheck sets field value
-func (o *TargetGroupProperties) SetHttpHealthCheck(v TargetGroupHttpHealthCheck) {
-
-	o.HttpHealthCheck = &v
-
 }
 
 // HasHttpHealthCheck returns a boolean if a field has been set.
 func (o *TargetGroupProperties) HasHttpHealthCheck() bool {
-	if o != nil && o.HttpHealthCheck != nil {
+	if o != nil && !IsNil(o.HttpHealthCheck) {
 		return true
 	}
 
 	return false
 }
 
+// SetHttpHealthCheck gets a reference to the given TargetGroupHttpHealthCheck and assigns it to the HttpHealthCheck field.
+func (o *TargetGroupProperties) SetHttpHealthCheck(v TargetGroupHttpHealthCheck) {
+	o.HttpHealthCheck = &v
+}
+
 func (o TargetGroupProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TargetGroupProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsZero(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-
-	if o.Algorithm != nil {
+	if !IsZero(o.Algorithm) {
 		toSerialize["algorithm"] = o.Algorithm
 	}
-
-	if o.Protocol != nil {
+	if !IsZero(o.Protocol) {
 		toSerialize["protocol"] = o.Protocol
 	}
-
-	if o.Targets != nil {
+	if !IsNil(o.ProtocolVersion) {
+		toSerialize["protocolVersion"] = o.ProtocolVersion
+	}
+	if !IsNil(o.Targets) {
 		toSerialize["targets"] = o.Targets
 	}
-
-	if o.HealthCheck != nil {
+	if !IsNil(o.HealthCheck) {
 		toSerialize["healthCheck"] = o.HealthCheck
 	}
-
-	if o.HttpHealthCheck != nil {
+	if !IsNil(o.HttpHealthCheck) {
 		toSerialize["httpHealthCheck"] = o.HttpHealthCheck
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableTargetGroupProperties struct {

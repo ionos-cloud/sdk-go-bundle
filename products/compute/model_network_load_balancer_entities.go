@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the NetworkLoadBalancerEntities type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NetworkLoadBalancerEntities{}
 
 // NetworkLoadBalancerEntities struct for NetworkLoadBalancerEntities
 type NetworkLoadBalancerEntities struct {
@@ -38,93 +41,87 @@ func NewNetworkLoadBalancerEntitiesWithDefaults() *NetworkLoadBalancerEntities {
 	return &this
 }
 
-// GetFlowlogs returns the Flowlogs field value
-// If the value is explicit nil, the zero value for FlowLogs will be returned
-func (o *NetworkLoadBalancerEntities) GetFlowlogs() *FlowLogs {
-	if o == nil {
-		return nil
+// GetFlowlogs returns the Flowlogs field value if set, zero value otherwise.
+func (o *NetworkLoadBalancerEntities) GetFlowlogs() FlowLogs {
+	if o == nil || IsNil(o.Flowlogs) {
+		var ret FlowLogs
+		return ret
 	}
-
-	return o.Flowlogs
-
+	return *o.Flowlogs
 }
 
-// GetFlowlogsOk returns a tuple with the Flowlogs field value
+// GetFlowlogsOk returns a tuple with the Flowlogs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NetworkLoadBalancerEntities) GetFlowlogsOk() (*FlowLogs, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Flowlogs) {
 		return nil, false
 	}
-
 	return o.Flowlogs, true
-}
-
-// SetFlowlogs sets field value
-func (o *NetworkLoadBalancerEntities) SetFlowlogs(v FlowLogs) {
-
-	o.Flowlogs = &v
-
 }
 
 // HasFlowlogs returns a boolean if a field has been set.
 func (o *NetworkLoadBalancerEntities) HasFlowlogs() bool {
-	if o != nil && o.Flowlogs != nil {
+	if o != nil && !IsNil(o.Flowlogs) {
 		return true
 	}
 
 	return false
 }
 
-// GetForwardingrules returns the Forwardingrules field value
-// If the value is explicit nil, the zero value for NetworkLoadBalancerForwardingRules will be returned
-func (o *NetworkLoadBalancerEntities) GetForwardingrules() *NetworkLoadBalancerForwardingRules {
-	if o == nil {
-		return nil
-	}
-
-	return o.Forwardingrules
-
+// SetFlowlogs gets a reference to the given FlowLogs and assigns it to the Flowlogs field.
+func (o *NetworkLoadBalancerEntities) SetFlowlogs(v FlowLogs) {
+	o.Flowlogs = &v
 }
 
-// GetForwardingrulesOk returns a tuple with the Forwardingrules field value
+// GetForwardingrules returns the Forwardingrules field value if set, zero value otherwise.
+func (o *NetworkLoadBalancerEntities) GetForwardingrules() NetworkLoadBalancerForwardingRules {
+	if o == nil || IsNil(o.Forwardingrules) {
+		var ret NetworkLoadBalancerForwardingRules
+		return ret
+	}
+	return *o.Forwardingrules
+}
+
+// GetForwardingrulesOk returns a tuple with the Forwardingrules field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NetworkLoadBalancerEntities) GetForwardingrulesOk() (*NetworkLoadBalancerForwardingRules, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Forwardingrules) {
 		return nil, false
 	}
-
 	return o.Forwardingrules, true
-}
-
-// SetForwardingrules sets field value
-func (o *NetworkLoadBalancerEntities) SetForwardingrules(v NetworkLoadBalancerForwardingRules) {
-
-	o.Forwardingrules = &v
-
 }
 
 // HasForwardingrules returns a boolean if a field has been set.
 func (o *NetworkLoadBalancerEntities) HasForwardingrules() bool {
-	if o != nil && o.Forwardingrules != nil {
+	if o != nil && !IsNil(o.Forwardingrules) {
 		return true
 	}
 
 	return false
 }
 
+// SetForwardingrules gets a reference to the given NetworkLoadBalancerForwardingRules and assigns it to the Forwardingrules field.
+func (o *NetworkLoadBalancerEntities) SetForwardingrules(v NetworkLoadBalancerForwardingRules) {
+	o.Forwardingrules = &v
+}
+
 func (o NetworkLoadBalancerEntities) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o NetworkLoadBalancerEntities) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Flowlogs != nil {
+	if !IsNil(o.Flowlogs) {
 		toSerialize["flowlogs"] = o.Flowlogs
 	}
-
-	if o.Forwardingrules != nil {
+	if !IsNil(o.Forwardingrules) {
 		toSerialize["forwardingrules"] = o.Forwardingrules
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableNetworkLoadBalancerEntities struct {

@@ -8,8 +8,8 @@ All URIs are relative to *https://api.ionos.com/cloudapi/v6*
 |[**IpblocksFindById**](IPBlocksApi.md#IpblocksFindById) | **Get** /ipblocks/{ipblockId} | Retrieve IP blocks|
 |[**IpblocksGet**](IPBlocksApi.md#IpblocksGet) | **Get** /ipblocks | List IP blocks |
 |[**IpblocksPatch**](IPBlocksApi.md#IpblocksPatch) | **Patch** /ipblocks/{ipblockId} | Partially modify IP blocks|
-|[**IpblocksPost**](IPBlocksApi.md#IpblocksPost) | **Post** /ipblocks | Reserve IP blocks|
-|[**IpblocksPut**](IPBlocksApi.md#IpblocksPut) | **Put** /ipblocks/{ipblockId} | Modify IP blocks|
+|[**IpblocksPost**](IPBlocksApi.md#IpblocksPost) | **Post** /ipblocks | Reserve a IP Block|
+|[**IpblocksPut**](IPBlocksApi.md#IpblocksPut) | **Put** /ipblocks/{ipblockId} | Modify a IP Block by ID|
 
 
 
@@ -49,7 +49,7 @@ func main() {
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
-    resource, resp, err := apiClient.IPBlocksApi.IpblocksDelete(context.Background(), ipblockId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
+    resp, err := apiClient.IPBlocksApi.IpblocksDelete(context.Background(), ipblockId).Pretty(pretty).Depth(depth).XContractNumber(xContractNumber).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IPBlocksApi.IpblocksDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -330,7 +330,7 @@ var result IpBlock = IpblocksPost(ctx)
                       .Execute()
 ```
 
-Reserve IP blocks
+Reserve a IP Block
 
 
 
@@ -404,7 +404,7 @@ var result IpBlock = IpblocksPut(ctx, ipblockId)
                       .Execute()
 ```
 
-Modify IP blocks
+Modify a IP Block by ID
 
 
 

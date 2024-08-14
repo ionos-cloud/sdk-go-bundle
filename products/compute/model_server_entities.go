@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the ServerEntities type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ServerEntities{}
 
 // ServerEntities struct for ServerEntities
 type ServerEntities struct {
@@ -39,135 +42,122 @@ func NewServerEntitiesWithDefaults() *ServerEntities {
 	return &this
 }
 
-// GetCdroms returns the Cdroms field value
-// If the value is explicit nil, the zero value for Cdroms will be returned
-func (o *ServerEntities) GetCdroms() *Cdroms {
-	if o == nil {
-		return nil
+// GetCdroms returns the Cdroms field value if set, zero value otherwise.
+func (o *ServerEntities) GetCdroms() Cdroms {
+	if o == nil || IsNil(o.Cdroms) {
+		var ret Cdroms
+		return ret
 	}
-
-	return o.Cdroms
-
+	return *o.Cdroms
 }
 
-// GetCdromsOk returns a tuple with the Cdroms field value
+// GetCdromsOk returns a tuple with the Cdroms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ServerEntities) GetCdromsOk() (*Cdroms, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Cdroms) {
 		return nil, false
 	}
-
 	return o.Cdroms, true
-}
-
-// SetCdroms sets field value
-func (o *ServerEntities) SetCdroms(v Cdroms) {
-
-	o.Cdroms = &v
-
 }
 
 // HasCdroms returns a boolean if a field has been set.
 func (o *ServerEntities) HasCdroms() bool {
-	if o != nil && o.Cdroms != nil {
+	if o != nil && !IsNil(o.Cdroms) {
 		return true
 	}
 
 	return false
 }
 
-// GetVolumes returns the Volumes field value
-// If the value is explicit nil, the zero value for AttachedVolumes will be returned
-func (o *ServerEntities) GetVolumes() *AttachedVolumes {
-	if o == nil {
-		return nil
-	}
-
-	return o.Volumes
-
+// SetCdroms gets a reference to the given Cdroms and assigns it to the Cdroms field.
+func (o *ServerEntities) SetCdroms(v Cdroms) {
+	o.Cdroms = &v
 }
 
-// GetVolumesOk returns a tuple with the Volumes field value
+// GetVolumes returns the Volumes field value if set, zero value otherwise.
+func (o *ServerEntities) GetVolumes() AttachedVolumes {
+	if o == nil || IsNil(o.Volumes) {
+		var ret AttachedVolumes
+		return ret
+	}
+	return *o.Volumes
+}
+
+// GetVolumesOk returns a tuple with the Volumes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ServerEntities) GetVolumesOk() (*AttachedVolumes, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Volumes) {
 		return nil, false
 	}
-
 	return o.Volumes, true
-}
-
-// SetVolumes sets field value
-func (o *ServerEntities) SetVolumes(v AttachedVolumes) {
-
-	o.Volumes = &v
-
 }
 
 // HasVolumes returns a boolean if a field has been set.
 func (o *ServerEntities) HasVolumes() bool {
-	if o != nil && o.Volumes != nil {
+	if o != nil && !IsNil(o.Volumes) {
 		return true
 	}
 
 	return false
 }
 
-// GetNics returns the Nics field value
-// If the value is explicit nil, the zero value for Nics will be returned
-func (o *ServerEntities) GetNics() *Nics {
-	if o == nil {
-		return nil
-	}
-
-	return o.Nics
-
+// SetVolumes gets a reference to the given AttachedVolumes and assigns it to the Volumes field.
+func (o *ServerEntities) SetVolumes(v AttachedVolumes) {
+	o.Volumes = &v
 }
 
-// GetNicsOk returns a tuple with the Nics field value
+// GetNics returns the Nics field value if set, zero value otherwise.
+func (o *ServerEntities) GetNics() Nics {
+	if o == nil || IsNil(o.Nics) {
+		var ret Nics
+		return ret
+	}
+	return *o.Nics
+}
+
+// GetNicsOk returns a tuple with the Nics field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ServerEntities) GetNicsOk() (*Nics, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Nics) {
 		return nil, false
 	}
-
 	return o.Nics, true
-}
-
-// SetNics sets field value
-func (o *ServerEntities) SetNics(v Nics) {
-
-	o.Nics = &v
-
 }
 
 // HasNics returns a boolean if a field has been set.
 func (o *ServerEntities) HasNics() bool {
-	if o != nil && o.Nics != nil {
+	if o != nil && !IsNil(o.Nics) {
 		return true
 	}
 
 	return false
 }
 
+// SetNics gets a reference to the given Nics and assigns it to the Nics field.
+func (o *ServerEntities) SetNics(v Nics) {
+	o.Nics = &v
+}
+
 func (o ServerEntities) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ServerEntities) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Cdroms != nil {
+	if !IsNil(o.Cdroms) {
 		toSerialize["cdroms"] = o.Cdroms
 	}
-
-	if o.Volumes != nil {
+	if !IsNil(o.Volumes) {
 		toSerialize["volumes"] = o.Volumes
 	}
-
-	if o.Nics != nil {
+	if !IsNil(o.Nics) {
 		toSerialize["nics"] = o.Nics
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableServerEntities struct {

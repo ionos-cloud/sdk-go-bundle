@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -15,6 +15,9 @@ import (
 
 	"time"
 )
+
+// checks if the NoStateMetaData type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NoStateMetaData{}
 
 // NoStateMetaData struct for NoStateMetaData
 type NoStateMetaData struct {
@@ -52,317 +55,262 @@ func NewNoStateMetaDataWithDefaults() *NoStateMetaData {
 	return &this
 }
 
-// GetEtag returns the Etag field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *NoStateMetaData) GetEtag() *string {
-	if o == nil {
-		return nil
+// GetEtag returns the Etag field value if set, zero value otherwise.
+func (o *NoStateMetaData) GetEtag() string {
+	if o == nil || IsNil(o.Etag) {
+		var ret string
+		return ret
 	}
-
-	return o.Etag
-
+	return *o.Etag
 }
 
-// GetEtagOk returns a tuple with the Etag field value
+// GetEtagOk returns a tuple with the Etag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NoStateMetaData) GetEtagOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Etag) {
 		return nil, false
 	}
-
 	return o.Etag, true
-}
-
-// SetEtag sets field value
-func (o *NoStateMetaData) SetEtag(v string) {
-
-	o.Etag = &v
-
 }
 
 // HasEtag returns a boolean if a field has been set.
 func (o *NoStateMetaData) HasEtag() bool {
-	if o != nil && o.Etag != nil {
+	if o != nil && !IsNil(o.Etag) {
 		return true
 	}
 
 	return false
 }
 
-// GetCreatedDate returns the CreatedDate field value
-// If the value is explicit nil, the zero value for time.Time will be returned
-func (o *NoStateMetaData) GetCreatedDate() *time.Time {
-	if o == nil {
-		return nil
-	}
-
-	if o.CreatedDate == nil {
-		return nil
-	}
-	return &o.CreatedDate.Time
-
+// SetEtag gets a reference to the given string and assigns it to the Etag field.
+func (o *NoStateMetaData) SetEtag(v string) {
+	o.Etag = &v
 }
 
-// GetCreatedDateOk returns a tuple with the CreatedDate field value
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *NoStateMetaData) GetCreatedDateOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
+// GetCreatedDate returns the CreatedDate field value if set, zero value otherwise.
+func (o *NoStateMetaData) GetCreatedDate() time.Time {
+	if o == nil || IsNil(o.CreatedDate) {
+		var ret time.Time
+		return ret
 	}
+	return o.CreatedDate.Time
+}
 
-	if o.CreatedDate == nil {
+// GetCreatedDateOk returns a tuple with the CreatedDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NoStateMetaData) GetCreatedDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CreatedDate) {
 		return nil, false
 	}
 	return &o.CreatedDate.Time, true
-
-}
-
-// SetCreatedDate sets field value
-func (o *NoStateMetaData) SetCreatedDate(v time.Time) {
-
-	o.CreatedDate = &IonosTime{v}
-
 }
 
 // HasCreatedDate returns a boolean if a field has been set.
 func (o *NoStateMetaData) HasCreatedDate() bool {
-	if o != nil && o.CreatedDate != nil {
+	if o != nil && !IsNil(o.CreatedDate) {
 		return true
 	}
 
 	return false
 }
 
-// GetCreatedBy returns the CreatedBy field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *NoStateMetaData) GetCreatedBy() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.CreatedBy
-
+// SetCreatedDate gets a reference to the given time.Time and assigns it to the CreatedDate field.
+func (o *NoStateMetaData) SetCreatedDate(v time.Time) {
+	o.CreatedDate = &IonosTime{v}
 }
 
-// GetCreatedByOk returns a tuple with the CreatedBy field value
+// GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
+func (o *NoStateMetaData) GetCreatedBy() string {
+	if o == nil || IsNil(o.CreatedBy) {
+		var ret string
+		return ret
+	}
+	return *o.CreatedBy
+}
+
+// GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NoStateMetaData) GetCreatedByOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		return nil, false
 	}
-
 	return o.CreatedBy, true
-}
-
-// SetCreatedBy sets field value
-func (o *NoStateMetaData) SetCreatedBy(v string) {
-
-	o.CreatedBy = &v
-
 }
 
 // HasCreatedBy returns a boolean if a field has been set.
 func (o *NoStateMetaData) HasCreatedBy() bool {
-	if o != nil && o.CreatedBy != nil {
+	if o != nil && !IsNil(o.CreatedBy) {
 		return true
 	}
 
 	return false
 }
 
-// GetCreatedByUserId returns the CreatedByUserId field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *NoStateMetaData) GetCreatedByUserId() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.CreatedByUserId
-
+// SetCreatedBy gets a reference to the given string and assigns it to the CreatedBy field.
+func (o *NoStateMetaData) SetCreatedBy(v string) {
+	o.CreatedBy = &v
 }
 
-// GetCreatedByUserIdOk returns a tuple with the CreatedByUserId field value
+// GetCreatedByUserId returns the CreatedByUserId field value if set, zero value otherwise.
+func (o *NoStateMetaData) GetCreatedByUserId() string {
+	if o == nil || IsNil(o.CreatedByUserId) {
+		var ret string
+		return ret
+	}
+	return *o.CreatedByUserId
+}
+
+// GetCreatedByUserIdOk returns a tuple with the CreatedByUserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NoStateMetaData) GetCreatedByUserIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CreatedByUserId) {
 		return nil, false
 	}
-
 	return o.CreatedByUserId, true
-}
-
-// SetCreatedByUserId sets field value
-func (o *NoStateMetaData) SetCreatedByUserId(v string) {
-
-	o.CreatedByUserId = &v
-
 }
 
 // HasCreatedByUserId returns a boolean if a field has been set.
 func (o *NoStateMetaData) HasCreatedByUserId() bool {
-	if o != nil && o.CreatedByUserId != nil {
+	if o != nil && !IsNil(o.CreatedByUserId) {
 		return true
 	}
 
 	return false
 }
 
-// GetLastModifiedDate returns the LastModifiedDate field value
-// If the value is explicit nil, the zero value for time.Time will be returned
-func (o *NoStateMetaData) GetLastModifiedDate() *time.Time {
-	if o == nil {
-		return nil
-	}
-
-	if o.LastModifiedDate == nil {
-		return nil
-	}
-	return &o.LastModifiedDate.Time
-
+// SetCreatedByUserId gets a reference to the given string and assigns it to the CreatedByUserId field.
+func (o *NoStateMetaData) SetCreatedByUserId(v string) {
+	o.CreatedByUserId = &v
 }
 
-// GetLastModifiedDateOk returns a tuple with the LastModifiedDate field value
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *NoStateMetaData) GetLastModifiedDateOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
+// GetLastModifiedDate returns the LastModifiedDate field value if set, zero value otherwise.
+func (o *NoStateMetaData) GetLastModifiedDate() time.Time {
+	if o == nil || IsNil(o.LastModifiedDate) {
+		var ret time.Time
+		return ret
 	}
+	return o.LastModifiedDate.Time
+}
 
-	if o.LastModifiedDate == nil {
+// GetLastModifiedDateOk returns a tuple with the LastModifiedDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NoStateMetaData) GetLastModifiedDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastModifiedDate) {
 		return nil, false
 	}
 	return &o.LastModifiedDate.Time, true
-
-}
-
-// SetLastModifiedDate sets field value
-func (o *NoStateMetaData) SetLastModifiedDate(v time.Time) {
-
-	o.LastModifiedDate = &IonosTime{v}
-
 }
 
 // HasLastModifiedDate returns a boolean if a field has been set.
 func (o *NoStateMetaData) HasLastModifiedDate() bool {
-	if o != nil && o.LastModifiedDate != nil {
+	if o != nil && !IsNil(o.LastModifiedDate) {
 		return true
 	}
 
 	return false
 }
 
-// GetLastModifiedBy returns the LastModifiedBy field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *NoStateMetaData) GetLastModifiedBy() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.LastModifiedBy
-
+// SetLastModifiedDate gets a reference to the given time.Time and assigns it to the LastModifiedDate field.
+func (o *NoStateMetaData) SetLastModifiedDate(v time.Time) {
+	o.LastModifiedDate = &IonosTime{v}
 }
 
-// GetLastModifiedByOk returns a tuple with the LastModifiedBy field value
+// GetLastModifiedBy returns the LastModifiedBy field value if set, zero value otherwise.
+func (o *NoStateMetaData) GetLastModifiedBy() string {
+	if o == nil || IsNil(o.LastModifiedBy) {
+		var ret string
+		return ret
+	}
+	return *o.LastModifiedBy
+}
+
+// GetLastModifiedByOk returns a tuple with the LastModifiedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NoStateMetaData) GetLastModifiedByOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.LastModifiedBy) {
 		return nil, false
 	}
-
 	return o.LastModifiedBy, true
-}
-
-// SetLastModifiedBy sets field value
-func (o *NoStateMetaData) SetLastModifiedBy(v string) {
-
-	o.LastModifiedBy = &v
-
 }
 
 // HasLastModifiedBy returns a boolean if a field has been set.
 func (o *NoStateMetaData) HasLastModifiedBy() bool {
-	if o != nil && o.LastModifiedBy != nil {
+	if o != nil && !IsNil(o.LastModifiedBy) {
 		return true
 	}
 
 	return false
 }
 
-// GetLastModifiedByUserId returns the LastModifiedByUserId field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *NoStateMetaData) GetLastModifiedByUserId() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.LastModifiedByUserId
-
+// SetLastModifiedBy gets a reference to the given string and assigns it to the LastModifiedBy field.
+func (o *NoStateMetaData) SetLastModifiedBy(v string) {
+	o.LastModifiedBy = &v
 }
 
-// GetLastModifiedByUserIdOk returns a tuple with the LastModifiedByUserId field value
+// GetLastModifiedByUserId returns the LastModifiedByUserId field value if set, zero value otherwise.
+func (o *NoStateMetaData) GetLastModifiedByUserId() string {
+	if o == nil || IsNil(o.LastModifiedByUserId) {
+		var ret string
+		return ret
+	}
+	return *o.LastModifiedByUserId
+}
+
+// GetLastModifiedByUserIdOk returns a tuple with the LastModifiedByUserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NoStateMetaData) GetLastModifiedByUserIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.LastModifiedByUserId) {
 		return nil, false
 	}
-
 	return o.LastModifiedByUserId, true
-}
-
-// SetLastModifiedByUserId sets field value
-func (o *NoStateMetaData) SetLastModifiedByUserId(v string) {
-
-	o.LastModifiedByUserId = &v
-
 }
 
 // HasLastModifiedByUserId returns a boolean if a field has been set.
 func (o *NoStateMetaData) HasLastModifiedByUserId() bool {
-	if o != nil && o.LastModifiedByUserId != nil {
+	if o != nil && !IsNil(o.LastModifiedByUserId) {
 		return true
 	}
 
 	return false
 }
 
+// SetLastModifiedByUserId gets a reference to the given string and assigns it to the LastModifiedByUserId field.
+func (o *NoStateMetaData) SetLastModifiedByUserId(v string) {
+	o.LastModifiedByUserId = &v
+}
+
 func (o NoStateMetaData) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o NoStateMetaData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Etag != nil {
+	if !IsNil(o.Etag) {
 		toSerialize["etag"] = o.Etag
 	}
-
-	if o.CreatedDate != nil {
+	if !IsNil(o.CreatedDate) {
 		toSerialize["createdDate"] = o.CreatedDate
 	}
-
-	if o.CreatedBy != nil {
+	if !IsNil(o.CreatedBy) {
 		toSerialize["createdBy"] = o.CreatedBy
 	}
-
-	if o.CreatedByUserId != nil {
+	if !IsNil(o.CreatedByUserId) {
 		toSerialize["createdByUserId"] = o.CreatedByUserId
 	}
-
-	if o.LastModifiedDate != nil {
+	if !IsNil(o.LastModifiedDate) {
 		toSerialize["lastModifiedDate"] = o.LastModifiedDate
 	}
-
-	if o.LastModifiedBy != nil {
+	if !IsNil(o.LastModifiedBy) {
 		toSerialize["lastModifiedBy"] = o.LastModifiedBy
 	}
-
-	if o.LastModifiedByUserId != nil {
+	if !IsNil(o.LastModifiedByUserId) {
 		toSerialize["lastModifiedByUserId"] = o.LastModifiedByUserId
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableNoStateMetaData struct {

@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the UsersEntities type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UsersEntities{}
 
 // UsersEntities struct for UsersEntities
 type UsersEntities struct {
@@ -38,93 +41,87 @@ func NewUsersEntitiesWithDefaults() *UsersEntities {
 	return &this
 }
 
-// GetOwns returns the Owns field value
-// If the value is explicit nil, the zero value for ResourcesUsers will be returned
-func (o *UsersEntities) GetOwns() *ResourcesUsers {
-	if o == nil {
-		return nil
+// GetOwns returns the Owns field value if set, zero value otherwise.
+func (o *UsersEntities) GetOwns() ResourcesUsers {
+	if o == nil || IsNil(o.Owns) {
+		var ret ResourcesUsers
+		return ret
 	}
-
-	return o.Owns
-
+	return *o.Owns
 }
 
-// GetOwnsOk returns a tuple with the Owns field value
+// GetOwnsOk returns a tuple with the Owns field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UsersEntities) GetOwnsOk() (*ResourcesUsers, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Owns) {
 		return nil, false
 	}
-
 	return o.Owns, true
-}
-
-// SetOwns sets field value
-func (o *UsersEntities) SetOwns(v ResourcesUsers) {
-
-	o.Owns = &v
-
 }
 
 // HasOwns returns a boolean if a field has been set.
 func (o *UsersEntities) HasOwns() bool {
-	if o != nil && o.Owns != nil {
+	if o != nil && !IsNil(o.Owns) {
 		return true
 	}
 
 	return false
 }
 
-// GetGroups returns the Groups field value
-// If the value is explicit nil, the zero value for GroupUsers will be returned
-func (o *UsersEntities) GetGroups() *GroupUsers {
-	if o == nil {
-		return nil
-	}
-
-	return o.Groups
-
+// SetOwns gets a reference to the given ResourcesUsers and assigns it to the Owns field.
+func (o *UsersEntities) SetOwns(v ResourcesUsers) {
+	o.Owns = &v
 }
 
-// GetGroupsOk returns a tuple with the Groups field value
+// GetGroups returns the Groups field value if set, zero value otherwise.
+func (o *UsersEntities) GetGroups() GroupUsers {
+	if o == nil || IsNil(o.Groups) {
+		var ret GroupUsers
+		return ret
+	}
+	return *o.Groups
+}
+
+// GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UsersEntities) GetGroupsOk() (*GroupUsers, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Groups) {
 		return nil, false
 	}
-
 	return o.Groups, true
-}
-
-// SetGroups sets field value
-func (o *UsersEntities) SetGroups(v GroupUsers) {
-
-	o.Groups = &v
-
 }
 
 // HasGroups returns a boolean if a field has been set.
 func (o *UsersEntities) HasGroups() bool {
-	if o != nil && o.Groups != nil {
+	if o != nil && !IsNil(o.Groups) {
 		return true
 	}
 
 	return false
 }
 
+// SetGroups gets a reference to the given GroupUsers and assigns it to the Groups field.
+func (o *UsersEntities) SetGroups(v GroupUsers) {
+	o.Groups = &v
+}
+
 func (o UsersEntities) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UsersEntities) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Owns != nil {
+	if !IsNil(o.Owns) {
 		toSerialize["owns"] = o.Owns
 	}
-
-	if o.Groups != nil {
+	if !IsNil(o.Groups) {
 		toSerialize["groups"] = o.Groups
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableUsersEntities struct {

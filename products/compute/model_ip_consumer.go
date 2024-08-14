@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the IpConsumer type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IpConsumer{}
 
 // IpConsumer struct for IpConsumer
 type IpConsumer struct {
@@ -45,387 +48,332 @@ func NewIpConsumerWithDefaults() *IpConsumer {
 	return &this
 }
 
-// GetIp returns the Ip field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *IpConsumer) GetIp() *string {
-	if o == nil {
-		return nil
+// GetIp returns the Ip field value if set, zero value otherwise.
+func (o *IpConsumer) GetIp() string {
+	if o == nil || IsNil(o.Ip) {
+		var ret string
+		return ret
 	}
-
-	return o.Ip
-
+	return *o.Ip
 }
 
-// GetIpOk returns a tuple with the Ip field value
+// GetIpOk returns a tuple with the Ip field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *IpConsumer) GetIpOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Ip) {
 		return nil, false
 	}
-
 	return o.Ip, true
-}
-
-// SetIp sets field value
-func (o *IpConsumer) SetIp(v string) {
-
-	o.Ip = &v
-
 }
 
 // HasIp returns a boolean if a field has been set.
 func (o *IpConsumer) HasIp() bool {
-	if o != nil && o.Ip != nil {
+	if o != nil && !IsNil(o.Ip) {
 		return true
 	}
 
 	return false
 }
 
-// GetMac returns the Mac field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *IpConsumer) GetMac() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Mac
-
+// SetIp gets a reference to the given string and assigns it to the Ip field.
+func (o *IpConsumer) SetIp(v string) {
+	o.Ip = &v
 }
 
-// GetMacOk returns a tuple with the Mac field value
+// GetMac returns the Mac field value if set, zero value otherwise.
+func (o *IpConsumer) GetMac() string {
+	if o == nil || IsNil(o.Mac) {
+		var ret string
+		return ret
+	}
+	return *o.Mac
+}
+
+// GetMacOk returns a tuple with the Mac field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *IpConsumer) GetMacOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Mac) {
 		return nil, false
 	}
-
 	return o.Mac, true
-}
-
-// SetMac sets field value
-func (o *IpConsumer) SetMac(v string) {
-
-	o.Mac = &v
-
 }
 
 // HasMac returns a boolean if a field has been set.
 func (o *IpConsumer) HasMac() bool {
-	if o != nil && o.Mac != nil {
+	if o != nil && !IsNil(o.Mac) {
 		return true
 	}
 
 	return false
 }
 
-// GetNicId returns the NicId field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *IpConsumer) GetNicId() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.NicId
-
+// SetMac gets a reference to the given string and assigns it to the Mac field.
+func (o *IpConsumer) SetMac(v string) {
+	o.Mac = &v
 }
 
-// GetNicIdOk returns a tuple with the NicId field value
+// GetNicId returns the NicId field value if set, zero value otherwise.
+func (o *IpConsumer) GetNicId() string {
+	if o == nil || IsNil(o.NicId) {
+		var ret string
+		return ret
+	}
+	return *o.NicId
+}
+
+// GetNicIdOk returns a tuple with the NicId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *IpConsumer) GetNicIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.NicId) {
 		return nil, false
 	}
-
 	return o.NicId, true
-}
-
-// SetNicId sets field value
-func (o *IpConsumer) SetNicId(v string) {
-
-	o.NicId = &v
-
 }
 
 // HasNicId returns a boolean if a field has been set.
 func (o *IpConsumer) HasNicId() bool {
-	if o != nil && o.NicId != nil {
+	if o != nil && !IsNil(o.NicId) {
 		return true
 	}
 
 	return false
 }
 
-// GetServerId returns the ServerId field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *IpConsumer) GetServerId() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.ServerId
-
+// SetNicId gets a reference to the given string and assigns it to the NicId field.
+func (o *IpConsumer) SetNicId(v string) {
+	o.NicId = &v
 }
 
-// GetServerIdOk returns a tuple with the ServerId field value
+// GetServerId returns the ServerId field value if set, zero value otherwise.
+func (o *IpConsumer) GetServerId() string {
+	if o == nil || IsNil(o.ServerId) {
+		var ret string
+		return ret
+	}
+	return *o.ServerId
+}
+
+// GetServerIdOk returns a tuple with the ServerId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *IpConsumer) GetServerIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ServerId) {
 		return nil, false
 	}
-
 	return o.ServerId, true
-}
-
-// SetServerId sets field value
-func (o *IpConsumer) SetServerId(v string) {
-
-	o.ServerId = &v
-
 }
 
 // HasServerId returns a boolean if a field has been set.
 func (o *IpConsumer) HasServerId() bool {
-	if o != nil && o.ServerId != nil {
+	if o != nil && !IsNil(o.ServerId) {
 		return true
 	}
 
 	return false
 }
 
-// GetServerName returns the ServerName field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *IpConsumer) GetServerName() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.ServerName
-
+// SetServerId gets a reference to the given string and assigns it to the ServerId field.
+func (o *IpConsumer) SetServerId(v string) {
+	o.ServerId = &v
 }
 
-// GetServerNameOk returns a tuple with the ServerName field value
+// GetServerName returns the ServerName field value if set, zero value otherwise.
+func (o *IpConsumer) GetServerName() string {
+	if o == nil || IsNil(o.ServerName) {
+		var ret string
+		return ret
+	}
+	return *o.ServerName
+}
+
+// GetServerNameOk returns a tuple with the ServerName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *IpConsumer) GetServerNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ServerName) {
 		return nil, false
 	}
-
 	return o.ServerName, true
-}
-
-// SetServerName sets field value
-func (o *IpConsumer) SetServerName(v string) {
-
-	o.ServerName = &v
-
 }
 
 // HasServerName returns a boolean if a field has been set.
 func (o *IpConsumer) HasServerName() bool {
-	if o != nil && o.ServerName != nil {
+	if o != nil && !IsNil(o.ServerName) {
 		return true
 	}
 
 	return false
 }
 
-// GetDatacenterId returns the DatacenterId field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *IpConsumer) GetDatacenterId() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.DatacenterId
-
+// SetServerName gets a reference to the given string and assigns it to the ServerName field.
+func (o *IpConsumer) SetServerName(v string) {
+	o.ServerName = &v
 }
 
-// GetDatacenterIdOk returns a tuple with the DatacenterId field value
+// GetDatacenterId returns the DatacenterId field value if set, zero value otherwise.
+func (o *IpConsumer) GetDatacenterId() string {
+	if o == nil || IsNil(o.DatacenterId) {
+		var ret string
+		return ret
+	}
+	return *o.DatacenterId
+}
+
+// GetDatacenterIdOk returns a tuple with the DatacenterId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *IpConsumer) GetDatacenterIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.DatacenterId) {
 		return nil, false
 	}
-
 	return o.DatacenterId, true
-}
-
-// SetDatacenterId sets field value
-func (o *IpConsumer) SetDatacenterId(v string) {
-
-	o.DatacenterId = &v
-
 }
 
 // HasDatacenterId returns a boolean if a field has been set.
 func (o *IpConsumer) HasDatacenterId() bool {
-	if o != nil && o.DatacenterId != nil {
+	if o != nil && !IsNil(o.DatacenterId) {
 		return true
 	}
 
 	return false
 }
 
-// GetDatacenterName returns the DatacenterName field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *IpConsumer) GetDatacenterName() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.DatacenterName
-
+// SetDatacenterId gets a reference to the given string and assigns it to the DatacenterId field.
+func (o *IpConsumer) SetDatacenterId(v string) {
+	o.DatacenterId = &v
 }
 
-// GetDatacenterNameOk returns a tuple with the DatacenterName field value
+// GetDatacenterName returns the DatacenterName field value if set, zero value otherwise.
+func (o *IpConsumer) GetDatacenterName() string {
+	if o == nil || IsNil(o.DatacenterName) {
+		var ret string
+		return ret
+	}
+	return *o.DatacenterName
+}
+
+// GetDatacenterNameOk returns a tuple with the DatacenterName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *IpConsumer) GetDatacenterNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.DatacenterName) {
 		return nil, false
 	}
-
 	return o.DatacenterName, true
-}
-
-// SetDatacenterName sets field value
-func (o *IpConsumer) SetDatacenterName(v string) {
-
-	o.DatacenterName = &v
-
 }
 
 // HasDatacenterName returns a boolean if a field has been set.
 func (o *IpConsumer) HasDatacenterName() bool {
-	if o != nil && o.DatacenterName != nil {
+	if o != nil && !IsNil(o.DatacenterName) {
 		return true
 	}
 
 	return false
 }
 
-// GetK8sNodePoolUuid returns the K8sNodePoolUuid field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *IpConsumer) GetK8sNodePoolUuid() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.K8sNodePoolUuid
-
+// SetDatacenterName gets a reference to the given string and assigns it to the DatacenterName field.
+func (o *IpConsumer) SetDatacenterName(v string) {
+	o.DatacenterName = &v
 }
 
-// GetK8sNodePoolUuidOk returns a tuple with the K8sNodePoolUuid field value
+// GetK8sNodePoolUuid returns the K8sNodePoolUuid field value if set, zero value otherwise.
+func (o *IpConsumer) GetK8sNodePoolUuid() string {
+	if o == nil || IsNil(o.K8sNodePoolUuid) {
+		var ret string
+		return ret
+	}
+	return *o.K8sNodePoolUuid
+}
+
+// GetK8sNodePoolUuidOk returns a tuple with the K8sNodePoolUuid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *IpConsumer) GetK8sNodePoolUuidOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.K8sNodePoolUuid) {
 		return nil, false
 	}
-
 	return o.K8sNodePoolUuid, true
-}
-
-// SetK8sNodePoolUuid sets field value
-func (o *IpConsumer) SetK8sNodePoolUuid(v string) {
-
-	o.K8sNodePoolUuid = &v
-
 }
 
 // HasK8sNodePoolUuid returns a boolean if a field has been set.
 func (o *IpConsumer) HasK8sNodePoolUuid() bool {
-	if o != nil && o.K8sNodePoolUuid != nil {
+	if o != nil && !IsNil(o.K8sNodePoolUuid) {
 		return true
 	}
 
 	return false
 }
 
-// GetK8sClusterUuid returns the K8sClusterUuid field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *IpConsumer) GetK8sClusterUuid() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.K8sClusterUuid
-
+// SetK8sNodePoolUuid gets a reference to the given string and assigns it to the K8sNodePoolUuid field.
+func (o *IpConsumer) SetK8sNodePoolUuid(v string) {
+	o.K8sNodePoolUuid = &v
 }
 
-// GetK8sClusterUuidOk returns a tuple with the K8sClusterUuid field value
+// GetK8sClusterUuid returns the K8sClusterUuid field value if set, zero value otherwise.
+func (o *IpConsumer) GetK8sClusterUuid() string {
+	if o == nil || IsNil(o.K8sClusterUuid) {
+		var ret string
+		return ret
+	}
+	return *o.K8sClusterUuid
+}
+
+// GetK8sClusterUuidOk returns a tuple with the K8sClusterUuid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *IpConsumer) GetK8sClusterUuidOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.K8sClusterUuid) {
 		return nil, false
 	}
-
 	return o.K8sClusterUuid, true
-}
-
-// SetK8sClusterUuid sets field value
-func (o *IpConsumer) SetK8sClusterUuid(v string) {
-
-	o.K8sClusterUuid = &v
-
 }
 
 // HasK8sClusterUuid returns a boolean if a field has been set.
 func (o *IpConsumer) HasK8sClusterUuid() bool {
-	if o != nil && o.K8sClusterUuid != nil {
+	if o != nil && !IsNil(o.K8sClusterUuid) {
 		return true
 	}
 
 	return false
 }
 
+// SetK8sClusterUuid gets a reference to the given string and assigns it to the K8sClusterUuid field.
+func (o *IpConsumer) SetK8sClusterUuid(v string) {
+	o.K8sClusterUuid = &v
+}
+
 func (o IpConsumer) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IpConsumer) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Ip != nil {
+	if !IsNil(o.Ip) {
 		toSerialize["ip"] = o.Ip
 	}
-
-	if o.Mac != nil {
+	if !IsNil(o.Mac) {
 		toSerialize["mac"] = o.Mac
 	}
-
-	if o.NicId != nil {
+	if !IsNil(o.NicId) {
 		toSerialize["nicId"] = o.NicId
 	}
-
-	if o.ServerId != nil {
+	if !IsNil(o.ServerId) {
 		toSerialize["serverId"] = o.ServerId
 	}
-
-	if o.ServerName != nil {
+	if !IsNil(o.ServerName) {
 		toSerialize["serverName"] = o.ServerName
 	}
-
-	if o.DatacenterId != nil {
+	if !IsNil(o.DatacenterId) {
 		toSerialize["datacenterId"] = o.DatacenterId
 	}
-
-	if o.DatacenterName != nil {
+	if !IsNil(o.DatacenterName) {
 		toSerialize["datacenterName"] = o.DatacenterName
 	}
-
-	if o.K8sNodePoolUuid != nil {
+	if !IsNil(o.K8sNodePoolUuid) {
 		toSerialize["k8sNodePoolUuid"] = o.K8sNodePoolUuid
 	}
-
-	if o.K8sClusterUuid != nil {
+	if !IsNil(o.K8sClusterUuid) {
 		toSerialize["k8sClusterUuid"] = o.K8sClusterUuid
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableIpConsumer struct {

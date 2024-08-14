@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,13 +14,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the Info type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Info{}
+
 // Info struct for Info
 type Info struct {
-	// API entry point
+	// The API entry point.
 	Href *string `json:"href,omitempty"`
-	// Name of the API
+	// The API name.
 	Name *string `json:"name,omitempty"`
-	// Version of the API
+	// The API version.
 	Version *string `json:"version,omitempty"`
 }
 
@@ -42,135 +45,122 @@ func NewInfoWithDefaults() *Info {
 	return &this
 }
 
-// GetHref returns the Href field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Info) GetHref() *string {
-	if o == nil {
-		return nil
+// GetHref returns the Href field value if set, zero value otherwise.
+func (o *Info) GetHref() string {
+	if o == nil || IsNil(o.Href) {
+		var ret string
+		return ret
 	}
-
-	return o.Href
-
+	return *o.Href
 }
 
-// GetHrefOk returns a tuple with the Href field value
+// GetHrefOk returns a tuple with the Href field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Info) GetHrefOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Href) {
 		return nil, false
 	}
-
 	return o.Href, true
-}
-
-// SetHref sets field value
-func (o *Info) SetHref(v string) {
-
-	o.Href = &v
-
 }
 
 // HasHref returns a boolean if a field has been set.
 func (o *Info) HasHref() bool {
-	if o != nil && o.Href != nil {
+	if o != nil && !IsNil(o.Href) {
 		return true
 	}
 
 	return false
 }
 
-// GetName returns the Name field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Info) GetName() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Name
-
+// SetHref gets a reference to the given string and assigns it to the Href field.
+func (o *Info) SetHref(v string) {
+	o.Href = &v
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *Info) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Info) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-
 	return o.Name, true
-}
-
-// SetName sets field value
-func (o *Info) SetName(v string) {
-
-	o.Name = &v
-
 }
 
 // HasName returns a boolean if a field has been set.
 func (o *Info) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
 	return false
 }
 
-// GetVersion returns the Version field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Info) GetVersion() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Version
-
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *Info) SetName(v string) {
+	o.Name = &v
 }
 
-// GetVersionOk returns a tuple with the Version field value
+// GetVersion returns the Version field value if set, zero value otherwise.
+func (o *Info) GetVersion() string {
+	if o == nil || IsNil(o.Version) {
+		var ret string
+		return ret
+	}
+	return *o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Info) GetVersionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
-
 	return o.Version, true
-}
-
-// SetVersion sets field value
-func (o *Info) SetVersion(v string) {
-
-	o.Version = &v
-
 }
 
 // HasVersion returns a boolean if a field has been set.
 func (o *Info) HasVersion() bool {
-	if o != nil && o.Version != nil {
+	if o != nil && !IsNil(o.Version) {
 		return true
 	}
 
 	return false
 }
 
+// SetVersion gets a reference to the given string and assigns it to the Version field.
+func (o *Info) SetVersion(v string) {
+	o.Version = &v
+}
+
 func (o Info) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Info) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Href != nil {
+	if !IsNil(o.Href) {
 		toSerialize["href"] = o.Href
 	}
-
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-
-	if o.Version != nil {
+	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableInfo struct {

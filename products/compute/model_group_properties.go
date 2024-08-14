@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,9 +14,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the GroupProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GroupProperties{}
+
 // GroupProperties struct for GroupProperties
 type GroupProperties struct {
-	// The name of the  resource.
+	// The name of the resource.
 	Name *string `json:"name,omitempty"`
 	// Create data center privilege.
 	CreateDataCenter *bool `json:"createDataCenter,omitempty"`
@@ -26,7 +29,7 @@ type GroupProperties struct {
 	ReserveIp *bool `json:"reserveIp,omitempty"`
 	// Activity log access privilege.
 	AccessActivityLog *bool `json:"accessActivityLog,omitempty"`
-	// Create pcc privilege.
+	// User privilege to create a cross connect.
 	CreatePcc *bool `json:"createPcc,omitempty"`
 	// S3 privilege.
 	S3Privilege *bool `json:"s3Privilege,omitempty"`
@@ -44,6 +47,12 @@ type GroupProperties struct {
 	AccessAndManageCertificates *bool `json:"accessAndManageCertificates,omitempty"`
 	// Privilege for a group to manage DBaaS related functionality.
 	ManageDBaaS *bool `json:"manageDBaaS,omitempty"`
+	// Privilege for a group to access and manage dns records.
+	AccessAndManageDns *bool `json:"accessAndManageDns,omitempty"`
+	// Privilege for group accessing container registry related functionality.
+	ManageRegistry *bool `json:"manageRegistry,omitempty"`
+	// Privilege for a group to access and manage the Data Platform.
+	ManageDataplatform *bool `json:"manageDataplatform,omitempty"`
 }
 
 // NewGroupProperties instantiates a new GroupProperties object
@@ -64,597 +73,612 @@ func NewGroupPropertiesWithDefaults() *GroupProperties {
 	return &this
 }
 
-// GetName returns the Name field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *GroupProperties) GetName() *string {
-	if o == nil {
-		return nil
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *GroupProperties) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
 	}
-
-	return o.Name
-
+	return *o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GroupProperties) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-
 	return o.Name, true
-}
-
-// SetName sets field value
-func (o *GroupProperties) SetName(v string) {
-
-	o.Name = &v
-
 }
 
 // HasName returns a boolean if a field has been set.
 func (o *GroupProperties) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
 	return false
 }
 
-// GetCreateDataCenter returns the CreateDataCenter field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *GroupProperties) GetCreateDataCenter() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.CreateDataCenter
-
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *GroupProperties) SetName(v string) {
+	o.Name = &v
 }
 
-// GetCreateDataCenterOk returns a tuple with the CreateDataCenter field value
+// GetCreateDataCenter returns the CreateDataCenter field value if set, zero value otherwise.
+func (o *GroupProperties) GetCreateDataCenter() bool {
+	if o == nil || IsNil(o.CreateDataCenter) {
+		var ret bool
+		return ret
+	}
+	return *o.CreateDataCenter
+}
+
+// GetCreateDataCenterOk returns a tuple with the CreateDataCenter field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GroupProperties) GetCreateDataCenterOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CreateDataCenter) {
 		return nil, false
 	}
-
 	return o.CreateDataCenter, true
-}
-
-// SetCreateDataCenter sets field value
-func (o *GroupProperties) SetCreateDataCenter(v bool) {
-
-	o.CreateDataCenter = &v
-
 }
 
 // HasCreateDataCenter returns a boolean if a field has been set.
 func (o *GroupProperties) HasCreateDataCenter() bool {
-	if o != nil && o.CreateDataCenter != nil {
+	if o != nil && !IsNil(o.CreateDataCenter) {
 		return true
 	}
 
 	return false
 }
 
-// GetCreateSnapshot returns the CreateSnapshot field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *GroupProperties) GetCreateSnapshot() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.CreateSnapshot
-
+// SetCreateDataCenter gets a reference to the given bool and assigns it to the CreateDataCenter field.
+func (o *GroupProperties) SetCreateDataCenter(v bool) {
+	o.CreateDataCenter = &v
 }
 
-// GetCreateSnapshotOk returns a tuple with the CreateSnapshot field value
+// GetCreateSnapshot returns the CreateSnapshot field value if set, zero value otherwise.
+func (o *GroupProperties) GetCreateSnapshot() bool {
+	if o == nil || IsNil(o.CreateSnapshot) {
+		var ret bool
+		return ret
+	}
+	return *o.CreateSnapshot
+}
+
+// GetCreateSnapshotOk returns a tuple with the CreateSnapshot field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GroupProperties) GetCreateSnapshotOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CreateSnapshot) {
 		return nil, false
 	}
-
 	return o.CreateSnapshot, true
-}
-
-// SetCreateSnapshot sets field value
-func (o *GroupProperties) SetCreateSnapshot(v bool) {
-
-	o.CreateSnapshot = &v
-
 }
 
 // HasCreateSnapshot returns a boolean if a field has been set.
 func (o *GroupProperties) HasCreateSnapshot() bool {
-	if o != nil && o.CreateSnapshot != nil {
+	if o != nil && !IsNil(o.CreateSnapshot) {
 		return true
 	}
 
 	return false
 }
 
-// GetReserveIp returns the ReserveIp field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *GroupProperties) GetReserveIp() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.ReserveIp
-
+// SetCreateSnapshot gets a reference to the given bool and assigns it to the CreateSnapshot field.
+func (o *GroupProperties) SetCreateSnapshot(v bool) {
+	o.CreateSnapshot = &v
 }
 
-// GetReserveIpOk returns a tuple with the ReserveIp field value
+// GetReserveIp returns the ReserveIp field value if set, zero value otherwise.
+func (o *GroupProperties) GetReserveIp() bool {
+	if o == nil || IsNil(o.ReserveIp) {
+		var ret bool
+		return ret
+	}
+	return *o.ReserveIp
+}
+
+// GetReserveIpOk returns a tuple with the ReserveIp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GroupProperties) GetReserveIpOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ReserveIp) {
 		return nil, false
 	}
-
 	return o.ReserveIp, true
-}
-
-// SetReserveIp sets field value
-func (o *GroupProperties) SetReserveIp(v bool) {
-
-	o.ReserveIp = &v
-
 }
 
 // HasReserveIp returns a boolean if a field has been set.
 func (o *GroupProperties) HasReserveIp() bool {
-	if o != nil && o.ReserveIp != nil {
+	if o != nil && !IsNil(o.ReserveIp) {
 		return true
 	}
 
 	return false
 }
 
-// GetAccessActivityLog returns the AccessActivityLog field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *GroupProperties) GetAccessActivityLog() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.AccessActivityLog
-
+// SetReserveIp gets a reference to the given bool and assigns it to the ReserveIp field.
+func (o *GroupProperties) SetReserveIp(v bool) {
+	o.ReserveIp = &v
 }
 
-// GetAccessActivityLogOk returns a tuple with the AccessActivityLog field value
+// GetAccessActivityLog returns the AccessActivityLog field value if set, zero value otherwise.
+func (o *GroupProperties) GetAccessActivityLog() bool {
+	if o == nil || IsNil(o.AccessActivityLog) {
+		var ret bool
+		return ret
+	}
+	return *o.AccessActivityLog
+}
+
+// GetAccessActivityLogOk returns a tuple with the AccessActivityLog field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GroupProperties) GetAccessActivityLogOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.AccessActivityLog) {
 		return nil, false
 	}
-
 	return o.AccessActivityLog, true
-}
-
-// SetAccessActivityLog sets field value
-func (o *GroupProperties) SetAccessActivityLog(v bool) {
-
-	o.AccessActivityLog = &v
-
 }
 
 // HasAccessActivityLog returns a boolean if a field has been set.
 func (o *GroupProperties) HasAccessActivityLog() bool {
-	if o != nil && o.AccessActivityLog != nil {
+	if o != nil && !IsNil(o.AccessActivityLog) {
 		return true
 	}
 
 	return false
 }
 
-// GetCreatePcc returns the CreatePcc field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *GroupProperties) GetCreatePcc() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.CreatePcc
-
+// SetAccessActivityLog gets a reference to the given bool and assigns it to the AccessActivityLog field.
+func (o *GroupProperties) SetAccessActivityLog(v bool) {
+	o.AccessActivityLog = &v
 }
 
-// GetCreatePccOk returns a tuple with the CreatePcc field value
+// GetCreatePcc returns the CreatePcc field value if set, zero value otherwise.
+func (o *GroupProperties) GetCreatePcc() bool {
+	if o == nil || IsNil(o.CreatePcc) {
+		var ret bool
+		return ret
+	}
+	return *o.CreatePcc
+}
+
+// GetCreatePccOk returns a tuple with the CreatePcc field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GroupProperties) GetCreatePccOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CreatePcc) {
 		return nil, false
 	}
-
 	return o.CreatePcc, true
-}
-
-// SetCreatePcc sets field value
-func (o *GroupProperties) SetCreatePcc(v bool) {
-
-	o.CreatePcc = &v
-
 }
 
 // HasCreatePcc returns a boolean if a field has been set.
 func (o *GroupProperties) HasCreatePcc() bool {
-	if o != nil && o.CreatePcc != nil {
+	if o != nil && !IsNil(o.CreatePcc) {
 		return true
 	}
 
 	return false
 }
 
-// GetS3Privilege returns the S3Privilege field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *GroupProperties) GetS3Privilege() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.S3Privilege
-
+// SetCreatePcc gets a reference to the given bool and assigns it to the CreatePcc field.
+func (o *GroupProperties) SetCreatePcc(v bool) {
+	o.CreatePcc = &v
 }
 
-// GetS3PrivilegeOk returns a tuple with the S3Privilege field value
+// GetS3Privilege returns the S3Privilege field value if set, zero value otherwise.
+func (o *GroupProperties) GetS3Privilege() bool {
+	if o == nil || IsNil(o.S3Privilege) {
+		var ret bool
+		return ret
+	}
+	return *o.S3Privilege
+}
+
+// GetS3PrivilegeOk returns a tuple with the S3Privilege field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GroupProperties) GetS3PrivilegeOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.S3Privilege) {
 		return nil, false
 	}
-
 	return o.S3Privilege, true
-}
-
-// SetS3Privilege sets field value
-func (o *GroupProperties) SetS3Privilege(v bool) {
-
-	o.S3Privilege = &v
-
 }
 
 // HasS3Privilege returns a boolean if a field has been set.
 func (o *GroupProperties) HasS3Privilege() bool {
-	if o != nil && o.S3Privilege != nil {
+	if o != nil && !IsNil(o.S3Privilege) {
 		return true
 	}
 
 	return false
 }
 
-// GetCreateBackupUnit returns the CreateBackupUnit field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *GroupProperties) GetCreateBackupUnit() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.CreateBackupUnit
-
+// SetS3Privilege gets a reference to the given bool and assigns it to the S3Privilege field.
+func (o *GroupProperties) SetS3Privilege(v bool) {
+	o.S3Privilege = &v
 }
 
-// GetCreateBackupUnitOk returns a tuple with the CreateBackupUnit field value
+// GetCreateBackupUnit returns the CreateBackupUnit field value if set, zero value otherwise.
+func (o *GroupProperties) GetCreateBackupUnit() bool {
+	if o == nil || IsNil(o.CreateBackupUnit) {
+		var ret bool
+		return ret
+	}
+	return *o.CreateBackupUnit
+}
+
+// GetCreateBackupUnitOk returns a tuple with the CreateBackupUnit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GroupProperties) GetCreateBackupUnitOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CreateBackupUnit) {
 		return nil, false
 	}
-
 	return o.CreateBackupUnit, true
-}
-
-// SetCreateBackupUnit sets field value
-func (o *GroupProperties) SetCreateBackupUnit(v bool) {
-
-	o.CreateBackupUnit = &v
-
 }
 
 // HasCreateBackupUnit returns a boolean if a field has been set.
 func (o *GroupProperties) HasCreateBackupUnit() bool {
-	if o != nil && o.CreateBackupUnit != nil {
+	if o != nil && !IsNil(o.CreateBackupUnit) {
 		return true
 	}
 
 	return false
 }
 
-// GetCreateInternetAccess returns the CreateInternetAccess field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *GroupProperties) GetCreateInternetAccess() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.CreateInternetAccess
-
+// SetCreateBackupUnit gets a reference to the given bool and assigns it to the CreateBackupUnit field.
+func (o *GroupProperties) SetCreateBackupUnit(v bool) {
+	o.CreateBackupUnit = &v
 }
 
-// GetCreateInternetAccessOk returns a tuple with the CreateInternetAccess field value
+// GetCreateInternetAccess returns the CreateInternetAccess field value if set, zero value otherwise.
+func (o *GroupProperties) GetCreateInternetAccess() bool {
+	if o == nil || IsNil(o.CreateInternetAccess) {
+		var ret bool
+		return ret
+	}
+	return *o.CreateInternetAccess
+}
+
+// GetCreateInternetAccessOk returns a tuple with the CreateInternetAccess field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GroupProperties) GetCreateInternetAccessOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CreateInternetAccess) {
 		return nil, false
 	}
-
 	return o.CreateInternetAccess, true
-}
-
-// SetCreateInternetAccess sets field value
-func (o *GroupProperties) SetCreateInternetAccess(v bool) {
-
-	o.CreateInternetAccess = &v
-
 }
 
 // HasCreateInternetAccess returns a boolean if a field has been set.
 func (o *GroupProperties) HasCreateInternetAccess() bool {
-	if o != nil && o.CreateInternetAccess != nil {
+	if o != nil && !IsNil(o.CreateInternetAccess) {
 		return true
 	}
 
 	return false
 }
 
-// GetCreateK8sCluster returns the CreateK8sCluster field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *GroupProperties) GetCreateK8sCluster() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.CreateK8sCluster
-
+// SetCreateInternetAccess gets a reference to the given bool and assigns it to the CreateInternetAccess field.
+func (o *GroupProperties) SetCreateInternetAccess(v bool) {
+	o.CreateInternetAccess = &v
 }
 
-// GetCreateK8sClusterOk returns a tuple with the CreateK8sCluster field value
+// GetCreateK8sCluster returns the CreateK8sCluster field value if set, zero value otherwise.
+func (o *GroupProperties) GetCreateK8sCluster() bool {
+	if o == nil || IsNil(o.CreateK8sCluster) {
+		var ret bool
+		return ret
+	}
+	return *o.CreateK8sCluster
+}
+
+// GetCreateK8sClusterOk returns a tuple with the CreateK8sCluster field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GroupProperties) GetCreateK8sClusterOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CreateK8sCluster) {
 		return nil, false
 	}
-
 	return o.CreateK8sCluster, true
-}
-
-// SetCreateK8sCluster sets field value
-func (o *GroupProperties) SetCreateK8sCluster(v bool) {
-
-	o.CreateK8sCluster = &v
-
 }
 
 // HasCreateK8sCluster returns a boolean if a field has been set.
 func (o *GroupProperties) HasCreateK8sCluster() bool {
-	if o != nil && o.CreateK8sCluster != nil {
+	if o != nil && !IsNil(o.CreateK8sCluster) {
 		return true
 	}
 
 	return false
 }
 
-// GetCreateFlowLog returns the CreateFlowLog field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *GroupProperties) GetCreateFlowLog() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.CreateFlowLog
-
+// SetCreateK8sCluster gets a reference to the given bool and assigns it to the CreateK8sCluster field.
+func (o *GroupProperties) SetCreateK8sCluster(v bool) {
+	o.CreateK8sCluster = &v
 }
 
-// GetCreateFlowLogOk returns a tuple with the CreateFlowLog field value
+// GetCreateFlowLog returns the CreateFlowLog field value if set, zero value otherwise.
+func (o *GroupProperties) GetCreateFlowLog() bool {
+	if o == nil || IsNil(o.CreateFlowLog) {
+		var ret bool
+		return ret
+	}
+	return *o.CreateFlowLog
+}
+
+// GetCreateFlowLogOk returns a tuple with the CreateFlowLog field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GroupProperties) GetCreateFlowLogOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CreateFlowLog) {
 		return nil, false
 	}
-
 	return o.CreateFlowLog, true
-}
-
-// SetCreateFlowLog sets field value
-func (o *GroupProperties) SetCreateFlowLog(v bool) {
-
-	o.CreateFlowLog = &v
-
 }
 
 // HasCreateFlowLog returns a boolean if a field has been set.
 func (o *GroupProperties) HasCreateFlowLog() bool {
-	if o != nil && o.CreateFlowLog != nil {
+	if o != nil && !IsNil(o.CreateFlowLog) {
 		return true
 	}
 
 	return false
 }
 
-// GetAccessAndManageMonitoring returns the AccessAndManageMonitoring field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *GroupProperties) GetAccessAndManageMonitoring() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.AccessAndManageMonitoring
-
+// SetCreateFlowLog gets a reference to the given bool and assigns it to the CreateFlowLog field.
+func (o *GroupProperties) SetCreateFlowLog(v bool) {
+	o.CreateFlowLog = &v
 }
 
-// GetAccessAndManageMonitoringOk returns a tuple with the AccessAndManageMonitoring field value
+// GetAccessAndManageMonitoring returns the AccessAndManageMonitoring field value if set, zero value otherwise.
+func (o *GroupProperties) GetAccessAndManageMonitoring() bool {
+	if o == nil || IsNil(o.AccessAndManageMonitoring) {
+		var ret bool
+		return ret
+	}
+	return *o.AccessAndManageMonitoring
+}
+
+// GetAccessAndManageMonitoringOk returns a tuple with the AccessAndManageMonitoring field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GroupProperties) GetAccessAndManageMonitoringOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.AccessAndManageMonitoring) {
 		return nil, false
 	}
-
 	return o.AccessAndManageMonitoring, true
-}
-
-// SetAccessAndManageMonitoring sets field value
-func (o *GroupProperties) SetAccessAndManageMonitoring(v bool) {
-
-	o.AccessAndManageMonitoring = &v
-
 }
 
 // HasAccessAndManageMonitoring returns a boolean if a field has been set.
 func (o *GroupProperties) HasAccessAndManageMonitoring() bool {
-	if o != nil && o.AccessAndManageMonitoring != nil {
+	if o != nil && !IsNil(o.AccessAndManageMonitoring) {
 		return true
 	}
 
 	return false
 }
 
-// GetAccessAndManageCertificates returns the AccessAndManageCertificates field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *GroupProperties) GetAccessAndManageCertificates() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.AccessAndManageCertificates
-
+// SetAccessAndManageMonitoring gets a reference to the given bool and assigns it to the AccessAndManageMonitoring field.
+func (o *GroupProperties) SetAccessAndManageMonitoring(v bool) {
+	o.AccessAndManageMonitoring = &v
 }
 
-// GetAccessAndManageCertificatesOk returns a tuple with the AccessAndManageCertificates field value
+// GetAccessAndManageCertificates returns the AccessAndManageCertificates field value if set, zero value otherwise.
+func (o *GroupProperties) GetAccessAndManageCertificates() bool {
+	if o == nil || IsNil(o.AccessAndManageCertificates) {
+		var ret bool
+		return ret
+	}
+	return *o.AccessAndManageCertificates
+}
+
+// GetAccessAndManageCertificatesOk returns a tuple with the AccessAndManageCertificates field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GroupProperties) GetAccessAndManageCertificatesOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.AccessAndManageCertificates) {
 		return nil, false
 	}
-
 	return o.AccessAndManageCertificates, true
-}
-
-// SetAccessAndManageCertificates sets field value
-func (o *GroupProperties) SetAccessAndManageCertificates(v bool) {
-
-	o.AccessAndManageCertificates = &v
-
 }
 
 // HasAccessAndManageCertificates returns a boolean if a field has been set.
 func (o *GroupProperties) HasAccessAndManageCertificates() bool {
-	if o != nil && o.AccessAndManageCertificates != nil {
+	if o != nil && !IsNil(o.AccessAndManageCertificates) {
 		return true
 	}
 
 	return false
 }
 
-// GetManageDBaaS returns the ManageDBaaS field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *GroupProperties) GetManageDBaaS() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.ManageDBaaS
-
+// SetAccessAndManageCertificates gets a reference to the given bool and assigns it to the AccessAndManageCertificates field.
+func (o *GroupProperties) SetAccessAndManageCertificates(v bool) {
+	o.AccessAndManageCertificates = &v
 }
 
-// GetManageDBaaSOk returns a tuple with the ManageDBaaS field value
+// GetManageDBaaS returns the ManageDBaaS field value if set, zero value otherwise.
+func (o *GroupProperties) GetManageDBaaS() bool {
+	if o == nil || IsNil(o.ManageDBaaS) {
+		var ret bool
+		return ret
+	}
+	return *o.ManageDBaaS
+}
+
+// GetManageDBaaSOk returns a tuple with the ManageDBaaS field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GroupProperties) GetManageDBaaSOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ManageDBaaS) {
 		return nil, false
 	}
-
 	return o.ManageDBaaS, true
-}
-
-// SetManageDBaaS sets field value
-func (o *GroupProperties) SetManageDBaaS(v bool) {
-
-	o.ManageDBaaS = &v
-
 }
 
 // HasManageDBaaS returns a boolean if a field has been set.
 func (o *GroupProperties) HasManageDBaaS() bool {
-	if o != nil && o.ManageDBaaS != nil {
+	if o != nil && !IsNil(o.ManageDBaaS) {
 		return true
 	}
 
 	return false
 }
 
+// SetManageDBaaS gets a reference to the given bool and assigns it to the ManageDBaaS field.
+func (o *GroupProperties) SetManageDBaaS(v bool) {
+	o.ManageDBaaS = &v
+}
+
+// GetAccessAndManageDns returns the AccessAndManageDns field value if set, zero value otherwise.
+func (o *GroupProperties) GetAccessAndManageDns() bool {
+	if o == nil || IsNil(o.AccessAndManageDns) {
+		var ret bool
+		return ret
+	}
+	return *o.AccessAndManageDns
+}
+
+// GetAccessAndManageDnsOk returns a tuple with the AccessAndManageDns field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GroupProperties) GetAccessAndManageDnsOk() (*bool, bool) {
+	if o == nil || IsNil(o.AccessAndManageDns) {
+		return nil, false
+	}
+	return o.AccessAndManageDns, true
+}
+
+// HasAccessAndManageDns returns a boolean if a field has been set.
+func (o *GroupProperties) HasAccessAndManageDns() bool {
+	if o != nil && !IsNil(o.AccessAndManageDns) {
+		return true
+	}
+
+	return false
+}
+
+// SetAccessAndManageDns gets a reference to the given bool and assigns it to the AccessAndManageDns field.
+func (o *GroupProperties) SetAccessAndManageDns(v bool) {
+	o.AccessAndManageDns = &v
+}
+
+// GetManageRegistry returns the ManageRegistry field value if set, zero value otherwise.
+func (o *GroupProperties) GetManageRegistry() bool {
+	if o == nil || IsNil(o.ManageRegistry) {
+		var ret bool
+		return ret
+	}
+	return *o.ManageRegistry
+}
+
+// GetManageRegistryOk returns a tuple with the ManageRegistry field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GroupProperties) GetManageRegistryOk() (*bool, bool) {
+	if o == nil || IsNil(o.ManageRegistry) {
+		return nil, false
+	}
+	return o.ManageRegistry, true
+}
+
+// HasManageRegistry returns a boolean if a field has been set.
+func (o *GroupProperties) HasManageRegistry() bool {
+	if o != nil && !IsNil(o.ManageRegistry) {
+		return true
+	}
+
+	return false
+}
+
+// SetManageRegistry gets a reference to the given bool and assigns it to the ManageRegistry field.
+func (o *GroupProperties) SetManageRegistry(v bool) {
+	o.ManageRegistry = &v
+}
+
+// GetManageDataplatform returns the ManageDataplatform field value if set, zero value otherwise.
+func (o *GroupProperties) GetManageDataplatform() bool {
+	if o == nil || IsNil(o.ManageDataplatform) {
+		var ret bool
+		return ret
+	}
+	return *o.ManageDataplatform
+}
+
+// GetManageDataplatformOk returns a tuple with the ManageDataplatform field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GroupProperties) GetManageDataplatformOk() (*bool, bool) {
+	if o == nil || IsNil(o.ManageDataplatform) {
+		return nil, false
+	}
+	return o.ManageDataplatform, true
+}
+
+// HasManageDataplatform returns a boolean if a field has been set.
+func (o *GroupProperties) HasManageDataplatform() bool {
+	if o != nil && !IsNil(o.ManageDataplatform) {
+		return true
+	}
+
+	return false
+}
+
+// SetManageDataplatform gets a reference to the given bool and assigns it to the ManageDataplatform field.
+func (o *GroupProperties) SetManageDataplatform(v bool) {
+	o.ManageDataplatform = &v
+}
+
 func (o GroupProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GroupProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-
-	if o.CreateDataCenter != nil {
+	if !IsNil(o.CreateDataCenter) {
 		toSerialize["createDataCenter"] = o.CreateDataCenter
 	}
-
-	if o.CreateSnapshot != nil {
+	if !IsNil(o.CreateSnapshot) {
 		toSerialize["createSnapshot"] = o.CreateSnapshot
 	}
-
-	if o.ReserveIp != nil {
+	if !IsNil(o.ReserveIp) {
 		toSerialize["reserveIp"] = o.ReserveIp
 	}
-
-	if o.AccessActivityLog != nil {
+	if !IsNil(o.AccessActivityLog) {
 		toSerialize["accessActivityLog"] = o.AccessActivityLog
 	}
-
-	if o.CreatePcc != nil {
+	if !IsNil(o.CreatePcc) {
 		toSerialize["createPcc"] = o.CreatePcc
 	}
-
-	if o.S3Privilege != nil {
+	if !IsNil(o.S3Privilege) {
 		toSerialize["s3Privilege"] = o.S3Privilege
 	}
-
-	if o.CreateBackupUnit != nil {
+	if !IsNil(o.CreateBackupUnit) {
 		toSerialize["createBackupUnit"] = o.CreateBackupUnit
 	}
-
-	if o.CreateInternetAccess != nil {
+	if !IsNil(o.CreateInternetAccess) {
 		toSerialize["createInternetAccess"] = o.CreateInternetAccess
 	}
-
-	if o.CreateK8sCluster != nil {
+	if !IsNil(o.CreateK8sCluster) {
 		toSerialize["createK8sCluster"] = o.CreateK8sCluster
 	}
-
-	if o.CreateFlowLog != nil {
+	if !IsNil(o.CreateFlowLog) {
 		toSerialize["createFlowLog"] = o.CreateFlowLog
 	}
-
-	if o.AccessAndManageMonitoring != nil {
+	if !IsNil(o.AccessAndManageMonitoring) {
 		toSerialize["accessAndManageMonitoring"] = o.AccessAndManageMonitoring
 	}
-
-	if o.AccessAndManageCertificates != nil {
+	if !IsNil(o.AccessAndManageCertificates) {
 		toSerialize["accessAndManageCertificates"] = o.AccessAndManageCertificates
 	}
-
-	if o.ManageDBaaS != nil {
+	if !IsNil(o.ManageDBaaS) {
 		toSerialize["manageDBaaS"] = o.ManageDBaaS
 	}
-
-	return json.Marshal(toSerialize)
+	if !IsNil(o.AccessAndManageDns) {
+		toSerialize["accessAndManageDns"] = o.AccessAndManageDns
+	}
+	if !IsNil(o.ManageRegistry) {
+		toSerialize["manageRegistry"] = o.ManageRegistry
+	}
+	if !IsNil(o.ManageDataplatform) {
+		toSerialize["manageDataplatform"] = o.ManageDataplatform
+	}
+	return toSerialize, nil
 }
 
 type NullableGroupProperties struct {

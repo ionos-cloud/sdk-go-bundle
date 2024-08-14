@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,14 +14,19 @@ import (
 	"encoding/json"
 )
 
+// checks if the KubernetesNodePoolLan type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KubernetesNodePoolLan{}
+
 // KubernetesNodePoolLan struct for KubernetesNodePoolLan
 type KubernetesNodePoolLan struct {
-	// The LAN ID of an existing LAN at the related datacenter
-	Id *int32 `json:"id"`
-	// Indicates if the Kubernetes node pool LAN will reserve an IP using DHCP.
+	// The datacenter ID, requires system privileges, for internal usage only
+	DatacenterId *string `json:"datacenterId,omitempty"`
+	// The LAN ID of an existing LAN at the related data center
+	Id int32 `json:"id"`
+	// Specifies whether the Kubernetes node pool LAN reserves an IP with DHCP.
 	Dhcp *bool `json:"dhcp,omitempty"`
-	// array of additional LANs attached to worker nodes
-	Routes *[]KubernetesNodePoolLanRoutes `json:"routes,omitempty"`
+	// The array of additional LANs attached to worker nodes.
+	Routes []KubernetesNodePoolLanRoutes `json:"routes,omitempty"`
 }
 
 // NewKubernetesNodePoolLan instantiates a new KubernetesNodePoolLan object
@@ -31,7 +36,7 @@ type KubernetesNodePoolLan struct {
 func NewKubernetesNodePoolLan(id int32) *KubernetesNodePoolLan {
 	this := KubernetesNodePoolLan{}
 
-	this.Id = &id
+	this.Id = id
 
 	return &this
 }
@@ -44,135 +49,149 @@ func NewKubernetesNodePoolLanWithDefaults() *KubernetesNodePoolLan {
 	return &this
 }
 
+// GetDatacenterId returns the DatacenterId field value if set, zero value otherwise.
+func (o *KubernetesNodePoolLan) GetDatacenterId() string {
+	if o == nil || IsNil(o.DatacenterId) {
+		var ret string
+		return ret
+	}
+	return *o.DatacenterId
+}
+
+// GetDatacenterIdOk returns a tuple with the DatacenterId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *KubernetesNodePoolLan) GetDatacenterIdOk() (*string, bool) {
+	if o == nil || IsNil(o.DatacenterId) {
+		return nil, false
+	}
+	return o.DatacenterId, true
+}
+
+// HasDatacenterId returns a boolean if a field has been set.
+func (o *KubernetesNodePoolLan) HasDatacenterId() bool {
+	if o != nil && !IsNil(o.DatacenterId) {
+		return true
+	}
+
+	return false
+}
+
+// SetDatacenterId gets a reference to the given string and assigns it to the DatacenterId field.
+func (o *KubernetesNodePoolLan) SetDatacenterId(v string) {
+	o.DatacenterId = &v
+}
+
 // GetId returns the Id field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *KubernetesNodePoolLan) GetId() *int32 {
+func (o *KubernetesNodePoolLan) GetId() int32 {
 	if o == nil {
-		return nil
+		var ret int32
+		return ret
 	}
 
 	return o.Id
-
 }
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *KubernetesNodePoolLan) GetIdOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Id, true
+	return &o.Id, true
 }
 
 // SetId sets field value
 func (o *KubernetesNodePoolLan) SetId(v int32) {
-
-	o.Id = &v
-
+	o.Id = v
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *KubernetesNodePoolLan) HasId() bool {
-	if o != nil && o.Id != nil {
-		return true
+// GetDhcp returns the Dhcp field value if set, zero value otherwise.
+func (o *KubernetesNodePoolLan) GetDhcp() bool {
+	if o == nil || IsNil(o.Dhcp) {
+		var ret bool
+		return ret
 	}
-
-	return false
+	return *o.Dhcp
 }
 
-// GetDhcp returns the Dhcp field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *KubernetesNodePoolLan) GetDhcp() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.Dhcp
-
-}
-
-// GetDhcpOk returns a tuple with the Dhcp field value
+// GetDhcpOk returns a tuple with the Dhcp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *KubernetesNodePoolLan) GetDhcpOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Dhcp) {
 		return nil, false
 	}
-
 	return o.Dhcp, true
-}
-
-// SetDhcp sets field value
-func (o *KubernetesNodePoolLan) SetDhcp(v bool) {
-
-	o.Dhcp = &v
-
 }
 
 // HasDhcp returns a boolean if a field has been set.
 func (o *KubernetesNodePoolLan) HasDhcp() bool {
-	if o != nil && o.Dhcp != nil {
+	if o != nil && !IsNil(o.Dhcp) {
 		return true
 	}
 
 	return false
 }
 
-// GetRoutes returns the Routes field value
-// If the value is explicit nil, the zero value for []KubernetesNodePoolLanRoutes will be returned
-func (o *KubernetesNodePoolLan) GetRoutes() *[]KubernetesNodePoolLanRoutes {
-	if o == nil {
-		return nil
-	}
-
-	return o.Routes
-
+// SetDhcp gets a reference to the given bool and assigns it to the Dhcp field.
+func (o *KubernetesNodePoolLan) SetDhcp(v bool) {
+	o.Dhcp = &v
 }
 
-// GetRoutesOk returns a tuple with the Routes field value
+// GetRoutes returns the Routes field value if set, zero value otherwise.
+func (o *KubernetesNodePoolLan) GetRoutes() []KubernetesNodePoolLanRoutes {
+	if o == nil || IsNil(o.Routes) {
+		var ret []KubernetesNodePoolLanRoutes
+		return ret
+	}
+	return o.Routes
+}
+
+// GetRoutesOk returns a tuple with the Routes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *KubernetesNodePoolLan) GetRoutesOk() (*[]KubernetesNodePoolLanRoutes, bool) {
-	if o == nil {
+func (o *KubernetesNodePoolLan) GetRoutesOk() ([]KubernetesNodePoolLanRoutes, bool) {
+	if o == nil || IsNil(o.Routes) {
 		return nil, false
 	}
-
 	return o.Routes, true
-}
-
-// SetRoutes sets field value
-func (o *KubernetesNodePoolLan) SetRoutes(v []KubernetesNodePoolLanRoutes) {
-
-	o.Routes = &v
-
 }
 
 // HasRoutes returns a boolean if a field has been set.
 func (o *KubernetesNodePoolLan) HasRoutes() bool {
-	if o != nil && o.Routes != nil {
+	if o != nil && !IsNil(o.Routes) {
 		return true
 	}
 
 	return false
 }
 
+// SetRoutes gets a reference to the given []KubernetesNodePoolLanRoutes and assigns it to the Routes field.
+func (o *KubernetesNodePoolLan) SetRoutes(v []KubernetesNodePoolLanRoutes) {
+	o.Routes = v
+}
+
 func (o KubernetesNodePoolLan) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o KubernetesNodePoolLan) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.DatacenterId) {
+		toSerialize["datacenterId"] = o.DatacenterId
+	}
+	if !IsZero(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-
-	if o.Dhcp != nil {
+	if !IsNil(o.Dhcp) {
 		toSerialize["dhcp"] = o.Dhcp
 	}
-
-	if o.Routes != nil {
+	if !IsNil(o.Routes) {
 		toSerialize["routes"] = o.Routes
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableKubernetesNodePoolLan struct {

@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the RemoteConsoleUrl type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RemoteConsoleUrl{}
 
 // RemoteConsoleUrl struct for RemoteConsoleUrl
 type RemoteConsoleUrl struct {
@@ -38,51 +41,52 @@ func NewRemoteConsoleUrlWithDefaults() *RemoteConsoleUrl {
 	return &this
 }
 
-// GetUrl returns the Url field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *RemoteConsoleUrl) GetUrl() *string {
-	if o == nil {
-		return nil
+// GetUrl returns the Url field value if set, zero value otherwise.
+func (o *RemoteConsoleUrl) GetUrl() string {
+	if o == nil || IsNil(o.Url) {
+		var ret string
+		return ret
 	}
-
-	return o.Url
-
+	return *o.Url
 }
 
-// GetUrlOk returns a tuple with the Url field value
+// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RemoteConsoleUrl) GetUrlOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Url) {
 		return nil, false
 	}
-
 	return o.Url, true
-}
-
-// SetUrl sets field value
-func (o *RemoteConsoleUrl) SetUrl(v string) {
-
-	o.Url = &v
-
 }
 
 // HasUrl returns a boolean if a field has been set.
 func (o *RemoteConsoleUrl) HasUrl() bool {
-	if o != nil && o.Url != nil {
+	if o != nil && !IsNil(o.Url) {
 		return true
 	}
 
 	return false
 }
 
+// SetUrl gets a reference to the given string and assigns it to the Url field.
+func (o *RemoteConsoleUrl) SetUrl(v string) {
+	o.Url = &v
+}
+
 func (o RemoteConsoleUrl) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RemoteConsoleUrl) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Url != nil {
+	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableRemoteConsoleUrl struct {

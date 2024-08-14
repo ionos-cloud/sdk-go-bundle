@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,39 +14,41 @@ import (
 	"encoding/json"
 )
 
+// checks if the ServerProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ServerProperties{}
+
 // ServerProperties struct for ServerProperties
 type ServerProperties struct {
 	// The ID of the template for creating a CUBE server; the available templates for CUBE servers can be found on the templates resource.
 	TemplateUuid *string `json:"templateUuid,omitempty"`
 	// The name of the  resource.
 	Name *string `json:"name,omitempty"`
-	// The total number of cores for the server.
-	Cores *int32 `json:"cores"`
-	// The memory size for the server in MB, such as 2048. Size must be specified in multiples of 256 MB with a minimum of 256 MB; however, if you set ramHotPlug to TRUE then you must use a minimum of 1024 MB. If you set the RAM size more than 240GB, then ramHotPlug will be set to FALSE and can not be set to TRUE unless RAM size not set to less than 240GB.
-	Ram *int32 `json:"ram"`
-	// The placement group ID that belongs to this server; Requires system privileges
-	PlacementGroupId *string `json:"placementGroupId,omitempty"`
+	// The hostname of the  resource. Allowed characters are a-z, 0-9 and - (minus). Hostname should not start with minus and should not be longer than 63 characters.
+	Hostname *string `json:"hostname,omitempty"`
+	// The total number of cores for the enterprise server.
+	Cores *int32 `json:"cores,omitempty"`
+	// The memory size for the enterprise server in MB, such as 2048. Size must be specified in multiples of 256 MB with a minimum of 256 MB; however, if you set ramHotPlug to TRUE then you must use a minimum of 1024 MB. If you set the RAM size more than 240GB, then ramHotPlug will be set to FALSE and can not be set to TRUE unless RAM size not set to less than 240GB.
+	Ram *int32 `json:"ram,omitempty"`
 	// The availability zone in which the server should be provisioned.
 	AvailabilityZone *string `json:"availabilityZone,omitempty"`
 	// Status of the virtual machine.
 	VmState    *string            `json:"vmState,omitempty"`
 	BootCdrom  *ResourceReference `json:"bootCdrom,omitempty"`
 	BootVolume *ResourceReference `json:"bootVolume,omitempty"`
-	// CPU architecture on which server gets provisioned; not all CPU architectures are available in all datacenter regions; available CPU architectures can be retrieved from the datacenter resource.
+	// CPU architecture on which server gets provisioned; not all CPU architectures are available in all datacenter regions; available CPU architectures can be retrieved from the datacenter resource; must not be provided for CUBE and VCPU servers.
 	CpuFamily *string `json:"cpuFamily,omitempty"`
-	// server usages: ENTERPRISE or CUBE
+	// Server type: CUBE, ENTERPRISE or VCPU.
 	Type *string `json:"type,omitempty"`
+	// The placement group ID that belongs to this server; Requires system privileges, for internal usage only
+	PlacementGroupId *string `json:"placementGroupId,omitempty"`
 }
 
 // NewServerProperties instantiates a new ServerProperties object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewServerProperties(cores int32, ram int32) *ServerProperties {
+func NewServerProperties() *ServerProperties {
 	this := ServerProperties{}
-
-	this.Cores = &cores
-	this.Ram = &ram
 
 	return &this
 }
@@ -59,471 +61,437 @@ func NewServerPropertiesWithDefaults() *ServerProperties {
 	return &this
 }
 
-// GetTemplateUuid returns the TemplateUuid field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ServerProperties) GetTemplateUuid() *string {
-	if o == nil {
-		return nil
+// GetTemplateUuid returns the TemplateUuid field value if set, zero value otherwise.
+func (o *ServerProperties) GetTemplateUuid() string {
+	if o == nil || IsNil(o.TemplateUuid) {
+		var ret string
+		return ret
 	}
-
-	return o.TemplateUuid
-
+	return *o.TemplateUuid
 }
 
-// GetTemplateUuidOk returns a tuple with the TemplateUuid field value
+// GetTemplateUuidOk returns a tuple with the TemplateUuid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ServerProperties) GetTemplateUuidOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.TemplateUuid) {
 		return nil, false
 	}
-
 	return o.TemplateUuid, true
-}
-
-// SetTemplateUuid sets field value
-func (o *ServerProperties) SetTemplateUuid(v string) {
-
-	o.TemplateUuid = &v
-
 }
 
 // HasTemplateUuid returns a boolean if a field has been set.
 func (o *ServerProperties) HasTemplateUuid() bool {
-	if o != nil && o.TemplateUuid != nil {
+	if o != nil && !IsNil(o.TemplateUuid) {
 		return true
 	}
 
 	return false
 }
 
-// GetName returns the Name field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ServerProperties) GetName() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Name
-
+// SetTemplateUuid gets a reference to the given string and assigns it to the TemplateUuid field.
+func (o *ServerProperties) SetTemplateUuid(v string) {
+	o.TemplateUuid = &v
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *ServerProperties) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ServerProperties) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-
 	return o.Name, true
-}
-
-// SetName sets field value
-func (o *ServerProperties) SetName(v string) {
-
-	o.Name = &v
-
 }
 
 // HasName returns a boolean if a field has been set.
 func (o *ServerProperties) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
 	return false
 }
 
-// GetCores returns the Cores field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *ServerProperties) GetCores() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.Cores
-
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *ServerProperties) SetName(v string) {
+	o.Name = &v
 }
 
-// GetCoresOk returns a tuple with the Cores field value
+// GetHostname returns the Hostname field value if set, zero value otherwise.
+func (o *ServerProperties) GetHostname() string {
+	if o == nil || IsNil(o.Hostname) {
+		var ret string
+		return ret
+	}
+	return *o.Hostname
+}
+
+// GetHostnameOk returns a tuple with the Hostname field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ServerProperties) GetCoresOk() (*int32, bool) {
-	if o == nil {
+func (o *ServerProperties) GetHostnameOk() (*string, bool) {
+	if o == nil || IsNil(o.Hostname) {
 		return nil, false
 	}
-
-	return o.Cores, true
+	return o.Hostname, true
 }
 
-// SetCores sets field value
-func (o *ServerProperties) SetCores(v int32) {
+// HasHostname returns a boolean if a field has been set.
+func (o *ServerProperties) HasHostname() bool {
+	if o != nil && !IsNil(o.Hostname) {
+		return true
+	}
 
-	o.Cores = &v
+	return false
+}
 
+// SetHostname gets a reference to the given string and assigns it to the Hostname field.
+func (o *ServerProperties) SetHostname(v string) {
+	o.Hostname = &v
+}
+
+// GetCores returns the Cores field value if set, zero value otherwise.
+func (o *ServerProperties) GetCores() int32 {
+	if o == nil || IsNil(o.Cores) {
+		var ret int32
+		return ret
+	}
+	return *o.Cores
+}
+
+// GetCoresOk returns a tuple with the Cores field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServerProperties) GetCoresOk() (*int32, bool) {
+	if o == nil || IsNil(o.Cores) {
+		return nil, false
+	}
+	return o.Cores, true
 }
 
 // HasCores returns a boolean if a field has been set.
 func (o *ServerProperties) HasCores() bool {
-	if o != nil && o.Cores != nil {
+	if o != nil && !IsNil(o.Cores) {
 		return true
 	}
 
 	return false
 }
 
-// GetRam returns the Ram field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *ServerProperties) GetRam() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.Ram
-
+// SetCores gets a reference to the given int32 and assigns it to the Cores field.
+func (o *ServerProperties) SetCores(v int32) {
+	o.Cores = &v
 }
 
-// GetRamOk returns a tuple with the Ram field value
+// GetRam returns the Ram field value if set, zero value otherwise.
+func (o *ServerProperties) GetRam() int32 {
+	if o == nil || IsNil(o.Ram) {
+		var ret int32
+		return ret
+	}
+	return *o.Ram
+}
+
+// GetRamOk returns a tuple with the Ram field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ServerProperties) GetRamOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Ram) {
 		return nil, false
 	}
-
 	return o.Ram, true
-}
-
-// SetRam sets field value
-func (o *ServerProperties) SetRam(v int32) {
-
-	o.Ram = &v
-
 }
 
 // HasRam returns a boolean if a field has been set.
 func (o *ServerProperties) HasRam() bool {
-	if o != nil && o.Ram != nil {
+	if o != nil && !IsNil(o.Ram) {
 		return true
 	}
 
 	return false
 }
 
-// GetPlacementGroupId returns the PlacementGroupId field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ServerProperties) GetPlacementGroupId() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.PlacementGroupId
-
+// SetRam gets a reference to the given int32 and assigns it to the Ram field.
+func (o *ServerProperties) SetRam(v int32) {
+	o.Ram = &v
 }
 
-// GetPlacementGroupIdOk returns a tuple with the PlacementGroupId field value
+// GetAvailabilityZone returns the AvailabilityZone field value if set, zero value otherwise.
+func (o *ServerProperties) GetAvailabilityZone() string {
+	if o == nil || IsNil(o.AvailabilityZone) {
+		var ret string
+		return ret
+	}
+	return *o.AvailabilityZone
+}
+
+// GetAvailabilityZoneOk returns a tuple with the AvailabilityZone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ServerProperties) GetPlacementGroupIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-
-	return o.PlacementGroupId, true
-}
-
-// SetPlacementGroupId sets field value
-func (o *ServerProperties) SetPlacementGroupId(v string) {
-
-	o.PlacementGroupId = &v
-
-}
-
-// HasPlacementGroupId returns a boolean if a field has been set.
-func (o *ServerProperties) HasPlacementGroupId() bool {
-	if o != nil && o.PlacementGroupId != nil {
-		return true
-	}
-
-	return false
-}
-
-// GetAvailabilityZone returns the AvailabilityZone field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ServerProperties) GetAvailabilityZone() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.AvailabilityZone
-
-}
-
-// GetAvailabilityZoneOk returns a tuple with the AvailabilityZone field value
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ServerProperties) GetAvailabilityZoneOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.AvailabilityZone) {
 		return nil, false
 	}
-
 	return o.AvailabilityZone, true
-}
-
-// SetAvailabilityZone sets field value
-func (o *ServerProperties) SetAvailabilityZone(v string) {
-
-	o.AvailabilityZone = &v
-
 }
 
 // HasAvailabilityZone returns a boolean if a field has been set.
 func (o *ServerProperties) HasAvailabilityZone() bool {
-	if o != nil && o.AvailabilityZone != nil {
+	if o != nil && !IsNil(o.AvailabilityZone) {
 		return true
 	}
 
 	return false
 }
 
-// GetVmState returns the VmState field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ServerProperties) GetVmState() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.VmState
-
+// SetAvailabilityZone gets a reference to the given string and assigns it to the AvailabilityZone field.
+func (o *ServerProperties) SetAvailabilityZone(v string) {
+	o.AvailabilityZone = &v
 }
 
-// GetVmStateOk returns a tuple with the VmState field value
+// GetVmState returns the VmState field value if set, zero value otherwise.
+func (o *ServerProperties) GetVmState() string {
+	if o == nil || IsNil(o.VmState) {
+		var ret string
+		return ret
+	}
+	return *o.VmState
+}
+
+// GetVmStateOk returns a tuple with the VmState field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ServerProperties) GetVmStateOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.VmState) {
 		return nil, false
 	}
-
 	return o.VmState, true
-}
-
-// SetVmState sets field value
-func (o *ServerProperties) SetVmState(v string) {
-
-	o.VmState = &v
-
 }
 
 // HasVmState returns a boolean if a field has been set.
 func (o *ServerProperties) HasVmState() bool {
-	if o != nil && o.VmState != nil {
+	if o != nil && !IsNil(o.VmState) {
 		return true
 	}
 
 	return false
 }
 
-// GetBootCdrom returns the BootCdrom field value
-// If the value is explicit nil, the zero value for ResourceReference will be returned
-func (o *ServerProperties) GetBootCdrom() *ResourceReference {
-	if o == nil {
-		return nil
-	}
-
-	return o.BootCdrom
-
+// SetVmState gets a reference to the given string and assigns it to the VmState field.
+func (o *ServerProperties) SetVmState(v string) {
+	o.VmState = &v
 }
 
-// GetBootCdromOk returns a tuple with the BootCdrom field value
+// GetBootCdrom returns the BootCdrom field value if set, zero value otherwise.
+func (o *ServerProperties) GetBootCdrom() ResourceReference {
+	if o == nil || IsNil(o.BootCdrom) {
+		var ret ResourceReference
+		return ret
+	}
+	return *o.BootCdrom
+}
+
+// GetBootCdromOk returns a tuple with the BootCdrom field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ServerProperties) GetBootCdromOk() (*ResourceReference, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.BootCdrom) {
 		return nil, false
 	}
-
 	return o.BootCdrom, true
-}
-
-// SetBootCdrom sets field value
-func (o *ServerProperties) SetBootCdrom(v ResourceReference) {
-
-	o.BootCdrom = &v
-
 }
 
 // HasBootCdrom returns a boolean if a field has been set.
 func (o *ServerProperties) HasBootCdrom() bool {
-	if o != nil && o.BootCdrom != nil {
+	if o != nil && !IsNil(o.BootCdrom) {
 		return true
 	}
 
 	return false
 }
 
-// GetBootVolume returns the BootVolume field value
-// If the value is explicit nil, the zero value for ResourceReference will be returned
-func (o *ServerProperties) GetBootVolume() *ResourceReference {
-	if o == nil {
-		return nil
-	}
-
-	return o.BootVolume
-
+// SetBootCdrom gets a reference to the given ResourceReference and assigns it to the BootCdrom field.
+func (o *ServerProperties) SetBootCdrom(v ResourceReference) {
+	o.BootCdrom = &v
 }
 
-// GetBootVolumeOk returns a tuple with the BootVolume field value
+// GetBootVolume returns the BootVolume field value if set, zero value otherwise.
+func (o *ServerProperties) GetBootVolume() ResourceReference {
+	if o == nil || IsNil(o.BootVolume) {
+		var ret ResourceReference
+		return ret
+	}
+	return *o.BootVolume
+}
+
+// GetBootVolumeOk returns a tuple with the BootVolume field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ServerProperties) GetBootVolumeOk() (*ResourceReference, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.BootVolume) {
 		return nil, false
 	}
-
 	return o.BootVolume, true
-}
-
-// SetBootVolume sets field value
-func (o *ServerProperties) SetBootVolume(v ResourceReference) {
-
-	o.BootVolume = &v
-
 }
 
 // HasBootVolume returns a boolean if a field has been set.
 func (o *ServerProperties) HasBootVolume() bool {
-	if o != nil && o.BootVolume != nil {
+	if o != nil && !IsNil(o.BootVolume) {
 		return true
 	}
 
 	return false
 }
 
-// GetCpuFamily returns the CpuFamily field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ServerProperties) GetCpuFamily() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.CpuFamily
-
+// SetBootVolume gets a reference to the given ResourceReference and assigns it to the BootVolume field.
+func (o *ServerProperties) SetBootVolume(v ResourceReference) {
+	o.BootVolume = &v
 }
 
-// GetCpuFamilyOk returns a tuple with the CpuFamily field value
+// GetCpuFamily returns the CpuFamily field value if set, zero value otherwise.
+func (o *ServerProperties) GetCpuFamily() string {
+	if o == nil || IsNil(o.CpuFamily) {
+		var ret string
+		return ret
+	}
+	return *o.CpuFamily
+}
+
+// GetCpuFamilyOk returns a tuple with the CpuFamily field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ServerProperties) GetCpuFamilyOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CpuFamily) {
 		return nil, false
 	}
-
 	return o.CpuFamily, true
-}
-
-// SetCpuFamily sets field value
-func (o *ServerProperties) SetCpuFamily(v string) {
-
-	o.CpuFamily = &v
-
 }
 
 // HasCpuFamily returns a boolean if a field has been set.
 func (o *ServerProperties) HasCpuFamily() bool {
-	if o != nil && o.CpuFamily != nil {
+	if o != nil && !IsNil(o.CpuFamily) {
 		return true
 	}
 
 	return false
 }
 
-// GetType returns the Type field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ServerProperties) GetType() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Type
-
+// SetCpuFamily gets a reference to the given string and assigns it to the CpuFamily field.
+func (o *ServerProperties) SetCpuFamily(v string) {
+	o.CpuFamily = &v
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *ServerProperties) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ServerProperties) GetTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
-
 	return o.Type, true
-}
-
-// SetType sets field value
-func (o *ServerProperties) SetType(v string) {
-
-	o.Type = &v
-
 }
 
 // HasType returns a boolean if a field has been set.
 func (o *ServerProperties) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
 	return false
 }
 
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *ServerProperties) SetType(v string) {
+	o.Type = &v
+}
+
+// GetPlacementGroupId returns the PlacementGroupId field value if set, zero value otherwise.
+func (o *ServerProperties) GetPlacementGroupId() string {
+	if o == nil || IsNil(o.PlacementGroupId) {
+		var ret string
+		return ret
+	}
+	return *o.PlacementGroupId
+}
+
+// GetPlacementGroupIdOk returns a tuple with the PlacementGroupId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServerProperties) GetPlacementGroupIdOk() (*string, bool) {
+	if o == nil || IsNil(o.PlacementGroupId) {
+		return nil, false
+	}
+	return o.PlacementGroupId, true
+}
+
+// HasPlacementGroupId returns a boolean if a field has been set.
+func (o *ServerProperties) HasPlacementGroupId() bool {
+	if o != nil && !IsNil(o.PlacementGroupId) {
+		return true
+	}
+
+	return false
+}
+
+// SetPlacementGroupId gets a reference to the given string and assigns it to the PlacementGroupId field.
+func (o *ServerProperties) SetPlacementGroupId(v string) {
+	o.PlacementGroupId = &v
+}
+
 func (o ServerProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ServerProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.TemplateUuid != nil {
+	if !IsNil(o.TemplateUuid) {
 		toSerialize["templateUuid"] = o.TemplateUuid
 	}
-
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-
-	if o.Cores != nil {
+	if !IsNil(o.Hostname) {
+		toSerialize["hostname"] = o.Hostname
+	}
+	if !IsNil(o.Cores) {
 		toSerialize["cores"] = o.Cores
 	}
-
-	if o.Ram != nil {
+	if !IsNil(o.Ram) {
 		toSerialize["ram"] = o.Ram
 	}
-
-	if o.PlacementGroupId != nil {
-		toSerialize["placementGroupId"] = o.PlacementGroupId
-	}
-
-	if o.AvailabilityZone != nil {
+	if !IsNil(o.AvailabilityZone) {
 		toSerialize["availabilityZone"] = o.AvailabilityZone
 	}
-
-	if o.VmState != nil {
+	if !IsNil(o.VmState) {
 		toSerialize["vmState"] = o.VmState
 	}
-
-	if o.BootCdrom != nil {
+	if !IsNil(o.BootCdrom) {
 		toSerialize["bootCdrom"] = o.BootCdrom
 	}
-
-	if o.BootVolume != nil {
+	if !IsNil(o.BootVolume) {
 		toSerialize["bootVolume"] = o.BootVolume
 	}
-
-	if o.CpuFamily != nil {
+	if !IsNil(o.CpuFamily) {
 		toSerialize["cpuFamily"] = o.CpuFamily
 	}
-
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-
-	return json.Marshal(toSerialize)
+	if !IsNil(o.PlacementGroupId) {
+		toSerialize["placementGroupId"] = o.PlacementGroupId
+	}
+	return toSerialize, nil
 }
 
 type NullableServerProperties struct {

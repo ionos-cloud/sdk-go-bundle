@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the DatacenterProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DatacenterProperties{}
+
 // DatacenterProperties struct for DatacenterProperties
 type DatacenterProperties struct {
 	// The name of the  resource.
@@ -21,15 +24,17 @@ type DatacenterProperties struct {
 	// A description for the datacenter, such as staging, production.
 	Description *string `json:"description,omitempty"`
 	// The physical location where the datacenter will be created. This will be where all of your servers live. Property cannot be modified after datacenter creation (disallowed in update requests).
-	Location *string `json:"location"`
+	Location string `json:"location"`
 	// The version of the data center; incremented with every change.
 	Version *int32 `json:"version,omitempty"`
 	// List of features supported by the location where this data center is provisioned.
-	Features *[]string `json:"features,omitempty"`
+	Features []string `json:"features,omitempty"`
 	// Boolean value representing if the data center requires extra protection, such as two-step verification.
 	SecAuthProtection *bool `json:"secAuthProtection,omitempty"`
 	// Array of features and CPU families available in a location
-	CpuArchitecture *[]CpuArchitectureProperties `json:"cpuArchitecture,omitempty"`
+	CpuArchitecture []CpuArchitectureProperties `json:"cpuArchitecture,omitempty"`
+	// This value is either 'null' or contains an automatically-assigned /56 IPv6 CIDR block if IPv6 is enabled on this virtual data center. It can neither be changed nor removed.
+	Ipv6CidrBlock NullableString `json:"ipv6CidrBlock,omitempty"`
 }
 
 // NewDatacenterProperties instantiates a new DatacenterProperties object
@@ -39,7 +44,7 @@ type DatacenterProperties struct {
 func NewDatacenterProperties(location string) *DatacenterProperties {
 	this := DatacenterProperties{}
 
-	this.Location = &location
+	this.Location = location
 
 	return &this
 }
@@ -52,303 +57,300 @@ func NewDatacenterPropertiesWithDefaults() *DatacenterProperties {
 	return &this
 }
 
-// GetName returns the Name field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *DatacenterProperties) GetName() *string {
-	if o == nil {
-		return nil
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *DatacenterProperties) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
 	}
-
-	return o.Name
-
+	return *o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DatacenterProperties) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-
 	return o.Name, true
-}
-
-// SetName sets field value
-func (o *DatacenterProperties) SetName(v string) {
-
-	o.Name = &v
-
 }
 
 // HasName returns a boolean if a field has been set.
 func (o *DatacenterProperties) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
 	return false
 }
 
-// GetDescription returns the Description field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *DatacenterProperties) GetDescription() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Description
-
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *DatacenterProperties) SetName(v string) {
+	o.Name = &v
 }
 
-// GetDescriptionOk returns a tuple with the Description field value
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *DatacenterProperties) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DatacenterProperties) GetDescriptionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
-
 	return o.Description, true
-}
-
-// SetDescription sets field value
-func (o *DatacenterProperties) SetDescription(v string) {
-
-	o.Description = &v
-
 }
 
 // HasDescription returns a boolean if a field has been set.
 func (o *DatacenterProperties) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
 	return false
 }
 
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *DatacenterProperties) SetDescription(v string) {
+	o.Description = &v
+}
+
 // GetLocation returns the Location field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *DatacenterProperties) GetLocation() *string {
+func (o *DatacenterProperties) GetLocation() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Location
-
 }
 
 // GetLocationOk returns a tuple with the Location field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DatacenterProperties) GetLocationOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Location, true
+	return &o.Location, true
 }
 
 // SetLocation sets field value
 func (o *DatacenterProperties) SetLocation(v string) {
-
-	o.Location = &v
-
+	o.Location = v
 }
 
-// HasLocation returns a boolean if a field has been set.
-func (o *DatacenterProperties) HasLocation() bool {
-	if o != nil && o.Location != nil {
-		return true
+// GetVersion returns the Version field value if set, zero value otherwise.
+func (o *DatacenterProperties) GetVersion() int32 {
+	if o == nil || IsNil(o.Version) {
+		var ret int32
+		return ret
 	}
-
-	return false
+	return *o.Version
 }
 
-// GetVersion returns the Version field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *DatacenterProperties) GetVersion() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.Version
-
-}
-
-// GetVersionOk returns a tuple with the Version field value
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DatacenterProperties) GetVersionOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
-
 	return o.Version, true
-}
-
-// SetVersion sets field value
-func (o *DatacenterProperties) SetVersion(v int32) {
-
-	o.Version = &v
-
 }
 
 // HasVersion returns a boolean if a field has been set.
 func (o *DatacenterProperties) HasVersion() bool {
-	if o != nil && o.Version != nil {
+	if o != nil && !IsNil(o.Version) {
 		return true
 	}
 
 	return false
 }
 
-// GetFeatures returns the Features field value
-// If the value is explicit nil, the zero value for []string will be returned
-func (o *DatacenterProperties) GetFeatures() *[]string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Features
-
+// SetVersion gets a reference to the given int32 and assigns it to the Version field.
+func (o *DatacenterProperties) SetVersion(v int32) {
+	o.Version = &v
 }
 
-// GetFeaturesOk returns a tuple with the Features field value
+// GetFeatures returns the Features field value if set, zero value otherwise.
+func (o *DatacenterProperties) GetFeatures() []string {
+	if o == nil || IsNil(o.Features) {
+		var ret []string
+		return ret
+	}
+	return o.Features
+}
+
+// GetFeaturesOk returns a tuple with the Features field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *DatacenterProperties) GetFeaturesOk() (*[]string, bool) {
-	if o == nil {
+func (o *DatacenterProperties) GetFeaturesOk() ([]string, bool) {
+	if o == nil || IsNil(o.Features) {
 		return nil, false
 	}
-
 	return o.Features, true
-}
-
-// SetFeatures sets field value
-func (o *DatacenterProperties) SetFeatures(v []string) {
-
-	o.Features = &v
-
 }
 
 // HasFeatures returns a boolean if a field has been set.
 func (o *DatacenterProperties) HasFeatures() bool {
-	if o != nil && o.Features != nil {
+	if o != nil && !IsNil(o.Features) {
 		return true
 	}
 
 	return false
 }
 
-// GetSecAuthProtection returns the SecAuthProtection field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *DatacenterProperties) GetSecAuthProtection() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.SecAuthProtection
-
+// SetFeatures gets a reference to the given []string and assigns it to the Features field.
+func (o *DatacenterProperties) SetFeatures(v []string) {
+	o.Features = v
 }
 
-// GetSecAuthProtectionOk returns a tuple with the SecAuthProtection field value
+// GetSecAuthProtection returns the SecAuthProtection field value if set, zero value otherwise.
+func (o *DatacenterProperties) GetSecAuthProtection() bool {
+	if o == nil || IsNil(o.SecAuthProtection) {
+		var ret bool
+		return ret
+	}
+	return *o.SecAuthProtection
+}
+
+// GetSecAuthProtectionOk returns a tuple with the SecAuthProtection field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DatacenterProperties) GetSecAuthProtectionOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.SecAuthProtection) {
 		return nil, false
 	}
-
 	return o.SecAuthProtection, true
-}
-
-// SetSecAuthProtection sets field value
-func (o *DatacenterProperties) SetSecAuthProtection(v bool) {
-
-	o.SecAuthProtection = &v
-
 }
 
 // HasSecAuthProtection returns a boolean if a field has been set.
 func (o *DatacenterProperties) HasSecAuthProtection() bool {
-	if o != nil && o.SecAuthProtection != nil {
+	if o != nil && !IsNil(o.SecAuthProtection) {
 		return true
 	}
 
 	return false
 }
 
-// GetCpuArchitecture returns the CpuArchitecture field value
-// If the value is explicit nil, the zero value for []CpuArchitectureProperties will be returned
-func (o *DatacenterProperties) GetCpuArchitecture() *[]CpuArchitectureProperties {
-	if o == nil {
-		return nil
-	}
-
-	return o.CpuArchitecture
-
+// SetSecAuthProtection gets a reference to the given bool and assigns it to the SecAuthProtection field.
+func (o *DatacenterProperties) SetSecAuthProtection(v bool) {
+	o.SecAuthProtection = &v
 }
 
-// GetCpuArchitectureOk returns a tuple with the CpuArchitecture field value
+// GetCpuArchitecture returns the CpuArchitecture field value if set, zero value otherwise.
+func (o *DatacenterProperties) GetCpuArchitecture() []CpuArchitectureProperties {
+	if o == nil || IsNil(o.CpuArchitecture) {
+		var ret []CpuArchitectureProperties
+		return ret
+	}
+	return o.CpuArchitecture
+}
+
+// GetCpuArchitectureOk returns a tuple with the CpuArchitecture field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *DatacenterProperties) GetCpuArchitectureOk() (*[]CpuArchitectureProperties, bool) {
-	if o == nil {
+func (o *DatacenterProperties) GetCpuArchitectureOk() ([]CpuArchitectureProperties, bool) {
+	if o == nil || IsNil(o.CpuArchitecture) {
 		return nil, false
 	}
-
 	return o.CpuArchitecture, true
-}
-
-// SetCpuArchitecture sets field value
-func (o *DatacenterProperties) SetCpuArchitecture(v []CpuArchitectureProperties) {
-
-	o.CpuArchitecture = &v
-
 }
 
 // HasCpuArchitecture returns a boolean if a field has been set.
 func (o *DatacenterProperties) HasCpuArchitecture() bool {
-	if o != nil && o.CpuArchitecture != nil {
+	if o != nil && !IsNil(o.CpuArchitecture) {
 		return true
 	}
 
 	return false
 }
 
+// SetCpuArchitecture gets a reference to the given []CpuArchitectureProperties and assigns it to the CpuArchitecture field.
+func (o *DatacenterProperties) SetCpuArchitecture(v []CpuArchitectureProperties) {
+	o.CpuArchitecture = v
+}
+
+// GetIpv6CidrBlock returns the Ipv6CidrBlock field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *DatacenterProperties) GetIpv6CidrBlock() string {
+	if o == nil || IsNil(o.Ipv6CidrBlock.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Ipv6CidrBlock.Get()
+}
+
+// GetIpv6CidrBlockOk returns a tuple with the Ipv6CidrBlock field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DatacenterProperties) GetIpv6CidrBlockOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Ipv6CidrBlock.Get(), o.Ipv6CidrBlock.IsSet()
+}
+
+// HasIpv6CidrBlock returns a boolean if a field has been set.
+func (o *DatacenterProperties) HasIpv6CidrBlock() bool {
+	if o != nil && o.Ipv6CidrBlock.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetIpv6CidrBlock gets a reference to the given NullableString and assigns it to the Ipv6CidrBlock field.
+func (o *DatacenterProperties) SetIpv6CidrBlock(v string) {
+	o.Ipv6CidrBlock.Set(&v)
+}
+
+// SetIpv6CidrBlockNil sets the value for Ipv6CidrBlock to be an explicit nil
+func (o *DatacenterProperties) SetIpv6CidrBlockNil() {
+	o.Ipv6CidrBlock.Set(nil)
+}
+
+// UnsetIpv6CidrBlock ensures that no value is present for Ipv6CidrBlock, not even an explicit nil
+func (o *DatacenterProperties) UnsetIpv6CidrBlock() {
+	o.Ipv6CidrBlock.Unset()
+}
+
 func (o DatacenterProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DatacenterProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-
-	if o.Location != nil {
+	if !IsZero(o.Location) {
 		toSerialize["location"] = o.Location
 	}
-
-	if o.Version != nil {
+	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
-
-	if o.Features != nil {
+	if !IsNil(o.Features) {
 		toSerialize["features"] = o.Features
 	}
-
-	if o.SecAuthProtection != nil {
+	if !IsNil(o.SecAuthProtection) {
 		toSerialize["secAuthProtection"] = o.SecAuthProtection
 	}
-
-	if o.CpuArchitecture != nil {
+	if !IsNil(o.CpuArchitecture) {
 		toSerialize["cpuArchitecture"] = o.CpuArchitecture
 	}
-
-	return json.Marshal(toSerialize)
+	if o.Ipv6CidrBlock.IsSet() {
+		toSerialize["ipv6CidrBlock"] = o.Ipv6CidrBlock.Get()
+	}
+	return toSerialize, nil
 }
 
 type NullableDatacenterProperties struct {

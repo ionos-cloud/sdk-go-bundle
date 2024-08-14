@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,10 +14,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the ConnectableDatacenter type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ConnectableDatacenter{}
+
 // ConnectableDatacenter struct for ConnectableDatacenter
 type ConnectableDatacenter struct {
-	Id       *string `json:"id,omitempty"`
-	Name     *string `json:"name,omitempty"`
+	// Identifier of the virtual data center that can be connected to the Cross Connect.
+	Id *string `json:"id,omitempty"`
+	// Name of the virtual data center that can be connected to the Cross Connect.
+	Name *string `json:"name,omitempty"`
+	// Location of the virtual data center that can be connected to the Cross Connect.
 	Location *string `json:"location,omitempty"`
 }
 
@@ -39,135 +45,122 @@ func NewConnectableDatacenterWithDefaults() *ConnectableDatacenter {
 	return &this
 }
 
-// GetId returns the Id field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ConnectableDatacenter) GetId() *string {
-	if o == nil {
-		return nil
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *ConnectableDatacenter) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
 	}
-
-	return o.Id
-
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ConnectableDatacenter) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-
 	return o.Id, true
-}
-
-// SetId sets field value
-func (o *ConnectableDatacenter) SetId(v string) {
-
-	o.Id = &v
-
 }
 
 // HasId returns a boolean if a field has been set.
 func (o *ConnectableDatacenter) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
 	return false
 }
 
-// GetName returns the Name field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ConnectableDatacenter) GetName() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Name
-
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *ConnectableDatacenter) SetId(v string) {
+	o.Id = &v
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *ConnectableDatacenter) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ConnectableDatacenter) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-
 	return o.Name, true
-}
-
-// SetName sets field value
-func (o *ConnectableDatacenter) SetName(v string) {
-
-	o.Name = &v
-
 }
 
 // HasName returns a boolean if a field has been set.
 func (o *ConnectableDatacenter) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
 	return false
 }
 
-// GetLocation returns the Location field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ConnectableDatacenter) GetLocation() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Location
-
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *ConnectableDatacenter) SetName(v string) {
+	o.Name = &v
 }
 
-// GetLocationOk returns a tuple with the Location field value
+// GetLocation returns the Location field value if set, zero value otherwise.
+func (o *ConnectableDatacenter) GetLocation() string {
+	if o == nil || IsNil(o.Location) {
+		var ret string
+		return ret
+	}
+	return *o.Location
+}
+
+// GetLocationOk returns a tuple with the Location field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ConnectableDatacenter) GetLocationOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Location) {
 		return nil, false
 	}
-
 	return o.Location, true
-}
-
-// SetLocation sets field value
-func (o *ConnectableDatacenter) SetLocation(v string) {
-
-	o.Location = &v
-
 }
 
 // HasLocation returns a boolean if a field has been set.
 func (o *ConnectableDatacenter) HasLocation() bool {
-	if o != nil && o.Location != nil {
+	if o != nil && !IsNil(o.Location) {
 		return true
 	}
 
 	return false
 }
 
+// SetLocation gets a reference to the given string and assigns it to the Location field.
+func (o *ConnectableDatacenter) SetLocation(v string) {
+	o.Location = &v
+}
+
 func (o ConnectableDatacenter) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ConnectableDatacenter) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-
-	if o.Location != nil {
+	if !IsNil(o.Location) {
 		toSerialize["location"] = o.Location
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableConnectableDatacenter struct {

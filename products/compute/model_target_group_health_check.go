@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,13 +14,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the TargetGroupHealthCheck type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TargetGroupHealthCheck{}
+
 // TargetGroupHealthCheck struct for TargetGroupHealthCheck
 type TargetGroupHealthCheck struct {
-	// The maximum time in milliseconds to wait for a target to respond to a check. For target VMs with 'Check Interval' set, the lesser of the two  values is used once the TCP connection is established.
+	// The maximum time in milliseconds is to wait for a target to respond to a check. For target VMs with a 'Check Interval' set, the smaller of the two values is used once the TCP connection is established.
 	CheckTimeout *int32 `json:"checkTimeout,omitempty"`
-	// The interval in milliseconds between consecutive health checks; default is 2000.
+	// The interval in milliseconds between consecutive health checks; the default value is '2000'.
 	CheckInterval *int32 `json:"checkInterval,omitempty"`
-	// The maximum number of attempts to reconnect to a target after a connection failure. Valid range is 0 to 65535, and default is three reconnection attempts.
+	// The maximum number of attempts to reconnect to a target after a connection failure. The valid range is '0 to 65535'; the default value is '3'.
 	Retries *int32 `json:"retries,omitempty"`
 }
 
@@ -42,135 +45,122 @@ func NewTargetGroupHealthCheckWithDefaults() *TargetGroupHealthCheck {
 	return &this
 }
 
-// GetCheckTimeout returns the CheckTimeout field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *TargetGroupHealthCheck) GetCheckTimeout() *int32 {
-	if o == nil {
-		return nil
+// GetCheckTimeout returns the CheckTimeout field value if set, zero value otherwise.
+func (o *TargetGroupHealthCheck) GetCheckTimeout() int32 {
+	if o == nil || IsNil(o.CheckTimeout) {
+		var ret int32
+		return ret
 	}
-
-	return o.CheckTimeout
-
+	return *o.CheckTimeout
 }
 
-// GetCheckTimeoutOk returns a tuple with the CheckTimeout field value
+// GetCheckTimeoutOk returns a tuple with the CheckTimeout field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TargetGroupHealthCheck) GetCheckTimeoutOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CheckTimeout) {
 		return nil, false
 	}
-
 	return o.CheckTimeout, true
-}
-
-// SetCheckTimeout sets field value
-func (o *TargetGroupHealthCheck) SetCheckTimeout(v int32) {
-
-	o.CheckTimeout = &v
-
 }
 
 // HasCheckTimeout returns a boolean if a field has been set.
 func (o *TargetGroupHealthCheck) HasCheckTimeout() bool {
-	if o != nil && o.CheckTimeout != nil {
+	if o != nil && !IsNil(o.CheckTimeout) {
 		return true
 	}
 
 	return false
 }
 
-// GetCheckInterval returns the CheckInterval field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *TargetGroupHealthCheck) GetCheckInterval() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.CheckInterval
-
+// SetCheckTimeout gets a reference to the given int32 and assigns it to the CheckTimeout field.
+func (o *TargetGroupHealthCheck) SetCheckTimeout(v int32) {
+	o.CheckTimeout = &v
 }
 
-// GetCheckIntervalOk returns a tuple with the CheckInterval field value
+// GetCheckInterval returns the CheckInterval field value if set, zero value otherwise.
+func (o *TargetGroupHealthCheck) GetCheckInterval() int32 {
+	if o == nil || IsNil(o.CheckInterval) {
+		var ret int32
+		return ret
+	}
+	return *o.CheckInterval
+}
+
+// GetCheckIntervalOk returns a tuple with the CheckInterval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TargetGroupHealthCheck) GetCheckIntervalOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CheckInterval) {
 		return nil, false
 	}
-
 	return o.CheckInterval, true
-}
-
-// SetCheckInterval sets field value
-func (o *TargetGroupHealthCheck) SetCheckInterval(v int32) {
-
-	o.CheckInterval = &v
-
 }
 
 // HasCheckInterval returns a boolean if a field has been set.
 func (o *TargetGroupHealthCheck) HasCheckInterval() bool {
-	if o != nil && o.CheckInterval != nil {
+	if o != nil && !IsNil(o.CheckInterval) {
 		return true
 	}
 
 	return false
 }
 
-// GetRetries returns the Retries field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *TargetGroupHealthCheck) GetRetries() *int32 {
-	if o == nil {
-		return nil
-	}
-
-	return o.Retries
-
+// SetCheckInterval gets a reference to the given int32 and assigns it to the CheckInterval field.
+func (o *TargetGroupHealthCheck) SetCheckInterval(v int32) {
+	o.CheckInterval = &v
 }
 
-// GetRetriesOk returns a tuple with the Retries field value
+// GetRetries returns the Retries field value if set, zero value otherwise.
+func (o *TargetGroupHealthCheck) GetRetries() int32 {
+	if o == nil || IsNil(o.Retries) {
+		var ret int32
+		return ret
+	}
+	return *o.Retries
+}
+
+// GetRetriesOk returns a tuple with the Retries field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TargetGroupHealthCheck) GetRetriesOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Retries) {
 		return nil, false
 	}
-
 	return o.Retries, true
-}
-
-// SetRetries sets field value
-func (o *TargetGroupHealthCheck) SetRetries(v int32) {
-
-	o.Retries = &v
-
 }
 
 // HasRetries returns a boolean if a field has been set.
 func (o *TargetGroupHealthCheck) HasRetries() bool {
-	if o != nil && o.Retries != nil {
+	if o != nil && !IsNil(o.Retries) {
 		return true
 	}
 
 	return false
 }
 
+// SetRetries gets a reference to the given int32 and assigns it to the Retries field.
+func (o *TargetGroupHealthCheck) SetRetries(v int32) {
+	o.Retries = &v
+}
+
 func (o TargetGroupHealthCheck) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TargetGroupHealthCheck) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CheckTimeout != nil {
+	if !IsNil(o.CheckTimeout) {
 		toSerialize["checkTimeout"] = o.CheckTimeout
 	}
-
-	if o.CheckInterval != nil {
+	if !IsNil(o.CheckInterval) {
 		toSerialize["checkInterval"] = o.CheckInterval
 	}
-
-	if o.Retries != nil {
+	if !IsNil(o.Retries) {
 		toSerialize["retries"] = o.Retries
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableTargetGroupHealthCheck struct {

@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -15,6 +15,9 @@ import (
 
 	"time"
 )
+
+// checks if the RequestMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestMetadata{}
 
 // RequestMetadata struct for RequestMetadata
 type RequestMetadata struct {
@@ -45,184 +48,157 @@ func NewRequestMetadataWithDefaults() *RequestMetadata {
 	return &this
 }
 
-// GetCreatedDate returns the CreatedDate field value
-// If the value is explicit nil, the zero value for time.Time will be returned
-func (o *RequestMetadata) GetCreatedDate() *time.Time {
-	if o == nil {
-		return nil
+// GetCreatedDate returns the CreatedDate field value if set, zero value otherwise.
+func (o *RequestMetadata) GetCreatedDate() time.Time {
+	if o == nil || IsNil(o.CreatedDate) {
+		var ret time.Time
+		return ret
 	}
-
-	if o.CreatedDate == nil {
-		return nil
-	}
-	return &o.CreatedDate.Time
-
+	return o.CreatedDate.Time
 }
 
-// GetCreatedDateOk returns a tuple with the CreatedDate field value
+// GetCreatedDateOk returns a tuple with the CreatedDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RequestMetadata) GetCreatedDateOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-
-	if o.CreatedDate == nil {
+	if o == nil || IsNil(o.CreatedDate) {
 		return nil, false
 	}
 	return &o.CreatedDate.Time, true
-
-}
-
-// SetCreatedDate sets field value
-func (o *RequestMetadata) SetCreatedDate(v time.Time) {
-
-	o.CreatedDate = &IonosTime{v}
-
 }
 
 // HasCreatedDate returns a boolean if a field has been set.
 func (o *RequestMetadata) HasCreatedDate() bool {
-	if o != nil && o.CreatedDate != nil {
+	if o != nil && !IsNil(o.CreatedDate) {
 		return true
 	}
 
 	return false
 }
 
-// GetCreatedBy returns the CreatedBy field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *RequestMetadata) GetCreatedBy() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.CreatedBy
-
+// SetCreatedDate gets a reference to the given time.Time and assigns it to the CreatedDate field.
+func (o *RequestMetadata) SetCreatedDate(v time.Time) {
+	o.CreatedDate = &IonosTime{v}
 }
 
-// GetCreatedByOk returns a tuple with the CreatedBy field value
+// GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
+func (o *RequestMetadata) GetCreatedBy() string {
+	if o == nil || IsNil(o.CreatedBy) {
+		var ret string
+		return ret
+	}
+	return *o.CreatedBy
+}
+
+// GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RequestMetadata) GetCreatedByOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		return nil, false
 	}
-
 	return o.CreatedBy, true
-}
-
-// SetCreatedBy sets field value
-func (o *RequestMetadata) SetCreatedBy(v string) {
-
-	o.CreatedBy = &v
-
 }
 
 // HasCreatedBy returns a boolean if a field has been set.
 func (o *RequestMetadata) HasCreatedBy() bool {
-	if o != nil && o.CreatedBy != nil {
+	if o != nil && !IsNil(o.CreatedBy) {
 		return true
 	}
 
 	return false
 }
 
-// GetEtag returns the Etag field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *RequestMetadata) GetEtag() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Etag
-
+// SetCreatedBy gets a reference to the given string and assigns it to the CreatedBy field.
+func (o *RequestMetadata) SetCreatedBy(v string) {
+	o.CreatedBy = &v
 }
 
-// GetEtagOk returns a tuple with the Etag field value
+// GetEtag returns the Etag field value if set, zero value otherwise.
+func (o *RequestMetadata) GetEtag() string {
+	if o == nil || IsNil(o.Etag) {
+		var ret string
+		return ret
+	}
+	return *o.Etag
+}
+
+// GetEtagOk returns a tuple with the Etag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RequestMetadata) GetEtagOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Etag) {
 		return nil, false
 	}
-
 	return o.Etag, true
-}
-
-// SetEtag sets field value
-func (o *RequestMetadata) SetEtag(v string) {
-
-	o.Etag = &v
-
 }
 
 // HasEtag returns a boolean if a field has been set.
 func (o *RequestMetadata) HasEtag() bool {
-	if o != nil && o.Etag != nil {
+	if o != nil && !IsNil(o.Etag) {
 		return true
 	}
 
 	return false
 }
 
-// GetRequestStatus returns the RequestStatus field value
-// If the value is explicit nil, the zero value for RequestStatus will be returned
-func (o *RequestMetadata) GetRequestStatus() *RequestStatus {
-	if o == nil {
-		return nil
-	}
-
-	return o.RequestStatus
-
+// SetEtag gets a reference to the given string and assigns it to the Etag field.
+func (o *RequestMetadata) SetEtag(v string) {
+	o.Etag = &v
 }
 
-// GetRequestStatusOk returns a tuple with the RequestStatus field value
+// GetRequestStatus returns the RequestStatus field value if set, zero value otherwise.
+func (o *RequestMetadata) GetRequestStatus() RequestStatus {
+	if o == nil || IsNil(o.RequestStatus) {
+		var ret RequestStatus
+		return ret
+	}
+	return *o.RequestStatus
+}
+
+// GetRequestStatusOk returns a tuple with the RequestStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RequestMetadata) GetRequestStatusOk() (*RequestStatus, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.RequestStatus) {
 		return nil, false
 	}
-
 	return o.RequestStatus, true
-}
-
-// SetRequestStatus sets field value
-func (o *RequestMetadata) SetRequestStatus(v RequestStatus) {
-
-	o.RequestStatus = &v
-
 }
 
 // HasRequestStatus returns a boolean if a field has been set.
 func (o *RequestMetadata) HasRequestStatus() bool {
-	if o != nil && o.RequestStatus != nil {
+	if o != nil && !IsNil(o.RequestStatus) {
 		return true
 	}
 
 	return false
 }
 
+// SetRequestStatus gets a reference to the given RequestStatus and assigns it to the RequestStatus field.
+func (o *RequestMetadata) SetRequestStatus(v RequestStatus) {
+	o.RequestStatus = &v
+}
+
 func (o RequestMetadata) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CreatedDate != nil {
+	if !IsNil(o.CreatedDate) {
 		toSerialize["createdDate"] = o.CreatedDate
 	}
-
-	if o.CreatedBy != nil {
+	if !IsNil(o.CreatedBy) {
 		toSerialize["createdBy"] = o.CreatedBy
 	}
-
-	if o.Etag != nil {
+	if !IsNil(o.Etag) {
 		toSerialize["etag"] = o.Etag
 	}
-
-	if o.RequestStatus != nil {
+	if !IsNil(o.RequestStatus) {
 		toSerialize["requestStatus"] = o.RequestStatus
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableRequestMetadata struct {

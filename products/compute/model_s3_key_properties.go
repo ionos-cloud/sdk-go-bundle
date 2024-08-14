@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the S3KeyProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &S3KeyProperties{}
 
 // S3KeyProperties struct for S3KeyProperties
 type S3KeyProperties struct {
@@ -40,93 +43,87 @@ func NewS3KeyPropertiesWithDefaults() *S3KeyProperties {
 	return &this
 }
 
-// GetSecretKey returns the SecretKey field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *S3KeyProperties) GetSecretKey() *string {
-	if o == nil {
-		return nil
+// GetSecretKey returns the SecretKey field value if set, zero value otherwise.
+func (o *S3KeyProperties) GetSecretKey() string {
+	if o == nil || IsNil(o.SecretKey) {
+		var ret string
+		return ret
 	}
-
-	return o.SecretKey
-
+	return *o.SecretKey
 }
 
-// GetSecretKeyOk returns a tuple with the SecretKey field value
+// GetSecretKeyOk returns a tuple with the SecretKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *S3KeyProperties) GetSecretKeyOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.SecretKey) {
 		return nil, false
 	}
-
 	return o.SecretKey, true
-}
-
-// SetSecretKey sets field value
-func (o *S3KeyProperties) SetSecretKey(v string) {
-
-	o.SecretKey = &v
-
 }
 
 // HasSecretKey returns a boolean if a field has been set.
 func (o *S3KeyProperties) HasSecretKey() bool {
-	if o != nil && o.SecretKey != nil {
+	if o != nil && !IsNil(o.SecretKey) {
 		return true
 	}
 
 	return false
 }
 
-// GetActive returns the Active field value
-// If the value is explicit nil, the zero value for bool will be returned
-func (o *S3KeyProperties) GetActive() *bool {
-	if o == nil {
-		return nil
-	}
-
-	return o.Active
-
+// SetSecretKey gets a reference to the given string and assigns it to the SecretKey field.
+func (o *S3KeyProperties) SetSecretKey(v string) {
+	o.SecretKey = &v
 }
 
-// GetActiveOk returns a tuple with the Active field value
+// GetActive returns the Active field value if set, zero value otherwise.
+func (o *S3KeyProperties) GetActive() bool {
+	if o == nil || IsNil(o.Active) {
+		var ret bool
+		return ret
+	}
+	return *o.Active
+}
+
+// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *S3KeyProperties) GetActiveOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Active) {
 		return nil, false
 	}
-
 	return o.Active, true
-}
-
-// SetActive sets field value
-func (o *S3KeyProperties) SetActive(v bool) {
-
-	o.Active = &v
-
 }
 
 // HasActive returns a boolean if a field has been set.
 func (o *S3KeyProperties) HasActive() bool {
-	if o != nil && o.Active != nil {
+	if o != nil && !IsNil(o.Active) {
 		return true
 	}
 
 	return false
 }
 
+// SetActive gets a reference to the given bool and assigns it to the Active field.
+func (o *S3KeyProperties) SetActive(v bool) {
+	o.Active = &v
+}
+
 func (o S3KeyProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o S3KeyProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.SecretKey != nil {
+	if !IsNil(o.SecretKey) {
 		toSerialize["secretKey"] = o.SecretKey
 	}
-
-	if o.Active != nil {
+	if !IsNil(o.Active) {
 		toSerialize["active"] = o.Active
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableS3KeyProperties struct {

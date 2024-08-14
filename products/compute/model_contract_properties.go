@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -14,13 +14,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the ContractProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ContractProperties{}
+
 // ContractProperties struct for ContractProperties
 type ContractProperties struct {
 	// The contract number.
 	ContractNumber *int64 `json:"contractNumber,omitempty"`
-	// The owner of the contract.
+	// The contract owner's user name.
 	Owner *string `json:"owner,omitempty"`
-	// The status of the contract.
+	// The contract status.
 	Status *string `json:"status,omitempty"`
 	// The registration domain of the contract.
 	RegDomain      *string         `json:"regDomain,omitempty"`
@@ -45,219 +48,192 @@ func NewContractPropertiesWithDefaults() *ContractProperties {
 	return &this
 }
 
-// GetContractNumber returns the ContractNumber field value
-// If the value is explicit nil, the zero value for int64 will be returned
-func (o *ContractProperties) GetContractNumber() *int64 {
-	if o == nil {
-		return nil
+// GetContractNumber returns the ContractNumber field value if set, zero value otherwise.
+func (o *ContractProperties) GetContractNumber() int64 {
+	if o == nil || IsNil(o.ContractNumber) {
+		var ret int64
+		return ret
 	}
-
-	return o.ContractNumber
-
+	return *o.ContractNumber
 }
 
-// GetContractNumberOk returns a tuple with the ContractNumber field value
+// GetContractNumberOk returns a tuple with the ContractNumber field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ContractProperties) GetContractNumberOk() (*int64, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ContractNumber) {
 		return nil, false
 	}
-
 	return o.ContractNumber, true
-}
-
-// SetContractNumber sets field value
-func (o *ContractProperties) SetContractNumber(v int64) {
-
-	o.ContractNumber = &v
-
 }
 
 // HasContractNumber returns a boolean if a field has been set.
 func (o *ContractProperties) HasContractNumber() bool {
-	if o != nil && o.ContractNumber != nil {
+	if o != nil && !IsNil(o.ContractNumber) {
 		return true
 	}
 
 	return false
 }
 
-// GetOwner returns the Owner field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ContractProperties) GetOwner() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Owner
-
+// SetContractNumber gets a reference to the given int64 and assigns it to the ContractNumber field.
+func (o *ContractProperties) SetContractNumber(v int64) {
+	o.ContractNumber = &v
 }
 
-// GetOwnerOk returns a tuple with the Owner field value
+// GetOwner returns the Owner field value if set, zero value otherwise.
+func (o *ContractProperties) GetOwner() string {
+	if o == nil || IsNil(o.Owner) {
+		var ret string
+		return ret
+	}
+	return *o.Owner
+}
+
+// GetOwnerOk returns a tuple with the Owner field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ContractProperties) GetOwnerOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Owner) {
 		return nil, false
 	}
-
 	return o.Owner, true
-}
-
-// SetOwner sets field value
-func (o *ContractProperties) SetOwner(v string) {
-
-	o.Owner = &v
-
 }
 
 // HasOwner returns a boolean if a field has been set.
 func (o *ContractProperties) HasOwner() bool {
-	if o != nil && o.Owner != nil {
+	if o != nil && !IsNil(o.Owner) {
 		return true
 	}
 
 	return false
 }
 
-// GetStatus returns the Status field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ContractProperties) GetStatus() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Status
-
+// SetOwner gets a reference to the given string and assigns it to the Owner field.
+func (o *ContractProperties) SetOwner(v string) {
+	o.Owner = &v
 }
 
-// GetStatusOk returns a tuple with the Status field value
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *ContractProperties) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ContractProperties) GetStatusOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
-
 	return o.Status, true
-}
-
-// SetStatus sets field value
-func (o *ContractProperties) SetStatus(v string) {
-
-	o.Status = &v
-
 }
 
 // HasStatus returns a boolean if a field has been set.
 func (o *ContractProperties) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
 	return false
 }
 
-// GetRegDomain returns the RegDomain field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ContractProperties) GetRegDomain() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.RegDomain
-
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *ContractProperties) SetStatus(v string) {
+	o.Status = &v
 }
 
-// GetRegDomainOk returns a tuple with the RegDomain field value
+// GetRegDomain returns the RegDomain field value if set, zero value otherwise.
+func (o *ContractProperties) GetRegDomain() string {
+	if o == nil || IsNil(o.RegDomain) {
+		var ret string
+		return ret
+	}
+	return *o.RegDomain
+}
+
+// GetRegDomainOk returns a tuple with the RegDomain field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ContractProperties) GetRegDomainOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.RegDomain) {
 		return nil, false
 	}
-
 	return o.RegDomain, true
-}
-
-// SetRegDomain sets field value
-func (o *ContractProperties) SetRegDomain(v string) {
-
-	o.RegDomain = &v
-
 }
 
 // HasRegDomain returns a boolean if a field has been set.
 func (o *ContractProperties) HasRegDomain() bool {
-	if o != nil && o.RegDomain != nil {
+	if o != nil && !IsNil(o.RegDomain) {
 		return true
 	}
 
 	return false
 }
 
-// GetResourceLimits returns the ResourceLimits field value
-// If the value is explicit nil, the zero value for ResourceLimits will be returned
-func (o *ContractProperties) GetResourceLimits() *ResourceLimits {
-	if o == nil {
-		return nil
-	}
-
-	return o.ResourceLimits
-
+// SetRegDomain gets a reference to the given string and assigns it to the RegDomain field.
+func (o *ContractProperties) SetRegDomain(v string) {
+	o.RegDomain = &v
 }
 
-// GetResourceLimitsOk returns a tuple with the ResourceLimits field value
+// GetResourceLimits returns the ResourceLimits field value if set, zero value otherwise.
+func (o *ContractProperties) GetResourceLimits() ResourceLimits {
+	if o == nil || IsNil(o.ResourceLimits) {
+		var ret ResourceLimits
+		return ret
+	}
+	return *o.ResourceLimits
+}
+
+// GetResourceLimitsOk returns a tuple with the ResourceLimits field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ContractProperties) GetResourceLimitsOk() (*ResourceLimits, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ResourceLimits) {
 		return nil, false
 	}
-
 	return o.ResourceLimits, true
-}
-
-// SetResourceLimits sets field value
-func (o *ContractProperties) SetResourceLimits(v ResourceLimits) {
-
-	o.ResourceLimits = &v
-
 }
 
 // HasResourceLimits returns a boolean if a field has been set.
 func (o *ContractProperties) HasResourceLimits() bool {
-	if o != nil && o.ResourceLimits != nil {
+	if o != nil && !IsNil(o.ResourceLimits) {
 		return true
 	}
 
 	return false
 }
 
+// SetResourceLimits gets a reference to the given ResourceLimits and assigns it to the ResourceLimits field.
+func (o *ContractProperties) SetResourceLimits(v ResourceLimits) {
+	o.ResourceLimits = &v
+}
+
 func (o ContractProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ContractProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ContractNumber != nil {
+	if !IsNil(o.ContractNumber) {
 		toSerialize["contractNumber"] = o.ContractNumber
 	}
-
-	if o.Owner != nil {
+	if !IsNil(o.Owner) {
 		toSerialize["owner"] = o.Owner
 	}
-
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-
-	if o.RegDomain != nil {
+	if !IsNil(o.RegDomain) {
 		toSerialize["regDomain"] = o.RegDomain
 	}
-
-	if o.ResourceLimits != nil {
+	if !IsNil(o.ResourceLimits) {
 		toSerialize["resourceLimits"] = o.ResourceLimits
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableContractProperties struct {

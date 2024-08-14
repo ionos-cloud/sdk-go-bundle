@@ -13,19 +13,20 @@
 |**ImageAlias** | Pointer to **string** |  | [optional] |
 |**SshKeys** | Pointer to **[]string** | Public SSH keys are set on the image as authorized keys for appropriate SSH login to the instance using the corresponding private key. This field may only be set in creation requests. When reading, it always returns null. SSH keys are only supported if a public Linux image is used for the volume creation. | [optional] |
 |**Bus** | Pointer to **string** | The bus type for this volume; default is VIRTIO. | [optional] |
-|**LicenceType** | Pointer to **string** | OS type for this volume. | [optional] [readonly] |
+|**LicenceType** | Pointer to **string** | OS type for this volume. | [optional] |
 |**CpuHotPlug** | Pointer to **bool** | Hot-plug capable CPU (no reboot required). | [optional] |
 |**RamHotPlug** | Pointer to **bool** | Hot-plug capable RAM (no reboot required). | [optional] |
 |**NicHotPlug** | Pointer to **bool** | Hot-plug capable NIC (no reboot required). | [optional] |
 |**NicHotUnplug** | Pointer to **bool** | Hot-unplug capable NIC (no reboot required). | [optional] |
 |**DiscVirtioHotPlug** | Pointer to **bool** | Hot-plug capable Virt-IO drive (no reboot required). | [optional] |
 |**DiscVirtioHotUnplug** | Pointer to **bool** | Hot-unplug capable Virt-IO drive (no reboot required). Not supported with Windows VMs. | [optional] |
+|**ExposeSerial** | Pointer to **bool** | If set to &#x60;true&#x60; will expose the serial id of the disk attached to the server. If set to &#x60;false&#x60; will not expose the serial id. Some operating systems or software solutions require the serial id to be exposed to work properly. Exposing the serial  can influence licensed software (e.g. Windows) behavior | [optional] [default to false]|
 |**DeviceNumber** | Pointer to **int64** | The Logical Unit Number of the storage volume. Null for volumes, not mounted to a VM. | [optional] [readonly] |
 |**PciSlot** | Pointer to **int32** | The PCI slot number of the storage volume. Null for volumes, not mounted to a VM. | [optional] [readonly] |
 |**BackupunitId** | Pointer to **string** | The ID of the backup unit that the user has access to. The property is immutable and is only allowed to be set on creation of a new a volume. It is mandatory to provide either &#39;public image&#39; or &#39;imageAlias&#39; in conjunction with this property. | [optional] |
 |**UserData** | Pointer to **string** | The cloud-init configuration for the volume as base64 encoded string. The property is immutable and is only allowed to be set on creation of a new a volume. It is mandatory to provide either &#39;public image&#39; or &#39;imageAlias&#39; that has cloud-init compatibility in conjunction with this property. | [optional] |
 |**BootServer** | Pointer to **string** | The UUID of the attached server. | [optional] [readonly] |
-|**BootOrder** | Pointer to **string** | Determines whether the volume will be used as a boot volume. Set to &#x60;NONE&#x60;, the volume will not be used as boot volume. Set to &#x60;PRIMARY&#x60;, the volume will be used as boot volume and all other volumes must be set to &#x60;NONE&#x60;. Set to &#x60;AUTO&#x60; or &#x60;null&#x60; requires all volumes to be set to &#x60;AUTO&#x60; or &#x60;null&#x60;; this will use the legacy behavior, which is to use the volume as a boot volume only if there are no other volumes or cdrom devices. | [optional] [default to "AUTO"]|
+|**BootOrder** | Pointer to **NullableString** | Determines whether the volume will be used as a boot volume. Set to &#x60;NONE&#x60;, the volume will not be used as boot volume. Set to &#x60;PRIMARY&#x60;, the volume will be used as boot volume and all other volumes must be set to &#x60;NONE&#x60;. Set to &#x60;AUTO&#x60; or &#x60;null&#x60; requires all volumes to be set to &#x60;AUTO&#x60; or &#x60;null&#x60;; this will use the legacy behavior, which is to use the volume as a boot volume only if there are no other volumes or cdrom devices. | [optional] [default to "AUTO"]|
 
 ## Methods
 
@@ -441,6 +442,31 @@ SetDiscVirtioHotUnplug sets DiscVirtioHotUnplug field to given value.
 
 HasDiscVirtioHotUnplug returns a boolean if a field has been set.
 
+### GetExposeSerial
+
+`func (o *VolumeProperties) GetExposeSerial() bool`
+
+GetExposeSerial returns the ExposeSerial field if non-nil, zero value otherwise.
+
+### GetExposeSerialOk
+
+`func (o *VolumeProperties) GetExposeSerialOk() (*bool, bool)`
+
+GetExposeSerialOk returns a tuple with the ExposeSerial field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExposeSerial
+
+`func (o *VolumeProperties) SetExposeSerial(v bool)`
+
+SetExposeSerial sets ExposeSerial field to given value.
+
+### HasExposeSerial
+
+`func (o *VolumeProperties) HasExposeSerial() bool`
+
+HasExposeSerial returns a boolean if a field has been set.
+
 ### GetDeviceNumber
 
 `func (o *VolumeProperties) GetDeviceNumber() int64`
@@ -591,4 +617,14 @@ SetBootOrder sets BootOrder field to given value.
 
 HasBootOrder returns a boolean if a field has been set.
 
+### SetBootOrderNil
+
+`func (o *VolumeProperties) SetBootOrderNil(b bool)`
+
+ SetBootOrderNil sets the value for BootOrder to be an explicit nil
+
+### UnsetBootOrder
+`func (o *VolumeProperties) UnsetBootOrder()`
+
+UnsetBootOrder ensures that no value is present for BootOrder, not even an explicit nil
 

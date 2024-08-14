@@ -1,7 +1,7 @@
 /*
  * CLOUD API
  *
- * IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
+ *  IONOS Enterprise-grade Infrastructure as a Service (IaaS) solutions can be managed through the Cloud API, in addition or as an alternative to the \"Data Center Designer\" (DCD) browser-based tool.    Both methods employ consistent concepts and features, deliver similar power and flexibility, and can be used to perform a multitude of management tasks, including adding servers, volumes, configuring networks, and so on.
  *
  * API version: 6.0
  */
@@ -13,6 +13,9 @@ package compute
 import (
 	"encoding/json"
 )
+
+// checks if the NatGatewayEntities type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NatGatewayEntities{}
 
 // NatGatewayEntities struct for NatGatewayEntities
 type NatGatewayEntities struct {
@@ -38,93 +41,87 @@ func NewNatGatewayEntitiesWithDefaults() *NatGatewayEntities {
 	return &this
 }
 
-// GetRules returns the Rules field value
-// If the value is explicit nil, the zero value for NatGatewayRules will be returned
-func (o *NatGatewayEntities) GetRules() *NatGatewayRules {
-	if o == nil {
-		return nil
+// GetRules returns the Rules field value if set, zero value otherwise.
+func (o *NatGatewayEntities) GetRules() NatGatewayRules {
+	if o == nil || IsNil(o.Rules) {
+		var ret NatGatewayRules
+		return ret
 	}
-
-	return o.Rules
-
+	return *o.Rules
 }
 
-// GetRulesOk returns a tuple with the Rules field value
+// GetRulesOk returns a tuple with the Rules field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NatGatewayEntities) GetRulesOk() (*NatGatewayRules, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Rules) {
 		return nil, false
 	}
-
 	return o.Rules, true
-}
-
-// SetRules sets field value
-func (o *NatGatewayEntities) SetRules(v NatGatewayRules) {
-
-	o.Rules = &v
-
 }
 
 // HasRules returns a boolean if a field has been set.
 func (o *NatGatewayEntities) HasRules() bool {
-	if o != nil && o.Rules != nil {
+	if o != nil && !IsNil(o.Rules) {
 		return true
 	}
 
 	return false
 }
 
-// GetFlowlogs returns the Flowlogs field value
-// If the value is explicit nil, the zero value for FlowLogs will be returned
-func (o *NatGatewayEntities) GetFlowlogs() *FlowLogs {
-	if o == nil {
-		return nil
-	}
-
-	return o.Flowlogs
-
+// SetRules gets a reference to the given NatGatewayRules and assigns it to the Rules field.
+func (o *NatGatewayEntities) SetRules(v NatGatewayRules) {
+	o.Rules = &v
 }
 
-// GetFlowlogsOk returns a tuple with the Flowlogs field value
+// GetFlowlogs returns the Flowlogs field value if set, zero value otherwise.
+func (o *NatGatewayEntities) GetFlowlogs() FlowLogs {
+	if o == nil || IsNil(o.Flowlogs) {
+		var ret FlowLogs
+		return ret
+	}
+	return *o.Flowlogs
+}
+
+// GetFlowlogsOk returns a tuple with the Flowlogs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NatGatewayEntities) GetFlowlogsOk() (*FlowLogs, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Flowlogs) {
 		return nil, false
 	}
-
 	return o.Flowlogs, true
-}
-
-// SetFlowlogs sets field value
-func (o *NatGatewayEntities) SetFlowlogs(v FlowLogs) {
-
-	o.Flowlogs = &v
-
 }
 
 // HasFlowlogs returns a boolean if a field has been set.
 func (o *NatGatewayEntities) HasFlowlogs() bool {
-	if o != nil && o.Flowlogs != nil {
+	if o != nil && !IsNil(o.Flowlogs) {
 		return true
 	}
 
 	return false
 }
 
+// SetFlowlogs gets a reference to the given FlowLogs and assigns it to the Flowlogs field.
+func (o *NatGatewayEntities) SetFlowlogs(v FlowLogs) {
+	o.Flowlogs = &v
+}
+
 func (o NatGatewayEntities) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o NatGatewayEntities) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Rules != nil {
+	if !IsNil(o.Rules) {
 		toSerialize["rules"] = o.Rules
 	}
-
-	if o.Flowlogs != nil {
+	if !IsNil(o.Flowlogs) {
 		toSerialize["flowlogs"] = o.Flowlogs
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableNatGatewayEntities struct {
