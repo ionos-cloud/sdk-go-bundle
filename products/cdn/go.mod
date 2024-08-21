@@ -7,4 +7,3 @@ require (
 	github.com/ionos-cloud/sdk-go-bundle/shared v0.1.1
 )
 
-replace github.com/ionos-cloud/sdk-go-bundle/shared => ../../shared
