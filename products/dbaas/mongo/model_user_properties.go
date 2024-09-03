@@ -125,22 +125,10 @@ func (o *UserProperties) SetRoles(v []UserRoles) {
 	o.Roles = v
 }
 
-func (o UserProperties) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o UserProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.Username) {
-		toSerialize["username"] = o.Username
-	}
-	if !IsZero(o.Password) {
-		toSerialize["password"] = o.Password
-	}
+	toSerialize["username"] = o.Username
+	toSerialize["password"] = o.Password
 	if !IsNil(o.Roles) {
 		toSerialize["roles"] = o.Roles
 	}

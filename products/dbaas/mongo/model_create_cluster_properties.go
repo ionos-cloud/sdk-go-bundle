@@ -584,14 +584,6 @@ func (o *CreateClusterProperties) SetStorageType(v StorageType) {
 	o.StorageType = &v
 }
 
-func (o CreateClusterProperties) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o CreateClusterProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Type) {
@@ -603,24 +595,16 @@ func (o CreateClusterProperties) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.MongoDBVersion) {
 		toSerialize["mongoDBVersion"] = o.MongoDBVersion
 	}
-	if !IsZero(o.Instances) {
-		toSerialize["instances"] = o.Instances
-	}
+	toSerialize["instances"] = o.Instances
 	if !IsNil(o.Shards) {
 		toSerialize["shards"] = o.Shards
 	}
-	if !IsZero(o.Connections) {
-		toSerialize["connections"] = o.Connections
-	}
-	if !IsZero(o.Location) {
-		toSerialize["location"] = o.Location
-	}
+	toSerialize["connections"] = o.Connections
+	toSerialize["location"] = o.Location
 	if !IsNil(o.Backup) {
 		toSerialize["backup"] = o.Backup
 	}
-	if !IsZero(o.DisplayName) {
-		toSerialize["displayName"] = o.DisplayName
-	}
+	toSerialize["displayName"] = o.DisplayName
 	if !IsNil(o.MaintenanceWindow) {
 		toSerialize["maintenanceWindow"] = o.MaintenanceWindow
 	}

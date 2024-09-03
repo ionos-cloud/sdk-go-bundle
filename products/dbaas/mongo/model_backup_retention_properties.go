@@ -192,14 +192,6 @@ func (o *BackupRetentionProperties) SetMonthlySnapshotRetentionMonths(v int32) {
 	o.MonthlySnapshotRetentionMonths = &v
 }
 
-func (o BackupRetentionProperties) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o BackupRetentionProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.SnapshotRetentionDays) {

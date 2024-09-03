@@ -155,25 +155,11 @@ func (o *Connection) SetWhitelist(v []string) {
 	o.Whitelist = v
 }
 
-func (o Connection) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o Connection) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.DatacenterId) {
-		toSerialize["datacenterId"] = o.DatacenterId
-	}
-	if !IsZero(o.LanId) {
-		toSerialize["lanId"] = o.LanId
-	}
-	if !IsZero(o.CidrList) {
-		toSerialize["cidrList"] = o.CidrList
-	}
+	toSerialize["datacenterId"] = o.DatacenterId
+	toSerialize["lanId"] = o.LanId
+	toSerialize["cidrList"] = o.CidrList
 	if !IsNil(o.Whitelist) {
 		toSerialize["whitelist"] = o.Whitelist
 	}
