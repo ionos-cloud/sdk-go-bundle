@@ -466,55 +466,25 @@ func (o *CreateClusterProperties) SetConnectionPooler(v ConnectionPooler) {
 	o.ConnectionPooler = &v
 }
 
-func (o CreateClusterProperties) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o CreateClusterProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.PostgresVersion) {
-		toSerialize["postgresVersion"] = o.PostgresVersion
-	}
-	if !IsZero(o.Instances) {
-		toSerialize["instances"] = o.Instances
-	}
-	if !IsZero(o.Cores) {
-		toSerialize["cores"] = o.Cores
-	}
-	if !IsZero(o.Ram) {
-		toSerialize["ram"] = o.Ram
-	}
-	if !IsZero(o.StorageSize) {
-		toSerialize["storageSize"] = o.StorageSize
-	}
-	if !IsZero(o.StorageType) {
-		toSerialize["storageType"] = o.StorageType
-	}
-	if !IsZero(o.Connections) {
-		toSerialize["connections"] = o.Connections
-	}
-	if !IsZero(o.Location) {
-		toSerialize["location"] = o.Location
-	}
+	toSerialize["postgresVersion"] = o.PostgresVersion
+	toSerialize["instances"] = o.Instances
+	toSerialize["cores"] = o.Cores
+	toSerialize["ram"] = o.Ram
+	toSerialize["storageSize"] = o.StorageSize
+	toSerialize["storageType"] = o.StorageType
+	toSerialize["connections"] = o.Connections
+	toSerialize["location"] = o.Location
 	if !IsNil(o.BackupLocation) {
 		toSerialize["backupLocation"] = o.BackupLocation
 	}
-	if !IsZero(o.DisplayName) {
-		toSerialize["displayName"] = o.DisplayName
-	}
+	toSerialize["displayName"] = o.DisplayName
 	if !IsNil(o.MaintenanceWindow) {
 		toSerialize["maintenanceWindow"] = o.MaintenanceWindow
 	}
-	if !IsZero(o.Credentials) {
-		toSerialize["credentials"] = o.Credentials
-	}
-	if !IsZero(o.SynchronizationMode) {
-		toSerialize["synchronizationMode"] = o.SynchronizationMode
-	}
+	toSerialize["credentials"] = o.Credentials
+	toSerialize["synchronizationMode"] = o.SynchronizationMode
 	if !IsNil(o.FromBackup) {
 		toSerialize["fromBackup"] = o.FromBackup
 	}

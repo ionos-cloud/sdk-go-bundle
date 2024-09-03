@@ -274,14 +274,6 @@ func (o *ClusterMetadata) SetState(v State) {
 	o.State = &v
 }
 
-func (o ClusterMetadata) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o ClusterMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.CreatedDate) {

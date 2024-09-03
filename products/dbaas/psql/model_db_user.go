@@ -93,22 +93,10 @@ func (o *DBUser) SetPassword(v string) {
 	o.Password = v
 }
 
-func (o DBUser) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o DBUser) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.Username) {
-		toSerialize["username"] = o.Username
-	}
-	if !IsZero(o.Password) {
-		toSerialize["password"] = o.Password
-	}
+	toSerialize["username"] = o.Username
+	toSerialize["password"] = o.Password
 	return toSerialize, nil
 }
 

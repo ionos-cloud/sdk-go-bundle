@@ -255,14 +255,6 @@ func (o *UserList) SetItems(v []UserResource) {
 	o.Items = v
 }
 
-func (o UserList) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o UserList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Offset) {
@@ -274,18 +266,10 @@ func (o UserList) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
-	if !IsZero(o.Type) {
-		toSerialize["type"] = o.Type
-	}
-	if !IsZero(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if !IsZero(o.Href) {
-		toSerialize["href"] = o.Href
-	}
-	if !IsZero(o.Items) {
-		toSerialize["items"] = o.Items
-	}
+	toSerialize["type"] = o.Type
+	toSerialize["id"] = o.Id
+	toSerialize["href"] = o.Href
+	toSerialize["items"] = o.Items
 	return toSerialize, nil
 }
 
