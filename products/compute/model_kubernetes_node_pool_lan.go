@@ -169,22 +169,12 @@ func (o *KubernetesNodePoolLan) SetRoutes(v []KubernetesNodePoolLanRoutes) {
 	o.Routes = v
 }
 
-func (o KubernetesNodePoolLan) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o KubernetesNodePoolLan) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.DatacenterId) {
 		toSerialize["datacenterId"] = o.DatacenterId
 	}
-	if !IsZero(o.Id) {
-		toSerialize["id"] = o.Id
-	}
+	toSerialize["id"] = o.Id
 	if !IsNil(o.Dhcp) {
 		toSerialize["dhcp"] = o.Dhcp
 	}

@@ -617,14 +617,6 @@ func (o *GroupProperties) SetManageDataplatform(v bool) {
 	o.ManageDataplatform = &v
 }
 
-func (o GroupProperties) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o GroupProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Name) {

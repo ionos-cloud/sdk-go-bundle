@@ -168,14 +168,6 @@ func (o *TargetGroupPut) SetProperties(v TargetGroupProperties) {
 	o.Properties = v
 }
 
-func (o TargetGroupPut) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o TargetGroupPut) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Id) {
@@ -187,9 +179,7 @@ func (o TargetGroupPut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Href) {
 		toSerialize["href"] = o.Href
 	}
-	if !IsZero(o.Properties) {
-		toSerialize["properties"] = o.Properties
-	}
+	toSerialize["properties"] = o.Properties
 	return toSerialize, nil
 }
 

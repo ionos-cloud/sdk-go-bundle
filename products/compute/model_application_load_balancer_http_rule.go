@@ -332,22 +332,10 @@ func (o *ApplicationLoadBalancerHttpRule) SetConditions(v []ApplicationLoadBalan
 	o.Conditions = v
 }
 
-func (o ApplicationLoadBalancerHttpRule) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o ApplicationLoadBalancerHttpRule) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.Name) {
-		toSerialize["name"] = o.Name
-	}
-	if !IsZero(o.Type) {
-		toSerialize["type"] = o.Type
-	}
+	toSerialize["name"] = o.Name
+	toSerialize["type"] = o.Type
 	if !IsNil(o.TargetGroup) {
 		toSerialize["targetGroup"] = o.TargetGroup
 	}

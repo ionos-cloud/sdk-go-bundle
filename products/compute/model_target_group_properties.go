@@ -255,25 +255,11 @@ func (o *TargetGroupProperties) SetHttpHealthCheck(v TargetGroupHttpHealthCheck)
 	o.HttpHealthCheck = &v
 }
 
-func (o TargetGroupProperties) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o TargetGroupProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.Name) {
-		toSerialize["name"] = o.Name
-	}
-	if !IsZero(o.Algorithm) {
-		toSerialize["algorithm"] = o.Algorithm
-	}
-	if !IsZero(o.Protocol) {
-		toSerialize["protocol"] = o.Protocol
-	}
+	toSerialize["name"] = o.Name
+	toSerialize["algorithm"] = o.Algorithm
+	toSerialize["protocol"] = o.Protocol
 	if !IsNil(o.ProtocolVersion) {
 		toSerialize["protocolVersion"] = o.ProtocolVersion
 	}

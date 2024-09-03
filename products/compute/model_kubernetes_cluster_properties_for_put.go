@@ -202,19 +202,9 @@ func (o *KubernetesClusterPropertiesForPut) SetS3Buckets(v []S3Bucket) {
 	o.S3Buckets = v
 }
 
-func (o KubernetesClusterPropertiesForPut) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o KubernetesClusterPropertiesForPut) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.Name) {
-		toSerialize["name"] = o.Name
-	}
+	toSerialize["name"] = o.Name
 	if !IsNil(o.K8sVersion) {
 		toSerialize["k8sVersion"] = o.K8sVersion
 	}

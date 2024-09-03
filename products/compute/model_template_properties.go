@@ -148,28 +148,12 @@ func (o *TemplateProperties) SetStorageSize(v float32) {
 	o.StorageSize = v
 }
 
-func (o TemplateProperties) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o TemplateProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.Name) {
-		toSerialize["name"] = o.Name
-	}
-	if !IsZero(o.Cores) {
-		toSerialize["cores"] = o.Cores
-	}
-	if !IsZero(o.Ram) {
-		toSerialize["ram"] = o.Ram
-	}
-	if !IsZero(o.StorageSize) {
-		toSerialize["storageSize"] = o.StorageSize
-	}
+	toSerialize["name"] = o.Name
+	toSerialize["cores"] = o.Cores
+	toSerialize["ram"] = o.Ram
+	toSerialize["storageSize"] = o.StorageSize
 	return toSerialize, nil
 }
 

@@ -622,14 +622,6 @@ func (o *SnapshotProperties) SetLicenceType(v string) {
 	o.LicenceType = &v
 }
 
-func (o SnapshotProperties) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o SnapshotProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Name) {

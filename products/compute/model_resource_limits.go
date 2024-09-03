@@ -634,82 +634,30 @@ func (o *ResourceLimits) SetNatGatewayProvisioned(v int32) {
 	o.NatGatewayProvisioned = v
 }
 
-func (o ResourceLimits) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o ResourceLimits) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.CoresPerServer) {
-		toSerialize["coresPerServer"] = o.CoresPerServer
-	}
-	if !IsZero(o.CoresPerContract) {
-		toSerialize["coresPerContract"] = o.CoresPerContract
-	}
-	if !IsZero(o.CoresProvisioned) {
-		toSerialize["coresProvisioned"] = o.CoresProvisioned
-	}
-	if !IsZero(o.RamPerServer) {
-		toSerialize["ramPerServer"] = o.RamPerServer
-	}
-	if !IsZero(o.RamPerContract) {
-		toSerialize["ramPerContract"] = o.RamPerContract
-	}
-	if !IsZero(o.RamProvisioned) {
-		toSerialize["ramProvisioned"] = o.RamProvisioned
-	}
-	if !IsZero(o.HddLimitPerVolume) {
-		toSerialize["hddLimitPerVolume"] = o.HddLimitPerVolume
-	}
-	if !IsZero(o.HddLimitPerContract) {
-		toSerialize["hddLimitPerContract"] = o.HddLimitPerContract
-	}
-	if !IsZero(o.HddVolumeProvisioned) {
-		toSerialize["hddVolumeProvisioned"] = o.HddVolumeProvisioned
-	}
-	if !IsZero(o.SsdLimitPerVolume) {
-		toSerialize["ssdLimitPerVolume"] = o.SsdLimitPerVolume
-	}
-	if !IsZero(o.SsdLimitPerContract) {
-		toSerialize["ssdLimitPerContract"] = o.SsdLimitPerContract
-	}
-	if !IsZero(o.SsdVolumeProvisioned) {
-		toSerialize["ssdVolumeProvisioned"] = o.SsdVolumeProvisioned
-	}
-	if !IsZero(o.DasVolumeProvisioned) {
-		toSerialize["dasVolumeProvisioned"] = o.DasVolumeProvisioned
-	}
-	if !IsZero(o.ReservableIps) {
-		toSerialize["reservableIps"] = o.ReservableIps
-	}
-	if !IsZero(o.ReservedIpsOnContract) {
-		toSerialize["reservedIpsOnContract"] = o.ReservedIpsOnContract
-	}
-	if !IsZero(o.ReservedIpsInUse) {
-		toSerialize["reservedIpsInUse"] = o.ReservedIpsInUse
-	}
-	if !IsZero(o.K8sClusterLimitTotal) {
-		toSerialize["k8sClusterLimitTotal"] = o.K8sClusterLimitTotal
-	}
-	if !IsZero(o.K8sClustersProvisioned) {
-		toSerialize["k8sClustersProvisioned"] = o.K8sClustersProvisioned
-	}
-	if !IsZero(o.NlbLimitTotal) {
-		toSerialize["nlbLimitTotal"] = o.NlbLimitTotal
-	}
-	if !IsZero(o.NlbProvisioned) {
-		toSerialize["nlbProvisioned"] = o.NlbProvisioned
-	}
-	if !IsZero(o.NatGatewayLimitTotal) {
-		toSerialize["natGatewayLimitTotal"] = o.NatGatewayLimitTotal
-	}
-	if !IsZero(o.NatGatewayProvisioned) {
-		toSerialize["natGatewayProvisioned"] = o.NatGatewayProvisioned
-	}
+	toSerialize["coresPerServer"] = o.CoresPerServer
+	toSerialize["coresPerContract"] = o.CoresPerContract
+	toSerialize["coresProvisioned"] = o.CoresProvisioned
+	toSerialize["ramPerServer"] = o.RamPerServer
+	toSerialize["ramPerContract"] = o.RamPerContract
+	toSerialize["ramProvisioned"] = o.RamProvisioned
+	toSerialize["hddLimitPerVolume"] = o.HddLimitPerVolume
+	toSerialize["hddLimitPerContract"] = o.HddLimitPerContract
+	toSerialize["hddVolumeProvisioned"] = o.HddVolumeProvisioned
+	toSerialize["ssdLimitPerVolume"] = o.SsdLimitPerVolume
+	toSerialize["ssdLimitPerContract"] = o.SsdLimitPerContract
+	toSerialize["ssdVolumeProvisioned"] = o.SsdVolumeProvisioned
+	toSerialize["dasVolumeProvisioned"] = o.DasVolumeProvisioned
+	toSerialize["reservableIps"] = o.ReservableIps
+	toSerialize["reservedIpsOnContract"] = o.ReservedIpsOnContract
+	toSerialize["reservedIpsInUse"] = o.ReservedIpsInUse
+	toSerialize["k8sClusterLimitTotal"] = o.K8sClusterLimitTotal
+	toSerialize["k8sClustersProvisioned"] = o.K8sClustersProvisioned
+	toSerialize["nlbLimitTotal"] = o.NlbLimitTotal
+	toSerialize["nlbProvisioned"] = o.NlbProvisioned
+	toSerialize["natGatewayLimitTotal"] = o.NatGatewayLimitTotal
+	toSerialize["natGatewayProvisioned"] = o.NatGatewayProvisioned
 	return toSerialize, nil
 }
 

@@ -168,14 +168,6 @@ func (o *NetworkLoadBalancerForwardingRulePut) SetProperties(v NetworkLoadBalanc
 	o.Properties = v
 }
 
-func (o NetworkLoadBalancerForwardingRulePut) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o NetworkLoadBalancerForwardingRulePut) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Id) {
@@ -187,9 +179,7 @@ func (o NetworkLoadBalancerForwardingRulePut) ToMap() (map[string]interface{}, e
 	if !IsNil(o.Href) {
 		toSerialize["href"] = o.Href
 	}
-	if !IsZero(o.Properties) {
-		toSerialize["properties"] = o.Properties
-	}
+	toSerialize["properties"] = o.Properties
 	return toSerialize, nil
 }
 

@@ -105,14 +105,6 @@ func (o *UsersEntities) SetGroups(v GroupUsers) {
 	o.Groups = &v
 }
 
-func (o UsersEntities) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o UsersEntities) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Owns) {

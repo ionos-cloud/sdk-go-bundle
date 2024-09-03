@@ -175,14 +175,6 @@ func (o *Groups) SetItems(v []Group) {
 	o.Items = v
 }
 
-func (o Groups) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o Groups) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Id) {

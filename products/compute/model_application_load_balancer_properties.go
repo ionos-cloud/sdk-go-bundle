@@ -257,28 +257,14 @@ func (o *ApplicationLoadBalancerProperties) SetLoggingFormat(v string) {
 	o.LoggingFormat = &v
 }
 
-func (o ApplicationLoadBalancerProperties) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o ApplicationLoadBalancerProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.Name) {
-		toSerialize["name"] = o.Name
-	}
-	if !IsZero(o.ListenerLan) {
-		toSerialize["listenerLan"] = o.ListenerLan
-	}
+	toSerialize["name"] = o.Name
+	toSerialize["listenerLan"] = o.ListenerLan
 	if !IsNil(o.Ips) {
 		toSerialize["ips"] = o.Ips
 	}
-	if !IsZero(o.TargetLan) {
-		toSerialize["targetLan"] = o.TargetLan
-	}
+	toSerialize["targetLan"] = o.TargetLan
 	if !IsNil(o.LbPrivateIps) {
 		toSerialize["lbPrivateIps"] = o.LbPrivateIps
 	}

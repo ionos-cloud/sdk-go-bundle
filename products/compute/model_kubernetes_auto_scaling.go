@@ -94,22 +94,10 @@ func (o *KubernetesAutoScaling) SetMaxNodeCount(v int32) {
 	o.MaxNodeCount = v
 }
 
-func (o KubernetesAutoScaling) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o KubernetesAutoScaling) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.MinNodeCount) {
-		toSerialize["minNodeCount"] = o.MinNodeCount
-	}
-	if !IsZero(o.MaxNodeCount) {
-		toSerialize["maxNodeCount"] = o.MaxNodeCount
-	}
+	toSerialize["minNodeCount"] = o.MinNodeCount
+	toSerialize["maxNodeCount"] = o.MaxNodeCount
 	return toSerialize, nil
 }
 

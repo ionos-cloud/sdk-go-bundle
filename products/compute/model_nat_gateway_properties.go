@@ -128,22 +128,10 @@ func (o *NatGatewayProperties) SetLans(v []NatGatewayLanProperties) {
 	o.Lans = v
 }
 
-func (o NatGatewayProperties) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o NatGatewayProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.Name) {
-		toSerialize["name"] = o.Name
-	}
-	if !IsZero(o.PublicIps) {
-		toSerialize["publicIps"] = o.PublicIps
-	}
+	toSerialize["name"] = o.Name
+	toSerialize["publicIps"] = o.PublicIps
 	if !IsNil(o.Lans) {
 		toSerialize["lans"] = o.Lans
 	}

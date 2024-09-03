@@ -473,22 +473,12 @@ func (o *FirewallruleProperties) SetType(v string) {
 	o.Type = &v
 }
 
-func (o FirewallruleProperties) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o FirewallruleProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if !IsZero(o.Protocol) {
-		toSerialize["protocol"] = o.Protocol
-	}
+	toSerialize["protocol"] = o.Protocol
 	if o.SourceMac.IsSet() {
 		toSerialize["sourceMac"] = o.SourceMac.Get()
 	}

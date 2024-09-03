@@ -230,14 +230,6 @@ func (o *TargetGroupHttpHealthCheck) SetNegate(v bool) {
 	o.Negate = &v
 }
 
-func (o TargetGroupHttpHealthCheck) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o TargetGroupHttpHealthCheck) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Path) {
@@ -246,12 +238,8 @@ func (o TargetGroupHttpHealthCheck) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Method) {
 		toSerialize["method"] = o.Method
 	}
-	if !IsZero(o.MatchType) {
-		toSerialize["matchType"] = o.MatchType
-	}
-	if !IsZero(o.Response) {
-		toSerialize["response"] = o.Response
-	}
+	toSerialize["matchType"] = o.MatchType
+	toSerialize["response"] = o.Response
 	if !IsNil(o.Regex) {
 		toSerialize["regex"] = o.Regex
 	}

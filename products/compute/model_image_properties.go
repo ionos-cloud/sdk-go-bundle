@@ -717,14 +717,6 @@ func (o *ImageProperties) SetCloudInit(v string) {
 	o.CloudInit = &v
 }
 
-func (o ImageProperties) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o ImageProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Name) {
@@ -772,9 +764,7 @@ func (o ImageProperties) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ExposeSerial) {
 		toSerialize["exposeSerial"] = o.ExposeSerial
 	}
-	if !IsZero(o.LicenceType) {
-		toSerialize["licenceType"] = o.LicenceType
-	}
+	toSerialize["licenceType"] = o.LicenceType
 	if !IsNil(o.ImageType) {
 		toSerialize["imageType"] = o.ImageType
 	}

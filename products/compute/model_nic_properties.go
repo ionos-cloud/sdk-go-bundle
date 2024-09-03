@@ -503,14 +503,6 @@ func (o *NicProperties) SetVnet(v string) {
 	o.Vnet = &v
 }
 
-func (o NicProperties) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o NicProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Name) {
@@ -534,9 +526,7 @@ func (o NicProperties) ToMap() (map[string]interface{}, error) {
 	if o.Dhcpv6.IsSet() {
 		toSerialize["dhcpv6"] = o.Dhcpv6.Get()
 	}
-	if !IsZero(o.Lan) {
-		toSerialize["lan"] = o.Lan
-	}
+	toSerialize["lan"] = o.Lan
 	if !IsNil(o.FirewallActive) {
 		toSerialize["firewallActive"] = o.FirewallActive
 	}

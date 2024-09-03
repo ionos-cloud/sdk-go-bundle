@@ -196,25 +196,13 @@ func (o *IpBlockProperties) SetIpConsumers(v []IpConsumer) {
 	o.IpConsumers = v
 }
 
-func (o IpBlockProperties) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o IpBlockProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Ips) {
 		toSerialize["ips"] = o.Ips
 	}
-	if !IsZero(o.Location) {
-		toSerialize["location"] = o.Location
-	}
-	if !IsZero(o.Size) {
-		toSerialize["size"] = o.Size
-	}
+	toSerialize["location"] = o.Location
+	toSerialize["size"] = o.Size
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}

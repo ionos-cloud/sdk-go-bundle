@@ -201,14 +201,6 @@ func (o *LabelResource) SetProperties(v LabelResourceProperties) {
 	o.Properties = v
 }
 
-func (o LabelResource) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o LabelResource) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Id) {
@@ -223,9 +215,7 @@ func (o LabelResource) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
-	if !IsZero(o.Properties) {
-		toSerialize["properties"] = o.Properties
-	}
+	toSerialize["properties"] = o.Properties
 	return toSerialize, nil
 }
 

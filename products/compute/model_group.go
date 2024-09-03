@@ -201,14 +201,6 @@ func (o *Group) SetEntities(v GroupEntities) {
 	o.Entities = &v
 }
 
-func (o Group) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o Group) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Id) {
@@ -220,9 +212,7 @@ func (o Group) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Href) {
 		toSerialize["href"] = o.Href
 	}
-	if !IsZero(o.Properties) {
-		toSerialize["properties"] = o.Properties
-	}
+	toSerialize["properties"] = o.Properties
 	if !IsNil(o.Entities) {
 		toSerialize["entities"] = o.Entities
 	}

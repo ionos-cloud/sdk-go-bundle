@@ -445,14 +445,6 @@ func (o *ServerProperties) SetPlacementGroupId(v string) {
 	o.PlacementGroupId = &v
 }
 
-func (o ServerProperties) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o ServerProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.TemplateUuid) {

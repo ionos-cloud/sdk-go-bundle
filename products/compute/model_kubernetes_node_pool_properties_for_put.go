@@ -337,22 +337,12 @@ func (o *KubernetesNodePoolPropertiesForPut) SetPublicIps(v []string) {
 	o.PublicIps = v
 }
 
-func (o KubernetesNodePoolPropertiesForPut) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o KubernetesNodePoolPropertiesForPut) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if !IsZero(o.NodeCount) {
-		toSerialize["nodeCount"] = o.NodeCount
-	}
+	toSerialize["nodeCount"] = o.NodeCount
 	if !IsNil(o.K8sVersion) {
 		toSerialize["k8sVersion"] = o.K8sVersion
 	}

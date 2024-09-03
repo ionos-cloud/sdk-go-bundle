@@ -256,14 +256,6 @@ func (o *Requests) SetLinks(v PaginationLinks) {
 	o.Links = v
 }
 
-func (o Requests) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o Requests) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Id) {
@@ -278,15 +270,9 @@ func (o Requests) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
 	}
-	if !IsZero(o.Offset) {
-		toSerialize["offset"] = o.Offset
-	}
-	if !IsZero(o.Limit) {
-		toSerialize["limit"] = o.Limit
-	}
-	if !IsZero(o.Links) {
-		toSerialize["_links"] = o.Links
-	}
+	toSerialize["offset"] = o.Offset
+	toSerialize["limit"] = o.Limit
+	toSerialize["_links"] = o.Links
 	return toSerialize, nil
 }
 

@@ -235,37 +235,17 @@ func (o *NetworkLoadBalancerForwardingRuleProperties) SetTargets(v []NetworkLoad
 	o.Targets = v
 }
 
-func (o NetworkLoadBalancerForwardingRuleProperties) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o NetworkLoadBalancerForwardingRuleProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.Name) {
-		toSerialize["name"] = o.Name
-	}
-	if !IsZero(o.Algorithm) {
-		toSerialize["algorithm"] = o.Algorithm
-	}
-	if !IsZero(o.Protocol) {
-		toSerialize["protocol"] = o.Protocol
-	}
-	if !IsZero(o.ListenerIp) {
-		toSerialize["listenerIp"] = o.ListenerIp
-	}
-	if !IsZero(o.ListenerPort) {
-		toSerialize["listenerPort"] = o.ListenerPort
-	}
+	toSerialize["name"] = o.Name
+	toSerialize["algorithm"] = o.Algorithm
+	toSerialize["protocol"] = o.Protocol
+	toSerialize["listenerIp"] = o.ListenerIp
+	toSerialize["listenerPort"] = o.ListenerPort
 	if !IsNil(o.HealthCheck) {
 		toSerialize["healthCheck"] = o.HealthCheck
 	}
-	if !IsZero(o.Targets) {
-		toSerialize["targets"] = o.Targets
-	}
+	toSerialize["targets"] = o.Targets
 	return toSerialize, nil
 }
 

@@ -833,14 +833,6 @@ func (o *VolumeProperties) UnsetBootOrder() {
 	o.BootOrder.Unset()
 }
 
-func (o VolumeProperties) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o VolumeProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Name) {
@@ -849,9 +841,7 @@ func (o VolumeProperties) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if !IsZero(o.Size) {
-		toSerialize["size"] = o.Size
-	}
+	toSerialize["size"] = o.Size
 	if !IsNil(o.AvailabilityZone) {
 		toSerialize["availabilityZone"] = o.AvailabilityZone
 	}

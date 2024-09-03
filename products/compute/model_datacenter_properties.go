@@ -316,14 +316,6 @@ func (o *DatacenterProperties) UnsetIpv6CidrBlock() {
 	o.Ipv6CidrBlock.Unset()
 }
 
-func (o DatacenterProperties) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o DatacenterProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Name) {
@@ -332,9 +324,7 @@ func (o DatacenterProperties) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if !IsZero(o.Location) {
-		toSerialize["location"] = o.Location
-	}
+	toSerialize["location"] = o.Location
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}

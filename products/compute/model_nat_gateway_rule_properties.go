@@ -256,31 +256,17 @@ func (o *NatGatewayRuleProperties) SetTargetPortRange(v TargetPortRange) {
 	o.TargetPortRange = &v
 }
 
-func (o NatGatewayRuleProperties) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o NatGatewayRuleProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.Name) {
-		toSerialize["name"] = o.Name
-	}
+	toSerialize["name"] = o.Name
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 	if !IsNil(o.Protocol) {
 		toSerialize["protocol"] = o.Protocol
 	}
-	if !IsZero(o.SourceSubnet) {
-		toSerialize["sourceSubnet"] = o.SourceSubnet
-	}
-	if !IsZero(o.PublicIp) {
-		toSerialize["publicIp"] = o.PublicIp
-	}
+	toSerialize["sourceSubnet"] = o.SourceSubnet
+	toSerialize["publicIp"] = o.PublicIp
 	if !IsNil(o.TargetSubnet) {
 		toSerialize["targetSubnet"] = o.TargetSubnet
 	}

@@ -553,43 +553,17 @@ func (o *KubernetesNodePoolProperties) SetAvailableUpgradeVersions(v []string) {
 	o.AvailableUpgradeVersions = v
 }
 
-func (o KubernetesNodePoolProperties) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o KubernetesNodePoolProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.Name) {
-		toSerialize["name"] = o.Name
-	}
-	if !IsZero(o.DatacenterId) {
-		toSerialize["datacenterId"] = o.DatacenterId
-	}
-	if !IsZero(o.NodeCount) {
-		toSerialize["nodeCount"] = o.NodeCount
-	}
-	if !IsZero(o.CpuFamily) {
-		toSerialize["cpuFamily"] = o.CpuFamily
-	}
-	if !IsZero(o.CoresCount) {
-		toSerialize["coresCount"] = o.CoresCount
-	}
-	if !IsZero(o.RamSize) {
-		toSerialize["ramSize"] = o.RamSize
-	}
-	if !IsZero(o.AvailabilityZone) {
-		toSerialize["availabilityZone"] = o.AvailabilityZone
-	}
-	if !IsZero(o.StorageType) {
-		toSerialize["storageType"] = o.StorageType
-	}
-	if !IsZero(o.StorageSize) {
-		toSerialize["storageSize"] = o.StorageSize
-	}
+	toSerialize["name"] = o.Name
+	toSerialize["datacenterId"] = o.DatacenterId
+	toSerialize["nodeCount"] = o.NodeCount
+	toSerialize["cpuFamily"] = o.CpuFamily
+	toSerialize["coresCount"] = o.CoresCount
+	toSerialize["ramSize"] = o.RamSize
+	toSerialize["availabilityZone"] = o.AvailabilityZone
+	toSerialize["storageType"] = o.StorageType
+	toSerialize["storageSize"] = o.StorageSize
 	if !IsNil(o.K8sVersion) {
 		toSerialize["k8sVersion"] = o.K8sVersion
 	}

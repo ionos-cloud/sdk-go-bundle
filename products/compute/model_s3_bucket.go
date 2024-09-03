@@ -67,19 +67,9 @@ func (o *S3Bucket) SetName(v string) {
 	o.Name = v
 }
 
-func (o S3Bucket) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o S3Bucket) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.Name) {
-		toSerialize["name"] = o.Name
-	}
+	toSerialize["name"] = o.Name
 	return toSerialize, nil
 }
 
