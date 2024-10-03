@@ -195,25 +195,13 @@ func (o *CreateClusterProperties) SetLans(v []Lan) {
 	o.Lans = v
 }
 
-func (o CreateClusterProperties) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o CreateClusterProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.Name) {
-		toSerialize["name"] = o.Name
-	}
+	toSerialize["name"] = o.Name
 	if !IsNil(o.DataPlatformVersion) {
 		toSerialize["dataPlatformVersion"] = o.DataPlatformVersion
 	}
-	if !IsZero(o.DatacenterId) {
-		toSerialize["datacenterId"] = o.DatacenterId
-	}
+	toSerialize["datacenterId"] = o.DatacenterId
 	if !IsNil(o.MaintenanceWindow) {
 		toSerialize["maintenanceWindow"] = o.MaintenanceWindow
 	}

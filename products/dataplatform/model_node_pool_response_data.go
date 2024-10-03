@@ -187,31 +187,17 @@ func (o *NodePoolResponseData) SetProperties(v NodePool) {
 	o.Properties = v
 }
 
-func (o NodePoolResponseData) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o NodePoolResponseData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.Id) {
-		toSerialize["id"] = o.Id
-	}
+	toSerialize["id"] = o.Id
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 	if !IsNil(o.Href) {
 		toSerialize["href"] = o.Href
 	}
-	if !IsZero(o.Metadata) {
-		toSerialize["metadata"] = o.Metadata
-	}
-	if !IsZero(o.Properties) {
-		toSerialize["properties"] = o.Properties
-	}
+	toSerialize["metadata"] = o.Metadata
+	toSerialize["properties"] = o.Properties
 	return toSerialize, nil
 }
 

@@ -93,22 +93,10 @@ func (o *MaintenanceWindow) SetDayOfTheWeek(v string) {
 	o.DayOfTheWeek = v
 }
 
-func (o MaintenanceWindow) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o MaintenanceWindow) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.Time) {
-		toSerialize["time"] = o.Time
-	}
-	if !IsZero(o.DayOfTheWeek) {
-		toSerialize["dayOfTheWeek"] = o.DayOfTheWeek
-	}
+	toSerialize["time"] = o.Time
+	toSerialize["dayOfTheWeek"] = o.DayOfTheWeek
 	return toSerialize, nil
 }
 
