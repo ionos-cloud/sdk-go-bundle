@@ -1,7 +1,10 @@
 # Go API client for cert
 
-Using the Certificate Manager Service, you can conveniently provision and manage SSL certificates with IONOS services and your internal connected resources. For the [Application Load Balancer](https://api.ionos.com/docs/cloud/v6/#Application-Load-Balancers-get-datacenters-datacenterId-applicationloadbalancers), you usually need a certificate to encrypt your HTTPS traffic.
+Using the Certificate Manager Service, you can conveniently provision and manage SSL certificates 
+with IONOS services and your internal connected resources. 
 
+For the [Application Load Balancer](https://api.ionos.com/docs/cloud/v6/#Application-Load-Balancers-get-datacenters-datacenterId-applicationloadbalancers),
+you usually need a certificate to encrypt your HTTPS traffic.
 The service provides the basic functions of uploading and deleting your certificates for this purpose.
 
 ## Overview
@@ -36,7 +39,7 @@ go get github.com/ionos-cloud/sdk-go-bundle/products/cert@latest
 | `IONOS_PASSWORD`     | Specify the password used to login, to authenticate against the IONOS Cloud API                                                                                                                                                |
 | `IONOS_TOKEN`        | Specify the token used to login, if a token is being used instead of username and password                                                                                                                                     |
 | `IONOS_API_URL`      | Specify the API URL. It will overwrite the API endpoint default value `api.ionos.com`. Note: the host URL does not contain the `/cloudapi/v6` path, so it should _not_ be included in the `IONOS_API_URL` environment variable |
-| `IONOS_LOGLEVEL`     | Specify the Log Level used to log messages. Possible values: Off, Debug, Trace |
+| `IONOS_LOG_LEVEL`    | Specify the Log Level used to log messages. Possible values: Off, Debug, Trace |
 | `IONOS_PINNED_CERT`  | Specify the SHA-256 public fingerprint here, enables certificate pinning                                                                                                                                                       |
 
 ⚠️ **_Note: To overwrite the api endpoint - `api.ionos.com`, the environment variable `$IONOS_API_URL` can be set, and used with `NewConfigurationFromEnv()` function._**
@@ -158,9 +161,9 @@ requestProperties.SetURL("https://api.ionos.com/cloudapi/v6")
 
 ## Debugging
 
-You can now inject any logger that implements Printf as a logger
+You can inject any logger that implements Printf as a logger
 instead of using the default sdk logger.
-There are now Loglevels that you can set: `Off`, `Debug` and `Trace`.
+There are log levels that you can set: `Off`, `Debug` and `Trace`.
 `Off` - does not show any logs
 `Debug` - regular logs, no sensitive information
 `Trace` - we recommend you only set this field for debugging purposes. Disable it in your production environments because it can log sensitive data.
@@ -181,9 +184,9 @@ func main() {
     // if you have set your env variables as explained above
     cfg := shared.NewConfiguration("username", "password", "token", "hostUrl")
     // enable request and response logging. this is the most verbose loglevel
-    cfg.LogLevel = Trace
+    shared.SdkLogLevel = Trace
     // inject your own logger that implements Printf
-    cfg.Logger = logrus.New()
+    shared.SdkLogger = logrus.New()
     // create you api client with the configuration
     apiClient := cert.NewAPIClient(cfg)
 }
@@ -191,41 +194,71 @@ func main() {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://api.ionos.com*
+All URIs are relative to *https://certificate-manager.de-fra.ionos.com*
 <details >
 <summary title="Click to toggle">API Endpoints table</summary>
 
 
 Class | Method | HTTP request | Description
 ------------- | ------------- | ------------- | -------------
-CertificatesApi | [**CertificatesDelete**](docs/api/CertificatesApi.md#certificatesdelete) | **Delete** /certificatemanager/certificates/{certificateId} | Delete a Certificate by ID
-CertificatesApi | [**CertificatesGet**](docs/api/CertificatesApi.md#certificatesget) | **Get** /certificatemanager/certificates | Get Certificates
-CertificatesApi | [**CertificatesGetById**](docs/api/CertificatesApi.md#certificatesgetbyid) | **Get** /certificatemanager/certificates/{certificateId} | Get a Certificate by ID
-CertificatesApi | [**CertificatesPatch**](docs/api/CertificatesApi.md#certificatespatch) | **Patch** /certificatemanager/certificates/{certificateId} | Update a Certificate Name by ID
-CertificatesApi | [**CertificatesPost**](docs/api/CertificatesApi.md#certificatespost) | **Post** /certificatemanager/certificates | Add a New Certificate
-InformationApi | [**GetInfo**](docs/api/InformationApi.md#getinfo) | **Get** /certificatemanager | Get the Service API Information
-InformationApi | [**GetJsonOpenApiSpec**](docs/api/InformationApi.md#getjsonopenapispec) | **Get** /certificatemanager/openapi.json | Get the Open API Documentation JSON
-InformationApi | [**GetYamlOpenApiSpec**](docs/api/InformationApi.md#getyamlopenapispec) | **Get** /certificatemanager/openapi.yaml | Get the Open API Documentation YAML
+AutoCertificateApi | [**AutoCertificatesDelete**](docs/api/AutoCertificateApi.md#autocertificatesdelete) | **Delete** /auto-certificates/{autoCertificateId} | Delete AutoCertificate
+AutoCertificateApi | [**AutoCertificatesFindById**](docs/api/AutoCertificateApi.md#autocertificatesfindbyid) | **Get** /auto-certificates/{autoCertificateId} | Retrieve AutoCertificate
+AutoCertificateApi | [**AutoCertificatesGet**](docs/api/AutoCertificateApi.md#autocertificatesget) | **Get** /auto-certificates | Retrieve all AutoCertificate
+AutoCertificateApi | [**AutoCertificatesPatch**](docs/api/AutoCertificateApi.md#autocertificatespatch) | **Patch** /auto-certificates/{autoCertificateId} | Updates AutoCertificate
+AutoCertificateApi | [**AutoCertificatesPost**](docs/api/AutoCertificateApi.md#autocertificatespost) | **Post** /auto-certificates | Create AutoCertificate
+CertificateApi | [**CertificatesDelete**](docs/api/CertificateApi.md#certificatesdelete) | **Delete** /certificates/{certificateId} | Delete Certificate
+CertificateApi | [**CertificatesFindById**](docs/api/CertificateApi.md#certificatesfindbyid) | **Get** /certificates/{certificateId} | Retrieve Certificate
+CertificateApi | [**CertificatesGet**](docs/api/CertificateApi.md#certificatesget) | **Get** /certificates | Retrieve all Certificate
+CertificateApi | [**CertificatesPatch**](docs/api/CertificateApi.md#certificatespatch) | **Patch** /certificates/{certificateId} | Updates Certificate
+CertificateApi | [**CertificatesPost**](docs/api/CertificateApi.md#certificatespost) | **Post** /certificates | Create Certificate
+ProviderApi | [**ProvidersDelete**](docs/api/ProviderApi.md#providersdelete) | **Delete** /providers/{providerId} | Delete Provider
+ProviderApi | [**ProvidersFindById**](docs/api/ProviderApi.md#providersfindbyid) | **Get** /providers/{providerId} | Retrieve Provider
+ProviderApi | [**ProvidersGet**](docs/api/ProviderApi.md#providersget) | **Get** /providers | Retrieve all Provider
+ProviderApi | [**ProvidersPatch**](docs/api/ProviderApi.md#providerspatch) | **Patch** /providers/{providerId} | Updates Provider
+ProviderApi | [**ProvidersPost**](docs/api/ProviderApi.md#providerspost) | **Post** /providers | Create Provider
 
 </details>
 
 ## Documentation For Models
 
-All URIs are relative to *https://api.ionos.com*
+All URIs are relative to *https://certificate-manager.de-fra.ionos.com*
 <details >
 <summary title="Click to toggle">API models list</summary>
 
- - [ApiInfoDto](docs/models/ApiInfoDto)
- - [CertificateCollectionDto](docs/models/CertificateCollectionDto)
- - [CertificateCollectionDtoLinks](docs/models/CertificateCollectionDtoLinks)
- - [CertificateDto](docs/models/CertificateDto)
- - [CertificatePatchDto](docs/models/CertificatePatchDto)
- - [CertificatePatchPropertiesDto](docs/models/CertificatePatchPropertiesDto)
- - [CertificatePostDto](docs/models/CertificatePostDto)
- - [CertificatePostPropertiesDto](docs/models/CertificatePostPropertiesDto)
- - [CertificatePropertiesDto](docs/models/CertificatePropertiesDto)
- - [ConfigPropertyDto](docs/models/ConfigPropertyDto)
- - [ResourceMetadataDto](docs/models/ResourceMetadataDto)
+ - [AutoCertificate](docs/models/AutoCertificate)
+ - [AutoCertificateCreate](docs/models/AutoCertificateCreate)
+ - [AutoCertificatePatch](docs/models/AutoCertificatePatch)
+ - [AutoCertificateRead](docs/models/AutoCertificateRead)
+ - [AutoCertificateReadList](docs/models/AutoCertificateReadList)
+ - [AutoCertificateReadListAllOf](docs/models/AutoCertificateReadListAllOf)
+ - [Certificate](docs/models/Certificate)
+ - [CertificateCreate](docs/models/CertificateCreate)
+ - [CertificatePatch](docs/models/CertificatePatch)
+ - [CertificateRead](docs/models/CertificateRead)
+ - [CertificateReadList](docs/models/CertificateReadList)
+ - [CertificateReadListAllOf](docs/models/CertificateReadListAllOf)
+ - [Connection](docs/models/Connection)
+ - [DayOfTheWeek](docs/models/DayOfTheWeek)
+ - [Error](docs/models/Error)
+ - [ErrorMessages](docs/models/ErrorMessages)
+ - [Links](docs/models/Links)
+ - [MaintenanceWindow](docs/models/MaintenanceWindow)
+ - [Metadata](docs/models/Metadata)
+ - [MetadataWithAutoCertificateInformation](docs/models/MetadataWithAutoCertificateInformation)
+ - [MetadataWithAutoCertificateInformationAllOf](docs/models/MetadataWithAutoCertificateInformationAllOf)
+ - [MetadataWithCertificateInformation](docs/models/MetadataWithCertificateInformation)
+ - [MetadataWithCertificateInformationAllOf](docs/models/MetadataWithCertificateInformationAllOf)
+ - [MetadataWithStatus](docs/models/MetadataWithStatus)
+ - [MetadataWithStatusAllOf](docs/models/MetadataWithStatusAllOf)
+ - [Pagination](docs/models/Pagination)
+ - [PatchName](docs/models/PatchName)
+ - [Provider](docs/models/Provider)
+ - [ProviderCreate](docs/models/ProviderCreate)
+ - [ProviderExternalAccountBinding](docs/models/ProviderExternalAccountBinding)
+ - [ProviderPatch](docs/models/ProviderPatch)
+ - [ProviderRead](docs/models/ProviderRead)
+ - [ProviderReadList](docs/models/ProviderReadList)
+ - [ProviderReadListAllOf](docs/models/ProviderReadListAllOf)
 
 
 [[Back to API list]](#documentation-for-api-endpoints) [[Back to Model list]](#documentation-for-models)
