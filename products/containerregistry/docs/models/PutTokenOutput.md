@@ -6,15 +6,15 @@
 |------------ | ------------- | ------------- | -------------|
 |**Href** | Pointer to **string** |  | [optional] |
 |**Id** | Pointer to **string** |  | [optional] |
-|**Metadata** | [**NullableApiResourceMetadata**](ApiResourceMetadata.md) |  | |
-|**Properties** | [**NullableTokenProperties**](TokenProperties.md) |  | |
+|**Metadata** | [**ApiResourceMetadata**](ApiResourceMetadata.md) |  | |
+|**Properties** | [**TokenProperties**](TokenProperties.md) |  | |
 |**Type** | Pointer to **string** |  | [optional] |
 
 ## Methods
 
 ### NewPutTokenOutput
 
-`func NewPutTokenOutput(metadata NullableApiResourceMetadata, properties NullableTokenProperties, ) *PutTokenOutput`
+`func NewPutTokenOutput(metadata ApiResourceMetadata, properties TokenProperties, ) *PutTokenOutput`
 
 NewPutTokenOutput instantiates a new PutTokenOutput object
 This constructor will assign default values to properties that have it defined,
@@ -99,16 +99,6 @@ and a boolean to check if the value has been set.
 SetMetadata sets Metadata field to given value.
 
 
-### SetMetadataNil
-
-`func (o *PutTokenOutput) SetMetadataNil(b bool)`
-
- SetMetadataNil sets the value for Metadata to be an explicit nil
-
-### UnsetMetadata
-`func (o *PutTokenOutput) UnsetMetadata()`
-
-UnsetMetadata ensures that no value is present for Metadata, not even an explicit nil
 ### GetProperties
 
 `func (o *PutTokenOutput) GetProperties() TokenProperties`
@@ -129,16 +119,6 @@ and a boolean to check if the value has been set.
 SetProperties sets Properties field to given value.
 
 
-### SetPropertiesNil
-
-`func (o *PutTokenOutput) SetPropertiesNil(b bool)`
-
- SetPropertiesNil sets the value for Properties to be an explicit nil
-
-### UnsetProperties
-`func (o *PutTokenOutput) UnsetProperties()`
-
-UnsetProperties ensures that no value is present for Properties, not even an explicit nil
 ### GetType
 
 `func (o *PutTokenOutput) GetType() string`

@@ -66,14 +66,4 @@ and a boolean to check if the value has been set.
 SetMessages sets Messages field to given value.
 
 
-### SetMessagesNil
-
-`func (o *ApiErrorResponse) SetMessagesNil(b bool)`
-
- SetMessagesNil sets the value for Messages to be an explicit nil
-
-### UnsetMessages
-`func (o *ApiErrorResponse) UnsetMessages()`
-
-UnsetMessages ensures that no value is present for Messages, not even an explicit nil
 

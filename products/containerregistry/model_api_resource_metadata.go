@@ -1,9 +1,9 @@
 /*
  * Container Registry service
  *
- * Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls.
+ * ## Overview Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls. ## Changelog ### 1.1.0  - Added new endpoints for Repositories  - Added new endpoints for Artifacts  - Added new endpoints for Vulnerabilities  - Added registry vulnerabilityScanning feature ### 1.2.0  - Added registry `apiSubnetAllowList` ### 1.2.1  - Amended `apiSubnetAllowList` Regex
  *
- * API version: 1.0
+ * API version: 1.2.1
  * Contact: support@cloud.ionos.com
  */
 
@@ -17,28 +17,31 @@ import (
 	"time"
 )
 
+// checks if the ApiResourceMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApiResourceMetadata{}
+
 // ApiResourceMetadata struct for ApiResourceMetadata
 type ApiResourceMetadata struct {
-	CreatedBy            *string    `json:"createdBy"`
-	CreatedByUserId      *string    `json:"createdByUserId"`
+	CreatedBy            string     `json:"createdBy"`
+	CreatedByUserId      string     `json:"createdByUserId"`
 	CreatedDate          *IonosTime `json:"createdDate"`
 	LastModifiedBy       *string    `json:"lastModifiedBy,omitempty"`
 	LastModifiedByUserId *string    `json:"lastModifiedByUserId,omitempty"`
 	LastModifiedDate     *IonosTime `json:"lastModifiedDate,omitempty"`
-	State                *string    `json:"state"`
+	State                string     `json:"state"`
 }
 
 // NewApiResourceMetadata instantiates a new ApiResourceMetadata object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApiResourceMetadata(createdBy string, createdByUserId string, createdDate IonosTime, state string) *ApiResourceMetadata {
+func NewApiResourceMetadata(createdBy string, createdByUserId string, createdDate time.Time, state string) *ApiResourceMetadata {
 	this := ApiResourceMetadata{}
 
-	this.CreatedBy = &createdBy
-	this.CreatedByUserId = &createdByUserId
-	this.CreatedDate = &createdDate
-	this.State = &state
+	this.CreatedBy = createdBy
+	this.CreatedByUserId = createdByUserId
+	this.CreatedDate = &IonosTime{createdDate}
+	this.State = state
 
 	return &this
 }
@@ -52,314 +55,220 @@ func NewApiResourceMetadataWithDefaults() *ApiResourceMetadata {
 }
 
 // GetCreatedBy returns the CreatedBy field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ApiResourceMetadata) GetCreatedBy() *string {
+func (o *ApiResourceMetadata) GetCreatedBy() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.CreatedBy
-
 }
 
 // GetCreatedByOk returns a tuple with the CreatedBy field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ApiResourceMetadata) GetCreatedByOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.CreatedBy, true
+	return &o.CreatedBy, true
 }
 
 // SetCreatedBy sets field value
 func (o *ApiResourceMetadata) SetCreatedBy(v string) {
-
-	o.CreatedBy = &v
-
-}
-
-// HasCreatedBy returns a boolean if a field has been set.
-func (o *ApiResourceMetadata) HasCreatedBy() bool {
-	if o != nil && o.CreatedBy != nil {
-		return true
-	}
-
-	return false
+	o.CreatedBy = v
 }
 
 // GetCreatedByUserId returns the CreatedByUserId field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ApiResourceMetadata) GetCreatedByUserId() *string {
+func (o *ApiResourceMetadata) GetCreatedByUserId() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.CreatedByUserId
-
 }
 
 // GetCreatedByUserIdOk returns a tuple with the CreatedByUserId field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ApiResourceMetadata) GetCreatedByUserIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.CreatedByUserId, true
+	return &o.CreatedByUserId, true
 }
 
 // SetCreatedByUserId sets field value
 func (o *ApiResourceMetadata) SetCreatedByUserId(v string) {
-
-	o.CreatedByUserId = &v
-
-}
-
-// HasCreatedByUserId returns a boolean if a field has been set.
-func (o *ApiResourceMetadata) HasCreatedByUserId() bool {
-	if o != nil && o.CreatedByUserId != nil {
-		return true
-	}
-
-	return false
+	o.CreatedByUserId = v
 }
 
 // GetCreatedDate returns the CreatedDate field value
-// If the value is explicit nil, the zero value for time.Time will be returned
-func (o *ApiResourceMetadata) GetCreatedDate() *time.Time {
+func (o *ApiResourceMetadata) GetCreatedDate() time.Time {
 	if o == nil {
-		return nil
+		var ret time.Time
+		return ret
 	}
 
 	if o.CreatedDate == nil {
-		return nil
+		var ret time.Time
+		return ret
 	}
-	return &o.CreatedDate.Time
-
+	return o.CreatedDate.Time
 }
 
 // GetCreatedDateOk returns a tuple with the CreatedDate field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ApiResourceMetadata) GetCreatedDateOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
-
 	if o.CreatedDate == nil {
-		return nil, false
+		return nil, true
 	}
 	return &o.CreatedDate.Time, true
-
 }
 
 // SetCreatedDate sets field value
 func (o *ApiResourceMetadata) SetCreatedDate(v time.Time) {
-
 	o.CreatedDate = &IonosTime{v}
-
 }
 
-// HasCreatedDate returns a boolean if a field has been set.
-func (o *ApiResourceMetadata) HasCreatedDate() bool {
-	if o != nil && o.CreatedDate != nil {
-		return true
+// GetLastModifiedBy returns the LastModifiedBy field value if set, zero value otherwise.
+func (o *ApiResourceMetadata) GetLastModifiedBy() string {
+	if o == nil || IsNil(o.LastModifiedBy) {
+		var ret string
+		return ret
 	}
-
-	return false
+	return *o.LastModifiedBy
 }
 
-// GetLastModifiedBy returns the LastModifiedBy field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ApiResourceMetadata) GetLastModifiedBy() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.LastModifiedBy
-
-}
-
-// GetLastModifiedByOk returns a tuple with the LastModifiedBy field value
+// GetLastModifiedByOk returns a tuple with the LastModifiedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ApiResourceMetadata) GetLastModifiedByOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.LastModifiedBy) {
 		return nil, false
 	}
-
 	return o.LastModifiedBy, true
-}
-
-// SetLastModifiedBy sets field value
-func (o *ApiResourceMetadata) SetLastModifiedBy(v string) {
-
-	o.LastModifiedBy = &v
-
 }
 
 // HasLastModifiedBy returns a boolean if a field has been set.
 func (o *ApiResourceMetadata) HasLastModifiedBy() bool {
-	if o != nil && o.LastModifiedBy != nil {
+	if o != nil && !IsNil(o.LastModifiedBy) {
 		return true
 	}
 
 	return false
 }
 
-// GetLastModifiedByUserId returns the LastModifiedByUserId field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ApiResourceMetadata) GetLastModifiedByUserId() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.LastModifiedByUserId
-
+// SetLastModifiedBy gets a reference to the given string and assigns it to the LastModifiedBy field.
+func (o *ApiResourceMetadata) SetLastModifiedBy(v string) {
+	o.LastModifiedBy = &v
 }
 
-// GetLastModifiedByUserIdOk returns a tuple with the LastModifiedByUserId field value
+// GetLastModifiedByUserId returns the LastModifiedByUserId field value if set, zero value otherwise.
+func (o *ApiResourceMetadata) GetLastModifiedByUserId() string {
+	if o == nil || IsNil(o.LastModifiedByUserId) {
+		var ret string
+		return ret
+	}
+	return *o.LastModifiedByUserId
+}
+
+// GetLastModifiedByUserIdOk returns a tuple with the LastModifiedByUserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ApiResourceMetadata) GetLastModifiedByUserIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.LastModifiedByUserId) {
 		return nil, false
 	}
-
 	return o.LastModifiedByUserId, true
-}
-
-// SetLastModifiedByUserId sets field value
-func (o *ApiResourceMetadata) SetLastModifiedByUserId(v string) {
-
-	o.LastModifiedByUserId = &v
-
 }
 
 // HasLastModifiedByUserId returns a boolean if a field has been set.
 func (o *ApiResourceMetadata) HasLastModifiedByUserId() bool {
-	if o != nil && o.LastModifiedByUserId != nil {
+	if o != nil && !IsNil(o.LastModifiedByUserId) {
 		return true
 	}
 
 	return false
 }
 
-// GetLastModifiedDate returns the LastModifiedDate field value
-// If the value is explicit nil, the zero value for time.Time will be returned
-func (o *ApiResourceMetadata) GetLastModifiedDate() *time.Time {
-	if o == nil {
-		return nil
-	}
-
-	if o.LastModifiedDate == nil {
-		return nil
-	}
-	return &o.LastModifiedDate.Time
-
+// SetLastModifiedByUserId gets a reference to the given string and assigns it to the LastModifiedByUserId field.
+func (o *ApiResourceMetadata) SetLastModifiedByUserId(v string) {
+	o.LastModifiedByUserId = &v
 }
 
-// GetLastModifiedDateOk returns a tuple with the LastModifiedDate field value
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ApiResourceMetadata) GetLastModifiedDateOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
+// GetLastModifiedDate returns the LastModifiedDate field value if set, zero value otherwise.
+func (o *ApiResourceMetadata) GetLastModifiedDate() time.Time {
+	if o == nil || IsNil(o.LastModifiedDate) {
+		var ret time.Time
+		return ret
 	}
+	return o.LastModifiedDate.Time
+}
 
-	if o.LastModifiedDate == nil {
+// GetLastModifiedDateOk returns a tuple with the LastModifiedDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiResourceMetadata) GetLastModifiedDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastModifiedDate) {
 		return nil, false
 	}
 	return &o.LastModifiedDate.Time, true
-
-}
-
-// SetLastModifiedDate sets field value
-func (o *ApiResourceMetadata) SetLastModifiedDate(v time.Time) {
-
-	o.LastModifiedDate = &IonosTime{v}
-
 }
 
 // HasLastModifiedDate returns a boolean if a field has been set.
 func (o *ApiResourceMetadata) HasLastModifiedDate() bool {
-	if o != nil && o.LastModifiedDate != nil {
+	if o != nil && !IsNil(o.LastModifiedDate) {
 		return true
 	}
 
 	return false
 }
 
+// SetLastModifiedDate gets a reference to the given time.Time and assigns it to the LastModifiedDate field.
+func (o *ApiResourceMetadata) SetLastModifiedDate(v time.Time) {
+	o.LastModifiedDate = &IonosTime{v}
+}
+
 // GetState returns the State field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ApiResourceMetadata) GetState() *string {
+func (o *ApiResourceMetadata) GetState() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.State
-
 }
 
 // GetStateOk returns a tuple with the State field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ApiResourceMetadata) GetStateOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.State, true
+	return &o.State, true
 }
 
 // SetState sets field value
 func (o *ApiResourceMetadata) SetState(v string) {
-
-	o.State = &v
-
+	o.State = v
 }
 
-// HasState returns a boolean if a field has been set.
-func (o *ApiResourceMetadata) HasState() bool {
-	if o != nil && o.State != nil {
-		return true
-	}
-
-	return false
-}
-
-func (o ApiResourceMetadata) MarshalJSON() ([]byte, error) {
+func (o ApiResourceMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CreatedBy != nil {
-		toSerialize["createdBy"] = o.CreatedBy
-	}
-
-	if o.CreatedByUserId != nil {
-		toSerialize["createdByUserId"] = o.CreatedByUserId
-	}
-
-	if o.CreatedDate != nil {
-		toSerialize["createdDate"] = o.CreatedDate
-	}
-
-	if o.LastModifiedBy != nil {
+	toSerialize["createdBy"] = o.CreatedBy
+	toSerialize["createdByUserId"] = o.CreatedByUserId
+	toSerialize["createdDate"] = o.CreatedDate
+	if !IsNil(o.LastModifiedBy) {
 		toSerialize["lastModifiedBy"] = o.LastModifiedBy
 	}
-
-	if o.LastModifiedByUserId != nil {
+	if !IsNil(o.LastModifiedByUserId) {
 		toSerialize["lastModifiedByUserId"] = o.LastModifiedByUserId
 	}
-
-	toSerialize["lastModifiedDate"] = o.LastModifiedDate
-
-	if o.State != nil {
-		toSerialize["state"] = o.State
+	if !IsNil(o.LastModifiedDate) {
+		toSerialize["lastModifiedDate"] = o.LastModifiedDate
 	}
-
-	return json.Marshal(toSerialize)
+	toSerialize["state"] = o.State
+	return toSerialize, nil
 }
 
 type NullableApiResourceMetadata struct {

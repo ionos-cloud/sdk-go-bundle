@@ -1,9 +1,9 @@
 /*
  * Container Registry service
  *
- * Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls.
+ * ## Overview Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls. ## Changelog ### 1.1.0  - Added new endpoints for Repositories  - Added new endpoints for Artifacts  - Added new endpoints for Vulnerabilities  - Added registry vulnerabilityScanning feature ### 1.2.0  - Added registry `apiSubnetAllowList` ### 1.2.1  - Amended `apiSubnetAllowList` Regex
  *
- * API version: 1.0
+ * API version: 1.2.1
  * Contact: support@cloud.ionos.com
  */
 
@@ -17,10 +17,13 @@ import (
 	"time"
 )
 
+// checks if the PatchTokenInput type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PatchTokenInput{}
+
 // PatchTokenInput struct for PatchTokenInput
 type PatchTokenInput struct {
 	ExpiryDate *IonosTime `json:"expiryDate,omitempty"`
-	Scopes     *[]Scope   `json:"scopes,omitempty"`
+	Scopes     []Scope    `json:"scopes,omitempty"`
 	Status     *string    `json:"status,omitempty"`
 }
 
@@ -42,138 +45,114 @@ func NewPatchTokenInputWithDefaults() *PatchTokenInput {
 	return &this
 }
 
-// GetExpiryDate returns the ExpiryDate field value
-// If the value is explicit nil, the zero value for time.Time will be returned
-func (o *PatchTokenInput) GetExpiryDate() *time.Time {
-	if o == nil {
-		return nil
+// GetExpiryDate returns the ExpiryDate field value if set, zero value otherwise.
+func (o *PatchTokenInput) GetExpiryDate() time.Time {
+	if o == nil || IsNil(o.ExpiryDate) {
+		var ret time.Time
+		return ret
 	}
-
-	if o.ExpiryDate == nil {
-		return nil
-	}
-	return &o.ExpiryDate.Time
-
+	return o.ExpiryDate.Time
 }
 
-// GetExpiryDateOk returns a tuple with the ExpiryDate field value
+// GetExpiryDateOk returns a tuple with the ExpiryDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PatchTokenInput) GetExpiryDateOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-
-	if o.ExpiryDate == nil {
+	if o == nil || IsNil(o.ExpiryDate) {
 		return nil, false
 	}
 	return &o.ExpiryDate.Time, true
-
-}
-
-// SetExpiryDate sets field value
-func (o *PatchTokenInput) SetExpiryDate(v time.Time) {
-
-	o.ExpiryDate = &IonosTime{v}
-
 }
 
 // HasExpiryDate returns a boolean if a field has been set.
 func (o *PatchTokenInput) HasExpiryDate() bool {
-	if o != nil && o.ExpiryDate != nil {
+	if o != nil && !IsNil(o.ExpiryDate) {
 		return true
 	}
 
 	return false
 }
 
-// GetScopes returns the Scopes field value
-// If the value is explicit nil, the zero value for []Scope will be returned
-func (o *PatchTokenInput) GetScopes() *[]Scope {
-	if o == nil {
-		return nil
-	}
-
-	return o.Scopes
-
+// SetExpiryDate gets a reference to the given time.Time and assigns it to the ExpiryDate field.
+func (o *PatchTokenInput) SetExpiryDate(v time.Time) {
+	o.ExpiryDate = &IonosTime{v}
 }
 
-// GetScopesOk returns a tuple with the Scopes field value
+// GetScopes returns the Scopes field value if set, zero value otherwise.
+func (o *PatchTokenInput) GetScopes() []Scope {
+	if o == nil || IsNil(o.Scopes) {
+		var ret []Scope
+		return ret
+	}
+	return o.Scopes
+}
+
+// GetScopesOk returns a tuple with the Scopes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PatchTokenInput) GetScopesOk() (*[]Scope, bool) {
-	if o == nil {
+func (o *PatchTokenInput) GetScopesOk() ([]Scope, bool) {
+	if o == nil || IsNil(o.Scopes) {
 		return nil, false
 	}
-
 	return o.Scopes, true
-}
-
-// SetScopes sets field value
-func (o *PatchTokenInput) SetScopes(v []Scope) {
-
-	o.Scopes = &v
-
 }
 
 // HasScopes returns a boolean if a field has been set.
 func (o *PatchTokenInput) HasScopes() bool {
-	if o != nil && o.Scopes != nil {
+	if o != nil && !IsNil(o.Scopes) {
 		return true
 	}
 
 	return false
 }
 
-// GetStatus returns the Status field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *PatchTokenInput) GetStatus() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Status
-
+// SetScopes gets a reference to the given []Scope and assigns it to the Scopes field.
+func (o *PatchTokenInput) SetScopes(v []Scope) {
+	o.Scopes = v
 }
 
-// GetStatusOk returns a tuple with the Status field value
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *PatchTokenInput) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PatchTokenInput) GetStatusOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
-
 	return o.Status, true
-}
-
-// SetStatus sets field value
-func (o *PatchTokenInput) SetStatus(v string) {
-
-	o.Status = &v
-
 }
 
 // HasStatus returns a boolean if a field has been set.
 func (o *PatchTokenInput) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
 	return false
 }
 
-func (o PatchTokenInput) MarshalJSON() ([]byte, error) {
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *PatchTokenInput) SetStatus(v string) {
+	o.Status = &v
+}
+
+func (o PatchTokenInput) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["expiryDate"] = o.ExpiryDate
-
-	toSerialize["scopes"] = o.Scopes
-
-	if o.Status != nil {
+	if !IsNil(o.ExpiryDate) {
+		toSerialize["expiryDate"] = o.ExpiryDate
+	}
+	if !IsNil(o.Scopes) {
+		toSerialize["scopes"] = o.Scopes
+	}
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullablePatchTokenInput struct {

@@ -1,9 +1,9 @@
 /*
  * Container Registry service
  *
- * Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls.
+ * ## Overview Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls. ## Changelog ### 1.1.0  - Added new endpoints for Repositories  - Added new endpoints for Artifacts  - Added new endpoints for Vulnerabilities  - Added registry vulnerabilityScanning feature ### 1.2.0  - Added registry `apiSubnetAllowList` ### 1.2.1  - Amended `apiSubnetAllowList` Regex
  *
- * API version: 1.0
+ * API version: 1.2.1
  * Contact: support@cloud.ionos.com
  */
 
@@ -15,7 +15,7 @@ import (
 	_context "context"
 	"fmt"
 	"github.com/ionos-cloud/sdk-go-bundle/shared"
-	_ioutil "io/ioutil"
+	"io"
 	_nethttp "net/http"
 	_neturl "net/url"
 	"strings"
@@ -41,6 +41,7 @@ func (r ApiRegistriesDeleteRequest) Execute() (*shared.APIResponse, error) {
 
 /*
  * RegistriesDelete Delete registry
+ *
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param registryId The unique ID of the registry
  * @return ApiRegistriesDeleteRequest
@@ -73,7 +74,7 @@ func (a *RegistriesApiService) RegistriesDeleteExecute(r ApiRegistriesDeleteRequ
 	}
 
 	localVarPath := localBasePath + "/registries/{registryId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"registryId"+"}", _neturl.PathEscape(parameterToString(r.registryId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"registryId"+"}", _neturl.PathEscape(parameterValueToString(r.registryId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -129,7 +130,7 @@ func (a *RegistriesApiService) RegistriesDeleteExecute(r ApiRegistriesDeleteRequ
 		return localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -203,7 +204,7 @@ func (a *RegistriesApiService) RegistriesFindByIdExecute(r ApiRegistriesFindById
 	}
 
 	localVarPath := localBasePath + "/registries/{registryId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"registryId"+"}", _neturl.PathEscape(parameterToString(r.registryId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"registryId"+"}", _neturl.PathEscape(parameterValueToString(r.registryId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -259,7 +260,7 @@ func (a *RegistriesApiService) RegistriesFindByIdExecute(r ApiRegistriesFindById
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -370,13 +371,13 @@ func (a *RegistriesApiService) RegistriesGetExecute(r ApiRegistriesGetRequest) (
 	localVarFormParams := _neturl.Values{}
 
 	if r.filterName != nil {
-		localVarQueryParams.Add("filter.name", parameterToString(*r.filterName, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filter.name", r.filterName, "")
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	if r.paginationToken != nil {
-		localVarQueryParams.Add("pagination.token", parameterToString(*r.paginationToken, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pagination.token", r.paginationToken, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -428,7 +429,7 @@ func (a *RegistriesApiService) RegistriesGetExecute(r ApiRegistriesGetRequest) (
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -519,7 +520,7 @@ func (a *RegistriesApiService) RegistriesPatchExecute(r ApiRegistriesPatchReques
 	}
 
 	localVarPath := localBasePath + "/registries/{registryId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"registryId"+"}", _neturl.PathEscape(parameterToString(r.registryId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"registryId"+"}", _neturl.PathEscape(parameterValueToString(r.registryId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -580,7 +581,7 @@ func (a *RegistriesApiService) RegistriesPatchExecute(r ApiRegistriesPatchReques
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -638,6 +639,7 @@ func (r ApiRegistriesPostRequest) Execute() (PostRegistryOutput, *shared.APIResp
 - "name" must have passed validation
 - "location" must be one of the available location IDs
 - "garbageCollectionSchedule" time and days of the week for runs
+- "features": "vulnerabilityScanning" default is enabled
   - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
   - @return ApiRegistriesPostRequest
 */
@@ -730,7 +732,7 @@ func (a *RegistriesApiService) RegistriesPostExecute(r ApiRegistriesPostRequest)
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -787,15 +789,12 @@ func (r ApiRegistriesPutRequest) Execute() (PutRegistryOutput, *shared.APIRespon
   - Create/replace a registry to hold container images or OCI compliant
 
 artifacts
-
 **On create**
 - "name" must have passed validation
 - "location" must be one of the available location IDs
-
 **On update**
 - "name" cannot be changed
 - "location" cannot be changed
-
 **On create or update**
 - "garbageCollectionSchedule": time and days of the week for runs
 
@@ -833,7 +832,7 @@ func (a *RegistriesApiService) RegistriesPutExecute(r ApiRegistriesPutRequest) (
 	}
 
 	localVarPath := localBasePath + "/registries/{registryId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"registryId"+"}", _neturl.PathEscape(parameterToString(r.registryId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"registryId"+"}", _neturl.PathEscape(parameterValueToString(r.registryId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -894,7 +893,7 @@ func (a *RegistriesApiService) RegistriesPutExecute(r ApiRegistriesPutRequest) (
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {

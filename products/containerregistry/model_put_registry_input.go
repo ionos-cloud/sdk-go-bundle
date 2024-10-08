@@ -1,9 +1,9 @@
 /*
  * Container Registry service
  *
- * Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls.
+ * ## Overview Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls. ## Changelog ### 1.1.0  - Added new endpoints for Repositories  - Added new endpoints for Artifacts  - Added new endpoints for Vulnerabilities  - Added registry vulnerabilityScanning feature ### 1.2.0  - Added registry `apiSubnetAllowList` ### 1.2.1  - Amended `apiSubnetAllowList` Regex
  *
- * API version: 1.0
+ * API version: 1.2.1
  * Contact: support@cloud.ionos.com
  */
 
@@ -15,9 +15,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the PutRegistryInput type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PutRegistryInput{}
+
 // PutRegistryInput struct for PutRegistryInput
 type PutRegistryInput struct {
-	Properties *PostRegistryProperties `json:"properties"`
+	Properties PostRegistryProperties `json:"properties"`
 }
 
 // NewPutRegistryInput instantiates a new PutRegistryInput object
@@ -27,7 +30,7 @@ type PutRegistryInput struct {
 func NewPutRegistryInput(properties PostRegistryProperties) *PutRegistryInput {
 	this := PutRegistryInput{}
 
-	this.Properties = &properties
+	this.Properties = properties
 
 	return &this
 }
@@ -41,50 +44,33 @@ func NewPutRegistryInputWithDefaults() *PutRegistryInput {
 }
 
 // GetProperties returns the Properties field value
-// If the value is explicit nil, the zero value for PostRegistryProperties will be returned
-func (o *PutRegistryInput) GetProperties() *PostRegistryProperties {
+func (o *PutRegistryInput) GetProperties() PostRegistryProperties {
 	if o == nil {
-		return nil
+		var ret PostRegistryProperties
+		return ret
 	}
 
 	return o.Properties
-
 }
 
 // GetPropertiesOk returns a tuple with the Properties field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PutRegistryInput) GetPropertiesOk() (*PostRegistryProperties, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Properties, true
+	return &o.Properties, true
 }
 
 // SetProperties sets field value
 func (o *PutRegistryInput) SetProperties(v PostRegistryProperties) {
-
-	o.Properties = &v
-
+	o.Properties = v
 }
 
-// HasProperties returns a boolean if a field has been set.
-func (o *PutRegistryInput) HasProperties() bool {
-	if o != nil && o.Properties != nil {
-		return true
-	}
-
-	return false
-}
-
-func (o PutRegistryInput) MarshalJSON() ([]byte, error) {
+func (o PutRegistryInput) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Properties != nil {
-		toSerialize["properties"] = o.Properties
-	}
-
-	return json.Marshal(toSerialize)
+	toSerialize["properties"] = o.Properties
+	return toSerialize, nil
 }
 
 type NullablePutRegistryInput struct {

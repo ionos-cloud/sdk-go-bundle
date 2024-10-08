@@ -1,6 +1,21 @@
 # Go API client for containerregistry
 
-Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls.
+## Overview
+Container Registry service enables IONOS clients to manage docker and OCI
+compliant registries for use by their managed Kubernetes clusters. Use a
+Container Registry to ensure you have a privately accessed registry to
+efficiently support image pulls.
+## Changelog
+### 1.1.0
+ - Added new endpoints for Repositories
+ - Added new endpoints for Artifacts
+ - Added new endpoints for Vulnerabilities
+ - Added registry vulnerabilityScanning feature
+### 1.2.0
+ - Added registry `apiSubnetAllowList`
+### 1.2.1
+ - Amended `apiSubnetAllowList` Regex
+
 
 ## Overview
 The IONOS Cloud SDK for GO provides you with access to the IONOS Cloud API. The client library supports both simple and complex requests.
@@ -34,7 +49,7 @@ go get github.com/ionos-cloud/sdk-go-bundle/products/containerregistry@latest
 | `IONOS_PASSWORD`     | Specify the password used to login, to authenticate against the IONOS Cloud API                                                                                                                                                |
 | `IONOS_TOKEN`        | Specify the token used to login, if a token is being used instead of username and password                                                                                                                                     |
 | `IONOS_API_URL`      | Specify the API URL. It will overwrite the API endpoint default value `api.ionos.com`. Note: the host URL does not contain the `/cloudapi/v6` path, so it should _not_ be included in the `IONOS_API_URL` environment variable |
-| `IONOS_LOGLEVEL`     | Specify the Log Level used to log messages. Possible values: Off, Debug, Trace |
+| `IONOS_LOG_LEVEL`    | Specify the Log Level used to log messages. Possible values: Off, Debug, Trace |
 | `IONOS_PINNED_CERT`  | Specify the SHA-256 public fingerprint here, enables certificate pinning                                                                                                                                                       |
 
 ⚠️ **_Note: To overwrite the api endpoint - `api.ionos.com`, the environment variable `$IONOS_API_URL` can be set, and used with `NewConfigurationFromEnv()` function._**
@@ -156,9 +171,9 @@ requestProperties.SetURL("https://api.ionos.com/cloudapi/v6")
 
 ## Debugging
 
-You can now inject any logger that implements Printf as a logger
+You can inject any logger that implements Printf as a logger
 instead of using the default sdk logger.
-There are now Loglevels that you can set: `Off`, `Debug` and `Trace`.
+There are log levels that you can set: `Off`, `Debug` and `Trace`.
 `Off` - does not show any logs
 `Debug` - regular logs, no sensitive information
 `Trace` - we recommend you only set this field for debugging purposes. Disable it in your production environments because it can log sensitive data.
@@ -179,9 +194,9 @@ func main() {
     // if you have set your env variables as explained above
     cfg := shared.NewConfiguration("username", "password", "token", "hostUrl")
     // enable request and response logging. this is the most verbose loglevel
-    cfg.LogLevel = Trace
+    shared.SdkLogLevel = Trace
     // inject your own logger that implements Printf
-    cfg.Logger = logrus.New()
+    shared.SdkLogger = logrus.New()
     // create you api client with the configuration
     apiClient := containerregistry.NewAPIClient(cfg)
 }
@@ -196,6 +211,10 @@ All URIs are relative to *https://api.ionos.com/containerregistries*
 
 Class | Method | HTTP request | Description
 ------------- | ------------- | ------------- | -------------
+ArtifactsApi | [**RegistriesArtifactsGet**](docs/api/ArtifactsApi.md#registriesartifactsget) | **Get** /registries/{registryId}/artifacts | Retrieve all Artifacts by Registry
+ArtifactsApi | [**RegistriesRepositoriesArtifactsFindByDigest**](docs/api/ArtifactsApi.md#registriesrepositoriesartifactsfindbydigest) | **Get** /registries/{registryId}/repositories/{repositoryName}/artifacts/{digest} | Retrieve Artifact
+ArtifactsApi | [**RegistriesRepositoriesArtifactsGet**](docs/api/ArtifactsApi.md#registriesrepositoriesartifactsget) | **Get** /registries/{registryId}/repositories/{repositoryName}/artifacts | Retrieve all Artifacts by Repository
+ArtifactsApi | [**RegistriesRepositoriesArtifactsVulnerabilitiesGet**](docs/api/ArtifactsApi.md#registriesrepositoriesartifactsvulnerabilitiesget) | **Get** /registries/{registryId}/repositories/{repositoryName}/artifacts/{digest}/vulnerabilities | Retrieve all Vulnerabilities
 LocationsApi | [**LocationsGet**](docs/api/LocationsApi.md#locationsget) | **Get** /locations | Get container registry locations
 NamesApi | [**NamesCheckUsage**](docs/api/NamesApi.md#namescheckusage) | **Head** /names/{name} | Get container registry name availability
 RegistriesApi | [**RegistriesDelete**](docs/api/RegistriesApi.md#registriesdelete) | **Delete** /registries/{registryId} | Delete registry
@@ -204,13 +223,16 @@ RegistriesApi | [**RegistriesGet**](docs/api/RegistriesApi.md#registriesget) | *
 RegistriesApi | [**RegistriesPatch**](docs/api/RegistriesApi.md#registriespatch) | **Patch** /registries/{registryId} | Update the properties of a registry
 RegistriesApi | [**RegistriesPost**](docs/api/RegistriesApi.md#registriespost) | **Post** /registries | Create container registry
 RegistriesApi | [**RegistriesPut**](docs/api/RegistriesApi.md#registriesput) | **Put** /registries/{registryId} | Create or replace a container registry
-RepositoriesApi | [**RegistriesRepositoriesDelete**](docs/api/RepositoriesApi.md#registriesrepositoriesdelete) | **Delete** /registries/{registryId}/repositories/{name} | Delete repository
+RepositoriesApi | [**RegistriesRepositoriesDelete**](docs/api/RepositoriesApi.md#registriesrepositoriesdelete) | **Delete** /registries/{registryId}/repositories/{repositoryName} | Delete repository
+RepositoriesApi | [**RegistriesRepositoriesFindByName**](docs/api/RepositoriesApi.md#registriesrepositoriesfindbyname) | **Get** /registries/{registryId}/repositories/{repositoryName} | Retrieve Repository
+RepositoriesApi | [**RegistriesRepositoriesGet**](docs/api/RepositoriesApi.md#registriesrepositoriesget) | **Get** /registries/{registryId}/repositories | Retrieve all Repositories
 TokensApi | [**RegistriesTokensDelete**](docs/api/TokensApi.md#registriestokensdelete) | **Delete** /registries/{registryId}/tokens/{tokenId} | Delete token
 TokensApi | [**RegistriesTokensFindById**](docs/api/TokensApi.md#registriestokensfindbyid) | **Get** /registries/{registryId}/tokens/{tokenId} | Get token information
 TokensApi | [**RegistriesTokensGet**](docs/api/TokensApi.md#registriestokensget) | **Get** /registries/{registryId}/tokens | List all tokens for the container registry
 TokensApi | [**RegistriesTokensPatch**](docs/api/TokensApi.md#registriestokenspatch) | **Patch** /registries/{registryId}/tokens/{tokenId} | Update token
 TokensApi | [**RegistriesTokensPost**](docs/api/TokensApi.md#registriestokenspost) | **Post** /registries/{registryId}/tokens | Create token
 TokensApi | [**RegistriesTokensPut**](docs/api/TokensApi.md#registriestokensput) | **Put** /registries/{registryId}/tokens/{tokenId} | Create or replace token
+VulnerabilitiesApi | [**VulnerabilitiesFindByID**](docs/api/VulnerabilitiesApi.md#vulnerabilitiesfindbyid) | **Get** /vulnerabilities/{vulnerabilityId} | Retrieve Vulnerability
 
 </details>
 
@@ -223,10 +245,22 @@ All URIs are relative to *https://api.ionos.com/containerregistries*
  - [ApiErrorMessage](docs/models/ApiErrorMessage)
  - [ApiErrorResponse](docs/models/ApiErrorResponse)
  - [ApiResourceMetadata](docs/models/ApiResourceMetadata)
+ - [Artifact](docs/models/Artifact)
+ - [ArtifactMetadata](docs/models/ArtifactMetadata)
+ - [ArtifactMetadataAllOf](docs/models/ArtifactMetadataAllOf)
+ - [ArtifactRead](docs/models/ArtifactRead)
+ - [ArtifactReadList](docs/models/ArtifactReadList)
+ - [ArtifactVulnerabilityReadList](docs/models/ArtifactVulnerabilityReadList)
  - [Credentials](docs/models/Credentials)
  - [Day](docs/models/Day)
+ - [Error](docs/models/Error)
+ - [ErrorMessages](docs/models/ErrorMessages)
+ - [Feature](docs/models/Feature)
+ - [FeatureVulnerabilityScanning](docs/models/FeatureVulnerabilityScanning)
+ - [Links](docs/models/Links)
  - [Location](docs/models/Location)
  - [LocationsResponse](docs/models/LocationsResponse)
+ - [Metadata](docs/models/Metadata)
  - [Pagination](docs/models/Pagination)
  - [PaginationLinks](docs/models/PaginationLinks)
  - [PatchRegistryInput](docs/models/PatchRegistryInput)
@@ -237,18 +271,32 @@ All URIs are relative to *https://api.ionos.com/containerregistries*
  - [PostTokenInput](docs/models/PostTokenInput)
  - [PostTokenOutput](docs/models/PostTokenOutput)
  - [PostTokenProperties](docs/models/PostTokenProperties)
+ - [Purl](docs/models/Purl)
  - [PutRegistryInput](docs/models/PutRegistryInput)
  - [PutRegistryOutput](docs/models/PutRegistryOutput)
  - [PutTokenInput](docs/models/PutTokenInput)
  - [PutTokenOutput](docs/models/PutTokenOutput)
  - [RegistriesResponse](docs/models/RegistriesResponse)
+ - [RegistryArtifactsReadList](docs/models/RegistryArtifactsReadList)
+ - [RegistryFeatures](docs/models/RegistryFeatures)
+ - [RegistryPagination](docs/models/RegistryPagination)
  - [RegistryProperties](docs/models/RegistryProperties)
  - [RegistryResponse](docs/models/RegistryResponse)
+ - [Repository](docs/models/Repository)
+ - [RepositoryMetadata](docs/models/RepositoryMetadata)
+ - [RepositoryMetadataAllOf](docs/models/RepositoryMetadataAllOf)
+ - [RepositoryRead](docs/models/RepositoryRead)
+ - [RepositoryReadList](docs/models/RepositoryReadList)
  - [Scope](docs/models/Scope)
  - [StorageUsage](docs/models/StorageUsage)
  - [TokenProperties](docs/models/TokenProperties)
  - [TokenResponse](docs/models/TokenResponse)
  - [TokensResponse](docs/models/TokensResponse)
+ - [Vulnerability](docs/models/Vulnerability)
+ - [VulnerabilityDataSource](docs/models/VulnerabilityDataSource)
+ - [VulnerabilityMetadata](docs/models/VulnerabilityMetadata)
+ - [VulnerabilityRead](docs/models/VulnerabilityRead)
+ - [VulnerabilityReadList](docs/models/VulnerabilityReadList)
  - [WeeklySchedule](docs/models/WeeklySchedule)
 
 

@@ -4,11 +4,13 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**GarbageCollectionSchedule** | Pointer to [**NullableWeeklySchedule**](WeeklySchedule.md) |  | [optional] |
+|**GarbageCollectionSchedule** | Pointer to [**WeeklySchedule**](WeeklySchedule.md) |  | [optional] |
 |**Hostname** | Pointer to **string** |  | [optional] |
 |**Location** | **string** |  | |
 |**Name** | **string** |  | |
-|**StorageUsage** | Pointer to [**NullableStorageUsage**](StorageUsage.md) |  | [optional] |
+|**StorageUsage** | Pointer to [**StorageUsage**](StorageUsage.md) |  | [optional] |
+|**Features** | Pointer to [**RegistryFeatures**](RegistryFeatures.md) |  | [optional] |
+|**ApiSubnetAllowList** | Pointer to **[]string** | Subnets and IPs that are allowed to access the registry API, supports IPv4 and IPv6. Maximum of 25 items may be specified. If no CIDR is given /32 and /128 are assumed for IPv4 and IPv6 respectively. 0.0.0.0/0 can be used to deny all traffic. __Note__: If this list is empty or not set, there are no restrictions.  | [optional] |
 
 ## Methods
 
@@ -54,16 +56,6 @@ SetGarbageCollectionSchedule sets GarbageCollectionSchedule field to given value
 
 HasGarbageCollectionSchedule returns a boolean if a field has been set.
 
-### SetGarbageCollectionScheduleNil
-
-`func (o *RegistryProperties) SetGarbageCollectionScheduleNil(b bool)`
-
- SetGarbageCollectionScheduleNil sets the value for GarbageCollectionSchedule to be an explicit nil
-
-### UnsetGarbageCollectionSchedule
-`func (o *RegistryProperties) UnsetGarbageCollectionSchedule()`
-
-UnsetGarbageCollectionSchedule ensures that no value is present for GarbageCollectionSchedule, not even an explicit nil
 ### GetHostname
 
 `func (o *RegistryProperties) GetHostname() string`
@@ -154,14 +146,54 @@ SetStorageUsage sets StorageUsage field to given value.
 
 HasStorageUsage returns a boolean if a field has been set.
 
-### SetStorageUsageNil
+### GetFeatures
 
-`func (o *RegistryProperties) SetStorageUsageNil(b bool)`
+`func (o *RegistryProperties) GetFeatures() RegistryFeatures`
 
- SetStorageUsageNil sets the value for StorageUsage to be an explicit nil
+GetFeatures returns the Features field if non-nil, zero value otherwise.
 
-### UnsetStorageUsage
-`func (o *RegistryProperties) UnsetStorageUsage()`
+### GetFeaturesOk
 
-UnsetStorageUsage ensures that no value is present for StorageUsage, not even an explicit nil
+`func (o *RegistryProperties) GetFeaturesOk() (*RegistryFeatures, bool)`
+
+GetFeaturesOk returns a tuple with the Features field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFeatures
+
+`func (o *RegistryProperties) SetFeatures(v RegistryFeatures)`
+
+SetFeatures sets Features field to given value.
+
+### HasFeatures
+
+`func (o *RegistryProperties) HasFeatures() bool`
+
+HasFeatures returns a boolean if a field has been set.
+
+### GetApiSubnetAllowList
+
+`func (o *RegistryProperties) GetApiSubnetAllowList() []string`
+
+GetApiSubnetAllowList returns the ApiSubnetAllowList field if non-nil, zero value otherwise.
+
+### GetApiSubnetAllowListOk
+
+`func (o *RegistryProperties) GetApiSubnetAllowListOk() (*[]string, bool)`
+
+GetApiSubnetAllowListOk returns a tuple with the ApiSubnetAllowList field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetApiSubnetAllowList
+
+`func (o *RegistryProperties) SetApiSubnetAllowList(v []string)`
+
+SetApiSubnetAllowList sets ApiSubnetAllowList field to given value.
+
+### HasApiSubnetAllowList
+
+`func (o *RegistryProperties) HasApiSubnetAllowList() bool`
+
+HasApiSubnetAllowList returns a boolean if a field has been set.
+
 

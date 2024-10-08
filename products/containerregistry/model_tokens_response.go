@@ -1,9 +1,9 @@
 /*
  * Container Registry service
  *
- * Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls.
+ * ## Overview Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls. ## Changelog ### 1.1.0  - Added new endpoints for Repositories  - Added new endpoints for Artifacts  - Added new endpoints for Vulnerabilities  - Added registry vulnerabilityScanning feature ### 1.2.0  - Added registry `apiSubnetAllowList` ### 1.2.1  - Amended `apiSubnetAllowList` Regex
  *
- * API version: 1.0
+ * API version: 1.2.1
  * Contact: support@cloud.ionos.com
  */
 
@@ -15,17 +15,20 @@ import (
 	"encoding/json"
 )
 
+// checks if the TokensResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TokensResponse{}
+
 // TokensResponse struct for TokensResponse
 type TokensResponse struct {
-	Links  *PaginationLinks `json:"_links"`
-	Count  *int32           `json:"count"`
-	Href   *string          `json:"href,omitempty"`
-	Id     *string          `json:"id,omitempty"`
-	Items  *[]TokenResponse `json:"items,omitempty"`
-	Limit  *int32           `json:"limit"`
-	Offset *int32           `json:"offset"`
-	Total  *int32           `json:"total"`
-	Type   *string          `json:"type,omitempty"`
+	Links  PaginationLinks `json:"_links"`
+	Count  int32           `json:"count"`
+	Href   *string         `json:"href,omitempty"`
+	Id     *string         `json:"id,omitempty"`
+	Items  []TokenResponse `json:"items,omitempty"`
+	Limit  int32           `json:"limit"`
+	Offset int32           `json:"offset"`
+	Total  int32           `json:"total"`
+	Type   *string         `json:"type,omitempty"`
 }
 
 // NewTokensResponse instantiates a new TokensResponse object
@@ -35,11 +38,11 @@ type TokensResponse struct {
 func NewTokensResponse(links PaginationLinks, count int32, limit int32, offset int32, total int32) *TokensResponse {
 	this := TokensResponse{}
 
-	this.Links = &links
-	this.Count = &count
-	this.Limit = &limit
-	this.Offset = &offset
-	this.Total = &total
+	this.Links = links
+	this.Count = count
+	this.Limit = limit
+	this.Offset = offset
+	this.Total = total
 
 	return &this
 }
@@ -53,384 +56,273 @@ func NewTokensResponseWithDefaults() *TokensResponse {
 }
 
 // GetLinks returns the Links field value
-// If the value is explicit nil, the zero value for PaginationLinks will be returned
-func (o *TokensResponse) GetLinks() *PaginationLinks {
+func (o *TokensResponse) GetLinks() PaginationLinks {
 	if o == nil {
-		return nil
+		var ret PaginationLinks
+		return ret
 	}
 
 	return o.Links
-
 }
 
 // GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TokensResponse) GetLinksOk() (*PaginationLinks, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Links, true
+	return &o.Links, true
 }
 
 // SetLinks sets field value
 func (o *TokensResponse) SetLinks(v PaginationLinks) {
-
-	o.Links = &v
-
-}
-
-// HasLinks returns a boolean if a field has been set.
-func (o *TokensResponse) HasLinks() bool {
-	if o != nil && o.Links != nil {
-		return true
-	}
-
-	return false
+	o.Links = v
 }
 
 // GetCount returns the Count field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *TokensResponse) GetCount() *int32 {
+func (o *TokensResponse) GetCount() int32 {
 	if o == nil {
-		return nil
+		var ret int32
+		return ret
 	}
 
 	return o.Count
-
 }
 
 // GetCountOk returns a tuple with the Count field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TokensResponse) GetCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Count, true
+	return &o.Count, true
 }
 
 // SetCount sets field value
 func (o *TokensResponse) SetCount(v int32) {
-
-	o.Count = &v
-
+	o.Count = v
 }
 
-// HasCount returns a boolean if a field has been set.
-func (o *TokensResponse) HasCount() bool {
-	if o != nil && o.Count != nil {
-		return true
+// GetHref returns the Href field value if set, zero value otherwise.
+func (o *TokensResponse) GetHref() string {
+	if o == nil || IsNil(o.Href) {
+		var ret string
+		return ret
 	}
-
-	return false
+	return *o.Href
 }
 
-// GetHref returns the Href field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *TokensResponse) GetHref() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Href
-
-}
-
-// GetHrefOk returns a tuple with the Href field value
+// GetHrefOk returns a tuple with the Href field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TokensResponse) GetHrefOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Href) {
 		return nil, false
 	}
-
 	return o.Href, true
-}
-
-// SetHref sets field value
-func (o *TokensResponse) SetHref(v string) {
-
-	o.Href = &v
-
 }
 
 // HasHref returns a boolean if a field has been set.
 func (o *TokensResponse) HasHref() bool {
-	if o != nil && o.Href != nil {
+	if o != nil && !IsNil(o.Href) {
 		return true
 	}
 
 	return false
 }
 
-// GetId returns the Id field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *TokensResponse) GetId() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Id
-
+// SetHref gets a reference to the given string and assigns it to the Href field.
+func (o *TokensResponse) SetHref(v string) {
+	o.Href = &v
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *TokensResponse) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TokensResponse) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-
 	return o.Id, true
-}
-
-// SetId sets field value
-func (o *TokensResponse) SetId(v string) {
-
-	o.Id = &v
-
 }
 
 // HasId returns a boolean if a field has been set.
 func (o *TokensResponse) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
 	return false
 }
 
-// GetItems returns the Items field value
-// If the value is explicit nil, the zero value for []TokenResponse will be returned
-func (o *TokensResponse) GetItems() *[]TokenResponse {
-	if o == nil {
-		return nil
-	}
-
-	return o.Items
-
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *TokensResponse) SetId(v string) {
+	o.Id = &v
 }
 
-// GetItemsOk returns a tuple with the Items field value
+// GetItems returns the Items field value if set, zero value otherwise.
+func (o *TokensResponse) GetItems() []TokenResponse {
+	if o == nil || IsNil(o.Items) {
+		var ret []TokenResponse
+		return ret
+	}
+	return o.Items
+}
+
+// GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TokensResponse) GetItemsOk() (*[]TokenResponse, bool) {
-	if o == nil {
+func (o *TokensResponse) GetItemsOk() ([]TokenResponse, bool) {
+	if o == nil || IsNil(o.Items) {
 		return nil, false
 	}
-
 	return o.Items, true
-}
-
-// SetItems sets field value
-func (o *TokensResponse) SetItems(v []TokenResponse) {
-
-	o.Items = &v
-
 }
 
 // HasItems returns a boolean if a field has been set.
 func (o *TokensResponse) HasItems() bool {
-	if o != nil && o.Items != nil {
+	if o != nil && !IsNil(o.Items) {
 		return true
 	}
 
 	return false
 }
 
+// SetItems gets a reference to the given []TokenResponse and assigns it to the Items field.
+func (o *TokensResponse) SetItems(v []TokenResponse) {
+	o.Items = v
+}
+
 // GetLimit returns the Limit field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *TokensResponse) GetLimit() *int32 {
+func (o *TokensResponse) GetLimit() int32 {
 	if o == nil {
-		return nil
+		var ret int32
+		return ret
 	}
 
 	return o.Limit
-
 }
 
 // GetLimitOk returns a tuple with the Limit field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TokensResponse) GetLimitOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Limit, true
+	return &o.Limit, true
 }
 
 // SetLimit sets field value
 func (o *TokensResponse) SetLimit(v int32) {
-
-	o.Limit = &v
-
-}
-
-// HasLimit returns a boolean if a field has been set.
-func (o *TokensResponse) HasLimit() bool {
-	if o != nil && o.Limit != nil {
-		return true
-	}
-
-	return false
+	o.Limit = v
 }
 
 // GetOffset returns the Offset field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *TokensResponse) GetOffset() *int32 {
+func (o *TokensResponse) GetOffset() int32 {
 	if o == nil {
-		return nil
+		var ret int32
+		return ret
 	}
 
 	return o.Offset
-
 }
 
 // GetOffsetOk returns a tuple with the Offset field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TokensResponse) GetOffsetOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Offset, true
+	return &o.Offset, true
 }
 
 // SetOffset sets field value
 func (o *TokensResponse) SetOffset(v int32) {
-
-	o.Offset = &v
-
-}
-
-// HasOffset returns a boolean if a field has been set.
-func (o *TokensResponse) HasOffset() bool {
-	if o != nil && o.Offset != nil {
-		return true
-	}
-
-	return false
+	o.Offset = v
 }
 
 // GetTotal returns the Total field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *TokensResponse) GetTotal() *int32 {
+func (o *TokensResponse) GetTotal() int32 {
 	if o == nil {
-		return nil
+		var ret int32
+		return ret
 	}
 
 	return o.Total
-
 }
 
 // GetTotalOk returns a tuple with the Total field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TokensResponse) GetTotalOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Total, true
+	return &o.Total, true
 }
 
 // SetTotal sets field value
 func (o *TokensResponse) SetTotal(v int32) {
-
-	o.Total = &v
-
+	o.Total = v
 }
 
-// HasTotal returns a boolean if a field has been set.
-func (o *TokensResponse) HasTotal() bool {
-	if o != nil && o.Total != nil {
-		return true
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *TokensResponse) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
 	}
-
-	return false
+	return *o.Type
 }
 
-// GetType returns the Type field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *TokensResponse) GetType() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Type
-
-}
-
-// GetTypeOk returns a tuple with the Type field value
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TokensResponse) GetTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
-
 	return o.Type, true
-}
-
-// SetType sets field value
-func (o *TokensResponse) SetType(v string) {
-
-	o.Type = &v
-
 }
 
 // HasType returns a boolean if a field has been set.
 func (o *TokensResponse) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
 	return false
 }
 
-func (o TokensResponse) MarshalJSON() ([]byte, error) {
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *TokensResponse) SetType(v string) {
+	o.Type = &v
+}
+
+func (o TokensResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Links != nil {
-		toSerialize["_links"] = o.Links
-	}
-
-	if o.Count != nil {
-		toSerialize["count"] = o.Count
-	}
-
-	if o.Href != nil {
+	toSerialize["_links"] = o.Links
+	toSerialize["count"] = o.Count
+	if !IsNil(o.Href) {
 		toSerialize["href"] = o.Href
 	}
-
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-
-	toSerialize["items"] = o.Items
-
-	if o.Limit != nil {
-		toSerialize["limit"] = o.Limit
+	if !IsNil(o.Items) {
+		toSerialize["items"] = o.Items
 	}
-
-	if o.Offset != nil {
-		toSerialize["offset"] = o.Offset
-	}
-
-	if o.Total != nil {
-		toSerialize["total"] = o.Total
-	}
-
-	if o.Type != nil {
+	toSerialize["limit"] = o.Limit
+	toSerialize["offset"] = o.Offset
+	toSerialize["total"] = o.Total
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableTokensResponse struct {

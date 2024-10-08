@@ -1,9 +1,9 @@
 /*
  * Container Registry service
  *
- * Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls.
+ * ## Overview Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls. ## Changelog ### 1.1.0  - Added new endpoints for Repositories  - Added new endpoints for Artifacts  - Added new endpoints for Vulnerabilities  - Added registry vulnerabilityScanning feature ### 1.2.0  - Added registry `apiSubnetAllowList` ### 1.2.1  - Amended `apiSubnetAllowList` Regex
  *
- * API version: 1.0
+ * API version: 1.2.1
  * Contact: support@cloud.ionos.com
  */
 
@@ -15,11 +15,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the Scope type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Scope{}
+
 // Scope struct for Scope
 type Scope struct {
-	Actions *[]string `json:"actions"`
-	Name    *string   `json:"name"`
-	Type    *string   `json:"type"`
+	Actions []string `json:"actions"`
+	Name    string   `json:"name"`
+	Type    string   `json:"type"`
 }
 
 // NewScope instantiates a new Scope object
@@ -29,9 +32,9 @@ type Scope struct {
 func NewScope(actions []string, name string, type_ string) *Scope {
 	this := Scope{}
 
-	this.Actions = &actions
-	this.Name = &name
-	this.Type = &type_
+	this.Actions = actions
+	this.Name = name
+	this.Type = type_
 
 	return &this
 }
@@ -45,132 +48,83 @@ func NewScopeWithDefaults() *Scope {
 }
 
 // GetActions returns the Actions field value
-// If the value is explicit nil, the zero value for []string will be returned
-func (o *Scope) GetActions() *[]string {
+func (o *Scope) GetActions() []string {
 	if o == nil {
-		return nil
+		var ret []string
+		return ret
 	}
 
 	return o.Actions
-
 }
 
 // GetActionsOk returns a tuple with the Actions field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Scope) GetActionsOk() (*[]string, bool) {
+func (o *Scope) GetActionsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
 	return o.Actions, true
 }
 
 // SetActions sets field value
 func (o *Scope) SetActions(v []string) {
-
-	o.Actions = &v
-
-}
-
-// HasActions returns a boolean if a field has been set.
-func (o *Scope) HasActions() bool {
-	if o != nil && o.Actions != nil {
-		return true
-	}
-
-	return false
+	o.Actions = v
 }
 
 // GetName returns the Name field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Scope) GetName() *string {
+func (o *Scope) GetName() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Name
-
 }
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Scope) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Name, true
+	return &o.Name, true
 }
 
 // SetName sets field value
 func (o *Scope) SetName(v string) {
-
-	o.Name = &v
-
-}
-
-// HasName returns a boolean if a field has been set.
-func (o *Scope) HasName() bool {
-	if o != nil && o.Name != nil {
-		return true
-	}
-
-	return false
+	o.Name = v
 }
 
 // GetType returns the Type field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Scope) GetType() *string {
+func (o *Scope) GetType() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Type
-
 }
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Scope) GetTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Type, true
+	return &o.Type, true
 }
 
 // SetType sets field value
 func (o *Scope) SetType(v string) {
-
-	o.Type = &v
-
+	o.Type = v
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *Scope) HasType() bool {
-	if o != nil && o.Type != nil {
-		return true
-	}
-
-	return false
-}
-
-func (o Scope) MarshalJSON() ([]byte, error) {
+func (o Scope) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["actions"] = o.Actions
-
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-
-	if o.Type != nil {
-		toSerialize["type"] = o.Type
-	}
-
-	return json.Marshal(toSerialize)
+	toSerialize["name"] = o.Name
+	toSerialize["type"] = o.Type
+	return toSerialize, nil
 }
 
 type NullableScope struct {

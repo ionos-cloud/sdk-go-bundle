@@ -47,16 +47,6 @@ and a boolean to check if the value has been set.
 SetActions sets Actions field to given value.
 
 
-### SetActionsNil
-
-`func (o *Scope) SetActionsNil(b bool)`
-
- SetActionsNil sets the value for Actions to be an explicit nil
-
-### UnsetActions
-`func (o *Scope) UnsetActions()`
-
-UnsetActions ensures that no value is present for Actions, not even an explicit nil
 ### GetName
 
 `func (o *Scope) GetName() string`

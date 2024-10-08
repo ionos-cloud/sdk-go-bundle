@@ -46,16 +46,6 @@ and a boolean to check if the value has been set.
 SetDays sets Days field to given value.
 
 
-### SetDaysNil
-
-`func (o *WeeklySchedule) SetDaysNil(b bool)`
-
- SetDaysNil sets the value for Days to be an explicit nil
-
-### UnsetDays
-`func (o *WeeklySchedule) UnsetDays()`
-
-UnsetDays ensures that no value is present for Days, not even an explicit nil
 ### GetTime
 
 `func (o *WeeklySchedule) GetTime() string`

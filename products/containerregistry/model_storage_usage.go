@@ -1,9 +1,9 @@
 /*
  * Container Registry service
  *
- * Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls.
+ * ## Overview Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls. ## Changelog ### 1.1.0  - Added new endpoints for Repositories  - Added new endpoints for Artifacts  - Added new endpoints for Vulnerabilities  - Added registry vulnerabilityScanning feature ### 1.2.0  - Added registry `apiSubnetAllowList` ### 1.2.1  - Amended `apiSubnetAllowList` Regex
  *
- * API version: 1.0
+ * API version: 1.2.1
  * Contact: support@cloud.ionos.com
  */
 
@@ -17,9 +17,12 @@ import (
 	"time"
 )
 
+// checks if the StorageUsage type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StorageUsage{}
+
 // StorageUsage struct for StorageUsage
 type StorageUsage struct {
-	Bytes     *int32     `json:"bytes"`
+	Bytes     int64      `json:"bytes"`
 	UpdatedAt *IonosTime `json:"updatedAt,omitempty"`
 }
 
@@ -27,10 +30,10 @@ type StorageUsage struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStorageUsage(bytes int32) *StorageUsage {
+func NewStorageUsage(bytes int64) *StorageUsage {
 	this := StorageUsage{}
 
-	this.Bytes = &bytes
+	this.Bytes = bytes
 
 	return &this
 }
@@ -44,95 +47,68 @@ func NewStorageUsageWithDefaults() *StorageUsage {
 }
 
 // GetBytes returns the Bytes field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *StorageUsage) GetBytes() *int32 {
+func (o *StorageUsage) GetBytes() int64 {
 	if o == nil {
-		return nil
+		var ret int64
+		return ret
 	}
 
 	return o.Bytes
-
 }
 
 // GetBytesOk returns a tuple with the Bytes field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *StorageUsage) GetBytesOk() (*int32, bool) {
+func (o *StorageUsage) GetBytesOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Bytes, true
+	return &o.Bytes, true
 }
 
 // SetBytes sets field value
-func (o *StorageUsage) SetBytes(v int32) {
-
-	o.Bytes = &v
-
+func (o *StorageUsage) SetBytes(v int64) {
+	o.Bytes = v
 }
 
-// HasBytes returns a boolean if a field has been set.
-func (o *StorageUsage) HasBytes() bool {
-	if o != nil && o.Bytes != nil {
-		return true
+// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
+func (o *StorageUsage) GetUpdatedAt() time.Time {
+	if o == nil || IsNil(o.UpdatedAt) {
+		var ret time.Time
+		return ret
 	}
-
-	return false
+	return o.UpdatedAt.Time
 }
 
-// GetUpdatedAt returns the UpdatedAt field value
-// If the value is explicit nil, the zero value for time.Time will be returned
-func (o *StorageUsage) GetUpdatedAt() *time.Time {
-	if o == nil {
-		return nil
-	}
-
-	if o.UpdatedAt == nil {
-		return nil
-	}
-	return &o.UpdatedAt.Time
-
-}
-
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *StorageUsage) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-
-	if o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
 	return &o.UpdatedAt.Time, true
-
-}
-
-// SetUpdatedAt sets field value
-func (o *StorageUsage) SetUpdatedAt(v time.Time) {
-
-	o.UpdatedAt = &IonosTime{v}
-
 }
 
 // HasUpdatedAt returns a boolean if a field has been set.
 func (o *StorageUsage) HasUpdatedAt() bool {
-	if o != nil && o.UpdatedAt != nil {
+	if o != nil && !IsNil(o.UpdatedAt) {
 		return true
 	}
 
 	return false
 }
 
-func (o StorageUsage) MarshalJSON() ([]byte, error) {
+// SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
+func (o *StorageUsage) SetUpdatedAt(v time.Time) {
+	o.UpdatedAt = &IonosTime{v}
+}
+
+func (o StorageUsage) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["bytes"] = o.Bytes
-
-	toSerialize["updatedAt"] = o.UpdatedAt
-
-	return json.Marshal(toSerialize)
+	if !IsNil(o.UpdatedAt) {
+		toSerialize["updatedAt"] = o.UpdatedAt
+	}
+	return toSerialize, nil
 }
 
 type NullableStorageUsage struct {

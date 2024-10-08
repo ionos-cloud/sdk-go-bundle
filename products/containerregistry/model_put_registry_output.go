@@ -1,9 +1,9 @@
 /*
  * Container Registry service
  *
- * Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls.
+ * ## Overview Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls. ## Changelog ### 1.1.0  - Added new endpoints for Repositories  - Added new endpoints for Artifacts  - Added new endpoints for Vulnerabilities  - Added registry vulnerabilityScanning feature ### 1.2.0  - Added registry `apiSubnetAllowList` ### 1.2.1  - Amended `apiSubnetAllowList` Regex
  *
- * API version: 1.0
+ * API version: 1.2.1
  * Contact: support@cloud.ionos.com
  */
 
@@ -15,13 +15,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the PutRegistryOutput type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PutRegistryOutput{}
+
 // PutRegistryOutput struct for PutRegistryOutput
 type PutRegistryOutput struct {
-	Href       *string              `json:"href,omitempty"`
-	Id         *string              `json:"id,omitempty"`
-	Metadata   *ApiResourceMetadata `json:"metadata"`
-	Properties *RegistryProperties  `json:"properties"`
-	Type       *string              `json:"type,omitempty"`
+	Href       *string             `json:"href,omitempty"`
+	Id         *string             `json:"id,omitempty"`
+	Metadata   ApiResourceMetadata `json:"metadata"`
+	Properties RegistryProperties  `json:"properties"`
+	Type       *string             `json:"type,omitempty"`
 }
 
 // NewPutRegistryOutput instantiates a new PutRegistryOutput object
@@ -31,8 +34,8 @@ type PutRegistryOutput struct {
 func NewPutRegistryOutput(metadata ApiResourceMetadata, properties RegistryProperties) *PutRegistryOutput {
 	this := PutRegistryOutput{}
 
-	this.Metadata = &metadata
-	this.Properties = &properties
+	this.Metadata = metadata
+	this.Properties = properties
 
 	return &this
 }
@@ -45,215 +48,164 @@ func NewPutRegistryOutputWithDefaults() *PutRegistryOutput {
 	return &this
 }
 
-// GetHref returns the Href field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *PutRegistryOutput) GetHref() *string {
-	if o == nil {
-		return nil
+// GetHref returns the Href field value if set, zero value otherwise.
+func (o *PutRegistryOutput) GetHref() string {
+	if o == nil || IsNil(o.Href) {
+		var ret string
+		return ret
 	}
-
-	return o.Href
-
+	return *o.Href
 }
 
-// GetHrefOk returns a tuple with the Href field value
+// GetHrefOk returns a tuple with the Href field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PutRegistryOutput) GetHrefOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Href) {
 		return nil, false
 	}
-
 	return o.Href, true
-}
-
-// SetHref sets field value
-func (o *PutRegistryOutput) SetHref(v string) {
-
-	o.Href = &v
-
 }
 
 // HasHref returns a boolean if a field has been set.
 func (o *PutRegistryOutput) HasHref() bool {
-	if o != nil && o.Href != nil {
+	if o != nil && !IsNil(o.Href) {
 		return true
 	}
 
 	return false
 }
 
-// GetId returns the Id field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *PutRegistryOutput) GetId() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Id
-
+// SetHref gets a reference to the given string and assigns it to the Href field.
+func (o *PutRegistryOutput) SetHref(v string) {
+	o.Href = &v
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *PutRegistryOutput) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PutRegistryOutput) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-
 	return o.Id, true
-}
-
-// SetId sets field value
-func (o *PutRegistryOutput) SetId(v string) {
-
-	o.Id = &v
-
 }
 
 // HasId returns a boolean if a field has been set.
 func (o *PutRegistryOutput) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
 	return false
 }
 
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *PutRegistryOutput) SetId(v string) {
+	o.Id = &v
+}
+
 // GetMetadata returns the Metadata field value
-// If the value is explicit nil, the zero value for ApiResourceMetadata will be returned
-func (o *PutRegistryOutput) GetMetadata() *ApiResourceMetadata {
+func (o *PutRegistryOutput) GetMetadata() ApiResourceMetadata {
 	if o == nil {
-		return nil
+		var ret ApiResourceMetadata
+		return ret
 	}
 
 	return o.Metadata
-
 }
 
 // GetMetadataOk returns a tuple with the Metadata field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PutRegistryOutput) GetMetadataOk() (*ApiResourceMetadata, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
 // SetMetadata sets field value
 func (o *PutRegistryOutput) SetMetadata(v ApiResourceMetadata) {
-
-	o.Metadata = &v
-
-}
-
-// HasMetadata returns a boolean if a field has been set.
-func (o *PutRegistryOutput) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
-		return true
-	}
-
-	return false
+	o.Metadata = v
 }
 
 // GetProperties returns the Properties field value
-// If the value is explicit nil, the zero value for RegistryProperties will be returned
-func (o *PutRegistryOutput) GetProperties() *RegistryProperties {
+func (o *PutRegistryOutput) GetProperties() RegistryProperties {
 	if o == nil {
-		return nil
+		var ret RegistryProperties
+		return ret
 	}
 
 	return o.Properties
-
 }
 
 // GetPropertiesOk returns a tuple with the Properties field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PutRegistryOutput) GetPropertiesOk() (*RegistryProperties, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Properties, true
+	return &o.Properties, true
 }
 
 // SetProperties sets field value
 func (o *PutRegistryOutput) SetProperties(v RegistryProperties) {
-
-	o.Properties = &v
-
+	o.Properties = v
 }
 
-// HasProperties returns a boolean if a field has been set.
-func (o *PutRegistryOutput) HasProperties() bool {
-	if o != nil && o.Properties != nil {
-		return true
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *PutRegistryOutput) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
 	}
-
-	return false
+	return *o.Type
 }
 
-// GetType returns the Type field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *PutRegistryOutput) GetType() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Type
-
-}
-
-// GetTypeOk returns a tuple with the Type field value
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PutRegistryOutput) GetTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
-
 	return o.Type, true
-}
-
-// SetType sets field value
-func (o *PutRegistryOutput) SetType(v string) {
-
-	o.Type = &v
-
 }
 
 // HasType returns a boolean if a field has been set.
 func (o *PutRegistryOutput) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
 	return false
 }
 
-func (o PutRegistryOutput) MarshalJSON() ([]byte, error) {
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *PutRegistryOutput) SetType(v string) {
+	o.Type = &v
+}
+
+func (o PutRegistryOutput) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Href != nil {
+	if !IsNil(o.Href) {
 		toSerialize["href"] = o.Href
 	}
-
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-
 	toSerialize["metadata"] = o.Metadata
-
 	toSerialize["properties"] = o.Properties
-
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullablePutRegistryOutput struct {

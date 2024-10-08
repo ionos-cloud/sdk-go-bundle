@@ -1,9 +1,9 @@
 /*
  * Container Registry service
  *
- * Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls.
+ * ## Overview Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls. ## Changelog ### 1.1.0  - Added new endpoints for Repositories  - Added new endpoints for Artifacts  - Added new endpoints for Vulnerabilities  - Added registry vulnerabilityScanning feature ### 1.2.0  - Added registry `apiSubnetAllowList` ### 1.2.1  - Amended `apiSubnetAllowList` Regex
  *
- * API version: 1.0
+ * API version: 1.2.1
  * Contact: support@cloud.ionos.com
  */
 
@@ -15,11 +15,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the WeeklySchedule type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WeeklySchedule{}
+
 // WeeklySchedule struct for WeeklySchedule
 type WeeklySchedule struct {
-	Days *[]Day `json:"days"`
+	Days []Day `json:"days"`
 	// UTC time of day e.g. 01:00:00 - as defined by partial-time - RFC3339
-	Time *string `json:"time"`
+	Time string `json:"time"`
 }
 
 // NewWeeklySchedule instantiates a new WeeklySchedule object
@@ -29,8 +32,8 @@ type WeeklySchedule struct {
 func NewWeeklySchedule(days []Day, time string) *WeeklySchedule {
 	this := WeeklySchedule{}
 
-	this.Days = &days
-	this.Time = &time
+	this.Days = days
+	this.Time = time
 
 	return &this
 }
@@ -44,90 +47,58 @@ func NewWeeklyScheduleWithDefaults() *WeeklySchedule {
 }
 
 // GetDays returns the Days field value
-// If the value is explicit nil, the zero value for []Day will be returned
-func (o *WeeklySchedule) GetDays() *[]Day {
+func (o *WeeklySchedule) GetDays() []Day {
 	if o == nil {
-		return nil
+		var ret []Day
+		return ret
 	}
 
 	return o.Days
-
 }
 
 // GetDaysOk returns a tuple with the Days field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *WeeklySchedule) GetDaysOk() (*[]Day, bool) {
+func (o *WeeklySchedule) GetDaysOk() ([]Day, bool) {
 	if o == nil {
 		return nil, false
 	}
-
 	return o.Days, true
 }
 
 // SetDays sets field value
 func (o *WeeklySchedule) SetDays(v []Day) {
-
-	o.Days = &v
-
-}
-
-// HasDays returns a boolean if a field has been set.
-func (o *WeeklySchedule) HasDays() bool {
-	if o != nil && o.Days != nil {
-		return true
-	}
-
-	return false
+	o.Days = v
 }
 
 // GetTime returns the Time field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *WeeklySchedule) GetTime() *string {
+func (o *WeeklySchedule) GetTime() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Time
-
 }
 
 // GetTimeOk returns a tuple with the Time field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *WeeklySchedule) GetTimeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Time, true
+	return &o.Time, true
 }
 
 // SetTime sets field value
 func (o *WeeklySchedule) SetTime(v string) {
-
-	o.Time = &v
-
+	o.Time = v
 }
 
-// HasTime returns a boolean if a field has been set.
-func (o *WeeklySchedule) HasTime() bool {
-	if o != nil && o.Time != nil {
-		return true
-	}
-
-	return false
-}
-
-func (o WeeklySchedule) MarshalJSON() ([]byte, error) {
+func (o WeeklySchedule) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["days"] = o.Days
-
-	if o.Time != nil {
-		toSerialize["time"] = o.Time
-	}
-
-	return json.Marshal(toSerialize)
+	toSerialize["time"] = o.Time
+	return toSerialize, nil
 }
 
 type NullableWeeklySchedule struct {

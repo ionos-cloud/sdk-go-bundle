@@ -4,14 +4,15 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Limit** | **int32** | The maximum number of elements to return (used together with pagination.token for pagination) | |
-|**Token** | **string** | An opaque token used to iterate the set of results (used together with limit for pagination) | |
+|**Offset** | **int32** | The offset specified in the request (if none was specified, the default offset is 0).  | [readonly] |
+|**Limit** | **int32** | The limit specified in the request (if none was specified, use the endpoint&#39;s default pagination limit).  | [readonly] |
+|**Links** | [**Links**](Links.md) |  | |
 
 ## Methods
 
 ### NewPagination
 
-`func NewPagination(limit int32, token string, ) *Pagination`
+`func NewPagination(offset int32, limit int32, links Links, ) *Pagination`
 
 NewPagination instantiates a new Pagination object
 This constructor will assign default values to properties that have it defined,
@@ -25,6 +26,26 @@ will change when the set of required properties is changed
 NewPaginationWithDefaults instantiates a new Pagination object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetOffset
+
+`func (o *Pagination) GetOffset() int32`
+
+GetOffset returns the Offset field if non-nil, zero value otherwise.
+
+### GetOffsetOk
+
+`func (o *Pagination) GetOffsetOk() (*int32, bool)`
+
+GetOffsetOk returns a tuple with the Offset field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOffset
+
+`func (o *Pagination) SetOffset(v int32)`
+
+SetOffset sets Offset field to given value.
+
 
 ### GetLimit
 
@@ -46,24 +67,24 @@ and a boolean to check if the value has been set.
 SetLimit sets Limit field to given value.
 
 
-### GetToken
+### GetLinks
 
-`func (o *Pagination) GetToken() string`
+`func (o *Pagination) GetLinks() Links`
 
-GetToken returns the Token field if non-nil, zero value otherwise.
+GetLinks returns the Links field if non-nil, zero value otherwise.
 
-### GetTokenOk
+### GetLinksOk
 
-`func (o *Pagination) GetTokenOk() (*string, bool)`
+`func (o *Pagination) GetLinksOk() (*Links, bool)`
 
-GetTokenOk returns a tuple with the Token field if it's non-nil, zero value otherwise
+GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetToken
+### SetLinks
 
-`func (o *Pagination) SetToken(v string)`
+`func (o *Pagination) SetLinks(v Links)`
 
-SetToken sets Token field to given value.
+SetLinks sets Links field to given value.
 
 
 

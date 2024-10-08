@@ -8,14 +8,14 @@
 |**Href** | Pointer to **string** |  | [optional] |
 |**Id** | Pointer to **string** |  | [optional] |
 |**Items** | Pointer to [**[]RegistryResponse**](RegistryResponse.md) |  | [optional] |
-|**Pagination** | [**Pagination**](Pagination.md) |  | |
+|**Pagination** | [**RegistryPagination**](RegistryPagination.md) |  | |
 |**Type** | Pointer to **string** |  | [optional] |
 
 ## Methods
 
 ### NewRegistriesResponse
 
-`func NewRegistriesResponse(links PaginationLinks, pagination Pagination, ) *RegistriesResponse`
+`func NewRegistriesResponse(links PaginationLinks, pagination RegistryPagination, ) *RegistriesResponse`
 
 NewRegistriesResponse instantiates a new RegistriesResponse object
 This constructor will assign default values to properties that have it defined,
@@ -125,32 +125,22 @@ SetItems sets Items field to given value.
 
 HasItems returns a boolean if a field has been set.
 
-### SetItemsNil
-
-`func (o *RegistriesResponse) SetItemsNil(b bool)`
-
- SetItemsNil sets the value for Items to be an explicit nil
-
-### UnsetItems
-`func (o *RegistriesResponse) UnsetItems()`
-
-UnsetItems ensures that no value is present for Items, not even an explicit nil
 ### GetPagination
 
-`func (o *RegistriesResponse) GetPagination() Pagination`
+`func (o *RegistriesResponse) GetPagination() RegistryPagination`
 
 GetPagination returns the Pagination field if non-nil, zero value otherwise.
 
 ### GetPaginationOk
 
-`func (o *RegistriesResponse) GetPaginationOk() (*Pagination, bool)`
+`func (o *RegistriesResponse) GetPaginationOk() (*RegistryPagination, bool)`
 
 GetPaginationOk returns a tuple with the Pagination field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPagination
 
-`func (o *RegistriesResponse) SetPagination(v Pagination)`
+`func (o *RegistriesResponse) SetPagination(v RegistryPagination)`
 
 SetPagination sets Pagination field to given value.
 

@@ -1,9 +1,9 @@
 /*
  * Container Registry service
  *
- * Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls.
+ * ## Overview Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls. ## Changelog ### 1.1.0  - Added new endpoints for Repositories  - Added new endpoints for Artifacts  - Added new endpoints for Vulnerabilities  - Added registry vulnerabilityScanning feature ### 1.2.0  - Added registry `apiSubnetAllowList` ### 1.2.1  - Amended `apiSubnetAllowList` Regex
  *
- * API version: 1.0
+ * API version: 1.2.1
  * Contact: support@cloud.ionos.com
  */
 
@@ -15,7 +15,7 @@ import (
 	_context "context"
 	"fmt"
 	"github.com/ionos-cloud/sdk-go-bundle/shared"
-	_ioutil "io/ioutil"
+	"io"
 	_nethttp "net/http"
 	_neturl "net/url"
 	"strings"
@@ -42,6 +42,7 @@ func (r ApiRegistriesTokensDeleteRequest) Execute() (*shared.APIResponse, error)
 
 /*
  * RegistriesTokensDelete Delete token
+ *
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param registryId The unique ID of the registry
  * @param tokenId The unique ID of the token
@@ -76,8 +77,8 @@ func (a *TokensApiService) RegistriesTokensDeleteExecute(r ApiRegistriesTokensDe
 	}
 
 	localVarPath := localBasePath + "/registries/{registryId}/tokens/{tokenId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"registryId"+"}", _neturl.PathEscape(parameterToString(r.registryId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", _neturl.PathEscape(parameterToString(r.tokenId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"registryId"+"}", _neturl.PathEscape(parameterValueToString(r.registryId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", _neturl.PathEscape(parameterValueToString(r.tokenId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -133,7 +134,7 @@ func (a *TokensApiService) RegistriesTokensDeleteExecute(r ApiRegistriesTokensDe
 		return localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -210,8 +211,8 @@ func (a *TokensApiService) RegistriesTokensFindByIdExecute(r ApiRegistriesTokens
 	}
 
 	localVarPath := localBasePath + "/registries/{registryId}/tokens/{tokenId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"registryId"+"}", _neturl.PathEscape(parameterToString(r.registryId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", _neturl.PathEscape(parameterToString(r.tokenId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"registryId"+"}", _neturl.PathEscape(parameterValueToString(r.registryId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", _neturl.PathEscape(parameterValueToString(r.tokenId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -267,7 +268,7 @@ func (a *TokensApiService) RegistriesTokensFindByIdExecute(r ApiRegistriesTokens
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -335,6 +336,7 @@ func (r ApiRegistriesTokensGetRequest) Execute() (TokensResponse, *shared.APIRes
 
 /*
  * RegistriesTokensGet List all tokens for the container registry
+ *
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param registryId The unique ID of the registry
  * @return ApiRegistriesTokensGetRequest
@@ -369,17 +371,17 @@ func (a *TokensApiService) RegistriesTokensGetExecute(r ApiRegistriesTokensGetRe
 	}
 
 	localVarPath := localBasePath + "/registries/{registryId}/tokens"
-	localVarPath = strings.Replace(localVarPath, "{"+"registryId"+"}", _neturl.PathEscape(parameterToString(r.registryId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"registryId"+"}", _neturl.PathEscape(parameterValueToString(r.registryId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
 	if r.offset != nil {
-		localVarQueryParams.Add("offset", parameterToString(*r.offset, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -431,7 +433,7 @@ func (a *TokensApiService) RegistriesTokensGetExecute(r ApiRegistriesTokensGetRe
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -526,8 +528,8 @@ func (a *TokensApiService) RegistriesTokensPatchExecute(r ApiRegistriesTokensPat
 	}
 
 	localVarPath := localBasePath + "/registries/{registryId}/tokens/{tokenId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"registryId"+"}", _neturl.PathEscape(parameterToString(r.registryId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", _neturl.PathEscape(parameterToString(r.tokenId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"registryId"+"}", _neturl.PathEscape(parameterValueToString(r.registryId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", _neturl.PathEscape(parameterValueToString(r.tokenId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -588,7 +590,7 @@ func (a *TokensApiService) RegistriesTokensPatchExecute(r ApiRegistriesTokensPat
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -679,7 +681,7 @@ func (a *TokensApiService) RegistriesTokensPostExecute(r ApiRegistriesTokensPost
 	}
 
 	localVarPath := localBasePath + "/registries/{registryId}/tokens"
-	localVarPath = strings.Replace(localVarPath, "{"+"registryId"+"}", _neturl.PathEscape(parameterToString(r.registryId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"registryId"+"}", _neturl.PathEscape(parameterValueToString(r.registryId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -740,7 +742,7 @@ func (a *TokensApiService) RegistriesTokensPostExecute(r ApiRegistriesTokensPost
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {
@@ -844,8 +846,8 @@ func (a *TokensApiService) RegistriesTokensPutExecute(r ApiRegistriesTokensPutRe
 	}
 
 	localVarPath := localBasePath + "/registries/{registryId}/tokens/{tokenId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"registryId"+"}", _neturl.PathEscape(parameterToString(r.registryId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", _neturl.PathEscape(parameterToString(r.tokenId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"registryId"+"}", _neturl.PathEscape(parameterValueToString(r.registryId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", _neturl.PathEscape(parameterValueToString(r.tokenId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -906,7 +908,7 @@ func (a *TokensApiService) RegistriesTokensPutExecute(r ApiRegistriesTokensPutRe
 		return localVarReturnValue, localVarAPIResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
 	if err != nil {

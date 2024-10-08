@@ -1,9 +1,9 @@
 /*
  * Container Registry service
  *
- * Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls.
+ * ## Overview Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls. ## Changelog ### 1.1.0  - Added new endpoints for Repositories  - Added new endpoints for Artifacts  - Added new endpoints for Vulnerabilities  - Added registry vulnerabilityScanning feature ### 1.2.0  - Added registry `apiSubnetAllowList` ### 1.2.1  - Amended `apiSubnetAllowList` Regex
  *
- * API version: 1.0
+ * API version: 1.2.1
  * Contact: support@cloud.ionos.com
  */
 
@@ -15,25 +15,28 @@ import (
 	"encoding/json"
 )
 
+// checks if the RegistriesResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RegistriesResponse{}
+
 // RegistriesResponse struct for RegistriesResponse
 type RegistriesResponse struct {
-	Links      *PaginationLinks    `json:"_links"`
-	Href       *string             `json:"href,omitempty"`
-	Id         *string             `json:"id,omitempty"`
-	Items      *[]RegistryResponse `json:"items,omitempty"`
-	Pagination *Pagination         `json:"pagination"`
-	Type       *string             `json:"type,omitempty"`
+	Links      PaginationLinks    `json:"_links"`
+	Href       *string            `json:"href,omitempty"`
+	Id         *string            `json:"id,omitempty"`
+	Items      []RegistryResponse `json:"items,omitempty"`
+	Pagination RegistryPagination `json:"pagination"`
+	Type       *string            `json:"type,omitempty"`
 }
 
 // NewRegistriesResponse instantiates a new RegistriesResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRegistriesResponse(links PaginationLinks, pagination Pagination) *RegistriesResponse {
+func NewRegistriesResponse(links PaginationLinks, pagination RegistryPagination) *RegistriesResponse {
 	this := RegistriesResponse{}
 
-	this.Links = &links
-	this.Pagination = &pagination
+	this.Links = links
+	this.Pagination = pagination
 
 	return &this
 }
@@ -47,258 +50,198 @@ func NewRegistriesResponseWithDefaults() *RegistriesResponse {
 }
 
 // GetLinks returns the Links field value
-// If the value is explicit nil, the zero value for PaginationLinks will be returned
-func (o *RegistriesResponse) GetLinks() *PaginationLinks {
+func (o *RegistriesResponse) GetLinks() PaginationLinks {
 	if o == nil {
-		return nil
+		var ret PaginationLinks
+		return ret
 	}
 
 	return o.Links
-
 }
 
 // GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RegistriesResponse) GetLinksOk() (*PaginationLinks, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Links, true
+	return &o.Links, true
 }
 
 // SetLinks sets field value
 func (o *RegistriesResponse) SetLinks(v PaginationLinks) {
-
-	o.Links = &v
-
+	o.Links = v
 }
 
-// HasLinks returns a boolean if a field has been set.
-func (o *RegistriesResponse) HasLinks() bool {
-	if o != nil && o.Links != nil {
-		return true
+// GetHref returns the Href field value if set, zero value otherwise.
+func (o *RegistriesResponse) GetHref() string {
+	if o == nil || IsNil(o.Href) {
+		var ret string
+		return ret
 	}
-
-	return false
+	return *o.Href
 }
 
-// GetHref returns the Href field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *RegistriesResponse) GetHref() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Href
-
-}
-
-// GetHrefOk returns a tuple with the Href field value
+// GetHrefOk returns a tuple with the Href field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RegistriesResponse) GetHrefOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Href) {
 		return nil, false
 	}
-
 	return o.Href, true
-}
-
-// SetHref sets field value
-func (o *RegistriesResponse) SetHref(v string) {
-
-	o.Href = &v
-
 }
 
 // HasHref returns a boolean if a field has been set.
 func (o *RegistriesResponse) HasHref() bool {
-	if o != nil && o.Href != nil {
+	if o != nil && !IsNil(o.Href) {
 		return true
 	}
 
 	return false
 }
 
-// GetId returns the Id field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *RegistriesResponse) GetId() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Id
-
+// SetHref gets a reference to the given string and assigns it to the Href field.
+func (o *RegistriesResponse) SetHref(v string) {
+	o.Href = &v
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *RegistriesResponse) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RegistriesResponse) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-
 	return o.Id, true
-}
-
-// SetId sets field value
-func (o *RegistriesResponse) SetId(v string) {
-
-	o.Id = &v
-
 }
 
 // HasId returns a boolean if a field has been set.
 func (o *RegistriesResponse) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
 	return false
 }
 
-// GetItems returns the Items field value
-// If the value is explicit nil, the zero value for []RegistryResponse will be returned
-func (o *RegistriesResponse) GetItems() *[]RegistryResponse {
-	if o == nil {
-		return nil
-	}
-
-	return o.Items
-
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *RegistriesResponse) SetId(v string) {
+	o.Id = &v
 }
 
-// GetItemsOk returns a tuple with the Items field value
+// GetItems returns the Items field value if set, zero value otherwise.
+func (o *RegistriesResponse) GetItems() []RegistryResponse {
+	if o == nil || IsNil(o.Items) {
+		var ret []RegistryResponse
+		return ret
+	}
+	return o.Items
+}
+
+// GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *RegistriesResponse) GetItemsOk() (*[]RegistryResponse, bool) {
-	if o == nil {
+func (o *RegistriesResponse) GetItemsOk() ([]RegistryResponse, bool) {
+	if o == nil || IsNil(o.Items) {
 		return nil, false
 	}
-
 	return o.Items, true
-}
-
-// SetItems sets field value
-func (o *RegistriesResponse) SetItems(v []RegistryResponse) {
-
-	o.Items = &v
-
 }
 
 // HasItems returns a boolean if a field has been set.
 func (o *RegistriesResponse) HasItems() bool {
-	if o != nil && o.Items != nil {
+	if o != nil && !IsNil(o.Items) {
 		return true
 	}
 
 	return false
 }
 
+// SetItems gets a reference to the given []RegistryResponse and assigns it to the Items field.
+func (o *RegistriesResponse) SetItems(v []RegistryResponse) {
+	o.Items = v
+}
+
 // GetPagination returns the Pagination field value
-// If the value is explicit nil, the zero value for Pagination will be returned
-func (o *RegistriesResponse) GetPagination() *Pagination {
+func (o *RegistriesResponse) GetPagination() RegistryPagination {
 	if o == nil {
-		return nil
+		var ret RegistryPagination
+		return ret
 	}
 
 	return o.Pagination
-
 }
 
 // GetPaginationOk returns a tuple with the Pagination field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *RegistriesResponse) GetPaginationOk() (*Pagination, bool) {
+func (o *RegistriesResponse) GetPaginationOk() (*RegistryPagination, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Pagination, true
+	return &o.Pagination, true
 }
 
 // SetPagination sets field value
-func (o *RegistriesResponse) SetPagination(v Pagination) {
-
-	o.Pagination = &v
-
+func (o *RegistriesResponse) SetPagination(v RegistryPagination) {
+	o.Pagination = v
 }
 
-// HasPagination returns a boolean if a field has been set.
-func (o *RegistriesResponse) HasPagination() bool {
-	if o != nil && o.Pagination != nil {
-		return true
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *RegistriesResponse) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
 	}
-
-	return false
+	return *o.Type
 }
 
-// GetType returns the Type field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *RegistriesResponse) GetType() *string {
-	if o == nil {
-		return nil
-	}
-
-	return o.Type
-
-}
-
-// GetTypeOk returns a tuple with the Type field value
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RegistriesResponse) GetTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
-
 	return o.Type, true
-}
-
-// SetType sets field value
-func (o *RegistriesResponse) SetType(v string) {
-
-	o.Type = &v
-
 }
 
 // HasType returns a boolean if a field has been set.
 func (o *RegistriesResponse) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
 	return false
 }
 
-func (o RegistriesResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Links != nil {
-		toSerialize["_links"] = o.Links
-	}
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *RegistriesResponse) SetType(v string) {
+	o.Type = &v
+}
 
-	if o.Href != nil {
+func (o RegistriesResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["_links"] = o.Links
+	if !IsNil(o.Href) {
 		toSerialize["href"] = o.Href
 	}
-
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-
-	toSerialize["items"] = o.Items
-
-	if o.Pagination != nil {
-		toSerialize["pagination"] = o.Pagination
+	if !IsNil(o.Items) {
+		toSerialize["items"] = o.Items
 	}
-
-	if o.Type != nil {
+	toSerialize["pagination"] = o.Pagination
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableRegistriesResponse struct {

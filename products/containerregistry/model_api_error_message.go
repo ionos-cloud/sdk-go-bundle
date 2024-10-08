@@ -1,9 +1,9 @@
 /*
  * Container Registry service
  *
- * Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls.
+ * ## Overview Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls. ## Changelog ### 1.1.0  - Added new endpoints for Repositories  - Added new endpoints for Artifacts  - Added new endpoints for Vulnerabilities  - Added registry vulnerabilityScanning feature ### 1.2.0  - Added registry `apiSubnetAllowList` ### 1.2.1  - Amended `apiSubnetAllowList` Regex
  *
- * API version: 1.0
+ * API version: 1.2.1
  * Contact: support@cloud.ionos.com
  */
 
@@ -15,10 +15,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the ApiErrorMessage type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApiErrorMessage{}
+
 // ApiErrorMessage struct for ApiErrorMessage
 type ApiErrorMessage struct {
-	ErrorCode *string `json:"errorCode"`
-	Message   *string `json:"message"`
+	ErrorCode string `json:"errorCode"`
+	Message   string `json:"message"`
 }
 
 // NewApiErrorMessage instantiates a new ApiErrorMessage object
@@ -28,8 +31,8 @@ type ApiErrorMessage struct {
 func NewApiErrorMessage(errorCode string, message string) *ApiErrorMessage {
 	this := ApiErrorMessage{}
 
-	this.ErrorCode = &errorCode
-	this.Message = &message
+	this.ErrorCode = errorCode
+	this.Message = message
 
 	return &this
 }
@@ -43,92 +46,58 @@ func NewApiErrorMessageWithDefaults() *ApiErrorMessage {
 }
 
 // GetErrorCode returns the ErrorCode field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ApiErrorMessage) GetErrorCode() *string {
+func (o *ApiErrorMessage) GetErrorCode() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.ErrorCode
-
 }
 
 // GetErrorCodeOk returns a tuple with the ErrorCode field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ApiErrorMessage) GetErrorCodeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.ErrorCode, true
+	return &o.ErrorCode, true
 }
 
 // SetErrorCode sets field value
 func (o *ApiErrorMessage) SetErrorCode(v string) {
-
-	o.ErrorCode = &v
-
-}
-
-// HasErrorCode returns a boolean if a field has been set.
-func (o *ApiErrorMessage) HasErrorCode() bool {
-	if o != nil && o.ErrorCode != nil {
-		return true
-	}
-
-	return false
+	o.ErrorCode = v
 }
 
 // GetMessage returns the Message field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ApiErrorMessage) GetMessage() *string {
+func (o *ApiErrorMessage) GetMessage() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Message
-
 }
 
 // GetMessageOk returns a tuple with the Message field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ApiErrorMessage) GetMessageOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Message, true
+	return &o.Message, true
 }
 
 // SetMessage sets field value
 func (o *ApiErrorMessage) SetMessage(v string) {
-
-	o.Message = &v
-
+	o.Message = v
 }
 
-// HasMessage returns a boolean if a field has been set.
-func (o *ApiErrorMessage) HasMessage() bool {
-	if o != nil && o.Message != nil {
-		return true
-	}
-
-	return false
-}
-
-func (o ApiErrorMessage) MarshalJSON() ([]byte, error) {
+func (o ApiErrorMessage) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ErrorCode != nil {
-		toSerialize["errorCode"] = o.ErrorCode
-	}
-
-	if o.Message != nil {
-		toSerialize["message"] = o.Message
-	}
-
-	return json.Marshal(toSerialize)
+	toSerialize["errorCode"] = o.ErrorCode
+	toSerialize["message"] = o.Message
+	return toSerialize, nil
 }
 
 type NullableApiErrorMessage struct {

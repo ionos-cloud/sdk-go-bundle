@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**ExpiryDate** | Pointer to [**NullableTime**](time.Time.md) |  | [optional] |
+|**ExpiryDate** | Pointer to [**time.Time**](time.Time.md) |  | [optional] |
 |**Scopes** | Pointer to [**[]Scope**](Scope.md) |  | [optional] |
 |**Status** | Pointer to **string** |  | [optional] |
 
@@ -52,16 +52,6 @@ SetExpiryDate sets ExpiryDate field to given value.
 
 HasExpiryDate returns a boolean if a field has been set.
 
-### SetExpiryDateNil
-
-`func (o *PatchTokenInput) SetExpiryDateNil(b bool)`
-
- SetExpiryDateNil sets the value for ExpiryDate to be an explicit nil
-
-### UnsetExpiryDate
-`func (o *PatchTokenInput) UnsetExpiryDate()`
-
-UnsetExpiryDate ensures that no value is present for ExpiryDate, not even an explicit nil
 ### GetScopes
 
 `func (o *PatchTokenInput) GetScopes() []Scope`
@@ -87,16 +77,6 @@ SetScopes sets Scopes field to given value.
 
 HasScopes returns a boolean if a field has been set.
 
-### SetScopesNil
-
-`func (o *PatchTokenInput) SetScopesNil(b bool)`
-
- SetScopesNil sets the value for Scopes to be an explicit nil
-
-### UnsetScopes
-`func (o *PatchTokenInput) UnsetScopes()`
-
-UnsetScopes ensures that no value is present for Scopes, not even an explicit nil
 ### GetStatus
 
 `func (o *PatchTokenInput) GetStatus() string`

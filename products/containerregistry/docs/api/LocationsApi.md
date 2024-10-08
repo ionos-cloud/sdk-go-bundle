@@ -17,6 +17,8 @@ var result LocationsResponse = LocationsGet(ctx)
 
 Get container registry locations
 
+
+
 ### Example
 
 ```go

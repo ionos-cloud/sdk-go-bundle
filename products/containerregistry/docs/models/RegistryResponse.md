@@ -6,15 +6,15 @@
 |------------ | ------------- | ------------- | -------------|
 |**Href** | Pointer to **string** |  | [optional] |
 |**Id** | Pointer to **string** |  | [optional] |
-|**Metadata** | [**NullableApiResourceMetadata**](ApiResourceMetadata.md) |  | |
-|**Properties** | [**NullableRegistryProperties**](RegistryProperties.md) |  | |
+|**Metadata** | [**ApiResourceMetadata**](ApiResourceMetadata.md) |  | |
+|**Properties** | [**RegistryProperties**](RegistryProperties.md) |  | |
 |**Type** | Pointer to **string** |  | [optional] |
 
 ## Methods
 
 ### NewRegistryResponse
 
-`func NewRegistryResponse(metadata NullableApiResourceMetadata, properties NullableRegistryProperties, ) *RegistryResponse`
+`func NewRegistryResponse(metadata ApiResourceMetadata, properties RegistryProperties, ) *RegistryResponse`
 
 NewRegistryResponse instantiates a new RegistryResponse object
 This constructor will assign default values to properties that have it defined,
@@ -99,16 +99,6 @@ and a boolean to check if the value has been set.
 SetMetadata sets Metadata field to given value.
 
 
-### SetMetadataNil
-
-`func (o *RegistryResponse) SetMetadataNil(b bool)`
-
- SetMetadataNil sets the value for Metadata to be an explicit nil
-
-### UnsetMetadata
-`func (o *RegistryResponse) UnsetMetadata()`
-
-UnsetMetadata ensures that no value is present for Metadata, not even an explicit nil
 ### GetProperties
 
 `func (o *RegistryResponse) GetProperties() RegistryProperties`
@@ -129,16 +119,6 @@ and a boolean to check if the value has been set.
 SetProperties sets Properties field to given value.
 
 
-### SetPropertiesNil
-
-`func (o *RegistryResponse) SetPropertiesNil(b bool)`
-
- SetPropertiesNil sets the value for Properties to be an explicit nil
-
-### UnsetProperties
-`func (o *RegistryResponse) UnsetProperties()`
-
-UnsetProperties ensures that no value is present for Properties, not even an explicit nil
 ### GetType
 
 `func (o *RegistryResponse) GetType() string`

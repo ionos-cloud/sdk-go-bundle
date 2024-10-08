@@ -22,6 +22,8 @@ var result  = RegistriesDelete(ctx, registryId)
 
 Delete registry
 
+
+
 ### Example
 
 ```go
@@ -37,11 +39,11 @@ import (
 )
 
 func main() {
-    registryId := TODO // string | The unique ID of the registry
+    registryId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the registry
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := containerregistry.NewAPIClient(configuration)
-    resource, resp, err := apiClient.RegistriesApi.RegistriesDelete(context.Background(), registryId).Execute()
+    resp, err := apiClient.RegistriesApi.RegistriesDelete(context.Background(), registryId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RegistriesApi.RegistriesDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -55,7 +57,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**registryId** | [**string**](../models/.md) | The unique ID of the registry | |
+|**registryId** | **string** | The unique ID of the registry | |
 
 ### Other Parameters
 
@@ -102,7 +104,7 @@ import (
 )
 
 func main() {
-    registryId := TODO // string | The unique ID of the registry
+    registryId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the registry
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := containerregistry.NewAPIClient(configuration)
@@ -122,7 +124,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**registryId** | [**string**](../models/.md) | The unique ID of the registry | |
+|**registryId** | **string** | The unique ID of the registry | |
 
 ### Other Parameters
 
@@ -241,7 +243,7 @@ import (
 )
 
 func main() {
-    registryId := TODO // string | The unique ID of the registry
+    registryId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the registry
     patchRegistryInput := *openapiclient.NewPatchRegistryInput() // PatchRegistryInput | 
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
@@ -262,7 +264,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**registryId** | [**string**](../models/.md) | The unique ID of the registry | |
+|**registryId** | **string** | The unique ID of the registry | |
 
 ### Other Parameters
 
@@ -376,7 +378,7 @@ import (
 )
 
 func main() {
-    registryId := TODO // string | The unique ID of the registry
+    registryId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the registry
     putRegistryInput := *openapiclient.NewPutRegistryInput(*openapiclient.NewPostRegistryProperties("de/txl", "my-registry")) // PutRegistryInput | 
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
@@ -397,7 +399,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**registryId** | [**string**](../models/.md) | The unique ID of the registry | |
+|**registryId** | **string** | The unique ID of the registry | |
 
 ### Other Parameters
 

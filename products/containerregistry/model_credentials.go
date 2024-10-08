@@ -1,9 +1,9 @@
 /*
  * Container Registry service
  *
- * Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls.
+ * ## Overview Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls. ## Changelog ### 1.1.0  - Added new endpoints for Repositories  - Added new endpoints for Artifacts  - Added new endpoints for Vulnerabilities  - Added registry vulnerabilityScanning feature ### 1.2.0  - Added registry `apiSubnetAllowList` ### 1.2.1  - Amended `apiSubnetAllowList` Regex
  *
- * API version: 1.0
+ * API version: 1.2.1
  * Contact: support@cloud.ionos.com
  */
 
@@ -15,10 +15,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the Credentials type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Credentials{}
+
 // Credentials struct for Credentials
 type Credentials struct {
-	Password *string `json:"password"`
-	Username *string `json:"username"`
+	Password string `json:"password"`
+	Username string `json:"username"`
 }
 
 // NewCredentials instantiates a new Credentials object
@@ -28,8 +31,8 @@ type Credentials struct {
 func NewCredentials(password string, username string) *Credentials {
 	this := Credentials{}
 
-	this.Password = &password
-	this.Username = &username
+	this.Password = password
+	this.Username = username
 
 	return &this
 }
@@ -43,92 +46,58 @@ func NewCredentialsWithDefaults() *Credentials {
 }
 
 // GetPassword returns the Password field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Credentials) GetPassword() *string {
+func (o *Credentials) GetPassword() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Password
-
 }
 
 // GetPasswordOk returns a tuple with the Password field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Credentials) GetPasswordOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Password, true
+	return &o.Password, true
 }
 
 // SetPassword sets field value
 func (o *Credentials) SetPassword(v string) {
-
-	o.Password = &v
-
-}
-
-// HasPassword returns a boolean if a field has been set.
-func (o *Credentials) HasPassword() bool {
-	if o != nil && o.Password != nil {
-		return true
-	}
-
-	return false
+	o.Password = v
 }
 
 // GetUsername returns the Username field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *Credentials) GetUsername() *string {
+func (o *Credentials) GetUsername() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Username
-
 }
 
 // GetUsernameOk returns a tuple with the Username field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Credentials) GetUsernameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Username, true
+	return &o.Username, true
 }
 
 // SetUsername sets field value
 func (o *Credentials) SetUsername(v string) {
-
-	o.Username = &v
-
+	o.Username = v
 }
 
-// HasUsername returns a boolean if a field has been set.
-func (o *Credentials) HasUsername() bool {
-	if o != nil && o.Username != nil {
-		return true
-	}
-
-	return false
-}
-
-func (o Credentials) MarshalJSON() ([]byte, error) {
+func (o Credentials) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Password != nil {
-		toSerialize["password"] = o.Password
-	}
-
-	if o.Username != nil {
-		toSerialize["username"] = o.Username
-	}
-
-	return json.Marshal(toSerialize)
+	toSerialize["password"] = o.Password
+	toSerialize["username"] = o.Username
+	return toSerialize, nil
 }
 
 type NullableCredentials struct {

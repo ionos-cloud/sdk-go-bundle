@@ -1,9 +1,9 @@
 /*
  * Container Registry service
  *
- * Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls.
+ * ## Overview Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls. ## Changelog ### 1.1.0  - Added new endpoints for Repositories  - Added new endpoints for Artifacts  - Added new endpoints for Vulnerabilities  - Added registry vulnerabilityScanning feature ### 1.2.0  - Added registry `apiSubnetAllowList` ### 1.2.1  - Amended `apiSubnetAllowList` Regex
  *
- * API version: 1.0
+ * API version: 1.2.1
  * Contact: support@cloud.ionos.com
  */
 
@@ -15,9 +15,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the PutTokenInput type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PutTokenInput{}
+
 // PutTokenInput struct for PutTokenInput
 type PutTokenInput struct {
-	Properties *PostTokenProperties `json:"properties"`
+	Properties PostTokenProperties `json:"properties"`
 }
 
 // NewPutTokenInput instantiates a new PutTokenInput object
@@ -27,7 +30,7 @@ type PutTokenInput struct {
 func NewPutTokenInput(properties PostTokenProperties) *PutTokenInput {
 	this := PutTokenInput{}
 
-	this.Properties = &properties
+	this.Properties = properties
 
 	return &this
 }
@@ -41,50 +44,33 @@ func NewPutTokenInputWithDefaults() *PutTokenInput {
 }
 
 // GetProperties returns the Properties field value
-// If the value is explicit nil, the zero value for PostTokenProperties will be returned
-func (o *PutTokenInput) GetProperties() *PostTokenProperties {
+func (o *PutTokenInput) GetProperties() PostTokenProperties {
 	if o == nil {
-		return nil
+		var ret PostTokenProperties
+		return ret
 	}
 
 	return o.Properties
-
 }
 
 // GetPropertiesOk returns a tuple with the Properties field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PutTokenInput) GetPropertiesOk() (*PostTokenProperties, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Properties, true
+	return &o.Properties, true
 }
 
 // SetProperties sets field value
 func (o *PutTokenInput) SetProperties(v PostTokenProperties) {
-
-	o.Properties = &v
-
+	o.Properties = v
 }
 
-// HasProperties returns a boolean if a field has been set.
-func (o *PutTokenInput) HasProperties() bool {
-	if o != nil && o.Properties != nil {
-		return true
-	}
-
-	return false
-}
-
-func (o PutTokenInput) MarshalJSON() ([]byte, error) {
+func (o PutTokenInput) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Properties != nil {
-		toSerialize["properties"] = o.Properties
-	}
-
-	return json.Marshal(toSerialize)
+	toSerialize["properties"] = o.Properties
+	return toSerialize, nil
 }
 
 type NullablePutTokenInput struct {

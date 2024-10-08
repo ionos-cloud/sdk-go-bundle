@@ -1,9 +1,9 @@
 /*
  * Container Registry service
  *
- * Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls.
+ * ## Overview Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls. ## Changelog ### 1.1.0  - Added new endpoints for Repositories  - Added new endpoints for Artifacts  - Added new endpoints for Vulnerabilities  - Added registry vulnerabilityScanning feature ### 1.2.0  - Added registry `apiSubnetAllowList` ### 1.2.1  - Amended `apiSubnetAllowList` Regex
  *
- * API version: 1.0
+ * API version: 1.2.1
  * Contact: support@cloud.ionos.com
  */
 
@@ -15,11 +15,17 @@ import (
 	"encoding/json"
 )
 
+// checks if the PostRegistryProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostRegistryProperties{}
+
 // PostRegistryProperties struct for PostRegistryProperties
 type PostRegistryProperties struct {
-	GarbageCollectionSchedule *WeeklySchedule `json:"garbageCollectionSchedule,omitempty"`
-	Location                  *string         `json:"location"`
-	Name                      *string         `json:"name"`
+	GarbageCollectionSchedule *WeeklySchedule   `json:"garbageCollectionSchedule,omitempty"`
+	Location                  string            `json:"location"`
+	Name                      string            `json:"name"`
+	Features                  *RegistryFeatures `json:"features,omitempty"`
+	// Subnets and IPs that are allowed to access the registry API, supports IPv4 and IPv6. Maximum of 25 items may be specified. If no CIDR is given /32 and /128 are assumed for IPv4 and IPv6 respectively. 0.0.0.0/0 can be used to deny all traffic. __Note__: If this list is empty or not set, there are no restrictions.
+	ApiSubnetAllowList []string `json:"apiSubnetAllowList,omitempty"`
 }
 
 // NewPostRegistryProperties instantiates a new PostRegistryProperties object
@@ -29,8 +35,8 @@ type PostRegistryProperties struct {
 func NewPostRegistryProperties(location string, name string) *PostRegistryProperties {
 	this := PostRegistryProperties{}
 
-	this.Location = &location
-	this.Name = &name
+	this.Location = location
+	this.Name = name
 
 	return &this
 }
@@ -43,133 +49,164 @@ func NewPostRegistryPropertiesWithDefaults() *PostRegistryProperties {
 	return &this
 }
 
-// GetGarbageCollectionSchedule returns the GarbageCollectionSchedule field value
-// If the value is explicit nil, the zero value for WeeklySchedule will be returned
-func (o *PostRegistryProperties) GetGarbageCollectionSchedule() *WeeklySchedule {
-	if o == nil {
-		return nil
+// GetGarbageCollectionSchedule returns the GarbageCollectionSchedule field value if set, zero value otherwise.
+func (o *PostRegistryProperties) GetGarbageCollectionSchedule() WeeklySchedule {
+	if o == nil || IsNil(o.GarbageCollectionSchedule) {
+		var ret WeeklySchedule
+		return ret
 	}
-
-	return o.GarbageCollectionSchedule
-
+	return *o.GarbageCollectionSchedule
 }
 
-// GetGarbageCollectionScheduleOk returns a tuple with the GarbageCollectionSchedule field value
+// GetGarbageCollectionScheduleOk returns a tuple with the GarbageCollectionSchedule field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PostRegistryProperties) GetGarbageCollectionScheduleOk() (*WeeklySchedule, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.GarbageCollectionSchedule) {
 		return nil, false
 	}
-
 	return o.GarbageCollectionSchedule, true
-}
-
-// SetGarbageCollectionSchedule sets field value
-func (o *PostRegistryProperties) SetGarbageCollectionSchedule(v WeeklySchedule) {
-
-	o.GarbageCollectionSchedule = &v
-
 }
 
 // HasGarbageCollectionSchedule returns a boolean if a field has been set.
 func (o *PostRegistryProperties) HasGarbageCollectionSchedule() bool {
-	if o != nil && o.GarbageCollectionSchedule != nil {
+	if o != nil && !IsNil(o.GarbageCollectionSchedule) {
 		return true
 	}
 
 	return false
 }
 
+// SetGarbageCollectionSchedule gets a reference to the given WeeklySchedule and assigns it to the GarbageCollectionSchedule field.
+func (o *PostRegistryProperties) SetGarbageCollectionSchedule(v WeeklySchedule) {
+	o.GarbageCollectionSchedule = &v
+}
+
 // GetLocation returns the Location field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *PostRegistryProperties) GetLocation() *string {
+func (o *PostRegistryProperties) GetLocation() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Location
-
 }
 
 // GetLocationOk returns a tuple with the Location field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PostRegistryProperties) GetLocationOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Location, true
+	return &o.Location, true
 }
 
 // SetLocation sets field value
 func (o *PostRegistryProperties) SetLocation(v string) {
-
-	o.Location = &v
-
-}
-
-// HasLocation returns a boolean if a field has been set.
-func (o *PostRegistryProperties) HasLocation() bool {
-	if o != nil && o.Location != nil {
-		return true
-	}
-
-	return false
+	o.Location = v
 }
 
 // GetName returns the Name field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *PostRegistryProperties) GetName() *string {
+func (o *PostRegistryProperties) GetName() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Name
-
 }
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PostRegistryProperties) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Name, true
+	return &o.Name, true
 }
 
 // SetName sets field value
 func (o *PostRegistryProperties) SetName(v string) {
-
-	o.Name = &v
-
+	o.Name = v
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *PostRegistryProperties) HasName() bool {
-	if o != nil && o.Name != nil {
+// GetFeatures returns the Features field value if set, zero value otherwise.
+func (o *PostRegistryProperties) GetFeatures() RegistryFeatures {
+	if o == nil || IsNil(o.Features) {
+		var ret RegistryFeatures
+		return ret
+	}
+	return *o.Features
+}
+
+// GetFeaturesOk returns a tuple with the Features field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PostRegistryProperties) GetFeaturesOk() (*RegistryFeatures, bool) {
+	if o == nil || IsNil(o.Features) {
+		return nil, false
+	}
+	return o.Features, true
+}
+
+// HasFeatures returns a boolean if a field has been set.
+func (o *PostRegistryProperties) HasFeatures() bool {
+	if o != nil && !IsNil(o.Features) {
 		return true
 	}
 
 	return false
 }
 
-func (o PostRegistryProperties) MarshalJSON() ([]byte, error) {
+// SetFeatures gets a reference to the given RegistryFeatures and assigns it to the Features field.
+func (o *PostRegistryProperties) SetFeatures(v RegistryFeatures) {
+	o.Features = &v
+}
+
+// GetApiSubnetAllowList returns the ApiSubnetAllowList field value if set, zero value otherwise.
+func (o *PostRegistryProperties) GetApiSubnetAllowList() []string {
+	if o == nil || IsNil(o.ApiSubnetAllowList) {
+		var ret []string
+		return ret
+	}
+	return o.ApiSubnetAllowList
+}
+
+// GetApiSubnetAllowListOk returns a tuple with the ApiSubnetAllowList field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PostRegistryProperties) GetApiSubnetAllowListOk() ([]string, bool) {
+	if o == nil || IsNil(o.ApiSubnetAllowList) {
+		return nil, false
+	}
+	return o.ApiSubnetAllowList, true
+}
+
+// HasApiSubnetAllowList returns a boolean if a field has been set.
+func (o *PostRegistryProperties) HasApiSubnetAllowList() bool {
+	if o != nil && !IsNil(o.ApiSubnetAllowList) {
+		return true
+	}
+
+	return false
+}
+
+// SetApiSubnetAllowList gets a reference to the given []string and assigns it to the ApiSubnetAllowList field.
+func (o *PostRegistryProperties) SetApiSubnetAllowList(v []string) {
+	o.ApiSubnetAllowList = v
+}
+
+func (o PostRegistryProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["garbageCollectionSchedule"] = o.GarbageCollectionSchedule
-
-	if o.Location != nil {
-		toSerialize["location"] = o.Location
+	if !IsNil(o.GarbageCollectionSchedule) {
+		toSerialize["garbageCollectionSchedule"] = o.GarbageCollectionSchedule
 	}
-
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
+	toSerialize["location"] = o.Location
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Features) {
+		toSerialize["features"] = o.Features
 	}
-
-	return json.Marshal(toSerialize)
+	if !IsNil(o.ApiSubnetAllowList) {
+		toSerialize["apiSubnetAllowList"] = o.ApiSubnetAllowList
+	}
+	return toSerialize, nil
 }
 
 type NullablePostRegistryProperties struct {

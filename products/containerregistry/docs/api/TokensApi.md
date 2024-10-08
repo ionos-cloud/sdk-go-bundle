@@ -22,6 +22,8 @@ var result  = RegistriesTokensDelete(ctx, registryId, tokenId)
 
 Delete token
 
+
+
 ### Example
 
 ```go
@@ -37,12 +39,12 @@ import (
 )
 
 func main() {
-    registryId := TODO // string | The unique ID of the registry
-    tokenId := TODO // string | The unique ID of the token
+    registryId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the registry
+    tokenId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the token
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := containerregistry.NewAPIClient(configuration)
-    resource, resp, err := apiClient.TokensApi.RegistriesTokensDelete(context.Background(), registryId, tokenId).Execute()
+    resp, err := apiClient.TokensApi.RegistriesTokensDelete(context.Background(), registryId, tokenId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TokensApi.RegistriesTokensDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -56,8 +58,8 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**registryId** | [**string**](../models/.md) | The unique ID of the registry | |
-|**tokenId** | [**string**](../models/.md) | The unique ID of the token | |
+|**registryId** | **string** | The unique ID of the registry | |
+|**tokenId** | **string** | The unique ID of the token | |
 
 ### Other Parameters
 
@@ -104,8 +106,8 @@ import (
 )
 
 func main() {
-    registryId := TODO // string | The unique ID of the registry
-    tokenId := TODO // string | The unique ID of the token
+    registryId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the registry
+    tokenId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the token
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := containerregistry.NewAPIClient(configuration)
@@ -125,8 +127,8 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**registryId** | [**string**](../models/.md) | The unique ID of the registry | |
-|**tokenId** | [**string**](../models/.md) | The unique ID of the token | |
+|**registryId** | **string** | The unique ID of the registry | |
+|**tokenId** | **string** | The unique ID of the token | |
 
 ### Other Parameters
 
@@ -158,6 +160,8 @@ var result TokensResponse = RegistriesTokensGet(ctx, registryId)
 
 List all tokens for the container registry
 
+
+
 ### Example
 
 ```go
@@ -173,7 +177,7 @@ import (
 )
 
 func main() {
-    registryId := TODO // string | The unique ID of the registry
+    registryId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the registry
     offset := "offset_example" // string | The first element (from the complete list of the elements) to include in the response (used together with limit for pagination) (optional) (default to "0")
     limit := "limit_example" // string | The maximum number of elements to return (used together with offset for pagination) (optional) (default to "100")
 
@@ -195,7 +199,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**registryId** | [**string**](../models/.md) | The unique ID of the registry | |
+|**registryId** | **string** | The unique ID of the registry | |
 
 ### Other Parameters
 
@@ -245,8 +249,8 @@ import (
 )
 
 func main() {
-    registryId := TODO // string | The unique ID of the registry
-    tokenId := TODO // string | The unique ID of the token
+    registryId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the registry
+    tokenId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the token
     patchTokenInput := *openapiclient.NewPatchTokenInput() // PatchTokenInput | 
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
@@ -267,8 +271,8 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**registryId** | [**string**](../models/.md) | The unique ID of the registry | |
-|**tokenId** | [**string**](../models/.md) | The unique ID of the token | |
+|**registryId** | **string** | The unique ID of the registry | |
+|**tokenId** | **string** | The unique ID of the token | |
 
 ### Other Parameters
 
@@ -317,7 +321,7 @@ import (
 )
 
 func main() {
-    registryId := TODO // string | The unique ID of the registry
+    registryId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the registry
     postTokenInput := *openapiclient.NewPostTokenInput(*openapiclient.NewPostTokenProperties("push-token")) // PostTokenInput | 
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
@@ -338,7 +342,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**registryId** | [**string**](../models/.md) | The unique ID of the registry | |
+|**registryId** | **string** | The unique ID of the registry | |
 
 ### Other Parameters
 
@@ -387,7 +391,7 @@ import (
 )
 
 func main() {
-    registryId := TODO // string | The unique ID of the registry
+    registryId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The unique ID of the registry
     tokenId := "tokenId_example" // string | The unique ID of the token
     putTokenInput := *openapiclient.NewPutTokenInput(*openapiclient.NewPostTokenProperties("push-token")) // PutTokenInput | 
 
@@ -409,7 +413,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**registryId** | [**string**](../models/.md) | The unique ID of the registry | |
+|**registryId** | **string** | The unique ID of the registry | |
 |**tokenId** | **string** | The unique ID of the token | |
 
 ### Other Parameters

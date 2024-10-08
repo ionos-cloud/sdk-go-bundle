@@ -1,9 +1,9 @@
 /*
  * Container Registry service
  *
- * Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls.
+ * ## Overview Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls. ## Changelog ### 1.1.0  - Added new endpoints for Repositories  - Added new endpoints for Artifacts  - Added new endpoints for Vulnerabilities  - Added registry vulnerabilityScanning feature ### 1.2.0  - Added registry `apiSubnetAllowList` ### 1.2.1  - Amended `apiSubnetAllowList` Regex
  *
- * API version: 1.0
+ * API version: 1.2.1
  * Contact: support@cloud.ionos.com
  */
 
@@ -15,9 +15,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the PatchRegistryInput type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PatchRegistryInput{}
+
 // PatchRegistryInput struct for PatchRegistryInput
 type PatchRegistryInput struct {
-	GarbageCollectionSchedule *WeeklySchedule `json:"garbageCollectionSchedule,omitempty"`
+	GarbageCollectionSchedule *WeeklySchedule   `json:"garbageCollectionSchedule,omitempty"`
+	Features                  *RegistryFeatures `json:"features,omitempty"`
+	// Subnets and IPs that are allowed to access the registry API, supports IPv4 and IPv6. Maximum of 25 items may be specified. If no CIDR is given /32 and /128 are assumed for IPv4 and IPv6 respectively. 0.0.0.0/0 can be used to deny all traffic. __Note__: If this list is empty or not set, there are no restrictions.
+	ApiSubnetAllowList []string `json:"apiSubnetAllowList,omitempty"`
 }
 
 // NewPatchRegistryInput instantiates a new PatchRegistryInput object
@@ -38,49 +44,114 @@ func NewPatchRegistryInputWithDefaults() *PatchRegistryInput {
 	return &this
 }
 
-// GetGarbageCollectionSchedule returns the GarbageCollectionSchedule field value
-// If the value is explicit nil, the zero value for WeeklySchedule will be returned
-func (o *PatchRegistryInput) GetGarbageCollectionSchedule() *WeeklySchedule {
-	if o == nil {
-		return nil
+// GetGarbageCollectionSchedule returns the GarbageCollectionSchedule field value if set, zero value otherwise.
+func (o *PatchRegistryInput) GetGarbageCollectionSchedule() WeeklySchedule {
+	if o == nil || IsNil(o.GarbageCollectionSchedule) {
+		var ret WeeklySchedule
+		return ret
 	}
-
-	return o.GarbageCollectionSchedule
-
+	return *o.GarbageCollectionSchedule
 }
 
-// GetGarbageCollectionScheduleOk returns a tuple with the GarbageCollectionSchedule field value
+// GetGarbageCollectionScheduleOk returns a tuple with the GarbageCollectionSchedule field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PatchRegistryInput) GetGarbageCollectionScheduleOk() (*WeeklySchedule, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.GarbageCollectionSchedule) {
 		return nil, false
 	}
-
 	return o.GarbageCollectionSchedule, true
-}
-
-// SetGarbageCollectionSchedule sets field value
-func (o *PatchRegistryInput) SetGarbageCollectionSchedule(v WeeklySchedule) {
-
-	o.GarbageCollectionSchedule = &v
-
 }
 
 // HasGarbageCollectionSchedule returns a boolean if a field has been set.
 func (o *PatchRegistryInput) HasGarbageCollectionSchedule() bool {
-	if o != nil && o.GarbageCollectionSchedule != nil {
+	if o != nil && !IsNil(o.GarbageCollectionSchedule) {
 		return true
 	}
 
 	return false
 }
 
-func (o PatchRegistryInput) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	toSerialize["garbageCollectionSchedule"] = o.GarbageCollectionSchedule
+// SetGarbageCollectionSchedule gets a reference to the given WeeklySchedule and assigns it to the GarbageCollectionSchedule field.
+func (o *PatchRegistryInput) SetGarbageCollectionSchedule(v WeeklySchedule) {
+	o.GarbageCollectionSchedule = &v
+}
 
-	return json.Marshal(toSerialize)
+// GetFeatures returns the Features field value if set, zero value otherwise.
+func (o *PatchRegistryInput) GetFeatures() RegistryFeatures {
+	if o == nil || IsNil(o.Features) {
+		var ret RegistryFeatures
+		return ret
+	}
+	return *o.Features
+}
+
+// GetFeaturesOk returns a tuple with the Features field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PatchRegistryInput) GetFeaturesOk() (*RegistryFeatures, bool) {
+	if o == nil || IsNil(o.Features) {
+		return nil, false
+	}
+	return o.Features, true
+}
+
+// HasFeatures returns a boolean if a field has been set.
+func (o *PatchRegistryInput) HasFeatures() bool {
+	if o != nil && !IsNil(o.Features) {
+		return true
+	}
+
+	return false
+}
+
+// SetFeatures gets a reference to the given RegistryFeatures and assigns it to the Features field.
+func (o *PatchRegistryInput) SetFeatures(v RegistryFeatures) {
+	o.Features = &v
+}
+
+// GetApiSubnetAllowList returns the ApiSubnetAllowList field value if set, zero value otherwise.
+func (o *PatchRegistryInput) GetApiSubnetAllowList() []string {
+	if o == nil || IsNil(o.ApiSubnetAllowList) {
+		var ret []string
+		return ret
+	}
+	return o.ApiSubnetAllowList
+}
+
+// GetApiSubnetAllowListOk returns a tuple with the ApiSubnetAllowList field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PatchRegistryInput) GetApiSubnetAllowListOk() ([]string, bool) {
+	if o == nil || IsNil(o.ApiSubnetAllowList) {
+		return nil, false
+	}
+	return o.ApiSubnetAllowList, true
+}
+
+// HasApiSubnetAllowList returns a boolean if a field has been set.
+func (o *PatchRegistryInput) HasApiSubnetAllowList() bool {
+	if o != nil && !IsNil(o.ApiSubnetAllowList) {
+		return true
+	}
+
+	return false
+}
+
+// SetApiSubnetAllowList gets a reference to the given []string and assigns it to the ApiSubnetAllowList field.
+func (o *PatchRegistryInput) SetApiSubnetAllowList(v []string) {
+	o.ApiSubnetAllowList = v
+}
+
+func (o PatchRegistryInput) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.GarbageCollectionSchedule) {
+		toSerialize["garbageCollectionSchedule"] = o.GarbageCollectionSchedule
+	}
+	if !IsNil(o.Features) {
+		toSerialize["features"] = o.Features
+	}
+	if !IsNil(o.ApiSubnetAllowList) {
+		toSerialize["apiSubnetAllowList"] = o.ApiSubnetAllowList
+	}
+	return toSerialize, nil
 }
 
 type NullablePatchRegistryInput struct {

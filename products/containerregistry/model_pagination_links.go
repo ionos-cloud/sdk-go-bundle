@@ -1,9 +1,9 @@
 /*
  * Container Registry service
  *
- * Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls.
+ * ## Overview Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls. ## Changelog ### 1.1.0  - Added new endpoints for Repositories  - Added new endpoints for Artifacts  - Added new endpoints for Vulnerabilities  - Added registry vulnerabilityScanning feature ### 1.2.0  - Added registry `apiSubnetAllowList` ### 1.2.1  - Amended `apiSubnetAllowList` Regex
  *
- * API version: 1.0
+ * API version: 1.2.1
  * Contact: support@cloud.ionos.com
  */
 
@@ -15,11 +15,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the PaginationLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PaginationLinks{}
+
 // PaginationLinks struct for PaginationLinks
 type PaginationLinks struct {
-	Next     *string `json:"next"`
-	Previous *string `json:"previous"`
-	Self     *string `json:"self"`
+	Next     string `json:"next"`
+	Previous string `json:"previous"`
+	Self     string `json:"self"`
 }
 
 // NewPaginationLinks instantiates a new PaginationLinks object
@@ -29,9 +32,9 @@ type PaginationLinks struct {
 func NewPaginationLinks(next string, previous string, self string) *PaginationLinks {
 	this := PaginationLinks{}
 
-	this.Next = &next
-	this.Previous = &previous
-	this.Self = &self
+	this.Next = next
+	this.Previous = previous
+	this.Self = self
 
 	return &this
 }
@@ -45,134 +48,83 @@ func NewPaginationLinksWithDefaults() *PaginationLinks {
 }
 
 // GetNext returns the Next field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *PaginationLinks) GetNext() *string {
+func (o *PaginationLinks) GetNext() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Next
-
 }
 
 // GetNextOk returns a tuple with the Next field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PaginationLinks) GetNextOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Next, true
+	return &o.Next, true
 }
 
 // SetNext sets field value
 func (o *PaginationLinks) SetNext(v string) {
-
-	o.Next = &v
-
-}
-
-// HasNext returns a boolean if a field has been set.
-func (o *PaginationLinks) HasNext() bool {
-	if o != nil && o.Next != nil {
-		return true
-	}
-
-	return false
+	o.Next = v
 }
 
 // GetPrevious returns the Previous field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *PaginationLinks) GetPrevious() *string {
+func (o *PaginationLinks) GetPrevious() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Previous
-
 }
 
 // GetPreviousOk returns a tuple with the Previous field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PaginationLinks) GetPreviousOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Previous, true
+	return &o.Previous, true
 }
 
 // SetPrevious sets field value
 func (o *PaginationLinks) SetPrevious(v string) {
-
-	o.Previous = &v
-
-}
-
-// HasPrevious returns a boolean if a field has been set.
-func (o *PaginationLinks) HasPrevious() bool {
-	if o != nil && o.Previous != nil {
-		return true
-	}
-
-	return false
+	o.Previous = v
 }
 
 // GetSelf returns the Self field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *PaginationLinks) GetSelf() *string {
+func (o *PaginationLinks) GetSelf() string {
 	if o == nil {
-		return nil
+		var ret string
+		return ret
 	}
 
 	return o.Self
-
 }
 
 // GetSelfOk returns a tuple with the Self field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PaginationLinks) GetSelfOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.Self, true
+	return &o.Self, true
 }
 
 // SetSelf sets field value
 func (o *PaginationLinks) SetSelf(v string) {
-
-	o.Self = &v
-
+	o.Self = v
 }
 
-// HasSelf returns a boolean if a field has been set.
-func (o *PaginationLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
-		return true
-	}
-
-	return false
-}
-
-func (o PaginationLinks) MarshalJSON() ([]byte, error) {
+func (o PaginationLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Next != nil {
-		toSerialize["next"] = o.Next
-	}
-
-	if o.Previous != nil {
-		toSerialize["previous"] = o.Previous
-	}
-
-	if o.Self != nil {
-		toSerialize["self"] = o.Self
-	}
-
-	return json.Marshal(toSerialize)
+	toSerialize["next"] = o.Next
+	toSerialize["previous"] = o.Previous
+	toSerialize["self"] = o.Self
+	return toSerialize, nil
 }
 
 type NullablePaginationLinks struct {

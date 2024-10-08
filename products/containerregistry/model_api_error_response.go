@@ -1,9 +1,9 @@
 /*
  * Container Registry service
  *
- * Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls.
+ * ## Overview Container Registry service enables IONOS clients to manage docker and OCI compliant registries for use by their managed Kubernetes clusters. Use a Container Registry to ensure you have a privately accessed registry to efficiently support image pulls. ## Changelog ### 1.1.0  - Added new endpoints for Repositories  - Added new endpoints for Artifacts  - Added new endpoints for Vulnerabilities  - Added registry vulnerabilityScanning feature ### 1.2.0  - Added registry `apiSubnetAllowList` ### 1.2.1  - Amended `apiSubnetAllowList` Regex
  *
- * API version: 1.0
+ * API version: 1.2.1
  * Contact: support@cloud.ionos.com
  */
 
@@ -15,10 +15,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the ApiErrorResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApiErrorResponse{}
+
 // ApiErrorResponse struct for ApiErrorResponse
 type ApiErrorResponse struct {
-	HttpStatus *int32             `json:"httpStatus"`
-	Messages   *[]ApiErrorMessage `json:"messages"`
+	HttpStatus int32             `json:"httpStatus"`
+	Messages   []ApiErrorMessage `json:"messages"`
 }
 
 // NewApiErrorResponse instantiates a new ApiErrorResponse object
@@ -28,8 +31,8 @@ type ApiErrorResponse struct {
 func NewApiErrorResponse(httpStatus int32, messages []ApiErrorMessage) *ApiErrorResponse {
 	this := ApiErrorResponse{}
 
-	this.HttpStatus = &httpStatus
-	this.Messages = &messages
+	this.HttpStatus = httpStatus
+	this.Messages = messages
 
 	return &this
 }
@@ -43,90 +46,58 @@ func NewApiErrorResponseWithDefaults() *ApiErrorResponse {
 }
 
 // GetHttpStatus returns the HttpStatus field value
-// If the value is explicit nil, the zero value for int32 will be returned
-func (o *ApiErrorResponse) GetHttpStatus() *int32 {
+func (o *ApiErrorResponse) GetHttpStatus() int32 {
 	if o == nil {
-		return nil
+		var ret int32
+		return ret
 	}
 
 	return o.HttpStatus
-
 }
 
 // GetHttpStatusOk returns a tuple with the HttpStatus field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ApiErrorResponse) GetHttpStatusOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
-
-	return o.HttpStatus, true
+	return &o.HttpStatus, true
 }
 
 // SetHttpStatus sets field value
 func (o *ApiErrorResponse) SetHttpStatus(v int32) {
-
-	o.HttpStatus = &v
-
-}
-
-// HasHttpStatus returns a boolean if a field has been set.
-func (o *ApiErrorResponse) HasHttpStatus() bool {
-	if o != nil && o.HttpStatus != nil {
-		return true
-	}
-
-	return false
+	o.HttpStatus = v
 }
 
 // GetMessages returns the Messages field value
-// If the value is explicit nil, the zero value for []ApiErrorMessage will be returned
-func (o *ApiErrorResponse) GetMessages() *[]ApiErrorMessage {
+func (o *ApiErrorResponse) GetMessages() []ApiErrorMessage {
 	if o == nil {
-		return nil
+		var ret []ApiErrorMessage
+		return ret
 	}
 
 	return o.Messages
-
 }
 
 // GetMessagesOk returns a tuple with the Messages field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ApiErrorResponse) GetMessagesOk() (*[]ApiErrorMessage, bool) {
+func (o *ApiErrorResponse) GetMessagesOk() ([]ApiErrorMessage, bool) {
 	if o == nil {
 		return nil, false
 	}
-
 	return o.Messages, true
 }
 
 // SetMessages sets field value
 func (o *ApiErrorResponse) SetMessages(v []ApiErrorMessage) {
-
-	o.Messages = &v
-
+	o.Messages = v
 }
 
-// HasMessages returns a boolean if a field has been set.
-func (o *ApiErrorResponse) HasMessages() bool {
-	if o != nil && o.Messages != nil {
-		return true
-	}
-
-	return false
-}
-
-func (o ApiErrorResponse) MarshalJSON() ([]byte, error) {
+func (o ApiErrorResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.HttpStatus != nil {
-		toSerialize["httpStatus"] = o.HttpStatus
-	}
-
+	toSerialize["httpStatus"] = o.HttpStatus
 	toSerialize["messages"] = o.Messages
-
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableApiErrorResponse struct {

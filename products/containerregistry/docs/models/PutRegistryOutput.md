@@ -6,15 +6,15 @@
 |------------ | ------------- | ------------- | -------------|
 |**Href** | Pointer to **string** |  | [optional] |
 |**Id** | Pointer to **string** |  | [optional] |
-|**Metadata** | [**NullableApiResourceMetadata**](ApiResourceMetadata.md) |  | |
-|**Properties** | [**NullableRegistryProperties**](RegistryProperties.md) |  | |
+|**Metadata** | [**ApiResourceMetadata**](ApiResourceMetadata.md) |  | |
+|**Properties** | [**RegistryProperties**](RegistryProperties.md) |  | |
 |**Type** | Pointer to **string** |  | [optional] |
 
 ## Methods
 
 ### NewPutRegistryOutput
 
-`func NewPutRegistryOutput(metadata NullableApiResourceMetadata, properties NullableRegistryProperties, ) *PutRegistryOutput`
+`func NewPutRegistryOutput(metadata ApiResourceMetadata, properties RegistryProperties, ) *PutRegistryOutput`
 
 NewPutRegistryOutput instantiates a new PutRegistryOutput object
 This constructor will assign default values to properties that have it defined,
@@ -99,16 +99,6 @@ and a boolean to check if the value has been set.
 SetMetadata sets Metadata field to given value.
 
 
-### SetMetadataNil
-
-`func (o *PutRegistryOutput) SetMetadataNil(b bool)`
-
- SetMetadataNil sets the value for Metadata to be an explicit nil
-
-### UnsetMetadata
-`func (o *PutRegistryOutput) UnsetMetadata()`
-
-UnsetMetadata ensures that no value is present for Metadata, not even an explicit nil
 ### GetProperties
 
 `func (o *PutRegistryOutput) GetProperties() RegistryProperties`
@@ -129,16 +119,6 @@ and a boolean to check if the value has been set.
 SetProperties sets Properties field to given value.
 
 
-### SetPropertiesNil
-
-`func (o *PutRegistryOutput) SetPropertiesNil(b bool)`
-
- SetPropertiesNil sets the value for Properties to be an explicit nil
-
-### UnsetProperties
-`func (o *PutRegistryOutput) UnsetProperties()`
-
-UnsetProperties ensures that no value is present for Properties, not even an explicit nil
 ### GetType
 
 `func (o *PutRegistryOutput) GetType() string`

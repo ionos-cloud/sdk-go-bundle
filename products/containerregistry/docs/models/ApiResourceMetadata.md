@@ -9,7 +9,7 @@
 |**CreatedDate** | [**time.Time**](time.Time.md) |  | |
 |**LastModifiedBy** | Pointer to **string** |  | [optional] |
 |**LastModifiedByUserId** | Pointer to **string** |  | [optional] |
-|**LastModifiedDate** | Pointer to [**NullableTime**](time.Time.md) |  | [optional] |
+|**LastModifiedDate** | Pointer to [**time.Time**](time.Time.md) |  | [optional] |
 |**State** | **string** |  | |
 
 ## Methods
@@ -166,16 +166,6 @@ SetLastModifiedDate sets LastModifiedDate field to given value.
 
 HasLastModifiedDate returns a boolean if a field has been set.
 
-### SetLastModifiedDateNil
-
-`func (o *ApiResourceMetadata) SetLastModifiedDateNil(b bool)`
-
- SetLastModifiedDateNil sets the value for LastModifiedDate to be an explicit nil
-
-### UnsetLastModifiedDate
-`func (o *ApiResourceMetadata) UnsetLastModifiedDate()`
-
-UnsetLastModifiedDate ensures that no value is present for LastModifiedDate, not even an explicit nil
 ### GetState
 
 `func (o *ApiResourceMetadata) GetState() string`
