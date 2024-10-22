@@ -9,12 +9,13 @@
 |**Waf** | **bool** | Enable or disable WAF to protect the upstream host. | |
 |**GeoRestrictions** | Pointer to [**UpstreamGeoRestrictions**](UpstreamGeoRestrictions.md) |  | [optional] |
 |**RateLimitClass** | **string** | Rate limit class that will be applied to limit the number of incoming requests per IP. | |
+|**SniMode** | **string** | The SNI (Server Name Indication) mode of the upstream host. It supports two modes: - distribution: for outgoing connections to the upstream host, the CDN requires the upstream host to present a valid certificate that matches the configured domain of the CDN distribution. - origin: for outgoing connections to the upstream host, the CDN requires the upstream host to present a valid certificate that matches the configured upstream/origin hostname.  | |
 
 ## Methods
 
 ### NewUpstream
 
-`func NewUpstream(host string, caching bool, waf bool, rateLimitClass string, ) *Upstream`
+`func NewUpstream(host string, caching bool, waf bool, rateLimitClass string, sniMode string, ) *Upstream`
 
 NewUpstream instantiates a new Upstream object
 This constructor will assign default values to properties that have it defined,
@@ -132,6 +133,26 @@ and a boolean to check if the value has been set.
 `func (o *Upstream) SetRateLimitClass(v string)`
 
 SetRateLimitClass sets RateLimitClass field to given value.
+
+
+### GetSniMode
+
+`func (o *Upstream) GetSniMode() string`
+
+GetSniMode returns the SniMode field if non-nil, zero value otherwise.
+
+### GetSniModeOk
+
+`func (o *Upstream) GetSniModeOk() (*string, bool)`
+
+GetSniModeOk returns a tuple with the SniMode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSniMode
+
+`func (o *Upstream) SetSniMode(v string)`
+
+SetSniMode sets SniMode field to given value.
 
 
 
