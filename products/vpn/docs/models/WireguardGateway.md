@@ -9,9 +9,11 @@
 |**GatewayIP** | **string** | Public IP address to be assigned to the gateway. __Note__: This must be an IP address in the same datacenter as the connections.  | |
 |**InterfaceIPv4CIDR** | Pointer to **string** | Describes a range of IP V4 addresses in CIDR notation.  | [optional] |
 |**InterfaceIPv6CIDR** | Pointer to **string** | Describes a range of IP V6 addresses in CIDR notation.  | [optional] |
-|**Connections** | [**[]Connection**](Connection.md) | The network connection for your gateway. __Note__: all connections must belong to the same datacenterId.  | |
+|**Connections** | [**[]Connection**](Connection.md) | The network connection for your gateway. __Note__: all connections must belong to the same datacenterId. There is a limit to the total number of connections. Please refer to product documentation.  | |
 |**PrivateKey** | **string** | PrivateKey used for WireGuard Server  | |
 |**ListenPort** | Pointer to **int32** | IP port number | [optional] [default to 51820]|
+|**Tier** | Pointer to **string** | Gateway performance options.  See product documentation for full details.\\ Options: - STANDARD - STANDARD_HA - ENHANCED - ENHANCED_HA - PREMIUM - PREMIUM_HA  | [optional] [default to "STANDARD"]|
+|**MaintenanceWindow** | Pointer to [**MaintenanceWindow**](MaintenanceWindow.md) |  | [optional] |
 
 ## Methods
 
@@ -211,5 +213,55 @@ SetListenPort sets ListenPort field to given value.
 `func (o *WireguardGateway) HasListenPort() bool`
 
 HasListenPort returns a boolean if a field has been set.
+
+### GetTier
+
+`func (o *WireguardGateway) GetTier() string`
+
+GetTier returns the Tier field if non-nil, zero value otherwise.
+
+### GetTierOk
+
+`func (o *WireguardGateway) GetTierOk() (*string, bool)`
+
+GetTierOk returns a tuple with the Tier field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTier
+
+`func (o *WireguardGateway) SetTier(v string)`
+
+SetTier sets Tier field to given value.
+
+### HasTier
+
+`func (o *WireguardGateway) HasTier() bool`
+
+HasTier returns a boolean if a field has been set.
+
+### GetMaintenanceWindow
+
+`func (o *WireguardGateway) GetMaintenanceWindow() MaintenanceWindow`
+
+GetMaintenanceWindow returns the MaintenanceWindow field if non-nil, zero value otherwise.
+
+### GetMaintenanceWindowOk
+
+`func (o *WireguardGateway) GetMaintenanceWindowOk() (*MaintenanceWindow, bool)`
+
+GetMaintenanceWindowOk returns a tuple with the MaintenanceWindow field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaintenanceWindow
+
+`func (o *WireguardGateway) SetMaintenanceWindow(v MaintenanceWindow)`
+
+SetMaintenanceWindow sets MaintenanceWindow field to given value.
+
+### HasMaintenanceWindow
+
+`func (o *WireguardGateway) HasMaintenanceWindow() bool`
+
+HasMaintenanceWindow returns a boolean if a field has been set.
 
 

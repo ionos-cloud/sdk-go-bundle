@@ -7,8 +7,10 @@
 |**Name** | **string** | The human readable name of your IPSecGateway. | |
 |**Description** | Pointer to **string** | Human readable description of the IPSecGateway. | [optional] |
 |**GatewayIP** | **string** | Public IP address to be assigned to the gateway. __Note__: This must be an IP address in the same datacenter as the connections.  | |
-|**Connections** | [**[]Connection**](Connection.md) | The network connection for your gateway. __Note__: all connections must belong to the same datacenterId.  | |
+|**Connections** | [**[]Connection**](Connection.md) | The network connection for your gateway. __Note__: all connections must belong to the same datacenterId. There is a limit to the total number of connections. Please refer to product documentation.  | |
 |**Version** | Pointer to **string** | The IKE version that is permitted for the VPN tunnels.\\ Options:  - IKEv2  | [optional] [default to "IKEv2"]|
+|**Tier** | Pointer to **string** | Gateway performance options.  See product documentation for full details.\\ Options: - STANDARD - STANDARD_HA - ENHANCED - ENHANCED_HA - PREMIUM - PREMIUM_HA  | [optional] [default to "STANDARD"]|
+|**MaintenanceWindow** | Pointer to [**MaintenanceWindow**](MaintenanceWindow.md) |  | [optional] |
 
 ## Methods
 
@@ -138,5 +140,55 @@ SetVersion sets Version field to given value.
 `func (o *IPSecGateway) HasVersion() bool`
 
 HasVersion returns a boolean if a field has been set.
+
+### GetTier
+
+`func (o *IPSecGateway) GetTier() string`
+
+GetTier returns the Tier field if non-nil, zero value otherwise.
+
+### GetTierOk
+
+`func (o *IPSecGateway) GetTierOk() (*string, bool)`
+
+GetTierOk returns a tuple with the Tier field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTier
+
+`func (o *IPSecGateway) SetTier(v string)`
+
+SetTier sets Tier field to given value.
+
+### HasTier
+
+`func (o *IPSecGateway) HasTier() bool`
+
+HasTier returns a boolean if a field has been set.
+
+### GetMaintenanceWindow
+
+`func (o *IPSecGateway) GetMaintenanceWindow() MaintenanceWindow`
+
+GetMaintenanceWindow returns the MaintenanceWindow field if non-nil, zero value otherwise.
+
+### GetMaintenanceWindowOk
+
+`func (o *IPSecGateway) GetMaintenanceWindowOk() (*MaintenanceWindow, bool)`
+
+GetMaintenanceWindowOk returns a tuple with the MaintenanceWindow field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaintenanceWindow
+
+`func (o *IPSecGateway) SetMaintenanceWindow(v MaintenanceWindow)`
+
+SetMaintenanceWindow sets MaintenanceWindow field to given value.
+
+### HasMaintenanceWindow
+
+`func (o *IPSecGateway) HasMaintenanceWindow() bool`
+
+HasMaintenanceWindow returns a boolean if a field has been set.
 
 

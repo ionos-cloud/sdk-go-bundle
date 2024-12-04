@@ -13,6 +13,7 @@
 ## Models
 
 * [Connection](models/Connection.md)
+* [DayOfTheWeek](models/DayOfTheWeek.md)
 * [ESPEncryption](models/ESPEncryption.md)
 * [Error](models/Error.md)
 * [ErrorMessages](models/ErrorMessages.md)
@@ -34,6 +35,7 @@
 * [IPSecTunnelReadList](models/IPSecTunnelReadList.md)
 * [IPSecTunnelReadListAllOf](models/IPSecTunnelReadListAllOf.md)
 * [Links](models/Links.md)
+* [MaintenanceWindow](models/MaintenanceWindow.md)
 * [Metadata](models/Metadata.md)
 * [Pagination](models/Pagination.md)
 * [ResourceStatus](models/ResourceStatus.md)
