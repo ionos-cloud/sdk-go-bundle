@@ -368,14 +368,6 @@ func (o *MetadataWithEndpoint) SetPublicEndpoint(v string) {
 	o.PublicEndpoint = v
 }
 
-func (o MetadataWithEndpoint) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o MetadataWithEndpoint) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.CreatedDate) {
@@ -399,15 +391,11 @@ func (o MetadataWithEndpoint) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ResourceURN) {
 		toSerialize["resourceURN"] = o.ResourceURN
 	}
-	if !IsZero(o.Status) {
-		toSerialize["status"] = o.Status
-	}
+	toSerialize["status"] = o.Status
 	if !IsNil(o.StatusMessage) {
 		toSerialize["statusMessage"] = o.StatusMessage
 	}
-	if !IsZero(o.PublicEndpoint) {
-		toSerialize["publicEndpoint"] = o.PublicEndpoint
-	}
+	toSerialize["publicEndpoint"] = o.PublicEndpoint
 	return toSerialize, nil
 }
 

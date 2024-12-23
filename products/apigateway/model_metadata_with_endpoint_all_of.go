@@ -67,19 +67,9 @@ func (o *MetadataWithEndpointAllOf) SetPublicEndpoint(v string) {
 	o.PublicEndpoint = v
 }
 
-func (o MetadataWithEndpointAllOf) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o MetadataWithEndpointAllOf) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.PublicEndpoint) {
-		toSerialize["publicEndpoint"] = o.PublicEndpoint
-	}
+	toSerialize["publicEndpoint"] = o.PublicEndpoint
 	return toSerialize, nil
 }
 

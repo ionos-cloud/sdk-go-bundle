@@ -175,19 +175,9 @@ func (o *Gateway) SetCustomDomains(v []GatewayCustomDomains) {
 	o.CustomDomains = v
 }
 
-func (o Gateway) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o Gateway) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.Name) {
-		toSerialize["name"] = o.Name
-	}
+	toSerialize["name"] = o.Name
 	if !IsNil(o.Logs) {
 		toSerialize["logs"] = o.Logs
 	}

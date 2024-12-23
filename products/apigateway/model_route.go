@@ -214,34 +214,16 @@ func (o *Route) SetUpstreams(v []RouteUpstreams) {
 	o.Upstreams = v
 }
 
-func (o Route) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o Route) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.Name) {
-		toSerialize["name"] = o.Name
-	}
-	if !IsZero(o.Type) {
-		toSerialize["type"] = o.Type
-	}
-	if !IsZero(o.Paths) {
-		toSerialize["paths"] = o.Paths
-	}
-	if !IsZero(o.Methods) {
-		toSerialize["methods"] = o.Methods
-	}
+	toSerialize["name"] = o.Name
+	toSerialize["type"] = o.Type
+	toSerialize["paths"] = o.Paths
+	toSerialize["methods"] = o.Methods
 	if !IsNil(o.Websocket) {
 		toSerialize["websocket"] = o.Websocket
 	}
-	if !IsZero(o.Upstreams) {
-		toSerialize["upstreams"] = o.Upstreams
-	}
+	toSerialize["upstreams"] = o.Upstreams
 	return toSerialize, nil
 }
 

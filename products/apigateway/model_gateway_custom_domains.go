@@ -107,14 +107,6 @@ func (o *GatewayCustomDomains) SetCertificateId(v string) {
 	o.CertificateId = &v
 }
 
-func (o GatewayCustomDomains) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o GatewayCustomDomains) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Name) {
