@@ -19,8 +19,9 @@ var _ MappedNullable = &NicEntities{}
 
 // NicEntities struct for NicEntities
 type NicEntities struct {
-	Flowlogs      *FlowLogs      `json:"flowlogs,omitempty"`
-	Firewallrules *FirewallRules `json:"firewallrules,omitempty"`
+	Flowlogs       *FlowLogs       `json:"flowlogs,omitempty"`
+	Firewallrules  *FirewallRules  `json:"firewallrules,omitempty"`
+	Securitygroups *SecurityGroups `json:"securitygroups,omitempty"`
 }
 
 // NewNicEntities instantiates a new NicEntities object
@@ -105,6 +106,38 @@ func (o *NicEntities) SetFirewallrules(v FirewallRules) {
 	o.Firewallrules = &v
 }
 
+// GetSecuritygroups returns the Securitygroups field value if set, zero value otherwise.
+func (o *NicEntities) GetSecuritygroups() SecurityGroups {
+	if o == nil || IsNil(o.Securitygroups) {
+		var ret SecurityGroups
+		return ret
+	}
+	return *o.Securitygroups
+}
+
+// GetSecuritygroupsOk returns a tuple with the Securitygroups field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NicEntities) GetSecuritygroupsOk() (*SecurityGroups, bool) {
+	if o == nil || IsNil(o.Securitygroups) {
+		return nil, false
+	}
+	return o.Securitygroups, true
+}
+
+// HasSecuritygroups returns a boolean if a field has been set.
+func (o *NicEntities) HasSecuritygroups() bool {
+	if o != nil && !IsNil(o.Securitygroups) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecuritygroups gets a reference to the given SecurityGroups and assigns it to the Securitygroups field.
+func (o *NicEntities) SetSecuritygroups(v SecurityGroups) {
+	o.Securitygroups = &v
+}
+
 func (o NicEntities) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Flowlogs) {
@@ -112,6 +145,9 @@ func (o NicEntities) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Firewallrules) {
 		toSerialize["firewallrules"] = o.Firewallrules
+	}
+	if !IsNil(o.Securitygroups) {
+		toSerialize["securitygroups"] = o.Securitygroups
 	}
 	return toSerialize, nil
 }

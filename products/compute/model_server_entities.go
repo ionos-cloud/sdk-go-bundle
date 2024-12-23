@@ -19,9 +19,10 @@ var _ MappedNullable = &ServerEntities{}
 
 // ServerEntities struct for ServerEntities
 type ServerEntities struct {
-	Cdroms  *Cdroms          `json:"cdroms,omitempty"`
-	Volumes *AttachedVolumes `json:"volumes,omitempty"`
-	Nics    *Nics            `json:"nics,omitempty"`
+	Cdroms         *Cdroms          `json:"cdroms,omitempty"`
+	Volumes        *AttachedVolumes `json:"volumes,omitempty"`
+	Nics           *Nics            `json:"nics,omitempty"`
+	Securitygroups *SecurityGroups  `json:"securitygroups,omitempty"`
 }
 
 // NewServerEntities instantiates a new ServerEntities object
@@ -138,6 +139,38 @@ func (o *ServerEntities) SetNics(v Nics) {
 	o.Nics = &v
 }
 
+// GetSecuritygroups returns the Securitygroups field value if set, zero value otherwise.
+func (o *ServerEntities) GetSecuritygroups() SecurityGroups {
+	if o == nil || IsNil(o.Securitygroups) {
+		var ret SecurityGroups
+		return ret
+	}
+	return *o.Securitygroups
+}
+
+// GetSecuritygroupsOk returns a tuple with the Securitygroups field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServerEntities) GetSecuritygroupsOk() (*SecurityGroups, bool) {
+	if o == nil || IsNil(o.Securitygroups) {
+		return nil, false
+	}
+	return o.Securitygroups, true
+}
+
+// HasSecuritygroups returns a boolean if a field has been set.
+func (o *ServerEntities) HasSecuritygroups() bool {
+	if o != nil && !IsNil(o.Securitygroups) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecuritygroups gets a reference to the given SecurityGroups and assigns it to the Securitygroups field.
+func (o *ServerEntities) SetSecuritygroups(v SecurityGroups) {
+	o.Securitygroups = &v
+}
+
 func (o ServerEntities) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Cdroms) {
@@ -148,6 +181,9 @@ func (o ServerEntities) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Nics) {
 		toSerialize["nics"] = o.Nics
+	}
+	if !IsNil(o.Securitygroups) {
+		toSerialize["securitygroups"] = o.Securitygroups
 	}
 	return toSerialize, nil
 }

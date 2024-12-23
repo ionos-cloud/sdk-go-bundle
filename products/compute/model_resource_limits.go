@@ -63,13 +63,19 @@ type ResourceLimits struct {
 	NatGatewayLimitTotal int32 `json:"natGatewayLimitTotal"`
 	// The NAT Gateways provisioned.
 	NatGatewayProvisioned int32 `json:"natGatewayProvisioned"`
+	// The maximum number of security groups per VDC.
+	SecurityGroupsPerVdc int32 `json:"securityGroupsPerVdc"`
+	// The maximum number of security groups that can be attached to a NIC or a VM individually. For example, a user can have maximum 10 security groups per NIC and 10 per VM.
+	SecurityGroupsPerResource int32 `json:"securityGroupsPerResource"`
+	// The maximum number of rules per security group.
+	RulesPerSecurityGroup int32 `json:"rulesPerSecurityGroup"`
 }
 
 // NewResourceLimits instantiates a new ResourceLimits object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResourceLimits(coresPerServer int32, coresPerContract int32, coresProvisioned int32, ramPerServer int32, ramPerContract int32, ramProvisioned int32, hddLimitPerVolume int64, hddLimitPerContract int64, hddVolumeProvisioned int64, ssdLimitPerVolume int64, ssdLimitPerContract int64, ssdVolumeProvisioned int64, dasVolumeProvisioned int64, reservableIps int32, reservedIpsOnContract int32, reservedIpsInUse int32, k8sClusterLimitTotal int32, k8sClustersProvisioned int32, nlbLimitTotal int32, nlbProvisioned int32, natGatewayLimitTotal int32, natGatewayProvisioned int32) *ResourceLimits {
+func NewResourceLimits(coresPerServer int32, coresPerContract int32, coresProvisioned int32, ramPerServer int32, ramPerContract int32, ramProvisioned int32, hddLimitPerVolume int64, hddLimitPerContract int64, hddVolumeProvisioned int64, ssdLimitPerVolume int64, ssdLimitPerContract int64, ssdVolumeProvisioned int64, dasVolumeProvisioned int64, reservableIps int32, reservedIpsOnContract int32, reservedIpsInUse int32, k8sClusterLimitTotal int32, k8sClustersProvisioned int32, nlbLimitTotal int32, nlbProvisioned int32, natGatewayLimitTotal int32, natGatewayProvisioned int32, securityGroupsPerVdc int32, securityGroupsPerResource int32, rulesPerSecurityGroup int32) *ResourceLimits {
 	this := ResourceLimits{}
 
 	this.CoresPerServer = coresPerServer
@@ -94,6 +100,9 @@ func NewResourceLimits(coresPerServer int32, coresPerContract int32, coresProvis
 	this.NlbProvisioned = nlbProvisioned
 	this.NatGatewayLimitTotal = natGatewayLimitTotal
 	this.NatGatewayProvisioned = natGatewayProvisioned
+	this.SecurityGroupsPerVdc = securityGroupsPerVdc
+	this.SecurityGroupsPerResource = securityGroupsPerResource
+	this.RulesPerSecurityGroup = rulesPerSecurityGroup
 
 	return &this
 }
@@ -634,6 +643,78 @@ func (o *ResourceLimits) SetNatGatewayProvisioned(v int32) {
 	o.NatGatewayProvisioned = v
 }
 
+// GetSecurityGroupsPerVdc returns the SecurityGroupsPerVdc field value
+func (o *ResourceLimits) GetSecurityGroupsPerVdc() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.SecurityGroupsPerVdc
+}
+
+// GetSecurityGroupsPerVdcOk returns a tuple with the SecurityGroupsPerVdc field value
+// and a boolean to check if the value has been set.
+func (o *ResourceLimits) GetSecurityGroupsPerVdcOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SecurityGroupsPerVdc, true
+}
+
+// SetSecurityGroupsPerVdc sets field value
+func (o *ResourceLimits) SetSecurityGroupsPerVdc(v int32) {
+	o.SecurityGroupsPerVdc = v
+}
+
+// GetSecurityGroupsPerResource returns the SecurityGroupsPerResource field value
+func (o *ResourceLimits) GetSecurityGroupsPerResource() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.SecurityGroupsPerResource
+}
+
+// GetSecurityGroupsPerResourceOk returns a tuple with the SecurityGroupsPerResource field value
+// and a boolean to check if the value has been set.
+func (o *ResourceLimits) GetSecurityGroupsPerResourceOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SecurityGroupsPerResource, true
+}
+
+// SetSecurityGroupsPerResource sets field value
+func (o *ResourceLimits) SetSecurityGroupsPerResource(v int32) {
+	o.SecurityGroupsPerResource = v
+}
+
+// GetRulesPerSecurityGroup returns the RulesPerSecurityGroup field value
+func (o *ResourceLimits) GetRulesPerSecurityGroup() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.RulesPerSecurityGroup
+}
+
+// GetRulesPerSecurityGroupOk returns a tuple with the RulesPerSecurityGroup field value
+// and a boolean to check if the value has been set.
+func (o *ResourceLimits) GetRulesPerSecurityGroupOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.RulesPerSecurityGroup, true
+}
+
+// SetRulesPerSecurityGroup sets field value
+func (o *ResourceLimits) SetRulesPerSecurityGroup(v int32) {
+	o.RulesPerSecurityGroup = v
+}
+
 func (o ResourceLimits) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["coresPerServer"] = o.CoresPerServer
@@ -658,6 +739,9 @@ func (o ResourceLimits) ToMap() (map[string]interface{}, error) {
 	toSerialize["nlbProvisioned"] = o.NlbProvisioned
 	toSerialize["natGatewayLimitTotal"] = o.NatGatewayLimitTotal
 	toSerialize["natGatewayProvisioned"] = o.NatGatewayProvisioned
+	toSerialize["securityGroupsPerVdc"] = o.SecurityGroupsPerVdc
+	toSerialize["securityGroupsPerResource"] = o.SecurityGroupsPerResource
+	toSerialize["rulesPerSecurityGroup"] = o.RulesPerSecurityGroup
 	return toSerialize, nil
 }
 

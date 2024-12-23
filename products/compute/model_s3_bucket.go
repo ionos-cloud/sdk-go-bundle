@@ -19,7 +19,7 @@ var _ MappedNullable = &S3Bucket{}
 
 // S3Bucket struct for S3Bucket
 type S3Bucket struct {
-	// The name of the S3 bucket.
+	// The name of the Object storage bucket.
 	Name string `json:"name"`
 }
 

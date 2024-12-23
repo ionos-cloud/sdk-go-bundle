@@ -25,6 +25,7 @@ type DataCenterEntities struct {
 	Lans                 *Lans                 `json:"lans,omitempty"`
 	Networkloadbalancers *NetworkLoadBalancers `json:"networkloadbalancers,omitempty"`
 	Natgateways          *NatGateways          `json:"natgateways,omitempty"`
+	Securitygroups       *SecurityGroups       `json:"securitygroups,omitempty"`
 }
 
 // NewDataCenterEntities instantiates a new DataCenterEntities object
@@ -237,6 +238,38 @@ func (o *DataCenterEntities) SetNatgateways(v NatGateways) {
 	o.Natgateways = &v
 }
 
+// GetSecuritygroups returns the Securitygroups field value if set, zero value otherwise.
+func (o *DataCenterEntities) GetSecuritygroups() SecurityGroups {
+	if o == nil || IsNil(o.Securitygroups) {
+		var ret SecurityGroups
+		return ret
+	}
+	return *o.Securitygroups
+}
+
+// GetSecuritygroupsOk returns a tuple with the Securitygroups field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DataCenterEntities) GetSecuritygroupsOk() (*SecurityGroups, bool) {
+	if o == nil || IsNil(o.Securitygroups) {
+		return nil, false
+	}
+	return o.Securitygroups, true
+}
+
+// HasSecuritygroups returns a boolean if a field has been set.
+func (o *DataCenterEntities) HasSecuritygroups() bool {
+	if o != nil && !IsNil(o.Securitygroups) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecuritygroups gets a reference to the given SecurityGroups and assigns it to the Securitygroups field.
+func (o *DataCenterEntities) SetSecuritygroups(v SecurityGroups) {
+	o.Securitygroups = &v
+}
+
 func (o DataCenterEntities) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Servers) {
@@ -256,6 +289,9 @@ func (o DataCenterEntities) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Natgateways) {
 		toSerialize["natgateways"] = o.Natgateways
+	}
+	if !IsNil(o.Securitygroups) {
+		toSerialize["securitygroups"] = o.Securitygroups
 	}
 	return toSerialize, nil
 }

@@ -29,17 +29,14 @@ var (
 type VolumesApiService service
 
 type ApiDatacentersVolumesCreateSnapshotPostRequest struct {
-	ctx               _context.Context
-	ApiService        *VolumesApiService
-	datacenterId      string
-	volumeId          string
-	pretty            *bool
-	depth             *int32
-	xContractNumber   *int32
-	name              *string
-	description       *string
-	secAuthProtection *bool
-	licenceType       *string
+	ctx             _context.Context
+	ApiService      *VolumesApiService
+	datacenterId    string
+	volumeId        string
+	pretty          *bool
+	depth           *int32
+	xContractNumber *int32
+	snapshot        *CreateSnapshot
 }
 
 func (r ApiDatacentersVolumesCreateSnapshotPostRequest) Pretty(pretty bool) ApiDatacentersVolumesCreateSnapshotPostRequest {
@@ -54,20 +51,8 @@ func (r ApiDatacentersVolumesCreateSnapshotPostRequest) XContractNumber(xContrac
 	r.xContractNumber = &xContractNumber
 	return r
 }
-func (r ApiDatacentersVolumesCreateSnapshotPostRequest) Name(name string) ApiDatacentersVolumesCreateSnapshotPostRequest {
-	r.name = &name
-	return r
-}
-func (r ApiDatacentersVolumesCreateSnapshotPostRequest) Description(description string) ApiDatacentersVolumesCreateSnapshotPostRequest {
-	r.description = &description
-	return r
-}
-func (r ApiDatacentersVolumesCreateSnapshotPostRequest) SecAuthProtection(secAuthProtection bool) ApiDatacentersVolumesCreateSnapshotPostRequest {
-	r.secAuthProtection = &secAuthProtection
-	return r
-}
-func (r ApiDatacentersVolumesCreateSnapshotPostRequest) LicenceType(licenceType string) ApiDatacentersVolumesCreateSnapshotPostRequest {
-	r.licenceType = &licenceType
+func (r ApiDatacentersVolumesCreateSnapshotPostRequest) Snapshot(snapshot CreateSnapshot) ApiDatacentersVolumesCreateSnapshotPostRequest {
+	r.snapshot = &snapshot
 	return r
 }
 
@@ -129,7 +114,7 @@ func (a *VolumesApiService) DatacentersVolumesCreateSnapshotPostExecute(r ApiDat
 	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -148,18 +133,8 @@ func (a *VolumesApiService) DatacentersVolumesCreateSnapshotPostExecute(r ApiDat
 	if r.xContractNumber != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
-	if r.name != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "name", r.name, "")
-	}
-	if r.description != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "description", r.description, "")
-	}
-	if r.secAuthProtection != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "secAuthProtection", r.secAuthProtection, "")
-	}
-	if r.licenceType != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "licenceType", r.licenceType, "")
-	}
+	// body params
+	localVarPostBody = r.snapshot
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {
@@ -1300,7 +1275,7 @@ type ApiDatacentersVolumesRestoreSnapshotPostRequest struct {
 	pretty          *bool
 	depth           *int32
 	xContractNumber *int32
-	snapshotId      *string
+	restoreSnapshot *RestoreSnapshot
 }
 
 func (r ApiDatacentersVolumesRestoreSnapshotPostRequest) Pretty(pretty bool) ApiDatacentersVolumesRestoreSnapshotPostRequest {
@@ -1315,8 +1290,8 @@ func (r ApiDatacentersVolumesRestoreSnapshotPostRequest) XContractNumber(xContra
 	r.xContractNumber = &xContractNumber
 	return r
 }
-func (r ApiDatacentersVolumesRestoreSnapshotPostRequest) SnapshotId(snapshotId string) ApiDatacentersVolumesRestoreSnapshotPostRequest {
-	r.snapshotId = &snapshotId
+func (r ApiDatacentersVolumesRestoreSnapshotPostRequest) RestoreSnapshot(restoreSnapshot RestoreSnapshot) ApiDatacentersVolumesRestoreSnapshotPostRequest {
+	r.restoreSnapshot = &restoreSnapshot
 	return r
 }
 
@@ -1376,7 +1351,7 @@ func (a *VolumesApiService) DatacentersVolumesRestoreSnapshotPostExecute(r ApiDa
 	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -1395,9 +1370,8 @@ func (a *VolumesApiService) DatacentersVolumesRestoreSnapshotPostExecute(r ApiDa
 	if r.xContractNumber != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Contract-Number", *r.xContractNumber, "")
 	}
-	if r.snapshotId != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "snapshotId", r.snapshotId, "")
-	}
+	// body params
+	localVarPostBody = r.restoreSnapshot
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(shared.ContextAPIKeys).(map[string]shared.APIKey); ok {

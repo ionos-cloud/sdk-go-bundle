@@ -35,6 +35,8 @@ type DatacenterProperties struct {
 	CpuArchitecture []CpuArchitectureProperties `json:"cpuArchitecture,omitempty"`
 	// This value is either 'null' or contains an automatically-assigned /56 IPv6 CIDR block if IPv6 is enabled on this virtual data center. It can neither be changed nor removed.
 	Ipv6CidrBlock NullableString `json:"ipv6CidrBlock,omitempty"`
+	// Optional property to define the default security group of the datacenter.
+	DefaultSecurityGroupId *string `json:"defaultSecurityGroupId,omitempty"`
 }
 
 // NewDatacenterProperties instantiates a new DatacenterProperties object
@@ -316,6 +318,38 @@ func (o *DatacenterProperties) UnsetIpv6CidrBlock() {
 	o.Ipv6CidrBlock.Unset()
 }
 
+// GetDefaultSecurityGroupId returns the DefaultSecurityGroupId field value if set, zero value otherwise.
+func (o *DatacenterProperties) GetDefaultSecurityGroupId() string {
+	if o == nil || IsNil(o.DefaultSecurityGroupId) {
+		var ret string
+		return ret
+	}
+	return *o.DefaultSecurityGroupId
+}
+
+// GetDefaultSecurityGroupIdOk returns a tuple with the DefaultSecurityGroupId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DatacenterProperties) GetDefaultSecurityGroupIdOk() (*string, bool) {
+	if o == nil || IsNil(o.DefaultSecurityGroupId) {
+		return nil, false
+	}
+	return o.DefaultSecurityGroupId, true
+}
+
+// HasDefaultSecurityGroupId returns a boolean if a field has been set.
+func (o *DatacenterProperties) HasDefaultSecurityGroupId() bool {
+	if o != nil && !IsNil(o.DefaultSecurityGroupId) {
+		return true
+	}
+
+	return false
+}
+
+// SetDefaultSecurityGroupId gets a reference to the given string and assigns it to the DefaultSecurityGroupId field.
+func (o *DatacenterProperties) SetDefaultSecurityGroupId(v string) {
+	o.DefaultSecurityGroupId = &v
+}
+
 func (o DatacenterProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Name) {
@@ -339,6 +373,9 @@ func (o DatacenterProperties) ToMap() (map[string]interface{}, error) {
 	}
 	if o.Ipv6CidrBlock.IsSet() {
 		toSerialize["ipv6CidrBlock"] = o.Ipv6CidrBlock.Get()
+	}
+	if !IsNil(o.DefaultSecurityGroupId) {
+		toSerialize["defaultSecurityGroupId"] = o.DefaultSecurityGroupId
 	}
 	return toSerialize, nil
 }

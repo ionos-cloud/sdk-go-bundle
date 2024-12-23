@@ -27,19 +27,22 @@ type TemplateProperties struct {
 	Ram float32 `json:"ram"`
 	// The storage size in GB.
 	StorageSize float32 `json:"storageSize"`
+	// The description of the template.
+	Category string `json:"category"`
 }
 
 // NewTemplateProperties instantiates a new TemplateProperties object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTemplateProperties(name string, cores float32, ram float32, storageSize float32) *TemplateProperties {
+func NewTemplateProperties(name string, cores float32, ram float32, storageSize float32, category string) *TemplateProperties {
 	this := TemplateProperties{}
 
 	this.Name = name
 	this.Cores = cores
 	this.Ram = ram
 	this.StorageSize = storageSize
+	this.Category = category
 
 	return &this
 }
@@ -148,12 +151,37 @@ func (o *TemplateProperties) SetStorageSize(v float32) {
 	o.StorageSize = v
 }
 
+// GetCategory returns the Category field value
+func (o *TemplateProperties) GetCategory() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Category
+}
+
+// GetCategoryOk returns a tuple with the Category field value
+// and a boolean to check if the value has been set.
+func (o *TemplateProperties) GetCategoryOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Category, true
+}
+
+// SetCategory sets field value
+func (o *TemplateProperties) SetCategory(v string) {
+	o.Category = v
+}
+
 func (o TemplateProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
 	toSerialize["cores"] = o.Cores
 	toSerialize["ram"] = o.Ram
 	toSerialize["storageSize"] = o.StorageSize
+	toSerialize["category"] = o.Category
 	return toSerialize, nil
 }
 

@@ -19,7 +19,7 @@ var _ MappedNullable = &S3ObjectStorageSSO{}
 
 // S3ObjectStorageSSO struct for S3ObjectStorageSSO
 type S3ObjectStorageSSO struct {
-	// The S3 object storage single sign on url
+	// The Ionos object storage single sign on url
 	SsoUrl *string `json:"ssoUrl,omitempty"`
 }
 
