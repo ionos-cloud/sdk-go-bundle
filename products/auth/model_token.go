@@ -148,28 +148,12 @@ func (o *Token) SetExpirationDate(v string) {
 	o.ExpirationDate = v
 }
 
-func (o Token) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o Token) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsZero(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if !IsZero(o.Href) {
-		toSerialize["href"] = o.Href
-	}
-	if !IsZero(o.CreatedDate) {
-		toSerialize["createdDate"] = o.CreatedDate
-	}
-	if !IsZero(o.ExpirationDate) {
-		toSerialize["expirationDate"] = o.ExpirationDate
-	}
+	toSerialize["id"] = o.Id
+	toSerialize["href"] = o.Href
+	toSerialize["createdDate"] = o.CreatedDate
+	toSerialize["expirationDate"] = o.ExpirationDate
 	return toSerialize, nil
 }
 

@@ -72,14 +72,6 @@ func (o *DeleteResponse) SetSuccess(v bool) {
 	o.Success = &v
 }
 
-func (o DeleteResponse) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o DeleteResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Success) {
