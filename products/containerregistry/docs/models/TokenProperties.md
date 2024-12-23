@@ -5,7 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**Credentials** | [**Credentials**](Credentials.md) |  | |
-|**ExpiryDate** | Pointer to [**time.Time**](time.Time.md) |  | [optional] |
+|**ExpiryDate** | Pointer to [**NullableTime**](time.Time.md) |  | [optional] |
 |**Name** | **string** |  | |
 |**Scopes** | Pointer to [**[]Scope**](Scope.md) |  | [optional] |
 |**Status** | Pointer to **string** |  | [optional] |
@@ -74,6 +74,16 @@ SetExpiryDate sets ExpiryDate field to given value.
 
 HasExpiryDate returns a boolean if a field has been set.
 
+### SetExpiryDateNil
+
+`func (o *TokenProperties) SetExpiryDateNil(b bool)`
+
+ SetExpiryDateNil sets the value for ExpiryDate to be an explicit nil
+
+### UnsetExpiryDate
+`func (o *TokenProperties) UnsetExpiryDate()`
+
+UnsetExpiryDate ensures that no value is present for ExpiryDate, not even an explicit nil
 ### GetName
 
 `func (o *TokenProperties) GetName() string`

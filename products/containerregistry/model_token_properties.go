@@ -22,11 +22,11 @@ var _ MappedNullable = &TokenProperties{}
 
 // TokenProperties struct for TokenProperties
 type TokenProperties struct {
-	Credentials Credentials `json:"credentials"`
-	ExpiryDate  *IonosTime  `json:"expiryDate,omitempty"`
-	Name        string      `json:"name"`
-	Scopes      []Scope     `json:"scopes,omitempty"`
-	Status      *string     `json:"status,omitempty"`
+	Credentials Credentials        `json:"credentials"`
+	ExpiryDate  *NullableIonosTime `json:"expiryDate,omitempty"`
+	Name        string             `json:"name"`
+	Scopes      []Scope            `json:"scopes,omitempty"`
+	Status      *string            `json:"status,omitempty"`
 }
 
 // NewTokenProperties instantiates a new TokenProperties object
@@ -74,36 +74,47 @@ func (o *TokenProperties) SetCredentials(v Credentials) {
 	o.Credentials = v
 }
 
-// GetExpiryDate returns the ExpiryDate field value if set, zero value otherwise.
+// GetExpiryDate returns the ExpiryDate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TokenProperties) GetExpiryDate() time.Time {
-	if o == nil || IsNil(o.ExpiryDate) {
+	if o == nil || IsNil(o.ExpiryDate.Get()) {
 		var ret time.Time
 		return ret
 	}
-	return o.ExpiryDate.Time
+	return *o.ExpiryDate.Get()
 }
 
 // GetExpiryDateOk returns a tuple with the ExpiryDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TokenProperties) GetExpiryDateOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.ExpiryDate) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.ExpiryDate.Time, true
+	return o.ExpiryDate.Get(), o.ExpiryDate.IsSet()
 }
 
 // HasExpiryDate returns a boolean if a field has been set.
 func (o *TokenProperties) HasExpiryDate() bool {
-	if o != nil && !IsNil(o.ExpiryDate) {
+	if o != nil && o.ExpiryDate.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetExpiryDate gets a reference to the given time.Time and assigns it to the ExpiryDate field.
+// SetExpiryDate gets a reference to the given NullableTime and assigns it to the ExpiryDate field.
 func (o *TokenProperties) SetExpiryDate(v time.Time) {
-	o.ExpiryDate = &IonosTime{v}
+	o.ExpiryDate.Set(&v)
+}
+
+// SetExpiryDateNil sets the value for ExpiryDate to be an explicit nil
+func (o *TokenProperties) SetExpiryDateNil() {
+	o.ExpiryDate.Set(nil)
+}
+
+// UnsetExpiryDate ensures that no value is present for ExpiryDate, not even an explicit nil
+func (o *TokenProperties) UnsetExpiryDate() {
+	o.ExpiryDate.Unset()
 }
 
 // GetName returns the Name field value
@@ -197,8 +208,8 @@ func (o *TokenProperties) SetStatus(v string) {
 func (o TokenProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["credentials"] = o.Credentials
-	if !IsNil(o.ExpiryDate) {
-		toSerialize["expiryDate"] = o.ExpiryDate
+	if o.ExpiryDate.IsSet() {
+		toSerialize["expiryDate"] = o.ExpiryDate.Get()
 	}
 	toSerialize["name"] = o.Name
 	if !IsNil(o.Scopes) {

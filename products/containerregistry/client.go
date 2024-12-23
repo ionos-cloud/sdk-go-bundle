@@ -23,6 +23,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"mime/multipart"
 	"net"
 	"net/http"
@@ -53,7 +54,7 @@ const (
 	RequestStatusFailed  = "FAILED"
 	RequestStatusDone    = "DONE"
 
-	Version = "products/containerregistry/v2.0.1"
+	Version = "products/containerregistry/v2.0.2"
 )
 
 // APIClient manages communication with the Container Registry service API v1.2.1
@@ -83,31 +84,63 @@ type service struct {
 	client *APIClient
 }
 
+func DeepCopy(cfg *shared.Configuration) (*shared.Configuration, error) {
+	if cfg == nil {
+		return nil, nil
+	}
+
+	data, err := json.Marshal(cfg)
+	if err != nil {
+		return nil, fmt.Errorf("failed to serialize configuration: %w", err)
+	}
+
+	clone := &shared.Configuration{}
+	err = json.Unmarshal(data, clone)
+	if err != nil {
+		return nil, fmt.Errorf("failed to deserialize configuration: %w", err)
+	}
+
+	return clone, nil
+}
+
 // NewAPIClient creates a new API client. Requires a userAgent string describing your application.
 // optionally a custom http.Client to allow for advanced features such as caching.
 func NewAPIClient(cfg *shared.Configuration) *APIClient {
-	if cfg.HTTPClient == nil {
-		cfg.HTTPClient = http.DefaultClient
+	// Attempt to deep copy the input configuration
+	cfgCopy, err := DeepCopy(cfg)
+	if err != nil {
+		log.Printf("Error creating deep copy of configuration: %v", err)
+
+		// shallow copy instead as a fallback
+		cfgCopy := &shared.Configuration{}
+		*cfgCopy = *cfg
 	}
 
-	if len(cfg.Servers) == 0 {
-		cfg.Servers = shared.ServerConfigurations{
+	// Initialize default values in the copied configuration
+	if cfgCopy.HTTPClient == nil {
+		cfgCopy.HTTPClient = http.DefaultClient
+	}
+
+	if len(cfgCopy.Servers) == 0 {
+		cfgCopy.Servers = shared.ServerConfigurations{
 			{
 				URL:         "https://api.ionos.com/containerregistries",
 				Description: "Production",
 			},
 		}
 	}
-	//enable certificate pinning if the env variable is set
+
+	// Enable certificate pinning if the environment variable is set
 	pkFingerprint := os.Getenv(shared.IonosPinnedCertEnvVar)
 	if pkFingerprint != "" {
 		httpTransport := &http.Transport{}
 		AddPinnedCert(httpTransport, pkFingerprint)
-		cfg.HTTPClient.Transport = httpTransport
+		cfgCopy.HTTPClient.Transport = httpTransport
 	}
 
+	// Create and initialize the API client
 	c := &APIClient{}
-	c.cfg = cfg
+	c.cfg = cfgCopy
 	c.common.client = c
 
 	// API Services
