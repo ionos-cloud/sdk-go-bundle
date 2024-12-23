@@ -11,6 +11,8 @@
 
 ## Models
 
+* [AutoScaling](models/AutoScaling.md)
+* [AutoScalingBase](models/AutoScalingBase.md)
 * [AvailabilityZone](models/AvailabilityZone.md)
 * [Cluster](models/Cluster.md)
 * [ClusterListResponseData](models/ClusterListResponseData.md)

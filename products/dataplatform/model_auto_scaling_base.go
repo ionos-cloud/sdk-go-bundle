@@ -14,96 +14,125 @@ import (
 	"encoding/json"
 )
 
-// checks if the PatchNodePoolRequest type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &PatchNodePoolRequest{}
+// checks if the AutoScalingBase type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AutoScalingBase{}
 
-// PatchNodePoolRequest Data to update selected properties of a node pool for a DataPlatformNodePool.
-type PatchNodePoolRequest struct {
-	Properties PatchNodePoolProperties `json:"properties"`
+// AutoScalingBase Auto scaling configuration for the Node Pool
+type AutoScalingBase struct {
+	// The minimum number of nodes in a Node Pool
+	MinNodeCount int32 `json:"minNodeCount"`
+	// The maximum number of nodes in a Node Pool
+	MaxNodeCount int32 `json:"maxNodeCount"`
 }
 
-// NewPatchNodePoolRequest instantiates a new PatchNodePoolRequest object
+// NewAutoScalingBase instantiates a new AutoScalingBase object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPatchNodePoolRequest(properties PatchNodePoolProperties) *PatchNodePoolRequest {
-	this := PatchNodePoolRequest{}
+func NewAutoScalingBase(minNodeCount int32, maxNodeCount int32) *AutoScalingBase {
+	this := AutoScalingBase{}
 
-	this.Properties = properties
+	this.MinNodeCount = minNodeCount
+	this.MaxNodeCount = maxNodeCount
 
 	return &this
 }
 
-// NewPatchNodePoolRequestWithDefaults instantiates a new PatchNodePoolRequest object
+// NewAutoScalingBaseWithDefaults instantiates a new AutoScalingBase object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewPatchNodePoolRequestWithDefaults() *PatchNodePoolRequest {
-	this := PatchNodePoolRequest{}
+func NewAutoScalingBaseWithDefaults() *AutoScalingBase {
+	this := AutoScalingBase{}
 	return &this
 }
 
-// GetProperties returns the Properties field value
-func (o *PatchNodePoolRequest) GetProperties() PatchNodePoolProperties {
+// GetMinNodeCount returns the MinNodeCount field value
+func (o *AutoScalingBase) GetMinNodeCount() int32 {
 	if o == nil {
-		var ret PatchNodePoolProperties
+		var ret int32
 		return ret
 	}
 
-	return o.Properties
+	return o.MinNodeCount
 }
 
-// GetPropertiesOk returns a tuple with the Properties field value
+// GetMinNodeCountOk returns a tuple with the MinNodeCount field value
 // and a boolean to check if the value has been set.
-func (o *PatchNodePoolRequest) GetPropertiesOk() (*PatchNodePoolProperties, bool) {
+func (o *AutoScalingBase) GetMinNodeCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Properties, true
+	return &o.MinNodeCount, true
 }
 
-// SetProperties sets field value
-func (o *PatchNodePoolRequest) SetProperties(v PatchNodePoolProperties) {
-	o.Properties = v
+// SetMinNodeCount sets field value
+func (o *AutoScalingBase) SetMinNodeCount(v int32) {
+	o.MinNodeCount = v
 }
 
-func (o PatchNodePoolRequest) ToMap() (map[string]interface{}, error) {
+// GetMaxNodeCount returns the MaxNodeCount field value
+func (o *AutoScalingBase) GetMaxNodeCount() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.MaxNodeCount
+}
+
+// GetMaxNodeCountOk returns a tuple with the MaxNodeCount field value
+// and a boolean to check if the value has been set.
+func (o *AutoScalingBase) GetMaxNodeCountOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.MaxNodeCount, true
+}
+
+// SetMaxNodeCount sets field value
+func (o *AutoScalingBase) SetMaxNodeCount(v int32) {
+	o.MaxNodeCount = v
+}
+
+func (o AutoScalingBase) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["properties"] = o.Properties
+	toSerialize["minNodeCount"] = o.MinNodeCount
+	toSerialize["maxNodeCount"] = o.MaxNodeCount
 	return toSerialize, nil
 }
 
-type NullablePatchNodePoolRequest struct {
-	value *PatchNodePoolRequest
+type NullableAutoScalingBase struct {
+	value *AutoScalingBase
 	isSet bool
 }
 
-func (v NullablePatchNodePoolRequest) Get() *PatchNodePoolRequest {
+func (v NullableAutoScalingBase) Get() *AutoScalingBase {
 	return v.value
 }
 
-func (v *NullablePatchNodePoolRequest) Set(val *PatchNodePoolRequest) {
+func (v *NullableAutoScalingBase) Set(val *AutoScalingBase) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullablePatchNodePoolRequest) IsSet() bool {
+func (v NullableAutoScalingBase) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullablePatchNodePoolRequest) Unset() {
+func (v *NullableAutoScalingBase) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullablePatchNodePoolRequest(val *PatchNodePoolRequest) *NullablePatchNodePoolRequest {
-	return &NullablePatchNodePoolRequest{value: val, isSet: true}
+func NewNullableAutoScalingBase(val *AutoScalingBase) *NullableAutoScalingBase {
+	return &NullableAutoScalingBase{value: val, isSet: true}
 }
 
-func (v NullablePatchNodePoolRequest) MarshalJSON() ([]byte, error) {
+func (v NullableAutoScalingBase) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullablePatchNodePoolRequest) UnmarshalJSON(src []byte) error {
+func (v *NullableAutoScalingBase) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

@@ -15,6 +15,7 @@
 |**MaintenanceWindow** | Pointer to [**MaintenanceWindow**](MaintenanceWindow.md) |  | [optional] |
 |**Labels** | Pointer to **map[string]interface{}** | Key-value pairs attached to the node pool resource as [Kubernetes labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/).  | [optional] |
 |**Annotations** | Pointer to **map[string]interface{}** | Key-value pairs attached to node pool resource as [Kubernetes annotations](https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/).  | [optional] |
+|**AutoScaling** | Pointer to [**AutoScaling**](AutoScaling.md) |  | [optional] |
 
 ## Methods
 
@@ -299,5 +300,30 @@ SetAnnotations sets Annotations field to given value.
 `func (o *CreateNodePoolProperties) HasAnnotations() bool`
 
 HasAnnotations returns a boolean if a field has been set.
+
+### GetAutoScaling
+
+`func (o *CreateNodePoolProperties) GetAutoScaling() AutoScaling`
+
+GetAutoScaling returns the AutoScaling field if non-nil, zero value otherwise.
+
+### GetAutoScalingOk
+
+`func (o *CreateNodePoolProperties) GetAutoScalingOk() (*AutoScaling, bool)`
+
+GetAutoScalingOk returns a tuple with the AutoScaling field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAutoScaling
+
+`func (o *CreateNodePoolProperties) SetAutoScaling(v AutoScaling)`
+
+SetAutoScaling sets AutoScaling field to given value.
+
+### HasAutoScaling
+
+`func (o *CreateNodePoolProperties) HasAutoScaling() bool`
+
+HasAutoScaling returns a boolean if a field has been set.
 
 

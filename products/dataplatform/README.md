@@ -172,13 +172,21 @@ go get github.com/ionos-cloud/sdk-go-bundle/products/dataplatform@latest
 | `IONOS_LOG_LEVEL`    | Specify the Log Level used to log messages. Possible values: Off, Debug, Trace |
 | `IONOS_PINNED_CERT`  | Specify the SHA-256 public fingerprint here, enables certificate pinning                                                                                                                                                       |
 
-⚠️ **_Note: To overwrite the api endpoint - `api.ionos.com`, the environment variable `$IONOS_API_URL` can be set, and used with `NewConfigurationFromEnv()` function._**
+⚠️ **_Note: To overwrite the api endpoint - `api.ionos.com`, the environment variable `IONOS_API_URL` can be set, and used with `NewConfigurationFromEnv()` function._**
 
 ## Examples
 
 Examples for creating resources using the Go SDK can be found [here](examples/)
 
 ## Authentication
+
+All available server URLs are:
+
+- *https://api.ionos.com/dataplatform* - IONOS Cloud - Managed Stackable Data Platform API
+
+By default, *https://api.ionos.com/dataplatform* is used, however this can be overriden at authentication, either
+by setting the `IONOS_API_URL` environment variable or by specifying the `hostUrl` parameter when
+initializing the sdk client.
 
 ### Basic Authentication
 
@@ -196,7 +204,7 @@ import (
 )
 
 func basicAuthExample() error {
-	cfg := shared.NewConfiguration("username_here", "pwd_here", "", "")
+	cfg := shared.NewConfiguration("username_here", "pwd_here", "", "hostUrl_here")
 	cfg.LogLevel = Trace
 	apiClient := dataplatform.NewAPIClient(cfg)
 	return nil
@@ -226,7 +234,7 @@ There are 2 ways to generate your token:
         if !jwt.HasToken() {
             return fmt.Errorf("could not generate token")
         }
-        cfg := shared.NewConfiguration("", "", *jwt.GetToken(), "")
+        cfg := shared.NewConfiguration("", "", *jwt.GetToken(), "hostUrl_here")
         cfg.LogLevel = Trace
         apiClient := dataplatform.NewAPIClient(cfg)
         return nil
@@ -352,6 +360,8 @@ All URIs are relative to *https://api.ionos.com/dataplatform*
 <details >
 <summary title="Click to toggle">API models list</summary>
 
+ - [AutoScaling](docs/models/AutoScaling)
+ - [AutoScalingBase](docs/models/AutoScalingBase)
  - [AvailabilityZone](docs/models/AvailabilityZone)
  - [Cluster](docs/models/Cluster)
  - [ClusterListResponseData](docs/models/ClusterListResponseData)
