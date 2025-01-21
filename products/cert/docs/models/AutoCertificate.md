@@ -7,14 +7,14 @@
 |**Provider** | **string** | The certificate provider used to issue the certificates. | |
 |**CommonName** | **string** | The common name (DNS) of the certificate to issue. The common name needs to be part of a zone in IONOS Cloud DNS.  | |
 |**KeyAlgorithm** | **string** | The key algorithm used to generate the certificate. | |
-|**Name** | Pointer to **string** | A certificate name used for management purposes. | [optional] |
+|**Name** | **string** | A certificate name used for management purposes. | |
 |**SubjectAlternativeNames** | Pointer to **[]string** | Optional additional names to be added to the issued certificate. The additional names needs to be part of a zone in IONOS Cloud DNS.  | [optional] |
 
 ## Methods
 
 ### NewAutoCertificate
 
-`func NewAutoCertificate(provider string, commonName string, keyAlgorithm string, ) *AutoCertificate`
+`func NewAutoCertificate(provider string, commonName string, keyAlgorithm string, name string, ) *AutoCertificate`
 
 NewAutoCertificate instantiates a new AutoCertificate object
 This constructor will assign default values to properties that have it defined,
@@ -108,11 +108,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *AutoCertificate) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetSubjectAlternativeNames
 

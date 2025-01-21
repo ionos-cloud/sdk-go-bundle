@@ -26,7 +26,7 @@ type AutoCertificate struct {
 	// The key algorithm used to generate the certificate.
 	KeyAlgorithm string `json:"keyAlgorithm"`
 	// A certificate name used for management purposes.
-	Name *string `json:"name,omitempty"`
+	Name string `json:"name"`
 	// Optional additional names to be added to the issued certificate. The additional names needs to be part of a zone in IONOS Cloud DNS.
 	SubjectAlternativeNames []string `json:"subjectAlternativeNames,omitempty"`
 }
@@ -35,12 +35,13 @@ type AutoCertificate struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAutoCertificate(provider string, commonName string, keyAlgorithm string) *AutoCertificate {
+func NewAutoCertificate(provider string, commonName string, keyAlgorithm string, name string) *AutoCertificate {
 	this := AutoCertificate{}
 
 	this.Provider = provider
 	this.CommonName = commonName
 	this.KeyAlgorithm = keyAlgorithm
+	this.Name = name
 
 	return &this
 }
@@ -125,36 +126,28 @@ func (o *AutoCertificate) SetKeyAlgorithm(v string) {
 	o.KeyAlgorithm = v
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *AutoCertificate) GetName() string {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *AutoCertificate) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *AutoCertificate) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *AutoCertificate) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
 // GetSubjectAlternativeNames returns the SubjectAlternativeNames field value if set, zero value otherwise.
@@ -194,9 +187,7 @@ func (o AutoCertificate) ToMap() (map[string]interface{}, error) {
 	toSerialize["provider"] = o.Provider
 	toSerialize["commonName"] = o.CommonName
 	toSerialize["keyAlgorithm"] = o.KeyAlgorithm
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
-	}
+	toSerialize["name"] = o.Name
 	if !IsNil(o.SubjectAlternativeNames) {
 		toSerialize["subjectAlternativeNames"] = o.SubjectAlternativeNames
 	}

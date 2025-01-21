@@ -53,7 +53,7 @@ const (
 	RequestStatusFailed  = "FAILED"
 	RequestStatusDone    = "DONE"
 
-	Version = "products/cert/v2.0.2"
+	Version = "products/cert/v2.1.0"
 )
 
 // APIClient manages communication with the Certificate Manager Service API API v2.0

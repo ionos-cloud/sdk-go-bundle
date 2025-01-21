@@ -312,7 +312,7 @@ import (
 )
 
 func main() {
-    autoCertificateCreate := *openapiclient.NewAutoCertificateCreate(*openapiclient.NewAutoCertificate("b471cd03-ef51-52c5-91a5-49195b0a04d4", "www.example.com", "rsa4096")) // AutoCertificateCreate | AutoCertificate to create.
+    autoCertificateCreate := *openapiclient.NewAutoCertificateCreate(*openapiclient.NewAutoCertificate("b471cd03-ef51-52c5-91a5-49195b0a04d4", "www.example.com", "rsa4096", "My Auto renewed certificate")) // AutoCertificateCreate | AutoCertificate to create.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := cert.NewAPIClient(configuration)
