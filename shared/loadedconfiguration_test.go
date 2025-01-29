@@ -7,6 +7,8 @@ import (
 	"testing"
 )
 
+const testEndpoint = "https://test.endpoint"
+
 func TestReadConfigFromFile(t *testing.T) {
 	// Create a temporary config file
 	tempFile, err := os.CreateTemp("", "config.yaml")
@@ -53,7 +55,7 @@ locations:
 	assert.Equal(t, "testLocation", config.Locations[0].Name)
 	assert.Equal(t, "testCertData", config.Locations[0].CertificateAuthData)
 	assert.Equal(t, "testProduct", config.Locations[0].Products[0].Name)
-	assert.Equal(t, "https://test.endpoint", config.Locations[0].Products[0].Endpoint)
+	assert.Equal(t, testEndpoint, config.Locations[0].Products[0].Endpoint)
 	assert.True(t, config.Locations[0].Products[0].SkipTLSVerify)
 }
 
@@ -96,7 +98,7 @@ func TestNewConfigurationFromLoaded_ValidConfig(t *testing.T) {
 				}{
 					{
 						Name:          "testProduct",
-						Endpoint:      "https://test.endpoint",
+						Endpoint:      testEndpoint,
 						SkipTLSVerify: true,
 					},
 				},
@@ -110,7 +112,7 @@ func TestNewConfigurationFromLoaded_ValidConfig(t *testing.T) {
 	assert.Equal(t, "testPass", config.Password)
 	assert.Equal(t, "testToken", config.Token)
 	assert.Len(t, config.Servers, 1)
-	assert.Equal(t, "https://test.endpoint", config.Servers[0].URL)
+	assert.Equal(t, testEndpoint, config.Servers[0].URL)
 	assert.NotNil(t, config.HTTPClient)
 	assert.True(t, config.HTTPClient.Transport.(*http.Transport).TLSClientConfig.InsecureSkipVerify)
 }
@@ -131,7 +133,7 @@ func TestNewConfigurationFromLoaded_NoProfile(t *testing.T) {
 				}{
 					{
 						Name:          "testProduct",
-						Endpoint:      "https://test.endpoint",
+						Endpoint:      testEndpoint,
 						SkipTLSVerify: true,
 					},
 				},
@@ -145,7 +147,7 @@ func TestNewConfigurationFromLoaded_NoProfile(t *testing.T) {
 	assert.Empty(t, config.Password)
 	assert.Empty(t, config.Token)
 	assert.Len(t, config.Servers, 1)
-	assert.Equal(t, "https://test.endpoint", config.Servers[0].URL)
+	assert.Equal(t, testEndpoint, config.Servers[0].URL)
 	assert.NotNil(t, config.HTTPClient)
 	assert.True(t, config.HTTPClient.Transport.(*http.Transport).TLSClientConfig.InsecureSkipVerify)
 }
