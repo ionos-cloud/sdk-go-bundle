@@ -7,7 +7,7 @@
 |**Cores** | Pointer to **int32** | The number of CPU cores per instance. | [optional] |
 |**Ram** | Pointer to **int32** | The amount of memory per instance in megabytes. Has to be a multiple of 1024. | [optional] |
 |**StorageSize** | Pointer to **int32** | The amount of storage per instance in megabytes. | [optional] |
-|**Connections** | Pointer to [**[]Connection**](Connection.md) |  | [optional] |
+|**Connections** | [**[]Connection**](Connection.md) |  | |
 |**DisplayName** | Pointer to **string** | The friendly name of your cluster. | [optional] |
 |**MaintenanceWindow** | Pointer to [**MaintenanceWindow**](MaintenanceWindow.md) |  | [optional] |
 |**PostgresVersion** | Pointer to **string** | The PostgreSQL version of your cluster. | [optional] |
@@ -18,7 +18,7 @@
 
 ### NewPatchClusterProperties
 
-`func NewPatchClusterProperties() *PatchClusterProperties`
+`func NewPatchClusterProperties(connections []Connection, ) *PatchClusterProperties`
 
 NewPatchClusterProperties instantiates a new PatchClusterProperties object
 This constructor will assign default values to properties that have it defined,
@@ -127,11 +127,6 @@ and a boolean to check if the value has been set.
 
 SetConnections sets Connections field to given value.
 
-### HasConnections
-
-`func (o *PatchClusterProperties) HasConnections() bool`
-
-HasConnections returns a boolean if a field has been set.
 
 ### GetDisplayName
 
