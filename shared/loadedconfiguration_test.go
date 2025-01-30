@@ -91,11 +91,7 @@ func TestNewConfigurationFromLoaded_ValidConfig(t *testing.T) {
 			{
 				Name:                "testLocation",
 				CertificateAuthData: "testCertData",
-				Products: []struct {
-					Name          string `yaml:"name"`
-					Endpoint      string `yaml:"endpoint"`
-					SkipTLSVerify bool   `yaml:"skipTlsVerify"`
-				}{
+				Products: []Product{
 					{
 						Name:          "testProduct",
 						Endpoint:      testEndpoint,
@@ -126,11 +122,7 @@ func TestNewConfigurationFromLoaded_NoProfile(t *testing.T) {
 			{
 				Name:                "testLocation",
 				CertificateAuthData: "testCertData",
-				Products: []struct {
-					Name          string `yaml:"name"`
-					Endpoint      string `yaml:"endpoint"`
-					SkipTLSVerify bool   `yaml:"skipTlsVerify"`
-				}{
+				Products: []Product{
 					{
 						Name:          "testProduct",
 						Endpoint:      testEndpoint,
@@ -175,11 +167,7 @@ func TestNewConfigurationFromLoaded_NoMatchingProduct(t *testing.T) {
 			{
 				Name:                "testLocation",
 				CertificateAuthData: "testCertData",
-				Products: []struct {
-					Name          string `yaml:"name"`
-					Endpoint      string `yaml:"endpoint"`
-					SkipTLSVerify bool   `yaml:"skipTlsVerify"`
-				}{
+				Products: []Product{
 					{
 						Name:          "otherProduct",
 						Endpoint:      "https://other.endpoint",
@@ -235,4 +223,5 @@ locations:
 	assert.Equal(t, "testUser", profiles.Profiles[0].Credentials.Username)
 	assert.Equal(t, "testPass", profiles.Profiles[0].Credentials.Password)
 	assert.Equal(t, "testToken", profiles.Profiles[0].Credentials.Token)
+	assert.Equal(t, "testProfile", profiles.CurrentProfile)
 }

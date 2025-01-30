@@ -11,37 +11,50 @@ import (
 	"path/filepath"
 )
 
+type ClientOverrideOptions struct {
+	Endpoint      string
+	SkipTLSVerify bool
+	Certificate   string
+	Credentials   Credentials
+}
+
+type Credentials struct {
+	Username string `yaml:"username"`
+	Password string `yaml:"password"`
+	Token    string `yaml:"token"`
+}
+
+type Product struct {
+	// Name is the name of the product
+	Name string `yaml:"name"`
+	// Endpoint is the endpoint that will be overridden
+	Endpoint string `yaml:"endpoint"`
+	// SkipTLSVerify skips tls verification. Not recommended for production
+	SkipTLSVerify bool `yaml:"skipTlsVerify"`
+}
+
 // Location is a struct that represents a location
 type Location struct {
 	Name string `yaml:"name"`
 	// CertificateAuthData
 	CertificateAuthData string `yaml:"certificateAuthData,omitempty"`
-	// Products is a list of ionos products for which we will override location
-	Products []struct {
-		// Name is the name of the product
-		Name string `yaml:"name"`
-		// Endpoint is the endpoint that will be overridden
-		Endpoint string `yaml:"endpoint"`
-		// SkipTLSVerify skips tls verification. Not recommended for production
-		SkipTLSVerify bool `yaml:"skipTlsVerify"`
-	} `yaml:"products"`
+	// Products is a list of ionos products for which we will override endpoint, tls verification
+	Products []Product `yaml:"products"`
 }
 
 // Profiles wrapper to read only the profiles from the config file
 type Profiles struct {
+	// CurrentProfile active profile for configuration
+	CurrentProfile string `yaml:"currentProfile"`
 	// Profiles
 	Profiles []Profile `yaml:"profiles"`
 }
 
-// Profile is a struct that represents a profile and it's credentials
+// Profile is a struct that represents a profile and it's Credentials
 type Profile struct {
 	Name        string `yaml:"name"`
 	Location    string `yaml:"location"`
-	Credentials struct {
-		Username string `yaml:"username"`
-		Password string `yaml:"password"`
-		Token    string `yaml:"token"`
-	} `yaml:"credentials,omitempty"`
+	Credentials Credentials
 }
 
 // LoadedConfig is a struct that represents the loaded configuration
@@ -128,16 +141,16 @@ func ReadConfigFromFile() (*LoadedConfig, error) {
 	return loadedConfig, nil
 }
 
-func getCurrentProfile(lc LoadedConfig) *Profile {
-	currentProfile := lc.CurrentProfile
+func (loadedConfig *LoadedConfig) GetCurrentProfile() *Profile {
+	currentProfile := loadedConfig.CurrentProfile
 	if currentProfile == "" {
 		currentProfile = os.Getenv(IonosCurrentProfileEnvVar)
 	}
 	if currentProfile == "" {
 		log.Printf("[WARN] no current profile set")
 	}
-	for _, profile := range lc.Profiles {
-		if profile.Name == lc.CurrentProfile {
+	for _, profile := range loadedConfig.Profiles {
+		if profile.Name == loadedConfig.CurrentProfile {
 			return &profile
 		}
 	}
@@ -149,26 +162,26 @@ func getCurrentProfile(lc LoadedConfig) *Profile {
 func NewConfigurationFromLoaded(lc LoadedConfig, sdkProductName string) (*Configuration, error) {
 	config := &Configuration{}
 	getCredentialsFromEnv := false
-	// don't read credentials from file, if they are set in the environment
+	// don't read Credentials from file, if they are set in the environment
 	if os.Getenv(IonosUsernameEnvVar) != "" || os.Getenv(IonosTokenEnvVar) != "" {
 		getCredentialsFromEnv = true
 		config = NewConfigurationFromEnv()
 	}
 	profileLocation := ""
 	if !getCredentialsFromEnv {
-		if currentProfile := getCurrentProfile(lc); currentProfile != nil {
+		if currentProfile := lc.GetCurrentProfile(); currentProfile != nil {
 			config.Username = currentProfile.Credentials.Username
 			config.Password = currentProfile.Credentials.Password
 			config.Token = currentProfile.Credentials.Token
 			profileLocation = currentProfile.Location
 		}
 	}
-	processLocations(lc, config, profileLocation, sdkProductName)
+	lc.processLocations(config, profileLocation, sdkProductName)
 	return config, nil
 }
 
 // processLocations - overrides http client and server configuration based on user location
-func processLocations(loadedConfig LoadedConfig, config *Configuration, profileLocation, sdkProductName string) {
+func (loadedConfig *LoadedConfig) processLocations(config *Configuration, profileLocation, sdkProductName string) {
 	for _, location := range loadedConfig.Locations {
 		for _, product := range location.Products {
 			if product.Name != sdkProductName {
@@ -196,6 +209,27 @@ func processLocations(loadedConfig LoadedConfig, config *Configuration, profileL
 			}
 		}
 	}
+}
+
+func (loadedConfig *LoadedConfig) GetLocationForCurrentProfile() string {
+	if currentProfile := loadedConfig.GetCurrentProfile(); currentProfile != nil {
+		return currentProfile.Location
+	}
+	return ""
+}
+
+func (loadedConfig *LoadedConfig) GetOverridesFor(productName string) *Product {
+	if loadedConfig == nil {
+		return nil
+	}
+	for _, location := range loadedConfig.Locations {
+		for _, product := range location.Products {
+			if product.Name == productName {
+				return &product
+			}
+		}
+	}
+	return nil
 }
 
 // AddCertsToClient adds certificates to the http client
