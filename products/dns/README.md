@@ -79,7 +79,7 @@ func basicAuthExample() error {
 ### Token Authentication
 There are 2 ways to generate your token:
 
- ### Generate token using sdk for [auth](https://github.com/ionos-cloud/products/auth):
+ ### Generate token using sdk for [auth](https://github.com/ionos-cloud/sdk-go-bundle/products/auth):
 ```golang
     import (
         "context"
@@ -279,6 +279,7 @@ All URIs are relative to *https://dns.de-fra.ionos.com*
  - [RecordEnsure](docs/models/RecordEnsure)
  - [RecordRead](docs/models/RecordRead)
  - [RecordReadList](docs/models/RecordReadList)
+ - [RecordType](docs/models/RecordType)
  - [ReverseRecord](docs/models/ReverseRecord)
  - [ReverseRecordCreate](docs/models/ReverseRecordCreate)
  - [ReverseRecordEnsure](docs/models/ReverseRecordEnsure)

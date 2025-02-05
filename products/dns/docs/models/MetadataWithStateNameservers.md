@@ -10,6 +10,7 @@
 |**LastModifiedDate** | Pointer to [**time.Time**](time.Time.md) | The date of the last change formatted as yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;. | [optional] [readonly] |
 |**LastModifiedBy** | Pointer to **string** | Unique name of the identity that created the resource. | [optional] [readonly] |
 |**LastModifiedByUserId** | Pointer to **string** | The unique ID of the user who last modified the resource. | [optional] [readonly] |
+|**ResourceURN** | Pointer to **string** | Unique name of the resource. | [optional] [readonly] |
 |**State** | [**ProvisioningState**](ProvisioningState.md) |  | |
 |**Nameservers** | **[]string** | The list of nameservers associated to the zone.  Nameservers are different for primary and secondary zones. For primary zones it would be: - ns-ic.ui-dns.com - ns-ic.ui-dns.de - ns-ic.ui-dns.org - ns-ic.ui-dns.biz  And for secondary zones: - nscs.ui-dns.com - nscs.ui-dns.de - nscs.ui-dns.org - nscs.ui-dns.biz  | |
 
@@ -181,6 +182,31 @@ SetLastModifiedByUserId sets LastModifiedByUserId field to given value.
 `func (o *MetadataWithStateNameservers) HasLastModifiedByUserId() bool`
 
 HasLastModifiedByUserId returns a boolean if a field has been set.
+
+### GetResourceURN
+
+`func (o *MetadataWithStateNameservers) GetResourceURN() string`
+
+GetResourceURN returns the ResourceURN field if non-nil, zero value otherwise.
+
+### GetResourceURNOk
+
+`func (o *MetadataWithStateNameservers) GetResourceURNOk() (*string, bool)`
+
+GetResourceURNOk returns a tuple with the ResourceURN field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResourceURN
+
+`func (o *MetadataWithStateNameservers) SetResourceURN(v string)`
+
+SetResourceURN sets ResourceURN field to given value.
+
+### HasResourceURN
+
+`func (o *MetadataWithStateNameservers) HasResourceURN() bool`
+
+HasResourceURN returns a boolean if a field has been set.
 
 ### GetState
 

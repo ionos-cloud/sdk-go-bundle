@@ -50,6 +50,7 @@
 * [RecordEnsure](models/RecordEnsure.md)
 * [RecordRead](models/RecordRead.md)
 * [RecordReadList](models/RecordReadList.md)
+* [RecordType](models/RecordType.md)
 * [ReverseRecord](models/ReverseRecord.md)
 * [ReverseRecordCreate](models/ReverseRecordCreate.md)
 * [ReverseRecordEnsure](models/ReverseRecordEnsure.md)

@@ -10,6 +10,7 @@
 |**LastModifiedDate** | Pointer to [**time.Time**](time.Time.md) | The date of the last change formatted as yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;. | [optional] [readonly] |
 |**LastModifiedBy** | Pointer to **string** | Unique name of the identity that created the resource. | [optional] [readonly] |
 |**LastModifiedByUserId** | Pointer to **string** | The unique ID of the user who last modified the resource. | [optional] [readonly] |
+|**ResourceURN** | Pointer to **string** | Unique name of the resource. | [optional] [readonly] |
 
 ## Methods
 
@@ -179,5 +180,30 @@ SetLastModifiedByUserId sets LastModifiedByUserId field to given value.
 `func (o *Metadata) HasLastModifiedByUserId() bool`
 
 HasLastModifiedByUserId returns a boolean if a field has been set.
+
+### GetResourceURN
+
+`func (o *Metadata) GetResourceURN() string`
+
+GetResourceURN returns the ResourceURN field if non-nil, zero value otherwise.
+
+### GetResourceURNOk
+
+`func (o *Metadata) GetResourceURNOk() (*string, bool)`
+
+GetResourceURNOk returns a tuple with the ResourceURN field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResourceURN
+
+`func (o *Metadata) SetResourceURN(v string)`
+
+SetResourceURN sets ResourceURN field to given value.
+
+### HasResourceURN
+
+`func (o *Metadata) HasResourceURN() bool`
+
+HasResourceURN returns a boolean if a field has been set.
 
 
