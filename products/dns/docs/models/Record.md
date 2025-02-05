@@ -5,7 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**Name** | **string** |  | |
-|**Type** | **string** | Holds supported DNS resource record types. In the DNS context a record is a DNS resource record. | |
+|**Type** | [**RecordType**](RecordType.md) |  | |
 |**Content** | **string** |  | |
 |**Ttl** | Pointer to **int32** | Time to live for the record, recommended 3600. | [optional] [default to 3600]|
 |**Priority** | Pointer to **int32** | Priority value is between 0 and 65535. Priority is mandatory for MX, SRV and URI record types and ignored for all other types. | [optional] |
@@ -15,7 +15,7 @@
 
 ### NewRecord
 
-`func NewRecord(name string, type_ string, content string, ) *Record`
+`func NewRecord(name string, type_ RecordType, content string, ) *Record`
 
 NewRecord instantiates a new Record object
 This constructor will assign default values to properties that have it defined,
@@ -52,20 +52,20 @@ SetName sets Name field to given value.
 
 ### GetType
 
-`func (o *Record) GetType() string`
+`func (o *Record) GetType() RecordType`
 
 GetType returns the Type field if non-nil, zero value otherwise.
 
 ### GetTypeOk
 
-`func (o *Record) GetTypeOk() (*string, bool)`
+`func (o *Record) GetTypeOk() (*RecordType, bool)`
 
 GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetType
 
-`func (o *Record) SetType(v string)`
+`func (o *Record) SetType(v RecordType)`
 
 SetType sets Type field to given value.
 

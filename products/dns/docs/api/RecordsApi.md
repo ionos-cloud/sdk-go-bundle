@@ -21,6 +21,7 @@ var result RecordReadList = RecordsGet(ctx)
                       .FilterZoneId(filterZoneId)
                       .FilterName(filterName)
                       .FilterState(filterState)
+                      .FilterType(filterType)
                       .Offset(offset)
                       .Limit(limit)
                       .Execute()
@@ -48,12 +49,13 @@ func main() {
     filterZoneId := "1d6ca576-7162-4700-8df7-208bbe28fc44" // string | Filter used to fetch only the records that contain specified zoneId. (optional)
     filterName := "app" // string | Filter used to fetch only the records that contain specified record name. (optional)
     filterState := openapiclient.ProvisioningState("PROVISIONING") // ProvisioningState | Filter used to fetch only the records that are in certain state. (optional)
+    filterType := openapiclient.RecordType("A") // RecordType | Filter used to fetch only the records with specified type. (optional)
     offset := int32(56) // int32 | The first element (of the total list of elements) to include in the response. Use together with limit for pagination. (optional) (default to 0)
     limit := int32(56) // int32 | The maximum number of elements to return. Use together with offset for pagination. (optional) (default to 100)
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := dns.NewAPIClient(configuration)
-    resource, resp, err := apiClient.RecordsApi.RecordsGet(context.Background()).FilterZoneId(filterZoneId).FilterName(filterName).FilterState(filterState).Offset(offset).Limit(limit).Execute()
+    resource, resp, err := apiClient.RecordsApi.RecordsGet(context.Background()).FilterZoneId(filterZoneId).FilterName(filterName).FilterState(filterState).FilterType(filterType).Offset(offset).Limit(limit).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RecordsApi.RecordsGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -77,6 +79,7 @@ Other parameters are passed through a pointer to an apiRecordsGetRequest struct 
 | **filterZoneId** | **string** | Filter used to fetch only the records that contain specified zoneId. | |
 | **filterName** | **string** | Filter used to fetch only the records that contain specified record name. | |
 | **filterState** | [**ProvisioningState**](../models/.md) | Filter used to fetch only the records that are in certain state. | |
+| **filterType** | [**RecordType**](../models/.md) | Filter used to fetch only the records with specified type. | |
 | **offset** | **int32** | The first element (of the total list of elements) to include in the response. Use together with limit for pagination. | [default to 0]|
 | **limit** | **int32** | The maximum number of elements to return. Use together with offset for pagination. | [default to 100]|
 
@@ -397,7 +400,7 @@ import (
 
 func main() {
     zoneId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The ID (UUID) of the DNS zone.
-    recordCreate := *openapiclient.NewRecordCreate(*openapiclient.NewRecord("app", "Type_example", "1.2.3.4")) // RecordCreate | record
+    recordCreate := *openapiclient.NewRecordCreate(*openapiclient.NewRecord("app", openapiclient.RecordType("A"), "1.2.3.4")) // RecordCreate | record
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := dns.NewAPIClient(configuration)
@@ -468,7 +471,7 @@ import (
 func main() {
     zoneId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The ID (UUID) of the DNS zone.
     recordId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The ID (UUID) of the DNS record.
-    recordEnsure := *openapiclient.NewRecordEnsure(*openapiclient.NewRecord("app", "Type_example", "1.2.3.4")) // RecordEnsure | 
+    recordEnsure := *openapiclient.NewRecordEnsure(*openapiclient.NewRecord("app", openapiclient.RecordType("A"), "1.2.3.4")) // RecordEnsure | 
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := dns.NewAPIClient(configuration)
