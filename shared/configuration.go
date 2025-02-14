@@ -6,6 +6,7 @@ package shared
 
 import (
 	"context"
+	"crypto/tls"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -285,4 +286,55 @@ func (c *Configuration) ServerURLWithContext(ctx context.Context, endpoint strin
 	}
 
 	return sc.URL(index, variables)
+}
+
+// ConfigProvider is an interface that allows to get the configuration of shared clients
+type ConfigProvider interface {
+	GetConfig() *Configuration
+}
+
+// EndpointOverridden is a constant that is used to mark the endpoint as overridden and can be used to search for the location
+// in the server configuration.
+const EndpointOverridden = "endpoint from config file"
+
+// OverrideLocationFor aims to override the server URL for a given client configuration, based on location and endpoint inputs.
+// Mutates the client configuration. It searches for the location in the server configuration and overrides the endpoint.
+// If the endpoint is empty, it early exits without making changes.
+func OverrideLocationFor(configProvider ConfigProvider, location, endpoint string, replaceServers bool) {
+	if endpoint == "" {
+		return
+	}
+	// If the replaceServers flag is set, we replace the servers with the new endpoint
+	if replaceServers {
+		SdkLogger.Printf("[DEBUG] Replacing all server configurations for location %s", location)
+		configProvider.GetConfig().Servers = []ServerConfiguration{
+			{
+				URL:         endpoint,
+				Description: EndpointOverridden + location,
+			},
+		}
+		return
+	}
+	location = strings.TrimSpace(location)
+	endpoint = strings.TrimSpace(endpoint)
+	servers := configProvider.GetConfig().Servers
+	for idx := range servers {
+		if strings.Contains(servers[idx].URL, location) {
+			SdkLogger.Printf("[DEBUG] Overriding server configuration for location %s", location)
+			servers[idx].URL = endpoint
+			servers[idx].Description = EndpointOverridden + location
+			return
+		}
+	}
+	SdkLogger.Printf("[DEBUG] Adding new server configuration for location %s", location)
+	configProvider.GetConfig().Servers = append(configProvider.GetConfig().Servers, ServerConfiguration{
+		URL:         endpoint,
+		Description: EndpointOverridden + location,
+	})
+}
+
+func SetSkipTLSVerify(configProvider ConfigProvider, skipTLSVerify bool) {
+	configProvider.GetConfig().HTTPClient.Transport = &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: skipTLSVerify},
+	}
 }
