@@ -236,6 +236,12 @@ func (sc ServerConfigurations) URL(index int, variables map[string]string) (stri
 	}
 	server := sc[index]
 	serverUrl := server.URL
+	if !strings.Contains(serverUrl, "http://") && !strings.Contains(serverUrl, "https://") {
+		return "", fmt.Errorf(
+			"the URL you provided appears to be missing the protocol scheme prefix (\"https://\" or \"http://\"), please verify and try again: %s",
+			serverUrl,
+		)
+	}
 
 	// go through variables and replace placeholders
 	for name, variable := range server.Variables {
