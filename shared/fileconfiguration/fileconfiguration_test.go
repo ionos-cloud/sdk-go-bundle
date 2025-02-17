@@ -8,8 +8,6 @@ import (
 	"github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
-const testEndpoint = "https://test.endpoint"
-
 func TestReadConfigFromFile(t *testing.T) {
 	// Create a temporary config file
 	tempFile, err := os.CreateTemp("", "config.yaml")

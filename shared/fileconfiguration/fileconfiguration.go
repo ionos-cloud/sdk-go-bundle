@@ -274,9 +274,4 @@ func AddCertsToClient(httpClient *http.Client, authorityData string) {
 		shared.SdkLogger.Printf("No certs appended, using system certs only")
 	}
 	httpClient.Transport.(*http.Transport).TLSClientConfig.RootCAs = rootCAs
-	//httpClient.Transport = &http.Transport{
-	//	TLSClientConfig: &tls.Config{
-	//		RootCAs: rootCAs,
-	//	},
-	//}
 }
