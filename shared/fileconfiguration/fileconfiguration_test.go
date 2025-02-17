@@ -1,10 +1,11 @@
 package fileconfiguration
 
 import (
-	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
+
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 const testEndpoint = "https://test.endpoint"
