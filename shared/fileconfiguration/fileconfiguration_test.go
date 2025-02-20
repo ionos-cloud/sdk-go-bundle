@@ -60,8 +60,6 @@ environments:
 	assert.Equal(t, "testEnvironment", config.Environments[0].Name)
 	assert.Equal(t, "testCertData", config.Environments[0].CertificateAuthData)
 	assert.Equal(t, "testProduct", config.Environments[0].Products[0].Name)
-	//assert.Equal(t, testEndpoint, config.Environments[0].Products[0].Endpoint)
-	//assert.True(t, config.Environments[0].Products[0].SkipTLSVerify)
 }
 
 func TestDefaultLoadedConfigFileName(t *testing.T) {
@@ -72,7 +70,7 @@ func TestDefaultLoadedConfigFileName(t *testing.T) {
 	assert.Contains(t, fileName, "config")
 }
 
-func TestReadProfilesFromFile_ValidConfig(t *testing.T) {
+func TestReadProfilesFromConfigFile(t *testing.T) {
 	tempFile, err := os.CreateTemp("", "config.yaml")
 	assert.NoError(t, err)
 	defer os.Remove(tempFile.Name())
