@@ -48,7 +48,7 @@ environments:
 	defer os.Unsetenv(shared.IonosFilePathEnvVar)
 
 	// Call the function
-	config, err := ReadConfigFromFile()
+	config, err := NewFromEnv()
 	assert.NoError(t, err)
 
 	// Validate the loaded config
