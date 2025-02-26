@@ -331,14 +331,12 @@ func getServerUrl(serverUrl string) string {
 	if serverUrl == "" {
 		return DefaultIonosServerUrl + DefaultIonosBasePath
 	}
-	// Support both HTTPS & HTTP schemas
-	if !strings.HasPrefix(serverUrl, "https://") && !strings.HasPrefix(serverUrl, "http://") {
-		serverUrl = fmt.Sprintf("https://%s", serverUrl)
-	}
+
 	if !strings.HasSuffix(serverUrl, DefaultIonosBasePath) {
 		serverUrl = fmt.Sprintf("%s%s", serverUrl, DefaultIonosBasePath)
 	}
-	return serverUrl
+
+	return EnsureURLFormat(serverUrl)
 }
 
 // ServerURLWithContext returns a new server URL given an endpoint
