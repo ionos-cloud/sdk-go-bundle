@@ -7,6 +7,8 @@ import (
 	"testing"
 )
 
+const testEndpoint = "https://test.endpoint"
+
 func TestNewConfigurationFromOptions(t *testing.T) {
 	tests := []struct {
 		name           string
@@ -16,9 +18,9 @@ func TestNewConfigurationFromOptions(t *testing.T) {
 		{
 			name: "ValidOptions",
 			clientOptions: ClientOptions{
-				Endpoint:      "https://test.endpoint",
+				Endpoint:      testEndpoint,
 				SkipTLSVerify: true,
-				Certificate:   "testCertData",
+				Certificate:   "",
 				Credentials: Credentials{
 					Username: "testUser",
 					Password: "testPass",
@@ -31,7 +33,7 @@ func TestNewConfigurationFromOptions(t *testing.T) {
 				Token:    "testToken",
 				Servers: ServerConfigurations{
 					{
-						URL:         "https://test.endpoint",
+						URL:         testEndpoint,
 						Description: "Production",
 					},
 				},
@@ -46,7 +48,7 @@ func TestNewConfigurationFromOptions(t *testing.T) {
 			name: "EmptyEndpoint",
 			clientOptions: ClientOptions{
 				SkipTLSVerify: true,
-				Certificate:   "testCertData",
+				Certificate:   "",
 				Credentials: Credentials{
 					Username: "testUser",
 					Password: "testPass",
@@ -68,9 +70,9 @@ func TestNewConfigurationFromOptions(t *testing.T) {
 		{
 			name: "NoCredentials",
 			clientOptions: ClientOptions{
-				Endpoint:      "https://test.endpoint",
+				Endpoint:      testEndpoint,
 				SkipTLSVerify: true,
-				Certificate:   "testCertData",
+				Certificate:   "",
 			},
 			expectedConfig: &Configuration{
 				Username: "",
@@ -78,7 +80,7 @@ func TestNewConfigurationFromOptions(t *testing.T) {
 				Token:    "",
 				Servers: ServerConfigurations{
 					{
-						URL:         "https://test.endpoint",
+						URL:         testEndpoint,
 						Description: "Production",
 					},
 				},
@@ -92,8 +94,8 @@ func TestNewConfigurationFromOptions(t *testing.T) {
 		{
 			name: "AddCertificate",
 			clientOptions: ClientOptions{
-				Endpoint:      "https://test.endpoint",
-				SkipTLSVerify: false,
+				Endpoint:      testEndpoint,
+				SkipTLSVerify: true,
 				Certificate:   "testCertData",
 				Credentials: Credentials{
 					Username: "testUser",
@@ -107,13 +109,16 @@ func TestNewConfigurationFromOptions(t *testing.T) {
 				Token:    "testToken",
 				Servers: ServerConfigurations{
 					{
-						URL:         "https://test.endpoint",
+						URL:         testEndpoint,
 						Description: "Production",
 					},
 				},
 				HTTPClient: &http.Client{
 					Transport: &http.Transport{
-						TLSClientConfig: &tls.Config{},
+						TLSClientConfig: &tls.Config{
+							InsecureSkipVerify: true,
+							RootCAs:            AddCertsToClient("testCertData"),
+						},
 					},
 				},
 			},
@@ -128,9 +133,9 @@ func TestNewConfigurationFromOptions(t *testing.T) {
 			assert.Equal(t, tt.expectedConfig.Token, config.Token)
 			assert.Equal(t, tt.expectedConfig.Servers, config.Servers)
 			assert.NotNil(t, config.HTTPClient)
-			if tt.clientOptions.SkipTLSVerify {
-				assert.True(t, config.HTTPClient.Transport.(*http.Transport).TLSClientConfig.InsecureSkipVerify)
-			}
+			assert.Equal(t, tt.expectedConfig.HTTPClient.Transport.(*http.Transport).TLSClientConfig.InsecureSkipVerify,
+				config.HTTPClient.Transport.(*http.Transport).TLSClientConfig.InsecureSkipVerify)
+			assert.True(t, config.HTTPClient.Transport.(*http.Transport).TLSClientConfig.RootCAs.Equal(tt.expectedConfig.HTTPClient.Transport.(*http.Transport).TLSClientConfig.RootCAs))
 		})
 	}
 }
