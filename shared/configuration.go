@@ -5,25 +5,32 @@
 package shared
 
 import (
+	"bytes"
 	"context"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/aws/aws-sdk-go/aws/credentials"
+	awsv4 "github.com/aws/aws-sdk-go/aws/signer/v4"
 )
 
 var DefaultIonosBasePath = ""
 
 const (
-	IonosUsernameEnvVar   = "IONOS_USERNAME"
-	IonosPasswordEnvVar   = "IONOS_PASSWORD"
-	IonosTokenEnvVar      = "IONOS_TOKEN"
-	IonosApiUrlEnvVar     = "IONOS_API_URL"
-	IonosPinnedCertEnvVar = "IONOS_PINNED_CERT"
-	IonosLogLevelEnvVar   = "IONOS_LOG_LEVEL"
-	DefaultIonosServerUrl = "https://api.ionos.com/"
+	IonosUsernameEnvVar    = "IONOS_USERNAME"
+	IonosPasswordEnvVar    = "IONOS_PASSWORD"
+	IonosTokenEnvVar       = "IONOS_TOKEN"
+	IonosApiUrlEnvVar      = "IONOS_API_URL"
+	IonosPinnedCertEnvVar  = "IONOS_PINNED_CERT"
+	IonosLogLevelEnvVar    = "IONOS_LOG_LEVEL"
+	IonosS3AccessKeyEnvVar = "IONOS_S3_ACCESS_KEY"
+	IonosS3SecretKeyEnvVar = "IONOS_S3_SECRET_KEY"
+	DefaultIonosServerUrl  = "https://api.ionos.com/"
 
 	defaultMaxRetries  = 3
 	defaultWaitTime    = time.Duration(100) * time.Millisecond
@@ -98,6 +105,15 @@ type ServerConfiguration struct {
 // ServerConfigurations stores multiple ServerConfiguration items
 type ServerConfigurations []ServerConfiguration
 
+// MiddlewareFunction provides way to implement custom middleware in the prepareRequest
+type MiddlewareFunction func(*http.Request)
+
+// MiddlewareFunctionWithError provides way to implement custom middleware with errors in the prepareRequest
+type MiddlewareFunctionWithError func(*http.Request) error
+
+// ResponseMiddlewareFunction provides way to implement custom middleware with errors after the response is received
+type ResponseMiddlewareFunction func(*http.Response, []byte) error
+
 // shared.Configuration stores the configuration of the API client
 type Configuration struct {
 	Host               string            `json:"host,omitempty"`
@@ -114,6 +130,10 @@ type Configuration struct {
 	MaxRetries         int           `json:"maxRetries,omitempty"`
 	WaitTime           time.Duration `json:"waitTime,omitempty"`
 	MaxWaitTime        time.Duration `json:"maxWaitTime,omitempty"`
+
+	Middleware          MiddlewareFunction          `json:"-"`
+	MiddlewareWithError MiddlewareFunctionWithError `json:"-"`
+	ResponseMiddleware  ResponseMiddlewareFunction  `json:"-"`
 }
 
 // NewConfiguration returns a new shared.Configuration object
@@ -144,6 +164,12 @@ func NewConfiguration(username, password, token, hostUrl string) *Configuration 
 
 func NewConfigurationFromEnv() *Configuration {
 	return NewConfiguration(os.Getenv(IonosUsernameEnvVar), os.Getenv(IonosPasswordEnvVar), os.Getenv(IonosTokenEnvVar), os.Getenv(IonosApiUrlEnvVar))
+}
+
+func NewConfigurationWithMiddlewareFromEnv() *Configuration {
+	cfg := NewConfigurationFromEnv()
+	cfg.MiddlewareWithError = signerMw("", "", os.Getenv(IonosS3AccessKeyEnvVar), os.Getenv(IonosS3SecretKeyEnvVar))
+	return cfg
 }
 
 // AddDefaultHeader adds a new HTTP header to the default header in the request
@@ -287,4 +313,28 @@ func (c *Configuration) ServerURLWithContext(ctx context.Context, endpoint strin
 	}
 
 	return sc.URL(index, variables)
+}
+
+func signerMw(region, service, accessKey, secretKey string) MiddlewareFunctionWithError {
+	signer := awsv4.NewSigner(credentials.NewStaticCredentials(accessKey, secretKey, ""))
+
+	// Define default values for region and service to maintain backward compatibility
+	if region == "" {
+		region = "eu-central-3"
+	}
+	if service == "" {
+		service = "s3"
+	}
+	return func(r *http.Request) error {
+		var reader io.ReadSeeker
+		if r.Body != nil {
+			bodyBytes, err := io.ReadAll(r.Body)
+			if err != nil {
+				return err
+			}
+			reader = bytes.NewReader(bodyBytes)
+		}
+		_, err := signer.Sign(r, reader, service, region, time.Now())
+		return err
+	}
 }
