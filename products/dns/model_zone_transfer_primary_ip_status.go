@@ -129,6 +129,14 @@ func (o *ZoneTransferPrimaryIpStatus) SetErrorMessage(v string) {
 	o.ErrorMessage = &v
 }
 
+func (o ZoneTransferPrimaryIpStatus) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o ZoneTransferPrimaryIpStatus) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["primaryIp"] = o.PrimaryIp

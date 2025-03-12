@@ -93,6 +93,14 @@ func (o *DnssecKeyReadListProperties) SetNsecParameters(v DnssecKeyReadListPrope
 	o.NsecParameters = v
 }
 
+func (o DnssecKeyReadListProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o DnssecKeyReadListProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["keyParameters"] = o.KeyParameters

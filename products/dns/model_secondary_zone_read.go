@@ -172,6 +172,14 @@ func (o *SecondaryZoneRead) SetProperties(v SecondaryZone) {
 	o.Properties = v
 }
 
+func (o SecondaryZoneRead) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o SecondaryZoneRead) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id

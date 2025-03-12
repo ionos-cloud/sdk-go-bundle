@@ -102,6 +102,14 @@ func (o *CommonZone) SetDescription(v string) {
 	o.Description = &v
 }
 
+func (o CommonZone) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o CommonZone) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["zoneName"] = o.ZoneName

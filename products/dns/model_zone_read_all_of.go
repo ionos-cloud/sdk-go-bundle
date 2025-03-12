@@ -67,6 +67,14 @@ func (o *ZoneReadAllOf) SetProperties(v Zone) {
 	o.Properties = v
 }
 
+func (o ZoneReadAllOf) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o ZoneReadAllOf) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["properties"] = o.Properties

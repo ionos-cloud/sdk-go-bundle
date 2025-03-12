@@ -129,6 +129,14 @@ func (o *SecondaryZone) SetPrimaryIps(v []string) {
 	o.PrimaryIps = v
 }
 
+func (o SecondaryZone) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o SecondaryZone) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["zoneName"] = o.ZoneName

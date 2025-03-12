@@ -226,6 +226,14 @@ func (o *ReverseRecordsReadList) SetLinks(v Links) {
 	o.Links = v
 }
 
+func (o ReverseRecordsReadList) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o ReverseRecordsReadList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id

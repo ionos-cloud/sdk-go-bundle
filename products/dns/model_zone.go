@@ -140,6 +140,14 @@ func (o *Zone) SetEnabled(v bool) {
 	o.Enabled = &v
 }
 
+func (o Zone) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o Zone) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["zoneName"] = o.ZoneName

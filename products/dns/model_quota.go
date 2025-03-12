@@ -93,6 +93,14 @@ func (o *Quota) SetQuotaLimits(v QuotaDetail) {
 	o.QuotaLimits = v
 }
 
+func (o Quota) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o Quota) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["quotaUsage"] = o.QuotaUsage

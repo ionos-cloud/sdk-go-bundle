@@ -67,6 +67,14 @@ func (o *DnssecKeyCreate) SetProperties(v DnssecKeyParameters) {
 	o.Properties = v
 }
 
+func (o DnssecKeyCreate) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o DnssecKeyCreate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["properties"] = o.Properties

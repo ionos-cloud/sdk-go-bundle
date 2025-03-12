@@ -120,6 +120,14 @@ func (o *DnssecKeyParameters) SetValidity(v int32) {
 	o.Validity = v
 }
 
+func (o DnssecKeyParameters) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o DnssecKeyParameters) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["keyParameters"] = o.KeyParameters

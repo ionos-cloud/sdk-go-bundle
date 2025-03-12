@@ -54,7 +54,7 @@ const (
 	RequestStatusFailed  = "FAILED"
 	RequestStatusDone    = "DONE"
 
-	Version = "products/dns/v2.1.0"
+	Version = "products/dns/v2.2.0"
 )
 
 // APIClient manages communication with the IONOS Cloud - DNS API API v1.17.0
@@ -416,8 +416,15 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, time.Duratio
 			}
 		}
 
-		if shared.SdkLogLevel.Satisfies(shared.Trace) {
-			dump, err := httputil.DumpRequestOut(clonedRequest, true)
+		if shared.SdkLogLevel.Satisfies(shared.Debug) {
+			logRequest := request.Clone(request.Context())
+
+			// Remove the Authorization header if Debug is enabled (but not in Trace mode)
+			if !shared.SdkLogLevel.Satisfies(shared.Trace) {
+				logRequest.Header.Del("Authorization")
+			}
+
+			dump, err := httputil.DumpRequestOut(logRequest, true)
 			if err == nil {
 				shared.SdkLogger.Printf(" DumpRequestOut : %s\n", string(dump))
 			} else {

@@ -67,6 +67,14 @@ func (o *RecordEnsure) SetProperties(v Record) {
 	o.Properties = v
 }
 
+func (o RecordEnsure) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o RecordEnsure) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["properties"] = o.Properties

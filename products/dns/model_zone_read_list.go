@@ -226,6 +226,14 @@ func (o *ZoneReadList) SetItems(v []ZoneRead) {
 	o.Items = v
 }
 
+func (o ZoneReadList) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o ZoneReadList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id

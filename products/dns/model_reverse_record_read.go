@@ -172,6 +172,14 @@ func (o *ReverseRecordRead) SetProperties(v ReverseRecord) {
 	o.Properties = v
 }
 
+func (o ReverseRecordRead) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o ReverseRecordRead) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id

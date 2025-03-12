@@ -67,6 +67,14 @@ func (o *ZoneReadListAllOf) SetItems(v []ZoneRead) {
 	o.Items = v
 }
 
+func (o ZoneReadListAllOf) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o ZoneReadListAllOf) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["items"] = o.Items

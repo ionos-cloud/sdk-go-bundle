@@ -94,6 +94,14 @@ func (o *MetadataWithStateNameserversAllOf) SetNameservers(v []string) {
 	o.Nameservers = v
 }
 
+func (o MetadataWithStateNameserversAllOf) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o MetadataWithStateNameserversAllOf) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["state"] = o.State

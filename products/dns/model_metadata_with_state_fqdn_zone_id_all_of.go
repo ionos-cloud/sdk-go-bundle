@@ -121,6 +121,14 @@ func (o *MetadataWithStateFqdnZoneIdAllOf) SetZoneId(v string) {
 	o.ZoneId = v
 }
 
+func (o MetadataWithStateFqdnZoneIdAllOf) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o MetadataWithStateFqdnZoneIdAllOf) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["state"] = o.State
