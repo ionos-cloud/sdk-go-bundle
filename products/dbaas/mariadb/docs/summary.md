@@ -14,6 +14,7 @@
 * [Backup](models/Backup.md)
 * [BackupList](models/BackupList.md)
 * [BackupListAllOf](models/BackupListAllOf.md)
+* [BackupProperties](models/BackupProperties.md)
 * [BackupResponse](models/BackupResponse.md)
 * [BaseBackup](models/BaseBackup.md)
 * [ClusterList](models/ClusterList.md)

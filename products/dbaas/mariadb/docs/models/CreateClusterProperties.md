@@ -12,6 +12,7 @@
 |**Connections** | [**[]Connection**](Connection.md) | The network connection for your cluster. Only one connection is allowed.  | |
 |**DisplayName** | **string** | The friendly name of your cluster. | |
 |**MaintenanceWindow** | Pointer to [**MaintenanceWindow**](MaintenanceWindow.md) |  | [optional] |
+|**Backup** | Pointer to [**BackupProperties**](BackupProperties.md) |  | [optional] |
 |**Credentials** | [**DBUser**](DBUser.md) |  | |
 |**FromBackup** | Pointer to [**RestoreRequest**](RestoreRequest.md) |  | [optional] |
 
@@ -198,6 +199,31 @@ SetMaintenanceWindow sets MaintenanceWindow field to given value.
 `func (o *CreateClusterProperties) HasMaintenanceWindow() bool`
 
 HasMaintenanceWindow returns a boolean if a field has been set.
+
+### GetBackup
+
+`func (o *CreateClusterProperties) GetBackup() BackupProperties`
+
+GetBackup returns the Backup field if non-nil, zero value otherwise.
+
+### GetBackupOk
+
+`func (o *CreateClusterProperties) GetBackupOk() (*BackupProperties, bool)`
+
+GetBackupOk returns a tuple with the Backup field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBackup
+
+`func (o *CreateClusterProperties) SetBackup(v BackupProperties)`
+
+SetBackup sets Backup field to given value.
+
+### HasBackup
+
+`func (o *CreateClusterProperties) HasBackup() bool`
+
+HasBackup returns a boolean if a field has been set.
 
 ### GetCredentials
 

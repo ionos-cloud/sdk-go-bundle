@@ -13,6 +13,7 @@
 |**StorageSize** | Pointer to **int32** | The amount of storage per instance in gigabytes (GB). | [optional] |
 |**Connections** | Pointer to [**[]Connection**](Connection.md) |  | [optional] |
 |**MaintenanceWindow** | Pointer to [**MaintenanceWindow**](MaintenanceWindow.md) |  | [optional] |
+|**Backup** | Pointer to [**BackupProperties**](BackupProperties.md) |  | [optional] |
 
 ## Methods
 
@@ -257,5 +258,30 @@ SetMaintenanceWindow sets MaintenanceWindow field to given value.
 `func (o *ClusterProperties) HasMaintenanceWindow() bool`
 
 HasMaintenanceWindow returns a boolean if a field has been set.
+
+### GetBackup
+
+`func (o *ClusterProperties) GetBackup() BackupProperties`
+
+GetBackup returns the Backup field if non-nil, zero value otherwise.
+
+### GetBackupOk
+
+`func (o *ClusterProperties) GetBackupOk() (*BackupProperties, bool)`
+
+GetBackupOk returns a tuple with the Backup field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBackup
+
+`func (o *ClusterProperties) SetBackup(v BackupProperties)`
+
+SetBackup sets Backup field to given value.
+
+### HasBackup
+
+`func (o *ClusterProperties) HasBackup() bool`
+
+HasBackup returns a boolean if a field has been set.
 
 
