@@ -236,6 +236,12 @@ func (sc ServerConfigurations) URL(index int, variables map[string]string) (stri
 	}
 	server := sc[index]
 	serverUrl := server.URL
+	if !strings.Contains(serverUrl, "http://") && !strings.Contains(serverUrl, "https://") {
+		return "", fmt.Errorf(
+			"the URL you provided appears to be missing the protocol scheme prefix (\"https://\" or \"http://\"), please verify and try again: %s",
+			serverUrl,
+		)
+	}
 
 	// go through variables and replace placeholders
 	for name, variable := range server.Variables {
@@ -325,14 +331,12 @@ func getServerUrl(serverUrl string) string {
 	if serverUrl == "" {
 		return DefaultIonosServerUrl + DefaultIonosBasePath
 	}
-	// Support both HTTPS & HTTP schemas
-	if !strings.HasPrefix(serverUrl, "https://") && !strings.HasPrefix(serverUrl, "http://") {
-		serverUrl = fmt.Sprintf("https://%s", serverUrl)
-	}
+
 	if !strings.HasSuffix(serverUrl, DefaultIonosBasePath) {
 		serverUrl = fmt.Sprintf("%s%s", serverUrl, DefaultIonosBasePath)
 	}
-	return serverUrl
+
+	return EnsureURLFormat(serverUrl)
 }
 
 // ServerURLWithContext returns a new server URL given an endpoint
