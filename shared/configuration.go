@@ -237,13 +237,10 @@ func CreateTransport(insecure bool, certificate string) *http.Transport {
 }
 
 func NewConfigurationFromEnv() *Configuration {
-	return NewConfiguration(os.Getenv(IonosUsernameEnvVar), os.Getenv(IonosPasswordEnvVar), os.Getenv(IonosTokenEnvVar), os.Getenv(IonosApiUrlEnvVar))
-}
-
-func NewConfigurationWithMiddlewareFromEnv() *Configuration {
-	cfg := NewConfigurationFromEnv()
-	cfg.MiddlewareWithError = signerMw("", "", os.Getenv(IonosS3AccessKeyEnvVar), os.Getenv(IonosS3SecretKeyEnvVar))
-	return cfg
+	return NewConfiguration(
+		os.Getenv(IonosUsernameEnvVar), os.Getenv(IonosPasswordEnvVar), os.Getenv(IonosTokenEnvVar),
+		os.Getenv(IonosApiUrlEnvVar),
+	)
 }
 
 // AddDefaultHeader adds a new HTTP header to the default header in the request
@@ -279,7 +276,10 @@ func (sc ServerConfigurations) URL(index int, variables map[string]string) (stri
 				}
 			}
 			if !found {
-				return "", fmt.Errorf("the variable %s in the server URL has invalid value %v. Must be %v", name, value, variable.EnumValues)
+				return "", fmt.Errorf(
+					"the variable %s in the server URL has invalid value %v. Must be %v", name, value,
+					variable.EnumValues,
+				)
 			}
 			serverUrl = strings.Replace(serverUrl, "{"+name+"}", value, -1)
 		} else {
@@ -331,7 +331,9 @@ func getServerVariables(ctx context.Context) (map[string]string, error) {
 		if variables, ok := sv.(map[string]string); ok {
 			return variables, nil
 		}
-		return nil, reportError("ctx value of ContextServerVariables has invalid type %T should be map[string]string", sv)
+		return nil, reportError(
+			"ctx value of ContextServerVariables has invalid type %T should be map[string]string", sv,
+		)
 	}
 	return nil, nil
 }
@@ -340,7 +342,10 @@ func getServerOperationVariables(ctx context.Context, endpoint string) (map[stri
 	osv := ctx.Value(ContextOperationServerVariables)
 	if osv != nil {
 		if operationVariables, ok := osv.(map[string]map[string]string); !ok {
-			return nil, reportError("ctx value of ContextOperationServerVariables has invalid type %T should be map[string]map[string]string", osv)
+			return nil, reportError(
+				"ctx value of ContextOperationServerVariables has invalid type %T should be map[string]map[string]string",
+				osv,
+			)
 		} else {
 			variables, ok := operationVariables[endpoint]
 			if ok {
@@ -428,10 +433,12 @@ func OverrideLocationFor(configProvider ConfigProvider, location, endpoint strin
 		}
 	}
 	SdkLogger.Printf("[DEBUG] Adding new server configuration for location %s", location)
-	configProvider.GetConfig().Servers = append(configProvider.GetConfig().Servers, ServerConfiguration{
-		URL:         endpoint,
-		Description: EndpointOverridden + location,
-	})
+	configProvider.GetConfig().Servers = append(
+		configProvider.GetConfig().Servers, ServerConfiguration{
+			URL:         endpoint,
+			Description: EndpointOverridden + location,
+		},
+	)
 }
 
 func SetSkipTLSVerify(configProvider ConfigProvider, skipTLSVerify bool) {
@@ -452,7 +459,7 @@ func AddCertsToClient(authorityData string) *x509.CertPool {
 	return rootCAs
 }
 
-func signerMw(region, service, accessKey, secretKey string) MiddlewareFunctionWithError {
+func SignerMiddleware(region, service, accessKey, secretKey string) MiddlewareFunctionWithError {
 	signer := awsv4.NewSigner(credentials.NewStaticCredentials(accessKey, secretKey, ""))
 
 	// Define default values for region and service to maintain backward compatibility
