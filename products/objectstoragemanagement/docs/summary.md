@@ -1,0 +1,46 @@
+# Table of contents
+
+* [Introduction](README.md)
+* [Changelog](CHANGELOG.md)
+
+## API
+
+* [AccesskeysApi](api/AccesskeysApi.md)
+* [RegionsApi](api/RegionsApi.md)
+
+## Models
+
+* [AccessKey](models/AccessKey.md)
+* [AccessKeyCreate](models/AccessKeyCreate.md)
+* [AccessKeyEnsure](models/AccessKeyEnsure.md)
+* [AccessKeyRead](models/AccessKeyRead.md)
+* [AccessKeyReadList](models/AccessKeyReadList.md)
+* [AccessKeyReadListAllOf](models/AccessKeyReadListAllOf.md)
+* [Bucket](models/Bucket.md)
+* [BucketCreate](models/BucketCreate.md)
+* [BucketEnsure](models/BucketEnsure.md)
+* [BucketRead](models/BucketRead.md)
+* [BucketReadList](models/BucketReadList.md)
+* [BucketReadListAllOf](models/BucketReadListAllOf.md)
+* [Error](models/Error.md)
+* [ErrorMessages](models/ErrorMessages.md)
+* [Links](models/Links.md)
+* [Metadata](models/Metadata.md)
+* [MetadataWithStatus](models/MetadataWithStatus.md)
+* [MetadataWithStatusAllOf](models/MetadataWithStatusAllOf.md)
+* [MetadataWithSupportedRegions](models/MetadataWithSupportedRegions.md)
+* [MetadataWithSupportedRegionsAllOf](models/MetadataWithSupportedRegionsAllOf.md)
+* [Pagination](models/Pagination.md)
+* [Region](models/Region.md)
+* [RegionCapability](models/RegionCapability.md)
+* [RegionCreate](models/RegionCreate.md)
+* [RegionEnsure](models/RegionEnsure.md)
+* [RegionRead](models/RegionRead.md)
+* [RegionReadList](models/RegionReadList.md)
+* [RegionReadListAllOf](models/RegionReadListAllOf.md)
+* [StorageClass](models/StorageClass.md)
+* [StorageClassCreate](models/StorageClassCreate.md)
+* [StorageClassEnsure](models/StorageClassEnsure.md)
+* [StorageClassRead](models/StorageClassRead.md)
+* [StorageClassReadList](models/StorageClassReadList.md)
+* [StorageClassReadListAllOf](models/StorageClassReadListAllOf.md)
