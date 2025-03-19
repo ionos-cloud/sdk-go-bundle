@@ -25,9 +25,10 @@ const (
 	IonosLogLevelEnvVar   = "IONOS_LOG_LEVEL"
 	DefaultIonosServerUrl = "https://api.ionos.com/"
 
-	defaultMaxRetries  = 3
-	defaultWaitTime    = time.Duration(100) * time.Millisecond
-	defaultMaxWaitTime = time.Duration(2000) * time.Millisecond
+	defaultMaxRetries   = 3
+	defaultWaitTime     = time.Duration(100) * time.Millisecond
+	defaultMaxWaitTime  = time.Duration(2000) * time.Millisecond
+	defaultPollInterval = 1 * time.Second
 )
 
 // contextKeys are used to identify the type of value in the context.
@@ -114,6 +115,7 @@ type Configuration struct {
 	MaxRetries         int           `json:"maxRetries,omitempty"`
 	WaitTime           time.Duration `json:"waitTime,omitempty"`
 	MaxWaitTime        time.Duration `json:"maxWaitTime,omitempty"`
+	PollInterval       time.Duration `json:"pollInterval,omitempty"`
 }
 
 // NewConfiguration returns a new shared.Configuration object
@@ -127,6 +129,7 @@ func NewConfiguration(username, password, token, hostUrl string) *Configuration 
 		Token:              token,
 		MaxRetries:         defaultMaxRetries,
 		MaxWaitTime:        defaultMaxWaitTime,
+		PollInterval:       defaultPollInterval,
 		WaitTime:           defaultWaitTime,
 		Servers:            ServerConfigurations{},
 		OperationServers:   map[string]ServerConfigurations{},
