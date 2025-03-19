@@ -181,9 +181,11 @@ type ClientOptions struct {
 
 // Credentials are the credentials that will be used for authentication
 type Credentials struct {
-	Username string `yaml:"username"`
-	Password string `yaml:"password"`
-	Token    string `yaml:"token"`
+	Username    string `yaml:"username"`
+	Password    string `yaml:"password"`
+	Token       string `yaml:"token"`
+	S3AccessKey string `yaml:"s3AccessKey"`
+	S3SecretKey string `yaml:"s3SecretKey"`
 }
 
 // NewConfigurationFromOptions returns a new shared.Configuration object created from the client options
