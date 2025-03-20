@@ -37,9 +37,10 @@ const (
 	IonosS3SecretKeyEnvVar    = "IONOS_S3_SECRET_KEY"
 	DefaultIonosServerUrl     = "https://api.ionos.com/"
 
-	defaultMaxRetries  = 3
-	defaultWaitTime    = time.Duration(100) * time.Millisecond
-	defaultMaxWaitTime = time.Duration(2000) * time.Millisecond
+	defaultMaxRetries   = 3
+	defaultWaitTime     = time.Duration(100) * time.Millisecond
+	defaultMaxWaitTime  = time.Duration(2000) * time.Millisecond
+	defaultPollInterval = 1 * time.Second
 )
 
 // contextKeys are used to identify the type of value in the context.
@@ -135,6 +136,7 @@ type Configuration struct {
 	MaxRetries         int           `json:"maxRetries,omitempty"`
 	WaitTime           time.Duration `json:"waitTime,omitempty"`
 	MaxWaitTime        time.Duration `json:"maxWaitTime,omitempty"`
+	PollInterval       time.Duration `json:"pollInterval,omitempty"`
 
 	Middleware          MiddlewareFunction          `json:"-"`
 	MiddlewareWithError MiddlewareFunctionWithError `json:"-"`
@@ -152,6 +154,7 @@ func NewConfiguration(username, password, token, hostUrl string) *Configuration 
 		Token:              token,
 		MaxRetries:         defaultMaxRetries,
 		MaxWaitTime:        defaultMaxWaitTime,
+		PollInterval:       defaultPollInterval,
 		WaitTime:           defaultWaitTime,
 		Servers:            ServerConfigurations{},
 		OperationServers:   map[string]ServerConfigurations{},
