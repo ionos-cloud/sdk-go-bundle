@@ -9,6 +9,7 @@ All URIs are relative to *https://api.ionos.com/databases/mongodb*
 |[**ClustersGet**](ClustersApi.md#ClustersGet) | **Get** /clusters | Get Clusters|
 |[**ClustersPatch**](ClustersApi.md#ClustersPatch) | **Patch** /clusters/{clusterId} | Patch a cluster|
 |[**ClustersPost**](ClustersApi.md#ClustersPost) | **Post** /clusters | Create a Cluster|
+|[**ClustersVersionsGet**](ClustersApi.md#ClustersVersionsGet) | **Get** /clusters/{clusterId}/versions | Get available MongoDB versions for this cluster|
 
 
 
@@ -348,6 +349,73 @@ Other parameters are passed through a pointer to an apiClustersPostRequest struc
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+
+
+## ClustersVersionsGet
+
+```go
+var result MongoDBVersionList = ClustersVersionsGet(ctx, clusterId)
+                      .Execute()
+```
+
+Get available MongoDB versions for this cluster
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+
+    mongo "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/mongo"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
+)
+
+func main() {
+    clusterId := "clusterId_example" // string | The unique ID of the cluster.
+
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := mongo.NewAPIClient(configuration)
+    resource, resp, err := apiClient.ClustersApi.ClustersVersionsGet(context.Background(), clusterId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersVersionsGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
+    }
+    // response from `ClustersVersionsGet`: MongoDBVersionList
+    fmt.Fprintf(os.Stdout, "Response from `ClustersApi.ClustersVersionsGet`: %v\n", resource)
+}
+```
+
+### Path Parameters
+
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+|**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
+|**clusterId** | **string** | The unique ID of the cluster. | |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to an apiClustersVersionsGetRequest struct via the builder pattern
+
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+
+### Return type
+
+[**MongoDBVersionList**](../models/MongoDBVersionList.md)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 

@@ -13,6 +13,7 @@
 |**BiConnector** | Pointer to [**BiConnectorProperties**](BiConnectorProperties.md) |  | [optional] |
 |**Connections** | Pointer to [**[]Connection**](Connection.md) |  | [optional] |
 |**TemplateID** | Pointer to **string** | The unique ID of the template, which specifies the number of cores, storage size, and memory. You cannot downgrade to a smaller template or minor edition (e.g. from business to playground). To get a list of all templates to confirm the changes use the /templates endpoint.  | [optional] |
+|**MongoDBVersion** | Pointer to **string** | The MongoDB version of your cluster. | [optional] |
 |**Edition** | Pointer to **string** | The cluster edition. | [optional] |
 |**Cores** | Pointer to **int32** | The number of CPU cores per instance. | [optional] |
 |**Ram** | Pointer to **int32** | The amount of memory per instance in megabytes. Has to be a multiple of 1024. | [optional] |
@@ -262,6 +263,31 @@ SetTemplateID sets TemplateID field to given value.
 `func (o *PatchClusterProperties) HasTemplateID() bool`
 
 HasTemplateID returns a boolean if a field has been set.
+
+### GetMongoDBVersion
+
+`func (o *PatchClusterProperties) GetMongoDBVersion() string`
+
+GetMongoDBVersion returns the MongoDBVersion field if non-nil, zero value otherwise.
+
+### GetMongoDBVersionOk
+
+`func (o *PatchClusterProperties) GetMongoDBVersionOk() (*string, bool)`
+
+GetMongoDBVersionOk returns a tuple with the MongoDBVersion field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMongoDBVersion
+
+`func (o *PatchClusterProperties) SetMongoDBVersion(v string)`
+
+SetMongoDBVersion sets MongoDBVersion field to given value.
+
+### HasMongoDBVersion
+
+`func (o *PatchClusterProperties) HasMongoDBVersion() bool`
+
+HasMongoDBVersion returns a boolean if a field has been set.
 
 ### GetEdition
 

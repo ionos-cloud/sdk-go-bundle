@@ -17,7 +17,6 @@
 
 * [APIVersion](models/APIVersion.md)
 * [BackupProperties](models/BackupProperties.md)
-* [BackupRetentionProperties](models/BackupRetentionProperties.md)
 * [BiConnectorProperties](models/BiConnectorProperties.md)
 * [ClusterList](models/ClusterList.md)
 * [ClusterListAllOf](models/ClusterListAllOf.md)
@@ -36,6 +35,8 @@
 * [Health](models/Health.md)
 * [MaintenanceWindow](models/MaintenanceWindow.md)
 * [Metadata](models/Metadata.md)
+* [MongoDBVersionList](models/MongoDBVersionList.md)
+* [MongoDBVersionListData](models/MongoDBVersionListData.md)
 * [Pagination](models/Pagination.md)
 * [PaginationLinks](models/PaginationLinks.md)
 * [PatchClusterProperties](models/PatchClusterProperties.md)

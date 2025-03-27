@@ -6,7 +6,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**Type** | Pointer to **string** | The cluster type, either &#x60;replicaset&#x60; or &#x60;sharded-cluster&#x60;.  | [optional] |
 |**TemplateID** | Pointer to **string** | The unique ID of the template, which specifies the number of cores, storage size, and memory. You cannot downgrade to a smaller template or minor edition (e.g. from business to playground). To get a list of all templates to confirm the changes use the /templates endpoint.  | [optional] |
-|**MongoDBVersion** | Pointer to **string** | The MongoDB version of your cluster. | [optional] |
+|**MongoDBVersion** | **string** | The MongoDB version of your cluster. | |
 |**Instances** | **int32** | The total number of instances in the cluster (one primary and n-1 secondaries).  | |
 |**Shards** | Pointer to **int32** | The total number of shards in the cluster.  | [optional] |
 |**Connections** | [**[]Connection**](Connection.md) |  | |
@@ -26,7 +26,7 @@
 
 ### NewCreateClusterProperties
 
-`func NewCreateClusterProperties(instances int32, connections []Connection, location string, displayName string, ) *CreateClusterProperties`
+`func NewCreateClusterProperties(mongoDBVersion string, instances int32, connections []Connection, location string, displayName string, ) *CreateClusterProperties`
 
 NewCreateClusterProperties instantiates a new CreateClusterProperties object
 This constructor will assign default values to properties that have it defined,
@@ -110,11 +110,6 @@ and a boolean to check if the value has been set.
 
 SetMongoDBVersion sets MongoDBVersion field to given value.
 
-### HasMongoDBVersion
-
-`func (o *CreateClusterProperties) HasMongoDBVersion() bool`
-
-HasMongoDBVersion returns a boolean if a field has been set.
 
 ### GetInstances
 

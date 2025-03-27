@@ -58,6 +58,11 @@ By default, *https://api.ionos.com/databases/mongodb* is used, however this can 
 by setting the `IONOS_API_URL` environment variable or by specifying the `hostUrl` parameter when
 initializing the sdk client.
 
+**NOTE**: We recommend passing the URL without the `https://` or `http://` prefix. The SDK
+checks and adds it if necessary when configurations are created using `NewConfiguration` or
+`NewConfigurationFromEnv`. This is to avoid issues caused by typos in the prefix that cannot
+ be easily detected and debugged.
+
 ### Basic Authentication
 
 - **Type**: HTTP basic authentication
@@ -214,9 +219,11 @@ ClustersApi | [**ClustersFindById**](docs/api/ClustersApi.md#clustersfindbyid) |
 ClustersApi | [**ClustersGet**](docs/api/ClustersApi.md#clustersget) | **Get** /clusters | Get Clusters
 ClustersApi | [**ClustersPatch**](docs/api/ClustersApi.md#clusterspatch) | **Patch** /clusters/{clusterId} | Patch a cluster
 ClustersApi | [**ClustersPost**](docs/api/ClustersApi.md#clusterspost) | **Post** /clusters | Create a Cluster
+ClustersApi | [**ClustersVersionsGet**](docs/api/ClustersApi.md#clustersversionsget) | **Get** /clusters/{clusterId}/versions | Get available MongoDB versions for this cluster
 LogsApi | [**ClustersLogsGet**](docs/api/LogsApi.md#clusterslogsget) | **Get** /clusters/{clusterId}/logs | Get logs of your cluster
 MetadataApi | [**InfosVersionGet**](docs/api/MetadataApi.md#infosversionget) | **Get** /infos/version | Get API Version
 MetadataApi | [**InfosVersionsGet**](docs/api/MetadataApi.md#infosversionsget) | **Get** /infos/versions | Get All API Versions
+MetadataApi | [**VersionsGet**](docs/api/MetadataApi.md#versionsget) | **Get** /versions | Get available MongoDB versions
 RestoresApi | [**ClustersRestorePost**](docs/api/RestoresApi.md#clustersrestorepost) | **Post** /clusters/{clusterId}/restore | In-place restore of a cluster
 SnapshotsApi | [**ClustersSnapshotsGet**](docs/api/SnapshotsApi.md#clusterssnapshotsget) | **Get** /clusters/{clusterId}/snapshots | Get the snapshots of your cluster
 TemplatesApi | [**TemplatesGet**](docs/api/TemplatesApi.md#templatesget) | **Get** /templates | Get Templates
@@ -236,7 +243,6 @@ All URIs are relative to *https://api.ionos.com/databases/mongodb*
 
  - [APIVersion](docs/models/APIVersion)
  - [BackupProperties](docs/models/BackupProperties)
- - [BackupRetentionProperties](docs/models/BackupRetentionProperties)
  - [BiConnectorProperties](docs/models/BiConnectorProperties)
  - [ClusterList](docs/models/ClusterList)
  - [ClusterListAllOf](docs/models/ClusterListAllOf)
@@ -255,6 +261,8 @@ All URIs are relative to *https://api.ionos.com/databases/mongodb*
  - [Health](docs/models/Health)
  - [MaintenanceWindow](docs/models/MaintenanceWindow)
  - [Metadata](docs/models/Metadata)
+ - [MongoDBVersionList](docs/models/MongoDBVersionList)
+ - [MongoDBVersionListData](docs/models/MongoDBVersionListData)
  - [Pagination](docs/models/Pagination)
  - [PaginationLinks](docs/models/PaginationLinks)
  - [PatchClusterProperties](docs/models/PatchClusterProperties)
