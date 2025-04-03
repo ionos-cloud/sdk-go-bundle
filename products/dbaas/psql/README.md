@@ -61,6 +61,11 @@ By default, *https://api.ionos.com/databases/postgresql* is used, however this c
 by setting the `IONOS_API_URL` environment variable or by specifying the `hostUrl` parameter when
 initializing the sdk client.
 
+**NOTE**: We recommend passing the URL without the `https://` or `http://` prefix. The SDK
+checks and adds it if necessary when configurations are created using `NewConfiguration` or
+`NewConfigurationFromEnv`. This is to avoid issues caused by typos in the prefix that cannot
+ be easily detected and debugged.
+
 ### Basic Authentication
 
 - **Type**: HTTP basic authentication
@@ -221,7 +226,8 @@ ClustersApi | [**ClustersFindById**](docs/api/ClustersApi.md#clustersfindbyid) |
 ClustersApi | [**ClustersGet**](docs/api/ClustersApi.md#clustersget) | **Get** /clusters | List clusters
 ClustersApi | [**ClustersPatch**](docs/api/ClustersApi.md#clusterspatch) | **Patch** /clusters/{clusterId} | Patch a cluster
 ClustersApi | [**ClustersPost**](docs/api/ClustersApi.md#clusterspost) | **Post** /clusters | Create a cluster
-ClustersApi | [**PostgresVersionsGet**](docs/api/ClustersApi.md#postgresversionsget) | **Get** /clusters/postgresversions | List PostgreSQL versions
+ClustersApi | [**ClustersVersionsGet**](docs/api/ClustersApi.md#clustersversionsget) | **Get** /clusters/{clusterId}/versions | Supported PostgreSQL versions of cluster
+ClustersApi | [**PostgresVersionsGet**](docs/api/ClustersApi.md#postgresversionsget) | **Get** /clusters/postgresversions | List all PostgreSQL versions
 DatabasesApi | [**DatabasesDelete**](docs/api/DatabasesApi.md#databasesdelete) | **Delete** /clusters/{clusterId}/databases/{databasename} | Delete database
 DatabasesApi | [**DatabasesGet**](docs/api/DatabasesApi.md#databasesget) | **Get** /clusters/{clusterId}/databases/{databasename} | Get database
 DatabasesApi | [**DatabasesList**](docs/api/DatabasesApi.md#databaseslist) | **Get** /clusters/{clusterId}/databases | List databases
@@ -229,6 +235,7 @@ DatabasesApi | [**DatabasesPost**](docs/api/DatabasesApi.md#databasespost) | **P
 LogsApi | [**ClusterLogsGet**](docs/api/LogsApi.md#clusterlogsget) | **Get** /clusters/{clusterId}/logs | Get logs of your cluster
 MetadataApi | [**InfosVersionGet**](docs/api/MetadataApi.md#infosversionget) | **Get** /infos/version | Get the current API version
 MetadataApi | [**InfosVersionsGet**](docs/api/MetadataApi.md#infosversionsget) | **Get** /infos/versions | Fetch all API versions
+MetadataApi | [**VersionsGet**](docs/api/MetadataApi.md#versionsget) | **Get** /versions | PostgreSQL versions for new clusters
 RestoresApi | [**ClusterRestorePost**](docs/api/RestoresApi.md#clusterrestorepost) | **Post** /clusters/{clusterId}/restore | In-place restore of a cluster
 UsersApi | [**UsersDelete**](docs/api/UsersApi.md#usersdelete) | **Delete** /clusters/{clusterId}/users/{username} | Delete user
 UsersApi | [**UsersGet**](docs/api/UsersApi.md#usersget) | **Get** /clusters/{clusterId}/users/{username} | Get user

@@ -6,6 +6,7 @@ All URIs are relative to *https://api.ionos.com/databases/postgresql*
 |------------- | ------------- | -------------|
 |[**InfosVersionGet**](MetadataApi.md#InfosVersionGet) | **Get** /infos/version | Get the current API version|
 |[**InfosVersionsGet**](MetadataApi.md#InfosVersionsGet) | **Get** /infos/versions | Fetch all API versions|
+|[**VersionsGet**](MetadataApi.md#VersionsGet) | **Get** /versions | PostgreSQL versions for new clusters|
 
 
 
@@ -119,6 +120,65 @@ Other parameters are passed through a pointer to an apiInfosVersionsGetRequest s
 ### Return type
 
 [**[]APIVersion**](../models/APIVersion.md)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+
+## VersionsGet
+
+```go
+var result PostgresVersionList = VersionsGet(ctx)
+                      .Execute()
+```
+
+PostgreSQL versions for new clusters
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+
+    psql "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/psql"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
+)
+
+func main() {
+
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := psql.NewAPIClient(configuration)
+    resource, resp, err := apiClient.MetadataApi.VersionsGet(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `MetadataApi.VersionsGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
+    }
+    // response from `VersionsGet`: PostgresVersionList
+    fmt.Fprintf(os.Stdout, "Response from `MetadataApi.VersionsGet`: %v\n", resource)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to an apiVersionsGetRequest struct via the builder pattern
+
+
+### Return type
+
+[**PostgresVersionList**](../models/PostgresVersionList.md)
 
 ### HTTP request headers
 

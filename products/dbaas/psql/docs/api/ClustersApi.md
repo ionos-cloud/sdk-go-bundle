@@ -10,7 +10,8 @@ All URIs are relative to *https://api.ionos.com/databases/postgresql*
 |[**ClustersGet**](ClustersApi.md#ClustersGet) | **Get** /clusters | List clusters|
 |[**ClustersPatch**](ClustersApi.md#ClustersPatch) | **Patch** /clusters/{clusterId} | Patch a cluster|
 |[**ClustersPost**](ClustersApi.md#ClustersPost) | **Post** /clusters | Create a cluster|
-|[**PostgresVersionsGet**](ClustersApi.md#PostgresVersionsGet) | **Get** /clusters/postgresversions | List PostgreSQL versions|
+|[**ClustersVersionsGet**](ClustersApi.md#ClustersVersionsGet) | **Get** /clusters/{clusterId}/versions | Supported PostgreSQL versions of cluster|
+|[**PostgresVersionsGet**](ClustersApi.md#PostgresVersionsGet) | **Get** /clusters/postgresversions | List all PostgreSQL versions|
 
 
 
@@ -421,6 +422,73 @@ Other parameters are passed through a pointer to an apiClustersPostRequest struc
 
 
 
+## ClustersVersionsGet
+
+```go
+var result PostgresVersionList = ClustersVersionsGet(ctx, clusterId)
+                      .Execute()
+```
+
+Supported PostgreSQL versions of cluster
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+
+    psql "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/psql"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
+)
+
+func main() {
+    clusterId := "498ae72f-411f-11eb-9d07-046c59cc737e" // string | The unique ID of the cluster.
+
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := psql.NewAPIClient(configuration)
+    resource, resp, err := apiClient.ClustersApi.ClustersVersionsGet(context.Background(), clusterId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersVersionsGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
+    }
+    // response from `ClustersVersionsGet`: PostgresVersionList
+    fmt.Fprintf(os.Stdout, "Response from `ClustersApi.ClustersVersionsGet`: %v\n", resource)
+}
+```
+
+### Path Parameters
+
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+|**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
+|**clusterId** | **string** | The unique ID of the cluster. | |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to an apiClustersVersionsGetRequest struct via the builder pattern
+
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+
+### Return type
+
+[**PostgresVersionList**](../models/PostgresVersionList.md)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+
 ## PostgresVersionsGet
 
 ```go
@@ -428,7 +496,7 @@ var result PostgresVersionList = PostgresVersionsGet(ctx)
                       .Execute()
 ```
 
-List PostgreSQL versions
+List all PostgreSQL versions
 
 
 
