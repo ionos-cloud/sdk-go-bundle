@@ -30,7 +30,7 @@ import (
     "fmt"
     "os"
 
-    psql "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/psql"
+    psql "github.com/ionos-cloud/sdk-go-bundle/products/psql"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
