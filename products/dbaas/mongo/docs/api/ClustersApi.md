@@ -34,7 +34,7 @@ import (
     "fmt"
     "os"
 
-    mongo "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/mongo"
+    mongo "github.com/ionos-cloud/sdk-go-bundle/products/mongo"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -101,7 +101,7 @@ import (
     "fmt"
     "os"
 
-    mongo "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/mongo"
+    mongo "github.com/ionos-cloud/sdk-go-bundle/products/mongo"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -171,7 +171,7 @@ import (
     "fmt"
     "os"
 
-    mongo "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/mongo"
+    mongo "github.com/ionos-cloud/sdk-go-bundle/products/mongo"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -240,7 +240,7 @@ import (
     "fmt"
     "os"
 
-    mongo "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/mongo"
+    mongo "github.com/ionos-cloud/sdk-go-bundle/products/mongo"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -310,7 +310,7 @@ import (
     "fmt"
     "os"
 
-    mongo "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/mongo"
+    mongo "github.com/ionos-cloud/sdk-go-bundle/products/mongo"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -374,7 +374,7 @@ import (
     "fmt"
     "os"
 
-    mongo "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/mongo"
+    mongo "github.com/ionos-cloud/sdk-go-bundle/products/mongo"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
