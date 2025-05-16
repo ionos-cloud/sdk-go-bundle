@@ -221,7 +221,17 @@ func (f *FileConfig) GetOverride(productName, location string) *Endpoint {
 	if locEp := f.GetProductLocationOverrides(productName, location); locEp != nil {
 		return locEp
 	}
+
 	if prod := f.GetProductOverrides(productName); prod != nil && len(prod.Endpoints) > 0 {
+		if prod.Endpoints[0].Location != "" && prod.Endpoints[0].Location != location {
+			// Check if we actually got a location-specific endpoint (e.g. the user asked for a wrong location
+			// and GetProductOverrides returned the first location-specific endpoint)
+			if shared.SdkLogLevel.Satisfies(shared.Debug) {
+				shared.SdkLogger.Printf("[DEBUG] Retrieved location-specific (%s) override '%s' for product '%s' "+
+					"when a location-less override was expected, discarding...", location, prod.Endpoints[0].Name, productName)
+			}
+			return nil
+		}
 		return &prod.Endpoints[0]
 	}
 	return nil
