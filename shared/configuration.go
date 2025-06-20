@@ -164,9 +164,9 @@ type ClientOptions struct {
 
 // Credentials are the credentials that will be used for authentication
 type Credentials struct {
-	Username string `yaml:"username"`
-	Password string `yaml:"password"`
-	Token    string `yaml:"token"`
+	Username string `yaml:"username,omitempty"`
+	Password string `yaml:"password,omitempty"`
+	Token    string `yaml:"token,omitempty"`
 }
 
 // NewConfigurationFromOptions returns a new shared.Configuration object created from the client options
