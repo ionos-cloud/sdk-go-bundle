@@ -68,7 +68,7 @@ type Endpoint struct {
 	// Products that do not have a location and will override the endpoint that is used globally:
 	// cloud, objectstoragemanagement, kafka, dns, mongo, psql, dataplatform, creg, autoscaling, apigateway
 	// Products that have location-based endpoints: logging, monitoring, containerregistry, vpn, inmemorydb, nfs, objectstorage, mariadb
-	Location            string `yaml:"location"`
+	Location            string `yaml:"location,omitempty"`
 	Name                string `yaml:"name"`
 	SkipTLSVerify       bool   `yaml:"skipTlsVerify"`
 	CertificateAuthData string `yaml:"certificateAuthData,omitempty"`
