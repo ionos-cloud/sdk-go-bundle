@@ -105,10 +105,22 @@ type Profile struct {
 	Credentials shared.Credentials
 }
 
+// Version wraps float64 so we can control its YAML output.
+type Version float64
+
+// MarshalYAML ensures that, e.g., 1.0 is emitted as "1.0" instead of "1".
+func (v Version) MarshalYAML() (interface{}, error) {
+	return &yaml.Node{
+		Kind:  yaml.ScalarNode,
+		Tag:   "!!float",
+		Value: fmt.Sprintf("%.1f", float64(v)),
+	}, nil
+}
+
 // FileConfig is a struct that represents the loaded configuration
 type FileConfig struct {
 	// Version of the configuration
-	Version float64 `yaml:"version"`
+	Version Version `yaml:"version"`
 	// CurrentProfile active profile for configuration
 	CurrentProfile string `yaml:"currentProfile"`
 	// Profiles list of profiles
