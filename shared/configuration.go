@@ -166,7 +166,7 @@ type ClientOptions struct {
 type Credentials struct {
 	Username string `yaml:"username,omitempty"`
 	Password string `yaml:"password,omitempty"`
-	Token    string `yaml:"token,omitempty"`
+	Token    string `yaml:"token"`
 }
 
 // NewConfigurationFromOptions returns a new shared.Configuration object created from the client options
