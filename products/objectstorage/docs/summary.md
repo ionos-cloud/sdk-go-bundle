@@ -59,6 +59,7 @@
 * [ExampleCompleteMultipartUpload](models/ExampleCompleteMultipartUpload.md)
 * [ExpirationStatus](models/ExpirationStatus.md)
 * [ExpressionType](models/ExpressionType.md)
+* [Filter](models/Filter.md)
 * [GetBucketCorsOutput](models/GetBucketCorsOutput.md)
 * [GetBucketLifecycleOutput](models/GetBucketLifecycleOutput.md)
 * [GetBucketReplicationOutput](models/GetBucketReplicationOutput.md)

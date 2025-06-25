@@ -6,6 +6,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**ID** | Pointer to **string** | Unique identifier for the rule. The value can&#39;t be longer than 255 characters. | [optional] |
 |**Prefix** | **string** | Object key prefix that identifies one or more objects to which this rule applies. Replacement must be made for object keys containing special characters (such as carriage returns) when using XML requests. | |
+|**Filter** | Pointer to [**Filter**](Filter.md) |  | [optional] |
 |**Status** | [**ExpirationStatus**](ExpirationStatus.md) |  | |
 |**Expiration** | Pointer to [**LifecycleExpiration**](LifecycleExpiration.md) |  | [optional] |
 |**NoncurrentVersionExpiration** | Pointer to [**NoncurrentVersionExpiration**](NoncurrentVersionExpiration.md) |  | [optional] |
@@ -74,6 +75,31 @@ and a boolean to check if the value has been set.
 
 SetPrefix sets Prefix field to given value.
 
+
+### GetFilter
+
+`func (o *Rule) GetFilter() Filter`
+
+GetFilter returns the Filter field if non-nil, zero value otherwise.
+
+### GetFilterOk
+
+`func (o *Rule) GetFilterOk() (*Filter, bool)`
+
+GetFilterOk returns a tuple with the Filter field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFilter
+
+`func (o *Rule) SetFilter(v Filter)`
+
+SetFilter sets Filter field to given value.
+
+### HasFilter
+
+`func (o *Rule) HasFilter() bool`
+
+HasFilter returns a boolean if a field has been set.
 
 ### GetStatus
 
