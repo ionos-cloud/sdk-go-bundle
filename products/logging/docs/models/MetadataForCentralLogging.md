@@ -1,4 +1,4 @@
-# Metadata
+# MetadataForCentralLogging
 
 ## Properties
 
@@ -11,199 +11,220 @@
 |**LastModifiedBy** | Pointer to **string** | Unique name of the identity that last modified the resource. | [optional] [readonly] |
 |**LastModifiedByUserId** | Pointer to **string** | Unique id of the identity that last modified the resource. | [optional] [readonly] |
 |**ResourceURN** | Pointer to **string** | Unique name of the resource. | [optional] [readonly] |
+|**GrafanaEndpoint** | **string** | The endpoint of the Grafana instance.  | [readonly] |
 
 ## Methods
 
-### NewMetadata
+### NewMetadataForCentralLogging
 
-`func NewMetadata() *Metadata`
+`func NewMetadataForCentralLogging(grafanaEndpoint string, ) *MetadataForCentralLogging`
 
-NewMetadata instantiates a new Metadata object
+NewMetadataForCentralLogging instantiates a new MetadataForCentralLogging object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewMetadataWithDefaults
+### NewMetadataForCentralLoggingWithDefaults
 
-`func NewMetadataWithDefaults() *Metadata`
+`func NewMetadataForCentralLoggingWithDefaults() *MetadataForCentralLogging`
 
-NewMetadataWithDefaults instantiates a new Metadata object
+NewMetadataForCentralLoggingWithDefaults instantiates a new MetadataForCentralLogging object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetCreatedDate
 
-`func (o *Metadata) GetCreatedDate() time.Time`
+`func (o *MetadataForCentralLogging) GetCreatedDate() time.Time`
 
 GetCreatedDate returns the CreatedDate field if non-nil, zero value otherwise.
 
 ### GetCreatedDateOk
 
-`func (o *Metadata) GetCreatedDateOk() (*time.Time, bool)`
+`func (o *MetadataForCentralLogging) GetCreatedDateOk() (*time.Time, bool)`
 
 GetCreatedDateOk returns a tuple with the CreatedDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedDate
 
-`func (o *Metadata) SetCreatedDate(v time.Time)`
+`func (o *MetadataForCentralLogging) SetCreatedDate(v time.Time)`
 
 SetCreatedDate sets CreatedDate field to given value.
 
 ### HasCreatedDate
 
-`func (o *Metadata) HasCreatedDate() bool`
+`func (o *MetadataForCentralLogging) HasCreatedDate() bool`
 
 HasCreatedDate returns a boolean if a field has been set.
 
 ### GetCreatedBy
 
-`func (o *Metadata) GetCreatedBy() string`
+`func (o *MetadataForCentralLogging) GetCreatedBy() string`
 
 GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
 
 ### GetCreatedByOk
 
-`func (o *Metadata) GetCreatedByOk() (*string, bool)`
+`func (o *MetadataForCentralLogging) GetCreatedByOk() (*string, bool)`
 
 GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedBy
 
-`func (o *Metadata) SetCreatedBy(v string)`
+`func (o *MetadataForCentralLogging) SetCreatedBy(v string)`
 
 SetCreatedBy sets CreatedBy field to given value.
 
 ### HasCreatedBy
 
-`func (o *Metadata) HasCreatedBy() bool`
+`func (o *MetadataForCentralLogging) HasCreatedBy() bool`
 
 HasCreatedBy returns a boolean if a field has been set.
 
 ### GetCreatedByUserId
 
-`func (o *Metadata) GetCreatedByUserId() string`
+`func (o *MetadataForCentralLogging) GetCreatedByUserId() string`
 
 GetCreatedByUserId returns the CreatedByUserId field if non-nil, zero value otherwise.
 
 ### GetCreatedByUserIdOk
 
-`func (o *Metadata) GetCreatedByUserIdOk() (*string, bool)`
+`func (o *MetadataForCentralLogging) GetCreatedByUserIdOk() (*string, bool)`
 
 GetCreatedByUserIdOk returns a tuple with the CreatedByUserId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedByUserId
 
-`func (o *Metadata) SetCreatedByUserId(v string)`
+`func (o *MetadataForCentralLogging) SetCreatedByUserId(v string)`
 
 SetCreatedByUserId sets CreatedByUserId field to given value.
 
 ### HasCreatedByUserId
 
-`func (o *Metadata) HasCreatedByUserId() bool`
+`func (o *MetadataForCentralLogging) HasCreatedByUserId() bool`
 
 HasCreatedByUserId returns a boolean if a field has been set.
 
 ### GetLastModifiedDate
 
-`func (o *Metadata) GetLastModifiedDate() time.Time`
+`func (o *MetadataForCentralLogging) GetLastModifiedDate() time.Time`
 
 GetLastModifiedDate returns the LastModifiedDate field if non-nil, zero value otherwise.
 
 ### GetLastModifiedDateOk
 
-`func (o *Metadata) GetLastModifiedDateOk() (*time.Time, bool)`
+`func (o *MetadataForCentralLogging) GetLastModifiedDateOk() (*time.Time, bool)`
 
 GetLastModifiedDateOk returns a tuple with the LastModifiedDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastModifiedDate
 
-`func (o *Metadata) SetLastModifiedDate(v time.Time)`
+`func (o *MetadataForCentralLogging) SetLastModifiedDate(v time.Time)`
 
 SetLastModifiedDate sets LastModifiedDate field to given value.
 
 ### HasLastModifiedDate
 
-`func (o *Metadata) HasLastModifiedDate() bool`
+`func (o *MetadataForCentralLogging) HasLastModifiedDate() bool`
 
 HasLastModifiedDate returns a boolean if a field has been set.
 
 ### GetLastModifiedBy
 
-`func (o *Metadata) GetLastModifiedBy() string`
+`func (o *MetadataForCentralLogging) GetLastModifiedBy() string`
 
 GetLastModifiedBy returns the LastModifiedBy field if non-nil, zero value otherwise.
 
 ### GetLastModifiedByOk
 
-`func (o *Metadata) GetLastModifiedByOk() (*string, bool)`
+`func (o *MetadataForCentralLogging) GetLastModifiedByOk() (*string, bool)`
 
 GetLastModifiedByOk returns a tuple with the LastModifiedBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastModifiedBy
 
-`func (o *Metadata) SetLastModifiedBy(v string)`
+`func (o *MetadataForCentralLogging) SetLastModifiedBy(v string)`
 
 SetLastModifiedBy sets LastModifiedBy field to given value.
 
 ### HasLastModifiedBy
 
-`func (o *Metadata) HasLastModifiedBy() bool`
+`func (o *MetadataForCentralLogging) HasLastModifiedBy() bool`
 
 HasLastModifiedBy returns a boolean if a field has been set.
 
 ### GetLastModifiedByUserId
 
-`func (o *Metadata) GetLastModifiedByUserId() string`
+`func (o *MetadataForCentralLogging) GetLastModifiedByUserId() string`
 
 GetLastModifiedByUserId returns the LastModifiedByUserId field if non-nil, zero value otherwise.
 
 ### GetLastModifiedByUserIdOk
 
-`func (o *Metadata) GetLastModifiedByUserIdOk() (*string, bool)`
+`func (o *MetadataForCentralLogging) GetLastModifiedByUserIdOk() (*string, bool)`
 
 GetLastModifiedByUserIdOk returns a tuple with the LastModifiedByUserId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastModifiedByUserId
 
-`func (o *Metadata) SetLastModifiedByUserId(v string)`
+`func (o *MetadataForCentralLogging) SetLastModifiedByUserId(v string)`
 
 SetLastModifiedByUserId sets LastModifiedByUserId field to given value.
 
 ### HasLastModifiedByUserId
 
-`func (o *Metadata) HasLastModifiedByUserId() bool`
+`func (o *MetadataForCentralLogging) HasLastModifiedByUserId() bool`
 
 HasLastModifiedByUserId returns a boolean if a field has been set.
 
 ### GetResourceURN
 
-`func (o *Metadata) GetResourceURN() string`
+`func (o *MetadataForCentralLogging) GetResourceURN() string`
 
 GetResourceURN returns the ResourceURN field if non-nil, zero value otherwise.
 
 ### GetResourceURNOk
 
-`func (o *Metadata) GetResourceURNOk() (*string, bool)`
+`func (o *MetadataForCentralLogging) GetResourceURNOk() (*string, bool)`
 
 GetResourceURNOk returns a tuple with the ResourceURN field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResourceURN
 
-`func (o *Metadata) SetResourceURN(v string)`
+`func (o *MetadataForCentralLogging) SetResourceURN(v string)`
 
 SetResourceURN sets ResourceURN field to given value.
 
 ### HasResourceURN
 
-`func (o *Metadata) HasResourceURN() bool`
+`func (o *MetadataForCentralLogging) HasResourceURN() bool`
 
 HasResourceURN returns a boolean if a field has been set.
+
+### GetGrafanaEndpoint
+
+`func (o *MetadataForCentralLogging) GetGrafanaEndpoint() string`
+
+GetGrafanaEndpoint returns the GrafanaEndpoint field if non-nil, zero value otherwise.
+
+### GetGrafanaEndpointOk
+
+`func (o *MetadataForCentralLogging) GetGrafanaEndpointOk() (*string, bool)`
+
+GetGrafanaEndpointOk returns a tuple with the GrafanaEndpoint field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGrafanaEndpoint
+
+`func (o *MetadataForCentralLogging) SetGrafanaEndpoint(v string)`
+
+SetGrafanaEndpoint sets GrafanaEndpoint field to given value.
+
 
 

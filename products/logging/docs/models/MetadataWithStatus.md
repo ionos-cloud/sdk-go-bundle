@@ -1,4 +1,4 @@
-# Metadata
+# MetadataWithStatus
 
 ## Properties
 
@@ -11,199 +11,220 @@
 |**LastModifiedBy** | Pointer to **string** | Unique name of the identity that last modified the resource. | [optional] [readonly] |
 |**LastModifiedByUserId** | Pointer to **string** | Unique id of the identity that last modified the resource. | [optional] [readonly] |
 |**ResourceURN** | Pointer to **string** | Unique name of the resource. | [optional] [readonly] |
+|**State** | **string** | The status of the object. The status can be: * &#x60;AVAILABLE&#x60; - resource exists and is healthy. * &#x60;PROVISIONING&#x60; - resource is being created or updated. * &#x60;DESTROYING&#x60; - delete command was issued, the resource is being deleted. * &#x60;FAILED&#x60; - resource failed, details in &#x60;failureMessage&#x60;.  | [readonly] |
 
 ## Methods
 
-### NewMetadata
+### NewMetadataWithStatus
 
-`func NewMetadata() *Metadata`
+`func NewMetadataWithStatus(state string, ) *MetadataWithStatus`
 
-NewMetadata instantiates a new Metadata object
+NewMetadataWithStatus instantiates a new MetadataWithStatus object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewMetadataWithDefaults
+### NewMetadataWithStatusWithDefaults
 
-`func NewMetadataWithDefaults() *Metadata`
+`func NewMetadataWithStatusWithDefaults() *MetadataWithStatus`
 
-NewMetadataWithDefaults instantiates a new Metadata object
+NewMetadataWithStatusWithDefaults instantiates a new MetadataWithStatus object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetCreatedDate
 
-`func (o *Metadata) GetCreatedDate() time.Time`
+`func (o *MetadataWithStatus) GetCreatedDate() time.Time`
 
 GetCreatedDate returns the CreatedDate field if non-nil, zero value otherwise.
 
 ### GetCreatedDateOk
 
-`func (o *Metadata) GetCreatedDateOk() (*time.Time, bool)`
+`func (o *MetadataWithStatus) GetCreatedDateOk() (*time.Time, bool)`
 
 GetCreatedDateOk returns a tuple with the CreatedDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedDate
 
-`func (o *Metadata) SetCreatedDate(v time.Time)`
+`func (o *MetadataWithStatus) SetCreatedDate(v time.Time)`
 
 SetCreatedDate sets CreatedDate field to given value.
 
 ### HasCreatedDate
 
-`func (o *Metadata) HasCreatedDate() bool`
+`func (o *MetadataWithStatus) HasCreatedDate() bool`
 
 HasCreatedDate returns a boolean if a field has been set.
 
 ### GetCreatedBy
 
-`func (o *Metadata) GetCreatedBy() string`
+`func (o *MetadataWithStatus) GetCreatedBy() string`
 
 GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
 
 ### GetCreatedByOk
 
-`func (o *Metadata) GetCreatedByOk() (*string, bool)`
+`func (o *MetadataWithStatus) GetCreatedByOk() (*string, bool)`
 
 GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedBy
 
-`func (o *Metadata) SetCreatedBy(v string)`
+`func (o *MetadataWithStatus) SetCreatedBy(v string)`
 
 SetCreatedBy sets CreatedBy field to given value.
 
 ### HasCreatedBy
 
-`func (o *Metadata) HasCreatedBy() bool`
+`func (o *MetadataWithStatus) HasCreatedBy() bool`
 
 HasCreatedBy returns a boolean if a field has been set.
 
 ### GetCreatedByUserId
 
-`func (o *Metadata) GetCreatedByUserId() string`
+`func (o *MetadataWithStatus) GetCreatedByUserId() string`
 
 GetCreatedByUserId returns the CreatedByUserId field if non-nil, zero value otherwise.
 
 ### GetCreatedByUserIdOk
 
-`func (o *Metadata) GetCreatedByUserIdOk() (*string, bool)`
+`func (o *MetadataWithStatus) GetCreatedByUserIdOk() (*string, bool)`
 
 GetCreatedByUserIdOk returns a tuple with the CreatedByUserId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedByUserId
 
-`func (o *Metadata) SetCreatedByUserId(v string)`
+`func (o *MetadataWithStatus) SetCreatedByUserId(v string)`
 
 SetCreatedByUserId sets CreatedByUserId field to given value.
 
 ### HasCreatedByUserId
 
-`func (o *Metadata) HasCreatedByUserId() bool`
+`func (o *MetadataWithStatus) HasCreatedByUserId() bool`
 
 HasCreatedByUserId returns a boolean if a field has been set.
 
 ### GetLastModifiedDate
 
-`func (o *Metadata) GetLastModifiedDate() time.Time`
+`func (o *MetadataWithStatus) GetLastModifiedDate() time.Time`
 
 GetLastModifiedDate returns the LastModifiedDate field if non-nil, zero value otherwise.
 
 ### GetLastModifiedDateOk
 
-`func (o *Metadata) GetLastModifiedDateOk() (*time.Time, bool)`
+`func (o *MetadataWithStatus) GetLastModifiedDateOk() (*time.Time, bool)`
 
 GetLastModifiedDateOk returns a tuple with the LastModifiedDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastModifiedDate
 
-`func (o *Metadata) SetLastModifiedDate(v time.Time)`
+`func (o *MetadataWithStatus) SetLastModifiedDate(v time.Time)`
 
 SetLastModifiedDate sets LastModifiedDate field to given value.
 
 ### HasLastModifiedDate
 
-`func (o *Metadata) HasLastModifiedDate() bool`
+`func (o *MetadataWithStatus) HasLastModifiedDate() bool`
 
 HasLastModifiedDate returns a boolean if a field has been set.
 
 ### GetLastModifiedBy
 
-`func (o *Metadata) GetLastModifiedBy() string`
+`func (o *MetadataWithStatus) GetLastModifiedBy() string`
 
 GetLastModifiedBy returns the LastModifiedBy field if non-nil, zero value otherwise.
 
 ### GetLastModifiedByOk
 
-`func (o *Metadata) GetLastModifiedByOk() (*string, bool)`
+`func (o *MetadataWithStatus) GetLastModifiedByOk() (*string, bool)`
 
 GetLastModifiedByOk returns a tuple with the LastModifiedBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastModifiedBy
 
-`func (o *Metadata) SetLastModifiedBy(v string)`
+`func (o *MetadataWithStatus) SetLastModifiedBy(v string)`
 
 SetLastModifiedBy sets LastModifiedBy field to given value.
 
 ### HasLastModifiedBy
 
-`func (o *Metadata) HasLastModifiedBy() bool`
+`func (o *MetadataWithStatus) HasLastModifiedBy() bool`
 
 HasLastModifiedBy returns a boolean if a field has been set.
 
 ### GetLastModifiedByUserId
 
-`func (o *Metadata) GetLastModifiedByUserId() string`
+`func (o *MetadataWithStatus) GetLastModifiedByUserId() string`
 
 GetLastModifiedByUserId returns the LastModifiedByUserId field if non-nil, zero value otherwise.
 
 ### GetLastModifiedByUserIdOk
 
-`func (o *Metadata) GetLastModifiedByUserIdOk() (*string, bool)`
+`func (o *MetadataWithStatus) GetLastModifiedByUserIdOk() (*string, bool)`
 
 GetLastModifiedByUserIdOk returns a tuple with the LastModifiedByUserId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastModifiedByUserId
 
-`func (o *Metadata) SetLastModifiedByUserId(v string)`
+`func (o *MetadataWithStatus) SetLastModifiedByUserId(v string)`
 
 SetLastModifiedByUserId sets LastModifiedByUserId field to given value.
 
 ### HasLastModifiedByUserId
 
-`func (o *Metadata) HasLastModifiedByUserId() bool`
+`func (o *MetadataWithStatus) HasLastModifiedByUserId() bool`
 
 HasLastModifiedByUserId returns a boolean if a field has been set.
 
 ### GetResourceURN
 
-`func (o *Metadata) GetResourceURN() string`
+`func (o *MetadataWithStatus) GetResourceURN() string`
 
 GetResourceURN returns the ResourceURN field if non-nil, zero value otherwise.
 
 ### GetResourceURNOk
 
-`func (o *Metadata) GetResourceURNOk() (*string, bool)`
+`func (o *MetadataWithStatus) GetResourceURNOk() (*string, bool)`
 
 GetResourceURNOk returns a tuple with the ResourceURN field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResourceURN
 
-`func (o *Metadata) SetResourceURN(v string)`
+`func (o *MetadataWithStatus) SetResourceURN(v string)`
 
 SetResourceURN sets ResourceURN field to given value.
 
 ### HasResourceURN
 
-`func (o *Metadata) HasResourceURN() bool`
+`func (o *MetadataWithStatus) HasResourceURN() bool`
 
 HasResourceURN returns a boolean if a field has been set.
+
+### GetState
+
+`func (o *MetadataWithStatus) GetState() string`
+
+GetState returns the State field if non-nil, zero value otherwise.
+
+### GetStateOk
+
+`func (o *MetadataWithStatus) GetStateOk() (*string, bool)`
+
+GetStateOk returns a tuple with the State field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetState
+
+`func (o *MetadataWithStatus) SetState(v string)`
+
+SetState sets State field to given value.
+
 
 

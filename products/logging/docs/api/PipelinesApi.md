@@ -1,26 +1,25 @@
 # \PipelinesApi
 
-All URIs are relative to *https://logging.de-txl.ionos.com*
+All URIs are relative to *https://logging.de-fra.ionos.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**PipelinesDelete**](PipelinesApi.md#PipelinesDelete) | **Delete** /pipelines/{pipelineId} | Delete a pipeline|
-|[**PipelinesFindById**](PipelinesApi.md#PipelinesFindById) | **Get** /pipelines/{pipelineId} | Fetch a pipeline|
-|[**PipelinesGet**](PipelinesApi.md#PipelinesGet) | **Get** /pipelines | List pipelines|
-|[**PipelinesKeyPost**](PipelinesApi.md#PipelinesKeyPost) | **Post** /pipelines/{pipelineId}/key | Renews the key of a Pipeline|
-|[**PipelinesPatch**](PipelinesApi.md#PipelinesPatch) | **Patch** /pipelines/{pipelineId} | Patch a pipeline|
-|[**PipelinesPost**](PipelinesApi.md#PipelinesPost) | **Post** /pipelines | Create a pipeline|
+|[**PipelinesDelete**](PipelinesApi.md#PipelinesDelete) | **Delete** /pipelines/{pipelineId} | Delete Pipeline|
+|[**PipelinesFindById**](PipelinesApi.md#PipelinesFindById) | **Get** /pipelines/{pipelineId} | Retrieve Pipeline|
+|[**PipelinesGet**](PipelinesApi.md#PipelinesGet) | **Get** /pipelines | Retrieve all Pipelines|
+|[**PipelinesPatch**](PipelinesApi.md#PipelinesPatch) | **Patch** /pipelines/{pipelineId} | Updates Pipeline|
+|[**PipelinesPost**](PipelinesApi.md#PipelinesPost) | **Post** /pipelines | Create Pipeline|
 
 
 
 ## PipelinesDelete
 
 ```go
-var result DeletedPipeline = PipelinesDelete(ctx, pipelineId)
+var result  = PipelinesDelete(ctx, pipelineId)
                       .Execute()
 ```
 
-Delete a pipeline
+Delete Pipeline
 
 
 
@@ -39,7 +38,7 @@ import (
 )
 
 func main() {
-    pipelineId := "pipelineId_example" // string | The unique ID of the pipeline
+    pipelineId := "f72521ba-1590-5998-bf96-6eb997a5887d" // string | The ID (UUID) of the Pipeline.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := logging.NewAPIClient(configuration)
@@ -48,8 +47,6 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `PipelinesApi.PipelinesDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
-    // response from `PipelinesDelete`: DeletedPipeline
-    fmt.Fprintf(os.Stdout, "Response from `PipelinesApi.PipelinesDelete`: %v\n", resource)
 }
 ```
 
@@ -59,7 +56,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**pipelineId** | **string** | The unique ID of the pipeline | |
+|**pipelineId** | **string** | The ID (UUID) of the Pipeline. | |
 
 ### Other Parameters
 
@@ -71,7 +68,7 @@ Other parameters are passed through a pointer to an apiPipelinesDeleteRequest st
 
 ### Return type
 
-[**DeletedPipeline**](../models/DeletedPipeline.md)
+ (empty response body)
 
 ### HTTP request headers
 
@@ -83,11 +80,11 @@ Other parameters are passed through a pointer to an apiPipelinesDeleteRequest st
 ## PipelinesFindById
 
 ```go
-var result Pipeline = PipelinesFindById(ctx, pipelineId)
+var result PipelineRead = PipelinesFindById(ctx, pipelineId)
                       .Execute()
 ```
 
-Fetch a pipeline
+Retrieve Pipeline
 
 
 
@@ -106,7 +103,7 @@ import (
 )
 
 func main() {
-    pipelineId := "pipelineId_example" // string | The unique ID of the pipeline
+    pipelineId := "f72521ba-1590-5998-bf96-6eb997a5887d" // string | The ID (UUID) of the Pipeline.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := logging.NewAPIClient(configuration)
@@ -115,7 +112,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `PipelinesApi.PipelinesFindById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
-    // response from `PipelinesFindById`: Pipeline
+    // response from `PipelinesFindById`: PipelineRead
     fmt.Fprintf(os.Stdout, "Response from `PipelinesApi.PipelinesFindById`: %v\n", resource)
 }
 ```
@@ -126,7 +123,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**pipelineId** | **string** | The unique ID of the pipeline | |
+|**pipelineId** | **string** | The ID (UUID) of the Pipeline. | |
 
 ### Other Parameters
 
@@ -138,7 +135,7 @@ Other parameters are passed through a pointer to an apiPipelinesFindByIdRequest 
 
 ### Return type
 
-[**Pipeline**](../models/Pipeline.md)
+[**PipelineRead**](../models/PipelineRead.md)
 
 ### HTTP request headers
 
@@ -150,14 +147,14 @@ Other parameters are passed through a pointer to an apiPipelinesFindByIdRequest 
 ## PipelinesGet
 
 ```go
-var result PipelineListResponse = PipelinesGet(ctx)
-                      .Limit(limit)
+var result PipelineReadList = PipelinesGet(ctx)
                       .Offset(offset)
+                      .Limit(limit)
                       .OrderBy(orderBy)
                       .Execute()
 ```
 
-List pipelines
+Retrieve all Pipelines
 
 
 
@@ -176,18 +173,18 @@ import (
 )
 
 func main() {
-    limit := int32(56) // int32 | the maximum number of elements to return (use together with offset for pagination). Default to 100 (optional) (default to 0)
-    offset := int32(56) // int32 | the first element (of the total list of elements) to include in the response (use together with limit for pagination). Default to 0 (optional) (default to 1)
-    orderBy := "orderBy_example" // string | Sorts the results alphanumerically in ascending order based on the specified property (optional)
+    offset := int32(0) // int32 | The first element (of the total list of elements) to include in the response. Use this parameter together with the limit for pagination. (optional) (default to 0)
+    limit := int32(100) // int32 | The maximum number of elements to return. Use this parameter together with the offset for pagination. (optional) (default to 100)
+    orderBy := "orderBy_example" // string | The field to order the results by. If not provided, the results will be ordered by the default field. (optional) (default to "-createdDate")
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := logging.NewAPIClient(configuration)
-    resource, resp, err := apiClient.PipelinesApi.PipelinesGet(context.Background()).Limit(limit).Offset(offset).OrderBy(orderBy).Execute()
+    resource, resp, err := apiClient.PipelinesApi.PipelinesGet(context.Background()).Offset(offset).Limit(limit).OrderBy(orderBy).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PipelinesApi.PipelinesGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
-    // response from `PipelinesGet`: PipelineListResponse
+    // response from `PipelinesGet`: PipelineReadList
     fmt.Fprintf(os.Stdout, "Response from `PipelinesApi.PipelinesGet`: %v\n", resource)
 }
 ```
@@ -203,80 +200,13 @@ Other parameters are passed through a pointer to an apiPipelinesGetRequest struc
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **limit** | **int32** | the maximum number of elements to return (use together with offset for pagination). Default to 100 | [default to 0]|
-| **offset** | **int32** | the first element (of the total list of elements) to include in the response (use together with limit for pagination). Default to 0 | [default to 1]|
-| **orderBy** | **string** | Sorts the results alphanumerically in ascending order based on the specified property | |
+| **offset** | **int32** | The first element (of the total list of elements) to include in the response. Use this parameter together with the limit for pagination. | [default to 0]|
+| **limit** | **int32** | The maximum number of elements to return. Use this parameter together with the offset for pagination. | [default to 100]|
+| **orderBy** | **string** | The field to order the results by. If not provided, the results will be ordered by the default field. | [default to &quot;-createdDate&quot;]|
 
 ### Return type
 
-[**PipelineListResponse**](../models/PipelineListResponse.md)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-
-## PipelinesKeyPost
-
-```go
-var result PipelinesKeyPost200Response = PipelinesKeyPost(ctx, pipelineId)
-                      .Execute()
-```
-
-Renews the key of a Pipeline
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-
-    logging "github.com/ionos-cloud/sdk-go-bundle/products/logging"
-    "github.com/ionos-cloud/sdk-go-bundle/shared"
-)
-
-func main() {
-    pipelineId := "pipelineId_example" // string | The unique ID of the pipeline
-
-    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
-    apiClient := logging.NewAPIClient(configuration)
-    resource, resp, err := apiClient.PipelinesApi.PipelinesKeyPost(context.Background(), pipelineId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PipelinesApi.PipelinesKeyPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
-    }
-    // response from `PipelinesKeyPost`: PipelinesKeyPost200Response
-    fmt.Fprintf(os.Stdout, "Response from `PipelinesApi.PipelinesKeyPost`: %v\n", resource)
-}
-```
-
-### Path Parameters
-
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-|**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**pipelineId** | **string** | The unique ID of the pipeline | |
-
-### Other Parameters
-
-Other parameters are passed through a pointer to an apiPipelinesKeyPostRequest struct via the builder pattern
-
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-
-### Return type
-
-[**PipelinesKeyPost200Response**](../models/PipelinesKeyPost200Response.md)
+[**PipelineReadList**](../models/PipelineReadList.md)
 
 ### HTTP request headers
 
@@ -288,12 +218,12 @@ Other parameters are passed through a pointer to an apiPipelinesKeyPostRequest s
 ## PipelinesPatch
 
 ```go
-var result Pipeline = PipelinesPatch(ctx, pipelineId)
-                      .Pipeline(pipeline)
+var result PipelineRead = PipelinesPatch(ctx, pipelineId)
+                      .PipelinePatch(pipelinePatch)
                       .Execute()
 ```
 
-Patch a pipeline
+Updates Pipeline
 
 
 
@@ -312,17 +242,17 @@ import (
 )
 
 func main() {
-    pipelineId := "pipelineId_example" // string | The unique ID of the pipeline
-    pipeline := *openapiclient.NewPipelinePatch(*openapiclient.NewPipelinePatchProperties()) // PipelinePatch | The modified pipeline.
+    pipelineId := "f72521ba-1590-5998-bf96-6eb997a5887d" // string | The ID (UUID) of the Pipeline.
+    pipelinePatch := *openapiclient.NewPipelinePatch(*openapiclient.NewPipelineNoAddr("Pipeline1")) // PipelinePatch | patch Pipeline
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := logging.NewAPIClient(configuration)
-    resource, resp, err := apiClient.PipelinesApi.PipelinesPatch(context.Background(), pipelineId).Pipeline(pipeline).Execute()
+    resource, resp, err := apiClient.PipelinesApi.PipelinesPatch(context.Background(), pipelineId).PipelinePatch(pipelinePatch).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PipelinesApi.PipelinesPatch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
-    // response from `PipelinesPatch`: Pipeline
+    // response from `PipelinesPatch`: PipelineRead
     fmt.Fprintf(os.Stdout, "Response from `PipelinesApi.PipelinesPatch`: %v\n", resource)
 }
 ```
@@ -333,7 +263,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**pipelineId** | **string** | The unique ID of the pipeline | |
+|**pipelineId** | **string** | The ID (UUID) of the Pipeline. | |
 
 ### Other Parameters
 
@@ -342,11 +272,11 @@ Other parameters are passed through a pointer to an apiPipelinesPatchRequest str
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **pipeline** | [**PipelinePatch**](../models/PipelinePatch.md) | The modified pipeline. | |
+| **pipelinePatch** | [**PipelinePatch**](../models/PipelinePatch.md) | patch Pipeline | |
 
 ### Return type
 
-[**Pipeline**](../models/Pipeline.md)
+[**PipelineRead**](../models/PipelineRead.md)
 
 ### HTTP request headers
 
@@ -358,12 +288,12 @@ Other parameters are passed through a pointer to an apiPipelinesPatchRequest str
 ## PipelinesPost
 
 ```go
-var result ProvisioningPipeline = PipelinesPost(ctx)
-                      .Pipeline(pipeline)
+var result PipelineRead = PipelinesPost(ctx)
+                      .PipelineCreate(pipelineCreate)
                       .Execute()
 ```
 
-Create a pipeline
+Create Pipeline
 
 
 
@@ -382,16 +312,16 @@ import (
 )
 
 func main() {
-    pipeline := *openapiclient.NewPipelineCreate(*openapiclient.NewPipelineCreateProperties("Name_example", []openapiclient.PipelineCreatePropertiesLogs{*openapiclient.NewPipelineCreatePropertiesLogs()})) // PipelineCreate | The pipeline to be created.
+    pipelineCreate := *openapiclient.NewPipelineCreate(*openapiclient.NewPipelineNoAddr("Pipeline1")) // PipelineCreate | Pipeline to create.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := logging.NewAPIClient(configuration)
-    resource, resp, err := apiClient.PipelinesApi.PipelinesPost(context.Background()).Pipeline(pipeline).Execute()
+    resource, resp, err := apiClient.PipelinesApi.PipelinesPost(context.Background()).PipelineCreate(pipelineCreate).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PipelinesApi.PipelinesPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
-    // response from `PipelinesPost`: ProvisioningPipeline
+    // response from `PipelinesPost`: PipelineRead
     fmt.Fprintf(os.Stdout, "Response from `PipelinesApi.PipelinesPost`: %v\n", resource)
 }
 ```
@@ -407,11 +337,11 @@ Other parameters are passed through a pointer to an apiPipelinesPostRequest stru
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **pipeline** | [**PipelineCreate**](../models/PipelineCreate.md) | The pipeline to be created. | |
+| **pipelineCreate** | [**PipelineCreate**](../models/PipelineCreate.md) | Pipeline to create. | |
 
 ### Return type
 
-[**ProvisioningPipeline**](../models/ProvisioningPipeline.md)
+[**PipelineRead**](../models/PipelineRead.md)
 
 ### HTTP request headers
 
