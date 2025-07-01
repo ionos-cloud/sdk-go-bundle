@@ -1,0 +1,223 @@
+# \CORSApi
+
+All URIs are relative to *https://s3.eu-central-1.ionoscloud.com*
+
+|Method | HTTP request | Description|
+|------------- | ------------- | -------------|
+|[**DeleteBucketCors**](CORSApi.md#DeleteBucketCors) | **Delete** /{Bucket}?cors | DeleteBucketCors|
+|[**GetBucketCors**](CORSApi.md#GetBucketCors) | **Get** /{Bucket}?cors | GetBucketCors|
+|[**PutBucketCors**](CORSApi.md#PutBucketCors) | **Put** /{Bucket}?cors | PutBucketCors|
+
+
+
+## DeleteBucketCors
+
+```go
+var result  = DeleteBucketCors(ctx, bucket)
+                      .Cors(cors)
+                      .Execute()
+```
+
+DeleteBucketCors
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+
+    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/products/userobjectstorage"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
+)
+
+func main() {
+    bucket := "bucket_example" // string | 
+    cors := true // bool | 
+
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := userobjectstorage.NewAPIClient(configuration)
+    resource, resp, err := apiClient.CORSApi.DeleteBucketCors(context.Background(), bucket).Cors(cors).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CORSApi.DeleteBucketCors``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
+    }
+}
+```
+
+### Path Parameters
+
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+|**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
+|**bucket** | **string** |  | |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to an apiDeleteBucketCorsRequest struct via the builder pattern
+
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **cors** | **bool** |  | |
+
+### Return type
+
+ (empty response body)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+
+
+## GetBucketCors
+
+```go
+var result GetBucketCorsOutput = GetBucketCors(ctx, bucket)
+                      .Cors(cors)
+                      .Execute()
+```
+
+GetBucketCors
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+
+    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/products/userobjectstorage"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
+)
+
+func main() {
+    bucket := "bucket_example" // string | 
+    cors := true // bool | 
+
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := userobjectstorage.NewAPIClient(configuration)
+    resource, resp, err := apiClient.CORSApi.GetBucketCors(context.Background(), bucket).Cors(cors).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CORSApi.GetBucketCors``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
+    }
+    // response from `GetBucketCors`: GetBucketCorsOutput
+    fmt.Fprintf(os.Stdout, "Response from `CORSApi.GetBucketCors`: %v\n", resource)
+}
+```
+
+### Path Parameters
+
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+|**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
+|**bucket** | **string** |  | |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to an apiGetBucketCorsRequest struct via the builder pattern
+
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **cors** | **bool** |  | |
+
+### Return type
+
+[**GetBucketCorsOutput**](../models/GetBucketCorsOutput.md)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/xml
+
+
+
+## PutBucketCors
+
+```go
+var result  = PutBucketCors(ctx, bucket)
+                      .Cors(cors)
+                      .PutBucketCorsRequest(putBucketCorsRequest)
+                      .ContentMD5(contentMD5)
+                      .Execute()
+```
+
+PutBucketCors
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+
+    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/products/userobjectstorage"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
+)
+
+func main() {
+    bucket := "bucket_example" // string | 
+    cors := true // bool | 
+    putBucketCorsRequest := *openapiclient.NewPutBucketCorsRequest(*openapiclient.NewPutBucketCorsRequestCORSConfiguration()) // PutBucketCorsRequest | 
+    contentMD5 := "contentMD5_example" // string |  (optional)
+
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := userobjectstorage.NewAPIClient(configuration)
+    resource, resp, err := apiClient.CORSApi.PutBucketCors(context.Background(), bucket).Cors(cors).PutBucketCorsRequest(putBucketCorsRequest).ContentMD5(contentMD5).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CORSApi.PutBucketCors``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
+    }
+}
+```
+
+### Path Parameters
+
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+|**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
+|**bucket** | **string** |  | |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to an apiPutBucketCorsRequest struct via the builder pattern
+
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **cors** | **bool** |  | |
+| **putBucketCorsRequest** | [**PutBucketCorsRequest**](../models/PutBucketCorsRequest.md) |  | |
+| **contentMD5** | **string** |  | |
+
+### Return type
+
+ (empty response body)
+
+### HTTP request headers
+
+- **Content-Type**: application/xml
+- **Accept**: Not defined
+
+
