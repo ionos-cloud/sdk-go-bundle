@@ -5,16 +5,21 @@
 package shared
 
 import (
+	"bytes"
 	"context"
 	"crypto/tls"
 	"crypto/x509"
 	"fmt"
+	"io"
 	"net"
 	"net/http"
 	"net/url"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/aws/aws-sdk-go/aws/credentials"
+	awsv4 "github.com/aws/aws-sdk-go/aws/signer/v4"
 )
 
 var DefaultIonosBasePath = ""
@@ -28,6 +33,8 @@ const (
 	IonosLogLevelEnvVar       = "IONOS_LOG_LEVEL"
 	IonosFilePathEnvVar       = "IONOS_CONFIG_FILE"
 	IonosCurrentProfileEnvVar = "IONOS_CURRENT_PROFILE"
+	IonosS3AccessKeyEnvVar    = "IONOS_S3_ACCESS_KEY"
+	IonosS3SecretKeyEnvVar    = "IONOS_S3_SECRET_KEY"
 	DefaultIonosServerUrl     = "https://api.ionos.com/"
 
 	defaultMaxRetries   = 3
@@ -104,6 +111,15 @@ type ServerConfiguration struct {
 // ServerConfigurations stores multiple ServerConfiguration items
 type ServerConfigurations []ServerConfiguration
 
+// MiddlewareFunction provides way to implement custom middleware in the prepareRequest
+type MiddlewareFunction func(*http.Request)
+
+// MiddlewareFunctionWithError provides way to implement custom middleware with errors in the prepareRequest
+type MiddlewareFunctionWithError func(*http.Request) error
+
+// ResponseMiddlewareFunction provides way to implement custom middleware with errors after the response is received
+type ResponseMiddlewareFunction func(*http.Response, []byte) error
+
 // Configuration stores the configuration of the API client
 type Configuration struct {
 	Host               string            `json:"host,omitempty"`
@@ -121,6 +137,10 @@ type Configuration struct {
 	WaitTime           time.Duration `json:"waitTime,omitempty"`
 	MaxWaitTime        time.Duration `json:"maxWaitTime,omitempty"`
 	PollInterval       time.Duration `json:"pollInterval,omitempty"`
+
+	Middleware          MiddlewareFunction          `json:"-"`
+	MiddlewareWithError MiddlewareFunctionWithError `json:"-"`
+	ResponseMiddleware  ResponseMiddlewareFunction  `json:"-"`
 }
 
 // NewConfiguration returns a new shared.Configuration object
@@ -164,9 +184,11 @@ type ClientOptions struct {
 
 // Credentials are the credentials that will be used for authentication
 type Credentials struct {
-	Username string `yaml:"username,omitempty"`
-	Password string `yaml:"password,omitempty"`
-	Token    string `yaml:"token"`
+	Username    string `yaml:"username,omitempty"`
+	Password    string `yaml:"password,omitempty"`
+	Token       string `yaml:"token"`
+	S3AccessKey string `yaml:"s3AccessKey"`
+	S3SecretKey string `yaml:"s3SecretKey"`
 }
 
 // NewConfigurationFromOptions returns a new shared.Configuration object created from the client options
@@ -238,11 +260,11 @@ func (sc ServerConfigurations) URL(index int, variables map[string]string) (stri
 		return "", fmt.Errorf("index %v out of range %v", index, len(sc)-1)
 	}
 	server := sc[index]
-	url := server.URL
-	if !strings.Contains(url, "http://") && !strings.Contains(url, "https://") {
+	serverUrl := server.URL
+	if !strings.Contains(serverUrl, "http://") && !strings.Contains(serverUrl, "https://") {
 		return "", fmt.Errorf(
-			"the URL provided appears to be missing the protocol scheme prefix (\"https://\" or \"http://\"), please verify and try again: %s",
-			url,
+			"the URL you provided appears to be missing the protocol scheme prefix (\"https://\" or \"http://\"), please verify and try again: %s",
+			serverUrl,
 		)
 	}
 
@@ -256,14 +278,17 @@ func (sc ServerConfigurations) URL(index int, variables map[string]string) (stri
 				}
 			}
 			if !found {
-				return "", fmt.Errorf("the variable %s in the server URL has invalid value %v. Must be %v", name, value, variable.EnumValues)
+				return "", fmt.Errorf(
+					"the variable %s in the server URL has invalid value %v. Must be %v", name, value,
+					variable.EnumValues,
+				)
 			}
-			url = strings.Replace(url, "{"+name+"}", value, -1)
+			serverUrl = strings.Replace(serverUrl, "{"+name+"}", value, -1)
 		} else {
-			url = strings.Replace(url, "{"+name+"}", variable.DefaultValue, -1)
+			serverUrl = strings.Replace(serverUrl, "{"+name+"}", variable.DefaultValue, -1)
 		}
 	}
-	return url, nil
+	return EnsureURLFormat(serverUrl), nil
 }
 
 // ServerURL returns URL based on server settings
@@ -308,7 +333,9 @@ func getServerVariables(ctx context.Context) (map[string]string, error) {
 		if variables, ok := sv.(map[string]string); ok {
 			return variables, nil
 		}
-		return nil, reportError("ctx value of ContextServerVariables has invalid type %T should be map[string]string", sv)
+		return nil, reportError(
+			"ctx value of ContextServerVariables has invalid type %T should be map[string]string", sv,
+		)
 	}
 	return nil, nil
 }
@@ -317,7 +344,10 @@ func getServerOperationVariables(ctx context.Context, endpoint string) (map[stri
 	osv := ctx.Value(ContextOperationServerVariables)
 	if osv != nil {
 		if operationVariables, ok := osv.(map[string]map[string]string); !ok {
-			return nil, reportError("ctx value of ContextOperationServerVariables has invalid type %T should be map[string]map[string]string", osv)
+			return nil, reportError(
+				"ctx value of ContextOperationServerVariables has invalid type %T should be map[string]map[string]string",
+				osv,
+			)
 		} else {
 			variables, ok := operationVariables[endpoint]
 			if ok {
@@ -414,6 +444,32 @@ func OverrideLocationFor(configProvider ConfigProvider, location, endpoint strin
 func SetSkipTLSVerify(configProvider ConfigProvider, skipTLSVerify bool) {
 	configProvider.GetConfig().HTTPClient.Transport = &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: skipTLSVerify},
+	}
+}
+
+// SignerMiddleware returns a middleware function that signs the request using AWS v4 signer.
+// Used for S3 compatible services.
+func SignerMiddleware(region, service, accessKey, secretKey string) MiddlewareFunctionWithError {
+	signer := awsv4.NewSigner(credentials.NewStaticCredentials(accessKey, secretKey, ""))
+
+	// Define default values for region and service to maintain backward compatibility
+	if region == "" {
+		region = "eu-central-3"
+	}
+	if service == "" {
+		service = "s3"
+	}
+	return func(r *http.Request) error {
+		var reader io.ReadSeeker
+		if r.Body != nil {
+			bodyBytes, err := io.ReadAll(r.Body)
+			if err != nil {
+				return err
+			}
+			reader = bytes.NewReader(bodyBytes)
+		}
+		_, err := signer.Sign(r, reader, service, region, time.Now())
+		return err
 	}
 }
 
