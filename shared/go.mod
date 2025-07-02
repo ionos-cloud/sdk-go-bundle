@@ -1,9 +1,9 @@
 module github.com/ionos-cloud/sdk-go-bundle/shared
 
-go 1.20
+go 1.24
 
 require (
-	github.com/aws/aws-sdk-go v1.55.6
+	github.com/aws/aws-sdk-go v1.55.7
 	github.com/stretchr/testify v1.10.0
 	gopkg.in/yaml.v3 v3.0.1
 )
