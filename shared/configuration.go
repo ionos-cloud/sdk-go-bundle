@@ -188,8 +188,8 @@ type ClientOptions struct {
 
 // Credentials are the credentials that will be used for authentication
 type Credentials struct {
-	Username    string `yaml:"username"`
-	Password    string `yaml:"password"`
+	Username    string `yaml:"username,omitempty"`
+	Password    string `yaml:"password,omitempty"`
 	Token       string `yaml:"token"`
 	S3AccessKey string `yaml:"s3AccessKey"`
 	S3SecretKey string `yaml:"s3SecretKey"`
@@ -262,7 +262,7 @@ func NewConfigurationFromEnv() *Configuration {
 	return cfg
 }
 
-// WithObjectStorage configures the shared.Configuration by setting the object storage middleware
+// WithObjectStorage configures the Configuration by setting the object storage middleware
 func (c *Configuration) WithObjectStorage(clientOptions ClientOptions) *Configuration {
 	signer := awsv4.NewSigner(credentials.NewStaticCredentials(clientOptions.Credentials.S3AccessKey, clientOptions.Credentials.S3SecretKey, ""))
 	c.MiddlewareWithError = func(r *http.Request) error {
@@ -481,8 +481,7 @@ func OverrideLocationFor(configProvider ConfigProvider, location, endpoint strin
 		configProvider.GetConfig().Servers, ServerConfiguration{
 			URL:         endpoint,
 			Description: EndpointOverridden + location,
-		},
-	)
+		})
 }
 
 func SetSkipTLSVerify(configProvider ConfigProvider, skipTLSVerify bool) {
@@ -503,6 +502,8 @@ func AddCertsToClient(authorityData string) *x509.CertPool {
 	return rootCAs
 }
 
+// SignerMiddleware returns a middleware function that signs the request using AWS v4 signer.
+// Used for S3 compatible services.
 func SignerMiddleware(region, service, accessKey, secretKey string) MiddlewareFunctionWithError {
 	signer := awsv4.NewSigner(credentials.NewStaticCredentials(accessKey, secretKey, ""))
 
