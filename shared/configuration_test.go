@@ -143,10 +143,11 @@ func TestNewConfigurationFromOptions(t *testing.T) {
 }
 
 func TestNewConfigurationFromEnvWithObjectStorage(t *testing.T) {
+	hostURL := "https://test.api.ionos.com"
 	os.Setenv(IonosUsernameEnvVar, "testuser")
 	os.Setenv(IonosPasswordEnvVar, "testpassword")
 	os.Setenv(IonosTokenEnvVar, "testtoken")
-	os.Setenv(IonosApiUrlEnvVar, "https://test.api.ionos.com")
+	os.Setenv(IonosApiUrlEnvVar, hostURL)
 	os.Setenv(IonosS3AccessKeyEnvVar, "testaccesskey")
 	os.Setenv(IonosS3SecretKeyEnvVar, "testsecretkey")
 
@@ -164,7 +165,7 @@ func TestNewConfigurationFromEnvWithObjectStorage(t *testing.T) {
 	if len(config.Servers) != 1 {
 		t.Errorf("expected 1 server configuration, got %d", len(config.Servers))
 	}
-	if config.Servers[0].URL != "https://test.api.ionos.com" {
+	if config.Servers[0].URL != hostURL {
 		t.Errorf("expected host to be 'https://test.api.ionos.com', got '%s'", config.Host)
 	}
 	assert.NotNil(t, config.MiddlewareWithError, "MiddlewareWithError should not be nil as we have set objectstorage key and secret in env vars")
@@ -174,9 +175,9 @@ func TestConfigurationWithObjectStorage(t *testing.T) {
 	username := "testuser"
 	password := "testpassword"
 	token := "testtoken"
-	hostUrl := "https://test.api.ionos.com"
+	hostURL := "https://test.api.ionos.com"
 
-	config := NewConfiguration(username, password, token, hostUrl)
+	config := NewConfiguration(username, password, token, hostURL)
 
 	s3AccessKey := "testaccesskey"
 	s3SecretKey := "testsecretkey"
@@ -199,7 +200,7 @@ func TestConfigurationWithObjectStorage(t *testing.T) {
 	if config.Token != token {
 		t.Errorf("Expected Token to be '%s', got '%s'", token, config.Token)
 	}
-	if config.Servers[0].URL != hostUrl {
-		t.Errorf("Expected Host URL to be '%s', got '%s'", hostUrl, config.Servers[0].URL)
+	if config.Servers[0].URL != hostURL {
+		t.Errorf("Expected Host URL to be '%s', got '%s'", hostURL, config.Servers[0].URL)
 	}
 }
