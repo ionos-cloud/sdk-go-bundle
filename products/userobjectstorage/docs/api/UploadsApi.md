@@ -36,7 +36,7 @@ import (
     "fmt"
     "os"
 
-    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/products/userobjectstorage"
+    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/userobjectstorage"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -85,6 +85,22 @@ Other parameters are passed through a pointer to an apiAbortMultipartUploadReque
 - **Accept**: application/xmlaplication/xml
 
 
+### URLs Configuration per Operation
+Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
+An operation is uniquely identified by `"UploadsApiService.AbortMultipartUpload"` string.
+Similar rules for overriding default operation server index and variables apply by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+
+```golang
+ctx := context.WithValue(context.Background(), shared.ContextOperationServerIndices, map[string]int{
+    "UploadsApiService.AbortMultipartUpload": 2,
+})
+ctx = context.WithValue(context.Background(), shared.ContextOperationServerVariables, map[string]map[string]string{
+    "UploadsApiService.AbortMultipartUpload": {
+    "port": "8443",
+},
+})
+```
+
 
 ## CompleteMultipartUpload
 
@@ -109,7 +125,7 @@ import (
     "fmt"
     "os"
 
-    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/products/userobjectstorage"
+    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/userobjectstorage"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -160,6 +176,22 @@ Other parameters are passed through a pointer to an apiCompleteMultipartUploadRe
 - **Accept**: application/xml
 
 
+### URLs Configuration per Operation
+Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
+An operation is uniquely identified by `"UploadsApiService.CompleteMultipartUpload"` string.
+Similar rules for overriding default operation server index and variables apply by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+
+```golang
+ctx := context.WithValue(context.Background(), shared.ContextOperationServerIndices, map[string]int{
+    "UploadsApiService.CompleteMultipartUpload": 2,
+})
+ctx = context.WithValue(context.Background(), shared.ContextOperationServerVariables, map[string]map[string]string{
+    "UploadsApiService.CompleteMultipartUpload": {
+    "port": "8443",
+},
+})
+```
+
 
 ## CreateMultipartUpload
 
@@ -198,7 +230,7 @@ import (
     "fmt"
     "os"
 
-    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/products/userobjectstorage"
+    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/userobjectstorage"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -277,6 +309,22 @@ Other parameters are passed through a pointer to an apiCreateMultipartUploadRequ
 - **Accept**: application/xml
 
 
+### URLs Configuration per Operation
+Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
+An operation is uniquely identified by `"UploadsApiService.CreateMultipartUpload"` string.
+Similar rules for overriding default operation server index and variables apply by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+
+```golang
+ctx := context.WithValue(context.Background(), shared.ContextOperationServerIndices, map[string]int{
+    "UploadsApiService.CreateMultipartUpload": 2,
+})
+ctx = context.WithValue(context.Background(), shared.ContextOperationServerVariables, map[string]map[string]string{
+    "UploadsApiService.CreateMultipartUpload": {
+    "port": "8443",
+},
+})
+```
+
 
 ## ListMultipartUploads
 
@@ -309,7 +357,7 @@ import (
     "fmt"
     "os"
 
-    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/products/userobjectstorage"
+    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/userobjectstorage"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -374,6 +422,22 @@ Other parameters are passed through a pointer to an apiListMultipartUploadsReque
 - **Accept**: application/xml
 
 
+### URLs Configuration per Operation
+Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
+An operation is uniquely identified by `"UploadsApiService.ListMultipartUploads"` string.
+Similar rules for overriding default operation server index and variables apply by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+
+```golang
+ctx := context.WithValue(context.Background(), shared.ContextOperationServerIndices, map[string]int{
+    "UploadsApiService.ListMultipartUploads": 2,
+})
+ctx = context.WithValue(context.Background(), shared.ContextOperationServerVariables, map[string]map[string]string{
+    "UploadsApiService.ListMultipartUploads": {
+    "port": "8443",
+},
+})
+```
+
 
 ## ListParts
 
@@ -400,7 +464,7 @@ import (
     "fmt"
     "os"
 
-    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/products/userobjectstorage"
+    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/userobjectstorage"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -455,6 +519,22 @@ Other parameters are passed through a pointer to an apiListPartsRequest struct v
 - **Accept**: application/xml
 
 
+### URLs Configuration per Operation
+Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
+An operation is uniquely identified by `"UploadsApiService.ListParts"` string.
+Similar rules for overriding default operation server index and variables apply by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+
+```golang
+ctx := context.WithValue(context.Background(), shared.ContextOperationServerIndices, map[string]int{
+    "UploadsApiService.ListParts": 2,
+})
+ctx = context.WithValue(context.Background(), shared.ContextOperationServerVariables, map[string]map[string]string{
+    "UploadsApiService.ListParts": {
+    "port": "8443",
+},
+})
+```
+
 
 ## UploadPart
 
@@ -485,7 +565,7 @@ import (
     "fmt"
     "os"
 
-    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/products/userobjectstorage"
+    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/userobjectstorage"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -548,6 +628,22 @@ Other parameters are passed through a pointer to an apiUploadPartRequest struct 
 - **Accept**: application/xml
 
 
+### URLs Configuration per Operation
+Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
+An operation is uniquely identified by `"UploadsApiService.UploadPart"` string.
+Similar rules for overriding default operation server index and variables apply by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+
+```golang
+ctx := context.WithValue(context.Background(), shared.ContextOperationServerIndices, map[string]int{
+    "UploadsApiService.UploadPart": 2,
+})
+ctx = context.WithValue(context.Background(), shared.ContextOperationServerVariables, map[string]map[string]string{
+    "UploadsApiService.UploadPart": {
+    "port": "8443",
+},
+})
+```
+
 
 ## UploadPartCopy
 
@@ -579,7 +675,7 @@ import (
     "fmt"
     "os"
 
-    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/products/userobjectstorage"
+    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/userobjectstorage"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -643,4 +739,20 @@ Other parameters are passed through a pointer to an apiUploadPartCopyRequest str
 - **Content-Type**: Not defined
 - **Accept**: application/xml
 
+
+### URLs Configuration per Operation
+Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
+An operation is uniquely identified by `"UploadsApiService.UploadPartCopy"` string.
+Similar rules for overriding default operation server index and variables apply by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+
+```golang
+ctx := context.WithValue(context.Background(), shared.ContextOperationServerIndices, map[string]int{
+    "UploadsApiService.UploadPartCopy": 2,
+})
+ctx = context.WithValue(context.Background(), shared.ContextOperationServerVariables, map[string]map[string]string{
+    "UploadsApiService.UploadPartCopy": {
+    "port": "8443",
+},
+})
+```
 

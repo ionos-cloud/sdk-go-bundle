@@ -13,21 +13,23 @@ package userobjectstorage
 
 import (
 	"encoding/json"
-
 	"time"
 )
+
+import "encoding/xml"
 
 // checks if the LifecycleExpiration type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &LifecycleExpiration{}
 
 // LifecycleExpiration Specifies when the object expires based on the values defined in the lifecycle configuration.
 type LifecycleExpiration struct {
+	XMLName xml.Name `xml:"LifecycleExpiration"`
 	// Indicates at what date the object is to be moved or deleted. Should be in GMT ISO 8601 Format.
-	Date *IonosTime `json:"Date,omitempty"`
+	Date *IonosTime `json:"Date,omitempty" xml:"Date"`
 	// Indicates the lifetime, in days, of the objects that are subject to the rule. The value must be a non-zero positive integer.
-	Days *int32 `json:"Days,omitempty"`
+	Days *int32 `json:"Days,omitempty" xml:"Days"`
 	// Indicates whether IONOS Object Storage will remove a delete marker with no noncurrent versions. If set to true, the delete marker will be expired; if set to false the policy takes no operation. This cannot be specified with Days or Date in a Lifecycle Expiration Policy.
-	ExpiredObjectDeleteMarker *bool `json:"ExpiredObjectDeleteMarker,omitempty"`
+	ExpiredObjectDeleteMarker *bool `json:"ExpiredObjectDeleteMarker,omitempty" xml:"ExpiredObjectDeleteMarker"`
 }
 
 // NewLifecycleExpiration instantiates a new LifecycleExpiration object

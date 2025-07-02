@@ -15,15 +15,18 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the PutObjectRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PutObjectRequest{}
 
 // PutObjectRequest struct for PutObjectRequest
 type PutObjectRequest struct {
+	XMLName xml.Name `xml:"PutObjectRequest"`
 	// Object data.
-	Body *string `json:"Body,omitempty"`
+	Body *string `json:"Body,omitempty" xml:"Body"`
 	// A map of metadata to store with the object.
-	XAmzMeta *map[string]string `json:"x-amz-meta-,omitempty"`
+	XAmzMeta *map[string]string `json:"x-amz-meta-,omitempty" xml:"x-amz-meta-"`
 }
 
 // NewPutObjectRequest instantiates a new PutObjectRequest object

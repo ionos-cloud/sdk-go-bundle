@@ -15,12 +15,15 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the BucketPolicyStatementPrincipalAnyOf type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BucketPolicyStatementPrincipalAnyOf{}
 
 // BucketPolicyStatementPrincipalAnyOf Statement applies to the specified IONOS Object Storage users.
 type BucketPolicyStatementPrincipalAnyOf struct {
-	CanonicalUser []string `json:"CanonicalUser,omitempty"`
+	XMLName       xml.Name `xml:"BucketPolicyStatementPrincipalAnyOf"`
+	CanonicalUser []string `json:"CanonicalUser,omitempty" xml:"CanonicalUser"`
 }
 
 // NewBucketPolicyStatementPrincipalAnyOf instantiates a new BucketPolicyStatementPrincipalAnyOf object

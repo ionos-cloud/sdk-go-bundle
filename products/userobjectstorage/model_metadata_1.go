@@ -15,13 +15,16 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the Metadata1 type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Metadata1{}
 
 // Metadata1 struct for Metadata1
 type Metadata1 struct {
-	Key1   *string `json:"key1,omitempty"`
-	Value1 *string `json:"value1,omitempty"`
+	XMLName xml.Name `xml:"Metadata1"`
+	Key1    *string  `json:"key1,omitempty" xml:"key1"`
+	Value1  *string  `json:"value1,omitempty" xml:"value1"`
 }
 
 // NewMetadata1 instantiates a new Metadata1 object

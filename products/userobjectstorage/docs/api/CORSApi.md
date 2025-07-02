@@ -32,7 +32,7 @@ import (
     "fmt"
     "os"
 
-    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/products/userobjectstorage"
+    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/userobjectstorage"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -77,6 +77,22 @@ Other parameters are passed through a pointer to an apiDeleteBucketCorsRequest s
 - **Accept**: Not defined
 
 
+### URLs Configuration per Operation
+Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
+An operation is uniquely identified by `"CORSApiService.DeleteBucketCors"` string.
+Similar rules for overriding default operation server index and variables apply by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+
+```golang
+ctx := context.WithValue(context.Background(), shared.ContextOperationServerIndices, map[string]int{
+    "CORSApiService.DeleteBucketCors": 2,
+})
+ctx = context.WithValue(context.Background(), shared.ContextOperationServerVariables, map[string]map[string]string{
+    "CORSApiService.DeleteBucketCors": {
+    "port": "8443",
+},
+})
+```
+
 
 ## GetBucketCors
 
@@ -100,7 +116,7 @@ import (
     "fmt"
     "os"
 
-    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/products/userobjectstorage"
+    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/userobjectstorage"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -147,6 +163,22 @@ Other parameters are passed through a pointer to an apiGetBucketCorsRequest stru
 - **Accept**: application/xml
 
 
+### URLs Configuration per Operation
+Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
+An operation is uniquely identified by `"CORSApiService.GetBucketCors"` string.
+Similar rules for overriding default operation server index and variables apply by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+
+```golang
+ctx := context.WithValue(context.Background(), shared.ContextOperationServerIndices, map[string]int{
+    "CORSApiService.GetBucketCors": 2,
+})
+ctx = context.WithValue(context.Background(), shared.ContextOperationServerVariables, map[string]map[string]string{
+    "CORSApiService.GetBucketCors": {
+    "port": "8443",
+},
+})
+```
+
 
 ## PutBucketCors
 
@@ -172,7 +204,7 @@ import (
     "fmt"
     "os"
 
-    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/products/userobjectstorage"
+    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/userobjectstorage"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -220,4 +252,20 @@ Other parameters are passed through a pointer to an apiPutBucketCorsRequest stru
 - **Content-Type**: application/xml
 - **Accept**: Not defined
 
+
+### URLs Configuration per Operation
+Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
+An operation is uniquely identified by `"CORSApiService.PutBucketCors"` string.
+Similar rules for overriding default operation server index and variables apply by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+
+```golang
+ctx := context.WithValue(context.Background(), shared.ContextOperationServerIndices, map[string]int{
+    "CORSApiService.PutBucketCors": 2,
+})
+ctx = context.WithValue(context.Background(), shared.ContextOperationServerVariables, map[string]map[string]string{
+    "CORSApiService.PutBucketCors": {
+    "port": "8443",
+},
+})
+```
 

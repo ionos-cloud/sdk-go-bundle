@@ -15,12 +15,15 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the PutObjectRetentionRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PutObjectRetentionRequest{}
 
 // PutObjectRetentionRequest struct for PutObjectRetentionRequest
 type PutObjectRetentionRequest struct {
-	Retention *PutObjectRetentionRequestRetention `json:"Retention,omitempty"`
+	XMLName   xml.Name                            `xml:"PutObjectRetentionRequest"`
+	Retention *PutObjectRetentionRequestRetention `json:"Retention,omitempty" xml:"Retention"`
 }
 
 // NewPutObjectRetentionRequest instantiates a new PutObjectRetentionRequest object

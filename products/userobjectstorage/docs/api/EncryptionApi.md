@@ -32,7 +32,7 @@ import (
     "fmt"
     "os"
 
-    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/products/userobjectstorage"
+    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/userobjectstorage"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -77,6 +77,22 @@ Other parameters are passed through a pointer to an apiDeleteBucketEncryptionReq
 - **Accept**: Not defined
 
 
+### URLs Configuration per Operation
+Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
+An operation is uniquely identified by `"EncryptionApiService.DeleteBucketEncryption"` string.
+Similar rules for overriding default operation server index and variables apply by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+
+```golang
+ctx := context.WithValue(context.Background(), shared.ContextOperationServerIndices, map[string]int{
+    "EncryptionApiService.DeleteBucketEncryption": 2,
+})
+ctx = context.WithValue(context.Background(), shared.ContextOperationServerVariables, map[string]map[string]string{
+    "EncryptionApiService.DeleteBucketEncryption": {
+    "port": "8443",
+},
+})
+```
+
 
 ## GetBucketEncryption
 
@@ -100,7 +116,7 @@ import (
     "fmt"
     "os"
 
-    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/products/userobjectstorage"
+    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/userobjectstorage"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -147,6 +163,22 @@ Other parameters are passed through a pointer to an apiGetBucketEncryptionReques
 - **Accept**: application/xml
 
 
+### URLs Configuration per Operation
+Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
+An operation is uniquely identified by `"EncryptionApiService.GetBucketEncryption"` string.
+Similar rules for overriding default operation server index and variables apply by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+
+```golang
+ctx := context.WithValue(context.Background(), shared.ContextOperationServerIndices, map[string]int{
+    "EncryptionApiService.GetBucketEncryption": 2,
+})
+ctx = context.WithValue(context.Background(), shared.ContextOperationServerVariables, map[string]map[string]string{
+    "EncryptionApiService.GetBucketEncryption": {
+    "port": "8443",
+},
+})
+```
+
 
 ## PutBucketEncryption
 
@@ -171,7 +203,7 @@ import (
     "fmt"
     "os"
 
-    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/products/userobjectstorage"
+    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/userobjectstorage"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -217,4 +249,20 @@ Other parameters are passed through a pointer to an apiPutBucketEncryptionReques
 - **Content-Type**: application/xml
 - **Accept**: Not defined
 
+
+### URLs Configuration per Operation
+Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
+An operation is uniquely identified by `"EncryptionApiService.PutBucketEncryption"` string.
+Similar rules for overriding default operation server index and variables apply by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+
+```golang
+ctx := context.WithValue(context.Background(), shared.ContextOperationServerIndices, map[string]int{
+    "EncryptionApiService.PutBucketEncryption": 2,
+})
+ctx = context.WithValue(context.Background(), shared.ContextOperationServerVariables, map[string]map[string]string{
+    "EncryptionApiService.PutBucketEncryption": {
+    "port": "8443",
+},
+})
+```
 

@@ -13,19 +13,21 @@ package userobjectstorage
 
 import (
 	"encoding/json"
-
 	"time"
 )
+
+import "encoding/xml"
 
 // checks if the PutObjectRetentionRequestRetention type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PutObjectRetentionRequestRetention{}
 
 // PutObjectRetentionRequestRetention A Retention configuration for an object.
 type PutObjectRetentionRequestRetention struct {
+	XMLName xml.Name `xml:"PutObjectRetentionRequestRetention"`
 	// Indicates the Retention mode for the specified object.
-	Mode *string `json:"Mode,omitempty"`
+	Mode *string `json:"Mode,omitempty" xml:"Mode"`
 	// The date on which this Object Lock Retention will expire.
-	RetainUntilDate *IonosTime `json:"RetainUntilDate,omitempty"`
+	RetainUntilDate *IonosTime `json:"RetainUntilDate,omitempty" xml:"RetainUntilDate"`
 }
 
 // NewPutObjectRetentionRequestRetention instantiates a new PutObjectRetentionRequestRetention object

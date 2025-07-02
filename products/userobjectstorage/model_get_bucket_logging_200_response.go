@@ -15,15 +15,18 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the GetBucketLogging200Response type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GetBucketLogging200Response{}
 
 // GetBucketLogging200Response Describes where logs are stored and the prefix that IONOS Object Storage assigns to all log object keys for a bucket.
 type GetBucketLogging200Response struct {
+	XMLName xml.Name `xml:"LoggingEnabled"`
 	// Specifies the bucket where you want IONOS Object Storage to store server access logs. You can have your logs delivered to any bucket that you own, including the same bucket that is being logged. You can also configure multiple buckets to deliver their logs to the same target bucket. In this case, you should choose a different <code>TargetPrefix</code> for each source bucket so that the delivered log files can be distinguished by key.
-	TargetBucket *string `json:"TargetBucket,omitempty"`
+	TargetBucket *string `json:"TargetBucket,omitempty" xml:"TargetBucket"`
 	// A prefix for all log object keys. If you store log files from multiple IONOS Object Storage buckets in a single bucket, you can use a prefix to distinguish which log files came from which bucket.
-	TargetPrefix *string `json:"TargetPrefix,omitempty"`
+	TargetPrefix *string `json:"TargetPrefix,omitempty" xml:"TargetPrefix"`
 }
 
 // NewGetBucketLogging200Response instantiates a new GetBucketLogging200Response object

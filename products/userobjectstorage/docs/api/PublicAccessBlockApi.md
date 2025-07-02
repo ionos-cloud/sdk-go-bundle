@@ -32,7 +32,7 @@ import (
     "fmt"
     "os"
 
-    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/products/userobjectstorage"
+    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/userobjectstorage"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -77,6 +77,22 @@ Other parameters are passed through a pointer to an apiDeletePublicAccessBlockRe
 - **Accept**: application/xml
 
 
+### URLs Configuration per Operation
+Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
+An operation is uniquely identified by `"PublicAccessBlockApiService.DeletePublicAccessBlock"` string.
+Similar rules for overriding default operation server index and variables apply by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+
+```golang
+ctx := context.WithValue(context.Background(), shared.ContextOperationServerIndices, map[string]int{
+    "PublicAccessBlockApiService.DeletePublicAccessBlock": 2,
+})
+ctx = context.WithValue(context.Background(), shared.ContextOperationServerVariables, map[string]map[string]string{
+    "PublicAccessBlockApiService.DeletePublicAccessBlock": {
+    "port": "8443",
+},
+})
+```
+
 
 ## GetPublicAccessBlock
 
@@ -100,7 +116,7 @@ import (
     "fmt"
     "os"
 
-    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/products/userobjectstorage"
+    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/userobjectstorage"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -147,6 +163,22 @@ Other parameters are passed through a pointer to an apiGetPublicAccessBlockReque
 - **Accept**: application/jsonapplication/xml
 
 
+### URLs Configuration per Operation
+Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
+An operation is uniquely identified by `"PublicAccessBlockApiService.GetPublicAccessBlock"` string.
+Similar rules for overriding default operation server index and variables apply by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+
+```golang
+ctx := context.WithValue(context.Background(), shared.ContextOperationServerIndices, map[string]int{
+    "PublicAccessBlockApiService.GetPublicAccessBlock": 2,
+})
+ctx = context.WithValue(context.Background(), shared.ContextOperationServerVariables, map[string]map[string]string{
+    "PublicAccessBlockApiService.GetPublicAccessBlock": {
+    "port": "8443",
+},
+})
+```
+
 
 ## PutPublicAccessBlock
 
@@ -172,7 +204,7 @@ import (
     "fmt"
     "os"
 
-    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/products/userobjectstorage"
+    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/userobjectstorage"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -220,4 +252,20 @@ Other parameters are passed through a pointer to an apiPutPublicAccessBlockReque
 - **Content-Type**: application/xml
 - **Accept**: application/xml
 
+
+### URLs Configuration per Operation
+Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
+An operation is uniquely identified by `"PublicAccessBlockApiService.PutPublicAccessBlock"` string.
+Similar rules for overriding default operation server index and variables apply by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+
+```golang
+ctx := context.WithValue(context.Background(), shared.ContextOperationServerIndices, map[string]int{
+    "PublicAccessBlockApiService.PutPublicAccessBlock": 2,
+})
+ctx = context.WithValue(context.Background(), shared.ContextOperationServerVariables, map[string]map[string]string{
+    "PublicAccessBlockApiService.PutPublicAccessBlock": {
+    "port": "8443",
+},
+})
+```
 

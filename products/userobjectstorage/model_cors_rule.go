@@ -15,23 +15,26 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the CORSRule type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &CORSRule{}
 
 // CORSRule Specifies a cross-origin access rule for an IONOS Object Storage bucket.
 type CORSRule struct {
+	XMLName xml.Name `xml:"CORSRule"`
 	// Container for the Contract Number of the owner.
-	ID *int32 `json:"ID,omitempty"`
+	ID *int32 `json:"ID,omitempty" xml:"ID"`
 	// Headers that are specified in the `Access-Control-Request-Headers` header. These headers are allowed in a preflight OPTIONS request. In response to any preflight OPTIONS request, IONOS Object Storage returns any requested headers that are allowed.
-	AllowedHeaders []string `json:"AllowedHeaders,omitempty"`
+	AllowedHeaders []string `json:"AllowedHeaders,omitempty" xml:"AllowedHeaders"`
 	// An HTTP method that you allow the origin to execute. Valid values are `GET`, `PUT`, `HEAD`, `POST`, and `DELETE`.
-	AllowedMethods []string `json:"AllowedMethods"`
+	AllowedMethods []string `json:"AllowedMethods" xml:"AllowedMethods"`
 	// One or more origins you want customers to be able to access the bucket from.
-	AllowedOrigins []string `json:"AllowedOrigins"`
+	AllowedOrigins []string `json:"AllowedOrigins" xml:"AllowedOrigins"`
 	// One or more headers in the response that you want customers to be able to access from their applications (for example, from a JavaScript `XMLHttpRequest` object).
-	ExposeHeaders []string `json:"ExposeHeaders,omitempty"`
+	ExposeHeaders []string `json:"ExposeHeaders,omitempty" xml:"ExposeHeaders"`
 	// The time in seconds that your browser is to cache the preflight response for the specified resource.
-	MaxAgeSeconds *int32 `json:"MaxAgeSeconds,omitempty"`
+	MaxAgeSeconds *int32 `json:"MaxAgeSeconds,omitempty" xml:"MaxAgeSeconds"`
 }
 
 // NewCORSRule instantiates a new CORSRule object

@@ -15,13 +15,16 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the PutBucketLifecycleRequestLifecycleConfiguration type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PutBucketLifecycleRequestLifecycleConfiguration{}
 
 // PutBucketLifecycleRequestLifecycleConfiguration Container for lifecycle rules. You can add as many as 1000 rules.
 type PutBucketLifecycleRequestLifecycleConfiguration struct {
+	XMLName xml.Name `xml:"PutBucketLifecycleRequestLifecycleConfiguration"`
 	// Container for a lifecycle rules.
-	Rules []Rule `json:"Rules,omitempty"`
+	Rules []Rule `json:"Rules,omitempty" xml:"Rules"`
 }
 
 // NewPutBucketLifecycleRequestLifecycleConfiguration instantiates a new PutBucketLifecycleRequestLifecycleConfiguration object

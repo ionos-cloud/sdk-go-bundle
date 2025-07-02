@@ -15,12 +15,15 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the PutObjectLegalHoldRequestLegalHold type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PutObjectLegalHoldRequestLegalHold{}
 
 // PutObjectLegalHoldRequestLegalHold Legal Hold configuration for an object.
 type PutObjectLegalHoldRequestLegalHold struct {
-	Status *ObjectLegalHoldConfiguration `json:"Status,omitempty"`
+	XMLName xml.Name                      `xml:"PutObjectLegalHoldRequestLegalHold"`
+	Status  *ObjectLegalHoldConfiguration `json:"Status,omitempty" xml:"LegalHold"`
 }
 
 // NewPutObjectLegalHoldRequestLegalHold instantiates a new PutObjectLegalHoldRequestLegalHold object

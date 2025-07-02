@@ -15,12 +15,15 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the PutBucketLoggingRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PutBucketLoggingRequest{}
 
 // PutBucketLoggingRequest struct for PutBucketLoggingRequest
 type PutBucketLoggingRequest struct {
-	BucketLoggingStatus PutBucketLoggingRequestBucketLoggingStatus `json:"BucketLoggingStatus"`
+	XMLName             xml.Name                                   `xml:"PutBucketLoggingRequest"`
+	BucketLoggingStatus PutBucketLoggingRequestBucketLoggingStatus `json:"BucketLoggingStatus" xml:"LoggingEnabled"`
 }
 
 // NewPutBucketLoggingRequest instantiates a new PutBucketLoggingRequest object

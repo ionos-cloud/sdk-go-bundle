@@ -15,32 +15,35 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the ListObjectsV2OutputListBucketResult type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ListObjectsV2OutputListBucketResult{}
 
 // ListObjectsV2OutputListBucketResult A container for the data.
 type ListObjectsV2OutputListBucketResult struct {
+	XMLName xml.Name `xml:"ListObjectsV2OutputListBucketResult"`
 	// The bucket name.
-	Name string `json:"Name"`
+	Name string `json:"Name" xml:"Name"`
 	// Object key prefix that identifies one or more objects to which this rule applies. Replacement must be made for object keys containing special characters (such as carriage returns) when using XML requests.
-	Prefix string `json:"Prefix"`
+	Prefix string `json:"Prefix" xml:"Prefix"`
 	// The maximum number of keys returned in the response. By default the operation returns up to 1000 key names. The response might contain fewer keys but will never contain more.
-	MaxKeys int32 `json:"MaxKeys"`
+	MaxKeys int32 `json:"MaxKeys" xml:"MaxKeys"`
 	// A flag that indicates whether IONOS Object Storage returned all of the results that satisfied the search criteria. If your results were truncated, you can make a follow-up paginated request using the NextKeyMarker and NextVersionIdMarker response parameters as a starting place in another request to return the rest of the results.
-	IsTruncated bool  `json:"IsTruncated"`
-	KeyCount    int32 `json:"KeyCount"`
+	IsTruncated bool  `json:"IsTruncated" xml:"IsTruncated"`
+	KeyCount    int32 `json:"KeyCount" xml:"KeyCount"`
 	// Metadata about each object returned.
-	Contents  []Object `json:"Contents"`
-	Delimiter *string  `json:"Delimiter,omitempty"`
+	Contents  []Object `json:"Contents" xml:"Contents"`
+	Delimiter *string  `json:"Delimiter,omitempty" xml:"Delimiter"`
 	// All of the keys rolled up into a common prefix count as a single return when calculating the number of returns.
-	CommonPrefixes []CommonPrefix `json:"CommonPrefixes,omitempty"`
-	EncodingType   *EncodingType  `json:"EncodingType,omitempty"`
+	CommonPrefixes []CommonPrefix `json:"CommonPrefixes,omitempty" xml:"CommonPrefixes"`
+	EncodingType   *EncodingType  `json:"EncodingType,omitempty" xml:"EncodingType"`
 	// If ContinuationToken was sent with the request, it is included in the response.
-	ContinuationToken *string `json:"ContinuationToken,omitempty"`
+	ContinuationToken *string `json:"ContinuationToken,omitempty" xml:"ContinuationToken"`
 	// `NextContinuationToken` is sent when `isTruncated` is true, which means there are more keys in the bucket that can be listed. The next list requests to IONOS Object Storage can be continued with this `NextContinuationToken`. `NextContinuationToken` is obfuscated and is not a real key.
-	NextContinuationToken *string `json:"NextContinuationToken,omitempty"`
+	NextContinuationToken *string `json:"NextContinuationToken,omitempty" xml:"NextContinuationToken"`
 	// If StartAfter was sent with the request, it is included in the response.
-	StartAfter *string `json:"StartAfter,omitempty"`
+	StartAfter *string `json:"StartAfter,omitempty" xml:"StartAfter"`
 }
 
 // NewListObjectsV2OutputListBucketResult instantiates a new ListObjectsV2OutputListBucketResult object

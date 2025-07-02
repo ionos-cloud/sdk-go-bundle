@@ -13,8 +13,11 @@ package userobjectstorage
 
 import (
 	"encoding/json"
-
 	"fmt"
+)
+
+import (
+	"gopkg.in/validator.v2"
 )
 
 // BucketPolicyStatementConditionDateLessThan - struct for BucketPolicyStatementConditionDateLessThan
@@ -25,12 +28,16 @@ type BucketPolicyStatementConditionDateLessThan struct {
 
 // BucketPolicyStatementConditionDateGreaterThanOneOfAsBucketPolicyStatementConditionDateLessThan is a convenience function that returns BucketPolicyStatementConditionDateGreaterThanOneOf wrapped in BucketPolicyStatementConditionDateLessThan
 func BucketPolicyStatementConditionDateGreaterThanOneOfAsBucketPolicyStatementConditionDateLessThan(v *BucketPolicyStatementConditionDateGreaterThanOneOf) BucketPolicyStatementConditionDateLessThan {
-	return BucketPolicyStatementConditionDateLessThan{BucketPolicyStatementConditionDateGreaterThanOneOf: v}
+	return BucketPolicyStatementConditionDateLessThan{
+		BucketPolicyStatementConditionDateGreaterThanOneOf: v,
+	}
 }
 
 // BucketPolicyStatementConditionDateLessThanOneOfAsBucketPolicyStatementConditionDateLessThan is a convenience function that returns BucketPolicyStatementConditionDateLessThanOneOf wrapped in BucketPolicyStatementConditionDateLessThan
 func BucketPolicyStatementConditionDateLessThanOneOfAsBucketPolicyStatementConditionDateLessThan(v *BucketPolicyStatementConditionDateLessThanOneOf) BucketPolicyStatementConditionDateLessThan {
-	return BucketPolicyStatementConditionDateLessThan{BucketPolicyStatementConditionDateLessThanOneOf: v}
+	return BucketPolicyStatementConditionDateLessThan{
+		BucketPolicyStatementConditionDateLessThanOneOf: v,
+	}
 }
 
 // Unmarshal JSON data into one of the pointers in the struct
@@ -38,26 +45,34 @@ func (dst *BucketPolicyStatementConditionDateLessThan) UnmarshalJSON(data []byte
 	var err error
 	match := 0
 	// try to unmarshal data into BucketPolicyStatementConditionDateGreaterThanOneOf
-	err = json.Unmarshal(data, &dst.BucketPolicyStatementConditionDateGreaterThanOneOf)
+	err = newStrictDecoder(data).Decode(&dst.BucketPolicyStatementConditionDateGreaterThanOneOf)
 	if err == nil {
 		jsonBucketPolicyStatementConditionDateGreaterThanOneOf, _ := json.Marshal(dst.BucketPolicyStatementConditionDateGreaterThanOneOf)
 		if string(jsonBucketPolicyStatementConditionDateGreaterThanOneOf) == "{}" { // empty struct
 			dst.BucketPolicyStatementConditionDateGreaterThanOneOf = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.BucketPolicyStatementConditionDateGreaterThanOneOf); err != nil {
+				dst.BucketPolicyStatementConditionDateGreaterThanOneOf = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.BucketPolicyStatementConditionDateGreaterThanOneOf = nil
 	}
 
 	// try to unmarshal data into BucketPolicyStatementConditionDateLessThanOneOf
-	err = json.Unmarshal(data, &dst.BucketPolicyStatementConditionDateLessThanOneOf)
+	err = newStrictDecoder(data).Decode(&dst.BucketPolicyStatementConditionDateLessThanOneOf)
 	if err == nil {
 		jsonBucketPolicyStatementConditionDateLessThanOneOf, _ := json.Marshal(dst.BucketPolicyStatementConditionDateLessThanOneOf)
 		if string(jsonBucketPolicyStatementConditionDateLessThanOneOf) == "{}" { // empty struct
 			dst.BucketPolicyStatementConditionDateLessThanOneOf = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.BucketPolicyStatementConditionDateLessThanOneOf); err != nil {
+				dst.BucketPolicyStatementConditionDateLessThanOneOf = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.BucketPolicyStatementConditionDateLessThanOneOf = nil
@@ -68,11 +83,11 @@ func (dst *BucketPolicyStatementConditionDateLessThan) UnmarshalJSON(data []byte
 		dst.BucketPolicyStatementConditionDateGreaterThanOneOf = nil
 		dst.BucketPolicyStatementConditionDateLessThanOneOf = nil
 
-		return fmt.Errorf("Data matches more than one schema in oneOf(BucketPolicyStatementConditionDateLessThan)")
+		return fmt.Errorf("data matches more than one schema in oneOf(BucketPolicyStatementConditionDateLessThan)")
 	} else if match == 1 {
 		return nil // exactly one match
 	} else { // no match
-		return fmt.Errorf("Data failed to match schemas in oneOf(BucketPolicyStatementConditionDateLessThan)")
+		return fmt.Errorf("data failed to match schemas in oneOf(BucketPolicyStatementConditionDateLessThan)")
 	}
 }
 
@@ -91,6 +106,9 @@ func (src BucketPolicyStatementConditionDateLessThan) MarshalJSON() ([]byte, err
 
 // Get the actual instance
 func (obj *BucketPolicyStatementConditionDateLessThan) GetActualInstance() interface{} {
+	if obj == nil {
+		return nil
+	}
 	if obj.BucketPolicyStatementConditionDateGreaterThanOneOf != nil {
 		return obj.BucketPolicyStatementConditionDateGreaterThanOneOf
 	}

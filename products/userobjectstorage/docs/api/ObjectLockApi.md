@@ -36,7 +36,7 @@ import (
     "fmt"
     "os"
 
-    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/products/userobjectstorage"
+    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/userobjectstorage"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -87,6 +87,22 @@ Other parameters are passed through a pointer to an apiGetObjectLegalHoldRequest
 - **Accept**: application/xml
 
 
+### URLs Configuration per Operation
+Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
+An operation is uniquely identified by `"ObjectLockApiService.GetObjectLegalHold"` string.
+Similar rules for overriding default operation server index and variables apply by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+
+```golang
+ctx := context.WithValue(context.Background(), shared.ContextOperationServerIndices, map[string]int{
+    "ObjectLockApiService.GetObjectLegalHold": 2,
+})
+ctx = context.WithValue(context.Background(), shared.ContextOperationServerVariables, map[string]map[string]string{
+    "ObjectLockApiService.GetObjectLegalHold": {
+    "port": "8443",
+},
+})
+```
+
 
 ## GetObjectLockConfiguration
 
@@ -110,7 +126,7 @@ import (
     "fmt"
     "os"
 
-    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/products/userobjectstorage"
+    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/userobjectstorage"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -157,6 +173,22 @@ Other parameters are passed through a pointer to an apiGetObjectLockConfiguratio
 - **Accept**: application/xml
 
 
+### URLs Configuration per Operation
+Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
+An operation is uniquely identified by `"ObjectLockApiService.GetObjectLockConfiguration"` string.
+Similar rules for overriding default operation server index and variables apply by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+
+```golang
+ctx := context.WithValue(context.Background(), shared.ContextOperationServerIndices, map[string]int{
+    "ObjectLockApiService.GetObjectLockConfiguration": 2,
+})
+ctx = context.WithValue(context.Background(), shared.ContextOperationServerVariables, map[string]map[string]string{
+    "ObjectLockApiService.GetObjectLockConfiguration": {
+    "port": "8443",
+},
+})
+```
+
 
 ## GetObjectRetention
 
@@ -181,7 +213,7 @@ import (
     "fmt"
     "os"
 
-    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/products/userobjectstorage"
+    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/userobjectstorage"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -232,6 +264,22 @@ Other parameters are passed through a pointer to an apiGetObjectRetentionRequest
 - **Accept**: application/xml
 
 
+### URLs Configuration per Operation
+Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
+An operation is uniquely identified by `"ObjectLockApiService.GetObjectRetention"` string.
+Similar rules for overriding default operation server index and variables apply by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+
+```golang
+ctx := context.WithValue(context.Background(), shared.ContextOperationServerIndices, map[string]int{
+    "ObjectLockApiService.GetObjectRetention": 2,
+})
+ctx = context.WithValue(context.Background(), shared.ContextOperationServerVariables, map[string]map[string]string{
+    "ObjectLockApiService.GetObjectRetention": {
+    "port": "8443",
+},
+})
+```
+
 
 ## PutObjectLegalHold
 
@@ -258,7 +306,7 @@ import (
     "fmt"
     "os"
 
-    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/products/userobjectstorage"
+    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/userobjectstorage"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -311,6 +359,22 @@ Other parameters are passed through a pointer to an apiPutObjectLegalHoldRequest
 - **Accept**: application/xml
 
 
+### URLs Configuration per Operation
+Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
+An operation is uniquely identified by `"ObjectLockApiService.PutObjectLegalHold"` string.
+Similar rules for overriding default operation server index and variables apply by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+
+```golang
+ctx := context.WithValue(context.Background(), shared.ContextOperationServerIndices, map[string]int{
+    "ObjectLockApiService.PutObjectLegalHold": 2,
+})
+ctx = context.WithValue(context.Background(), shared.ContextOperationServerVariables, map[string]map[string]string{
+    "ObjectLockApiService.PutObjectLegalHold": {
+    "port": "8443",
+},
+})
+```
+
 
 ## PutObjectLockConfiguration
 
@@ -336,7 +400,7 @@ import (
     "fmt"
     "os"
 
-    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/products/userobjectstorage"
+    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/userobjectstorage"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -385,6 +449,22 @@ Other parameters are passed through a pointer to an apiPutObjectLockConfiguratio
 - **Accept**: application/xml
 
 
+### URLs Configuration per Operation
+Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
+An operation is uniquely identified by `"ObjectLockApiService.PutObjectLockConfiguration"` string.
+Similar rules for overriding default operation server index and variables apply by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+
+```golang
+ctx := context.WithValue(context.Background(), shared.ContextOperationServerIndices, map[string]int{
+    "ObjectLockApiService.PutObjectLockConfiguration": 2,
+})
+ctx = context.WithValue(context.Background(), shared.ContextOperationServerVariables, map[string]map[string]string{
+    "ObjectLockApiService.PutObjectLockConfiguration": {
+    "port": "8443",
+},
+})
+```
+
 
 ## PutObjectRetention
 
@@ -412,7 +492,7 @@ import (
     "fmt"
     "os"
 
-    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/products/userobjectstorage"
+    userobjectstorage "github.com/ionos-cloud/sdk-go-bundle/userobjectstorage"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -466,4 +546,20 @@ Other parameters are passed through a pointer to an apiPutObjectRetentionRequest
 - **Content-Type**: application/xml
 - **Accept**: application/xml
 
+
+### URLs Configuration per Operation
+Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
+An operation is uniquely identified by `"ObjectLockApiService.PutObjectRetention"` string.
+Similar rules for overriding default operation server index and variables apply by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+
+```golang
+ctx := context.WithValue(context.Background(), shared.ContextOperationServerIndices, map[string]int{
+    "ObjectLockApiService.PutObjectRetention": 2,
+})
+ctx = context.WithValue(context.Background(), shared.ContextOperationServerVariables, map[string]map[string]string{
+    "ObjectLockApiService.PutObjectRetention": {
+    "port": "8443",
+},
+})
+```
 

@@ -15,21 +15,24 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the BucketPolicyStatement type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BucketPolicyStatement{}
 
 // BucketPolicyStatement struct for BucketPolicyStatement
 type BucketPolicyStatement struct {
+	XMLName xml.Name `xml:"BucketPolicyStatement"`
 	// Custom string identifying the statement.
-	Sid *string `json:"Sid,omitempty"`
+	Sid *string `json:"Sid,omitempty" xml:"Sid"`
 	// The array of allowed or denied actions.   IONOS Object Storage supports the use of a wildcard in your Action configuration (`\"Action\":[\"s3:*\"]`). When an Action wildcard is used together with an object-level Resource element (`\"arn:aws:s3:::<bucketName>/_*\"` or `\"arn:aws:s3:::<bucketName>/<objectName>\"`), the wildcard denotes all supported Object actions. When an Action wildcard is used together with bucket-level Resource element (`\"arn:aws:s3:::<bucketName>\"`), the wildcard denotes all the bucket actions and bucket subresource actions that IONOS Object Storage supports.
-	Action []string `json:"Action"`
+	Action []string `json:"Action" xml:"Action"`
 	// Specify the outcome when the user requests a particular action.
-	Effect string `json:"Effect"`
+	Effect string `json:"Effect" xml:"Effect"`
 	// The bucket or object that the policy applies to.   Must be one of the following: - `\"arn:aws:s3:::<bucketName>\"` - For bucket actions (such as `s3:ListBucket`) and bucket subresource actions (such as `s3:GetBucketAcl`). - `\"arn:aws:s3:::<bucketName>/_*\"` or `\"arn:aws:s3:::<bucketName>/<objectName>\"` - For object actions (such as `s3:PutObject`).
-	Resource  []string                        `json:"Resource"`
-	Condition *BucketPolicyStatementCondition `json:"Condition,omitempty"`
-	Principal BucketPolicyStatementPrincipal  `json:"Principal"`
+	Resource  []string                        `json:"Resource" xml:"Resource"`
+	Condition *BucketPolicyStatementCondition `json:"Condition,omitempty" xml:"Condition"`
+	Principal BucketPolicyStatementPrincipal  `json:"Principal" xml:"Principal"`
 }
 
 // NewBucketPolicyStatement instantiates a new BucketPolicyStatement object

@@ -12,25 +12,21 @@
 package userobjectstorage
 
 import (
-	_context "context"
+	"bytes"
+	"context"
 	"fmt"
 	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	"io"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // ObjectLockApiService ObjectLockApi service
 type ObjectLockApiService service
 
 type ApiGetObjectLegalHoldRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *ObjectLockApiService
 	bucket     string
 	key        string
@@ -42,29 +38,32 @@ func (r ApiGetObjectLegalHoldRequest) LegalHold(legalHold bool) ApiGetObjectLega
 	r.legalHold = &legalHold
 	return r
 }
+
+// The version ID of the object whose Legal Hold status you want to retrieve.
 func (r ApiGetObjectLegalHoldRequest) VersionId(versionId string) ApiGetObjectLegalHoldRequest {
 	r.versionId = &versionId
 	return r
 }
 
-func (r ApiGetObjectLegalHoldRequest) Execute() (ObjectLegalHoldConfiguration, *shared.APIResponse, error) {
+func (r ApiGetObjectLegalHoldRequest) Execute() (*ObjectLegalHoldConfiguration, *shared.APIResponse, error) {
 	return r.ApiService.GetObjectLegalHoldExecute(r)
 }
 
 /*
-  - GetObjectLegalHold GetObjectLegalHold
-  - Gets an object's current Legal Hold status.
+GetObjectLegalHold GetObjectLegalHold
+
+Gets an object's current Legal Hold status.
 
 #### Permissions
 You must be the contract owner or an administrator to perform this operation. If not, they can grant you permission
 to perform the `s3:GetObjectLegalHold` operation using [Bucket Policy](#tag/Policy/operation/PutBucketPolicy).
 
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-  - @param bucket
-  - @param key The key name of the object whose Legal Hold status you want to retrieve.
-  - @return ApiGetObjectLegalHoldRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bucket
+	@param key The key name of the object whose Legal Hold status you want to retrieve.
+	@return ApiGetObjectLegalHoldRequest
 */
-func (a *ObjectLockApiService) GetObjectLegalHold(ctx _context.Context, bucket string, key string) ApiGetObjectLegalHoldRequest {
+func (a *ObjectLockApiService) GetObjectLegalHold(ctx context.Context, bucket string, key string) ApiGetObjectLegalHoldRequest {
 	return ApiGetObjectLegalHoldRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -73,18 +72,15 @@ func (a *ObjectLockApiService) GetObjectLegalHold(ctx _context.Context, bucket s
 	}
 }
 
-/*
- * Execute executes the request
- * @return ObjectLegalHoldConfiguration
- */
-func (a *ObjectLockApiService) GetObjectLegalHoldExecute(r ApiGetObjectLegalHoldRequest) (ObjectLegalHoldConfiguration, *shared.APIResponse, error) {
+// Execute executes the request
+//
+//	@return ObjectLegalHoldConfiguration
+func (a *ObjectLockApiService) GetObjectLegalHoldExecute(r ApiGetObjectLegalHoldRequest) (*ObjectLegalHoldConfiguration, *shared.APIResponse, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ObjectLegalHoldConfiguration
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ObjectLegalHoldConfiguration
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ObjectLockApiService.GetObjectLegalHold")
@@ -95,12 +91,12 @@ func (a *ObjectLockApiService) GetObjectLegalHoldExecute(r ApiGetObjectLegalHold
 	}
 
 	localVarPath := localBasePath + "/{Bucket}/{Key}?legal-hold"
-	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", _neturl.PathEscape(parameterValueToString(r.bucket, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"Key"+"}", _neturl.PathEscape(parameterValueToString(r.key, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", parameterValueToString(r.bucket, "bucket"), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Key"+"}", parameterValueToString(r.key, "key"), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if shared.Strlen(r.bucket) < 3 {
 		return localVarReturnValue, nil, reportError("bucket must have at least 3 elements")
 	}
@@ -149,13 +145,12 @@ func (a *ObjectLockApiService) GetObjectLegalHoldExecute(r ApiGetObjectLegalHold
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
-
 	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
@@ -163,7 +158,6 @@ func (a *ObjectLockApiService) GetObjectLegalHoldExecute(r ApiGetObjectLegalHold
 		RequestURL:  localVarPath,
 		Operation:   "GetObjectLegalHold",
 	}
-
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarAPIResponse, err
 	}
@@ -171,6 +165,7 @@ func (a *ObjectLockApiService) GetObjectLegalHoldExecute(r ApiGetObjectLegalHold
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarAPIResponse, err
 	}
@@ -188,6 +183,7 @@ func (a *ObjectLockApiService) GetObjectLegalHoldExecute(r ApiGetObjectLegalHold
 				return localVarReturnValue, localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
+			return localVarReturnValue, localVarAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v Error
@@ -197,6 +193,7 @@ func (a *ObjectLockApiService) GetObjectLegalHoldExecute(r ApiGetObjectLegalHold
 				return localVarReturnValue, localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
+			return localVarReturnValue, localVarAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Error
@@ -223,7 +220,7 @@ func (a *ObjectLockApiService) GetObjectLegalHoldExecute(r ApiGetObjectLegalHold
 }
 
 type ApiGetObjectLockConfigurationRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *ObjectLockApiService
 	bucket     string
 	objectLock *bool
@@ -234,23 +231,24 @@ func (r ApiGetObjectLockConfigurationRequest) ObjectLock(objectLock bool) ApiGet
 	return r
 }
 
-func (r ApiGetObjectLockConfigurationRequest) Execute() (GetObjectLockConfigurationOutput, *shared.APIResponse, error) {
+func (r ApiGetObjectLockConfigurationRequest) Execute() (*GetObjectLockConfigurationOutput, *shared.APIResponse, error) {
 	return r.ApiService.GetObjectLockConfigurationExecute(r)
 }
 
 /*
-  - GetObjectLockConfiguration GetObjectLockConfiguration
-  - Retrieves the Object Lock configuration for a bucket.
+GetObjectLockConfiguration GetObjectLockConfiguration
+
+Retrieves the Object Lock configuration for a bucket.
 
 #### Permissions
 You must be the contract owner or an administrator to perform this operation. If not, they can grant you permission
 to perform the `s3:GetBucketObjectLockConfiguration` operation using [Bucket Policy](#tag/Policy/operation/PutBucketPolicy).
 
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-  - @param bucket
-  - @return ApiGetObjectLockConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bucket
+	@return ApiGetObjectLockConfigurationRequest
 */
-func (a *ObjectLockApiService) GetObjectLockConfiguration(ctx _context.Context, bucket string) ApiGetObjectLockConfigurationRequest {
+func (a *ObjectLockApiService) GetObjectLockConfiguration(ctx context.Context, bucket string) ApiGetObjectLockConfigurationRequest {
 	return ApiGetObjectLockConfigurationRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -258,18 +256,15 @@ func (a *ObjectLockApiService) GetObjectLockConfiguration(ctx _context.Context, 
 	}
 }
 
-/*
- * Execute executes the request
- * @return GetObjectLockConfigurationOutput
- */
-func (a *ObjectLockApiService) GetObjectLockConfigurationExecute(r ApiGetObjectLockConfigurationRequest) (GetObjectLockConfigurationOutput, *shared.APIResponse, error) {
+// Execute executes the request
+//
+//	@return GetObjectLockConfigurationOutput
+func (a *ObjectLockApiService) GetObjectLockConfigurationExecute(r ApiGetObjectLockConfigurationRequest) (*GetObjectLockConfigurationOutput, *shared.APIResponse, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  GetObjectLockConfigurationOutput
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetObjectLockConfigurationOutput
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ObjectLockApiService.GetObjectLockConfiguration")
@@ -280,11 +275,11 @@ func (a *ObjectLockApiService) GetObjectLockConfigurationExecute(r ApiGetObjectL
 	}
 
 	localVarPath := localBasePath + "/{Bucket}?object-lock"
-	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", _neturl.PathEscape(parameterValueToString(r.bucket, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", parameterValueToString(r.bucket, "bucket"), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if shared.Strlen(r.bucket) < 3 {
 		return localVarReturnValue, nil, reportError("bucket must have at least 3 elements")
 	}
@@ -327,13 +322,12 @@ func (a *ObjectLockApiService) GetObjectLockConfigurationExecute(r ApiGetObjectL
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
-
 	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
@@ -341,7 +335,6 @@ func (a *ObjectLockApiService) GetObjectLockConfigurationExecute(r ApiGetObjectL
 		RequestURL:  localVarPath,
 		Operation:   "GetObjectLockConfiguration",
 	}
-
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarAPIResponse, err
 	}
@@ -349,6 +342,7 @@ func (a *ObjectLockApiService) GetObjectLockConfigurationExecute(r ApiGetObjectL
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarAPIResponse, err
 	}
@@ -366,6 +360,7 @@ func (a *ObjectLockApiService) GetObjectLockConfigurationExecute(r ApiGetObjectL
 				return localVarReturnValue, localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
+			return localVarReturnValue, localVarAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Error
@@ -392,7 +387,7 @@ func (a *ObjectLockApiService) GetObjectLockConfigurationExecute(r ApiGetObjectL
 }
 
 type ApiGetObjectRetentionRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *ObjectLockApiService
 	bucket     string
 	key        string
@@ -404,29 +399,32 @@ func (r ApiGetObjectRetentionRequest) Retention(retention bool) ApiGetObjectRete
 	r.retention = &retention
 	return r
 }
+
+// The version ID of the object whose retention settings you want to retrieve.
 func (r ApiGetObjectRetentionRequest) VersionId(versionId string) ApiGetObjectRetentionRequest {
 	r.versionId = &versionId
 	return r
 }
 
-func (r ApiGetObjectRetentionRequest) Execute() (GetObjectRetentionOutput, *shared.APIResponse, error) {
+func (r ApiGetObjectRetentionRequest) Execute() (*GetObjectRetentionOutput, *shared.APIResponse, error) {
 	return r.ApiService.GetObjectRetentionExecute(r)
 }
 
 /*
-  - GetObjectRetention GetObjectRetention
-  - Retrieves an object's retention configuration.
+GetObjectRetention GetObjectRetention
+
+Retrieves an object's retention configuration.
 
 #### Permissions
 You must be the contract owner or an administrator to perform this operation. If not, they can grant you permission
 to perform the `s3:GetObjectRetention` operation using [Bucket Policy](#tag/Policy/operation/PutBucketPolicy).
 
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-  - @param bucket
-  - @param key The key name of the object whose retention settings you want to retrieve.
-  - @return ApiGetObjectRetentionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bucket
+	@param key The key name of the object whose retention settings you want to retrieve.
+	@return ApiGetObjectRetentionRequest
 */
-func (a *ObjectLockApiService) GetObjectRetention(ctx _context.Context, bucket string, key string) ApiGetObjectRetentionRequest {
+func (a *ObjectLockApiService) GetObjectRetention(ctx context.Context, bucket string, key string) ApiGetObjectRetentionRequest {
 	return ApiGetObjectRetentionRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -435,18 +433,15 @@ func (a *ObjectLockApiService) GetObjectRetention(ctx _context.Context, bucket s
 	}
 }
 
-/*
- * Execute executes the request
- * @return GetObjectRetentionOutput
- */
-func (a *ObjectLockApiService) GetObjectRetentionExecute(r ApiGetObjectRetentionRequest) (GetObjectRetentionOutput, *shared.APIResponse, error) {
+// Execute executes the request
+//
+//	@return GetObjectRetentionOutput
+func (a *ObjectLockApiService) GetObjectRetentionExecute(r ApiGetObjectRetentionRequest) (*GetObjectRetentionOutput, *shared.APIResponse, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  GetObjectRetentionOutput
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetObjectRetentionOutput
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ObjectLockApiService.GetObjectRetention")
@@ -457,12 +452,12 @@ func (a *ObjectLockApiService) GetObjectRetentionExecute(r ApiGetObjectRetention
 	}
 
 	localVarPath := localBasePath + "/{Bucket}/{Key}?retention"
-	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", _neturl.PathEscape(parameterValueToString(r.bucket, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"Key"+"}", _neturl.PathEscape(parameterValueToString(r.key, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", parameterValueToString(r.bucket, "bucket"), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Key"+"}", parameterValueToString(r.key, "key"), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if shared.Strlen(r.bucket) < 3 {
 		return localVarReturnValue, nil, reportError("bucket must have at least 3 elements")
 	}
@@ -511,13 +506,12 @@ func (a *ObjectLockApiService) GetObjectRetentionExecute(r ApiGetObjectRetention
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
-
 	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
@@ -525,7 +519,6 @@ func (a *ObjectLockApiService) GetObjectRetentionExecute(r ApiGetObjectRetention
 		RequestURL:  localVarPath,
 		Operation:   "GetObjectRetention",
 	}
-
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarAPIResponse, err
 	}
@@ -533,6 +526,7 @@ func (a *ObjectLockApiService) GetObjectRetentionExecute(r ApiGetObjectRetention
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarAPIResponse, err
 	}
@@ -550,6 +544,7 @@ func (a *ObjectLockApiService) GetObjectRetentionExecute(r ApiGetObjectRetention
 				return localVarReturnValue, localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
+			return localVarReturnValue, localVarAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v Error
@@ -559,6 +554,7 @@ func (a *ObjectLockApiService) GetObjectRetentionExecute(r ApiGetObjectRetention
 				return localVarReturnValue, localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
+			return localVarReturnValue, localVarAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Error
@@ -585,7 +581,7 @@ func (a *ObjectLockApiService) GetObjectRetentionExecute(r ApiGetObjectRetention
 }
 
 type ApiPutObjectLegalHoldRequest struct {
-	ctx                       _context.Context
+	ctx                       context.Context
 	ApiService                *ObjectLockApiService
 	bucket                    string
 	key                       string
@@ -599,14 +595,18 @@ func (r ApiPutObjectLegalHoldRequest) LegalHold(legalHold bool) ApiPutObjectLega
 	r.legalHold = &legalHold
 	return r
 }
+
 func (r ApiPutObjectLegalHoldRequest) PutObjectLegalHoldRequest(putObjectLegalHoldRequest PutObjectLegalHoldRequest) ApiPutObjectLegalHoldRequest {
 	r.putObjectLegalHoldRequest = &putObjectLegalHoldRequest
 	return r
 }
+
+// The version ID of the object on which you want to place a Legal Hold.
 func (r ApiPutObjectLegalHoldRequest) VersionId(versionId string) ApiPutObjectLegalHoldRequest {
 	r.versionId = &versionId
 	return r
 }
+
 func (r ApiPutObjectLegalHoldRequest) ContentMD5(contentMD5 string) ApiPutObjectLegalHoldRequest {
 	r.contentMD5 = &contentMD5
 	return r
@@ -617,19 +617,20 @@ func (r ApiPutObjectLegalHoldRequest) Execute() (*shared.APIResponse, error) {
 }
 
 /*
-  - PutObjectLegalHold PutObjectLegalHold
-  - Applies a Legal Hold configuration to the specified object.
+PutObjectLegalHold PutObjectLegalHold
+
+Applies a Legal Hold configuration to the specified object.
 
 #### Permissions
 You must be the contract owner or an administrator to perform this operation. If not, they can grant you permission
 to perform the `s3:PutObjectLegalHold` operation using [Bucket Policy](#tag/Policy/operation/PutBucketPolicy).
 
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-  - @param bucket
-  - @param key The key name of the object on which you want to place a Legal Hold.
-  - @return ApiPutObjectLegalHoldRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bucket
+	@param key The key name of the object on which you want to place a Legal Hold.
+	@return ApiPutObjectLegalHoldRequest
 */
-func (a *ObjectLockApiService) PutObjectLegalHold(ctx _context.Context, bucket string, key string) ApiPutObjectLegalHoldRequest {
+func (a *ObjectLockApiService) PutObjectLegalHold(ctx context.Context, bucket string, key string) ApiPutObjectLegalHoldRequest {
 	return ApiPutObjectLegalHoldRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -638,16 +639,12 @@ func (a *ObjectLockApiService) PutObjectLegalHold(ctx _context.Context, bucket s
 	}
 }
 
-/*
- * Execute executes the request
- */
+// Execute executes the request
 func (a *ObjectLockApiService) PutObjectLegalHoldExecute(r ApiPutObjectLegalHoldRequest) (*shared.APIResponse, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ObjectLockApiService.PutObjectLegalHold")
@@ -658,12 +655,12 @@ func (a *ObjectLockApiService) PutObjectLegalHoldExecute(r ApiPutObjectLegalHold
 	}
 
 	localVarPath := localBasePath + "/{Bucket}/{Key}?legal-hold"
-	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", _neturl.PathEscape(parameterValueToString(r.bucket, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"Key"+"}", _neturl.PathEscape(parameterValueToString(r.key, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", parameterValueToString(r.bucket, "bucket"), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Key"+"}", parameterValueToString(r.key, "key"), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if shared.Strlen(r.bucket) < 3 {
 		return nil, reportError("bucket must have at least 3 elements")
 	}
@@ -720,13 +717,12 @@ func (a *ObjectLockApiService) PutObjectLegalHoldExecute(r ApiPutObjectLegalHold
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
-
 	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
@@ -734,7 +730,6 @@ func (a *ObjectLockApiService) PutObjectLegalHoldExecute(r ApiPutObjectLegalHold
 		RequestURL:  localVarPath,
 		Operation:   "PutObjectLegalHold",
 	}
-
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarAPIResponse, err
 	}
@@ -742,6 +737,7 @@ func (a *ObjectLockApiService) PutObjectLegalHoldExecute(r ApiPutObjectLegalHold
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarAPIResponse, err
 	}
@@ -759,6 +755,7 @@ func (a *ObjectLockApiService) PutObjectLegalHoldExecute(r ApiPutObjectLegalHold
 				return localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
+			return localVarAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v Error
@@ -768,6 +765,7 @@ func (a *ObjectLockApiService) PutObjectLegalHoldExecute(r ApiPutObjectLegalHold
 				return localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
+			return localVarAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Error
@@ -785,7 +783,7 @@ func (a *ObjectLockApiService) PutObjectLegalHoldExecute(r ApiPutObjectLegalHold
 }
 
 type ApiPutObjectLockConfigurationRequest struct {
-	ctx                               _context.Context
+	ctx                               context.Context
 	ApiService                        *ObjectLockApiService
 	bucket                            string
 	objectLock                        *bool
@@ -797,10 +795,12 @@ func (r ApiPutObjectLockConfigurationRequest) ObjectLock(objectLock bool) ApiPut
 	r.objectLock = &objectLock
 	return r
 }
+
 func (r ApiPutObjectLockConfigurationRequest) ContentMD5(contentMD5 string) ApiPutObjectLockConfigurationRequest {
 	r.contentMD5 = &contentMD5
 	return r
 }
+
 func (r ApiPutObjectLockConfigurationRequest) PutObjectLockConfigurationRequest(putObjectLockConfigurationRequest PutObjectLockConfigurationRequest) ApiPutObjectLockConfigurationRequest {
 	r.putObjectLockConfigurationRequest = &putObjectLockConfigurationRequest
 	return r
@@ -811,9 +811,9 @@ func (r ApiPutObjectLockConfigurationRequest) Execute() (*shared.APIResponse, er
 }
 
 /*
-  - PutObjectLockConfiguration PutObjectLockConfiguration
-  - Applies an Object Lock configuration on the specified bucket, which requires
+PutObjectLockConfiguration PutObjectLockConfiguration
 
+Applies an Object Lock configuration on the specified bucket, which requires
 the Object Lock feature to have been enabled during its creation.
 The rule specified in the Object Lock configuration will be applied by default to
 every new object placed in the specified bucket.
@@ -829,11 +829,11 @@ during its creation.
 You must be the contract owner or an administrator to perform this operation. If not, they can grant you permission
 to perform the `s3:PutBucketObjectLockConfiguration` operation using [Bucket Policy](#tag/Policy/operation/PutBucketPolicy).
 
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-  - @param bucket
-  - @return ApiPutObjectLockConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bucket
+	@return ApiPutObjectLockConfigurationRequest
 */
-func (a *ObjectLockApiService) PutObjectLockConfiguration(ctx _context.Context, bucket string) ApiPutObjectLockConfigurationRequest {
+func (a *ObjectLockApiService) PutObjectLockConfiguration(ctx context.Context, bucket string) ApiPutObjectLockConfigurationRequest {
 	return ApiPutObjectLockConfigurationRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -841,16 +841,12 @@ func (a *ObjectLockApiService) PutObjectLockConfiguration(ctx _context.Context, 
 	}
 }
 
-/*
- * Execute executes the request
- */
+// Execute executes the request
 func (a *ObjectLockApiService) PutObjectLockConfigurationExecute(r ApiPutObjectLockConfigurationRequest) (*shared.APIResponse, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ObjectLockApiService.PutObjectLockConfiguration")
@@ -861,11 +857,11 @@ func (a *ObjectLockApiService) PutObjectLockConfigurationExecute(r ApiPutObjectL
 	}
 
 	localVarPath := localBasePath + "/{Bucket}?object-lock"
-	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", _neturl.PathEscape(parameterValueToString(r.bucket, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", parameterValueToString(r.bucket, "bucket"), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if shared.Strlen(r.bucket) < 3 {
 		return nil, reportError("bucket must have at least 3 elements")
 	}
@@ -917,13 +913,12 @@ func (a *ObjectLockApiService) PutObjectLockConfigurationExecute(r ApiPutObjectL
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
-
 	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
@@ -931,7 +926,6 @@ func (a *ObjectLockApiService) PutObjectLockConfigurationExecute(r ApiPutObjectL
 		RequestURL:  localVarPath,
 		Operation:   "PutObjectLockConfiguration",
 	}
-
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarAPIResponse, err
 	}
@@ -939,6 +933,7 @@ func (a *ObjectLockApiService) PutObjectLockConfigurationExecute(r ApiPutObjectL
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarAPIResponse, err
 	}
@@ -956,6 +951,7 @@ func (a *ObjectLockApiService) PutObjectLockConfigurationExecute(r ApiPutObjectL
 				return localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
+			return localVarAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v Error
@@ -965,6 +961,7 @@ func (a *ObjectLockApiService) PutObjectLockConfigurationExecute(r ApiPutObjectL
 				return localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
+			return localVarAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
 			var v Error
@@ -982,7 +979,7 @@ func (a *ObjectLockApiService) PutObjectLockConfigurationExecute(r ApiPutObjectL
 }
 
 type ApiPutObjectRetentionRequest struct {
-	ctx                           _context.Context
+	ctx                           context.Context
 	ApiService                    *ObjectLockApiService
 	bucket                        string
 	key                           string
@@ -997,18 +994,24 @@ func (r ApiPutObjectRetentionRequest) Retention(retention bool) ApiPutObjectRete
 	r.retention = &retention
 	return r
 }
+
 func (r ApiPutObjectRetentionRequest) PutObjectRetentionRequest(putObjectRetentionRequest PutObjectRetentionRequest) ApiPutObjectRetentionRequest {
 	r.putObjectRetentionRequest = &putObjectRetentionRequest
 	return r
 }
+
+// The version ID of the object to which you want to apply the Object Retention configuration.
 func (r ApiPutObjectRetentionRequest) VersionId(versionId string) ApiPutObjectRetentionRequest {
 	r.versionId = &versionId
 	return r
 }
+
+// Indicates whether this operation should bypass Governance mode&#39;s restrictions.
 func (r ApiPutObjectRetentionRequest) XAmzBypassGovernanceRetention(xAmzBypassGovernanceRetention bool) ApiPutObjectRetentionRequest {
 	r.xAmzBypassGovernanceRetention = &xAmzBypassGovernanceRetention
 	return r
 }
+
 func (r ApiPutObjectRetentionRequest) ContentMD5(contentMD5 string) ApiPutObjectRetentionRequest {
 	r.contentMD5 = &contentMD5
 	return r
@@ -1019,20 +1022,21 @@ func (r ApiPutObjectRetentionRequest) Execute() (*shared.APIResponse, error) {
 }
 
 /*
-  - PutObjectRetention PutObjectRetention
-  - Places an Object Retention configuration on an object.
+PutObjectRetention PutObjectRetention
+
+Places an Object Retention configuration on an object.
 
 #### Permissions
 You must be the contract owner or an administrator to perform this operation. If not, they can grant you permission
 to perform the `s3:PutObjectRetention` operation using [Bucket Policy](#tag/Policy/operation/PutBucketPolicy).
 Bypassing a Governance Retention configuration also requires the `s3:BypassGovernanceRetention` permission.
 
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-  - @param bucket
-  - @param key The key name of the object to which you want to apply the Object Retention configuration.
-  - @return ApiPutObjectRetentionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bucket
+	@param key The key name of the object to which you want to apply the Object Retention configuration.
+	@return ApiPutObjectRetentionRequest
 */
-func (a *ObjectLockApiService) PutObjectRetention(ctx _context.Context, bucket string, key string) ApiPutObjectRetentionRequest {
+func (a *ObjectLockApiService) PutObjectRetention(ctx context.Context, bucket string, key string) ApiPutObjectRetentionRequest {
 	return ApiPutObjectRetentionRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1041,16 +1045,12 @@ func (a *ObjectLockApiService) PutObjectRetention(ctx _context.Context, bucket s
 	}
 }
 
-/*
- * Execute executes the request
- */
+// Execute executes the request
 func (a *ObjectLockApiService) PutObjectRetentionExecute(r ApiPutObjectRetentionRequest) (*shared.APIResponse, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ObjectLockApiService.PutObjectRetention")
@@ -1061,12 +1061,12 @@ func (a *ObjectLockApiService) PutObjectRetentionExecute(r ApiPutObjectRetention
 	}
 
 	localVarPath := localBasePath + "/{Bucket}/{Key}?retention"
-	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", _neturl.PathEscape(parameterValueToString(r.bucket, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"Key"+"}", _neturl.PathEscape(parameterValueToString(r.key, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", parameterValueToString(r.bucket, "bucket"), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Key"+"}", parameterValueToString(r.key, "key"), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if shared.Strlen(r.bucket) < 3 {
 		return nil, reportError("bucket must have at least 3 elements")
 	}
@@ -1126,13 +1126,12 @@ func (a *ObjectLockApiService) PutObjectRetentionExecute(r ApiPutObjectRetention
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
-
 	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
@@ -1140,7 +1139,6 @@ func (a *ObjectLockApiService) PutObjectRetentionExecute(r ApiPutObjectRetention
 		RequestURL:  localVarPath,
 		Operation:   "PutObjectRetention",
 	}
-
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarAPIResponse, err
 	}
@@ -1148,6 +1146,7 @@ func (a *ObjectLockApiService) PutObjectRetentionExecute(r ApiPutObjectRetention
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarAPIResponse, err
 	}
@@ -1165,6 +1164,7 @@ func (a *ObjectLockApiService) PutObjectRetentionExecute(r ApiPutObjectRetention
 				return localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
+			return localVarAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v Error
@@ -1174,6 +1174,7 @@ func (a *ObjectLockApiService) PutObjectRetentionExecute(r ApiPutObjectRetention
 				return localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
+			return localVarAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Error

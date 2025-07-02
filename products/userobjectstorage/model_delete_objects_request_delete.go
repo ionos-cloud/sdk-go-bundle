@@ -15,13 +15,16 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the DeleteObjectsRequestDelete type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &DeleteObjectsRequestDelete{}
 
 // DeleteObjectsRequestDelete Container for the objects to delete.
 type DeleteObjectsRequestDelete struct {
-	Objects []ObjectIdentifier `json:"Objects,omitempty"`
-	Quiet   *bool              `json:"Quiet,omitempty"`
+	XMLName xml.Name           `xml:"DeleteObjectsRequestDelete"`
+	Objects []ObjectIdentifier `json:"Objects,omitempty" xml:"Objects"`
+	Quiet   *bool              `json:"Quiet,omitempty" xml:"Quiet"`
 }
 
 // NewDeleteObjectsRequestDelete instantiates a new DeleteObjectsRequestDelete object

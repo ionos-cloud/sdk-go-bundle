@@ -15,12 +15,15 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the GetObjectRetentionOutput type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GetObjectRetentionOutput{}
 
 // GetObjectRetentionOutput struct for GetObjectRetentionOutput
 type GetObjectRetentionOutput struct {
-	Retention *ObjectLockRetention `json:"Retention,omitempty"`
+	XMLName   xml.Name             `xml:"GetObjectRetentionOutput"`
+	Retention *ObjectLockRetention `json:"Retention,omitempty" xml:"Retention"`
 }
 
 // NewGetObjectRetentionOutput instantiates a new GetObjectRetentionOutput object

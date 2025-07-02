@@ -15,12 +15,15 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the BucketPolicyStatementConditionIpAddress type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BucketPolicyStatementConditionIpAddress{}
 
 // BucketPolicyStatementConditionIpAddress struct for BucketPolicyStatementConditionIpAddress
 type BucketPolicyStatementConditionIpAddress struct {
-	AwsSourceIp []string `json:"aws:SourceIp,omitempty"`
+	XMLName     xml.Name `xml:"BucketPolicyStatementConditionIpAddress"`
+	AwsSourceIp []string `json:"aws:SourceIp,omitempty" xml:"aws:SourceIp"`
 }
 
 // NewBucketPolicyStatementConditionIpAddress instantiates a new BucketPolicyStatementConditionIpAddress object

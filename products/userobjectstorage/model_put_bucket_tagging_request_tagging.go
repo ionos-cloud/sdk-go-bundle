@@ -15,13 +15,16 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the PutBucketTaggingRequestTagging type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PutBucketTaggingRequestTagging{}
 
 // PutBucketTaggingRequestTagging Container for `TagSet` elements.
 type PutBucketTaggingRequestTagging struct {
+	XMLName xml.Name `xml:"PutBucketTaggingRequestTagging"`
 	// Contains the tag set.
-	TagSet []Tag `json:"TagSet,omitempty"`
+	TagSet []Tag `json:"TagSet,omitempty" xml:"TagSet"`
 }
 
 // NewPutBucketTaggingRequestTagging instantiates a new PutBucketTaggingRequestTagging object

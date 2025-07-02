@@ -15,13 +15,16 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the HeadObjectOutput type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &HeadObjectOutput{}
 
 // HeadObjectOutput struct for HeadObjectOutput
 type HeadObjectOutput struct {
+	XMLName xml.Name `xml:"HeadObjectOutput"`
 	// A map of metadata to store with the object. Each key must start with  `x-amz-meta-` prefix.
-	Metadata *map[string]Metadata1 `json:"Metadata,omitempty"`
+	Metadata *map[string]Metadata1 `json:"Metadata,omitempty" xml:"Metadata"`
 }
 
 // NewHeadObjectOutput instantiates a new HeadObjectOutput object

@@ -12,25 +12,21 @@
 package userobjectstorage
 
 import (
-	_context "context"
+	"bytes"
+	"context"
 	"fmt"
 	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	"io"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // LoggingApiService LoggingApi service
 type LoggingApiService service
 
 type ApiGetBucketLoggingRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *LoggingApiService
 	bucket     string
 	logging    *bool
@@ -41,18 +37,20 @@ func (r ApiGetBucketLoggingRequest) Logging(logging bool) ApiGetBucketLoggingReq
 	return r
 }
 
-func (r ApiGetBucketLoggingRequest) Execute() (GetBucketLogging200Response, *shared.APIResponse, error) {
+func (r ApiGetBucketLoggingRequest) Execute() (*GetBucketLogging200Response, *shared.APIResponse, error) {
 	return r.ApiService.GetBucketLoggingExecute(r)
 }
 
 /*
- * GetBucketLogging GetBucketLogging
- * <p>Returns the logging status of a bucket and the permissions users have to view and modify that status. To use GET, you must be the bucket owner.</p>
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param bucket The bucket name for which to get the logging information.
- * @return ApiGetBucketLoggingRequest
- */
-func (a *LoggingApiService) GetBucketLogging(ctx _context.Context, bucket string) ApiGetBucketLoggingRequest {
+GetBucketLogging GetBucketLogging
+
+<p>Returns the logging status of a bucket and the permissions users have to view and modify that status. To use GET, you must be the bucket owner.</p>
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bucket The bucket name for which to get the logging information.
+	@return ApiGetBucketLoggingRequest
+*/
+func (a *LoggingApiService) GetBucketLogging(ctx context.Context, bucket string) ApiGetBucketLoggingRequest {
 	return ApiGetBucketLoggingRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -60,18 +58,15 @@ func (a *LoggingApiService) GetBucketLogging(ctx _context.Context, bucket string
 	}
 }
 
-/*
- * Execute executes the request
- * @return GetBucketLogging200Response
- */
-func (a *LoggingApiService) GetBucketLoggingExecute(r ApiGetBucketLoggingRequest) (GetBucketLogging200Response, *shared.APIResponse, error) {
+// Execute executes the request
+//
+//	@return GetBucketLogging200Response
+func (a *LoggingApiService) GetBucketLoggingExecute(r ApiGetBucketLoggingRequest) (*GetBucketLogging200Response, *shared.APIResponse, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  GetBucketLogging200Response
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetBucketLogging200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoggingApiService.GetBucketLogging")
@@ -82,11 +77,11 @@ func (a *LoggingApiService) GetBucketLoggingExecute(r ApiGetBucketLoggingRequest
 	}
 
 	localVarPath := localBasePath + "/{Bucket}?logging"
-	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", _neturl.PathEscape(parameterValueToString(r.bucket, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", parameterValueToString(r.bucket, "bucket"), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.logging == nil {
 		return localVarReturnValue, nil, reportError("logging is required and must be specified")
 	}
@@ -123,13 +118,12 @@ func (a *LoggingApiService) GetBucketLoggingExecute(r ApiGetBucketLoggingRequest
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
-
 	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
@@ -137,7 +131,6 @@ func (a *LoggingApiService) GetBucketLoggingExecute(r ApiGetBucketLoggingRequest
 		RequestURL:  localVarPath,
 		Operation:   "GetBucketLogging",
 	}
-
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarAPIResponse, err
 	}
@@ -145,6 +138,7 @@ func (a *LoggingApiService) GetBucketLoggingExecute(r ApiGetBucketLoggingRequest
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarAPIResponse, err
 	}
@@ -162,6 +156,7 @@ func (a *LoggingApiService) GetBucketLoggingExecute(r ApiGetBucketLoggingRequest
 				return localVarReturnValue, localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
+			return localVarReturnValue, localVarAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Error
@@ -188,7 +183,7 @@ func (a *LoggingApiService) GetBucketLoggingExecute(r ApiGetBucketLoggingRequest
 }
 
 type ApiPutBucketLoggingRequest struct {
-	ctx                     _context.Context
+	ctx                     context.Context
 	ApiService              *LoggingApiService
 	bucket                  string
 	logging                 *bool
@@ -200,10 +195,12 @@ func (r ApiPutBucketLoggingRequest) Logging(logging bool) ApiPutBucketLoggingReq
 	r.logging = &logging
 	return r
 }
+
 func (r ApiPutBucketLoggingRequest) PutBucketLoggingRequest(putBucketLoggingRequest PutBucketLoggingRequest) ApiPutBucketLoggingRequest {
 	r.putBucketLoggingRequest = &putBucketLoggingRequest
 	return r
 }
+
 func (r ApiPutBucketLoggingRequest) ContentMD5(contentMD5 string) ApiPutBucketLoggingRequest {
 	r.contentMD5 = &contentMD5
 	return r
@@ -214,13 +211,15 @@ func (r ApiPutBucketLoggingRequest) Execute() (*shared.APIResponse, error) {
 }
 
 /*
- * PutBucketLogging PutBucketLogging
- * <p>Set the logging parameters for a bucket and to specify permissions for who can view and modify the logging parameters. All logs are saved to buckets in the same IONOS Object Storage Region as the source bucket. To set the logging status of a bucket, you must be the bucket owner.</p> <p>The bucket owner is automatically granted FULL_CONTROL to all logs. You use the <code>Grantee</code> request element to grant access to other people. The <code>Permissions</code> request element specifies the kind of access the grantee has to the logs.</p>
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param bucket The name of the bucket for which to set the logging parameters.
- * @return ApiPutBucketLoggingRequest
- */
-func (a *LoggingApiService) PutBucketLogging(ctx _context.Context, bucket string) ApiPutBucketLoggingRequest {
+PutBucketLogging PutBucketLogging
+
+<p>Set the logging parameters for a bucket and to specify permissions for who can view and modify the logging parameters. All logs are saved to buckets in the same IONOS Object Storage Region as the source bucket. To set the logging status of a bucket, you must be the bucket owner.</p> <p>The bucket owner is automatically granted FULL_CONTROL to all logs. You use the <code>Grantee</code> request element to grant access to other people. The <code>Permissions</code> request element specifies the kind of access the grantee has to the logs.</p>
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bucket The name of the bucket for which to set the logging parameters.
+	@return ApiPutBucketLoggingRequest
+*/
+func (a *LoggingApiService) PutBucketLogging(ctx context.Context, bucket string) ApiPutBucketLoggingRequest {
 	return ApiPutBucketLoggingRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -228,16 +227,12 @@ func (a *LoggingApiService) PutBucketLogging(ctx _context.Context, bucket string
 	}
 }
 
-/*
- * Execute executes the request
- */
+// Execute executes the request
 func (a *LoggingApiService) PutBucketLoggingExecute(r ApiPutBucketLoggingRequest) (*shared.APIResponse, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoggingApiService.PutBucketLogging")
@@ -248,11 +243,11 @@ func (a *LoggingApiService) PutBucketLoggingExecute(r ApiPutBucketLoggingRequest
 	}
 
 	localVarPath := localBasePath + "/{Bucket}?logging"
-	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", _neturl.PathEscape(parameterValueToString(r.bucket, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", parameterValueToString(r.bucket, "bucket"), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.logging == nil {
 		return nil, reportError("logging is required and must be specified")
 	}
@@ -297,13 +292,12 @@ func (a *LoggingApiService) PutBucketLoggingExecute(r ApiPutBucketLoggingRequest
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
-
 	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
@@ -311,7 +305,6 @@ func (a *LoggingApiService) PutBucketLoggingExecute(r ApiPutBucketLoggingRequest
 		RequestURL:  localVarPath,
 		Operation:   "PutBucketLogging",
 	}
-
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarAPIResponse, err
 	}
@@ -319,6 +312,7 @@ func (a *LoggingApiService) PutBucketLoggingExecute(r ApiPutBucketLoggingRequest
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarAPIResponse, err
 	}
@@ -336,6 +330,7 @@ func (a *LoggingApiService) PutBucketLoggingExecute(r ApiPutBucketLoggingRequest
 				return localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
+			return localVarAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Error

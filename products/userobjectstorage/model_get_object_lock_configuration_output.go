@@ -15,12 +15,15 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the GetObjectLockConfigurationOutput type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GetObjectLockConfigurationOutput{}
 
 // GetObjectLockConfigurationOutput struct for GetObjectLockConfigurationOutput
 type GetObjectLockConfigurationOutput struct {
-	ObjectLockConfiguration *GetObjectLockConfigurationOutputObjectLockConfiguration `json:"ObjectLockConfiguration,omitempty"`
+	XMLName                 xml.Name                                                 `xml:"ObjectLockConfiguration"`
+	ObjectLockConfiguration *GetObjectLockConfigurationOutputObjectLockConfiguration `json:"ObjectLockConfiguration,omitempty" xml:"ObjectLockConfiguration"`
 }
 
 // NewGetObjectLockConfigurationOutput instantiates a new GetObjectLockConfigurationOutput object

@@ -15,13 +15,16 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the PutBucketVersioningRequestVersioningConfiguration type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PutBucketVersioningRequestVersioningConfiguration{}
 
 // PutBucketVersioningRequestVersioningConfiguration Describes the versioning state of the bucket.
 type PutBucketVersioningRequestVersioningConfiguration struct {
-	Status    *BucketVersioningStatus `json:"Status,omitempty"`
-	MfaDelete *MfaDeleteStatus        `json:"MfaDelete,omitempty"`
+	XMLName   xml.Name                `xml:"PutBucketVersioningRequestVersioningConfiguration"`
+	Status    *BucketVersioningStatus `json:"Status,omitempty" xml:"Status"`
+	MfaDelete *MfaDeleteStatus        `json:"MfaDelete,omitempty" xml:"MfaDelete"`
 }
 
 // NewPutBucketVersioningRequestVersioningConfiguration instantiates a new PutBucketVersioningRequestVersioningConfiguration object

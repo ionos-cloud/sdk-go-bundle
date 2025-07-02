@@ -15,12 +15,15 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the PutBucketEncryptionRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PutBucketEncryptionRequest{}
 
 // PutBucketEncryptionRequest struct for PutBucketEncryptionRequest
 type PutBucketEncryptionRequest struct {
-	ServerSideEncryptionConfiguration PutBucketEncryptionRequestServerSideEncryptionConfiguration `json:"ServerSideEncryptionConfiguration"`
+	XMLName                           xml.Name                                                    `xml:"PutBucketEncryptionRequest"`
+	ServerSideEncryptionConfiguration PutBucketEncryptionRequestServerSideEncryptionConfiguration `json:"ServerSideEncryptionConfiguration" xml:"ServerSideEncryptionConfiguration"`
 }
 
 // NewPutBucketEncryptionRequest instantiates a new PutBucketEncryptionRequest object

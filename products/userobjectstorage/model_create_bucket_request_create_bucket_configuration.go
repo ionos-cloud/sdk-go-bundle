@@ -15,13 +15,16 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the CreateBucketRequestCreateBucketConfiguration type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &CreateBucketRequestCreateBucketConfiguration{}
 
 // CreateBucketRequestCreateBucketConfiguration The configuration information for the bucket.
 type CreateBucketRequestCreateBucketConfiguration struct {
+	XMLName xml.Name `xml:"CreateBucketConfiguration"`
 	// Specifies the Region where the bucket will be created. Please refer to the <a href=\"#section/Endpoints\">list of available regions</a>.
-	LocationConstraint *string `json:"LocationConstraint,omitempty"`
+	LocationConstraint *string `json:"LocationConstraint,omitempty" xml:"LocationConstraint"`
 }
 
 // NewCreateBucketRequestCreateBucketConfiguration instantiates a new CreateBucketRequestCreateBucketConfiguration object

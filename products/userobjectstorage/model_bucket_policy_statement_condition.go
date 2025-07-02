@@ -15,15 +15,18 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the BucketPolicyStatementCondition type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BucketPolicyStatementCondition{}
 
 // BucketPolicyStatementCondition Conditions for when a policy is in effect.   IONOS Object Storage supports only the following condition operators and keys. Bucket policy does not yet support string interpolation.  **Condition Operators** - ForAllValues:StringLike - ForAnyValue:StringLike - IpAddress - NotIpAddress - NumericEquals - NumericNotEquals - NumericLessThan - NumericLessThanEquals - NumericGreaterThan - NumericGreaterThanEquals - StringEquals - StringNotEquals - StringEqualsIgnoreCase - StringNotEqualsIgnoreCase - StringLike - StringNotLike  **Condition Keys** - s3:delimiter - s3:ExistingObjectTag/<tag-key> - s3:max-keys - s3:object-lock-legal-hold - s3:object-lock-mode - s3:object-lock-remaining-retention-days - s3:object-lock-retain-until-date - s3:prefix - s3:RequestObjectTag/<tag-keys> - s3:RequestObjectTagKeys - s3:VersionId - s3:x-amz-acl - s3:x-amz-copy-source - s3:x-amz-grant-full-control - s3:x-amz-grant-read - s3:x-amz-grant-read-acp - s3:x-amz-grant-write - s3:x-amz-grant-write-acp - s3:x-amz-metadata-directive - s3:x-amz-server-side-encryption
 type BucketPolicyStatementCondition struct {
-	IpAddress       *BucketPolicyStatementConditionIpAddress       `json:"IpAddress,omitempty"`
-	NotIpAddress    *BucketPolicyStatementConditionIpAddress       `json:"NotIpAddress,omitempty"`
-	DateGreaterThan *BucketPolicyStatementConditionDateGreaterThan `json:"DateGreaterThan,omitempty"`
-	DateLessThan    *BucketPolicyStatementConditionDateLessThan    `json:"DateLessThan,omitempty"`
+	XMLName         xml.Name                                       `xml:"BucketPolicyStatementCondition"`
+	IpAddress       *BucketPolicyStatementConditionIpAddress       `json:"IpAddress,omitempty" xml:"IpAddress"`
+	NotIpAddress    *BucketPolicyStatementConditionIpAddress       `json:"NotIpAddress,omitempty" xml:"NotIpAddress"`
+	DateGreaterThan *BucketPolicyStatementConditionDateGreaterThan `json:"DateGreaterThan,omitempty" xml:"DateGreaterThan"`
+	DateLessThan    *BucketPolicyStatementConditionDateLessThan    `json:"DateLessThan,omitempty" xml:"DateLessThan"`
 }
 
 // NewBucketPolicyStatementCondition instantiates a new BucketPolicyStatementCondition object

@@ -15,12 +15,15 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the PutBucketCorsRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PutBucketCorsRequest{}
 
 // PutBucketCorsRequest struct for PutBucketCorsRequest
 type PutBucketCorsRequest struct {
-	CORSConfiguration PutBucketCorsRequestCORSConfiguration `json:"CORSConfiguration"`
+	XMLName           xml.Name                              `xml:"PutBucketCorsRequest"`
+	CORSConfiguration PutBucketCorsRequestCORSConfiguration `json:"CORSConfiguration" xml:"CORSConfiguration"`
 }
 
 // NewPutBucketCorsRequest instantiates a new PutBucketCorsRequest object

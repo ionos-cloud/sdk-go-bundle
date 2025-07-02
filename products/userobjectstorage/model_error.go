@@ -15,12 +15,15 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the Error type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Error{}
 
 // Error Container for all error elements.
 type Error struct {
-	Error *ErrorError `json:"Error,omitempty"`
+	XMLName xml.Name    `xml:"Error"`
+	Error   *ErrorError `json:"Error,omitempty" xml:"Error"`
 }
 
 // NewError instantiates a new Error object

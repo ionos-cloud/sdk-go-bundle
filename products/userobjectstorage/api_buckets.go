@@ -12,25 +12,21 @@
 package userobjectstorage
 
 import (
-	_context "context"
+	"bytes"
+	"context"
 	"fmt"
 	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	"io"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // BucketsApiService BucketsApi service
 type BucketsApiService service
 
 type ApiCreateBucketRequest struct {
-	ctx                         _context.Context
+	ctx                         context.Context
 	ApiService                  *BucketsApiService
 	bucket                      string
 	createBucketRequest         *CreateBucketRequest
@@ -41,6 +37,8 @@ func (r ApiCreateBucketRequest) CreateBucketRequest(createBucketRequest CreateBu
 	r.createBucketRequest = &createBucketRequest
 	return r
 }
+
+// Specifies whether you want Object Lock enabled for the new bucket. After bucket creation, you must apply the [Object Lock configuration](#tag/Object-Lock/operation/PutObjectLockConfiguration).
 func (r ApiCreateBucketRequest) XAmzBucketObjectLockEnabled(xAmzBucketObjectLockEnabled bool) ApiCreateBucketRequest {
 	r.xAmzBucketObjectLockEnabled = &xAmzBucketObjectLockEnabled
 	return r
@@ -51,8 +49,9 @@ func (r ApiCreateBucketRequest) Execute() (*shared.APIResponse, error) {
 }
 
 /*
-  - CreateBucket CreateBucket
-  - Creates a new object storage bucket.
+CreateBucket CreateBucket
+
+Creates a new object storage bucket.
 
 To create a bucket, you must register with IONOS Object Storage and have a valid Access Key ID to
 authenticate requests.
@@ -68,11 +67,11 @@ targeting an existing bucket using an endpoint with an incorrect location will r
 Any user of the contract is allowed to create a bucket. But further operations with the bucket
 must be allowed by [Bucket Policy](#tag/Policy/operation/PutBucketPolicy) which must be set by the contract owner or an administrator.
 
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-  - @param bucket
-  - @return ApiCreateBucketRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bucket
+	@return ApiCreateBucketRequest
 */
-func (a *BucketsApiService) CreateBucket(ctx _context.Context, bucket string) ApiCreateBucketRequest {
+func (a *BucketsApiService) CreateBucket(ctx context.Context, bucket string) ApiCreateBucketRequest {
 	return ApiCreateBucketRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -80,16 +79,12 @@ func (a *BucketsApiService) CreateBucket(ctx _context.Context, bucket string) Ap
 	}
 }
 
-/*
- * Execute executes the request
- */
+// Execute executes the request
 func (a *BucketsApiService) CreateBucketExecute(r ApiCreateBucketRequest) (*shared.APIResponse, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketsApiService.CreateBucket")
@@ -100,11 +95,11 @@ func (a *BucketsApiService) CreateBucketExecute(r ApiCreateBucketRequest) (*shar
 	}
 
 	localVarPath := localBasePath + "/{Bucket}"
-	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", _neturl.PathEscape(parameterValueToString(r.bucket, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", parameterValueToString(r.bucket, "bucket"), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if shared.Strlen(r.bucket) < 3 {
 		return nil, reportError("bucket must have at least 3 elements")
 	}
@@ -151,13 +146,12 @@ func (a *BucketsApiService) CreateBucketExecute(r ApiCreateBucketRequest) (*shar
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
-
 	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
@@ -165,7 +159,6 @@ func (a *BucketsApiService) CreateBucketExecute(r ApiCreateBucketRequest) (*shar
 		RequestURL:  localVarPath,
 		Operation:   "CreateBucket",
 	}
-
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarAPIResponse, err
 	}
@@ -173,6 +166,7 @@ func (a *BucketsApiService) CreateBucketExecute(r ApiCreateBucketRequest) (*shar
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarAPIResponse, err
 	}
@@ -190,6 +184,7 @@ func (a *BucketsApiService) CreateBucketExecute(r ApiCreateBucketRequest) (*shar
 				return localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
+			return localVarAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v Error
@@ -199,6 +194,7 @@ func (a *BucketsApiService) CreateBucketExecute(r ApiCreateBucketRequest) (*shar
 				return localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
+			return localVarAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
 			var v Error
@@ -216,7 +212,7 @@ func (a *BucketsApiService) CreateBucketExecute(r ApiCreateBucketRequest) (*shar
 }
 
 type ApiDeleteBucketRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *BucketsApiService
 	bucket     string
 }
@@ -226,9 +222,9 @@ func (r ApiDeleteBucketRequest) Execute() (*shared.APIResponse, error) {
 }
 
 /*
-  - DeleteBucket DeleteBucket
-  - Deletes the bucket. All objects (including all object versions and
+DeleteBucket DeleteBucket
 
+Deletes the bucket. All objects (including all object versions and
 delete markers) in the bucket must be deleted before the bucket itself
 can be deleted.
 
@@ -239,11 +235,11 @@ to perform the `s3:DeleteBucket` operation using [Bucket Policy](#tag/Policy/ope
 #### S3 API Compatibility
 - The `x-amz-expected-bucket-owner` header isn't supported.
 
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-  - @param bucket
-  - @return ApiDeleteBucketRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bucket
+	@return ApiDeleteBucketRequest
 */
-func (a *BucketsApiService) DeleteBucket(ctx _context.Context, bucket string) ApiDeleteBucketRequest {
+func (a *BucketsApiService) DeleteBucket(ctx context.Context, bucket string) ApiDeleteBucketRequest {
 	return ApiDeleteBucketRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -251,16 +247,12 @@ func (a *BucketsApiService) DeleteBucket(ctx _context.Context, bucket string) Ap
 	}
 }
 
-/*
- * Execute executes the request
- */
+// Execute executes the request
 func (a *BucketsApiService) DeleteBucketExecute(r ApiDeleteBucketRequest) (*shared.APIResponse, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketsApiService.DeleteBucket")
@@ -271,11 +263,11 @@ func (a *BucketsApiService) DeleteBucketExecute(r ApiDeleteBucketRequest) (*shar
 	}
 
 	localVarPath := localBasePath + "/{Bucket}"
-	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", _neturl.PathEscape(parameterValueToString(r.bucket, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", parameterValueToString(r.bucket, "bucket"), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if shared.Strlen(r.bucket) < 3 {
 		return nil, reportError("bucket must have at least 3 elements")
 	}
@@ -314,13 +306,12 @@ func (a *BucketsApiService) DeleteBucketExecute(r ApiDeleteBucketRequest) (*shar
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
-
 	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
@@ -328,7 +319,6 @@ func (a *BucketsApiService) DeleteBucketExecute(r ApiDeleteBucketRequest) (*shar
 		RequestURL:  localVarPath,
 		Operation:   "DeleteBucket",
 	}
-
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarAPIResponse, err
 	}
@@ -336,6 +326,7 @@ func (a *BucketsApiService) DeleteBucketExecute(r ApiDeleteBucketRequest) (*shar
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarAPIResponse, err
 	}
@@ -353,6 +344,7 @@ func (a *BucketsApiService) DeleteBucketExecute(r ApiDeleteBucketRequest) (*shar
 				return localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
+			return localVarAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Error
@@ -370,7 +362,7 @@ func (a *BucketsApiService) DeleteBucketExecute(r ApiDeleteBucketRequest) (*shar
 }
 
 type ApiGetBucketLocationRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *BucketsApiService
 	bucket     string
 	location   *bool
@@ -381,13 +373,14 @@ func (r ApiGetBucketLocationRequest) Location(location bool) ApiGetBucketLocatio
 	return r
 }
 
-func (r ApiGetBucketLocationRequest) Execute() (GetBucketLocation200Response, *shared.APIResponse, error) {
+func (r ApiGetBucketLocationRequest) Execute() (*GetBucketLocation200Response, *shared.APIResponse, error) {
 	return r.ApiService.GetBucketLocationExecute(r)
 }
 
 /*
-  - GetBucketLocation GetBucketLocation
-  - Returns the region the bucket resides in.
+GetBucketLocation GetBucketLocation
+
+Returns the region the bucket resides in.
 
 #### Permissions
 This operation is available for all users of the contract.
@@ -395,11 +388,11 @@ This operation is available for all users of the contract.
 #### S3 API Compatibility
 - The `x-amz-expected-bucket-owner` header isn't supported.
 
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-  - @param bucket
-  - @return ApiGetBucketLocationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bucket
+	@return ApiGetBucketLocationRequest
 */
-func (a *BucketsApiService) GetBucketLocation(ctx _context.Context, bucket string) ApiGetBucketLocationRequest {
+func (a *BucketsApiService) GetBucketLocation(ctx context.Context, bucket string) ApiGetBucketLocationRequest {
 	return ApiGetBucketLocationRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -407,18 +400,15 @@ func (a *BucketsApiService) GetBucketLocation(ctx _context.Context, bucket strin
 	}
 }
 
-/*
- * Execute executes the request
- * @return GetBucketLocation200Response
- */
-func (a *BucketsApiService) GetBucketLocationExecute(r ApiGetBucketLocationRequest) (GetBucketLocation200Response, *shared.APIResponse, error) {
+// Execute executes the request
+//
+//	@return GetBucketLocation200Response
+func (a *BucketsApiService) GetBucketLocationExecute(r ApiGetBucketLocationRequest) (*GetBucketLocation200Response, *shared.APIResponse, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  GetBucketLocation200Response
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetBucketLocation200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketsApiService.GetBucketLocation")
@@ -429,11 +419,11 @@ func (a *BucketsApiService) GetBucketLocationExecute(r ApiGetBucketLocationReque
 	}
 
 	localVarPath := localBasePath + "/{Bucket}?location"
-	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", _neturl.PathEscape(parameterValueToString(r.bucket, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", parameterValueToString(r.bucket, "bucket"), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if shared.Strlen(r.bucket) < 3 {
 		return localVarReturnValue, nil, reportError("bucket must have at least 3 elements")
 	}
@@ -476,13 +466,12 @@ func (a *BucketsApiService) GetBucketLocationExecute(r ApiGetBucketLocationReque
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
-
 	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
@@ -490,7 +479,6 @@ func (a *BucketsApiService) GetBucketLocationExecute(r ApiGetBucketLocationReque
 		RequestURL:  localVarPath,
 		Operation:   "GetBucketLocation",
 	}
-
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarAPIResponse, err
 	}
@@ -498,6 +486,7 @@ func (a *BucketsApiService) GetBucketLocationExecute(r ApiGetBucketLocationReque
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarAPIResponse, err
 	}
@@ -515,6 +504,7 @@ func (a *BucketsApiService) GetBucketLocationExecute(r ApiGetBucketLocationReque
 				return localVarReturnValue, localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
+			return localVarReturnValue, localVarAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Error
@@ -541,7 +531,7 @@ func (a *BucketsApiService) GetBucketLocationExecute(r ApiGetBucketLocationReque
 }
 
 type ApiHeadBucketRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *BucketsApiService
 	bucket     string
 }
@@ -551,9 +541,9 @@ func (r ApiHeadBucketRequest) Execute() (*shared.APIResponse, error) {
 }
 
 /*
-  - HeadBucket HeadBucket
-  - Retrieves metadata and verifies the existence of a specific bucket. This operation checks for the presence
+HeadBucket HeadBucket
 
+Retrieves metadata and verifies the existence of a specific bucket. This operation checks for the presence
 of the specified bucket without returning the actual content of the bucket.
 
 Bucket names are globally unique across all users of the service. If the bucket exists and the requester
@@ -569,11 +559,11 @@ to perform the `s3:ListBucket` operation using [Bucket Policy](#tag/Policy/opera
 #### S3 API Compatibility
 - The `x-amz-expected-bucket-owner` header isn't supported.
 
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-  - @param bucket
-  - @return ApiHeadBucketRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bucket
+	@return ApiHeadBucketRequest
 */
-func (a *BucketsApiService) HeadBucket(ctx _context.Context, bucket string) ApiHeadBucketRequest {
+func (a *BucketsApiService) HeadBucket(ctx context.Context, bucket string) ApiHeadBucketRequest {
 	return ApiHeadBucketRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -581,16 +571,12 @@ func (a *BucketsApiService) HeadBucket(ctx _context.Context, bucket string) ApiH
 	}
 }
 
-/*
- * Execute executes the request
- */
+// Execute executes the request
 func (a *BucketsApiService) HeadBucketExecute(r ApiHeadBucketRequest) (*shared.APIResponse, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodHead
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodHead
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketsApiService.HeadBucket")
@@ -601,11 +587,11 @@ func (a *BucketsApiService) HeadBucketExecute(r ApiHeadBucketRequest) (*shared.A
 	}
 
 	localVarPath := localBasePath + "/{Bucket}"
-	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", _neturl.PathEscape(parameterValueToString(r.bucket, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", parameterValueToString(r.bucket, "bucket"), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if shared.Strlen(r.bucket) < 3 {
 		return nil, reportError("bucket must have at least 3 elements")
 	}
@@ -644,13 +630,12 @@ func (a *BucketsApiService) HeadBucketExecute(r ApiHeadBucketRequest) (*shared.A
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
-
 	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
@@ -658,7 +643,6 @@ func (a *BucketsApiService) HeadBucketExecute(r ApiHeadBucketRequest) (*shared.A
 		RequestURL:  localVarPath,
 		Operation:   "HeadBucket",
 	}
-
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarAPIResponse, err
 	}
@@ -666,6 +650,7 @@ func (a *BucketsApiService) HeadBucketExecute(r ApiHeadBucketRequest) (*shared.A
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarAPIResponse, err
 	}
@@ -683,6 +668,7 @@ func (a *BucketsApiService) HeadBucketExecute(r ApiHeadBucketRequest) (*shared.A
 				return localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
+			return localVarAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Error
@@ -700,43 +686,41 @@ func (a *BucketsApiService) HeadBucketExecute(r ApiHeadBucketRequest) (*shared.A
 }
 
 type ApiListBucketsRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *BucketsApiService
 }
 
-func (r ApiListBucketsRequest) Execute() (ListAllMyBucketsResult, *shared.APIResponse, error) {
+func (r ApiListBucketsRequest) Execute() (*ListAllMyBucketsResult, *shared.APIResponse, error) {
 	return r.ApiService.ListBucketsExecute(r)
 }
 
 /*
-  - ListBuckets ListBuckets
-  - Lists all the buckets of the contract.
+ListBuckets ListBuckets
+
+Lists all the buckets of the contract.
 
 #### Permissions
 This operation is available for all users of the contract.
 
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-  - @return ApiListBucketsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListBucketsRequest
 */
-func (a *BucketsApiService) ListBuckets(ctx _context.Context) ApiListBucketsRequest {
+func (a *BucketsApiService) ListBuckets(ctx context.Context) ApiListBucketsRequest {
 	return ApiListBucketsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
-/*
- * Execute executes the request
- * @return ListAllMyBucketsResult
- */
-func (a *BucketsApiService) ListBucketsExecute(r ApiListBucketsRequest) (ListAllMyBucketsResult, *shared.APIResponse, error) {
+// Execute executes the request
+//
+//	@return ListAllMyBucketsResult
+func (a *BucketsApiService) ListBucketsExecute(r ApiListBucketsRequest) (*ListAllMyBucketsResult, *shared.APIResponse, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ListAllMyBucketsResult
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ListAllMyBucketsResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketsApiService.ListBuckets")
@@ -749,8 +733,8 @@ func (a *BucketsApiService) ListBucketsExecute(r ApiListBucketsRequest) (ListAll
 	localVarPath := localBasePath + "/"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -783,13 +767,12 @@ func (a *BucketsApiService) ListBucketsExecute(r ApiListBucketsRequest) (ListAll
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
-
 	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
@@ -797,7 +780,6 @@ func (a *BucketsApiService) ListBucketsExecute(r ApiListBucketsRequest) (ListAll
 		RequestURL:  localVarPath,
 		Operation:   "ListBuckets",
 	}
-
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarAPIResponse, err
 	}
@@ -805,6 +787,7 @@ func (a *BucketsApiService) ListBucketsExecute(r ApiListBucketsRequest) (ListAll
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarAPIResponse, err
 	}

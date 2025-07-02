@@ -15,13 +15,16 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the GetBucketTaggingOutput type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GetBucketTaggingOutput{}
 
 // GetBucketTaggingOutput struct for GetBucketTaggingOutput
 type GetBucketTaggingOutput struct {
+	XMLName xml.Name `xml:"GetBucketTaggingOutput"`
 	// Contains the tag set.
-	TagSet []Tag `json:"TagSet"`
+	TagSet []Tag `json:"TagSet" xml:"TagSet"`
 }
 
 // NewGetBucketTaggingOutput instantiates a new GetBucketTaggingOutput object

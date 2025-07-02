@@ -13,19 +13,21 @@ package userobjectstorage
 
 import (
 	"encoding/json"
-
 	"os"
 )
+
+import "encoding/xml"
 
 // checks if the GetObjectOutput type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GetObjectOutput{}
 
 // GetObjectOutput struct for GetObjectOutput
 type GetObjectOutput struct {
+	XMLName xml.Name `xml:"GetObjectOutput"`
 	// Object data.
-	Body **os.File `json:"Body,omitempty"`
+	Body **os.File `json:"Body,omitempty" xml:"Body"`
 	// A map of metadata to store with the object. Each key must start with  `x-amz-meta-` prefix.
-	Metadata *map[string]Metadata1 `json:"Metadata,omitempty"`
+	Metadata *map[string]Metadata1 `json:"Metadata,omitempty" xml:"Metadata"`
 }
 
 // NewGetObjectOutput instantiates a new GetObjectOutput object

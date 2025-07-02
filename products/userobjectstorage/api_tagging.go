@@ -12,25 +12,21 @@
 package userobjectstorage
 
 import (
-	_context "context"
+	"bytes"
+	"context"
 	"fmt"
 	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	"io"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // TaggingApiService TaggingApi service
 type TaggingApiService service
 
 type ApiDeleteBucketTaggingRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *TaggingApiService
 	bucket     string
 	tagging    *bool
@@ -46,13 +42,15 @@ func (r ApiDeleteBucketTaggingRequest) Execute() (*shared.APIResponse, error) {
 }
 
 /*
- * DeleteBucketTagging DeleteBucketTagging
- * <p>Deletes the tags from the bucket.</p> <p>To use this operation, you must have permission to perform the `PutBucketTagging` operation. By default, the bucket owner has this permission and can grant this permission to others.</p>
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param bucket
- * @return ApiDeleteBucketTaggingRequest
- */
-func (a *TaggingApiService) DeleteBucketTagging(ctx _context.Context, bucket string) ApiDeleteBucketTaggingRequest {
+DeleteBucketTagging DeleteBucketTagging
+
+<p>Deletes the tags from the bucket.</p> <p>To use this operation, you must have permission to perform the `PutBucketTagging` operation. By default, the bucket owner has this permission and can grant this permission to others.</p>
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bucket
+	@return ApiDeleteBucketTaggingRequest
+*/
+func (a *TaggingApiService) DeleteBucketTagging(ctx context.Context, bucket string) ApiDeleteBucketTaggingRequest {
 	return ApiDeleteBucketTaggingRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -60,16 +58,12 @@ func (a *TaggingApiService) DeleteBucketTagging(ctx _context.Context, bucket str
 	}
 }
 
-/*
- * Execute executes the request
- */
+// Execute executes the request
 func (a *TaggingApiService) DeleteBucketTaggingExecute(r ApiDeleteBucketTaggingRequest) (*shared.APIResponse, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaggingApiService.DeleteBucketTagging")
@@ -80,11 +74,11 @@ func (a *TaggingApiService) DeleteBucketTaggingExecute(r ApiDeleteBucketTaggingR
 	}
 
 	localVarPath := localBasePath + "/{Bucket}?tagging"
-	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", _neturl.PathEscape(parameterValueToString(r.bucket, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", parameterValueToString(r.bucket, "bucket"), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if shared.Strlen(r.bucket) < 3 {
 		return nil, reportError("bucket must have at least 3 elements")
 	}
@@ -127,13 +121,12 @@ func (a *TaggingApiService) DeleteBucketTaggingExecute(r ApiDeleteBucketTaggingR
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
-
 	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
@@ -141,7 +134,6 @@ func (a *TaggingApiService) DeleteBucketTaggingExecute(r ApiDeleteBucketTaggingR
 		RequestURL:  localVarPath,
 		Operation:   "DeleteBucketTagging",
 	}
-
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarAPIResponse, err
 	}
@@ -149,6 +141,7 @@ func (a *TaggingApiService) DeleteBucketTaggingExecute(r ApiDeleteBucketTaggingR
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarAPIResponse, err
 	}
@@ -165,7 +158,7 @@ func (a *TaggingApiService) DeleteBucketTaggingExecute(r ApiDeleteBucketTaggingR
 }
 
 type ApiDeleteObjectTaggingRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *TaggingApiService
 	bucket     string
 	key        string
@@ -177,6 +170,8 @@ func (r ApiDeleteObjectTaggingRequest) Tagging(tagging bool) ApiDeleteObjectTagg
 	r.tagging = &tagging
 	return r
 }
+
+// The versionId of the object that the tag-set will be removed from.
 func (r ApiDeleteObjectTaggingRequest) VersionId(versionId string) ApiDeleteObjectTaggingRequest {
 	r.versionId = &versionId
 	return r
@@ -187,14 +182,16 @@ func (r ApiDeleteObjectTaggingRequest) Execute() (map[string]interface{}, *share
 }
 
 /*
- * DeleteObjectTagging DeleteObjectTagging
- * <p>Removes the entire tag set from the specified object.</p>  <p>To use this operation, you must have permission to perform the `DeleteObjectTagging` operation.</p> <p>To delete tags of a specific object version, add the `versionId` query parameter in the request. You will need permission for the `DeleteObjectVersionTagging` operation.</p>
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param bucket
- * @param key The key that identifies the object in the bucket from which to remove all tags.
- * @return ApiDeleteObjectTaggingRequest
- */
-func (a *TaggingApiService) DeleteObjectTagging(ctx _context.Context, bucket string, key string) ApiDeleteObjectTaggingRequest {
+DeleteObjectTagging DeleteObjectTagging
+
+<p>Removes the entire tag set from the specified object.</p>  <p>To use this operation, you must have permission to perform the `DeleteObjectTagging` operation.</p> <p>To delete tags of a specific object version, add the `versionId` query parameter in the request. You will need permission for the `DeleteObjectVersionTagging` operation.</p>
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bucket
+	@param key The key that identifies the object in the bucket from which to remove all tags.
+	@return ApiDeleteObjectTaggingRequest
+*/
+func (a *TaggingApiService) DeleteObjectTagging(ctx context.Context, bucket string, key string) ApiDeleteObjectTaggingRequest {
 	return ApiDeleteObjectTaggingRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -203,18 +200,15 @@ func (a *TaggingApiService) DeleteObjectTagging(ctx _context.Context, bucket str
 	}
 }
 
-/*
- * Execute executes the request
- * @return map[string]interface{}
- */
+// Execute executes the request
+//
+//	@return map[string]interface{}
 func (a *TaggingApiService) DeleteObjectTaggingExecute(r ApiDeleteObjectTaggingRequest) (map[string]interface{}, *shared.APIResponse, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  map[string]interface{}
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaggingApiService.DeleteObjectTagging")
@@ -225,12 +219,12 @@ func (a *TaggingApiService) DeleteObjectTaggingExecute(r ApiDeleteObjectTaggingR
 	}
 
 	localVarPath := localBasePath + "/{Bucket}/{Key}?tagging"
-	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", _neturl.PathEscape(parameterValueToString(r.bucket, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"Key"+"}", _neturl.PathEscape(parameterValueToString(r.key, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", parameterValueToString(r.bucket, "bucket"), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Key"+"}", parameterValueToString(r.key, "key"), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if shared.Strlen(r.bucket) < 3 {
 		return localVarReturnValue, nil, reportError("bucket must have at least 3 elements")
 	}
@@ -279,13 +273,12 @@ func (a *TaggingApiService) DeleteObjectTaggingExecute(r ApiDeleteObjectTaggingR
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
-
 	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
@@ -293,7 +286,6 @@ func (a *TaggingApiService) DeleteObjectTaggingExecute(r ApiDeleteObjectTaggingR
 		RequestURL:  localVarPath,
 		Operation:   "DeleteObjectTagging",
 	}
-
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarAPIResponse, err
 	}
@@ -301,6 +293,7 @@ func (a *TaggingApiService) DeleteObjectTaggingExecute(r ApiDeleteObjectTaggingR
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarAPIResponse, err
 	}
@@ -326,7 +319,7 @@ func (a *TaggingApiService) DeleteObjectTaggingExecute(r ApiDeleteObjectTaggingR
 }
 
 type ApiGetBucketTaggingRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *TaggingApiService
 	bucket     string
 	tagging    *bool
@@ -337,18 +330,20 @@ func (r ApiGetBucketTaggingRequest) Tagging(tagging bool) ApiGetBucketTaggingReq
 	return r
 }
 
-func (r ApiGetBucketTaggingRequest) Execute() (GetBucketTaggingOutput, *shared.APIResponse, error) {
+func (r ApiGetBucketTaggingRequest) Execute() (*GetBucketTaggingOutput, *shared.APIResponse, error) {
 	return r.ApiService.GetBucketTaggingExecute(r)
 }
 
 /*
- * GetBucketTagging GetBucketTagging
- * <p>Returns the tag set associated with the bucket.</p> <p>To use this operation, you must have permission to perform the `GetBucketTagging` operation. By default, the bucket owner has this permission and can grant this permission to others.</p> <p> `GetBucketTagging` has the following special error:</p> <ul> <li> <p>Error code: `NoSuchTagSetError` </p> <ul> <li> <p>Description: There is no tag set associated with the bucket.</p> </li> </ul> </li> </ul>
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param bucket
- * @return ApiGetBucketTaggingRequest
- */
-func (a *TaggingApiService) GetBucketTagging(ctx _context.Context, bucket string) ApiGetBucketTaggingRequest {
+GetBucketTagging GetBucketTagging
+
+<p>Returns the tag set associated with the bucket.</p> <p>To use this operation, you must have permission to perform the `GetBucketTagging` operation. By default, the bucket owner has this permission and can grant this permission to others.</p> <p> `GetBucketTagging` has the following special error:</p> <ul> <li> <p>Error code: `NoSuchTagSetError` </p> <ul> <li> <p>Description: There is no tag set associated with the bucket.</p> </li> </ul> </li> </ul>
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bucket
+	@return ApiGetBucketTaggingRequest
+*/
+func (a *TaggingApiService) GetBucketTagging(ctx context.Context, bucket string) ApiGetBucketTaggingRequest {
 	return ApiGetBucketTaggingRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -356,18 +351,15 @@ func (a *TaggingApiService) GetBucketTagging(ctx _context.Context, bucket string
 	}
 }
 
-/*
- * Execute executes the request
- * @return GetBucketTaggingOutput
- */
-func (a *TaggingApiService) GetBucketTaggingExecute(r ApiGetBucketTaggingRequest) (GetBucketTaggingOutput, *shared.APIResponse, error) {
+// Execute executes the request
+//
+//	@return GetBucketTaggingOutput
+func (a *TaggingApiService) GetBucketTaggingExecute(r ApiGetBucketTaggingRequest) (*GetBucketTaggingOutput, *shared.APIResponse, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  GetBucketTaggingOutput
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetBucketTaggingOutput
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaggingApiService.GetBucketTagging")
@@ -378,11 +370,11 @@ func (a *TaggingApiService) GetBucketTaggingExecute(r ApiGetBucketTaggingRequest
 	}
 
 	localVarPath := localBasePath + "/{Bucket}?tagging"
-	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", _neturl.PathEscape(parameterValueToString(r.bucket, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", parameterValueToString(r.bucket, "bucket"), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if shared.Strlen(r.bucket) < 3 {
 		return localVarReturnValue, nil, reportError("bucket must have at least 3 elements")
 	}
@@ -425,13 +417,12 @@ func (a *TaggingApiService) GetBucketTaggingExecute(r ApiGetBucketTaggingRequest
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
-
 	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
@@ -439,7 +430,6 @@ func (a *TaggingApiService) GetBucketTaggingExecute(r ApiGetBucketTaggingRequest
 		RequestURL:  localVarPath,
 		Operation:   "GetBucketTagging",
 	}
-
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarAPIResponse, err
 	}
@@ -447,6 +437,7 @@ func (a *TaggingApiService) GetBucketTaggingExecute(r ApiGetBucketTaggingRequest
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarAPIResponse, err
 	}
@@ -472,7 +463,7 @@ func (a *TaggingApiService) GetBucketTaggingExecute(r ApiGetBucketTaggingRequest
 }
 
 type ApiGetObjectTaggingRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *TaggingApiService
 	bucket     string
 	key        string
@@ -484,24 +475,28 @@ func (r ApiGetObjectTaggingRequest) Tagging(tagging bool) ApiGetObjectTaggingReq
 	r.tagging = &tagging
 	return r
 }
+
+// The versionId of the object for which to get the tagging information.
 func (r ApiGetObjectTaggingRequest) VersionId(versionId string) ApiGetObjectTaggingRequest {
 	r.versionId = &versionId
 	return r
 }
 
-func (r ApiGetObjectTaggingRequest) Execute() (GetObjectTaggingOutput, *shared.APIResponse, error) {
+func (r ApiGetObjectTaggingRequest) Execute() (*GetObjectTaggingOutput, *shared.APIResponse, error) {
 	return r.ApiService.GetObjectTaggingExecute(r)
 }
 
 /*
- * GetObjectTagging GetObjectTagging
- * <p>Returns the tag-set of an object. You send the GET request against the tagging subresource associated with the object.</p> <p>To use this operation, you must have permission to perform the `GetObjectTagging` operation. By default, the GET operation returns information about current version of an object. For a versioned bucket, you can have multiple versions of an object in your bucket. To retrieve tags of any other version, use the versionId query parameter. You also need permission for the `GetObjectVersionTagging` operation.</p> <p> By default, the bucket owner has this permission and can grant this permission to others.</p>
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param bucket
- * @param key Object key for which to get the tagging information.
- * @return ApiGetObjectTaggingRequest
- */
-func (a *TaggingApiService) GetObjectTagging(ctx _context.Context, bucket string, key string) ApiGetObjectTaggingRequest {
+GetObjectTagging GetObjectTagging
+
+<p>Returns the tag-set of an object. You send the GET request against the tagging subresource associated with the object.</p> <p>To use this operation, you must have permission to perform the `GetObjectTagging` operation. By default, the GET operation returns information about current version of an object. For a versioned bucket, you can have multiple versions of an object in your bucket. To retrieve tags of any other version, use the versionId query parameter. You also need permission for the `GetObjectVersionTagging` operation.</p> <p> By default, the bucket owner has this permission and can grant this permission to others.</p>
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bucket
+	@param key Object key for which to get the tagging information.
+	@return ApiGetObjectTaggingRequest
+*/
+func (a *TaggingApiService) GetObjectTagging(ctx context.Context, bucket string, key string) ApiGetObjectTaggingRequest {
 	return ApiGetObjectTaggingRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -510,18 +505,15 @@ func (a *TaggingApiService) GetObjectTagging(ctx _context.Context, bucket string
 	}
 }
 
-/*
- * Execute executes the request
- * @return GetObjectTaggingOutput
- */
-func (a *TaggingApiService) GetObjectTaggingExecute(r ApiGetObjectTaggingRequest) (GetObjectTaggingOutput, *shared.APIResponse, error) {
+// Execute executes the request
+//
+//	@return GetObjectTaggingOutput
+func (a *TaggingApiService) GetObjectTaggingExecute(r ApiGetObjectTaggingRequest) (*GetObjectTaggingOutput, *shared.APIResponse, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  GetObjectTaggingOutput
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetObjectTaggingOutput
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaggingApiService.GetObjectTagging")
@@ -532,12 +524,12 @@ func (a *TaggingApiService) GetObjectTaggingExecute(r ApiGetObjectTaggingRequest
 	}
 
 	localVarPath := localBasePath + "/{Bucket}/{Key}?tagging"
-	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", _neturl.PathEscape(parameterValueToString(r.bucket, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"Key"+"}", _neturl.PathEscape(parameterValueToString(r.key, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", parameterValueToString(r.bucket, "bucket"), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Key"+"}", parameterValueToString(r.key, "key"), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if shared.Strlen(r.bucket) < 3 {
 		return localVarReturnValue, nil, reportError("bucket must have at least 3 elements")
 	}
@@ -586,13 +578,12 @@ func (a *TaggingApiService) GetObjectTaggingExecute(r ApiGetObjectTaggingRequest
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
-
 	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
@@ -600,7 +591,6 @@ func (a *TaggingApiService) GetObjectTaggingExecute(r ApiGetObjectTaggingRequest
 		RequestURL:  localVarPath,
 		Operation:   "GetObjectTagging",
 	}
-
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarAPIResponse, err
 	}
@@ -608,6 +598,7 @@ func (a *TaggingApiService) GetObjectTaggingExecute(r ApiGetObjectTaggingRequest
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarAPIResponse, err
 	}
@@ -633,7 +624,7 @@ func (a *TaggingApiService) GetObjectTaggingExecute(r ApiGetObjectTaggingRequest
 }
 
 type ApiPutBucketTaggingRequest struct {
-	ctx                     _context.Context
+	ctx                     context.Context
 	ApiService              *TaggingApiService
 	bucket                  string
 	tagging                 *bool
@@ -645,10 +636,12 @@ func (r ApiPutBucketTaggingRequest) Tagging(tagging bool) ApiPutBucketTaggingReq
 	r.tagging = &tagging
 	return r
 }
+
 func (r ApiPutBucketTaggingRequest) PutBucketTaggingRequest(putBucketTaggingRequest PutBucketTaggingRequest) ApiPutBucketTaggingRequest {
 	r.putBucketTaggingRequest = &putBucketTaggingRequest
 	return r
 }
+
 func (r ApiPutBucketTaggingRequest) ContentMD5(contentMD5 string) ApiPutBucketTaggingRequest {
 	r.contentMD5 = &contentMD5
 	return r
@@ -659,13 +652,15 @@ func (r ApiPutBucketTaggingRequest) Execute() (*shared.APIResponse, error) {
 }
 
 /*
- * PutBucketTagging PutBucketTagging
- * <p>Sets the tags for a bucket.</p>          <note> <p> When this operation sets the tags for a bucket, it will overwrite any current tags the bucket already has. You cannot use this operation to add tags to an existing list of tags.</p> </note> <p>To use this operation, you must have permissions to perform the `PutBucketTagging` operation. The bucket owner has this permission by default and can grant this permission to others. </p> <p> `PutBucketTagging` has the following special errors:</p> <ul> <li> <p>Error code: `InvalidTagError` </p> <ul> <li> <p>Description: The tag provided was not a valid tag. This error can occur if the tag did not pass input validation. </p> </li> </ul> </li> <li> <p>Error code: `MalformedXMLError` </p> <ul> <li> <p>Description: The XML provided does not match the schema.</p> </li> </ul> </li> <li> <p>Error code: `OperationAbortedError ` </p> <ul> <li> <p>Description: A conflicting conditional operation is currently in progress against this resource. Please try again.</p> </li> </ul> </li> <li> <p>Error code: `InternalError` </p> <ul> <li> <p>Description: The service was unable to apply the provided tag to the bucket.</p> </li> </ul> </li> </ul>
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param bucket
- * @return ApiPutBucketTaggingRequest
- */
-func (a *TaggingApiService) PutBucketTagging(ctx _context.Context, bucket string) ApiPutBucketTaggingRequest {
+PutBucketTagging PutBucketTagging
+
+<p>Sets the tags for a bucket.</p>          <note> <p> When this operation sets the tags for a bucket, it will overwrite any current tags the bucket already has. You cannot use this operation to add tags to an existing list of tags.</p> </note> <p>To use this operation, you must have permissions to perform the `PutBucketTagging` operation. The bucket owner has this permission by default and can grant this permission to others. </p> <p> `PutBucketTagging` has the following special errors:</p> <ul> <li> <p>Error code: `InvalidTagError` </p> <ul> <li> <p>Description: The tag provided was not a valid tag. This error can occur if the tag did not pass input validation. </p> </li> </ul> </li> <li> <p>Error code: `MalformedXMLError` </p> <ul> <li> <p>Description: The XML provided does not match the schema.</p> </li> </ul> </li> <li> <p>Error code: `OperationAbortedError ` </p> <ul> <li> <p>Description: A conflicting conditional operation is currently in progress against this resource. Please try again.</p> </li> </ul> </li> <li> <p>Error code: `InternalError` </p> <ul> <li> <p>Description: The service was unable to apply the provided tag to the bucket.</p> </li> </ul> </li> </ul>
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bucket
+	@return ApiPutBucketTaggingRequest
+*/
+func (a *TaggingApiService) PutBucketTagging(ctx context.Context, bucket string) ApiPutBucketTaggingRequest {
 	return ApiPutBucketTaggingRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -673,16 +668,12 @@ func (a *TaggingApiService) PutBucketTagging(ctx _context.Context, bucket string
 	}
 }
 
-/*
- * Execute executes the request
- */
+// Execute executes the request
 func (a *TaggingApiService) PutBucketTaggingExecute(r ApiPutBucketTaggingRequest) (*shared.APIResponse, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaggingApiService.PutBucketTagging")
@@ -693,11 +684,11 @@ func (a *TaggingApiService) PutBucketTaggingExecute(r ApiPutBucketTaggingRequest
 	}
 
 	localVarPath := localBasePath + "/{Bucket}?tagging"
-	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", _neturl.PathEscape(parameterValueToString(r.bucket, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", parameterValueToString(r.bucket, "bucket"), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if shared.Strlen(r.bucket) < 3 {
 		return nil, reportError("bucket must have at least 3 elements")
 	}
@@ -748,13 +739,12 @@ func (a *TaggingApiService) PutBucketTaggingExecute(r ApiPutBucketTaggingRequest
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
-
 	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
@@ -762,7 +752,6 @@ func (a *TaggingApiService) PutBucketTaggingExecute(r ApiPutBucketTaggingRequest
 		RequestURL:  localVarPath,
 		Operation:   "PutBucketTagging",
 	}
-
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarAPIResponse, err
 	}
@@ -770,6 +759,7 @@ func (a *TaggingApiService) PutBucketTaggingExecute(r ApiPutBucketTaggingRequest
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarAPIResponse, err
 	}
@@ -786,7 +776,7 @@ func (a *TaggingApiService) PutBucketTaggingExecute(r ApiPutBucketTaggingRequest
 }
 
 type ApiPutObjectTaggingRequest struct {
-	ctx                     _context.Context
+	ctx                     context.Context
 	ApiService              *TaggingApiService
 	bucket                  string
 	key                     string
@@ -800,14 +790,18 @@ func (r ApiPutObjectTaggingRequest) Tagging(tagging bool) ApiPutObjectTaggingReq
 	r.tagging = &tagging
 	return r
 }
+
 func (r ApiPutObjectTaggingRequest) PutBucketTaggingRequest(putBucketTaggingRequest PutBucketTaggingRequest) ApiPutObjectTaggingRequest {
 	r.putBucketTaggingRequest = &putBucketTaggingRequest
 	return r
 }
+
+// The versionId of the object that the tag-set will be added to.
 func (r ApiPutObjectTaggingRequest) VersionId(versionId string) ApiPutObjectTaggingRequest {
 	r.versionId = &versionId
 	return r
 }
+
 func (r ApiPutObjectTaggingRequest) ContentMD5(contentMD5 string) ApiPutObjectTaggingRequest {
 	r.contentMD5 = &contentMD5
 	return r
@@ -818,14 +812,16 @@ func (r ApiPutObjectTaggingRequest) Execute() (map[string]interface{}, *shared.A
 }
 
 /*
- * PutObjectTagging PutObjectTagging
- * <p>Sets the supplied tag-set to an object that already exists in a bucket.</p> <p>A tag is a key-value pair. You can associate tags with an object by sending a PUT request against the tagging subresource that is associated with the object. You can retrieve tags by sending a GET request.</p> <p>Note that IONOS Object Storage limits the maximum number of tags to 10 tags per object.</p> <p>To use this operation, you must have permission to perform the `PutObjectTagging` operation. By default, the bucket owner has this permission and can grant this permission to others.</p> <p>To put tags of any other version, use the `versionId` query parameter. You also need permission for the `PutObjectVersionTagging` operation.</p> <p class="title"> <b>Special Errors</b> </p> <ul> <li> <ul> <li> <p> <i>Code: InvalidTagError </i> </p> </li> <li> <p> <i>Cause: The tag provided was not a valid tag. This error can occur if the tag did not pass input validation.</i> </p> </li> </ul> </li> <li> <ul> <li> <p> <i>Code: MalformedXMLError </i> </p> </li> <li> <p> <i>Cause: The XML provided does not match the schema.</i> </p> </li> </ul> </li> <li> <ul> <li> <p> <i>Code: OperationAbortedError </i> </p> </li> <li> <p> <i>Cause: A conflicting conditional operation is currently in progress against this resource. Please try again.</i> </p> </li> </ul> </li> <li> <ul> <li> <p> <i>Code: InternalError</i> </p> </li> <li> <p> <i>Cause: The service was unable to apply the provided tag to the object.</i> </p> </li> </ul> </li> </ul>
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param bucket
- * @param key Name of the object key.
- * @return ApiPutObjectTaggingRequest
- */
-func (a *TaggingApiService) PutObjectTagging(ctx _context.Context, bucket string, key string) ApiPutObjectTaggingRequest {
+PutObjectTagging PutObjectTagging
+
+<p>Sets the supplied tag-set to an object that already exists in a bucket.</p> <p>A tag is a key-value pair. You can associate tags with an object by sending a PUT request against the tagging subresource that is associated with the object. You can retrieve tags by sending a GET request.</p> <p>Note that IONOS Object Storage limits the maximum number of tags to 10 tags per object.</p> <p>To use this operation, you must have permission to perform the `PutObjectTagging` operation. By default, the bucket owner has this permission and can grant this permission to others.</p> <p>To put tags of any other version, use the `versionId` query parameter. You also need permission for the `PutObjectVersionTagging` operation.</p> <p class="title"> <b>Special Errors</b> </p> <ul> <li> <ul> <li> <p> <i>Code: InvalidTagError </i> </p> </li> <li> <p> <i>Cause: The tag provided was not a valid tag. This error can occur if the tag did not pass input validation.</i> </p> </li> </ul> </li> <li> <ul> <li> <p> <i>Code: MalformedXMLError </i> </p> </li> <li> <p> <i>Cause: The XML provided does not match the schema.</i> </p> </li> </ul> </li> <li> <ul> <li> <p> <i>Code: OperationAbortedError </i> </p> </li> <li> <p> <i>Cause: A conflicting conditional operation is currently in progress against this resource. Please try again.</i> </p> </li> </ul> </li> <li> <ul> <li> <p> <i>Code: InternalError</i> </p> </li> <li> <p> <i>Cause: The service was unable to apply the provided tag to the object.</i> </p> </li> </ul> </li> </ul>
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bucket
+	@param key Name of the object key.
+	@return ApiPutObjectTaggingRequest
+*/
+func (a *TaggingApiService) PutObjectTagging(ctx context.Context, bucket string, key string) ApiPutObjectTaggingRequest {
 	return ApiPutObjectTaggingRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -834,18 +830,15 @@ func (a *TaggingApiService) PutObjectTagging(ctx _context.Context, bucket string
 	}
 }
 
-/*
- * Execute executes the request
- * @return map[string]interface{}
- */
+// Execute executes the request
+//
+//	@return map[string]interface{}
 func (a *TaggingApiService) PutObjectTaggingExecute(r ApiPutObjectTaggingRequest) (map[string]interface{}, *shared.APIResponse, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  map[string]interface{}
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaggingApiService.PutObjectTagging")
@@ -856,12 +849,12 @@ func (a *TaggingApiService) PutObjectTaggingExecute(r ApiPutObjectTaggingRequest
 	}
 
 	localVarPath := localBasePath + "/{Bucket}/{Key}?tagging"
-	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", _neturl.PathEscape(parameterValueToString(r.bucket, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"Key"+"}", _neturl.PathEscape(parameterValueToString(r.key, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", parameterValueToString(r.bucket, "bucket"), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Key"+"}", parameterValueToString(r.key, "key"), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if shared.Strlen(r.bucket) < 3 {
 		return localVarReturnValue, nil, reportError("bucket must have at least 3 elements")
 	}
@@ -918,13 +911,12 @@ func (a *TaggingApiService) PutObjectTaggingExecute(r ApiPutObjectTaggingRequest
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
-
 	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
@@ -932,7 +924,6 @@ func (a *TaggingApiService) PutObjectTaggingExecute(r ApiPutObjectTaggingRequest
 		RequestURL:  localVarPath,
 		Operation:   "PutObjectTagging",
 	}
-
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarAPIResponse, err
 	}
@@ -940,6 +931,7 @@ func (a *TaggingApiService) PutObjectTaggingExecute(r ApiPutObjectTaggingRequest
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarAPIResponse, err
 	}

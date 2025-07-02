@@ -15,12 +15,15 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the GetBucketPolicyStatusOutput type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GetBucketPolicyStatusOutput{}
 
 // GetBucketPolicyStatusOutput struct for GetBucketPolicyStatusOutput
 type GetBucketPolicyStatusOutput struct {
-	PolicyStatus *PolicyStatus `json:"PolicyStatus,omitempty"`
+	XMLName      xml.Name      `xml:"GetBucketPolicyStatusOutput"`
+	PolicyStatus *PolicyStatus `json:"PolicyStatus,omitempty" xml:"PolicyStatus"`
 }
 
 // NewGetBucketPolicyStatusOutput instantiates a new GetBucketPolicyStatusOutput object

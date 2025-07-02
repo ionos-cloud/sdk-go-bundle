@@ -13,16 +13,18 @@ package userobjectstorage
 
 import (
 	"encoding/json"
-
 	"time"
 )
+
+import "encoding/xml"
 
 // checks if the BucketPolicyStatementConditionDateGreaterThanOneOf type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BucketPolicyStatementConditionDateGreaterThanOneOf{}
 
 // BucketPolicyStatementConditionDateGreaterThanOneOf struct for BucketPolicyStatementConditionDateGreaterThanOneOf
 type BucketPolicyStatementConditionDateGreaterThanOneOf struct {
-	AwsCurrentTime *IonosTime `json:"aws:CurrentTime,omitempty"`
+	XMLName        xml.Name   `xml:"BucketPolicyStatementConditionDateGreaterThanOneOf"`
+	AwsCurrentTime *IonosTime `json:"aws:CurrentTime,omitempty" xml:"aws:CurrentTime"`
 }
 
 // NewBucketPolicyStatementConditionDateGreaterThanOneOf instantiates a new BucketPolicyStatementConditionDateGreaterThanOneOf object

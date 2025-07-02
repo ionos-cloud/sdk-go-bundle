@@ -15,15 +15,18 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the Initiator type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Initiator{}
 
 // Initiator Container element that identifies who initiated the multipart upload.
 type Initiator struct {
+	XMLName xml.Name `xml:"Initiator"`
 	// Container for the Contract Number of the owner.
-	ID *int32 `json:"ID,omitempty"`
+	ID *int32 `json:"ID,omitempty" xml:"ID"`
 	// Container for the display name of the owner.
-	DisplayName *string `json:"DisplayName,omitempty"`
+	DisplayName *string `json:"DisplayName,omitempty" xml:"DisplayName"`
 }
 
 // NewInitiator instantiates a new Initiator object

@@ -15,12 +15,15 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the CopyObjectOutput type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &CopyObjectOutput{}
 
 // CopyObjectOutput struct for CopyObjectOutput
 type CopyObjectOutput struct {
-	CopyObjectResult *CopyObjectResult `json:"CopyObjectResult,omitempty"`
+	XMLName          xml.Name          `xml:"CopyObjectOutput"`
+	CopyObjectResult *CopyObjectResult `json:"CopyObjectResult,omitempty" xml:"CopyObjectResult"`
 }
 
 // NewCopyObjectOutput instantiates a new CopyObjectOutput object

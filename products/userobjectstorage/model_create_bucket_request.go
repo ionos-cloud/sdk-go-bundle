@@ -15,12 +15,15 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the CreateBucketRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &CreateBucketRequest{}
 
 // CreateBucketRequest struct for CreateBucketRequest
 type CreateBucketRequest struct {
-	CreateBucketConfiguration *CreateBucketRequestCreateBucketConfiguration `json:"CreateBucketConfiguration,omitempty"`
+	XMLName                   xml.Name                                      `xml:"CreateBucketRequest"`
+	CreateBucketConfiguration *CreateBucketRequestCreateBucketConfiguration `json:"CreateBucketConfiguration,omitempty" xml:"CreateBucketConfiguration"`
 }
 
 // NewCreateBucketRequest instantiates a new CreateBucketRequest object

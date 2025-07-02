@@ -15,13 +15,16 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the PutBucketCorsRequestCORSConfiguration type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PutBucketCorsRequestCORSConfiguration{}
 
 // PutBucketCorsRequestCORSConfiguration Describes the cross-origin access configuration for objects in an IONOS Object Storage bucket.
 type PutBucketCorsRequestCORSConfiguration struct {
+	XMLName xml.Name `xml:"PutBucketCorsRequestCORSConfiguration"`
 	// A set of origins and methods (cross-origin access that you want to allow). You can add up to 100 rules to the configuration.
-	CORSRules []CORSRule `json:"CORSRules,omitempty"`
+	CORSRules []CORSRule `json:"CORSRules,omitempty" xml:"CORSRules"`
 }
 
 // NewPutBucketCorsRequestCORSConfiguration instantiates a new PutBucketCorsRequestCORSConfiguration object

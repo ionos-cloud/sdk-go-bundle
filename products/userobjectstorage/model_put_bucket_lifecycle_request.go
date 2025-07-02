@@ -15,12 +15,15 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the PutBucketLifecycleRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PutBucketLifecycleRequest{}
 
 // PutBucketLifecycleRequest struct for PutBucketLifecycleRequest
 type PutBucketLifecycleRequest struct {
-	LifecycleConfiguration *PutBucketLifecycleRequestLifecycleConfiguration `json:"LifecycleConfiguration,omitempty"`
+	XMLName                xml.Name                                         `xml:"PutBucketLifecycleRequest"`
+	LifecycleConfiguration *PutBucketLifecycleRequestLifecycleConfiguration `json:"LifecycleConfiguration,omitempty" xml:"LifecycleConfiguration"`
 }
 
 // NewPutBucketLifecycleRequest instantiates a new PutBucketLifecycleRequest object

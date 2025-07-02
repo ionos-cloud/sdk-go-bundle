@@ -15,12 +15,15 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the ListObjectsV2Output type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ListObjectsV2Output{}
 
 // ListObjectsV2Output struct for ListObjectsV2Output
 type ListObjectsV2Output struct {
-	ListBucketResult *ListObjectsV2OutputListBucketResult `json:"ListBucketResult,omitempty"`
+	XMLName          xml.Name                             `xml:"ListBucketResult"`
+	ListBucketResult *ListObjectsV2OutputListBucketResult `json:"ListBucketResult,omitempty" xml:"ListBucketResult"`
 }
 
 // NewListObjectsV2Output instantiates a new ListObjectsV2Output object

@@ -12,25 +12,21 @@
 package userobjectstorage
 
 import (
-	_context "context"
+	"bytes"
+	"context"
 	"fmt"
 	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	"io"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // PublicAccessBlockApiService PublicAccessBlockApi service
 type PublicAccessBlockApiService service
 
 type ApiDeletePublicAccessBlockRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *PublicAccessBlockApiService
 	bucket     string
 	policy     *bool
@@ -46,8 +42,9 @@ func (r ApiDeletePublicAccessBlockRequest) Execute() (*shared.APIResponse, error
 }
 
 /*
-  - DeletePublicAccessBlock DeletePublicAccessBlock
-  - Deletes the public access configuration for an object storage bucket.
+DeletePublicAccessBlock DeletePublicAccessBlock
+
+Deletes the public access configuration for an object storage bucket.
 
 #### Permissions
 You must be the contract owner or an administrator to perform this operation. If not, they can grant you permission
@@ -56,11 +53,11 @@ to perform the `s3:DeleteBucketPublicAccessBlock` operation using [Bucket Policy
 #### S3 API Compatibility
 - The `x-amz-expected-bucket-owner` header isn't supported.
 
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-  - @param bucket
-  - @return ApiDeletePublicAccessBlockRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bucket
+	@return ApiDeletePublicAccessBlockRequest
 */
-func (a *PublicAccessBlockApiService) DeletePublicAccessBlock(ctx _context.Context, bucket string) ApiDeletePublicAccessBlockRequest {
+func (a *PublicAccessBlockApiService) DeletePublicAccessBlock(ctx context.Context, bucket string) ApiDeletePublicAccessBlockRequest {
 	return ApiDeletePublicAccessBlockRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -68,16 +65,12 @@ func (a *PublicAccessBlockApiService) DeletePublicAccessBlock(ctx _context.Conte
 	}
 }
 
-/*
- * Execute executes the request
- */
+// Execute executes the request
 func (a *PublicAccessBlockApiService) DeletePublicAccessBlockExecute(r ApiDeletePublicAccessBlockRequest) (*shared.APIResponse, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicAccessBlockApiService.DeletePublicAccessBlock")
@@ -88,11 +81,11 @@ func (a *PublicAccessBlockApiService) DeletePublicAccessBlockExecute(r ApiDelete
 	}
 
 	localVarPath := localBasePath + "/{Bucket}?publicAccessBlock"
-	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", _neturl.PathEscape(parameterValueToString(r.bucket, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", parameterValueToString(r.bucket, "bucket"), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if shared.Strlen(r.bucket) < 3 {
 		return nil, reportError("bucket must have at least 3 elements")
 	}
@@ -135,13 +128,12 @@ func (a *PublicAccessBlockApiService) DeletePublicAccessBlockExecute(r ApiDelete
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
-
 	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
@@ -149,7 +141,6 @@ func (a *PublicAccessBlockApiService) DeletePublicAccessBlockExecute(r ApiDelete
 		RequestURL:  localVarPath,
 		Operation:   "DeletePublicAccessBlock",
 	}
-
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarAPIResponse, err
 	}
@@ -157,6 +148,7 @@ func (a *PublicAccessBlockApiService) DeletePublicAccessBlockExecute(r ApiDelete
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarAPIResponse, err
 	}
@@ -174,6 +166,7 @@ func (a *PublicAccessBlockApiService) DeletePublicAccessBlockExecute(r ApiDelete
 				return localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
+			return localVarAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Error
@@ -191,7 +184,7 @@ func (a *PublicAccessBlockApiService) DeletePublicAccessBlockExecute(r ApiDelete
 }
 
 type ApiGetPublicAccessBlockRequest struct {
-	ctx        _context.Context
+	ctx        context.Context
 	ApiService *PublicAccessBlockApiService
 	bucket     string
 	policy     *bool
@@ -202,13 +195,14 @@ func (r ApiGetPublicAccessBlockRequest) Policy(policy bool) ApiGetPublicAccessBl
 	return r
 }
 
-func (r ApiGetPublicAccessBlockRequest) Execute() (BlockPublicAccessOutput, *shared.APIResponse, error) {
+func (r ApiGetPublicAccessBlockRequest) Execute() (*BlockPublicAccessOutput, *shared.APIResponse, error) {
 	return r.ApiService.GetPublicAccessBlockExecute(r)
 }
 
 /*
-  - GetPublicAccessBlock GetPublicAccessBlock
-  - Retrieves the public access configuration for a bucket.
+GetPublicAccessBlock GetPublicAccessBlock
+
+Retrieves the public access configuration for a bucket.
 
 #### Permissions
 You must be the contract owner or an administrator to perform this operation. If not, they can grant you permission
@@ -217,11 +211,11 @@ to perform the `s3:GetBucketPublicAccessBlock` operation using [Bucket Policy](#
 #### S3 API Compatibility
 - The `x-amz-expected-bucket-owner` header isn't supported.
 
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-  - @param bucket
-  - @return ApiGetPublicAccessBlockRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bucket
+	@return ApiGetPublicAccessBlockRequest
 */
-func (a *PublicAccessBlockApiService) GetPublicAccessBlock(ctx _context.Context, bucket string) ApiGetPublicAccessBlockRequest {
+func (a *PublicAccessBlockApiService) GetPublicAccessBlock(ctx context.Context, bucket string) ApiGetPublicAccessBlockRequest {
 	return ApiGetPublicAccessBlockRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -229,18 +223,15 @@ func (a *PublicAccessBlockApiService) GetPublicAccessBlock(ctx _context.Context,
 	}
 }
 
-/*
- * Execute executes the request
- * @return BlockPublicAccessOutput
- */
-func (a *PublicAccessBlockApiService) GetPublicAccessBlockExecute(r ApiGetPublicAccessBlockRequest) (BlockPublicAccessOutput, *shared.APIResponse, error) {
+// Execute executes the request
+//
+//	@return BlockPublicAccessOutput
+func (a *PublicAccessBlockApiService) GetPublicAccessBlockExecute(r ApiGetPublicAccessBlockRequest) (*BlockPublicAccessOutput, *shared.APIResponse, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  BlockPublicAccessOutput
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BlockPublicAccessOutput
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicAccessBlockApiService.GetPublicAccessBlock")
@@ -251,11 +242,11 @@ func (a *PublicAccessBlockApiService) GetPublicAccessBlockExecute(r ApiGetPublic
 	}
 
 	localVarPath := localBasePath + "/{Bucket}?publicAccessBlock"
-	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", _neturl.PathEscape(parameterValueToString(r.bucket, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", parameterValueToString(r.bucket, "bucket"), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if shared.Strlen(r.bucket) < 3 {
 		return localVarReturnValue, nil, reportError("bucket must have at least 3 elements")
 	}
@@ -298,13 +289,12 @@ func (a *PublicAccessBlockApiService) GetPublicAccessBlockExecute(r ApiGetPublic
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
-
 	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
@@ -312,7 +302,6 @@ func (a *PublicAccessBlockApiService) GetPublicAccessBlockExecute(r ApiGetPublic
 		RequestURL:  localVarPath,
 		Operation:   "GetPublicAccessBlock",
 	}
-
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarAPIResponse, err
 	}
@@ -320,6 +309,7 @@ func (a *PublicAccessBlockApiService) GetPublicAccessBlockExecute(r ApiGetPublic
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarAPIResponse, err
 	}
@@ -337,6 +327,7 @@ func (a *PublicAccessBlockApiService) GetPublicAccessBlockExecute(r ApiGetPublic
 				return localVarReturnValue, localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
+			return localVarReturnValue, localVarAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Error
@@ -363,7 +354,7 @@ func (a *PublicAccessBlockApiService) GetPublicAccessBlockExecute(r ApiGetPublic
 }
 
 type ApiPutPublicAccessBlockRequest struct {
-	ctx                      _context.Context
+	ctx                      context.Context
 	ApiService               *PublicAccessBlockApiService
 	bucket                   string
 	policy                   *bool
@@ -375,10 +366,12 @@ func (r ApiPutPublicAccessBlockRequest) Policy(policy bool) ApiPutPublicAccessBl
 	r.policy = &policy
 	return r
 }
+
 func (r ApiPutPublicAccessBlockRequest) BlockPublicAccessPayload(blockPublicAccessPayload BlockPublicAccessPayload) ApiPutPublicAccessBlockRequest {
 	r.blockPublicAccessPayload = &blockPublicAccessPayload
 	return r
 }
+
 func (r ApiPutPublicAccessBlockRequest) ContentMD5(contentMD5 string) ApiPutPublicAccessBlockRequest {
 	r.contentMD5 = &contentMD5
 	return r
@@ -389,8 +382,9 @@ func (r ApiPutPublicAccessBlockRequest) Execute() (*shared.APIResponse, error) {
 }
 
 /*
-  - PutPublicAccessBlock PutPublicAccessBlock
-  - Blocks public access to an object storage bucket based on the specified parameters.
+PutPublicAccessBlock PutPublicAccessBlock
+
+Blocks public access to an object storage bucket based on the specified parameters.
 
 This operation modifies the bucket's settings to either prevent public access entirely
 or impose restrictions based on specific conditions.
@@ -404,11 +398,11 @@ to perform the `s3:PutBucketPublicAccessBlock` operation using [Bucket Policy](#
 - The `x-amz-expected-bucket-owner` header isn't supported.
 - The `x-amz-confirm-remove-self-bucket-access` header isn't supported.
 
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-  - @param bucket
-  - @return ApiPutPublicAccessBlockRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param bucket
+	@return ApiPutPublicAccessBlockRequest
 */
-func (a *PublicAccessBlockApiService) PutPublicAccessBlock(ctx _context.Context, bucket string) ApiPutPublicAccessBlockRequest {
+func (a *PublicAccessBlockApiService) PutPublicAccessBlock(ctx context.Context, bucket string) ApiPutPublicAccessBlockRequest {
 	return ApiPutPublicAccessBlockRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -416,16 +410,12 @@ func (a *PublicAccessBlockApiService) PutPublicAccessBlock(ctx _context.Context,
 	}
 }
 
-/*
- * Execute executes the request
- */
+// Execute executes the request
 func (a *PublicAccessBlockApiService) PutPublicAccessBlockExecute(r ApiPutPublicAccessBlockRequest) (*shared.APIResponse, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicAccessBlockApiService.PutPublicAccessBlock")
@@ -436,11 +426,11 @@ func (a *PublicAccessBlockApiService) PutPublicAccessBlockExecute(r ApiPutPublic
 	}
 
 	localVarPath := localBasePath + "/{Bucket}?publicAccessBlock"
-	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", _neturl.PathEscape(parameterValueToString(r.bucket, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"Bucket"+"}", parameterValueToString(r.bucket, "bucket"), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if shared.Strlen(r.bucket) < 3 {
 		return nil, reportError("bucket must have at least 3 elements")
 	}
@@ -491,13 +481,12 @@ func (a *PublicAccessBlockApiService) PutPublicAccessBlockExecute(r ApiPutPublic
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
 
 	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
-
 	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
 		Method:      localVarHTTPMethod,
@@ -505,7 +494,6 @@ func (a *PublicAccessBlockApiService) PutPublicAccessBlockExecute(r ApiPutPublic
 		RequestURL:  localVarPath,
 		Operation:   "PutPublicAccessBlock",
 	}
-
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarAPIResponse, err
 	}
@@ -513,6 +501,7 @@ func (a *PublicAccessBlockApiService) PutPublicAccessBlockExecute(r ApiPutPublic
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarAPIResponse.Payload = localVarBody
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarAPIResponse, err
 	}
@@ -530,6 +519,7 @@ func (a *PublicAccessBlockApiService) PutPublicAccessBlockExecute(r ApiPutPublic
 				return localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
+			return localVarAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v Error
@@ -539,6 +529,7 @@ func (a *PublicAccessBlockApiService) PutPublicAccessBlockExecute(r ApiPutPublic
 				return localVarAPIResponse, newErr
 			}
 			newErr.SetModel(v)
+			return localVarAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Error

@@ -15,12 +15,15 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the PutObjectLockConfigurationRequestObjectLockConfigurationRule type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PutObjectLockConfigurationRequestObjectLockConfigurationRule{}
 
 // PutObjectLockConfigurationRequestObjectLockConfigurationRule Specifies Object Lock rule for the specified object. Enable this rule when you apply `ObjectLockConfiguration` to a bucket. Bucket settings require both a mode and a period. Specify the period either in `Days` or `Years`, and not both at the same time.
 type PutObjectLockConfigurationRequestObjectLockConfigurationRule struct {
-	DefaultRetention *DefaultRetention `json:"DefaultRetention,omitempty"`
+	XMLName          xml.Name          `xml:"Rule"`
+	DefaultRetention *DefaultRetention `json:"DefaultRetention,omitempty" xml:"DefaultRetention"`
 }
 
 // NewPutObjectLockConfigurationRequestObjectLockConfigurationRule instantiates a new PutObjectLockConfigurationRequestObjectLockConfigurationRule object

@@ -15,12 +15,15 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the PutObjectLockConfigurationRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PutObjectLockConfigurationRequest{}
 
 // PutObjectLockConfigurationRequest struct for PutObjectLockConfigurationRequest
 type PutObjectLockConfigurationRequest struct {
-	ObjectLockConfiguration *PutObjectLockConfigurationRequestObjectLockConfiguration `json:"ObjectLockConfiguration,omitempty"`
+	XMLName                 xml.Name                                                  `xml:"PutObjectLockConfigurationRequest"`
+	ObjectLockConfiguration *PutObjectLockConfigurationRequestObjectLockConfiguration `json:"ObjectLockConfiguration,omitempty" xml:"ObjectLockConfiguration"`
 }
 
 // NewPutObjectLockConfigurationRequest instantiates a new PutObjectLockConfigurationRequest object

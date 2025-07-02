@@ -15,15 +15,18 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the Owner type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Owner{}
 
 // Owner Container for the owner's ID and display name.
 type Owner struct {
+	XMLName xml.Name `xml:"Owner"`
 	// Container for the Contract Number of the owner.
-	ID *int32 `json:"ID,omitempty"`
+	ID *int32 `json:"ID,omitempty" xml:"ID"`
 	// Container for the display name of the owner.
-	DisplayName *string `json:"DisplayName,omitempty"`
+	DisplayName *string `json:"DisplayName,omitempty" xml:"DisplayName"`
 }
 
 // NewOwner instantiates a new Owner object

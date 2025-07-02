@@ -15,12 +15,15 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the PutBucketVersioningRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PutBucketVersioningRequest{}
 
 // PutBucketVersioningRequest struct for PutBucketVersioningRequest
 type PutBucketVersioningRequest struct {
-	VersioningConfiguration PutBucketVersioningRequestVersioningConfiguration `json:"VersioningConfiguration"`
+	XMLName                 xml.Name                                          `xml:"PutBucketVersioningRequest"`
+	VersioningConfiguration PutBucketVersioningRequestVersioningConfiguration `json:"VersioningConfiguration" xml:"VersioningConfiguration"`
 }
 
 // NewPutBucketVersioningRequest instantiates a new PutBucketVersioningRequest object

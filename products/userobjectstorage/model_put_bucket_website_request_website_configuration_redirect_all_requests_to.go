@@ -15,15 +15,18 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the PutBucketWebsiteRequestWebsiteConfigurationRedirectAllRequestsTo type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PutBucketWebsiteRequestWebsiteConfigurationRedirectAllRequestsTo{}
 
 // PutBucketWebsiteRequestWebsiteConfigurationRedirectAllRequestsTo struct for PutBucketWebsiteRequestWebsiteConfigurationRedirectAllRequestsTo
 type PutBucketWebsiteRequestWebsiteConfigurationRedirectAllRequestsTo struct {
+	XMLName xml.Name `xml:"PutBucketWebsiteRequestWebsiteConfigurationRedirectAllRequestsTo"`
 	// Name of the host where requests are redirected.
-	HostName string `json:"HostName"`
+	HostName string `json:"HostName" xml:"HostName"`
 	// Protocol to use when redirecting requests. The default is the protocol that is used in the original request.
-	Protocol *string `json:"Protocol,omitempty"`
+	Protocol *string `json:"Protocol,omitempty" xml:"Protocol"`
 }
 
 // NewPutBucketWebsiteRequestWebsiteConfigurationRedirectAllRequestsTo instantiates a new PutBucketWebsiteRequestWebsiteConfigurationRedirectAllRequestsTo object

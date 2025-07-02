@@ -15,15 +15,18 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the PutBucketWebsiteRequestWebsiteConfiguration type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PutBucketWebsiteRequestWebsiteConfiguration{}
 
 // PutBucketWebsiteRequestWebsiteConfiguration Specifies website configuration parameters for an IONOS Object Storage bucket.
 type PutBucketWebsiteRequestWebsiteConfiguration struct {
-	ErrorDocument         *ErrorDocument                                                    `json:"ErrorDocument,omitempty"`
-	IndexDocument         *IndexDocument                                                    `json:"IndexDocument,omitempty"`
-	RedirectAllRequestsTo *PutBucketWebsiteRequestWebsiteConfigurationRedirectAllRequestsTo `json:"RedirectAllRequestsTo,omitempty"`
-	RoutingRules          []RoutingRule                                                     `json:"RoutingRules,omitempty"`
+	XMLName               xml.Name                                                          `xml:"PutBucketWebsiteRequestWebsiteConfiguration"`
+	ErrorDocument         *ErrorDocument                                                    `json:"ErrorDocument,omitempty" xml:"ErrorDocument"`
+	IndexDocument         *IndexDocument                                                    `json:"IndexDocument,omitempty" xml:"IndexDocument"`
+	RedirectAllRequestsTo *PutBucketWebsiteRequestWebsiteConfigurationRedirectAllRequestsTo `json:"RedirectAllRequestsTo,omitempty" xml:"RedirectAllRequestsTo"`
+	RoutingRules          []RoutingRule                                                     `json:"RoutingRules,omitempty" xml:"RoutingRules"`
 }
 
 // NewPutBucketWebsiteRequestWebsiteConfiguration instantiates a new PutBucketWebsiteRequestWebsiteConfiguration object

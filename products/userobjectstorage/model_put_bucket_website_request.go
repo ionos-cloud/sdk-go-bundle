@@ -15,12 +15,15 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the PutBucketWebsiteRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PutBucketWebsiteRequest{}
 
 // PutBucketWebsiteRequest struct for PutBucketWebsiteRequest
 type PutBucketWebsiteRequest struct {
-	WebsiteConfiguration PutBucketWebsiteRequestWebsiteConfiguration `json:"WebsiteConfiguration"`
+	XMLName              xml.Name                                    `xml:"PutBucketWebsiteRequest"`
+	WebsiteConfiguration PutBucketWebsiteRequestWebsiteConfiguration `json:"WebsiteConfiguration" xml:"WebsiteConfiguration"`
 }
 
 // NewPutBucketWebsiteRequest instantiates a new PutBucketWebsiteRequest object

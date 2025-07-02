@@ -15,13 +15,16 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the GetBucketLocation200Response type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GetBucketLocation200Response{}
 
 // GetBucketLocation200Response struct for GetBucketLocation200Response
 type GetBucketLocation200Response struct {
+	XMLName xml.Name `xml:"GetBucketLocation200Response"`
 	// Specifies the Region where the bucket resides.
-	LocationConstraint *string `json:"LocationConstraint,omitempty"`
+	LocationConstraint *string `json:"LocationConstraint,omitempty" xml:"LocationConstraint"`
 }
 
 // NewGetBucketLocation200Response instantiates a new GetBucketLocation200Response object

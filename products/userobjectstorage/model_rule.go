@@ -15,19 +15,22 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the Rule type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Rule{}
 
 // Rule Specifies lifecycle rules for an IONOS Object Storage bucket.
 type Rule struct {
+	XMLName xml.Name `xml:"Rule"`
 	// Unique identifier for the rule. The value can't be longer than 255 characters.
-	ID *string `json:"ID,omitempty"`
+	ID *string `json:"ID,omitempty" xml:"ID"`
 	// Object key prefix that identifies one or more objects to which this rule applies. Replacement must be made for object keys containing special characters (such as carriage returns) when using XML requests.
-	Prefix                         string                          `json:"Prefix"`
-	Status                         ExpirationStatus                `json:"Status"`
-	Expiration                     *LifecycleExpiration            `json:"Expiration,omitempty"`
-	NoncurrentVersionExpiration    *NoncurrentVersionExpiration    `json:"NoncurrentVersionExpiration,omitempty"`
-	AbortIncompleteMultipartUpload *AbortIncompleteMultipartUpload `json:"AbortIncompleteMultipartUpload,omitempty"`
+	Prefix                         string                          `json:"Prefix" xml:"Prefix"`
+	Status                         ExpirationStatus                `json:"Status" xml:"Status"`
+	Expiration                     *LifecycleExpiration            `json:"Expiration,omitempty" xml:"Expiration"`
+	NoncurrentVersionExpiration    *NoncurrentVersionExpiration    `json:"NoncurrentVersionExpiration,omitempty" xml:"NoncurrentVersionExpiration"`
+	AbortIncompleteMultipartUpload *AbortIncompleteMultipartUpload `json:"AbortIncompleteMultipartUpload,omitempty" xml:"AbortIncompleteMultipartUpload"`
 }
 
 // NewRule instantiates a new Rule object

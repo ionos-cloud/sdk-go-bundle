@@ -15,12 +15,15 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the PutBucketEncryptionRequestServerSideEncryptionConfiguration type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PutBucketEncryptionRequestServerSideEncryptionConfiguration{}
 
 // PutBucketEncryptionRequestServerSideEncryptionConfiguration Specifies the default server-side-encryption configuration. The valid value is AES256.
 type PutBucketEncryptionRequestServerSideEncryptionConfiguration struct {
-	Rules []ServerSideEncryptionRule `json:"Rules,omitempty"`
+	XMLName xml.Name                   `xml:"PutBucketEncryptionRequestServerSideEncryptionConfiguration"`
+	Rules   []ServerSideEncryptionRule `json:"Rules,omitempty" xml:"Rules"`
 }
 
 // NewPutBucketEncryptionRequestServerSideEncryptionConfiguration instantiates a new PutBucketEncryptionRequestServerSideEncryptionConfiguration object

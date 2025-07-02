@@ -15,12 +15,15 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the BucketPolicyStatementConditionDateLessThanOneOf type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BucketPolicyStatementConditionDateLessThanOneOf{}
 
 // BucketPolicyStatementConditionDateLessThanOneOf struct for BucketPolicyStatementConditionDateLessThanOneOf
 type BucketPolicyStatementConditionDateLessThanOneOf struct {
-	AwsEpochTime *int32 `json:"aws:EpochTime,omitempty"`
+	XMLName      xml.Name `xml:"BucketPolicyStatementConditionDateLessThanOneOf"`
+	AwsEpochTime *int32   `json:"aws:EpochTime,omitempty" xml:"aws:EpochTime"`
 }
 
 // NewBucketPolicyStatementConditionDateLessThanOneOf instantiates a new BucketPolicyStatementConditionDateLessThanOneOf object

@@ -15,12 +15,15 @@ import (
 	"encoding/json"
 )
 
+import "encoding/xml"
+
 // checks if the GetBucketEncryptionOutput type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GetBucketEncryptionOutput{}
 
 // GetBucketEncryptionOutput struct for GetBucketEncryptionOutput
 type GetBucketEncryptionOutput struct {
-	ServerSideEncryptionConfiguration *ServerSideEncryptionConfiguration `json:"ServerSideEncryptionConfiguration,omitempty"`
+	XMLName                           xml.Name                           `xml:"GetBucketEncryptionOutput"`
+	ServerSideEncryptionConfiguration *ServerSideEncryptionConfiguration `json:"ServerSideEncryptionConfiguration,omitempty" xml:"ServerSideEncryptionConfiguration"`
 }
 
 // NewGetBucketEncryptionOutput instantiates a new GetBucketEncryptionOutput object
