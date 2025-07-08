@@ -266,6 +266,9 @@ func main() {
    }
 
    // Retrieve endpoint from current profile's environment for the compute product
+   // Note: Equivalent to 'GetProductOverrides("compute")'.
+   // for location-based products you can do 'GetOverride("dns", "de/fra")' 
+   // which is equivalent to 'GetProductLocationOverrides("dns", "de/fra")' 
    endpoint := configFile.GetOverride("compute", "")
    if endpoint == nil {
       log.Fatalf("no endpoint set for compute in the current profile")
