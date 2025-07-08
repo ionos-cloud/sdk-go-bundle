@@ -236,7 +236,7 @@ The path to the file can be set in 2 ways:
    the `fileconfiguration.NewFromEnv` function.
 2. By passing the path to the config file as an argument to the `fileconfiguration.New` function.
 
-By default, the SDK will use `${HOME}/.ionos/config.yaml` as the path to the config file.
+By default, the SDK will use `${HOME}/.ionos/config` as the path to the config file.
 
 Example of using the config file in your code:
 
