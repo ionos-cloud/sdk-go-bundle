@@ -58,7 +58,7 @@ $ go get github.com/ionos-cloud/sdk-go-bundle/shared
 $ go get github.com/ionos-cloud/sdk-go-bundle/products/compute
 ```
 
-### Add the code: 
+### Add the code:
 ```golang
 package main
 
@@ -108,9 +108,7 @@ location id is fr/par and location name paris
 
 ```
 
-Using your IDE of choice, add the following code:
-
-### Token Authentication
+## Token Authentication
 There are 2 ways to generate your token:
 
 ### Generate token using [SDK go auth](https://github.com/ionos-cloud/sdk-go-bundle/products/auth):
@@ -183,6 +181,128 @@ Save the generated token and use it to authenticate:
         return nil
     }
 ``` 
+
+## Config File Usage
+
+You can use a YAML config file for more complex configurations, such as user profiles with different
+credentials, or multiple environments with custom API URLs. An example of a config file is shown below:
+
+```yaml
+version: 1.0
+currentProfile: user # The current profile can also be overridden by the environment variable IONOS_CURRENT_PROFILE
+profiles:
+  - name: user
+    environment: prod
+    credentials:
+      # You can use either username and password, or token.
+      # If both username and password, as well as token are provided, the token will take precedence.
+      token: <token>
+  - name: user2
+    environment: dev
+    credentials:
+      username: <username>
+      password: <password>
+environments:
+  - name: prod
+    products:
+      - name: apigateway
+        endpoints:
+          - location: de/txl
+            name: https://apigateway.de-txl.ionos.com
+            skipTlsVerify: false
+          - location: gb/lhr
+            name: https://apigateway.gb-lhr.ionos.com
+            skipTlsVerify: false
+          - location: fr/par
+            name: https://apigateway.fr-par.ionos.com
+            skipTlsVerify: false
+          - location: es/vit
+            name: https://apigateway.es-vit.ionos.com
+            skipTlsVerify: false
+      - name: compute
+        endpoints:
+          - name: https://api.ionos.com/cloudapi/v6
+            skipTlsVerify: false
+  - name: dev
+    products:
+      - name: auth
+        endpoints:
+          - name: https://api.ionos.com/auth/v1
+            skipTlsVerify: false
+```
+
+The path to the file can be set in 2 ways:
+1. By setting the environment variable `IONOS_CONFIG_FILE` to the path of the config file and using
+   the `fileconfiguration.NewFromEnv` function.
+2. By passing the path to the config file as an argument to the `fileconfiguration.New` function.
+
+By default, the SDK will use `${HOME}/.ionos/config` as the path to the config file.
+
+Example of using the config file in your code:
+
+```golang
+package main
+
+import (
+	"context"
+	"fmt"
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
+	"github.com/ionos-cloud/sdk-go-bundle/shared/fileconfiguration"
+	"github.com/ionos-cloud/sdk-go-bundle/products/compute/v2"
+	"log"
+)
+
+func main() {
+   // Load the configuration file from the path specified in the environment variable IONOS_CONFIG_FILE
+   configFile, err := fileconfiguration.NewFromEnv()
+   if err != nil {
+      log.Fatalf("failed to load config file: %v", err)
+   }
+
+   // Retrieve the current profile from the config file
+   profile := configFile.GetCurrentProfile()
+   if profile == nil {
+      log.Fatalf("no current profile set in the config file")
+   }
+
+   // Retrieve endpoint from current profile's environment for the compute product
+   // Note: Equivalent to 'GetProductOverrides("compute")'.
+   // for location-based products you can do 'GetOverride("dns", "de/fra")' 
+   // which is equivalent to 'GetProductLocationOverrides("dns", "de/fra")' 
+   endpoint := configFile.GetOverride("compute", "")
+   if endpoint == nil {
+      log.Fatalf("no endpoint set for compute in the current profile")
+   }
+
+   clientOpts := shared.ClientOptions{
+      Credentials:   profile.Credentials,
+      Endpoint:      endpoint.Name,
+      SkipTLSVerify: endpoint.SkipTLSVerify,
+      Certificate:   endpoint.CertificateAuthData,
+   }
+
+   cfg := shared.NewConfigurationFromOptions(clientOpts)
+
+   computeClient := compute.NewAPIClient(cfg)
+   // setting Depth to 1 here makes sure we get the properties of the object(eg name)
+   locations, apiResponse, err := computeClient.LocationsApi.LocationsGet(context.Background()).Depth(1).Execute()
+   if err != nil {
+      log.Fatalf("failed to list locations: %v", err)
+   }
+   apiResponse.LogInfo()
+   if !locations.HasItems() || len(locations.Items) == 0 {
+      log.Fatalf("no locations found")
+   }
+   for _, location := range locations.Items {
+      fmt.Printf(
+         "location id is %s and location name %s\n", *location.Id, *location.Properties.Name,
+      )
+   }
+}
+```
+
+You can either write the config file manually, or you can use `ionosctl login` to generate a pre-populated
+file.
 
 ## Certificate pinning:
 
