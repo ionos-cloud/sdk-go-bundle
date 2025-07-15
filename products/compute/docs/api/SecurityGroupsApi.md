@@ -43,7 +43,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -114,7 +114,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -187,7 +187,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -257,14 +257,14 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
     datacenterId := "datacenterId_example" // string | The unique ID of the data center
     securityGroupId := "securityGroupId_example" // string | The unique ID of the security group.
-    firewallRule := *openapiclient.NewFirewallRule(*openapiclient.NewFirewallruleProperties("TCP")) // FirewallRule | The firewall to be attached (or created and attached).
+    firewallRule := *openapiclient.NewFirewallRule(*openapiclient.NewFirewallruleProperties()) // FirewallRule | The firewall to be attached (or created and attached).
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := compute.NewAPIClient(configuration)
@@ -332,7 +332,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -410,7 +410,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -488,7 +488,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -564,7 +564,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -641,7 +641,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -720,7 +720,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -800,7 +800,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -808,7 +808,7 @@ func main() {
     datacenterId := "datacenterId_example" // string | The unique ID of the data center.
     securityGroupId := "securityGroupId_example" // string | The unique ID of the security group.
     ruleId := "ruleId_example" // string | The unique ID of the Security Group Rule.
-    rule := *openapiclient.NewFirewallruleProperties("TCP") // FirewallruleProperties | The properties of the Security Group Rule to be updated.
+    rule := *openapiclient.NewFirewallruleProperties() // FirewallruleProperties | The properties of the Security Group Rule to be updated.
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects. GET /datacenters/[ID]   - depth=0: Only direct properties are included;              children (servers and other elements) are not included.   - depth=1: Direct properties and children references are included.   - depth=2: Direct properties and children properties are included.   - depth=3: Direct properties and children properties and children's children are included.   - depth=... and so on (optional) (default to 0)
 
@@ -880,7 +880,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -888,7 +888,7 @@ func main() {
     datacenterId := "datacenterId_example" // string | The unique ID of the data center.
     securityGroupId := "securityGroupId_example" // string | The unique ID of the security group.
     ruleId := "ruleId_example" // string | The unique ID of the Security Group Rule.
-    rule := *openapiclient.NewFirewallRule(*openapiclient.NewFirewallruleProperties("TCP")) // FirewallRule | The modified Security Group Rule.
+    rule := *openapiclient.NewFirewallRule(*openapiclient.NewFirewallruleProperties()) // FirewallRule | The modified Security Group Rule.
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects. GET /datacenters/[ID]   - depth=0: Only direct properties are included;              children (servers and other elements) are not included.   - depth=1: Direct properties and children references are included.   - depth=2: Direct properties and children properties are included.   - depth=3: Direct properties and children properties and children's children are included.   - depth=... and so on (optional) (default to 0)
 
@@ -960,7 +960,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -1040,7 +1040,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 

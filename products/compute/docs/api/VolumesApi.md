@@ -40,7 +40,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -120,7 +120,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -196,7 +196,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -276,7 +276,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -357,14 +357,14 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
     datacenterId := "datacenterId_example" // string | The unique ID of the data center.
     volumeId := "volumeId_example" // string | The unique ID of the volume.
-    volume := *openapiclient.NewVolumeProperties(float32(100)) // VolumeProperties | The properties of the volume to be updated.
+    volume := *openapiclient.NewVolumeProperties() // VolumeProperties | The properties of the volume to be updated.
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
@@ -438,13 +438,13 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
     datacenterId := "datacenterId_example" // string | The unique ID of the data center.
-    volume := *openapiclient.NewVolume(*openapiclient.NewVolumeProperties(float32(100))) // Volume | The volume to create.
+    volume := *openapiclient.NewVolume() // Volume | The volume to create.
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
@@ -517,14 +517,14 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 func main() {
     datacenterId := "datacenterId_example" // string | The unique ID of the data center.
     volumeId := "volumeId_example" // string | The unique ID of the volume.
-    volume := *openapiclient.NewVolume(*openapiclient.NewVolumeProperties(float32(100))) // Volume | The modified volume
+    volume := *openapiclient.NewVolume() // Volume | The modified volume
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
@@ -598,7 +598,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 

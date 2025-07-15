@@ -63,7 +63,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -139,7 +139,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -217,7 +217,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -294,7 +294,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -373,7 +373,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -453,7 +453,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -531,7 +531,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -611,7 +611,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -690,7 +690,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -771,7 +771,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -853,7 +853,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -931,7 +931,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -1011,7 +1011,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -1090,7 +1090,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -1171,7 +1171,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -1253,7 +1253,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -1329,7 +1329,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -1407,7 +1407,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -1484,7 +1484,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -1563,7 +1563,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -1643,7 +1643,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -1719,7 +1719,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -1797,7 +1797,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -1874,7 +1874,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -1953,7 +1953,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -2033,7 +2033,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -2109,7 +2109,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -2180,7 +2180,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -2256,7 +2256,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -2334,7 +2334,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -2411,7 +2411,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -2490,7 +2490,7 @@ import (
     "fmt"
     "os"
 
-    compute "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+    compute "github.com/ionos-cloud/sdk-go-bundle/compute"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
