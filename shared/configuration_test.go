@@ -125,6 +125,20 @@ func TestNewConfigurationFromOptions(t *testing.T) {
 				},
 			},
 		},
+		{
+			name: "WithObjectStorageCredentials",
+			clientOptions: ClientOptions{
+				Credentials: Credentials{
+					S3AccessKey: "testAccessKey",
+					S3SecretKey: "testSecretKey",
+				},
+				ObjectStorageRegion: "eu-central-3",
+			},
+			expectedConfig: &Configuration{
+				Servers:             ServerConfigurations{},
+				MiddlewareWithError: SignerMiddleware("", "", "testAccessKey", "testSecretKey"),
+			},
+		},
 	}
 
 	for _, tt := range tests {
@@ -135,9 +149,11 @@ func TestNewConfigurationFromOptions(t *testing.T) {
 			assert.Equal(t, tt.expectedConfig.Token, config.Token)
 			assert.Equal(t, tt.expectedConfig.Servers, config.Servers)
 			assert.NotNil(t, config.HTTPClient)
-			assert.Equal(t, tt.expectedConfig.HTTPClient.Transport.(*http.Transport).TLSClientConfig.InsecureSkipVerify,
-				config.HTTPClient.Transport.(*http.Transport).TLSClientConfig.InsecureSkipVerify)
-			assert.True(t, config.HTTPClient.Transport.(*http.Transport).TLSClientConfig.RootCAs.Equal(tt.expectedConfig.HTTPClient.Transport.(*http.Transport).TLSClientConfig.RootCAs))
+			if tt.expectedConfig.HTTPClient != nil {
+				assert.Equal(t, tt.expectedConfig.HTTPClient.Transport.(*http.Transport).TLSClientConfig.InsecureSkipVerify,
+					config.HTTPClient.Transport.(*http.Transport).TLSClientConfig.InsecureSkipVerify)
+				assert.True(t, config.HTTPClient.Transport.(*http.Transport).TLSClientConfig.RootCAs.Equal(tt.expectedConfig.HTTPClient.Transport.(*http.Transport).TLSClientConfig.RootCAs))
+			}
 		})
 	}
 }
