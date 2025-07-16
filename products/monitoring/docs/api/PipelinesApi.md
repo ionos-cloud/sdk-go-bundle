@@ -148,6 +148,8 @@ Other parameters are passed through a pointer to an apiPipelinesFindByIdRequest 
 
 ```go
 var result PipelineReadList = PipelinesGet(ctx)
+                      .Offset(offset)
+                      .Limit(limit)
                       .OrderBy(orderBy)
                       .Execute()
 ```
@@ -171,11 +173,13 @@ import (
 )
 
 func main() {
+    offset := int32(0) // int32 | The first element (of the total list of elements) to include in the response. Use this parameter together with the limit for pagination. (optional) (default to 0)
+    limit := int32(100) // int32 | The maximum number of elements to return. Use this parameter together with the offset for pagination. (optional) (default to 100)
     orderBy := "orderBy_example" // string | The field to order the results by. If not provided, the results will be ordered by the default field. (optional) (default to "-createdDate")
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := monitoring.NewAPIClient(configuration)
-    resource, resp, err := apiClient.PipelinesApi.PipelinesGet(context.Background()).OrderBy(orderBy).Execute()
+    resource, resp, err := apiClient.PipelinesApi.PipelinesGet(context.Background()).Offset(offset).Limit(limit).OrderBy(orderBy).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PipelinesApi.PipelinesGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -196,6 +200,8 @@ Other parameters are passed through a pointer to an apiPipelinesGetRequest struc
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
+| **offset** | **int32** | The first element (of the total list of elements) to include in the response. Use this parameter together with the limit for pagination. | [default to 0]|
+| **limit** | **int32** | The maximum number of elements to return. Use this parameter together with the offset for pagination. | [default to 100]|
 | **orderBy** | **string** | The field to order the results by. If not provided, the results will be ordered by the default field. | [default to &quot;-createdDate&quot;]|
 
 ### Return type
@@ -302,7 +308,7 @@ import (
 
 func main() {
     pipelineId := "f72521ba-1590-5998-bf96-6eb997a5887d" // string | The ID (UUID) of the Pipeline.
-    pipelineEnsure := *openapiclient.NewPipelineEnsure(*openapiclient.NewPipeline("Pipeline1")) // PipelineEnsure | update Pipeline
+    pipelineEnsure := *openapiclient.NewPipelineEnsure("f72521ba-1590-5998-bf96-6eb997a5887d", *openapiclient.NewPipeline("Pipeline1")) // PipelineEnsure | update Pipeline
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := monitoring.NewAPIClient(configuration)

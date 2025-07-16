@@ -14,38 +14,38 @@ import (
 	"encoding/json"
 )
 
-// checks if the PipelineCreate type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &PipelineCreate{}
+// checks if the CentralMonitoringCreate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CentralMonitoringCreate{}
 
-// PipelineCreate struct for PipelineCreate
-type PipelineCreate struct {
+// CentralMonitoringCreate struct for CentralMonitoringCreate
+type CentralMonitoringCreate struct {
 	// Metadata
 	Metadata   map[string]interface{} `json:"metadata,omitempty"`
-	Properties Pipeline               `json:"properties"`
+	Properties CentralMonitoring      `json:"properties"`
 }
 
-// NewPipelineCreate instantiates a new PipelineCreate object
+// NewCentralMonitoringCreate instantiates a new CentralMonitoringCreate object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPipelineCreate(properties Pipeline) *PipelineCreate {
-	this := PipelineCreate{}
+func NewCentralMonitoringCreate(properties CentralMonitoring) *CentralMonitoringCreate {
+	this := CentralMonitoringCreate{}
 
 	this.Properties = properties
 
 	return &this
 }
 
-// NewPipelineCreateWithDefaults instantiates a new PipelineCreate object
+// NewCentralMonitoringCreateWithDefaults instantiates a new CentralMonitoringCreate object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewPipelineCreateWithDefaults() *PipelineCreate {
-	this := PipelineCreate{}
+func NewCentralMonitoringCreateWithDefaults() *CentralMonitoringCreate {
+	this := CentralMonitoringCreate{}
 	return &this
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *PipelineCreate) GetMetadata() map[string]interface{} {
+func (o *CentralMonitoringCreate) GetMetadata() map[string]interface{} {
 	if o == nil || IsNil(o.Metadata) {
 		var ret map[string]interface{}
 		return ret
@@ -55,7 +55,7 @@ func (o *PipelineCreate) GetMetadata() map[string]interface{} {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PipelineCreate) GetMetadataOk() (map[string]interface{}, bool) {
+func (o *CentralMonitoringCreate) GetMetadataOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return map[string]interface{}{}, false
 	}
@@ -63,7 +63,7 @@ func (o *PipelineCreate) GetMetadataOk() (map[string]interface{}, bool) {
 }
 
 // HasMetadata returns a boolean if a field has been set.
-func (o *PipelineCreate) HasMetadata() bool {
+func (o *CentralMonitoringCreate) HasMetadata() bool {
 	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
@@ -72,14 +72,14 @@ func (o *PipelineCreate) HasMetadata() bool {
 }
 
 // SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
-func (o *PipelineCreate) SetMetadata(v map[string]interface{}) {
+func (o *CentralMonitoringCreate) SetMetadata(v map[string]interface{}) {
 	o.Metadata = v
 }
 
 // GetProperties returns the Properties field value
-func (o *PipelineCreate) GetProperties() Pipeline {
+func (o *CentralMonitoringCreate) GetProperties() CentralMonitoring {
 	if o == nil {
-		var ret Pipeline
+		var ret CentralMonitoring
 		return ret
 	}
 
@@ -88,7 +88,7 @@ func (o *PipelineCreate) GetProperties() Pipeline {
 
 // GetPropertiesOk returns a tuple with the Properties field value
 // and a boolean to check if the value has been set.
-func (o *PipelineCreate) GetPropertiesOk() (*Pipeline, bool) {
+func (o *CentralMonitoringCreate) GetPropertiesOk() (*CentralMonitoring, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -96,11 +96,11 @@ func (o *PipelineCreate) GetPropertiesOk() (*Pipeline, bool) {
 }
 
 // SetProperties sets field value
-func (o *PipelineCreate) SetProperties(v Pipeline) {
+func (o *CentralMonitoringCreate) SetProperties(v CentralMonitoring) {
 	o.Properties = v
 }
 
-func (o PipelineCreate) MarshalJSON() ([]byte, error) {
+func (o CentralMonitoringCreate) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -108,7 +108,7 @@ func (o PipelineCreate) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o PipelineCreate) ToMap() (map[string]interface{}, error) {
+func (o CentralMonitoringCreate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
@@ -117,38 +117,38 @@ func (o PipelineCreate) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-type NullablePipelineCreate struct {
-	value *PipelineCreate
+type NullableCentralMonitoringCreate struct {
+	value *CentralMonitoringCreate
 	isSet bool
 }
 
-func (v NullablePipelineCreate) Get() *PipelineCreate {
+func (v NullableCentralMonitoringCreate) Get() *CentralMonitoringCreate {
 	return v.value
 }
 
-func (v *NullablePipelineCreate) Set(val *PipelineCreate) {
+func (v *NullableCentralMonitoringCreate) Set(val *CentralMonitoringCreate) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullablePipelineCreate) IsSet() bool {
+func (v NullableCentralMonitoringCreate) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullablePipelineCreate) Unset() {
+func (v *NullableCentralMonitoringCreate) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullablePipelineCreate(val *PipelineCreate) *NullablePipelineCreate {
-	return &NullablePipelineCreate{value: val, isSet: true}
+func NewNullableCentralMonitoringCreate(val *CentralMonitoringCreate) *NullableCentralMonitoringCreate {
+	return &NullableCentralMonitoringCreate{value: val, isSet: true}
 }
 
-func (v NullablePipelineCreate) MarshalJSON() ([]byte, error) {
+func (v NullableCentralMonitoringCreate) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullablePipelineCreate) UnmarshalJSON(src []byte) error {
+func (v *NullableCentralMonitoringCreate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

@@ -13,15 +13,15 @@
 |**ResourceURN** | Pointer to **string** | Unique name of the resource. | [optional] [readonly] |
 |**Status** | **string** | The status of the object. The status can be: * &#x60;AVAILABLE&#x60; - resource exists and is healthy. * &#x60;PROVISIONING&#x60; - resource is being created or updated. * &#x60;DESTROYING&#x60; - delete command was issued, the resource is being deleted. * &#x60;FAILED&#x60; - resource failed, details in &#x60;failureMessage&#x60;.  | [readonly] |
 |**StatusMessage** | Pointer to **string** | The message of the failure if the status is &#x60;FAILED&#x60;.  | [optional] [readonly] |
-|**Key** | **string** | The authentication key of the monitoring instance.  | [readonly] |
-|**GrafanaEndpoint** | **string** | The endpoint of the Grafana instance.  | [readonly] |
-|**HttpEndpoint** | **string** | The HTTP endpoint of the monitoring instance.  | [readonly] |
+|**Key** | Pointer to **string** | The authentication key of the monitoring instance.  | [optional] [readonly] |
+|**GrafanaEndpoint** | Pointer to **string** | The endpoint of the Grafana instance.  | [optional] [readonly] |
+|**HttpEndpoint** | Pointer to **string** | The HTTP endpoint of the monitoring instance.  | [optional] [readonly] |
 
 ## Methods
 
 ### NewMetadataWithEndpoint
 
-`func NewMetadataWithEndpoint(status string, key string, grafanaEndpoint string, httpEndpoint string, ) *MetadataWithEndpoint`
+`func NewMetadataWithEndpoint(status string, ) *MetadataWithEndpoint`
 
 NewMetadataWithEndpoint instantiates a new MetadataWithEndpoint object
 This constructor will assign default values to properties that have it defined,
@@ -275,6 +275,11 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
+### HasKey
+
+`func (o *MetadataWithEndpoint) HasKey() bool`
+
+HasKey returns a boolean if a field has been set.
 
 ### GetGrafanaEndpoint
 
@@ -295,6 +300,11 @@ and a boolean to check if the value has been set.
 
 SetGrafanaEndpoint sets GrafanaEndpoint field to given value.
 
+### HasGrafanaEndpoint
+
+`func (o *MetadataWithEndpoint) HasGrafanaEndpoint() bool`
+
+HasGrafanaEndpoint returns a boolean if a field has been set.
 
 ### GetHttpEndpoint
 
@@ -315,5 +325,10 @@ and a boolean to check if the value has been set.
 
 SetHttpEndpoint sets HttpEndpoint field to given value.
 
+### HasHttpEndpoint
+
+`func (o *MetadataWithEndpoint) HasHttpEndpoint() bool`
+
+HasHttpEndpoint returns a boolean if a field has been set.
 
 

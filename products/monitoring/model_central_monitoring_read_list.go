@@ -14,27 +14,27 @@ import (
 	"encoding/json"
 )
 
-// checks if the PipelineReadListAllOf type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &PipelineReadListAllOf{}
+// checks if the CentralMonitoringReadList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CentralMonitoringReadList{}
 
-// PipelineReadListAllOf struct for PipelineReadListAllOf
-type PipelineReadListAllOf struct {
-	// ID of the list of Pipeline resources.
+// CentralMonitoringReadList struct for CentralMonitoringReadList
+type CentralMonitoringReadList struct {
+	// ID of the list of CentralMonitoring resources.
 	Id string `json:"id"`
 	// The type of the resource.
 	Type string `json:"type"`
-	// The URL of the list of Pipeline resources.
+	// The URL of the list of CentralMonitoring resources.
 	Href string `json:"href"`
-	// The list of Pipeline resources.
-	Items []PipelineRead `json:"items,omitempty"`
+	// The list of CentralMonitoring resources.
+	Items []CentralMonitoringRead `json:"items,omitempty"`
 }
 
-// NewPipelineReadListAllOf instantiates a new PipelineReadListAllOf object
+// NewCentralMonitoringReadList instantiates a new CentralMonitoringReadList object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPipelineReadListAllOf(id string, type_ string, href string) *PipelineReadListAllOf {
-	this := PipelineReadListAllOf{}
+func NewCentralMonitoringReadList(id string, type_ string, href string) *CentralMonitoringReadList {
+	this := CentralMonitoringReadList{}
 
 	this.Id = id
 	this.Type = type_
@@ -43,16 +43,16 @@ func NewPipelineReadListAllOf(id string, type_ string, href string) *PipelineRea
 	return &this
 }
 
-// NewPipelineReadListAllOfWithDefaults instantiates a new PipelineReadListAllOf object
+// NewCentralMonitoringReadListWithDefaults instantiates a new CentralMonitoringReadList object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewPipelineReadListAllOfWithDefaults() *PipelineReadListAllOf {
-	this := PipelineReadListAllOf{}
+func NewCentralMonitoringReadListWithDefaults() *CentralMonitoringReadList {
+	this := CentralMonitoringReadList{}
 	return &this
 }
 
 // GetId returns the Id field value
-func (o *PipelineReadListAllOf) GetId() string {
+func (o *CentralMonitoringReadList) GetId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -63,7 +63,7 @@ func (o *PipelineReadListAllOf) GetId() string {
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *PipelineReadListAllOf) GetIdOk() (*string, bool) {
+func (o *CentralMonitoringReadList) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -71,12 +71,12 @@ func (o *PipelineReadListAllOf) GetIdOk() (*string, bool) {
 }
 
 // SetId sets field value
-func (o *PipelineReadListAllOf) SetId(v string) {
+func (o *CentralMonitoringReadList) SetId(v string) {
 	o.Id = v
 }
 
 // GetType returns the Type field value
-func (o *PipelineReadListAllOf) GetType() string {
+func (o *CentralMonitoringReadList) GetType() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -87,7 +87,7 @@ func (o *PipelineReadListAllOf) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-func (o *PipelineReadListAllOf) GetTypeOk() (*string, bool) {
+func (o *CentralMonitoringReadList) GetTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -95,12 +95,12 @@ func (o *PipelineReadListAllOf) GetTypeOk() (*string, bool) {
 }
 
 // SetType sets field value
-func (o *PipelineReadListAllOf) SetType(v string) {
+func (o *CentralMonitoringReadList) SetType(v string) {
 	o.Type = v
 }
 
 // GetHref returns the Href field value
-func (o *PipelineReadListAllOf) GetHref() string {
+func (o *CentralMonitoringReadList) GetHref() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -111,7 +111,7 @@ func (o *PipelineReadListAllOf) GetHref() string {
 
 // GetHrefOk returns a tuple with the Href field value
 // and a boolean to check if the value has been set.
-func (o *PipelineReadListAllOf) GetHrefOk() (*string, bool) {
+func (o *CentralMonitoringReadList) GetHrefOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -119,14 +119,14 @@ func (o *PipelineReadListAllOf) GetHrefOk() (*string, bool) {
 }
 
 // SetHref sets field value
-func (o *PipelineReadListAllOf) SetHref(v string) {
+func (o *CentralMonitoringReadList) SetHref(v string) {
 	o.Href = v
 }
 
 // GetItems returns the Items field value if set, zero value otherwise.
-func (o *PipelineReadListAllOf) GetItems() []PipelineRead {
+func (o *CentralMonitoringReadList) GetItems() []CentralMonitoringRead {
 	if o == nil || IsNil(o.Items) {
-		var ret []PipelineRead
+		var ret []CentralMonitoringRead
 		return ret
 	}
 	return o.Items
@@ -134,7 +134,7 @@ func (o *PipelineReadListAllOf) GetItems() []PipelineRead {
 
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PipelineReadListAllOf) GetItemsOk() ([]PipelineRead, bool) {
+func (o *CentralMonitoringReadList) GetItemsOk() ([]CentralMonitoringRead, bool) {
 	if o == nil || IsNil(o.Items) {
 		return nil, false
 	}
@@ -142,7 +142,7 @@ func (o *PipelineReadListAllOf) GetItemsOk() ([]PipelineRead, bool) {
 }
 
 // HasItems returns a boolean if a field has been set.
-func (o *PipelineReadListAllOf) HasItems() bool {
+func (o *CentralMonitoringReadList) HasItems() bool {
 	if o != nil && !IsNil(o.Items) {
 		return true
 	}
@@ -150,12 +150,12 @@ func (o *PipelineReadListAllOf) HasItems() bool {
 	return false
 }
 
-// SetItems gets a reference to the given []PipelineRead and assigns it to the Items field.
-func (o *PipelineReadListAllOf) SetItems(v []PipelineRead) {
+// SetItems gets a reference to the given []CentralMonitoringRead and assigns it to the Items field.
+func (o *CentralMonitoringReadList) SetItems(v []CentralMonitoringRead) {
 	o.Items = v
 }
 
-func (o PipelineReadListAllOf) MarshalJSON() ([]byte, error) {
+func (o CentralMonitoringReadList) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -163,7 +163,7 @@ func (o PipelineReadListAllOf) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o PipelineReadListAllOf) ToMap() (map[string]interface{}, error) {
+func (o CentralMonitoringReadList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
 	toSerialize["type"] = o.Type
@@ -174,38 +174,38 @@ func (o PipelineReadListAllOf) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-type NullablePipelineReadListAllOf struct {
-	value *PipelineReadListAllOf
+type NullableCentralMonitoringReadList struct {
+	value *CentralMonitoringReadList
 	isSet bool
 }
 
-func (v NullablePipelineReadListAllOf) Get() *PipelineReadListAllOf {
+func (v NullableCentralMonitoringReadList) Get() *CentralMonitoringReadList {
 	return v.value
 }
 
-func (v *NullablePipelineReadListAllOf) Set(val *PipelineReadListAllOf) {
+func (v *NullableCentralMonitoringReadList) Set(val *CentralMonitoringReadList) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullablePipelineReadListAllOf) IsSet() bool {
+func (v NullableCentralMonitoringReadList) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullablePipelineReadListAllOf) Unset() {
+func (v *NullableCentralMonitoringReadList) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullablePipelineReadListAllOf(val *PipelineReadListAllOf) *NullablePipelineReadListAllOf {
-	return &NullablePipelineReadListAllOf{value: val, isSet: true}
+func NewNullableCentralMonitoringReadList(val *CentralMonitoringReadList) *NullableCentralMonitoringReadList {
+	return &NullableCentralMonitoringReadList{value: val, isSet: true}
 }
 
-func (v NullablePipelineReadListAllOf) MarshalJSON() ([]byte, error) {
+func (v NullableCentralMonitoringReadList) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullablePipelineReadListAllOf) UnmarshalJSON(src []byte) error {
+func (v *NullableCentralMonitoringReadList) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

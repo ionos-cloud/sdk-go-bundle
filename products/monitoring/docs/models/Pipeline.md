@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Name** | **string** |  | |
+|**Name** | **string** | The name of the pipeline. Must be not more that 20 characters long.  | |
 
 ## Methods
 

@@ -1,93 +1,72 @@
-# PipelineEnsure
+# CentralMonitoringCreate
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Id** | **string** | The ID (UUID) of the Pipeline. | |
 |**Metadata** | Pointer to **map[string]interface{}** | Metadata | [optional] |
-|**Properties** | [**Pipeline**](Pipeline.md) |  | |
+|**Properties** | [**CentralMonitoring**](CentralMonitoring.md) |  | |
 
 ## Methods
 
-### NewPipelineEnsure
+### NewCentralMonitoringCreate
 
-`func NewPipelineEnsure(id string, properties Pipeline, ) *PipelineEnsure`
+`func NewCentralMonitoringCreate(properties CentralMonitoring, ) *CentralMonitoringCreate`
 
-NewPipelineEnsure instantiates a new PipelineEnsure object
+NewCentralMonitoringCreate instantiates a new CentralMonitoringCreate object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewPipelineEnsureWithDefaults
+### NewCentralMonitoringCreateWithDefaults
 
-`func NewPipelineEnsureWithDefaults() *PipelineEnsure`
+`func NewCentralMonitoringCreateWithDefaults() *CentralMonitoringCreate`
 
-NewPipelineEnsureWithDefaults instantiates a new PipelineEnsure object
+NewCentralMonitoringCreateWithDefaults instantiates a new CentralMonitoringCreate object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetId
-
-`func (o *PipelineEnsure) GetId() string`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *PipelineEnsure) GetIdOk() (*string, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *PipelineEnsure) SetId(v string)`
-
-SetId sets Id field to given value.
-
-
 ### GetMetadata
 
-`func (o *PipelineEnsure) GetMetadata() map[string]interface{}`
+`func (o *CentralMonitoringCreate) GetMetadata() map[string]interface{}`
 
 GetMetadata returns the Metadata field if non-nil, zero value otherwise.
 
 ### GetMetadataOk
 
-`func (o *PipelineEnsure) GetMetadataOk() (*map[string]interface{}, bool)`
+`func (o *CentralMonitoringCreate) GetMetadataOk() (*map[string]interface{}, bool)`
 
 GetMetadataOk returns a tuple with the Metadata field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMetadata
 
-`func (o *PipelineEnsure) SetMetadata(v map[string]interface{})`
+`func (o *CentralMonitoringCreate) SetMetadata(v map[string]interface{})`
 
 SetMetadata sets Metadata field to given value.
 
 ### HasMetadata
 
-`func (o *PipelineEnsure) HasMetadata() bool`
+`func (o *CentralMonitoringCreate) HasMetadata() bool`
 
 HasMetadata returns a boolean if a field has been set.
 
 ### GetProperties
 
-`func (o *PipelineEnsure) GetProperties() Pipeline`
+`func (o *CentralMonitoringCreate) GetProperties() CentralMonitoring`
 
 GetProperties returns the Properties field if non-nil, zero value otherwise.
 
 ### GetPropertiesOk
 
-`func (o *PipelineEnsure) GetPropertiesOk() (*Pipeline, bool)`
+`func (o *CentralMonitoringCreate) GetPropertiesOk() (*CentralMonitoring, bool)`
 
 GetPropertiesOk returns a tuple with the Properties field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProperties
 
-`func (o *PipelineEnsure) SetProperties(v Pipeline)`
+`func (o *CentralMonitoringCreate) SetProperties(v CentralMonitoring)`
 
 SetProperties sets Properties field to given value.
 

@@ -4,15 +4,15 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Key** | **string** | The authentication key of the monitoring instance.  | [readonly] |
-|**GrafanaEndpoint** | **string** | The endpoint of the Grafana instance.  | [readonly] |
-|**HttpEndpoint** | **string** | The HTTP endpoint of the monitoring instance.  | [readonly] |
+|**Key** | Pointer to **string** | The authentication key of the monitoring instance.  | [optional] [readonly] |
+|**GrafanaEndpoint** | Pointer to **string** | The endpoint of the Grafana instance.  | [optional] [readonly] |
+|**HttpEndpoint** | Pointer to **string** | The HTTP endpoint of the monitoring instance.  | [optional] [readonly] |
 
 ## Methods
 
 ### NewMetadataWithEndpointAllOf
 
-`func NewMetadataWithEndpointAllOf(key string, grafanaEndpoint string, httpEndpoint string, ) *MetadataWithEndpointAllOf`
+`func NewMetadataWithEndpointAllOf() *MetadataWithEndpointAllOf`
 
 NewMetadataWithEndpointAllOf instantiates a new MetadataWithEndpointAllOf object
 This constructor will assign default values to properties that have it defined,
@@ -46,6 +46,11 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
+### HasKey
+
+`func (o *MetadataWithEndpointAllOf) HasKey() bool`
+
+HasKey returns a boolean if a field has been set.
 
 ### GetGrafanaEndpoint
 
@@ -66,6 +71,11 @@ and a boolean to check if the value has been set.
 
 SetGrafanaEndpoint sets GrafanaEndpoint field to given value.
 
+### HasGrafanaEndpoint
+
+`func (o *MetadataWithEndpointAllOf) HasGrafanaEndpoint() bool`
+
+HasGrafanaEndpoint returns a boolean if a field has been set.
 
 ### GetHttpEndpoint
 
@@ -86,5 +96,10 @@ and a boolean to check if the value has been set.
 
 SetHttpEndpoint sets HttpEndpoint field to given value.
 
+### HasHttpEndpoint
+
+`func (o *MetadataWithEndpointAllOf) HasHttpEndpoint() bool`
+
+HasHttpEndpoint returns a boolean if a field has been set.
 
 

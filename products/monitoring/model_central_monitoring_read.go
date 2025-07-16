@@ -14,27 +14,27 @@ import (
 	"encoding/json"
 )
 
-// checks if the PipelineRead type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &PipelineRead{}
+// checks if the CentralMonitoringRead type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CentralMonitoringRead{}
 
-// PipelineRead struct for PipelineRead
-type PipelineRead struct {
-	// The ID (UUID) of the Pipeline.
+// CentralMonitoringRead struct for CentralMonitoringRead
+type CentralMonitoringRead struct {
+	// The ID (UUID) of the CentralMonitoring.
 	Id string `json:"id"`
 	// The type of the resource.
 	Type string `json:"type"`
-	// The URL of the Pipeline.
-	Href       string               `json:"href"`
-	Metadata   MetadataWithEndpoint `json:"metadata"`
-	Properties Pipeline             `json:"properties"`
+	// The URL of the CentralMonitoring.
+	Href       string                       `json:"href"`
+	Metadata   MetadataForCentralMonitoring `json:"metadata"`
+	Properties CentralMonitoring            `json:"properties"`
 }
 
-// NewPipelineRead instantiates a new PipelineRead object
+// NewCentralMonitoringRead instantiates a new CentralMonitoringRead object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPipelineRead(id string, type_ string, href string, metadata MetadataWithEndpoint, properties Pipeline) *PipelineRead {
-	this := PipelineRead{}
+func NewCentralMonitoringRead(id string, type_ string, href string, metadata MetadataForCentralMonitoring, properties CentralMonitoring) *CentralMonitoringRead {
+	this := CentralMonitoringRead{}
 
 	this.Id = id
 	this.Type = type_
@@ -45,16 +45,16 @@ func NewPipelineRead(id string, type_ string, href string, metadata MetadataWith
 	return &this
 }
 
-// NewPipelineReadWithDefaults instantiates a new PipelineRead object
+// NewCentralMonitoringReadWithDefaults instantiates a new CentralMonitoringRead object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewPipelineReadWithDefaults() *PipelineRead {
-	this := PipelineRead{}
+func NewCentralMonitoringReadWithDefaults() *CentralMonitoringRead {
+	this := CentralMonitoringRead{}
 	return &this
 }
 
 // GetId returns the Id field value
-func (o *PipelineRead) GetId() string {
+func (o *CentralMonitoringRead) GetId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -65,7 +65,7 @@ func (o *PipelineRead) GetId() string {
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *PipelineRead) GetIdOk() (*string, bool) {
+func (o *CentralMonitoringRead) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -73,12 +73,12 @@ func (o *PipelineRead) GetIdOk() (*string, bool) {
 }
 
 // SetId sets field value
-func (o *PipelineRead) SetId(v string) {
+func (o *CentralMonitoringRead) SetId(v string) {
 	o.Id = v
 }
 
 // GetType returns the Type field value
-func (o *PipelineRead) GetType() string {
+func (o *CentralMonitoringRead) GetType() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -89,7 +89,7 @@ func (o *PipelineRead) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-func (o *PipelineRead) GetTypeOk() (*string, bool) {
+func (o *CentralMonitoringRead) GetTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -97,12 +97,12 @@ func (o *PipelineRead) GetTypeOk() (*string, bool) {
 }
 
 // SetType sets field value
-func (o *PipelineRead) SetType(v string) {
+func (o *CentralMonitoringRead) SetType(v string) {
 	o.Type = v
 }
 
 // GetHref returns the Href field value
-func (o *PipelineRead) GetHref() string {
+func (o *CentralMonitoringRead) GetHref() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -113,7 +113,7 @@ func (o *PipelineRead) GetHref() string {
 
 // GetHrefOk returns a tuple with the Href field value
 // and a boolean to check if the value has been set.
-func (o *PipelineRead) GetHrefOk() (*string, bool) {
+func (o *CentralMonitoringRead) GetHrefOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -121,14 +121,14 @@ func (o *PipelineRead) GetHrefOk() (*string, bool) {
 }
 
 // SetHref sets field value
-func (o *PipelineRead) SetHref(v string) {
+func (o *CentralMonitoringRead) SetHref(v string) {
 	o.Href = v
 }
 
 // GetMetadata returns the Metadata field value
-func (o *PipelineRead) GetMetadata() MetadataWithEndpoint {
+func (o *CentralMonitoringRead) GetMetadata() MetadataForCentralMonitoring {
 	if o == nil {
-		var ret MetadataWithEndpoint
+		var ret MetadataForCentralMonitoring
 		return ret
 	}
 
@@ -137,7 +137,7 @@ func (o *PipelineRead) GetMetadata() MetadataWithEndpoint {
 
 // GetMetadataOk returns a tuple with the Metadata field value
 // and a boolean to check if the value has been set.
-func (o *PipelineRead) GetMetadataOk() (*MetadataWithEndpoint, bool) {
+func (o *CentralMonitoringRead) GetMetadataOk() (*MetadataForCentralMonitoring, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -145,14 +145,14 @@ func (o *PipelineRead) GetMetadataOk() (*MetadataWithEndpoint, bool) {
 }
 
 // SetMetadata sets field value
-func (o *PipelineRead) SetMetadata(v MetadataWithEndpoint) {
+func (o *CentralMonitoringRead) SetMetadata(v MetadataForCentralMonitoring) {
 	o.Metadata = v
 }
 
 // GetProperties returns the Properties field value
-func (o *PipelineRead) GetProperties() Pipeline {
+func (o *CentralMonitoringRead) GetProperties() CentralMonitoring {
 	if o == nil {
-		var ret Pipeline
+		var ret CentralMonitoring
 		return ret
 	}
 
@@ -161,7 +161,7 @@ func (o *PipelineRead) GetProperties() Pipeline {
 
 // GetPropertiesOk returns a tuple with the Properties field value
 // and a boolean to check if the value has been set.
-func (o *PipelineRead) GetPropertiesOk() (*Pipeline, bool) {
+func (o *CentralMonitoringRead) GetPropertiesOk() (*CentralMonitoring, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -169,11 +169,11 @@ func (o *PipelineRead) GetPropertiesOk() (*Pipeline, bool) {
 }
 
 // SetProperties sets field value
-func (o *PipelineRead) SetProperties(v Pipeline) {
+func (o *CentralMonitoringRead) SetProperties(v CentralMonitoring) {
 	o.Properties = v
 }
 
-func (o PipelineRead) MarshalJSON() ([]byte, error) {
+func (o CentralMonitoringRead) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -181,7 +181,7 @@ func (o PipelineRead) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o PipelineRead) ToMap() (map[string]interface{}, error) {
+func (o CentralMonitoringRead) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
 	toSerialize["type"] = o.Type
@@ -191,38 +191,38 @@ func (o PipelineRead) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-type NullablePipelineRead struct {
-	value *PipelineRead
+type NullableCentralMonitoringRead struct {
+	value *CentralMonitoringRead
 	isSet bool
 }
 
-func (v NullablePipelineRead) Get() *PipelineRead {
+func (v NullableCentralMonitoringRead) Get() *CentralMonitoringRead {
 	return v.value
 }
 
-func (v *NullablePipelineRead) Set(val *PipelineRead) {
+func (v *NullableCentralMonitoringRead) Set(val *CentralMonitoringRead) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullablePipelineRead) IsSet() bool {
+func (v NullableCentralMonitoringRead) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullablePipelineRead) Unset() {
+func (v *NullableCentralMonitoringRead) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullablePipelineRead(val *PipelineRead) *NullablePipelineRead {
-	return &NullablePipelineRead{value: val, isSet: true}
+func NewNullableCentralMonitoringRead(val *CentralMonitoringRead) *NullableCentralMonitoringRead {
+	return &NullableCentralMonitoringRead{value: val, isSet: true}
 }
 
-func (v NullablePipelineRead) MarshalJSON() ([]byte, error) {
+func (v NullableCentralMonitoringRead) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullablePipelineRead) UnmarshalJSON(src []byte) error {
+func (v *NullableCentralMonitoringRead) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

@@ -25,232 +25,57 @@ var (
 	_ _context.Context
 )
 
-// PipelinesApiService PipelinesApi service
-type PipelinesApiService service
+// CentralApiService CentralApi service
+type CentralApiService service
 
-type ApiPipelinesDeleteRequest struct {
+type ApiCentralFindByIdRequest struct {
 	ctx        _context.Context
-	ApiService *PipelinesApiService
-	pipelineId string
+	ApiService *CentralApiService
+	centralId  string
 }
 
-func (r ApiPipelinesDeleteRequest) Execute() (*shared.APIResponse, error) {
-	return r.ApiService.PipelinesDeleteExecute(r)
+func (r ApiCentralFindByIdRequest) Execute() (CentralMonitoringRead, *shared.APIResponse, error) {
+	return r.ApiService.CentralFindByIdExecute(r)
 }
 
 /*
- * PipelinesDelete Delete Pipeline
- * Deletes the specified Pipeline.
+ * CentralFindById Retrieve CentralMonitoring
+ * Returns the CentralMonitoring by ID.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param pipelineId The ID (UUID) of the Pipeline.
- * @return ApiPipelinesDeleteRequest
+ * @param centralId The ID (UUID) of the CentralMonitoring.
+ * @return ApiCentralFindByIdRequest
  */
-func (a *PipelinesApiService) PipelinesDelete(ctx _context.Context, pipelineId string) ApiPipelinesDeleteRequest {
-	return ApiPipelinesDeleteRequest{
+func (a *CentralApiService) CentralFindById(ctx _context.Context, centralId string) ApiCentralFindByIdRequest {
+	return ApiCentralFindByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
-		pipelineId: pipelineId,
+		centralId:  centralId,
 	}
 }
 
 /*
  * Execute executes the request
+ * @return CentralMonitoringRead
  */
-func (a *PipelinesApiService) PipelinesDeleteExecute(r ApiPipelinesDeleteRequest) (*shared.APIResponse, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PipelinesApiService.PipelinesDelete")
-	if err != nil {
-		gerr := shared.GenericOpenAPIError{}
-		gerr.SetError(err.Error())
-		return nil, gerr
-	}
-
-	localVarPath := localBasePath + "/pipelines/{pipelineId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"pipelineId"+"}", _neturl.PathEscape(parameterValueToString(r.pipelineId, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
-
-	localVarAPIResponse := &shared.APIResponse{
-		Response:    localVarHTTPResponse,
-		Method:      localVarHTTPMethod,
-		RequestTime: httpRequestTime,
-		RequestURL:  localVarPath,
-		Operation:   "PipelinesDelete",
-	}
-
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarAPIResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarAPIResponse.Payload = localVarBody
-	if err != nil {
-		return localVarAPIResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := shared.GenericOpenAPIError{}
-		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
-		newErr.SetBody(localVarBody)
-		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.SetError(err.Error())
-				return localVarAPIResponse, newErr
-			}
-			newErr.SetModel(v)
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.SetError(err.Error())
-				return localVarAPIResponse, newErr
-			}
-			newErr.SetModel(v)
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.SetError(err.Error())
-				return localVarAPIResponse, newErr
-			}
-			newErr.SetModel(v)
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.SetError(err.Error())
-				return localVarAPIResponse, newErr
-			}
-			newErr.SetModel(v)
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.SetError(err.Error())
-				return localVarAPIResponse, newErr
-			}
-			newErr.SetModel(v)
-		}
-		if localVarHTTPResponse.StatusCode == 500 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.SetError(err.Error())
-				return localVarAPIResponse, newErr
-			}
-			newErr.SetModel(v)
-		}
-		if localVarHTTPResponse.StatusCode == 503 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.SetError(err.Error())
-				return localVarAPIResponse, newErr
-			}
-			newErr.SetModel(v)
-		}
-		var v Error
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.SetError(err.Error())
-			return localVarAPIResponse, newErr
-		}
-		newErr.SetModel(v)
-		return localVarAPIResponse, newErr
-	}
-
-	return localVarAPIResponse, nil
-}
-
-type ApiPipelinesFindByIdRequest struct {
-	ctx        _context.Context
-	ApiService *PipelinesApiService
-	pipelineId string
-}
-
-func (r ApiPipelinesFindByIdRequest) Execute() (PipelineRead, *shared.APIResponse, error) {
-	return r.ApiService.PipelinesFindByIdExecute(r)
-}
-
-/*
- * PipelinesFindById Retrieve Pipeline
- * Returns the Pipeline by ID.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param pipelineId The ID (UUID) of the Pipeline.
- * @return ApiPipelinesFindByIdRequest
- */
-func (a *PipelinesApiService) PipelinesFindById(ctx _context.Context, pipelineId string) ApiPipelinesFindByIdRequest {
-	return ApiPipelinesFindByIdRequest{
-		ApiService: a,
-		ctx:        ctx,
-		pipelineId: pipelineId,
-	}
-}
-
-/*
- * Execute executes the request
- * @return PipelineRead
- */
-func (a *PipelinesApiService) PipelinesFindByIdExecute(r ApiPipelinesFindByIdRequest) (PipelineRead, *shared.APIResponse, error) {
+func (a *CentralApiService) CentralFindByIdExecute(r ApiCentralFindByIdRequest) (CentralMonitoringRead, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  PipelineRead
+		localVarReturnValue  CentralMonitoringRead
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PipelinesApiService.PipelinesFindById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CentralApiService.CentralFindById")
 	if err != nil {
 		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
 
-	localVarPath := localBasePath + "/pipelines/{pipelineId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"pipelineId"+"}", _neturl.PathEscape(parameterValueToString(r.pipelineId, "")), -1)
+	localVarPath := localBasePath + "/central/{centralId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"centralId"+"}", _neturl.PathEscape(parameterValueToString(r.centralId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -285,7 +110,7 @@ func (a *PipelinesApiService) PipelinesFindByIdExecute(r ApiPipelinesFindByIdReq
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
 		RequestURL:  localVarPath,
-		Operation:   "PipelinesFindById",
+		Operation:   "CentralFindById",
 	}
 
 	if err != nil || localVarHTTPResponse == nil {
@@ -389,42 +214,26 @@ func (a *PipelinesApiService) PipelinesFindByIdExecute(r ApiPipelinesFindByIdReq
 	return localVarReturnValue, localVarAPIResponse, nil
 }
 
-type ApiPipelinesGetRequest struct {
+type ApiCentralGetRequest struct {
 	ctx        _context.Context
-	ApiService *PipelinesApiService
-	offset     *int32
-	limit      *int32
-	orderBy    *string
+	ApiService *CentralApiService
 }
 
-func (r ApiPipelinesGetRequest) Offset(offset int32) ApiPipelinesGetRequest {
-	r.offset = &offset
-	return r
-}
-func (r ApiPipelinesGetRequest) Limit(limit int32) ApiPipelinesGetRequest {
-	r.limit = &limit
-	return r
-}
-func (r ApiPipelinesGetRequest) OrderBy(orderBy string) ApiPipelinesGetRequest {
-	r.orderBy = &orderBy
-	return r
-}
-
-func (r ApiPipelinesGetRequest) Execute() (PipelineReadList, *shared.APIResponse, error) {
-	return r.ApiService.PipelinesGetExecute(r)
+func (r ApiCentralGetRequest) Execute() (CentralMonitoringReadList, *shared.APIResponse, error) {
+	return r.ApiService.CentralGetExecute(r)
 }
 
 /*
-  - PipelinesGet Retrieve all Pipelines
-  - This endpoint enables retrieving all Pipelines using
+  - CentralGet Retrieve all CentralMonitoring
+  - This endpoint enables retrieving all CentralMonitoring using
 
 pagination and optional filters.
 
   - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-  - @return ApiPipelinesGetRequest
+  - @return ApiCentralGetRequest
 */
-func (a *PipelinesApiService) PipelinesGet(ctx _context.Context) ApiPipelinesGetRequest {
-	return ApiPipelinesGetRequest{
+func (a *CentralApiService) CentralGet(ctx _context.Context) ApiCentralGetRequest {
+	return ApiCentralGetRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -432,40 +241,31 @@ func (a *PipelinesApiService) PipelinesGet(ctx _context.Context) ApiPipelinesGet
 
 /*
  * Execute executes the request
- * @return PipelineReadList
+ * @return CentralMonitoringReadList
  */
-func (a *PipelinesApiService) PipelinesGetExecute(r ApiPipelinesGetRequest) (PipelineReadList, *shared.APIResponse, error) {
+func (a *CentralApiService) CentralGetExecute(r ApiCentralGetRequest) (CentralMonitoringReadList, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  PipelineReadList
+		localVarReturnValue  CentralMonitoringReadList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PipelinesApiService.PipelinesGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CentralApiService.CentralGet")
 	if err != nil {
 		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
 
-	localVarPath := localBasePath + "/pipelines"
+	localVarPath := localBasePath + "/central"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
-	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
-	}
-	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
-	}
-	if r.orderBy != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "orderBy", r.orderBy, "")
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -495,7 +295,7 @@ func (a *PipelinesApiService) PipelinesGetExecute(r ApiPipelinesGetRequest) (Pip
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
 		RequestURL:  localVarPath,
-		Operation:   "PipelinesGet",
+		Operation:   "CentralGet",
 	}
 
 	if err != nil || localVarHTTPResponse == nil {
@@ -590,278 +390,72 @@ func (a *PipelinesApiService) PipelinesGetExecute(r ApiPipelinesGetRequest) (Pip
 	return localVarReturnValue, localVarAPIResponse, nil
 }
 
-type ApiPipelinesPostRequest struct {
-	ctx            _context.Context
-	ApiService     *PipelinesApiService
-	pipelineCreate *PipelineCreate
+type ApiCentralPutRequest struct {
+	ctx                     _context.Context
+	ApiService              *CentralApiService
+	centralId               string
+	centralMonitoringEnsure *CentralMonitoringEnsure
 }
 
-func (r ApiPipelinesPostRequest) PipelineCreate(pipelineCreate PipelineCreate) ApiPipelinesPostRequest {
-	r.pipelineCreate = &pipelineCreate
+func (r ApiCentralPutRequest) CentralMonitoringEnsure(centralMonitoringEnsure CentralMonitoringEnsure) ApiCentralPutRequest {
+	r.centralMonitoringEnsure = &centralMonitoringEnsure
 	return r
 }
 
-func (r ApiPipelinesPostRequest) Execute() (PipelineRead, *shared.APIResponse, error) {
-	return r.ApiService.PipelinesPostExecute(r)
+func (r ApiCentralPutRequest) Execute() (CentralMonitoringRead, *shared.APIResponse, error) {
+	return r.ApiService.CentralPutExecute(r)
 }
 
 /*
-  - PipelinesPost Create Pipeline
-  - Creates a new Pipeline.
+  - CentralPut Ensure CentralMonitoring
+  - Ensures that the CentralMonitoring with the provided ID is created or modified.
 
-The full Pipeline needs to be provided to create the object.
-Optional data will be filled with defaults or left empty.
-
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-  - @return ApiPipelinesPostRequest
-*/
-func (a *PipelinesApiService) PipelinesPost(ctx _context.Context) ApiPipelinesPostRequest {
-	return ApiPipelinesPostRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-/*
- * Execute executes the request
- * @return PipelineRead
- */
-func (a *PipelinesApiService) PipelinesPostExecute(r ApiPipelinesPostRequest) (PipelineRead, *shared.APIResponse, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  PipelineRead
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PipelinesApiService.PipelinesPost")
-	if err != nil {
-		gerr := shared.GenericOpenAPIError{}
-		gerr.SetError(err.Error())
-		return localVarReturnValue, nil, gerr
-	}
-
-	localVarPath := localBasePath + "/pipelines"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-	if r.pipelineCreate == nil {
-		return localVarReturnValue, nil, reportError("pipelineCreate is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.pipelineCreate
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
-
-	localVarAPIResponse := &shared.APIResponse{
-		Response:    localVarHTTPResponse,
-		Method:      localVarHTTPMethod,
-		RequestTime: httpRequestTime,
-		RequestURL:  localVarPath,
-		Operation:   "PipelinesPost",
-	}
-
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarAPIResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarAPIResponse.Payload = localVarBody
-	if err != nil {
-		return localVarReturnValue, localVarAPIResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := shared.GenericOpenAPIError{}
-		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
-		newErr.SetBody(localVarBody)
-		newErr.SetError(fmt.Sprintf("%s: %s", localVarHTTPResponse.Status, string(localVarBody)))
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.SetError(err.Error())
-				return localVarReturnValue, localVarAPIResponse, newErr
-			}
-			newErr.SetModel(v)
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.SetError(err.Error())
-				return localVarReturnValue, localVarAPIResponse, newErr
-			}
-			newErr.SetModel(v)
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.SetError(err.Error())
-				return localVarReturnValue, localVarAPIResponse, newErr
-			}
-			newErr.SetModel(v)
-		}
-		if localVarHTTPResponse.StatusCode == 415 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.SetError(err.Error())
-				return localVarReturnValue, localVarAPIResponse, newErr
-			}
-			newErr.SetModel(v)
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.SetError(err.Error())
-				return localVarReturnValue, localVarAPIResponse, newErr
-			}
-			newErr.SetModel(v)
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.SetError(err.Error())
-				return localVarReturnValue, localVarAPIResponse, newErr
-			}
-			newErr.SetModel(v)
-		}
-		if localVarHTTPResponse.StatusCode == 500 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.SetError(err.Error())
-				return localVarReturnValue, localVarAPIResponse, newErr
-			}
-			newErr.SetModel(v)
-		}
-		if localVarHTTPResponse.StatusCode == 503 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.SetError(err.Error())
-				return localVarReturnValue, localVarAPIResponse, newErr
-			}
-			newErr.SetModel(v)
-		}
-		var v Error
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.SetError(err.Error())
-			return localVarReturnValue, localVarAPIResponse, newErr
-		}
-		newErr.SetModel(v)
-		return localVarReturnValue, localVarAPIResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := shared.GenericOpenAPIError{}
-		newErr.SetStatusCode(localVarHTTPResponse.StatusCode)
-		newErr.SetBody(localVarBody)
-		newErr.SetError(err.Error())
-		return localVarReturnValue, localVarAPIResponse, newErr
-	}
-
-	return localVarReturnValue, localVarAPIResponse, nil
-}
-
-type ApiPipelinesPutRequest struct {
-	ctx            _context.Context
-	ApiService     *PipelinesApiService
-	pipelineId     string
-	pipelineEnsure *PipelineEnsure
-}
-
-func (r ApiPipelinesPutRequest) PipelineEnsure(pipelineEnsure PipelineEnsure) ApiPipelinesPutRequest {
-	r.pipelineEnsure = &pipelineEnsure
-	return r
-}
-
-func (r ApiPipelinesPutRequest) Execute() (PipelineRead, *shared.APIResponse, error) {
-	return r.ApiService.PipelinesPutExecute(r)
-}
-
-/*
-  - PipelinesPut Ensure Pipeline
-  - Ensures that the Pipeline with the provided ID is created or modified.
-
-The full Pipeline needs to be provided to ensure
-(either update or create) the Pipeline. Non present data will
+The full CentralMonitoring needs to be provided to ensure
+(either update or create) the CentralMonitoring. Non present data will
 only be filled with defaults or left empty, but not take
 previous values into consideration.
 
   - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-  - @param pipelineId The ID (UUID) of the Pipeline.
-  - @return ApiPipelinesPutRequest
+  - @param centralId The ID (UUID) of the CentralMonitoring.
+  - @return ApiCentralPutRequest
 */
-func (a *PipelinesApiService) PipelinesPut(ctx _context.Context, pipelineId string) ApiPipelinesPutRequest {
-	return ApiPipelinesPutRequest{
+func (a *CentralApiService) CentralPut(ctx _context.Context, centralId string) ApiCentralPutRequest {
+	return ApiCentralPutRequest{
 		ApiService: a,
 		ctx:        ctx,
-		pipelineId: pipelineId,
+		centralId:  centralId,
 	}
 }
 
 /*
  * Execute executes the request
- * @return PipelineRead
+ * @return CentralMonitoringRead
  */
-func (a *PipelinesApiService) PipelinesPutExecute(r ApiPipelinesPutRequest) (PipelineRead, *shared.APIResponse, error) {
+func (a *CentralApiService) CentralPutExecute(r ApiCentralPutRequest) (CentralMonitoringRead, *shared.APIResponse, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  PipelineRead
+		localVarReturnValue  CentralMonitoringRead
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PipelinesApiService.PipelinesPut")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CentralApiService.CentralPut")
 	if err != nil {
 		gerr := shared.GenericOpenAPIError{}
 		gerr.SetError(err.Error())
 		return localVarReturnValue, nil, gerr
 	}
 
-	localVarPath := localBasePath + "/pipelines/{pipelineId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"pipelineId"+"}", _neturl.PathEscape(parameterValueToString(r.pipelineId, "")), -1)
+	localVarPath := localBasePath + "/central/{centralId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"centralId"+"}", _neturl.PathEscape(parameterValueToString(r.centralId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.pipelineEnsure == nil {
-		return localVarReturnValue, nil, reportError("pipelineEnsure is required and must be specified")
+	if r.centralMonitoringEnsure == nil {
+		return localVarReturnValue, nil, reportError("centralMonitoringEnsure is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -882,7 +476,7 @@ func (a *PipelinesApiService) PipelinesPutExecute(r ApiPipelinesPutRequest) (Pip
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.pipelineEnsure
+	localVarPostBody = r.centralMonitoringEnsure
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -895,7 +489,7 @@ func (a *PipelinesApiService) PipelinesPutExecute(r ApiPipelinesPutRequest) (Pip
 		Method:      localVarHTTPMethod,
 		RequestTime: httpRequestTime,
 		RequestURL:  localVarPath,
-		Operation:   "PipelinesPut",
+		Operation:   "CentralPut",
 	}
 
 	if err != nil || localVarHTTPResponse == nil {

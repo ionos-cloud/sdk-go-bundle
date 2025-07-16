@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Key** | **string** |  | |
+|**Key** | **string** | The key is shared once and is used to authenticate the metrics sent to the pipeline.  | |
 
 ## Methods
 
