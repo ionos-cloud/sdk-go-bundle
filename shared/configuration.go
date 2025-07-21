@@ -145,7 +145,8 @@ type Configuration struct {
 	ResponseMiddleware  ResponseMiddlewareFunction  `json:"-"`
 }
 
-// NewConfiguration returns a new shared.Configuration object
+// NewConfiguration returns a new shared.Configuration object.
+// We recommend using NewConfigurationFromOptions, which allows to set more options and initializes the object storage middleware
 func NewConfiguration(username, password, token, hostUrl string) *Configuration {
 	cfg := &Configuration{
 		DefaultHeader:      make(map[string]string),
@@ -220,6 +221,9 @@ func NewConfigurationFromOptions(clientOptions ClientOptions) *Configuration {
 		}
 	}
 	cfg.HTTPClient.Transport = CreateTransport(clientOptions.SkipTLSVerify, clientOptions.Certificate)
+	if clientOptions.Credentials.S3AccessKey != "" && clientOptions.Credentials.S3SecretKey != "" {
+		cfg = cfg.WithObjectStorage(clientOptions)
+	}
 	return cfg
 }
 
