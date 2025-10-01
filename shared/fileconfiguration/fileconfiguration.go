@@ -43,7 +43,6 @@ const (
 	Cert                    = "cert"
 	Cloud                   = "cloud"
 	ContainerRegistry       = "containerregistry"
-	Dataplatform            = "dataplatform"
 	DNS                     = "dns"
 	Mongo                   = "mongo"
 	ObjectStorageManagement = "objectstoragemanagement"
@@ -66,7 +65,7 @@ const (
 type Endpoint struct {
 	// the location or the region
 	// Products that do not have a location and will override the endpoint that is used globally:
-	// cloud, objectstoragemanagement, kafka, dns, mongo, psql, dataplatform, creg, autoscaling, apigateway
+	// cloud, objectstoragemanagement, kafka, dns, mongo, psql, creg, autoscaling, apigateway
 	// Products that have location-based endpoints: logging, monitoring, containerregistry, vpn, inmemorydb, nfs, objectstorage, mariadb
 	Location            string `yaml:"location,omitempty"`
 	Name                string `yaml:"name"`
