@@ -155,6 +155,14 @@ func (o *RouteReadListAllOf) SetItems(v []RouteRead) {
 	o.Items = v
 }
 
+func (o RouteReadListAllOf) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o RouteReadListAllOf) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id

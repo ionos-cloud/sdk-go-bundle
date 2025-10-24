@@ -127,6 +127,14 @@ func (o *GatewayEnsure) SetProperties(v Gateway) {
 	o.Properties = v
 }
 
+func (o GatewayEnsure) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o GatewayEnsure) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id

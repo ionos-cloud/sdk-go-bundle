@@ -214,6 +214,14 @@ func (o *Route) SetUpstreams(v []RouteUpstreams) {
 	o.Upstreams = v
 }
 
+func (o Route) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o Route) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name

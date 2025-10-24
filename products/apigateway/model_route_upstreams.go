@@ -192,6 +192,14 @@ func (o *RouteUpstreams) SetWeight(v int32) {
 	o.Weight = &v
 }
 
+func (o RouteUpstreams) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o RouteUpstreams) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["scheme"] = o.Scheme

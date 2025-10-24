@@ -22,7 +22,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
 	"mime/multipart"
 	"net"
 	"net/http"
@@ -53,7 +52,9 @@ const (
 	RequestStatusFailed  = "FAILED"
 	RequestStatusDone    = "DONE"
 
-	Version = "products/apigateway/v2.0.1"
+	Version               = "products/apigateway/v2.0.2"
+	DefaultIonosServerUrl = "https://apigateway.de-txl.ionos.com"
+	DefaultIonosBasePath  = ""
 )
 
 // APIClient manages communication with the IONOS Cloud - API Gateway API v0.0.1
@@ -95,14 +96,24 @@ func DeepCopy(cfg *shared.Configuration) (*shared.Configuration, error) {
 // NewAPIClient creates a new API client. Requires a userAgent string describing your application.
 // optionally a custom http.Client to allow for advanced features such as caching.
 func NewAPIClient(cfg *shared.Configuration) *APIClient {
-	// Attempt to deep copy the input configuration
-	cfgCopy, err := DeepCopy(cfg)
-	if err != nil {
-		log.Printf("Error creating deep copy of configuration: %v", err)
+	cfgCopy := &shared.Configuration{}
+	*cfgCopy = *cfg
+	if cfg.HTTPClient == nil || cfg.HTTPClient.Transport == nil {
+		var err error
+		cfgCopy, err = DeepCopy(cfg)
+		if err != nil {
+			if shared.SdkLogLevel.Satisfies(shared.Debug) {
+				shared.SdkLogger.Printf("Error creating deep copy of configuration: %v", err)
+			}
 
-		// shallow copy instead as a fallback
-		cfgCopy := &shared.Configuration{}
-		*cfgCopy = *cfg
+			// shallow copy instead as a fallback
+			cfgCopy = &shared.Configuration{}
+			*cfgCopy = *cfg
+		}
+	}
+
+	if cfgCopy.UserAgent == "" {
+		cfgCopy.UserAgent = "sdk-go-bundle/products/apigateway/v2.0.2"
 	}
 
 	// Initialize default values in the copied configuration
@@ -116,6 +127,13 @@ func NewAPIClient(cfg *shared.Configuration) *APIClient {
 				URL:         "https://apigateway.de-txl.ionos.com",
 				Description: "Production de-txl",
 			},
+		}
+	} else {
+		// If the user has provided a custom server configuration, we need to ensure that the basepath is set
+		for i := range cfgCopy.Servers {
+			if cfgCopy.Servers[i].URL != "" && !strings.HasSuffix(cfgCopy.Servers[i].URL, DefaultIonosBasePath) {
+				cfgCopy.Servers[i].URL = fmt.Sprintf("%s%s", cfgCopy.Servers[i].URL, DefaultIonosBasePath)
+			}
 		}
 	}
 
@@ -399,8 +417,15 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, time.Duratio
 			}
 		}
 
-		if shared.SdkLogLevel.Satisfies(shared.Trace) {
-			dump, err := httputil.DumpRequestOut(clonedRequest, true)
+		if shared.SdkLogLevel.Satisfies(shared.Debug) {
+			logRequest := request.Clone(request.Context())
+
+			// Remove the Authorization header if Debug is enabled (but not in Trace mode)
+			if !shared.SdkLogLevel.Satisfies(shared.Trace) {
+				logRequest.Header.Del("Authorization")
+			}
+
+			dump, err := httputil.DumpRequestOut(logRequest, true)
 			if err == nil {
 				shared.SdkLogger.Printf(" DumpRequestOut : %s\n", string(dump))
 			} else {

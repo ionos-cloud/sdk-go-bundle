@@ -235,6 +235,14 @@ func (o *RouteReadList) SetLinks(v Links) {
 	o.Links = v
 }
 
+func (o RouteReadList) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o RouteReadList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
