@@ -33,7 +33,7 @@ import (
     "fmt"
     "os"
 
-    mariadb "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/mariadb"
+    mariadb "github.com/ionos-cloud/sdk-go-bundle/products/mariadb"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -100,7 +100,7 @@ import (
     "fmt"
     "os"
 
-    mariadb "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/mariadb"
+    mariadb "github.com/ionos-cloud/sdk-go-bundle/products/mariadb"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -170,7 +170,7 @@ import (
     "fmt"
     "os"
 
-    mariadb "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/mariadb"
+    mariadb "github.com/ionos-cloud/sdk-go-bundle/products/mariadb"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -239,7 +239,7 @@ import (
     "fmt"
     "os"
 
-    mariadb "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/mariadb"
+    mariadb "github.com/ionos-cloud/sdk-go-bundle/products/mariadb"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
@@ -309,7 +309,7 @@ import (
     "fmt"
     "os"
 
-    mariadb "github.com/ionos-cloud/sdk-go-bundle/products/dbaas/mariadb"
+    mariadb "github.com/ionos-cloud/sdk-go-bundle/products/mariadb"
     "github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
