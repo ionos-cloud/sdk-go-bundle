@@ -4,9 +4,9 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Id** | **string** | The ID (UUID) of the User. | |
+|**Id** | **string** | The ID (UUID) of the user. | |
 |**Type** | **string** | The type of the resource. | |
-|**Href** | **string** | The URL of the User. | |
+|**Href** | **string** | The URL of the user. | |
 |**Metadata** | [**UserAccessMetadata**](UserAccessMetadata.md) |  | |
 |**Properties** | [**User**](User.md) |  | |
 

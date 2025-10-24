@@ -1,9 +1,9 @@
 /*
- * Kafka as a Service API
+ * Event Streams for Apache Kafka API
  *
- * An managed Apache Kafka cluster is designed to be highly fault-tolerant and scalable, allowing large volumes of data to be ingested, stored, and processed in real-time. By distributing data across multiple brokers, Kafka achieves high throughput and low latency, making it suitable for applications requiring real-time data processing and analytics.
+ * A managed Apache Kafka cluster is designed to be highly fault-tolerant and scalable, allowing large volumes of data to be ingested, stored, and processed in real-time. By distributing data across multiple brokers, Kafka achieves high throughput and low latency, making it suitable for applications requiring real-time data processing and analytics.
  *
- * API version: 1.7.1
+ * API version: 1.8.0
  * Contact: support@cloud.ionos.com
  */
 
@@ -42,10 +42,10 @@ func (r ApiClustersTopicsDeleteRequest) Execute() (*shared.APIResponse, error) {
 
 /*
  * ClustersTopicsDelete Delete Topic
- * Deletes the specified Topic.
+ * Deletes the specified topic.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param clusterId The ID (UUID) of the Cluster.
- * @param topicId The ID (UUID) of the Topic.
+ * @param clusterId The ID (UUID) of the cluster.
+ * @param topicId The ID (UUID) of the topic.
  * @return ApiClustersTopicsDeleteRequest
  */
 func (a *TopicsApiService) ClustersTopicsDelete(ctx _context.Context, clusterId string, topicId string) ApiClustersTopicsDeleteRequest {
@@ -230,10 +230,10 @@ func (r ApiClustersTopicsFindByIdRequest) Execute() (TopicRead, *shared.APIRespo
 
 /*
  * ClustersTopicsFindById Retrieve Topic
- * Returns the Topic by ID.
+ * Returns the topic by ID.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param clusterId The ID (UUID) of the Cluster.
- * @param topicId The ID (UUID) of the Topic.
+ * @param clusterId The ID (UUID) of the cluster.
+ * @param topicId The ID (UUID) of the topic.
  * @return ApiClustersTopicsFindByIdRequest
  */
 func (a *TopicsApiService) ClustersTopicsFindById(ctx _context.Context, clusterId string, topicId string) ApiClustersTopicsFindByIdRequest {
@@ -428,12 +428,12 @@ func (r ApiClustersTopicsGetRequest) Execute() (TopicReadList, *shared.APIRespon
 
 /*
   - ClustersTopicsGet Retrieve all Topics
-  - This endpoint enables retrieving all Topics using
+  - This endpoint enables retrieving all topics using
 
 pagination and optional filters.
 
   - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-  - @param clusterId The ID (UUID) of the Cluster.
+  - @param clusterId The ID (UUID) of the cluster.
   - @return ApiClustersTopicsGetRequest
 */
 func (a *TopicsApiService) ClustersTopicsGet(ctx _context.Context, clusterId string) ApiClustersTopicsGetRequest {
@@ -623,13 +623,13 @@ func (r ApiClustersTopicsPostRequest) Execute() (TopicRead, *shared.APIResponse,
 
 /*
   - ClustersTopicsPost Create Topic
-  - Creates a new Topic.
+  - Creates a new topic.
 
-The full Topic needs to be provided to create the object.
+The full topic needs to be provided to create the object.
 Optional data will be filled with defaults or left empty.
 
   - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-  - @param clusterId The ID (UUID) of the Cluster.
+  - @param clusterId The ID (UUID) of the cluster.
   - @return ApiClustersTopicsPostRequest
 */
 func (a *TopicsApiService) ClustersTopicsPost(ctx _context.Context, clusterId string) ApiClustersTopicsPostRequest {

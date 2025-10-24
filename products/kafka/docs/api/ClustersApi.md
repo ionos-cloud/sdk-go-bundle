@@ -238,7 +238,7 @@ import (
 )
 
 func main() {
-    clusterCreate := *openapiclient.NewClusterCreate(*openapiclient.NewCluster("my-kafka-cluster", "3.7.0", "XS", []openapiclient.KafkaClusterConnection{*openapiclient.NewKafkaClusterConnection("5a029f4a-72e5-11ec-90d6-0242ac120003", "2", []string{"192.168.1.101/24"})})) // ClusterCreate | Cluster to create.
+    clusterCreate := *openapiclient.NewClusterCreate(*openapiclient.NewCluster("my-kafka-cluster", "3.7.0", "XS", []openapiclient.KafkaClusterConnection{*openapiclient.NewKafkaClusterConnection("5a029f4a-72e5-11ec-90d6-0242ac120003", "2", []string{"192.0.2.101/24"})})) // ClusterCreate | Cluster to create.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := kafka.NewAPIClient(configuration)

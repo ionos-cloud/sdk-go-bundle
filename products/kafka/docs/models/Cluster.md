@@ -5,8 +5,8 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**Name** | **string** | The name of your Kafka cluster. Must be 63 characters or less and must begin and end with an alphanumeric character (&#x60;[a-z0-9A-Z]&#x60;) with dashes (&#x60;-&#x60;), underscores (&#x60;_&#x60;), dots (&#x60;.&#x60;), and alphanumerics between.  | |
-|**Version** | **string** | The version of Kafka. Currently only Kafka Version 3.7.0 is supported.  | |
-|**Size** | **string** | The size of your Kafka cluster. The size of the Kafka cluster is given in T-shirt sizes. Valid values are: XS, S  | |
+|**Version** | **string** | The version of Kafka. Allowed values are &#x60;3.7.0&#x60; and &#x60;3.8.0&#x60;. Deprecation Warning: &#x60;3.7.0&#x60; will be removed end of May 2025.  | |
+|**Size** | **string** | The size of your Kafka cluster. The size of the Kafka cluster is given in T-shirt sizes. Valid values are: &#x60;XS&#x60;, &#x60;S&#x60;, &#x60;M&#x60;, &#x60;L&#x60;, and &#x60;XL&#x60;.  | |
 |**Connections** | [**[]KafkaClusterConnection**](KafkaClusterConnection.md) |  | |
 
 ## Methods

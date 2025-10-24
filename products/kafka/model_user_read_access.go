@@ -1,9 +1,9 @@
 /*
- * Kafka as a Service API
+ * Event Streams for Apache Kafka API
  *
- * An managed Apache Kafka cluster is designed to be highly fault-tolerant and scalable, allowing large volumes of data to be ingested, stored, and processed in real-time. By distributing data across multiple brokers, Kafka achieves high throughput and low latency, making it suitable for applications requiring real-time data processing and analytics.
+ * A managed Apache Kafka cluster is designed to be highly fault-tolerant and scalable, allowing large volumes of data to be ingested, stored, and processed in real-time. By distributing data across multiple brokers, Kafka achieves high throughput and low latency, making it suitable for applications requiring real-time data processing and analytics.
  *
- * API version: 1.7.1
+ * API version: 1.8.0
  * Contact: support@cloud.ionos.com
  */
 
@@ -20,11 +20,11 @@ var _ MappedNullable = &UserReadAccess{}
 
 // UserReadAccess struct for UserReadAccess
 type UserReadAccess struct {
-	// The ID (UUID) of the User.
+	// The ID (UUID) of the user.
 	Id string `json:"id"`
 	// The type of the resource.
 	Type string `json:"type"`
-	// The URL of the User.
+	// The URL of the user.
 	Href       string             `json:"href"`
 	Metadata   UserAccessMetadata `json:"metadata"`
 	Properties User               `json:"properties"`

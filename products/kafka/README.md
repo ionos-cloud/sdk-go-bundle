@@ -1,6 +1,6 @@
 # Go API client for kafka
 
-An managed Apache Kafka cluster is designed to be highly fault-tolerant and scalable,
+A managed Apache Kafka cluster is designed to be highly fault-tolerant and scalable,
 allowing large volumes of data to be ingested, stored, and processed in real-time. By
 distributing data across multiple brokers, Kafka achieves high throughput and low
 latency, making it suitable for applications requiring real-time data processing and
@@ -52,14 +52,15 @@ Examples for creating resources using the Go SDK can be found [here](examples/)
 
 All available server URLs are:
 
-- *https://kafka.de-fra.ionos.com* - Production de-fra
-- *https://kafka.de-txl.ionos.com* - Production de-txl
-- *https://kafka.es-vit.ionos.com* - Production es-vit
-- *https://kafka.gb-lhr.ionos.com* - Production gb-lhr
-- *https://kafka.us-ewr.ionos.com* - Production us-ewr
-- *https://kafka.us-las.ionos.com* - Production us-las
-- *https://kafka.us-mci.ionos.com* - Production us-mci
-- *https://kafka.fr-par.ionos.com* - Production fr-par
+- *https://kafka.de-fra.ionos.com* - service endpoint for location de-fra
+- *https://kafka.de-txl.ionos.com* - service endpoint for location de-txl
+- *https://kafka.gb-lhr.ionos.com* - service endpoint for location gb-lhr
+- *https://kafka.gb-bhx.ionos.com* - service endpoint for location gb-bhx
+- *https://kafka.fr-par.ionos.com* - service endpoint for location fr-par
+- *https://kafka.es-vit.ionos.com* - service endpoint for location es-vit
+- *https://kafka.us-mci.ionos.com* - service endpoint for location us-mci
+- *https://kafka.us-ewr.ionos.com* - service endpoint for location us-ewr
+- *https://kafka.us-las.ionos.com* - service endpoint for location us-las
 
 By default, *https://kafka.de-fra.ionos.com* is used, however this can be overriden at authentication, either
 by setting the `IONOS_API_URL` environment variable or by specifying the `hostUrl` parameter when
@@ -95,7 +96,7 @@ func basicAuthExample() error {
 ### Token Authentication
 There are 2 ways to generate your token:
 
- ### Generate token using sdk for [auth](https://github.com/ionos-cloud/products/auth):
+ ### Generate token using sdk for [auth](https://github.com/ionos-cloud/sdk-go-bundle/products/auth):
 ```golang
     import (
         "context"
@@ -229,7 +230,7 @@ TopicsApi | [**ClustersTopicsDelete**](docs/api/TopicsApi.md#clusterstopicsdelet
 TopicsApi | [**ClustersTopicsFindById**](docs/api/TopicsApi.md#clusterstopicsfindbyid) | **Get** /clusters/{clusterId}/topics/{topicId} | Retrieve Topic
 TopicsApi | [**ClustersTopicsGet**](docs/api/TopicsApi.md#clusterstopicsget) | **Get** /clusters/{clusterId}/topics | Retrieve all Topics
 TopicsApi | [**ClustersTopicsPost**](docs/api/TopicsApi.md#clusterstopicspost) | **Post** /clusters/{clusterId}/topics | Create Topic
-UsersApi | [**ClustersUsersAccessGet**](docs/api/UsersApi.md#clustersusersaccessget) | **Get** /clusters/{clusterId}/users/{userId}/access | Retrieve Kafka User with credentials.
+UsersApi | [**ClustersUsersAccessGet**](docs/api/UsersApi.md#clustersusersaccessget) | **Get** /clusters/{clusterId}/users/{userId}/access | Retrieve Apache Kafka User with Credentials
 UsersApi | [**ClustersUsersGet**](docs/api/UsersApi.md#clustersusersget) | **Get** /clusters/{clusterId}/users | Retrieve all Users
 
 </details>

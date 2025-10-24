@@ -4,7 +4,7 @@ All URIs are relative to *https://kafka.de-fra.ionos.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**ClustersUsersAccessGet**](UsersApi.md#ClustersUsersAccessGet) | **Get** /clusters/{clusterId}/users/{userId}/access | Retrieve Kafka User with credentials.|
+|[**ClustersUsersAccessGet**](UsersApi.md#ClustersUsersAccessGet) | **Get** /clusters/{clusterId}/users/{userId}/access | Retrieve Apache Kafka User with Credentials|
 |[**ClustersUsersGet**](UsersApi.md#ClustersUsersGet) | **Get** /clusters/{clusterId}/users | Retrieve all Users|
 
 
@@ -16,7 +16,7 @@ var result UserReadAccess = ClustersUsersAccessGet(ctx, clusterId, userId)
                       .Execute()
 ```
 
-Retrieve Kafka User with credentials.
+Retrieve Apache Kafka User with Credentials
 
 
 
@@ -35,8 +35,8 @@ import (
 )
 
 func main() {
-    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The ID (UUID) of the Cluster.
-    userId := "d11db12c-2625-5664-afd4-a3599731b5af" // string | The ID (UUID) of the User.
+    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The ID (UUID) of the cluster.
+    userId := "d11db12c-2625-5664-afd4-a3599731b5af" // string | The ID (UUID) of the user.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := kafka.NewAPIClient(configuration)
@@ -56,8 +56,8 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | **string** | The ID (UUID) of the Cluster. | |
-|**userId** | **string** | The ID (UUID) of the User. | |
+|**clusterId** | **string** | The ID (UUID) of the cluster. | |
+|**userId** | **string** | The ID (UUID) of the user. | |
 
 ### Other Parameters
 

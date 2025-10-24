@@ -1,9 +1,9 @@
 /*
- * Kafka as a Service API
+ * Event Streams for Apache Kafka API
  *
- * An managed Apache Kafka cluster is designed to be highly fault-tolerant and scalable, allowing large volumes of data to be ingested, stored, and processed in real-time. By distributing data across multiple brokers, Kafka achieves high throughput and low latency, making it suitable for applications requiring real-time data processing and analytics.
+ * A managed Apache Kafka cluster is designed to be highly fault-tolerant and scalable, allowing large volumes of data to be ingested, stored, and processed in real-time. By distributing data across multiple brokers, Kafka achieves high throughput and low latency, making it suitable for applications requiring real-time data processing and analytics.
  *
- * API version: 1.7.1
+ * API version: 1.8.0
  * Contact: support@cloud.ionos.com
  */
 
@@ -22,9 +22,9 @@ var _ MappedNullable = &Cluster{}
 type Cluster struct {
 	// The name of your Kafka cluster. Must be 63 characters or less and must begin and end with an alphanumeric character (`[a-z0-9A-Z]`) with dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics between.
 	Name string `json:"name"`
-	// The version of Kafka. Currently only Kafka Version 3.7.0 is supported.
+	// The version of Kafka. Allowed values are `3.7.0` and `3.8.0`. Deprecation Warning: `3.7.0` will be removed end of May 2025.
 	Version string `json:"version"`
-	// The size of your Kafka cluster. The size of the Kafka cluster is given in T-shirt sizes. Valid values are: XS, S
+	// The size of your Kafka cluster. The size of the Kafka cluster is given in T-shirt sizes. Valid values are: `XS`, `S`, `M`, `L`, and `XL`.
 	Size        string                   `json:"size"`
 	Connections []KafkaClusterConnection `json:"connections"`
 }

@@ -1,9 +1,9 @@
 /*
- * Kafka as a Service API
+ * Event Streams for Apache Kafka API
  *
- * An managed Apache Kafka cluster is designed to be highly fault-tolerant and scalable, allowing large volumes of data to be ingested, stored, and processed in real-time. By distributing data across multiple brokers, Kafka achieves high throughput and low latency, making it suitable for applications requiring real-time data processing and analytics.
+ * A managed Apache Kafka cluster is designed to be highly fault-tolerant and scalable, allowing large volumes of data to be ingested, stored, and processed in real-time. By distributing data across multiple brokers, Kafka achieves high throughput and low latency, making it suitable for applications requiring real-time data processing and analytics.
  *
- * API version: 1.7.1
+ * API version: 1.8.0
  * Contact: support@cloud.ionos.com
  */
 
@@ -41,11 +41,11 @@ func (r ApiClustersUsersAccessGetRequest) Execute() (UserReadAccess, *shared.API
 }
 
 /*
- * ClustersUsersAccessGet Retrieve Kafka User with credentials.
- * Returns the User by ID containing its access certificates in the metadata.
+ * ClustersUsersAccessGet Retrieve Apache Kafka User with Credentials
+ * Returns the user by ID containing its access certificates in the metadata.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param clusterId The ID (UUID) of the Cluster.
- * @param userId The ID (UUID) of the User.
+ * @param clusterId The ID (UUID) of the cluster.
+ * @param userId The ID (UUID) of the user.
  * @return ApiClustersUsersAccessGetRequest
  */
 func (a *UsersApiService) ClustersUsersAccessGet(ctx _context.Context, clusterId string, userId string) ApiClustersUsersAccessGetRequest {

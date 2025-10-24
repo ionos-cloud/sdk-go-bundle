@@ -1,9 +1,9 @@
 /*
- * Kafka as a Service API
+ * Event Streams for Apache Kafka API
  *
- * An managed Apache Kafka cluster is designed to be highly fault-tolerant and scalable, allowing large volumes of data to be ingested, stored, and processed in real-time. By distributing data across multiple brokers, Kafka achieves high throughput and low latency, making it suitable for applications requiring real-time data processing and analytics.
+ * A managed Apache Kafka cluster is designed to be highly fault-tolerant and scalable, allowing large volumes of data to be ingested, stored, and processed in real-time. By distributing data across multiple brokers, Kafka achieves high throughput and low latency, making it suitable for applications requiring real-time data processing and analytics.
  *
- * API version: 1.7.1
+ * API version: 1.8.0
  * Contact: support@cloud.ionos.com
  */
 
@@ -23,7 +23,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
 	"mime/multipart"
 	"net"
 	"net/http"
@@ -54,10 +53,12 @@ const (
 	RequestStatusFailed  = "FAILED"
 	RequestStatusDone    = "DONE"
 
-	Version = "products/kafka/v2.1.0"
+	Version               = "products/kafka/v2.1.1"
+	DefaultIonosServerUrl = "https://kafka.de-fra.ionos.com"
+	DefaultIonosBasePath  = ""
 )
 
-// APIClient manages communication with the Kafka as a Service API API v1.7.1
+// APIClient manages communication with the Event Streams for Apache Kafka API API v1.8.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *shared.Configuration
@@ -98,15 +99,24 @@ func DeepCopy(cfg *shared.Configuration) (*shared.Configuration, error) {
 // NewAPIClient creates a new API client. Requires a userAgent string describing your application.
 // optionally a custom http.Client to allow for advanced features such as caching.
 func NewAPIClient(cfg *shared.Configuration) *APIClient {
-	// Attempt to deep copy the input configuration. If the configuration contains an httpclient,
-	// deepcopy(serialization) will fail. In this case, we fallback to a shallow copy.
-	cfgCopy, err := DeepCopy(cfg)
-	if err != nil {
-		log.Printf("Error creating deep copy of configuration: %v", err)
+	cfgCopy := &shared.Configuration{}
+	*cfgCopy = *cfg
+	if cfg.HTTPClient == nil || cfg.HTTPClient.Transport == nil {
+		var err error
+		cfgCopy, err = DeepCopy(cfg)
+		if err != nil {
+			if shared.SdkLogLevel.Satisfies(shared.Debug) {
+				shared.SdkLogger.Printf("Error creating deep copy of configuration: %v", err)
+			}
 
-		// shallow copy instead as a fallback
-		cfgCopy = &shared.Configuration{}
-		*cfgCopy = *cfg
+			// shallow copy instead as a fallback
+			cfgCopy = &shared.Configuration{}
+			*cfgCopy = *cfg
+		}
+	}
+
+	if cfgCopy.UserAgent == "" {
+		cfgCopy.UserAgent = "sdk-go-bundle/products/kafka/v2.1.1"
 	}
 
 	// Initialize default values in the copied configuration
@@ -118,36 +128,47 @@ func NewAPIClient(cfg *shared.Configuration) *APIClient {
 		cfgCopy.Servers = shared.ServerConfigurations{
 			{
 				URL:         "https://kafka.de-fra.ionos.com",
-				Description: "Production de-fra",
+				Description: "service endpoint for location de-fra",
 			},
 			{
 				URL:         "https://kafka.de-txl.ionos.com",
-				Description: "Production de-txl",
-			},
-			{
-				URL:         "https://kafka.es-vit.ionos.com",
-				Description: "Production es-vit",
+				Description: "service endpoint for location de-txl",
 			},
 			{
 				URL:         "https://kafka.gb-lhr.ionos.com",
-				Description: "Production gb-lhr",
+				Description: "service endpoint for location gb-lhr",
 			},
 			{
-				URL:         "https://kafka.us-ewr.ionos.com",
-				Description: "Production us-ewr",
-			},
-			{
-				URL:         "https://kafka.us-las.ionos.com",
-				Description: "Production us-las",
-			},
-			{
-				URL:         "https://kafka.us-mci.ionos.com",
-				Description: "Production us-mci",
+				URL:         "https://kafka.gb-bhx.ionos.com",
+				Description: "service endpoint for location gb-bhx",
 			},
 			{
 				URL:         "https://kafka.fr-par.ionos.com",
-				Description: "Production fr-par",
+				Description: "service endpoint for location fr-par",
 			},
+			{
+				URL:         "https://kafka.es-vit.ionos.com",
+				Description: "service endpoint for location es-vit",
+			},
+			{
+				URL:         "https://kafka.us-mci.ionos.com",
+				Description: "service endpoint for location us-mci",
+			},
+			{
+				URL:         "https://kafka.us-ewr.ionos.com",
+				Description: "service endpoint for location us-ewr",
+			},
+			{
+				URL:         "https://kafka.us-las.ionos.com",
+				Description: "service endpoint for location us-las",
+			},
+		}
+	} else {
+		// If the user has provided a custom server configuration, we need to ensure that the basepath is set
+		for i := range cfgCopy.Servers {
+			if cfgCopy.Servers[i].URL != "" && !strings.HasSuffix(cfgCopy.Servers[i].URL, DefaultIonosBasePath) {
+				cfgCopy.Servers[i].URL = fmt.Sprintf("%s%s", cfgCopy.Servers[i].URL, DefaultIonosBasePath)
+			}
 		}
 	}
 

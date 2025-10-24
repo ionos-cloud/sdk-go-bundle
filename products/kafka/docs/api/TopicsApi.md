@@ -37,8 +37,8 @@ import (
 )
 
 func main() {
-    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The ID (UUID) of the Cluster.
-    topicId := "ae085c4c-3626-5f1d-b4bc-cc53ae8267ce" // string | The ID (UUID) of the Topic.
+    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The ID (UUID) of the cluster.
+    topicId := "ae085c4c-3626-5f1d-b4bc-cc53ae8267ce" // string | The ID (UUID) of the topic.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := kafka.NewAPIClient(configuration)
@@ -56,8 +56,8 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | **string** | The ID (UUID) of the Cluster. | |
-|**topicId** | **string** | The ID (UUID) of the Topic. | |
+|**clusterId** | **string** | The ID (UUID) of the cluster. | |
+|**topicId** | **string** | The ID (UUID) of the topic. | |
 
 ### Other Parameters
 
@@ -104,8 +104,8 @@ import (
 )
 
 func main() {
-    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The ID (UUID) of the Cluster.
-    topicId := "ae085c4c-3626-5f1d-b4bc-cc53ae8267ce" // string | The ID (UUID) of the Topic.
+    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The ID (UUID) of the cluster.
+    topicId := "ae085c4c-3626-5f1d-b4bc-cc53ae8267ce" // string | The ID (UUID) of the topic.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := kafka.NewAPIClient(configuration)
@@ -125,8 +125,8 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | **string** | The ID (UUID) of the Cluster. | |
-|**topicId** | **string** | The ID (UUID) of the Topic. | |
+|**clusterId** | **string** | The ID (UUID) of the cluster. | |
+|**topicId** | **string** | The ID (UUID) of the topic. | |
 
 ### Other Parameters
 
@@ -173,7 +173,7 @@ import (
 )
 
 func main() {
-    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The ID (UUID) of the Cluster.
+    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The ID (UUID) of the cluster.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := kafka.NewAPIClient(configuration)
@@ -193,7 +193,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | **string** | The ID (UUID) of the Cluster. | |
+|**clusterId** | **string** | The ID (UUID) of the cluster. | |
 
 ### Other Parameters
 
@@ -241,7 +241,7 @@ import (
 )
 
 func main() {
-    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The ID (UUID) of the Cluster.
+    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The ID (UUID) of the cluster.
     topicCreate := *openapiclient.NewTopicCreate(*openapiclient.NewTopic("my-kafka-cluster-topic")) // TopicCreate | Topic to create.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
@@ -262,7 +262,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | **string** | The ID (UUID) of the Cluster. | |
+|**clusterId** | **string** | The ID (UUID) of the cluster. | |
 
 ### Other Parameters
 
