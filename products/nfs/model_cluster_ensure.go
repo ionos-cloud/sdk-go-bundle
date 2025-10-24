@@ -128,6 +128,14 @@ func (o *ClusterEnsure) SetProperties(v Cluster) {
 	o.Properties = v
 }
 
+func (o ClusterEnsure) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o ClusterEnsure) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id

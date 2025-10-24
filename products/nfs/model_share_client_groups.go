@@ -173,6 +173,14 @@ func (o *ShareClientGroups) SetNfs(v ShareClientGroupsNfs) {
 	o.Nfs = &v
 }
 
+func (o ShareClientGroups) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o ShareClientGroups) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Description) {

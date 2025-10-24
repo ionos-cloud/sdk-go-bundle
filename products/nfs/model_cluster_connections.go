@@ -122,6 +122,14 @@ func (o *ClusterConnections) SetIpAddress(v string) {
 	o.IpAddress = v
 }
 
+func (o ClusterConnections) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o ClusterConnections) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["datacenterId"] = o.DatacenterId

@@ -156,6 +156,14 @@ func (o *ShareReadListAllOf) SetItems(v []ShareRead) {
 	o.Items = v
 }
 
+func (o ShareReadListAllOf) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o ShareReadListAllOf) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id

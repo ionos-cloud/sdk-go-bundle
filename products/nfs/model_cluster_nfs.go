@@ -79,6 +79,14 @@ func (o *ClusterNfs) SetMinVersion(v string) {
 	o.MinVersion = &v
 }
 
+func (o ClusterNfs) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o ClusterNfs) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.MinVersion) {
