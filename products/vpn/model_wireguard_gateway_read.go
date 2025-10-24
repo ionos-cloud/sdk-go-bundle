@@ -174,6 +174,14 @@ func (o *WireguardGatewayRead) SetProperties(v WireguardGateway) {
 	o.Properties = v
 }
 
+func (o WireguardGatewayRead) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o WireguardGatewayRead) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id

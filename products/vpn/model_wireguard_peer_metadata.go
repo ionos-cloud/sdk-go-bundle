@@ -342,6 +342,14 @@ func (o *WireguardPeerMetadata) SetStatusMessage(v string) {
 	o.StatusMessage = &v
 }
 
+func (o WireguardPeerMetadata) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o WireguardPeerMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.CreatedDate) {

@@ -128,6 +128,14 @@ func (o *IPSecGatewayEnsure) SetProperties(v IPSecGateway) {
 	o.Properties = v
 }
 
+func (o IPSecGatewayEnsure) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o IPSecGatewayEnsure) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id

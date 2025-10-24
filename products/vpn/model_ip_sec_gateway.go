@@ -265,6 +265,14 @@ func (o *IPSecGateway) SetMaintenanceWindow(v MaintenanceWindow) {
 	o.MaintenanceWindow = &v
 }
 
+func (o IPSecGateway) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o IPSecGateway) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name

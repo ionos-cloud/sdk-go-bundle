@@ -102,6 +102,14 @@ func (o *ResourceStatus) SetStatusMessage(v string) {
 	o.StatusMessage = &v
 }
 
+func (o ResourceStatus) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o ResourceStatus) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["status"] = o.Status

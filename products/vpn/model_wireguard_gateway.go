@@ -360,6 +360,14 @@ func (o *WireguardGateway) SetMaintenanceWindow(v MaintenanceWindow) {
 	o.MaintenanceWindow = &v
 }
 
+func (o WireguardGateway) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o WireguardGateway) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name

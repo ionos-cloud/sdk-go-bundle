@@ -342,6 +342,14 @@ func (o *IPSecGatewayMetadata) SetStatusMessage(v string) {
 	o.StatusMessage = &v
 }
 
+func (o IPSecGatewayMetadata) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o IPSecGatewayMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.CreatedDate) {

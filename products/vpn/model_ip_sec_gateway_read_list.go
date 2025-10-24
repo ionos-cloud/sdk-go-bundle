@@ -236,6 +236,14 @@ func (o *IPSecGatewayReadList) SetLinks(v Links) {
 	o.Links = v
 }
 
+func (o IPSecGatewayReadList) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o IPSecGatewayReadList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id

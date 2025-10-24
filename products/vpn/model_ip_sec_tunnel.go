@@ -261,6 +261,14 @@ func (o *IPSecTunnel) SetPeerNetworkCIDRs(v []string) {
 	o.PeerNetworkCIDRs = v
 }
 
+func (o IPSecTunnel) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o IPSecTunnel) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name

@@ -174,6 +174,14 @@ func (o *IPSecTunnelRead) SetProperties(v IPSecTunnel) {
 	o.Properties = v
 }
 
+func (o IPSecTunnelRead) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o IPSecTunnelRead) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id

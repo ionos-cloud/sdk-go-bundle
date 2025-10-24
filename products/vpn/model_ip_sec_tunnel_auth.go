@@ -103,6 +103,14 @@ func (o *IPSecTunnelAuth) SetPsk(v IPSecPSK) {
 	o.Psk = &v
 }
 
+func (o IPSecTunnelAuth) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o IPSecTunnelAuth) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["method"] = o.Method

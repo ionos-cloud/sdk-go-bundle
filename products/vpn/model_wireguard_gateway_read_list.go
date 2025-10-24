@@ -236,6 +236,14 @@ func (o *WireguardGatewayReadList) SetLinks(v Links) {
 	o.Links = v
 }
 
+func (o WireguardGatewayReadList) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o WireguardGatewayReadList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id

@@ -101,6 +101,14 @@ func (o *IPSecTunnelCreate) SetProperties(v IPSecTunnel) {
 	o.Properties = v
 }
 
+func (o IPSecTunnelCreate) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
 func (o IPSecTunnelCreate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Metadata) {
