@@ -296,8 +296,15 @@ func (c *Configuration) AddDefaultHeader(key string, value string) {
 	c.DefaultHeader[key] = value
 }
 
+// AddDefaultQueryParam stores default query parameters as slices.
+// Each call adds a value to the slice for that key, allowing multiple
+// query parameters with the same name to be sent in the final request.
 func (c *Configuration) AddDefaultQueryParam(key string, value string) {
-	c.DefaultQueryParams[key] = []string{value}
+	if c.DefaultQueryParams[key] == nil {
+		c.DefaultQueryParams[key] = []string{value}
+		return
+	}
+	c.DefaultQueryParams[key] = append(c.DefaultQueryParams[key], value)
 }
 
 // URL formats template on a index using given variables
