@@ -22,7 +22,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
 	"mime/multipart"
 	"net"
 	"net/http"
@@ -53,7 +52,7 @@ const (
 	RequestStatusFailed  = "FAILED"
 	RequestStatusDone    = "DONE"
 
-	Version               = "products/compute/v2.0.3"
+	Version               = "products/compute/v2.0.4"
 	DefaultIonosServerUrl = "https://api.ionos.com/cloudapi/v6"
 	DefaultIonosBasePath  = "/cloudapi/v6"
 )
@@ -147,19 +146,24 @@ func DeepCopy(cfg *shared.Configuration) (*shared.Configuration, error) {
 // NewAPIClient creates a new API client. Requires a userAgent string describing your application.
 // optionally a custom http.Client to allow for advanced features such as caching.
 func NewAPIClient(cfg *shared.Configuration) *APIClient {
-	// Attempt to deep copy the input configuration. If the configuration contains an httpclient,
-	// deepcopy(serialization) will fail. In this case, we fallback to a shallow copy.
-	cfgCopy, err := DeepCopy(cfg)
-	if err != nil {
-		log.Printf("Error creating deep copy of configuration: %v", err)
+	cfgCopy := &shared.Configuration{}
+	*cfgCopy = *cfg
+	if cfg.HTTPClient == nil || cfg.HTTPClient.Transport == nil {
+		var err error
+		cfgCopy, err = DeepCopy(cfg)
+		if err != nil {
+			if shared.SdkLogLevel.Satisfies(shared.Debug) {
+				shared.SdkLogger.Printf("Error creating deep copy of configuration: %v", err)
+			}
 
-		// shallow copy instead as a fallback
-		cfgCopy = &shared.Configuration{}
-		*cfgCopy = *cfg
+			// shallow copy instead as a fallback
+			cfgCopy = &shared.Configuration{}
+			*cfgCopy = *cfg
+		}
 	}
 
 	if cfgCopy.UserAgent == "" {
-		cfgCopy.UserAgent = "sdk-go-bundle/products/compute/v2.0.3"
+		cfgCopy.UserAgent = "sdk-go-bundle/products/compute/v2.0.4"
 	}
 
 	// Initialize default values in the copied configuration
