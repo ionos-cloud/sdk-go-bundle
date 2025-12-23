@@ -55,6 +55,7 @@ const (
 	APPLICATIONLOADBALANCER Type = "applicationloadbalancer"
 	TARGET_GROUP            Type = "target-group"
 	SECURITY_GROUP          Type = "security-group"
+	GPU                     Type = "gpu"
 )
 
 func (v *Type) UnmarshalJSON(src []byte) error {
@@ -64,7 +65,7 @@ func (v *Type) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := Type(value)
-	for _, existing := range []Type{"datacenter", "server", "volume", "nic", "loadbalancer", "location", "firewall-rule", "flow-log", "image", "snapshot", "lan", "ipblock", "pcc", "contract", "user", "group", "collection", "resource", "request", "request-status", "s3key", "backupunit", "label", "k8s", "nodepool", "template", "networkloadbalancer", "forwarding-rule", "natgateway", "natgateway-rule", "node", "applicationloadbalancer", "target-group", "security-group"} {
+	for _, existing := range []Type{"datacenter", "server", "volume", "nic", "loadbalancer", "location", "firewall-rule", "flow-log", "image", "snapshot", "lan", "ipblock", "pcc", "contract", "user", "group", "collection", "resource", "request", "request-status", "s3key", "backupunit", "label", "k8s", "nodepool", "template", "networkloadbalancer", "forwarding-rule", "natgateway", "natgateway-rule", "node", "applicationloadbalancer", "target-group", "security-group", "gpu"} {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil

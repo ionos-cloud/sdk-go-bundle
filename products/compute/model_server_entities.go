@@ -23,6 +23,7 @@ type ServerEntities struct {
 	Volumes        *AttachedVolumes `json:"volumes,omitempty"`
 	Nics           *Nics            `json:"nics,omitempty"`
 	Securitygroups *SecurityGroups  `json:"securitygroups,omitempty"`
+	Gpus           *Gpus            `json:"gpus,omitempty"`
 }
 
 // NewServerEntities instantiates a new ServerEntities object
@@ -171,6 +172,38 @@ func (o *ServerEntities) SetSecuritygroups(v SecurityGroups) {
 	o.Securitygroups = &v
 }
 
+// GetGpus returns the Gpus field value if set, zero value otherwise.
+func (o *ServerEntities) GetGpus() Gpus {
+	if o == nil || IsNil(o.Gpus) {
+		var ret Gpus
+		return ret
+	}
+	return *o.Gpus
+}
+
+// GetGpusOk returns a tuple with the Gpus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServerEntities) GetGpusOk() (*Gpus, bool) {
+	if o == nil || IsNil(o.Gpus) {
+		return nil, false
+	}
+	return o.Gpus, true
+}
+
+// HasGpus returns a boolean if a field has been set.
+func (o *ServerEntities) HasGpus() bool {
+	if o != nil && !IsNil(o.Gpus) {
+		return true
+	}
+
+	return false
+}
+
+// SetGpus gets a reference to the given Gpus and assigns it to the Gpus field.
+func (o *ServerEntities) SetGpus(v Gpus) {
+	o.Gpus = &v
+}
+
 func (o ServerEntities) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -192,6 +225,9 @@ func (o ServerEntities) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Securitygroups) {
 		toSerialize["securitygroups"] = o.Securitygroups
+	}
+	if !IsNil(o.Gpus) {
+		toSerialize["gpus"] = o.Gpus
 	}
 	return toSerialize, nil
 }

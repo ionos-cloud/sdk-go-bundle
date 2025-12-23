@@ -33,6 +33,8 @@ type DatacenterProperties struct {
 	SecAuthProtection *bool `json:"secAuthProtection,omitempty"`
 	// Array of features and CPU families available in a location
 	CpuArchitecture []CpuArchitectureProperties `json:"cpuArchitecture,omitempty"`
+	// The types of GPU cards that are available in the location where the data center is provisioned.
+	GpuArchitecture []GpuArchitectureProperties `json:"gpuArchitecture,omitempty"`
 	// This value is either 'null' or contains an automatically-assigned /56 IPv6 CIDR block if IPv6 is enabled on this virtual data center. It can neither be changed nor removed.
 	Ipv6CidrBlock NullableString `json:"ipv6CidrBlock,omitempty"`
 	// Optional property to define the default security group of the datacenter.
@@ -275,6 +277,38 @@ func (o *DatacenterProperties) SetCpuArchitecture(v []CpuArchitectureProperties)
 	o.CpuArchitecture = v
 }
 
+// GetGpuArchitecture returns the GpuArchitecture field value if set, zero value otherwise.
+func (o *DatacenterProperties) GetGpuArchitecture() []GpuArchitectureProperties {
+	if o == nil || IsNil(o.GpuArchitecture) {
+		var ret []GpuArchitectureProperties
+		return ret
+	}
+	return o.GpuArchitecture
+}
+
+// GetGpuArchitectureOk returns a tuple with the GpuArchitecture field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DatacenterProperties) GetGpuArchitectureOk() ([]GpuArchitectureProperties, bool) {
+	if o == nil || IsNil(o.GpuArchitecture) {
+		return nil, false
+	}
+	return o.GpuArchitecture, true
+}
+
+// HasGpuArchitecture returns a boolean if a field has been set.
+func (o *DatacenterProperties) HasGpuArchitecture() bool {
+	if o != nil && !IsNil(o.GpuArchitecture) {
+		return true
+	}
+
+	return false
+}
+
+// SetGpuArchitecture gets a reference to the given []GpuArchitectureProperties and assigns it to the GpuArchitecture field.
+func (o *DatacenterProperties) SetGpuArchitecture(v []GpuArchitectureProperties) {
+	o.GpuArchitecture = v
+}
+
 // GetIpv6CidrBlock returns the Ipv6CidrBlock field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *DatacenterProperties) GetIpv6CidrBlock() string {
 	if o == nil || IsNil(o.Ipv6CidrBlock.Get()) {
@@ -378,6 +412,9 @@ func (o DatacenterProperties) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.CpuArchitecture) {
 		toSerialize["cpuArchitecture"] = o.CpuArchitecture
+	}
+	if !IsNil(o.GpuArchitecture) {
+		toSerialize["gpuArchitecture"] = o.GpuArchitecture
 	}
 	if o.Ipv6CidrBlock.IsSet() {
 		toSerialize["ipv6CidrBlock"] = o.Ipv6CidrBlock.Get()

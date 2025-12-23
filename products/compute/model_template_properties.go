@@ -29,6 +29,8 @@ type TemplateProperties struct {
 	StorageSize float32 `json:"storageSize"`
 	// The description of the template.
 	Category string `json:"category"`
+	// List of GPUs assigned to the template
+	Gpus []GpuTemplate `json:"gpus,omitempty"`
 }
 
 // NewTemplateProperties instantiates a new TemplateProperties object
@@ -175,6 +177,38 @@ func (o *TemplateProperties) SetCategory(v string) {
 	o.Category = v
 }
 
+// GetGpus returns the Gpus field value if set, zero value otherwise.
+func (o *TemplateProperties) GetGpus() []GpuTemplate {
+	if o == nil || IsNil(o.Gpus) {
+		var ret []GpuTemplate
+		return ret
+	}
+	return o.Gpus
+}
+
+// GetGpusOk returns a tuple with the Gpus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TemplateProperties) GetGpusOk() ([]GpuTemplate, bool) {
+	if o == nil || IsNil(o.Gpus) {
+		return nil, false
+	}
+	return o.Gpus, true
+}
+
+// HasGpus returns a boolean if a field has been set.
+func (o *TemplateProperties) HasGpus() bool {
+	if o != nil && !IsNil(o.Gpus) {
+		return true
+	}
+
+	return false
+}
+
+// SetGpus gets a reference to the given []GpuTemplate and assigns it to the Gpus field.
+func (o *TemplateProperties) SetGpus(v []GpuTemplate) {
+	o.Gpus = v
+}
+
 func (o TemplateProperties) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -190,6 +224,9 @@ func (o TemplateProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize["ram"] = o.Ram
 	toSerialize["storageSize"] = o.StorageSize
 	toSerialize["category"] = o.Category
+	if !IsNil(o.Gpus) {
+		toSerialize["gpus"] = o.Gpus
+	}
 	return toSerialize, nil
 }
 

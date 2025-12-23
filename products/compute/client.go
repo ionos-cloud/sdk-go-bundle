@@ -52,7 +52,7 @@ const (
 	RequestStatusFailed  = "FAILED"
 	RequestStatusDone    = "DONE"
 
-	Version               = "products/compute/v2.0.4"
+	Version               = "products/compute/v2.0.5"
 	DefaultIonosServerUrl = "https://api.ionos.com/cloudapi/v6"
 	DefaultIonosBasePath  = "/cloudapi/v6"
 )
@@ -78,6 +78,8 @@ type APIClient struct {
 	FirewallRulesApi *FirewallRulesApiService
 
 	FlowLogsApi *FlowLogsApiService
+
+	GraphicsProcessingUnitCardsApi *GraphicsProcessingUnitCardsApiService
 
 	IPBlocksApi *IPBlocksApiService
 
@@ -163,7 +165,7 @@ func NewAPIClient(cfg *shared.Configuration) *APIClient {
 	}
 
 	if cfgCopy.UserAgent == "" {
-		cfgCopy.UserAgent = "sdk-go-bundle/products/compute/v2.0.4"
+		cfgCopy.UserAgent = "sdk-go-bundle/products/compute/v2.0.5"
 	}
 
 	// Initialize default values in the copied configuration
@@ -208,6 +210,7 @@ func NewAPIClient(cfg *shared.Configuration) *APIClient {
 	c.DataCentersApi = (*DataCentersApiService)(&c.common)
 	c.FirewallRulesApi = (*FirewallRulesApiService)(&c.common)
 	c.FlowLogsApi = (*FlowLogsApiService)(&c.common)
+	c.GraphicsProcessingUnitCardsApi = (*GraphicsProcessingUnitCardsApiService)(&c.common)
 	c.IPBlocksApi = (*IPBlocksApiService)(&c.common)
 	c.ImagesApi = (*ImagesApiService)(&c.common)
 	c.KubernetesApi = (*KubernetesApiService)(&c.common)

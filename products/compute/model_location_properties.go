@@ -27,6 +27,8 @@ type LocationProperties struct {
 	ImageAliases []string `json:"imageAliases,omitempty"`
 	// A list of available CPU types and related resources available in the location.
 	CpuArchitecture []CpuArchitectureProperties `json:"cpuArchitecture,omitempty"`
+	// The types of GPU cards that are available in the location.
+	GpuArchitecture []GpuArchitectureProperties `json:"gpuArchitecture,omitempty"`
 }
 
 // NewLocationProperties instantiates a new LocationProperties object
@@ -175,6 +177,38 @@ func (o *LocationProperties) SetCpuArchitecture(v []CpuArchitectureProperties) {
 	o.CpuArchitecture = v
 }
 
+// GetGpuArchitecture returns the GpuArchitecture field value if set, zero value otherwise.
+func (o *LocationProperties) GetGpuArchitecture() []GpuArchitectureProperties {
+	if o == nil || IsNil(o.GpuArchitecture) {
+		var ret []GpuArchitectureProperties
+		return ret
+	}
+	return o.GpuArchitecture
+}
+
+// GetGpuArchitectureOk returns a tuple with the GpuArchitecture field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LocationProperties) GetGpuArchitectureOk() ([]GpuArchitectureProperties, bool) {
+	if o == nil || IsNil(o.GpuArchitecture) {
+		return nil, false
+	}
+	return o.GpuArchitecture, true
+}
+
+// HasGpuArchitecture returns a boolean if a field has been set.
+func (o *LocationProperties) HasGpuArchitecture() bool {
+	if o != nil && !IsNil(o.GpuArchitecture) {
+		return true
+	}
+
+	return false
+}
+
+// SetGpuArchitecture gets a reference to the given []GpuArchitectureProperties and assigns it to the GpuArchitecture field.
+func (o *LocationProperties) SetGpuArchitecture(v []GpuArchitectureProperties) {
+	o.GpuArchitecture = v
+}
+
 func (o LocationProperties) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -196,6 +230,9 @@ func (o LocationProperties) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.CpuArchitecture) {
 		toSerialize["cpuArchitecture"] = o.CpuArchitecture
+	}
+	if !IsNil(o.GpuArchitecture) {
+		toSerialize["gpuArchitecture"] = o.GpuArchitecture
 	}
 	return toSerialize, nil
 }
