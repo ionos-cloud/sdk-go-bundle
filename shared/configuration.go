@@ -129,6 +129,7 @@ type Configuration struct {
 	DefaultHeader      map[string]string `json:"defaultHeader,omitempty"`
 	DefaultQueryParams url.Values        `json:"defaultQueryParams,omitempty"`
 	UserAgent          string            `json:"userAgent,omitempty"`
+	ContractNumber     string            `json:"contractNumber,omitempty"`
 	Servers            ServerConfigurations
 	OperationServers   map[string]ServerConfigurations
 	HTTPClient         *http.Client
@@ -177,6 +178,8 @@ func NewConfiguration(username, password, token, hostUrl string) *Configuration 
 type ClientOptions struct {
 	// Endpoint is the endpoint that will be overridden
 	Endpoint string
+	// ContractNumber represent the contract that will be used
+	ContractNumber string
 	// SkipTLSVerify skips tls verification. Not recommended for production!
 	SkipTLSVerify bool
 	// Certificate is the certificate that will be used for tls verification
