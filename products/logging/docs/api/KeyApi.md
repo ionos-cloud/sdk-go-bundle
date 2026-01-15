@@ -12,7 +12,6 @@ All URIs are relative to *https://logging.de-fra.ionos.com*
 
 ```go
 var result KeyRead = PipelinesKeyPost(ctx, pipelineId)
-                      .Body(body)
                       .Execute()
 ```
 
@@ -36,11 +35,10 @@ import (
 
 func main() {
     pipelineId := "f72521ba-1590-5998-bf96-6eb997a5887d" // string | The ID (UUID) of the Pipeline.
-    body := map[string]interface{}{ ... } // map[string]interface{} | Key to create.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := logging.NewAPIClient(configuration)
-    resource, resp, err := apiClient.KeyApi.PipelinesKeyPost(context.Background(), pipelineId).Body(body).Execute()
+    resource, resp, err := apiClient.KeyApi.PipelinesKeyPost(context.Background(), pipelineId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `KeyApi.PipelinesKeyPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -65,7 +63,6 @@ Other parameters are passed through a pointer to an apiPipelinesKeyPostRequest s
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **body** | **map[string]interface{}** | Key to create. | |
 
 ### Return type
 
@@ -73,7 +70,7 @@ Other parameters are passed through a pointer to an apiPipelinesKeyPostRequest s
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
