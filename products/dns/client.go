@@ -53,7 +53,7 @@ const (
 	RequestStatusFailed  = "FAILED"
 	RequestStatusDone    = "DONE"
 
-	Version               = "products/dns/v2.2.1"
+	Version               = "products/dns/v2.2.2"
 	DefaultIonosServerUrl = "https://dns.de-fra.ionos.com"
 	DefaultIonosBasePath  = ""
 )
@@ -124,7 +124,7 @@ func NewAPIClient(cfg *shared.Configuration) *APIClient {
 	}
 
 	if cfgCopy.UserAgent == "" {
-		cfgCopy.UserAgent = "sdk-go-bundle/products/dns/v2.2.1"
+		cfgCopy.UserAgent = "sdk-go-bundle/products/dns/v2.2.2"
 	}
 
 	// Initialize default values in the copied configuration
