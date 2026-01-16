@@ -124,21 +124,21 @@ type ResponseMiddlewareFunction func(*http.Response, []byte) error
 
 // Configuration stores the configuration of the API client
 type Configuration struct {
-	Host               string            `json:"host,omitempty"`
-	Scheme             string            `json:"scheme,omitempty"`
-	DefaultHeader      map[string]string `json:"defaultHeader,omitempty"`
-	DefaultQueryParams url.Values        `json:"defaultQueryParams,omitempty"`
-	UserAgent          string            `json:"userAgent,omitempty"`
-	Servers            ServerConfigurations
-	OperationServers   map[string]ServerConfigurations
-	HTTPClient         *http.Client
-	Username           string        `json:"username,omitempty"`
-	Password           string        `json:"password,omitempty"`
-	Token              string        `json:"token,omitempty"`
-	MaxRetries         int           `json:"maxRetries,omitempty"`
-	WaitTime           time.Duration `json:"waitTime,omitempty"`
-	MaxWaitTime        time.Duration `json:"maxWaitTime,omitempty"`
-	PollInterval       time.Duration `json:"pollInterval,omitempty"`
+	Host               string                          `json:"host,omitempty"`
+	Scheme             string                          `json:"scheme,omitempty"`
+	DefaultHeader      map[string]string               `json:"defaultHeader,omitempty"`
+	DefaultQueryParams url.Values                      `json:"defaultQueryParams,omitempty"`
+	UserAgent          string                          `json:"userAgent,omitempty"`
+	Servers            ServerConfigurations            `json:"-"`
+	OperationServers   map[string]ServerConfigurations `json:"-"`
+	HTTPClient         *http.Client                    `json:"-"` // blank out to avoid serialization on DeepCopy etc.
+	Username           string                          `json:"username,omitempty"`
+	Password           string                          `json:"password,omitempty"`
+	Token              string                          `json:"token,omitempty"`
+	MaxRetries         int                             `json:"maxRetries,omitempty"`
+	WaitTime           time.Duration                   `json:"waitTime,omitempty"`
+	MaxWaitTime        time.Duration                   `json:"maxWaitTime,omitempty"`
+	PollInterval       time.Duration                   `json:"pollInterval,omitempty"`
 
 	Middleware          MiddlewareFunction          `json:"-"`
 	MiddlewareWithError MiddlewareFunctionWithError `json:"-"`
