@@ -208,6 +208,10 @@ func NewFromEnv() (*FileConfig, error) {
 
 // GetProfileNames returns a list of profile names from the loaded configuration
 func (f *FileConfig) GetProfileNames() []string {
+	if f == nil {
+		return nil
+	}
+
 	names := make([]string, len(f.Profiles))
 	for i, p := range f.Profiles {
 		names[i] = p.Name
@@ -217,6 +221,10 @@ func (f *FileConfig) GetProfileNames() []string {
 
 // GetEnvironmentNames returns a list of environment names from the loaded configuration
 func (f *FileConfig) GetEnvironmentNames() []string {
+	if f == nil {
+		return nil
+	}
+
 	names := make([]string, len(f.Environments))
 	for i, e := range f.Environments {
 		names[i] = e.Name
@@ -231,6 +239,10 @@ func (f *FileConfig) GetEnvironmentNames() []string {
 //
 // It is a helper function combining GetProductLocationOverrides and GetProductOverrides
 func (f *FileConfig) GetOverride(productName, location string) *Endpoint {
+	if f == nil {
+		return nil
+	}
+
 	if locEp := f.GetProductLocationOverrides(productName, location); locEp != nil {
 		return locEp
 	}
@@ -352,6 +364,10 @@ func (f *FileConfig) GetProductOverrides(productName string) *Product {
 
 // FilterOverrides returns all endpoints for which the predicate function returns true
 func (f *FileConfig) FilterOverrides(productName string, predicate func(Endpoint) bool) []Endpoint {
+	if f == nil {
+		return nil
+	}
+
 	product := f.GetProductOverrides(productName)
 	if product == nil {
 		return nil
@@ -368,6 +384,10 @@ func (f *FileConfig) FilterOverrides(productName string, predicate func(Endpoint
 
 // FilterGlobalOverrides returns all global endpoints defined for a given product
 func (f *FileConfig) FilterGlobalOverrides(productName string) []Endpoint {
+	if f == nil {
+		return nil
+	}
+
 	return f.FilterOverrides(
 		productName, func(endpoint Endpoint) bool {
 			return endpoint.Location == ""
@@ -377,6 +397,10 @@ func (f *FileConfig) FilterGlobalOverrides(productName string) []Endpoint {
 
 // FilterLocationOverrides returns all location-based endpoints defined for a given product
 func (f *FileConfig) FilterLocationOverrides(productName string) []Endpoint {
+	if f == nil {
+		return nil
+	}
+
 	return f.FilterOverrides(
 		productName, func(endpoint Endpoint) bool {
 			return endpoint.Location != ""
