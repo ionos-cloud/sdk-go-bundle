@@ -260,16 +260,25 @@ func (f *FileConfig) GetOverride(productName, location string) *Endpoint {
 // GetLocationOverridesWithGlobalFallback should fail only if the location requested does not exist and there are no
 // global endpoints in the product configuration to fallback on.
 func (f *FileConfig) GetLocationOverridesWithGlobalFallback(productName, location string) *Endpoint {
+	if f == nil {
+		return nil
+	}
+
 	if locEp := f.GetProductLocationOverrides(productName, location); locEp != nil {
 		return locEp
 	}
 
-	globalEndpoints := f.FilterGlobalOverrides(productName)
-	if len(globalEndpoints) == 0 {
+	globalEndpoint := f.GetProductGlobalOverrides(productName, 0)
+	if globalEndpoint == nil {
+		if shared.SdkLogLevel.Satisfies(shared.Debug) {
+			shared.SdkLogger.Printf(
+				"[DEBUG] no global endpoints found for product %s to fallback on for location %s", productName, location,
+			)
+		}
 		return nil
 	}
 
-	return &globalEndpoints[0]
+	return globalEndpoint
 }
 
 // GetCurrentProfile returns the current profile from the loaded configuration
@@ -403,10 +412,16 @@ func (f *FileConfig) GetProductGlobalOverrides(productName string, index int) *E
 
 	endpoints := f.FilterGlobalOverrides(productName)
 	if endpoints == nil {
+		if shared.SdkLogLevel.Satisfies(shared.Debug) {
+			shared.SdkLogger.Printf("[DEBUG] no global endpoint overrides found for product %s", productName)
+		}
 		return nil
 	}
 
 	if index >= len(endpoints) {
+		if shared.SdkLogLevel.Satisfies(shared.Debug) {
+			shared.SdkLogger.Printf("[DEBUG] index %d out of range for global endpoints of product %s, only %d global endpoints found", index, productName, len(endpoints))
+		}
 		return nil
 	}
 	return &endpoints[index]

@@ -136,6 +136,7 @@ func makeTestConfig() *FileConfig {
 					{
 						Name: "dns",
 						Endpoints: []Endpoint{
+							{Location: "", Name: "https://global.dns", SkipTLSVerify: false},
 							{Location: "de/fra", Name: "https://dns.de-fra", SkipTLSVerify: false},
 							{Location: "de/txl", Name: "https://dns.de-txl", SkipTLSVerify: false},
 						},
@@ -201,12 +202,20 @@ func TestGetOverride_FallbackToGlobal(t *testing.T) {
 	assert.False(t, ep.SkipTLSVerify)
 }
 
+func TestGetOverride_GlobalWhenLocationEmpty(t *testing.T) {
+	cfg := makeTestConfig()
+	ep := cfg.GetOverride("dns", "")
+	assert.NotNil(t, ep)
+	// first endpoint in Product.Endpoints is the location-specific one, so fallback to GetProductOverrides:
+	assert.Equal(t, "https://global.dns", ep.Name)
+}
+
 func TestGetOverride_NotFound(t *testing.T) {
 	cfg := makeTestConfig()
 	// unknown product
 	assert.Nil(t, cfg.GetOverride("unknown", ""))
-	// known product but wrong location
-	assert.Nil(t, cfg.GetOverride("dns", "wrong/location"))
+	// known product but wrong location, fallback to global endpoint (first in endpoint list), so should not be nil
+	assert.NotNil(t, cfg.GetOverride("dns", "wrong/location"))
 }
 
 func TestFilterOverrides(t *testing.T) {
