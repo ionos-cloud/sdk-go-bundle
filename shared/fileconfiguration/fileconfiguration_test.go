@@ -206,7 +206,6 @@ func TestGetOverride_GlobalWhenLocationEmpty(t *testing.T) {
 	cfg := makeTestConfig()
 	ep := cfg.GetOverride("dns", "")
 	assert.NotNil(t, ep)
-	// first endpoint in Product.Endpoints is the location-specific one, so fallback to GetProductOverrides:
 	assert.Equal(t, "https://global.dns", ep.Name)
 }
 
