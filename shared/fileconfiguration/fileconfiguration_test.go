@@ -53,7 +53,7 @@ environments:
 	assert.NoError(t, err)
 
 	// Validate the loaded config
-	assert.Equal(t, 1.0, config.Version)
+	assert.Equal(t, Version(1.0), config.Version)
 	assert.Equal(t, "testProfile", config.CurrentProfile)
 	assert.Equal(t, "testUser", config.Profiles[0].Credentials.Username)
 	assert.Equal(t, "testPass", config.Profiles[0].Credentials.Password)
@@ -136,8 +136,18 @@ func makeTestConfig() *FileConfig {
 					{
 						Name: "dns",
 						Endpoints: []Endpoint{
+							{Location: "", Name: "https://global.dns", SkipTLSVerify: false},
 							{Location: "de/fra", Name: "https://dns.de-fra", SkipTLSVerify: false},
 							{Location: "de/txl", Name: "https://dns.de-txl", SkipTLSVerify: false},
+						},
+					},
+					{
+						Name: Cloud,
+						Endpoints: []Endpoint{
+							{Location: "de/fra", Name: "https://cloud.de-fra", SkipTLSVerify: false},
+							{Location: "de/txl", Name: "https://cloud.de-txl", SkipTLSVerify: false},
+							{Location: "", Name: "https://cloud.global-1", SkipTLSVerify: false},
+							{Location: "", Name: "https://cloud.global-2", SkipTLSVerify: true},
 						},
 					},
 				},
@@ -196,14 +206,68 @@ func TestGetOverride_GlobalWhenLocationEmpty(t *testing.T) {
 	cfg := makeTestConfig()
 	ep := cfg.GetOverride("dns", "")
 	assert.NotNil(t, ep)
-	// first endpoint in Product.Endpoints is the location-specific one, so fallback to GetProductOverrides:
-	assert.Equal(t, "https://dns.de-fra", ep.Name)
+	assert.Equal(t, "https://global.dns", ep.Name)
 }
 
 func TestGetOverride_NotFound(t *testing.T) {
 	cfg := makeTestConfig()
 	// unknown product
 	assert.Nil(t, cfg.GetOverride("unknown", ""))
-	// known product but wrong location
-	assert.Nil(t, cfg.GetOverride("dns", "wrong/location"))
+	// known product but wrong location, fallback to global endpoint (first in endpoint list), so should not be nil
+	assert.NotNil(t, cfg.GetOverride("dns", "wrong/location"))
+}
+
+func TestFilterOverrides(t *testing.T) {
+	cfg := makeTestConfig()
+	ep := cfg.FilterOverrides(
+		Cloud, func(endpoint Endpoint) bool {
+			return endpoint.SkipTLSVerify == true
+		},
+	)
+	assert.NotNil(t, ep)
+	assert.Equal(t, 1, len(ep))
+	assert.Equal(t, "https://cloud.global-2", ep[0].Name)
+	assert.Equal(t, true, ep[0].SkipTLSVerify)
+}
+
+func TestFilterGlobalOverrides(t *testing.T) {
+	cfg := makeTestConfig()
+	ep := cfg.FilterGlobalOverrides(Cloud)
+	assert.NotNil(t, ep)
+	assert.Equal(t, 2, len(ep))
+	assert.Equal(t, "", ep[0].Location)
+	assert.Equal(t, "", ep[1].Location)
+}
+
+func TestFilterLocationOverrides(t *testing.T) {
+	cfg := makeTestConfig()
+	ep := cfg.FilterLocationOverrides(Cloud)
+	assert.NotNil(t, ep)
+	assert.Equal(t, 2, len(ep))
+	assert.Equal(t, "de/fra", ep[0].Location)
+	assert.Equal(t, "de/txl", ep[1].Location)
+}
+
+func TestGetLocationOverridesWithGlobalFallback_LocationMatch(t *testing.T) {
+	cfg := makeTestConfig()
+	ep := cfg.GetLocationOverridesWithGlobalFallback(Cloud, "de/fra")
+	assert.NotNil(t, ep)
+	assert.Equal(t, "https://cloud.de-fra", ep.Name)
+	assert.Equal(t, "de/fra", ep.Location)
+}
+
+func TestGetLocationOverridesWithGlobalFallback_GlobalMatch(t *testing.T) {
+	cfg := makeTestConfig()
+	ep := cfg.GetLocationOverridesWithGlobalFallback(Cloud, "")
+	assert.NotNil(t, ep)
+	assert.Equal(t, "https://cloud.global-1", ep.Name)
+	assert.Equal(t, "", ep.Location)
+}
+
+func TestGetLocationOverridesWithGlobalFallback_LocationNotFound_GlobalFallback(t *testing.T) {
+	cfg := makeTestConfig()
+	ep := cfg.GetLocationOverridesWithGlobalFallback(Cloud, "us/las")
+	assert.NotNil(t, ep)
+	assert.Equal(t, "https://cloud.global-1", ep.Name)
+	assert.Equal(t, "", ep.Location)
 }
