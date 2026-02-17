@@ -171,7 +171,7 @@ Save the generated token and use it to authenticate:
 
     func TokenAuthExample() error {
         //note: to use NewConfigurationFromEnv(), you need to previously set IONOS_TOKEN as env variables
-        authClient := shared.NewAPIClient(authApi.NewConfigurationFromEnv())
+        authClient := shared.NewAPIClient(auth.NewConfigurationFromEnv())
         apiClient := compute.NewAPIClient(cfg)
         datacenters, _, err := apiClient.DataCentersApi.DatacentersGet(context.Background()).Depth(1).Execute()
         if err != nil {
