@@ -122,6 +122,21 @@ type MiddlewareFunctionWithError func(*http.Request) error
 // ResponseMiddlewareFunction provides way to implement custom middleware with errors after the response is received
 type ResponseMiddlewareFunction func(*http.Response, []byte) error
 
+// FailoverStrategy selects the endpoint failover behaviour.
+// It is a string type so it serializes nicely to JSON/YAML config files.
+//
+// Supported values:
+//   - FailoverNone ("none") or "": default behaviour (no endpoint failover)
+//   - FailoverRoundRobin ("roundRobin"): on network-level errors, retry the request against the next server in Servers
+//
+// Note: comparisons should be case-insensitive.
+type FailoverStrategy string
+
+const (
+	FailoverNone       FailoverStrategy = "none"
+	FailoverRoundRobin FailoverStrategy = "roundRobin"
+)
+
 // Configuration stores the configuration of the API client
 type Configuration struct {
 	Host               string                          `json:"host,omitempty"`
@@ -143,6 +158,19 @@ type Configuration struct {
 	Middleware          MiddlewareFunction          `json:"-"`
 	MiddlewareWithError MiddlewareFunctionWithError `json:"-"`
 	ResponseMiddleware  ResponseMiddlewareFunction  `json:"-"`
+
+	FailoverStrategy FailoverStrategy `json:"failoverStrategy,omitempty"`
+
+	// RetryableMethods controls which HTTP methods are eligible for transport-level
+	// failover retries.
+	// If empty/nil, the default is to retry only safe/idempotent methods: GET, HEAD,
+	// PUT, DELETE, OPTIONS.
+	RetryableMethods []string `json:"retryableMethods,omitempty"`
+
+	// RetryOnTimeout controls whether transport-level failover retries should also
+	// happen when the request fails due to context cancellation/deadline exceeded.
+	// Default is false to avoid duplicate side effects for non-idempotent requests.
+	RetryOnTimeout bool `json:"retryOnTimeout,omitempty"`
 }
 
 // NewConfiguration returns a new shared.Configuration object.
