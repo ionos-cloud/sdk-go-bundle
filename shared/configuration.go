@@ -137,6 +137,24 @@ const (
 	FailoverRoundRobin FailoverStrategy = "roundRobin"
 )
 
+// FailoverOptions controls transport-level endpoint failover behaviour.
+// It is nested under Configuration so it can be grouped cleanly in JSON/YAML.
+type FailoverOptions struct {
+	Strategy FailoverStrategy `json:"strategy,omitempty" yaml:"strategy,omitempty"`
+
+	// RetryableMethods controls which HTTP methods are eligible for transport-level
+	// failover retries. If empty/nil, the default is safe/idempotent methods.
+	RetryableMethods []string `json:"retryableMethods,omitempty" yaml:"retryableMethods,omitempty"`
+
+	// RetryOnTimeout controls whether failover retries should also happen when
+	// the request fails due to context cancellation/deadline exceeded.
+	RetryOnTimeout bool `json:"retryOnTimeout,omitempty" yaml:"retryOnTimeout,omitempty"`
+
+	// FailoverOnStatusCodes controls whether the transport should fail over to the
+	// next server when it receives one of these HTTP status codes.
+	FailoverOnStatusCodes []int `json:"failoverOnStatusCodes,omitempty" yaml:"failoverOnStatusCodes,omitempty"`
+}
+
 // Configuration stores the configuration of the API client
 type Configuration struct {
 	Host               string                          `json:"host,omitempty"`
@@ -159,18 +177,7 @@ type Configuration struct {
 	MiddlewareWithError MiddlewareFunctionWithError `json:"-"`
 	ResponseMiddleware  ResponseMiddlewareFunction  `json:"-"`
 
-	FailoverStrategy FailoverStrategy `json:"failoverStrategy,omitempty"`
-
-	// RetryableMethods controls which HTTP methods are eligible for transport-level
-	// failover retries.
-	// If empty/nil, the default is to retry only safe/idempotent methods: GET, HEAD,
-	// PUT, DELETE, OPTIONS.
-	RetryableMethods []string `json:"retryableMethods,omitempty"`
-
-	// RetryOnTimeout controls whether transport-level failover retries should also
-	// happen when the request fails due to context cancellation/deadline exceeded.
-	// Default is false to avoid duplicate side effects for non-idempotent requests.
-	RetryOnTimeout bool `json:"retryOnTimeout,omitempty"`
+	Failover *FailoverOptions `json:"failover,omitempty"`
 }
 
 // NewConfiguration returns a new shared.Configuration object.

@@ -38,17 +38,18 @@ func (f *fakeTransport) RoundTrip(r *http.Request) (*http.Response, error) {
 
 func TestFailoverRoundTripper_RoundRobin_NetworkError_FailsOverToNextServer(t *testing.T) {
 	cfg := &Configuration{
-		FailoverStrategy: FailoverRoundRobin,
+		Failover: &FailoverOptions{
+			Strategy:       FailoverRoundRobin,
+			RetryOnTimeout: false,
+		},
 		Servers: ServerConfigurations{
 			{URL: "https://s1.example"},
 			{URL: "https://s2.example"},
 		},
-		// default RetryableMethods covers GET
-		RetryOnTimeout: false,
 	}
 
 	ft := &fakeTransport{}
-	rt := NewFailoverRoundTripper(cfg, ft)
+	rt := NewFailoverRoundTripper(cfg, cfg.Failover, ft)
 
 	req, err := http.NewRequest(http.MethodGet, "https://s1.example/some/path?x=1", nil)
 	if err != nil {
@@ -76,16 +77,18 @@ func TestFailoverRoundTripper_RoundRobin_NetworkError_FailsOverToNextServer(t *t
 
 func TestFailoverRoundTripper_DoesNotRetry_WhenMethodNotRetryable(t *testing.T) {
 	cfg := &Configuration{
-		FailoverStrategy: FailoverRoundRobin,
+		Failover: &FailoverOptions{
+			Strategy:         FailoverRoundRobin,
+			RetryableMethods: []string{http.MethodGet},
+		},
 		Servers: ServerConfigurations{
 			{URL: "https://s1.example"},
 			{URL: "https://s2.example"},
 		},
-		RetryableMethods: []string{http.MethodGet},
 	}
 
 	ft := &fakeTransport{}
-	rt := NewFailoverRoundTripper(cfg, ft)
+	rt := NewFailoverRoundTripper(cfg, cfg.Failover, ft)
 
 	// POST is not retryable per config
 	req, err := http.NewRequest(http.MethodPost, "https://s1.example/some/path", io.NopCloser(bytes.NewBufferString("x")))
@@ -112,12 +115,14 @@ func TestFailoverRoundTripper_DoesNotRetry_WhenMethodNotRetryable(t *testing.T) 
 
 func TestFailoverRoundTripper_RetriesOnNoSuchHost(t *testing.T) {
 	cfg := &Configuration{
-		FailoverStrategy: FailoverRoundRobin,
+		Failover: &FailoverOptions{
+			Strategy:       FailoverRoundRobin,
+			RetryOnTimeout: false,
+		},
 		Servers: ServerConfigurations{
 			{URL: "https://s1.example"},
 			{URL: "https://s2.example"},
 		},
-		RetryOnTimeout: false,
 	}
 
 	ft := &fakeTransport{}
@@ -126,7 +131,7 @@ func TestFailoverRoundTripper_RetriesOnNoSuchHost(t *testing.T) {
 	_ = ft2
 
 	// Inline transport to simulate DNS error.
-	rt := NewFailoverRoundTripper(cfg, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
+	rt := NewFailoverRoundTripper(cfg, cfg.Failover, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		host := ""
 		urlStr := ""
 		if r != nil && r.URL != nil {
@@ -157,6 +162,44 @@ func TestFailoverRoundTripper_RetriesOnNoSuchHost(t *testing.T) {
 	}
 	if ft.calls[0] != "s1.example" || ft.calls[1] != "s2.example" {
 		t.Fatalf("unexpected call order: %+v", ft.calls)
+	}
+}
+
+func TestFailoverRoundTripper_FailoverOnStatusCodes(t *testing.T) {
+	cfg := &Configuration{
+		Failover: &FailoverOptions{
+			Strategy:              FailoverRoundRobin,
+			FailoverOnStatusCodes: []int{http.StatusServiceUnavailable},
+		},
+		Servers: ServerConfigurations{
+			{URL: "https://s1.example"},
+			{URL: "https://s2.example"},
+		},
+	}
+
+	calls := []string{}
+	rt := NewFailoverRoundTripper(cfg, cfg.Failover, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
+		calls = append(calls, r.URL.Host)
+		if r.URL.Host == "s1.example" {
+			return &http.Response{Status: "503 Service Unavailable", StatusCode: http.StatusServiceUnavailable, Body: io.NopCloser(bytes.NewBufferString("no")), Header: make(http.Header), Request: r}, nil
+		}
+		return &http.Response{Status: "200 OK", StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header), Request: r}, nil
+	}))
+
+	req, err := http.NewRequest(http.MethodGet, "https://s1.example/some/path", nil)
+	if err != nil {
+		t.Fatalf("unexpected error creating request: %v", err)
+	}
+
+	resp, err := rt.RoundTrip(req)
+	if err != nil {
+		t.Fatalf("expected success, got error: %v", err)
+	}
+	if resp.StatusCode != http.StatusOK {
+		t.Fatalf("expected 200, got %d", resp.StatusCode)
+	}
+	if len(calls) != 2 || calls[0] != "s1.example" || calls[1] != "s2.example" {
+		t.Fatalf("unexpected call order: %+v", calls)
 	}
 }
 

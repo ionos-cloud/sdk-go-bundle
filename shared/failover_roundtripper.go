@@ -7,6 +7,8 @@ package shared
 import (
 	"context"
 	"errors"
+	"fmt"
+	"io"
 	"net"
 	"net/http"
 	"net/url"
@@ -32,16 +34,19 @@ import (
 // preserving path and query.
 type FailoverRoundTripper struct {
 	cfg  *Configuration
+	opts *FailoverOptions
 	base http.RoundTripper
 }
 
-// NewFailoverRoundTripper creates a new FailoverRoundTripper with the given configuration and base RoundTripper.
-func NewFailoverRoundTripper(cfg *Configuration, base http.RoundTripper) http.RoundTripper {
+// NewFailoverRoundTripper creates a new FailoverRoundTripper.
+// If opts is nil, it will fall back to cfg.Failover.
+func NewFailoverRoundTripper(cfg *Configuration, opts *FailoverOptions, base http.RoundTripper) http.RoundTripper {
 	if base == nil {
 		base = http.DefaultTransport
 	}
 	return &FailoverRoundTripper{
 		cfg:  cfg,
+		opts: opts,
 		base: base,
 	}
 }
@@ -51,37 +56,45 @@ func (t *FailoverRoundTripper) RoundTrip(req *http.Request) (*http.Response, err
 	if req == nil {
 		return nil, errors.New("nil request")
 	}
-	if t == nil || t.cfg == nil {
-		if t != nil && t.base != nil {
-			return t.base.RoundTrip(req)
-		}
-		return http.DefaultTransport.RoundTrip(req)
+	if t == nil {
+		return nil, errors.New("nil FailoverRoundTripper")
 	}
-
-	strategyName := strings.TrimSpace(strings.ToLower(string(t.cfg.FailoverStrategy)))
-	servers := len(t.cfg.Servers)
-	if strategyName == "" || strategyName == string(FailoverNone) || servers <= 1 {
+	if t.base == nil {
+		// Be resilient if instantiated without constructor.
+		t.base = http.DefaultTransport
+	}
+	if t.cfg == nil {
+		// No config => behave like the base transport.
 		return t.base.RoundTrip(req)
 	}
 
-	if strategyName != strings.ToLower(string(FailoverRoundRobin)) {
+	fo := t.opts
+	if fo == nil {
+		fo = t.cfg.Failover
+	}
+	if fo == nil {
+		return t.base.RoundTrip(req)
+	}
+
+	servers := t.cfg.Servers
+	order := serverOrderFor(fo.Strategy, len(servers))
+	if order == nil {
+		// Unknown or disabled strategy => pass through.
 		return t.base.RoundTrip(req)
 	}
 
 	// Check if method is allowed for failover retries.
-	if !isRetryableMethod(t.cfg, req.Method) {
+	if !isRetryableMethod(fo, req.Method) {
 		return t.base.RoundTrip(req)
 	}
 
 	var lastErr error
-	for i := range servers {
-		// Always start from the first server in the list.
-		serverURL := t.cfg.Servers[i].URL
+	for attempt := range len(servers) {
+		serverURL := servers[order(attempt)].URL
 
 		targetURL, err := url.Parse(serverURL)
 		if err != nil {
-			lastErr = err
-			continue
+			return nil, fmt.Errorf("invalid server URL at Servers[%d]=%q: %w", order(attempt), serverURL, err)
 		}
 
 		attemptReq, err := cloneRequestForRetry(req)
@@ -89,22 +102,40 @@ func (t *FailoverRoundTripper) RoundTrip(req *http.Request) (*http.Response, err
 			return nil, err
 		}
 
-		// Update both URL and the Host header field.
 		attemptReq.URL.Scheme = targetURL.Scheme
 		attemptReq.URL.Host = targetURL.Host
 		attemptReq.Host = targetURL.Host
 
+		if SdkLogLevel.Satisfies(Debug) {
+			SdkLogger.Printf("[Failover] attempt=%d method=%s url=%s", attempt+1, attemptReq.Method, attemptReq.URL.String())
+		}
+
 		resp, err := t.base.RoundTrip(attemptReq)
 		if err == nil {
+			if shouldFailoverOnStatus(fo, resp.StatusCode) {
+				if SdkLogLevel.Satisfies(Debug) {
+					SdkLogger.Printf("[Failover] status=%d triggers failover to next server", resp.StatusCode)
+				}
+				// Drain/close body to allow connection reuse.
+				if resp.Body != nil {
+					_, _ = io.Copy(io.Discard, resp.Body)
+					_ = resp.Body.Close()
+				}
+				lastErr = fmt.Errorf("failover status: %s", resp.Status)
+				continue
+			}
 			return resp, nil
 		}
 
 		lastErr = err
-		if !isNetworkErrorRT(attemptReq.Context(), err, t.cfg.RetryOnTimeout) {
+		retryable := isNetworkErrorRT(attemptReq.Context(), err, fo.RetryOnTimeout)
+		if !retryable {
 			return nil, err
 		}
+		if SdkLogLevel.Satisfies(Debug) {
+			SdkLogger.Printf("[Failover] network error: %v; trying next server", err)
+		}
 
-		// Ensure we don't spin too hot in case of immediate failures.
 		tinyBackoff(attemptReq.Context())
 	}
 
@@ -126,18 +157,17 @@ func cloneRequestForRetry(req *http.Request) (*http.Request, error) {
 	return clone, nil
 }
 
-func isRetryableMethod(cfg *Configuration, method string) bool {
+func isRetryableMethod(fo *FailoverOptions, method string) bool {
 	m := strings.ToUpper(strings.TrimSpace(method))
-	if cfg == nil {
+	if fo == nil {
 		return defaultRetryableMethods[m]
 	}
 
-	// If not configured, use defaults.
-	if len(cfg.RetryableMethods) == 0 {
+	if len(fo.RetryableMethods) == 0 {
 		return defaultRetryableMethods[m]
 	}
 
-	for _, v := range cfg.RetryableMethods {
+	for _, v := range fo.RetryableMethods {
 		if strings.ToUpper(strings.TrimSpace(v)) == m {
 			return true
 		}
@@ -206,5 +236,37 @@ func tinyBackoff(ctx context.Context) {
 	select {
 	case <-time.After(t):
 	case <-ctx.Done():
+	}
+}
+
+func shouldFailoverOnStatus(fo *FailoverOptions, statusCode int) bool {
+	if fo == nil || len(fo.FailoverOnStatusCodes) == 0 {
+		return false
+	}
+	for _, sc := range fo.FailoverOnStatusCodes {
+		if sc == statusCode {
+			return true
+		}
+	}
+	return false
+}
+
+// serverOrder maps an attempt index (0, 1, 2, …) to a server index.
+// Different strategies produce different orderings.
+type serverOrder func(attempt int) int
+
+// serverOrderFor returns a serverOrder for the given strategy, or nil when
+// failover should not be applied (unknown/disabled strategy, ≤1 server).
+func serverOrderFor(strategy FailoverStrategy, numServers int) serverOrder {
+	s := strings.TrimSpace(strings.ToLower(string(strategy)))
+	if s == "" || s == string(FailoverNone) || numServers <= 1 {
+		return nil
+	}
+	switch s {
+	case strings.ToLower(string(FailoverRoundRobin)):
+		// Sequential: 0, 1, 2, …
+		return func(attempt int) int { return attempt % numServers }
+	default:
+		return nil
 	}
 }

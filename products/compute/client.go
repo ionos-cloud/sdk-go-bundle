@@ -200,7 +200,7 @@ func NewAPIClient(cfg *shared.Configuration) *APIClient {
 	// Wrap transport with failover, if configured.
 	// This keeps behaviour unchanged when FailoverStrategy is ""/"none".
 	if cfgCopy.HTTPClient != nil {
-		cfgCopy.HTTPClient.Transport = shared.NewFailoverRoundTripper(cfgCopy, cfgCopy.HTTPClient.Transport)
+		cfgCopy.HTTPClient.Transport = shared.NewFailoverRoundTripper(cfgCopy, cfgCopy.Failover, cfgCopy.HTTPClient.Transport)
 	}
 
 	// Create and initialize the API client
