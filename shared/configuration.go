@@ -185,16 +185,16 @@ func NewConfiguration(username, password, token, hostUrl string) *Configuration 
 func (c *Configuration) NewExponentialBackOff() *backoff.ExponentialBackOff {
 	bo := backoff.NewExponentialBackOff()
 
-	if c.BackOffMultiplier != 0 {
-		bo.Multiplier = c.BackOffMultiplier
+	if c.BackOff.Multiplier != 0 {
+		bo.Multiplier = c.BackOff.Multiplier
 	}
 
-	if c.BackOffRandomizationFactor != 0 {
-		bo.RandomizationFactor = c.BackOffRandomizationFactor
+	if c.BackOff.RandomizationFactor != 0 {
+		bo.RandomizationFactor = c.BackOff.RandomizationFactor
 	}
 
-	if c.BackOffInitialPollInterval != 0 {
-		bo.InitialInterval = c.BackOffInitialPollInterval
+	if c.BackOff.InitialPollInterval != 0 {
+		bo.InitialInterval = c.BackOff.InitialPollInterval
 	}
 
 	if c.MaxWaitTime != 0 {
