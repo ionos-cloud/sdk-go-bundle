@@ -485,6 +485,17 @@ type retryPolicy struct {
 	nextBackOff func() time.Duration
 }
 
+// callAPI do the request.
+func (c *APIClient) callAPI(request *http.Request) (*http.Response, time.Duration, error) {
+	if c.cfg.RoundRobinFailover {
+		shared.SdkLogger.Printf("with roundRobin strategy")
+		return c.callAPIWithRoundRobinFailover(request)
+	}
+
+	shared.SdkLogger.Printf("with default strategy")
+	return c.callAPIWithStaticRetry(request)
+}
+
 func (c *APIClient) callAPIWithRoundRobinFailover(request *http.Request) (*http.Response, time.Duration, error) {
 	bo := c.GetConfig().NewExponentialBackOff()
 	return c.doWithRetry(request, retryPolicy{
@@ -494,8 +505,8 @@ func (c *APIClient) callAPIWithRoundRobinFailover(request *http.Request) (*http.
 	})
 }
 
-// callAPI do the request.
-func (c *APIClient) callAPI(request *http.Request) (*http.Response, time.Duration, error) {
+// callAPIWithStaticRetry do the request with static retry.
+func (c *APIClient) callAPIWithStaticRetry(request *http.Request) (*http.Response, time.Duration, error) {
 	waitTime := c.GetConfig().WaitTime
 	return c.doWithRetry(request, retryPolicy{
 		nextBackOff: func() time.Duration { return waitTime },

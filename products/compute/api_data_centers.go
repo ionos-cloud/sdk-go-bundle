@@ -143,15 +143,7 @@ func (a *DataCentersApiService) DatacentersDeleteExecute(r ApiDatacentersDeleteR
 		return nil, err
 	}
 
-	var localVarHTTPResponse *_nethttp.Response
-	var httpRequestTime time.Duration
-	if a.client.cfg.RoundRobinFailover {
-		shared.SdkLogger.Printf("with roundRobin strategy")
-		localVarHTTPResponse, httpRequestTime, err = a.client.callAPIWithRoundRobinFailover(req)
-	} else {
-		shared.SdkLogger.Printf("with default strategy")
-		localVarHTTPResponse, httpRequestTime, err = a.client.callAPI(req)
-	}
+	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
 
 	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,
