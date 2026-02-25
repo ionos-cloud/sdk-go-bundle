@@ -18,6 +18,7 @@ import (
 	_nethttp "net/http"
 	_neturl "net/url"
 	"strings"
+	"time"
 )
 
 // Linger please
@@ -136,12 +137,21 @@ func (a *DataCentersApiService) DatacentersDeleteExecute(r ApiDatacentersDeleteR
 			}
 		}
 	}
+	// prepare initial request, will be subjected to changes based on failover configuration and retry logic
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHTTPResponse, httpRequestTime, err := a.client.callAPI(req)
+	var localVarHTTPResponse *_nethttp.Response
+	var httpRequestTime time.Duration
+	if a.client.cfg.RoundRobinFailover {
+		shared.SdkLogger.Printf("with roundRobin strategy")
+		localVarHTTPResponse, httpRequestTime, err = a.client.callAPIWithRoundRobinFailover(req)
+	} else {
+		shared.SdkLogger.Printf("with default strategy")
+		localVarHTTPResponse, httpRequestTime, err = a.client.callAPI(req)
+	}
 
 	localVarAPIResponse := &shared.APIResponse{
 		Response:    localVarHTTPResponse,

@@ -35,8 +35,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	"golang.org/x/oauth2"
+
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 var (
@@ -253,10 +254,10 @@ type TLSDial func(ctx context.Context, network, addr string) (net.Conn, error)
 // field to allow for certificate pinning.
 func addPinnedCertVerification(fingerprint []byte, tlsConfig *tls.Config) TLSDial {
 	return func(ctx context.Context, network, addr string) (net.Conn, error) {
-		//fingerprints can be added with ':', we need to trim
+		// fingerprints can be added with ':', we need to trim
 		fingerprint = bytes.ReplaceAll(fingerprint, []byte(":"), []byte(""))
 		fingerprint = bytes.ReplaceAll(fingerprint, []byte(" "), []byte(""))
-		//we are manually checking a certificate, so we need to enable insecure
+		// we are manually checking a certificate, so we need to enable insecure
 		tlsConfig.InsecureSkipVerify = true
 
 		// Dial the connection to get certificates to check
@@ -474,20 +475,45 @@ func parameterAddToHeaderOrQuery(headerOrQueryParams interface{}, keyPrefix stri
 	}
 }
 
+// retryPolicy controls the retry behavior of doWithRetry.
+type retryPolicy struct {
+	// roundRobin rotates through configured servers on each attempt.
+	roundRobin bool
+	// retryOnTimeout, when true, retries on timeout errors too.
+	retryOnTimeout bool
+	// nextBackOff returns the backoff duration for the next retry.
+	nextBackOff func() time.Duration
+}
+
+func (c *APIClient) callAPIWithRoundRobinFailover(request *http.Request) (*http.Response, time.Duration, error) {
+	bo := c.GetConfig().NewExponentialBackOff()
+	return c.doWithRetry(request, retryPolicy{
+		roundRobin:     true,
+		retryOnTimeout: true,
+		nextBackOff:    bo.NextBackOff,
+	})
+}
+
 // callAPI do the request.
 func (c *APIClient) callAPI(request *http.Request) (*http.Response, time.Duration, error) {
-	retryCount := 0
+	waitTime := c.GetConfig().WaitTime
+	return c.doWithRetry(request, retryPolicy{
+		nextBackOff: func() time.Duration { return waitTime },
+	})
+}
 
+func (c *APIClient) doWithRetry(request *http.Request, policy retryPolicy) (*http.Response, time.Duration, error) {
 	var resp *http.Response
 	var httpRequestTime time.Duration
 	var err error
 
-	for {
+	servers := c.GetConfig().Servers
+	lenServers := len(servers)
+	maxRetries := c.GetConfig().MaxRetries
 
-		retryCount++
-
-		/* we need to clone the request with every retry time because Body closes after the request */
-		var clonedRequest *http.Request = request.Clone(request.Context())
+	retryCount := 0
+	for retryCount = range maxRetries {
+		clonedRequest := request.Clone(request.Context())
 		if request.Body != nil {
 			clonedRequest.Body, err = request.GetBody()
 			if err != nil {
@@ -495,77 +521,162 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, time.Duratio
 			}
 		}
 
-		if shared.SdkLogLevel.Satisfies(shared.Debug) {
-			logRequest := request.Clone(request.Context())
-
-			// Remove the Authorization header if Debug is enabled (but not in Trace mode)
-			if !shared.SdkLogLevel.Satisfies(shared.Trace) {
-				logRequest.Header.Del("Authorization")
-			}
-
-			dump, err := httputil.DumpRequestOut(logRequest, true)
-			if err == nil {
-				shared.SdkLogger.Printf(" DumpRequestOut : %s\n", string(dump))
-			} else {
-				shared.SdkLogger.Printf(" DumpRequestOut err: %+v", err)
-			}
-			shared.SdkLogger.Printf("\n try no: %d\n", retryCount)
+		if policy.roundRobin {
+			serverIdx := retryCount % lenServers
+			mutateRequestForRoundRobin(clonedRequest, servers[serverIdx], retryCount)
 		}
+
+		logRequest(clonedRequest, retryCount+1)
 
 		httpRequestStartTime := time.Now()
 		clonedRequest.Close = true
 		resp, err = c.cfg.HTTPClient.Do(clonedRequest)
 		httpRequestTime = time.Since(httpRequestStartTime)
 		if err != nil {
+			if isNetworkError(clonedRequest.Context(), err, policy.retryOnTimeout) && request.Method != http.MethodPost {
+				c.backOff(request.Context(), policy.nextBackOff())
+				continue
+			}
 			return resp, httpRequestTime, err
 		}
 
-		if shared.SdkLogLevel.Satisfies(shared.Debug) {
-			dump, err := httputil.DumpResponse(resp, true)
-			if err == nil {
-				shared.SdkLogger.Printf("\n DumpResponse : %s\n", string(dump))
-			} else {
-				shared.SdkLogger.Printf(" DumpResponse err %+v", err)
-			}
-		}
+		logResponse(resp)
 
 		var backoffTime time.Duration
-
-		switch resp.StatusCode {
-		case http.StatusServiceUnavailable,
-			http.StatusGatewayTimeout,
-			http.StatusBadGateway:
-			if request.Method == http.MethodPost {
-				return resp, httpRequestTime, err
-			}
-			backoffTime = c.GetConfig().WaitTime
-
-		case http.StatusTooManyRequests:
-			if retryAfterSeconds := resp.Header.Get("Retry-After"); retryAfterSeconds != "" {
-				waitTime, err := time.ParseDuration(retryAfterSeconds + "s")
-				if err != nil {
-					return resp, httpRequestTime, err
-				}
-				backoffTime = waitTime
-			} else {
-				backoffTime = c.GetConfig().WaitTime
-			}
-		default:
+		var shouldRetry bool
+		if backoffTime, shouldRetry, err = isRetryableStatus(clonedRequest, resp); err != nil || !shouldRetry {
 			return resp, httpRequestTime, err
-
 		}
 
-		if retryCount >= c.GetConfig().MaxRetries {
-			if shared.SdkLogLevel.Satisfies(shared.Debug) {
-				shared.SdkLogger.Printf(" Number of maximum retries exceeded (%d retries)\n", c.cfg.MaxRetries)
-			}
-			break
-		} else {
-			c.backOff(request.Context(), backoffTime)
+		if backoffTime == 0 {
+			backoffTime = policy.nextBackOff()
+		}
+
+		c.backOff(request.Context(), backoffTime)
+	}
+
+	if retryCount >= maxRetries {
+		if shared.SdkLogLevel.Satisfies(shared.Debug) {
+			shared.SdkLogger.Printf("Number of maximum retries exceeded (%d retries)\n", c.cfg.MaxRetries)
 		}
 	}
 
 	return resp, httpRequestTime, err
+}
+
+func mutateRequestForRoundRobin(req *http.Request, server shared.ServerConfiguration, retryCount int) error {
+	serverURL := server.URL
+	u, parseErr := url.Parse(serverURL)
+	if parseErr != nil {
+		if shared.SdkLogLevel.Satisfies(shared.Debug) {
+			shared.SdkLogger.Printf("error parsing server URL %s: %v (%d retries)", serverURL, parseErr, retryCount)
+		}
+		return fmt.Errorf("error parsing server URL %s: %v", serverURL, parseErr)
+	}
+	req.URL.Host = u.Host
+	req.URL.Scheme = u.Scheme
+	req.Host = u.Host
+	return nil
+}
+
+func isRetryableStatus(req *http.Request, resp *http.Response) (time.Duration, bool, error) {
+	switch resp.StatusCode {
+	case http.StatusServiceUnavailable,
+		http.StatusGatewayTimeout,
+		http.StatusBadGateway:
+		if req.Method == http.MethodPost {
+			return 0, false, nil
+		}
+
+		return 0, true, nil
+	case http.StatusTooManyRequests:
+		if retryAfterSeconds := resp.Header.Get("Retry-After"); retryAfterSeconds != "" {
+			waitTime, err := time.ParseDuration(retryAfterSeconds + "s")
+			if err != nil {
+				return 0, false, err
+			}
+
+			return waitTime, true, nil
+		}
+
+		return 0, true, nil
+	default:
+		return 0, false, nil
+	}
+}
+
+func logRequest(request *http.Request, retryCount int) {
+	if shared.SdkLogLevel.Satisfies(shared.Debug) {
+		clonedForLog := request.Clone(request.Context())
+
+		// Remove the Authorization header if Debug is enabled (but not in Trace mode)
+		if !shared.SdkLogLevel.Satisfies(shared.Trace) {
+			clonedForLog.Header.Del("Authorization")
+		}
+
+		dump, err := httputil.DumpRequestOut(clonedForLog, true)
+		if err == nil {
+			shared.SdkLogger.Printf(" DumpRequestOut : %s\n", string(dump))
+		} else {
+			shared.SdkLogger.Printf(" DumpRequestOut err: %+v", err)
+		}
+		shared.SdkLogger.Printf("\n try no: %d\n", retryCount)
+	}
+}
+
+func logResponse(resp *http.Response) {
+	if shared.SdkLogLevel.Satisfies(shared.Debug) {
+		dump, err := httputil.DumpResponse(resp, true)
+		if err == nil {
+			shared.SdkLogger.Printf("\n DumpResponse : %s\n", string(dump))
+		} else {
+			shared.SdkLogger.Printf(" DumpResponse err %+v", err)
+		}
+	}
+}
+
+// isNetworkError returns true when err represents a transport/network failure
+// (as opposed to an HTTP-level error like 4xx/5xx).
+func isNetworkError(ctx context.Context, err error, retryOnTimeout bool) bool {
+	if err == nil {
+		return false
+	}
+
+	// 1. Check for standard DNS resolution errors (typed).
+	var dnsErr *net.DNSError
+	if errors.As(err, &dnsErr) {
+		if dnsErr.IsNotFound || dnsErr.IsTemporary || dnsErr.IsTimeout {
+			return true
+		}
+	}
+
+	// 2. Check for other transport-level errors (connection refused, reset, etc).
+	var opErr *net.OpError
+	if errors.As(err, &opErr) {
+		return true
+	}
+
+	// 3. Fallback for wrapped url.Errors.
+	var urlErr *url.Error
+	if errors.As(err, &urlErr) {
+		// String fallback for platforms where DNSError might not be perfectly populated.
+		lowErr := strings.ToLower(urlErr.Error())
+		if strings.Contains(lowErr, "no such host") || strings.Contains(lowErr, "connection refused") {
+			return true
+		}
+		// If it's a URL error and we haven't matched a specific reason,
+		// generally we treat transport-level problems as retryable.
+		return true
+	}
+
+	// 4. Handle timeouts if enabled.
+	if retryOnTimeout && ctx != nil {
+		if errors.Is(err, context.DeadlineExceeded) || errors.Is(err, context.Canceled) {
+			return true
+		}
+	}
+
+	return false
 }
 
 func (c *APIClient) backOff(ctx context.Context, t time.Duration) {
@@ -652,7 +763,7 @@ func (c *APIClient) prepareRequest(
 		}
 		if len(fileBytes) > 0 && fileName != "" {
 			w.Boundary()
-			//_, fileNm := filepath.Split(fileName)
+			// _, fileNm := filepath.Split(fileName)
 			part, err := w.CreateFormFile(formFileName, filepath.Base(fileName))
 			if err != nil {
 				return nil, err

@@ -21,6 +21,7 @@ import (
 
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	awsv4 "github.com/aws/aws-sdk-go/aws/signer/v4"
+	"github.com/cenkalti/backoff/v5"
 )
 
 var DefaultIonosBasePath = ""
@@ -122,6 +123,12 @@ type MiddlewareFunctionWithError func(*http.Request) error
 // ResponseMiddlewareFunction provides way to implement custom middleware with errors after the response is received
 type ResponseMiddlewareFunction func(*http.Response, []byte) error
 
+type BackOff struct {
+	Multiplier          float64       `json:"multiplier,omitempty"`
+	RandomizationFactor float64       `json:"randomizationFactor,omitempty"`
+	InitialPollInterval time.Duration `json:"initialPollInterval,omitempty"`
+}
+
 // Configuration stores the configuration of the API client
 type Configuration struct {
 	Host               string                          `json:"host,omitempty"`
@@ -139,6 +146,8 @@ type Configuration struct {
 	WaitTime           time.Duration                   `json:"waitTime,omitempty"`
 	MaxWaitTime        time.Duration                   `json:"maxWaitTime,omitempty"`
 	PollInterval       time.Duration                   `json:"pollInterval,omitempty"`
+	BackOff            BackOff                         `json:"backOff,omitempty"`
+	RoundRobinFailover bool                            `json:"roundRobinFailover,omitempty"`
 
 	Middleware          MiddlewareFunction          `json:"-"`
 	MiddlewareWithError MiddlewareFunctionWithError `json:"-"`
@@ -171,6 +180,28 @@ func NewConfiguration(username, password, token, hostUrl string) *Configuration 
 		}
 	}
 	return cfg
+}
+
+func (c *Configuration) NewExponentialBackOff() *backoff.ExponentialBackOff {
+	bo := backoff.NewExponentialBackOff()
+
+	if c.BackOffMultiplier != 0 {
+		bo.Multiplier = c.BackOffMultiplier
+	}
+
+	if c.BackOffRandomizationFactor != 0 {
+		bo.RandomizationFactor = c.BackOffRandomizationFactor
+	}
+
+	if c.BackOffInitialPollInterval != 0 {
+		bo.InitialInterval = c.BackOffInitialPollInterval
+	}
+
+	if c.MaxWaitTime != 0 {
+		bo.MaxInterval = c.MaxWaitTime
+	}
+
+	return bo
 }
 
 // ClientOptions is a struct that represents the client options
