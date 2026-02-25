@@ -21,6 +21,7 @@ import (
 
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	awsv4 "github.com/aws/aws-sdk-go/aws/signer/v4"
+	boff "github.com/cenkalti/backoff/v5"
 )
 
 var DefaultIonosBasePath = ""
@@ -153,6 +154,17 @@ type FailoverOptions struct {
 	// FailoverOnStatusCodes controls whether the transport should fail over to the
 	// next server when it receives one of these HTTP status codes.
 	FailoverOnStatusCodes []int `json:"failoverOnStatusCodes,omitempty" yaml:"failoverOnStatusCodes,omitempty"`
+
+	ExponentialBackoff *ExponentialBackoffOptions `json:"exponentialBackoff,omitempty" yaml:"exponentialBackoff,omitempty"`
+}
+
+// ExponentialBackoffOptions controls the backoff parameters for exponential backoff.
+// It is nested under Configuration so it can be grouped cleanly in JSON/YAML.
+type ExponentialBackoffOptions struct {
+	InitialInterval     time.Duration `json:"initialInterval,omitempty" yaml:"initialInterval,omitempty"`
+	MaxInterval         time.Duration `json:"maxInterval,omitempty" yaml:"maxInterval,omitempty"`
+	Multiplier          float64       `json:"multiplier,omitempty" yaml:"multiplier,omitempty"`
+	RandomizationFactor float64       `json:"randomizationFactor,omitempty" yaml:"randomizationFactor,omitempty"`
 }
 
 // Configuration stores the configuration of the API client
@@ -178,6 +190,31 @@ type Configuration struct {
 	ResponseMiddleware  ResponseMiddlewareFunction  `json:"-"`
 
 	Failover *FailoverOptions `json:"failover,omitempty"`
+}
+
+func (b *ExponentialBackoffOptions) NewExponentialBackoff() *boff.ExponentialBackOff {
+	bo := boff.NewExponentialBackOff()
+	if b == nil {
+		return bo
+	}
+
+	if b.InitialInterval != 0 {
+		bo.InitialInterval = b.InitialInterval
+	}
+
+	if b.MaxInterval != 0 {
+		bo.MaxInterval = b.MaxInterval
+	}
+
+	if b.Multiplier != 0 {
+		bo.Multiplier = b.Multiplier
+	}
+
+	if b.RandomizationFactor != 0 {
+		bo.RandomizationFactor = b.RandomizationFactor
+	}
+
+	return bo
 }
 
 // NewConfiguration returns a new shared.Configuration object.

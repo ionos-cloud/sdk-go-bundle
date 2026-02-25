@@ -34,19 +34,17 @@ import (
 // preserving path and query.
 type FailoverRoundTripper struct {
 	cfg  *Configuration
-	opts *FailoverOptions
 	base http.RoundTripper
 }
 
 // NewFailoverRoundTripper creates a new FailoverRoundTripper.
 // If opts is nil, it will fall back to cfg.Failover.
-func NewFailoverRoundTripper(cfg *Configuration, opts *FailoverOptions, base http.RoundTripper) http.RoundTripper {
+func NewFailoverRoundTripper(cfg *Configuration, base http.RoundTripper) http.RoundTripper {
 	if base == nil {
 		base = http.DefaultTransport
 	}
 	return &FailoverRoundTripper{
 		cfg:  cfg,
-		opts: opts,
 		base: base,
 	}
 }
@@ -68,13 +66,12 @@ func (t *FailoverRoundTripper) RoundTrip(req *http.Request) (*http.Response, err
 		return t.base.RoundTrip(req)
 	}
 
-	fo := t.opts
-	if fo == nil {
-		fo = t.cfg.Failover
-	}
+	fo := t.cfg.Failover
 	if fo == nil {
 		return t.base.RoundTrip(req)
 	}
+
+	bo := fo.ExponentialBackoff.NewExponentialBackoff()
 
 	servers := t.cfg.Servers
 	order := serverOrderFor(fo.Strategy, len(servers))
@@ -88,8 +85,9 @@ func (t *FailoverRoundTripper) RoundTrip(req *http.Request) (*http.Response, err
 		return t.base.RoundTrip(req)
 	}
 
+	maxRetries := t.cfg.MaxRetries
 	var lastErr error
-	for attempt := range len(servers) {
+	for attempt := range maxRetries {
 		serverURL := servers[order(attempt)].URL
 
 		targetURL, err := url.Parse(serverURL)
@@ -111,32 +109,33 @@ func (t *FailoverRoundTripper) RoundTrip(req *http.Request) (*http.Response, err
 		}
 
 		resp, err := t.base.RoundTrip(attemptReq)
-		if err == nil {
-			if shouldFailoverOnStatus(fo, resp.StatusCode) {
-				if SdkLogLevel.Satisfies(Debug) {
-					SdkLogger.Printf("[Failover] status=%d triggers failover to next server", resp.StatusCode)
-				}
-				// Drain/close body to allow connection reuse.
-				if resp.Body != nil {
-					_, _ = io.Copy(io.Discard, resp.Body)
-					_ = resp.Body.Close()
-				}
-				lastErr = fmt.Errorf("failover status: %s", resp.Status)
-				continue
+		if err != nil {
+			lastErr = err
+			retryable := isNetworkErrorRT(attemptReq.Context(), err, fo.RetryOnTimeout)
+			if !retryable {
+				return nil, err
 			}
+			if SdkLogLevel.Satisfies(Debug) {
+				SdkLogger.Printf("[Failover] network error: %v; trying next server", err)
+			}
+
+			backoff(attemptReq.Context(), bo.NextBackOff())
+			continue
+		}
+
+		if !shouldFailoverOnStatus(fo, resp.StatusCode) {
 			return resp, nil
 		}
 
-		lastErr = err
-		retryable := isNetworkErrorRT(attemptReq.Context(), err, fo.RetryOnTimeout)
-		if !retryable {
-			return nil, err
-		}
 		if SdkLogLevel.Satisfies(Debug) {
-			SdkLogger.Printf("[Failover] network error: %v; trying next server", err)
+			SdkLogger.Printf("[Failover] status=%d triggers failover to next server", resp.StatusCode)
 		}
-
-		tinyBackoff(attemptReq.Context())
+		// Drain/close body to allow connection reuse.
+		if resp.Body != nil {
+			_, _ = io.Copy(io.Discard, resp.Body)
+			_ = resp.Body.Close()
+		}
+		lastErr = fmt.Errorf("failover status: %s", resp.Status)
 	}
 
 	return nil, lastErr
@@ -184,10 +183,6 @@ var defaultRetryableMethods = map[string]bool{
 }
 
 func isNetworkErrorRT(ctx context.Context, err error, retryOnTimeout bool) bool {
-	if err == nil {
-		return false
-	}
-
 	// 1. Check for standard DNS resolution errors (typed).
 	var dnsErr *net.DNSError
 	if errors.As(err, &dnsErr) {
@@ -225,10 +220,7 @@ func isNetworkErrorRT(ctx context.Context, err error, retryOnTimeout bool) bool 
 	return false
 }
 
-// todo replace with a more robust backoff strategy exponential with jitter
-func tinyBackoff(ctx context.Context) {
-	// 10ms is enough to avoid busy-looping while staying responsive.
-	t := 10 * time.Millisecond
+func backoff(ctx context.Context, t time.Duration) {
 	if ctx == nil {
 		time.Sleep(t)
 		return
