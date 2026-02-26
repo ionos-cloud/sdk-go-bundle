@@ -29,7 +29,7 @@ func TestIsUUID(t *testing.T) {
 	}
 }
 
-func TestResolve_AlreadyUUID(t *testing.T) {
+func TestResolveAlreadyUUID(t *testing.T) {
 	uuid := "550e8400-e29b-41d4-a716-446655440000"
 
 	// listByName should never be called when input is a UUID
@@ -42,7 +42,7 @@ func TestResolve_AlreadyUUID(t *testing.T) {
 	assert.Equal(t, uuid, id)
 }
 
-func TestResolve_SingleMatch(t *testing.T) {
+func TestResolveSingleMatch(t *testing.T) {
 	id, err := Resolve(context.Background(), "example.com", func(_ context.Context, name string) ([]ptrMockResource, error) {
 		assert.Equal(t, "example.com", name)
 		return []ptrMockResource{
@@ -54,7 +54,7 @@ func TestResolve_SingleMatch(t *testing.T) {
 	assert.Equal(t, "550e8400-e29b-41d4-a716-446655440000", id)
 }
 
-func TestResolve_NoMatch(t *testing.T) {
+func TestResolveNoMatch(t *testing.T) {
 	_, err := Resolve(context.Background(), "nonexistent.com", func(_ context.Context, _ string) ([]ptrMockResource, error) {
 		return []ptrMockResource{}, nil
 	})
@@ -64,7 +64,7 @@ func TestResolve_NoMatch(t *testing.T) {
 	assert.Contains(t, err.Error(), "nonexistent.com")
 }
 
-func TestResolve_Ambiguous(t *testing.T) {
+func TestResolveAmbiguous(t *testing.T) {
 	_, err := Resolve(context.Background(), "common-name", func(_ context.Context, _ string) ([]ptrMockResource, error) {
 		return []ptrMockResource{
 			{id: "aaa-bbb-ccc-ddd"},
@@ -77,7 +77,7 @@ func TestResolve_Ambiguous(t *testing.T) {
 	assert.Contains(t, err.Error(), "2 resources")
 }
 
-func TestResolve_ListError(t *testing.T) {
+func TestResolveListError(t *testing.T) {
 	_, err := Resolve(context.Background(), "example.com", func(_ context.Context, _ string) ([]ptrMockResource, error) {
 		return nil, fmt.Errorf("connection refused")
 	})

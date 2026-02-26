@@ -47,12 +47,12 @@ func TestExtractIDs(t *testing.T) {
 	assert.Equal(t, []string{"aaa-111", "bbb-222", "ccc-333"}, ids)
 }
 
-func TestExtractIDs_Empty(t *testing.T) {
+func TestExtractIDsEmpty(t *testing.T) {
 	ids := ExtractIDs([]ptrMockResource{})
 	assert.Empty(t, ids)
 }
 
-func TestFindByID_Found(t *testing.T) {
+func TestFindByIDFound(t *testing.T) {
 	items := []ptrMockResource{
 		{id: "aaa-111", name: "first"},
 		{id: "bbb-222", name: "second"},
@@ -62,7 +62,7 @@ func TestFindByID_Found(t *testing.T) {
 	assert.Equal(t, "second", item.name)
 }
 
-func TestFindByID_NotFound(t *testing.T) {
+func TestFindByIDNotFound(t *testing.T) {
 	items := []ptrMockResource{
 		{id: "aaa-111"},
 	}
@@ -71,13 +71,13 @@ func TestFindByID_NotFound(t *testing.T) {
 	assert.Nil(t, item)
 }
 
-func TestFindByID_Empty(t *testing.T) {
+func TestFindByIDEmpty(t *testing.T) {
 	item, found := FindByID([]ptrMockResource{}, "aaa-111")
 	assert.False(t, found)
 	assert.Nil(t, item)
 }
 
-func TestFindByID_ReturnsPointerIntoSlice(t *testing.T) {
+func TestFindByIDReturnsPointerIntoSlice(t *testing.T) {
 	items := []ptrMockResource{
 		{id: "aaa-111", name: "original"},
 	}
