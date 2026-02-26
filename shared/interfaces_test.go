@@ -6,19 +6,17 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-// mockResource is a minimal type satisfying Resource, Listable, and HasProperties
-// for testing. It mirrors the shape of generated SDK *Read types.
-type mockResource struct {
+// ptrMockResource mirrors generated SDK types that use pointer receivers
+// for GetId()/GetHref(). All generated SDK *Read types follow this pattern.
+type ptrMockResource struct {
 	id   string
 	href string
-	typ  string
 	name string
 }
 
-func (m mockResource) GetId() string   { return m.id }
-func (m mockResource) GetHref() string { return m.href }
-func (m mockResource) GetType() string { return m.typ }
-func (m mockResource) GetProperties() mockProperties {
+func (m *ptrMockResource) GetId() string   { return m.id }
+func (m *ptrMockResource) GetHref() string { return m.href }
+func (m *ptrMockResource) GetProperties() mockProperties {
 	return mockProperties{Name: m.name}
 }
 
@@ -27,20 +25,20 @@ type mockProperties struct {
 }
 
 type mockList struct {
-	items []mockResource
+	items []ptrMockResource
 }
 
-func (l mockList) GetItems() []mockResource { return l.items }
+func (l mockList) GetItems() []ptrMockResource { return l.items }
 
-// Compile-time interface satisfaction checks
-var _ Identifiable = mockResource{}
-var _ HasHref = mockResource{}
-var _ Resource = mockResource{}
-var _ Listable[mockResource] = mockList{}
-var _ HasProperties[mockProperties] = mockResource{}
+// Compile-time interface satisfaction checks (pointer receivers — matches real SDKs)
+var _ Identifiable = &ptrMockResource{}
+var _ HasHref = &ptrMockResource{}
+var _ Resource = &ptrMockResource{}
+var _ Listable[ptrMockResource] = mockList{}
+var _ HasProperties[mockProperties] = &ptrMockResource{}
 
 func TestExtractIDs(t *testing.T) {
-	items := []mockResource{
+	items := []ptrMockResource{
 		{id: "aaa-111"},
 		{id: "bbb-222"},
 		{id: "ccc-333"},
@@ -50,12 +48,12 @@ func TestExtractIDs(t *testing.T) {
 }
 
 func TestExtractIDs_Empty(t *testing.T) {
-	ids := ExtractIDs([]mockResource{})
+	ids := ExtractIDs([]ptrMockResource{})
 	assert.Empty(t, ids)
 }
 
 func TestFindByID_Found(t *testing.T) {
-	items := []mockResource{
+	items := []ptrMockResource{
 		{id: "aaa-111", name: "first"},
 		{id: "bbb-222", name: "second"},
 	}
@@ -65,32 +63,46 @@ func TestFindByID_Found(t *testing.T) {
 }
 
 func TestFindByID_NotFound(t *testing.T) {
-	items := []mockResource{
+	items := []ptrMockResource{
 		{id: "aaa-111"},
 	}
-	_, found := FindByID(items, "zzz-999")
+	item, found := FindByID(items, "zzz-999")
 	assert.False(t, found)
+	assert.Nil(t, item)
 }
 
 func TestFindByID_Empty(t *testing.T) {
-	_, found := FindByID([]mockResource{}, "aaa-111")
+	item, found := FindByID([]ptrMockResource{}, "aaa-111")
 	assert.False(t, found)
+	assert.Nil(t, item)
+}
+
+func TestFindByID_ReturnsPointerIntoSlice(t *testing.T) {
+	items := []ptrMockResource{
+		{id: "aaa-111", name: "original"},
+	}
+	item, found := FindByID(items, "aaa-111")
+	assert.True(t, found)
+
+	// Mutating via returned pointer should modify the original slice
+	item.name = "mutated"
+	assert.Equal(t, "mutated", items[0].name)
 }
 
 func TestListItems(t *testing.T) {
 	list := mockList{
-		items: []mockResource{
+		items: []ptrMockResource{
 			{id: "aaa-111"},
 			{id: "bbb-222"},
 		},
 	}
 	items := ListItems(list)
 	assert.Len(t, items, 2)
-	assert.Equal(t, "aaa-111", items[0].GetId())
+	assert.Equal(t, "aaa-111", (*ptrMockResource)(&items[0]).GetId())
 }
 
 func TestProperties(t *testing.T) {
-	r := mockResource{id: "aaa-111", name: "test-zone"}
+	r := &ptrMockResource{id: "aaa-111", name: "test-zone"}
 	props := Properties(r)
 	assert.Equal(t, "test-zone", props.Name)
 }

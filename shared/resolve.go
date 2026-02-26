@@ -16,15 +16,13 @@ func IsUUID(s string) bool {
 }
 
 // Resolve resolves a human-readable name to a resource ID.
+// Works directly with value-type slices returned by SDK list calls.
 //
 // If nameOrID is already a valid UUID, it is returned as-is without
 // making any API calls. Otherwise, listByName is called to find
 // resources matching the given name. Exactly one match is expected;
 // zero matches returns an error, and multiple matches returns an
 // ambiguity error.
-//
-// The listByName callback should call the appropriate SDK list method
-// with a name filter applied and return the matching items.
 //
 // Example usage with the DNS SDK:
 //
@@ -35,7 +33,10 @@ func IsUUID(s string) bool {
 //	    }
 //	    return list.GetItems(), nil
 //	})
-func Resolve[T Identifiable](
+func Resolve[T any, PT interface {
+	*T
+	Identifiable
+}](
 	ctx context.Context,
 	nameOrID string,
 	listByName func(ctx context.Context, name string) ([]T, error),
@@ -53,7 +54,7 @@ func Resolve[T Identifiable](
 	case 0:
 		return "", fmt.Errorf("no resource found matching name %q", nameOrID)
 	case 1:
-		return items[0].GetId(), nil
+		return PT(&items[0]).GetId(), nil
 	default:
 		return "", fmt.Errorf("ambiguous: %d resources match name %q", len(items), nameOrID)
 	}

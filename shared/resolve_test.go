@@ -33,7 +33,7 @@ func TestResolve_AlreadyUUID(t *testing.T) {
 	uuid := "550e8400-e29b-41d4-a716-446655440000"
 
 	// listByName should never be called when input is a UUID
-	id, err := Resolve(context.Background(), uuid, func(_ context.Context, _ string) ([]mockResource, error) {
+	id, err := Resolve(context.Background(), uuid, func(_ context.Context, _ string) ([]ptrMockResource, error) {
 		t.Fatal("listByName should not be called for UUID input")
 		return nil, nil
 	})
@@ -43,9 +43,9 @@ func TestResolve_AlreadyUUID(t *testing.T) {
 }
 
 func TestResolve_SingleMatch(t *testing.T) {
-	id, err := Resolve(context.Background(), "example.com", func(_ context.Context, name string) ([]mockResource, error) {
+	id, err := Resolve(context.Background(), "example.com", func(_ context.Context, name string) ([]ptrMockResource, error) {
 		assert.Equal(t, "example.com", name)
-		return []mockResource{
+		return []ptrMockResource{
 			{id: "550e8400-e29b-41d4-a716-446655440000", name: "example.com"},
 		}, nil
 	})
@@ -55,8 +55,8 @@ func TestResolve_SingleMatch(t *testing.T) {
 }
 
 func TestResolve_NoMatch(t *testing.T) {
-	_, err := Resolve(context.Background(), "nonexistent.com", func(_ context.Context, _ string) ([]mockResource, error) {
-		return []mockResource{}, nil
+	_, err := Resolve(context.Background(), "nonexistent.com", func(_ context.Context, _ string) ([]ptrMockResource, error) {
+		return []ptrMockResource{}, nil
 	})
 
 	require.Error(t, err)
@@ -65,8 +65,8 @@ func TestResolve_NoMatch(t *testing.T) {
 }
 
 func TestResolve_Ambiguous(t *testing.T) {
-	_, err := Resolve(context.Background(), "common-name", func(_ context.Context, _ string) ([]mockResource, error) {
-		return []mockResource{
+	_, err := Resolve(context.Background(), "common-name", func(_ context.Context, _ string) ([]ptrMockResource, error) {
+		return []ptrMockResource{
 			{id: "aaa-bbb-ccc-ddd"},
 			{id: "eee-fff-ggg-hhh"},
 		}, nil
@@ -78,7 +78,7 @@ func TestResolve_Ambiguous(t *testing.T) {
 }
 
 func TestResolve_ListError(t *testing.T) {
-	_, err := Resolve(context.Background(), "example.com", func(_ context.Context, _ string) ([]mockResource, error) {
+	_, err := Resolve(context.Background(), "example.com", func(_ context.Context, _ string) ([]ptrMockResource, error) {
 		return nil, fmt.Errorf("connection refused")
 	})
 

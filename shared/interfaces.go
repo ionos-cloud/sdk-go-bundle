@@ -33,24 +33,35 @@ type HasProperties[P any] interface {
 	GetProperties() P
 }
 
-// ExtractIDs returns the IDs from a slice of Identifiable items.
-func ExtractIDs[T Identifiable](items []T) []string {
+// ExtractIDs returns the IDs from a slice of value-type items whose pointer
+// type satisfies Identifiable. Works directly with SDK list results:
+//
+//	ids := shared.ExtractIDs(list.GetItems())
+func ExtractIDs[T any, PT interface {
+	*T
+	Identifiable
+}](items []T) []string {
 	ids := make([]string, len(items))
-	for i, item := range items {
-		ids[i] = item.GetId()
+	for i := range items {
+		ids[i] = PT(&items[i]).GetId()
 	}
 	return ids
 }
 
-// FindByID returns the first item matching the given ID, and true if found.
-func FindByID[T Identifiable](items []T, id string) (T, bool) {
-	for _, item := range items {
-		if item.GetId() == id {
-			return item, true
+// FindByID returns a pointer to the first item matching the given ID, and
+// true if found. Works directly with SDK list results:
+//
+//	zone, ok := shared.FindByID(list.GetItems(), id)
+func FindByID[T any, PT interface {
+	*T
+	Identifiable
+}](items []T, id string) (*T, bool) {
+	for i := range items {
+		if PT(&items[i]).GetId() == id {
+			return &items[i], true
 		}
 	}
-	var zero T
-	return zero, false
+	return nil, false
 }
 
 // ListItems extracts items from a Listable response. This is a convenience
