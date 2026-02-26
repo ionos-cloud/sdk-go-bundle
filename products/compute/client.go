@@ -574,27 +574,6 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, time.Duratio
 	return resp, httpRequestTime, err
 }
 
-// isNetworkError returns true when err represents a transport/network failure
-// (as opposed to an HTTP-level error like 4xx/5xx).
-// NOTE: failover is handled by shared.FailoverRoundTripper; callAPI only uses this
-// for retry logic based on HTTP status codes.
-func isNetworkError(err error) bool {
-	if err == nil {
-		return false
-	}
-	// url.Error wraps net-level errors produced by http.Client.Do.
-	var urlErr *url.Error
-	if errors.As(err, &urlErr) {
-		return true
-	}
-	// Also treat context deadline/cancellation caused by a slow server as
-	// network errors so the failover can try the next endpoint.
-	if errors.Is(err, context.DeadlineExceeded) || errors.Is(err, context.Canceled) {
-		return true
-	}
-	return false
-}
-
 func (c *APIClient) backOff(ctx context.Context, t time.Duration) {
 	if t > c.GetConfig().MaxWaitTime {
 		t = c.GetConfig().MaxWaitTime

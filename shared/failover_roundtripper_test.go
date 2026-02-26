@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"errors"
 	"io"
+	"net"
 	"net/http"
 	"net/url"
 	"testing"
@@ -25,7 +26,7 @@ func (f *fakeTransport) RoundTrip(r *http.Request) (*http.Response, error) {
 
 	// fail on first host, succeed on second
 	if host == "s1.example" {
-		return nil, &url.Error{Op: "Get", URL: urlStr, Err: errors.New("dial tcp: i/o timeout")}
+		return nil, &url.Error{Op: "Get", URL: urlStr, Err: &net.OpError{Op: "dial", Net: "tcp", Err: errors.New("i/o timeout")}}
 	}
 
 	return &http.Response{
@@ -42,6 +43,7 @@ func TestFailoverRoundTripper_RoundRobin_NetworkError_FailsOverToNextServer(t *t
 			Strategy:       FailoverRoundRobin,
 			RetryOnTimeout: false,
 		},
+		MaxRetries: 10,
 		Servers: ServerConfigurations{
 			{URL: "https://s1.example"},
 			{URL: "https://s2.example"},
@@ -49,7 +51,7 @@ func TestFailoverRoundTripper_RoundRobin_NetworkError_FailsOverToNextServer(t *t
 	}
 
 	ft := &fakeTransport{}
-	rt := NewFailoverRoundTripper(cfg, cfg.Failover, ft)
+	rt := NewFailoverRoundTripper(cfg, ft)
 
 	req, err := http.NewRequest(http.MethodGet, "https://s1.example/some/path?x=1", nil)
 	if err != nil {
@@ -88,7 +90,7 @@ func TestFailoverRoundTripper_DoesNotRetry_WhenMethodNotRetryable(t *testing.T) 
 	}
 
 	ft := &fakeTransport{}
-	rt := NewFailoverRoundTripper(cfg, cfg.Failover, ft)
+	rt := NewFailoverRoundTripper(cfg, ft)
 
 	// POST is not retryable per config
 	req, err := http.NewRequest(http.MethodPost, "https://s1.example/some/path", io.NopCloser(bytes.NewBufferString("x")))
@@ -131,7 +133,7 @@ func TestFailoverRoundTripper_RetriesOnNoSuchHost(t *testing.T) {
 	_ = ft2
 
 	// Inline transport to simulate DNS error.
-	rt := NewFailoverRoundTripper(cfg, cfg.Failover, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
+	rt := NewFailoverRoundTripper(cfg, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		host := ""
 		urlStr := ""
 		if r != nil && r.URL != nil {
@@ -140,7 +142,7 @@ func TestFailoverRoundTripper_RetriesOnNoSuchHost(t *testing.T) {
 		}
 		ft.calls = append(ft.calls, host)
 		if host == "s1.example" {
-			return nil, &url.Error{Op: "Get", URL: urlStr, Err: errors.New("lookup s1.example: no such host")}
+			return nil, &url.Error{Op: "Get", URL: urlStr, Err: &net.DNSError{Err: "no such host", Name: "s1.example", IsNotFound: true}}
 		}
 		return &http.Response{StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header), Request: r}, nil
 	}))
@@ -178,7 +180,7 @@ func TestFailoverRoundTripper_FailoverOnStatusCodes(t *testing.T) {
 	}
 
 	calls := []string{}
-	rt := NewFailoverRoundTripper(cfg, cfg.Failover, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
+	rt := NewFailoverRoundTripper(cfg, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		calls = append(calls, r.URL.Host)
 		if r.URL.Host == "s1.example" {
 			return &http.Response{Status: "503 Service Unavailable", StatusCode: http.StatusServiceUnavailable, Body: io.NopCloser(bytes.NewBufferString("no")), Header: make(http.Header), Request: r}, nil
