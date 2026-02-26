@@ -140,6 +140,31 @@ const (
 
 // FailoverOptions controls transport-level endpoint failover behaviour.
 // It is nested under Configuration so it can be grouped cleanly in JSON/YAML.
+//
+// This layer only applies when a multi-server strategy is active (currently
+// only FailoverRoundRobin). With FailoverNone/empty or a single server, the
+// transport passes through directly to the base http.RoundTripper.
+//
+// # Interaction with product-level callAPI retry loop
+//
+// Product-level callAPI wraps HTTPClient.Do(), which invokes RoundTrip().
+// Each callAPI retry triggers a fresh RoundTrip() call that cycles through
+// all servers from the beginning. Worst-case total attempts:
+//
+//	callAPI.MaxRetries × FailoverOptions.MaxRetries
+//
+// # FailoverOnStatusCodes behaviour
+//
+// Status codes listed in FailoverOnStatusCodes are handled at the transport
+// level: the response body is drained, and the request is retried against the
+// next server with exponential backoff. Response headers (e.g. Retry-After)
+// are not inspected. If all servers return a listed code, RoundTrip returns an
+// error (not an HTTP response), so callAPI receives err != nil and returns
+// immediately — its own status-code retry logic is never reached.
+//
+// Status codes NOT listed here pass through as a normal HTTP response to
+// callAPI, which has its own retry logic for 502/503/504 (fixed backoff, no
+// POST retry) and 429 (honors Retry-After).
 type FailoverOptions struct {
 	Strategy FailoverStrategy `json:"strategy,omitempty" yaml:"strategy,omitempty"`
 
@@ -155,16 +180,28 @@ type FailoverOptions struct {
 	// next server when it receives one of these HTTP status codes.
 	FailoverOnStatusCodes []int `json:"failoverOnStatusCodes,omitempty" yaml:"failoverOnStatusCodes,omitempty"`
 
+	// MaxRetries controls how many times the transport will attempt a request using the set strategy before giving up
+	// and returning the last error. If zero, it defaults to 3.
+	MaxRetries int `json:"maxRetries,omitempty" yaml:"maxRetries,omitempty"`
+
 	ExponentialBackoff *ExponentialBackoffOptions `json:"exponentialBackoff,omitempty" yaml:"exponentialBackoff,omitempty"`
 }
 
 // ExponentialBackoffOptions controls the backoff parameters for exponential backoff.
 // It is nested under Configuration so it can be grouped cleanly in JSON/YAML.
+// By configuring Multiplier and RandomizationFactor, it is possible to achieve a constant backoff or a linear backoff as well.
 type ExponentialBackoffOptions struct {
-	InitialInterval     time.Duration `json:"initialInterval,omitempty" yaml:"initialInterval,omitempty"`
-	MaxInterval         time.Duration `json:"maxInterval,omitempty" yaml:"maxInterval,omitempty"`
-	Multiplier          float64       `json:"multiplier,omitempty" yaml:"multiplier,omitempty"`
-	RandomizationFactor float64       `json:"randomizationFactor,omitempty" yaml:"randomizationFactor,omitempty"`
+	// InitialInterval is the initial interval between retries. If zero, it defaults to 500ms.
+	InitialInterval time.Duration `json:"initialInterval,omitempty" yaml:"initialInterval,omitempty"`
+
+	// MaxInterval is the maximum interval between retries. If zero, it defaults to 60s.
+	MaxInterval time.Duration `json:"maxInterval,omitempty" yaml:"maxInterval,omitempty"`
+
+	// Multiplier is the factor by which the interval increases after each retry. If nil, it defaults to 1.5.
+	Multiplier *float64 `json:"multiplier,omitempty" yaml:"multiplier,omitempty"`
+
+	// RandomizationFactor is the factor used to randomize the backoff intervals. If nil, it defaults to 0.5.
+	RandomizationFactor *float64 `json:"randomizationFactor,omitempty" yaml:"randomizationFactor,omitempty"`
 }
 
 // Configuration stores the configuration of the API client
@@ -192,7 +229,7 @@ type Configuration struct {
 	Failover *FailoverOptions `json:"failover,omitempty"`
 }
 
-func (b *ExponentialBackoffOptions) NewExponentialBackoff() *boff.ExponentialBackOff {
+func (b *ExponentialBackoffOptions) NewExponentialBackoff() boff.BackOff {
 	bo := boff.NewExponentialBackOff()
 	if b == nil {
 		return bo
@@ -206,12 +243,12 @@ func (b *ExponentialBackoffOptions) NewExponentialBackoff() *boff.ExponentialBac
 		bo.MaxInterval = b.MaxInterval
 	}
 
-	if b.Multiplier != 0 {
-		bo.Multiplier = b.Multiplier
+	if b.Multiplier != nil {
+		bo.Multiplier = *b.Multiplier
 	}
 
-	if b.RandomizationFactor != 0 {
-		bo.RandomizationFactor = b.RandomizationFactor
+	if b.RandomizationFactor != nil {
+		bo.RandomizationFactor = *b.RandomizationFactor
 	}
 
 	return bo

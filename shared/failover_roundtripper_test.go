@@ -115,7 +115,7 @@ func TestFailoverRoundTripper_DoesNotRetry_WhenMethodNotRetryable(t *testing.T) 
 	}
 }
 
-func TestFailoverRoundTripper_RetriesOnNoSuchHost(t *testing.T) {
+func TestFailoverRoundTripper_FailsOnNoSuchHost(t *testing.T) {
 	cfg := &Configuration{
 		Failover: &FailoverOptions{
 			Strategy:       FailoverRoundRobin,
@@ -152,18 +152,9 @@ func TestFailoverRoundTripper_RetriesOnNoSuchHost(t *testing.T) {
 		t.Fatalf("unexpected error creating request: %v", err)
 	}
 
-	resp, err := rt.RoundTrip(req)
-	if err != nil {
-		t.Fatalf("expected success, got error: %v", err)
-	}
-	if resp == nil || resp.StatusCode != http.StatusOK {
-		t.Fatalf("expected 200 response, got %+v", resp)
-	}
-	if len(ft.calls) != 2 {
-		t.Fatalf("expected 2 calls due to failover, got %d: %+v", len(ft.calls), ft.calls)
-	}
-	if ft.calls[0] != "s1.example" || ft.calls[1] != "s2.example" {
-		t.Fatalf("unexpected call order: %+v", ft.calls)
+	_, err = rt.RoundTrip(req)
+	if err == nil {
+		t.Fatalf("expected error, got success")
 	}
 }
 

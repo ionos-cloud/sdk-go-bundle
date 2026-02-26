@@ -18,12 +18,17 @@ import (
 
 // FailoverRoundTripper is an http.RoundTripper wrapper that retries the request
 // against multiple configured servers when the underlying transport returns a
-// network-level error.
+// network-level error or an HTTP status code listed in
+// FailoverOptions.FailoverOnStatusCodes.
 //
 // It is controlled via Configuration.FailoverStrategy.
 //
 // Notes:
-//   - This wrapper only retries on transport/network errors (not HTTP 4xx/5xx).
+//   - Network errors trigger retries with exponential backoff, cycling to the
+//     next server.
+//   - Status codes in FailoverOnStatusCodes also trigger retries: the response
+//     body is drained and the request is sent to the next server. Response
+//     headers (e.g. Retry-After) are not inspected at this layer.
 //   - If the request carries a body, the request must have GetBody set (the SDK
 //     generates requests in a way that supports this).
 //   - For non-idempotent requests (POST, PATCH, etc.), enabling failover on
@@ -34,7 +39,6 @@ import (
 // preserving path and query.
 type FailoverRoundTripper struct {
 	cfg  *Configuration
-	opts *FailoverOptions
 	base http.RoundTripper
 }
 
@@ -50,7 +54,25 @@ func NewFailoverRoundTripper(cfg *Configuration, base http.RoundTripper) http.Ro
 	}
 }
 
-// RoundTrip - implements roundtrip failover logic based on the configured strategy and servers
+// RoundTrip implements http.RoundTripper with failover logic based on the
+// configured strategy and servers.
+//
+// This method is called by HTTPClient.Do() inside product-level callAPI. Each
+// callAPI retry triggers a fresh RoundTrip invocation that cycles through all
+// servers from the beginning.
+//
+// When the strategy is FailoverNone/empty, or there is only one server, the
+// call passes through to the base transport with no retry logic.
+//
+// With an active multi-server strategy (e.g. FailoverRoundRobin):
+//   - Network errors: retries with exponential backoff, cycling to the next
+//     server.
+//   - Status codes in FailoverOnStatusCodes: drains the response body and
+//     cycles to the next server. Response headers (e.g. Retry-After) are not
+//     inspected.
+//   - If all attempts are exhausted, returns an error (not an HTTP response).
+//     This means callAPI receives err != nil and returns immediately — its own
+//     status-code-based retry logic (for 502/503/504/429) is never reached.
 func (t *FailoverRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
 	if req == nil {
 		return nil, errors.New("nil request")
@@ -67,13 +89,12 @@ func (t *FailoverRoundTripper) RoundTrip(req *http.Request) (*http.Response, err
 		return t.base.RoundTrip(req)
 	}
 
-	fo := t.opts
-	if fo == nil {
-		fo = t.cfg.Failover
-	}
+	fo := t.cfg.Failover
 	if fo == nil {
 		return t.base.RoundTrip(req)
 	}
+
+	bo := fo.ExponentialBackoff.NewExponentialBackoff()
 
 	servers := t.cfg.Servers
 	order := serverOrderFor(fo.Strategy, len(servers))
@@ -87,8 +108,12 @@ func (t *FailoverRoundTripper) RoundTrip(req *http.Request) (*http.Response, err
 		return t.base.RoundTrip(req)
 	}
 
+	maxRetries := fo.MaxRetries
+	if maxRetries == 0 {
+		maxRetries = defaultMaxRetries
+	}
 	var lastErr error
-	for attempt := range len(servers) {
+	for attempt := range maxRetries {
 		serverURL := servers[order(attempt)].URL
 
 		targetURL, err := url.Parse(serverURL)
@@ -110,32 +135,33 @@ func (t *FailoverRoundTripper) RoundTrip(req *http.Request) (*http.Response, err
 		}
 
 		resp, err := t.base.RoundTrip(attemptReq)
-		if err == nil {
-			if shouldFailoverOnStatus(fo, resp.StatusCode) {
-				if SdkLogLevel.Satisfies(Debug) {
-					SdkLogger.Printf("[Failover] status=%d triggers failover to next server", resp.StatusCode)
-				}
-				// Drain/close body to allow connection reuse.
-				if resp.Body != nil {
-					_, _ = io.Copy(io.Discard, resp.Body)
-					_ = resp.Body.Close()
-				}
-				lastErr = fmt.Errorf("failover status: %s", resp.Status)
-				continue
+		if err != nil {
+			lastErr = err
+			retryable := isNetworkErrorRT(attemptReq.Context(), err, fo.RetryOnTimeout)
+			if !retryable {
+				return nil, err
 			}
+			if SdkLogLevel.Satisfies(Debug) {
+				SdkLogger.Printf("[Failover] network error: %v; trying next server", err)
+			}
+
+			backoff(attemptReq.Context(), bo.NextBackOff())
+			continue
+		}
+
+		if !shouldFailoverOnStatus(fo, resp.StatusCode) {
 			return resp, nil
 		}
 
-		lastErr = err
-		retryable := isNetworkErrorRT(attemptReq.Context(), err, fo.RetryOnTimeout)
-		if !retryable {
-			return nil, err
-		}
 		if SdkLogLevel.Satisfies(Debug) {
-			SdkLogger.Printf("[Failover] network error: %v; trying next server", err)
+			SdkLogger.Printf("[Failover] status=%d triggers failover to next server", resp.StatusCode)
 		}
-
-		tinyBackoff(attemptReq.Context())
+		// Drain/close body to allow connection reuse.
+		if resp.Body != nil {
+			_, _ = io.Copy(io.Discard, resp.Body)
+			_ = resp.Body.Close()
+		}
+		lastErr = fmt.Errorf("failover status: %s", resp.Status)
 	}
 
 	return nil, lastErr
@@ -187,16 +213,16 @@ func isNetworkErrorRT(ctx context.Context, err error, retryOnTimeout bool) bool 
 		return false
 	}
 
-	// 2. Check for other transport-level errors (connection refused, reset, etc).
+	// 1. Check for other transport-level errors (connection refused, reset, etc).
 	var opErr *net.OpError
 	if errors.As(err, &opErr) {
 		return true
 	}
 
-	// 3. Handle url.Error cases not already caught by the typed checks above.
+	// 2. Handle url.Error cases not already caught by the typed checks above.
 	// The string-based checks are intentionally omitted: "no such host" and
 	// "connection refused" are always carried by net.DNSError / net.OpError
-	// respectively, so errors.As in blocks 1–2 already handles them.
+	// respectively, so errors.As in block 1 already handles them.
 	// The only remaining retryable case here is DeadlineExceeded (subject to
 	// the retryOnTimeout flag). All other url.Error variants – TLS certificate
 	// failures, redirect-limit-exceeded, protocol mismatches – are non-transient
@@ -209,7 +235,7 @@ func isNetworkErrorRT(ctx context.Context, err error, retryOnTimeout bool) bool 
 		return false
 	}
 
-	// 4. Handle bare timeout errors if enabled.
+	// 3. Handle bare timeout errors if enabled.
 	if retryOnTimeout && ctx != nil {
 		if errors.Is(err, context.DeadlineExceeded) {
 			return true
@@ -219,10 +245,7 @@ func isNetworkErrorRT(ctx context.Context, err error, retryOnTimeout bool) bool 
 	return false
 }
 
-// todo replace with a more robust backoff strategy exponential with jitter
-func tinyBackoff(ctx context.Context) {
-	// 10ms is enough to avoid busy-looping while staying responsive.
-	t := 10 * time.Millisecond
+func backoff(ctx context.Context, t time.Duration) {
 	if ctx == nil {
 		time.Sleep(t)
 		return
