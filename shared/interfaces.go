@@ -64,14 +64,3 @@ func FindByID[T any, PT interface {
 	return nil, false
 }
 
-// ListItems extracts items from a Listable response. This is a convenience
-// wrapper useful in generic contexts where the list type is a type parameter.
-func ListItems[T any, L Listable[T]](list L) []T {
-	return list.GetItems()
-}
-
-// Properties extracts the properties from a HasProperties type. Useful in
-// generic contexts where both the model and properties types are parameters.
-func Properties[P any, T HasProperties[P]](item T) P {
-	return item.GetProperties()
-}

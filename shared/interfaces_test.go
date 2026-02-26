@@ -16,26 +16,11 @@ type ptrMockResource struct {
 
 func (m *ptrMockResource) GetId() string   { return m.id }
 func (m *ptrMockResource) GetHref() string { return m.href }
-func (m *ptrMockResource) GetProperties() mockProperties {
-	return mockProperties{Name: m.name}
-}
-
-type mockProperties struct {
-	Name string
-}
-
-type mockList struct {
-	items []ptrMockResource
-}
-
-func (l mockList) GetItems() []ptrMockResource { return l.items }
 
 // Compile-time interface satisfaction checks (pointer receivers — matches real SDKs)
 var _ Identifiable = &ptrMockResource{}
 var _ HasHref = &ptrMockResource{}
 var _ Resource = &ptrMockResource{}
-var _ Listable[ptrMockResource] = mockList{}
-var _ HasProperties[mockProperties] = &ptrMockResource{}
 
 func TestExtractIDs(t *testing.T) {
 	items := []ptrMockResource{
@@ -87,22 +72,4 @@ func TestFindByIDReturnsPointerIntoSlice(t *testing.T) {
 	// Mutating via returned pointer should modify the original slice
 	item.name = "mutated"
 	assert.Equal(t, "mutated", items[0].name)
-}
-
-func TestListItems(t *testing.T) {
-	list := mockList{
-		items: []ptrMockResource{
-			{id: "aaa-111"},
-			{id: "bbb-222"},
-		},
-	}
-	items := ListItems(list)
-	assert.Len(t, items, 2)
-	assert.Equal(t, "aaa-111", (*ptrMockResource)(&items[0]).GetId())
-}
-
-func TestProperties(t *testing.T) {
-	r := &ptrMockResource{id: "aaa-111", name: "test-zone"}
-	props := Properties(r)
-	assert.Equal(t, "test-zone", props.Name)
 }

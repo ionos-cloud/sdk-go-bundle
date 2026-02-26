@@ -10,7 +10,7 @@ var uuidRegex = regexp.MustCompile(
 	`^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$`,
 )
 
-// IsUUID returns true if s is a valid UUID v4 format string.
+// IsUUID returns true if s matches the standard UUID format (any version).
 func IsUUID(s string) bool {
 	return uuidRegex.MatchString(s)
 }
