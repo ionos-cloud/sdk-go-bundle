@@ -1,0 +1,32 @@
+name: Shared Library Tests
+on:
+  workflow_dispatch:
+  push:
+    branches: [v2]
+    paths:
+      - 'shared/**'
+  pull_request:
+    paths:
+      - 'shared/**'
+
+jobs:
+  test:
+    name: Test shared/
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: shared/go.mod
+
+      - name: Run tests
+        working-directory: shared
+        run: go test -v -race -coverprofile=coverage.out ./...
+
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: shared-coverage
+          path: shared/coverage.out
