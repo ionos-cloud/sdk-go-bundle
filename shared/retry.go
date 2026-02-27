@@ -4,6 +4,7 @@ package shared
 
 import (
 	"context"
+	"errors"
 	"io"
 	"net/http"
 	"net/http/httputil"
@@ -18,18 +19,33 @@ import (
 //   - 429: retries honoring Retry-After header, falls back to waitTime
 //   - Other status codes or transport errors: returns immediately
 //   - Respects context cancellation during backoff
+//
+// # Interaction with FailoverRoundTripper
+//
+// client.Do invokes the configured http.RoundTripper, which may be a
+// FailoverRoundTripper. When a multi-server FailoverStrategy is active,
+// transport-level network errors and status codes listed in
+// FailoverOnStatusCodes are handled by the round tripper before this
+// function sees the response: it either receives a successful response or
+// err != nil after all failover attempts are exhausted.
+//
+// Status codes NOT in FailoverOnStatusCodes (including the 502/503/504/429
+// that this function retries on) pass through normally.
+//
+// Worst-case total attempts: Configuration.MaxRetries × FailoverOptions.MaxRetries.
 func DoWithApplicationRetry(
-	client *http.Client,
+	cfg *Configuration,
 	request *http.Request,
-	maxRetries int,
-	waitTime time.Duration,
-	maxWaitTime time.Duration,
 ) (*http.Response, time.Duration, error) {
+	if cfg == nil {
+		return nil, 0, errors.New("nil configuration")
+	}
+
 	var resp *http.Response
 	var httpRequestTime time.Duration
 	var err error
 
-	for attempt := range maxRetries {
+	for attempt := range cfg.MaxRetries {
 		// We need to clone the request with every retry because Body closes after the request.
 		clonedRequest, cloneErr := cloneRequestForRetry(request)
 		if cloneErr != nil {
@@ -40,7 +56,7 @@ func DoWithApplicationRetry(
 
 		httpRequestStartTime := time.Now()
 		clonedRequest.Close = true
-		resp, err = client.Do(clonedRequest)
+		resp, err = cfg.HTTPClient.Do(clonedRequest)
 		httpRequestTime = time.Since(httpRequestStartTime)
 		if err != nil {
 			return resp, httpRequestTime, err
@@ -57,7 +73,7 @@ func DoWithApplicationRetry(
 			if request.Method == http.MethodPost {
 				return resp, httpRequestTime, err
 			}
-			backoffTime = waitTime
+			backoffTime = cfg.WaitTime
 
 		case http.StatusTooManyRequests:
 			if retryAfterSeconds := resp.Header.Get("Retry-After"); retryAfterSeconds != "" {
@@ -67,15 +83,15 @@ func DoWithApplicationRetry(
 				}
 				backoffTime = retryWait
 			} else {
-				backoffTime = waitTime
+				backoffTime = cfg.WaitTime
 			}
 		default:
 			return resp, httpRequestTime, err
 		}
 
-		if attempt == maxRetries-1 {
+		if attempt == cfg.MaxRetries-1 {
 			if SdkLogLevel.Satisfies(Debug) {
-				SdkLogger.Printf(" Number of maximum retries exceeded (%d retries)\n", maxRetries)
+				SdkLogger.Printf(" Number of maximum retries exceeded (%d retries)\n", cfg.MaxRetries)
 			}
 			return resp, httpRequestTime, err
 		}
@@ -83,8 +99,8 @@ func DoWithApplicationRetry(
 		// Drain body before retrying so the connection can be reused.
 		drainBody(resp)
 
-		if backoffTime > maxWaitTime {
-			backoffTime = maxWaitTime
+		if backoffTime > cfg.MaxWaitTime {
+			backoffTime = cfg.MaxWaitTime
 		}
 		backOff(request.Context(), backoffTime)
 	}

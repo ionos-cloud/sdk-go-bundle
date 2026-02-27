@@ -481,13 +481,7 @@ func parameterAddToHeaderOrQuery(headerOrQueryParams interface{}, keyPrefix stri
 
 // callAPI do the request.
 func (c *APIClient) callAPI(request *http.Request) (*http.Response, time.Duration, error) {
-	return shared.DoWithApplicationRetry(
-		c.cfg.HTTPClient,
-		request,
-		c.cfg.MaxRetries,
-		c.cfg.WaitTime,
-		c.cfg.MaxWaitTime,
-	)
+	return shared.DoWithApplicationRetry(c.cfg,request)
 }
 
 // Allow modification of underlying config for alternate implementations and testing

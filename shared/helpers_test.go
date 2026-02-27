@@ -2,6 +2,7 @@ package shared
 
 import (
 	"bytes"
+	"context"
 	"errors"
 	"io"
 	"net"
@@ -72,6 +73,48 @@ func makeResponse(statusCode int, headers map[string]string) *http.Response {
 		Body:       io.NopCloser(bytes.NewBufferString("")),
 		Header:     h,
 	}
+}
+
+func connRefusedError(r *http.Request) error {
+	return &url.Error{Op: "Get", URL: r.URL.String(),
+		Err: &net.OpError{Op: "dial", Net: "tcp", Err: errors.New("connection refused")}}
+}
+
+func connResetError(r *http.Request) error {
+	return &url.Error{Op: "Get", URL: r.URL.String(),
+		Err: &net.OpError{Op: "read", Net: "tcp", Err: errors.New("connection reset by peer")}}
+}
+
+func ioTimeoutError(r *http.Request) error {
+	return &url.Error{Op: "Get", URL: r.URL.String(),
+		Err: &net.OpError{Op: "dial", Net: "tcp", Err: errors.New("i/o timeout")}}
+}
+
+func dnsTemporaryError(r *http.Request) error {
+	return &url.Error{Op: "Get", URL: r.URL.String(),
+		Err: &net.OpError{Op: "dial", Net: "tcp",
+			Err: &net.DNSError{Err: "server misbehaving", Name: r.URL.Host, IsTemporary: true}}}
+}
+
+func tlsCertError(r *http.Request) error {
+	return &url.Error{Op: "Get", URL: r.URL.String(),
+		Err: errors.New("tls: failed to verify certificate")}
+}
+
+func redirectError(r *http.Request) error {
+	return &url.Error{Op: "Get", URL: r.URL.String(),
+		Err: errors.New("stopped after 10 redirects")}
+}
+
+func deadlineExceededError(r *http.Request) error {
+	return &url.Error{Op: "Get", URL: r.URL.String(),
+		Err: context.DeadlineExceeded}
+}
+
+func dnsNotFoundError(r *http.Request) error {
+	return &url.Error{Op: "Get", URL: r.URL.String(),
+		Err: &net.OpError{Op: "dial", Net: "tcp",
+			Err: &net.DNSError{Err: "no such host", Name: r.URL.Host, IsNotFound: true}}}
 }
 
 func zeroBackoff() *ExponentialBackoffOptions {
