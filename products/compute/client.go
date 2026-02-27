@@ -25,7 +25,6 @@ import (
 	"mime/multipart"
 	"net"
 	"net/http"
-	"net/http/httputil"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -482,115 +481,13 @@ func parameterAddToHeaderOrQuery(headerOrQueryParams interface{}, keyPrefix stri
 
 // callAPI do the request.
 func (c *APIClient) callAPI(request *http.Request) (*http.Response, time.Duration, error) {
-	retryCount := 0
-
-	var resp *http.Response
-	var httpRequestTime time.Duration
-	var err error
-
-	for {
-
-		retryCount++
-
-		/* we need to clone the request with every retry time because Body closes after the request */
-		var clonedRequest *http.Request = request.Clone(request.Context())
-		if request.Body != nil {
-			clonedRequest.Body, err = request.GetBody()
-			if err != nil {
-				return nil, httpRequestTime, err
-			}
-		}
-
-		if shared.SdkLogLevel.Satisfies(shared.Debug) {
-			logRequest := request.Clone(request.Context())
-
-			// Remove the Authorization header if Debug is enabled (but not in Trace mode)
-			if !shared.SdkLogLevel.Satisfies(shared.Trace) {
-				logRequest.Header.Del("Authorization")
-			}
-
-			dump, err := httputil.DumpRequestOut(logRequest, true)
-			if err == nil {
-				shared.SdkLogger.Printf(" DumpRequestOut : %s\n", string(dump))
-			} else {
-				shared.SdkLogger.Printf(" DumpRequestOut err: %+v", err)
-			}
-			shared.SdkLogger.Printf("\n try no: %d\n", retryCount)
-		}
-
-		httpRequestStartTime := time.Now()
-		clonedRequest.Close = true
-		resp, err = c.cfg.HTTPClient.Do(clonedRequest)
-		httpRequestTime = time.Since(httpRequestStartTime)
-		if err != nil {
-			return resp, httpRequestTime, err
-		}
-
-		if shared.SdkLogLevel.Satisfies(shared.Debug) {
-			dump, err := httputil.DumpResponse(resp, true)
-			if err == nil {
-				shared.SdkLogger.Printf("\n DumpResponse : %s\n", string(dump))
-			} else {
-				shared.SdkLogger.Printf(" DumpResponse err %+v", err)
-			}
-		}
-
-		var backoffTime time.Duration
-
-		switch resp.StatusCode {
-		case http.StatusServiceUnavailable,
-			http.StatusGatewayTimeout,
-			http.StatusBadGateway:
-			if request.Method == http.MethodPost {
-				return resp, httpRequestTime, err
-			}
-			backoffTime = c.GetConfig().WaitTime
-
-		case http.StatusTooManyRequests:
-			if retryAfterSeconds := resp.Header.Get("Retry-After"); retryAfterSeconds != "" {
-				waitTime, err := time.ParseDuration(retryAfterSeconds + "s")
-				if err != nil {
-					return resp, httpRequestTime, err
-				}
-				backoffTime = waitTime
-			} else {
-				backoffTime = c.GetConfig().WaitTime
-			}
-		default:
-			return resp, httpRequestTime, err
-
-		}
-
-		if retryCount >= c.GetConfig().MaxRetries {
-			if shared.SdkLogLevel.Satisfies(shared.Debug) {
-				shared.SdkLogger.Printf(" Number of maximum retries exceeded (%d retries)\n", c.cfg.MaxRetries)
-			}
-			break
-		} else {
-			c.backOff(request.Context(), backoffTime)
-		}
-	}
-
-	return resp, httpRequestTime, err
-}
-
-func (c *APIClient) backOff(ctx context.Context, t time.Duration) {
-	if t > c.GetConfig().MaxWaitTime {
-		t = c.GetConfig().MaxWaitTime
-	}
-	if shared.SdkLogLevel.Satisfies(shared.Debug) {
-		shared.SdkLogger.Printf(" Sleeping %s before retrying request\n", t.String())
-	}
-	if t <= 0 {
-		return
-	}
-	timer := time.NewTimer(t)
-	defer timer.Stop()
-
-	select {
-	case <-ctx.Done():
-	case <-timer.C:
-	}
+	return shared.DoWithApplicationRetry(
+		c.cfg.HTTPClient,
+		request,
+		c.cfg.MaxRetries,
+		c.cfg.WaitTime,
+		c.cfg.MaxWaitTime,
+	)
 }
 
 // Allow modification of underlying config for alternate implementations and testing

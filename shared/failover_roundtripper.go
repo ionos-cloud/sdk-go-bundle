@@ -8,12 +8,10 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"io"
 	"net"
 	"net/http"
 	"net/url"
 	"strings"
-	"time"
 )
 
 // FailoverRoundTripper is an http.RoundTripper wrapper that retries the request
@@ -43,7 +41,8 @@ type FailoverRoundTripper struct {
 }
 
 // NewFailoverRoundTripper creates a new FailoverRoundTripper.
-// If opts is nil, it will fall back to cfg.Failover.
+// When failover is disabled (nil Failover, strategy "none"/empty, or ≤1 server),
+// the base transport is returned directly — zero overhead.
 func NewFailoverRoundTripper(cfg *Configuration, base http.RoundTripper) http.RoundTripper {
 	if base == nil {
 		base = http.DefaultTransport
@@ -145,7 +144,7 @@ func (t *FailoverRoundTripper) RoundTrip(req *http.Request) (*http.Response, err
 				SdkLogger.Printf("[Failover] network error: %v; trying next server", err)
 			}
 
-			backoff(attemptReq.Context(), bo.NextBackOff())
+			backOff(attemptReq.Context(), bo.NextBackOff())
 			continue
 		}
 
@@ -157,10 +156,8 @@ func (t *FailoverRoundTripper) RoundTrip(req *http.Request) (*http.Response, err
 			SdkLogger.Printf("[Failover] status=%d triggers failover to next server", resp.StatusCode)
 		}
 		// Drain/close body to allow connection reuse.
-		if resp.Body != nil {
-			_, _ = io.Copy(io.Discard, resp.Body)
-			_ = resp.Body.Close()
-		}
+		drainBody(resp)
+		backOff(attemptReq.Context(), bo.NextBackOff())
 		lastErr = fmt.Errorf("failover status: %s", resp.Status)
 	}
 
@@ -213,7 +210,7 @@ func isNetworkErrorRT(ctx context.Context, err error, retryOnTimeout bool) bool 
 		return false
 	}
 
-	// 1. Check for other transport-level errors (connection refused, reset, etc).
+	// 1. Check for transport-level errors (connection refused, reset, etc).
 	var opErr *net.OpError
 	if errors.As(err, &opErr) {
 		return true
@@ -243,17 +240,6 @@ func isNetworkErrorRT(ctx context.Context, err error, retryOnTimeout bool) bool 
 	}
 
 	return false
-}
-
-func backoff(ctx context.Context, t time.Duration) {
-	if ctx == nil {
-		time.Sleep(t)
-		return
-	}
-	select {
-	case <-time.After(t):
-	case <-ctx.Done():
-	}
 }
 
 func shouldFailoverOnStatus(fo *FailoverOptions, statusCode int) bool {

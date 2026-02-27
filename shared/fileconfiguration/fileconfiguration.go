@@ -128,8 +128,7 @@ type FileConfig struct {
 	Environments []Environment `yaml:"environments"`
 	// Failover controls transport-level endpoint failover behaviour.
 	// When set, it is applied to the runtime Configuration via ApplyFailoverToConfiguration.
-	Failover           *shared.FailoverOptions           `yaml:"failover,omitempty"`
-	ExponentialBackoff *shared.ExponentialBackoffOptions `yaml:"exponentialBackoff,omitempty"`
+	Failover *shared.FailoverOptions `yaml:"failover,omitempty"`
 }
 
 // DefaultConfigFileName returns the default file path for the loaded configuration
