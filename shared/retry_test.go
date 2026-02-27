@@ -12,6 +12,18 @@ import (
 	"time"
 )
 
+const (
+	retryTestURL      = "https://api.example.com/test"
+	retryErrUnexpected = "unexpected error: %v"
+	retryErrStatus     = "expected 200, got %d"
+	retryErrCalls      = "expected %d calls, got %d"
+	retryHeaderRA      = "Retry-After"
+	retryHostS1        = "s1.example"
+	retryURLs1         = "https://s1.example"
+	retryURLs2         = "https://s2.example"
+	retryURLs1Path     = "https://s1.example/test"
+)
+
 func retryCfg(rt http.RoundTripper, maxRetries int, waitTime, maxWaitTime time.Duration) *Configuration {
 	return &Configuration{
 		HTTPClient:  &http.Client{Transport: rt},
@@ -21,7 +33,7 @@ func retryCfg(rt http.RoundTripper, maxRetries int, waitTime, maxWaitTime time.D
 	}
 }
 
-func TestDoWithApplicationRetry_RetryOn502(t *testing.T) {
+func TestDoWithApplicationRetryRetryOn502(t *testing.T) {
 	rt := &testRoundTripper{
 		responses: []*http.Response{
 			makeResponse(http.StatusBadGateway, nil),
@@ -31,20 +43,20 @@ func TestDoWithApplicationRetry_RetryOn502(t *testing.T) {
 	}
 	cfg := retryCfg(rt, 5, 1*time.Millisecond, 10*time.Millisecond)
 
-	req, _ := http.NewRequest(http.MethodGet, "https://api.example.com/test", nil)
+	req, _ := http.NewRequest(http.MethodGet, retryTestURL, nil)
 	resp, _, err := DoWithApplicationRetry(cfg, req)
 	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+		t.Fatalf(retryErrUnexpected, err)
 	}
 	if resp.StatusCode != http.StatusOK {
-		t.Fatalf("expected 200, got %d", resp.StatusCode)
+		t.Fatalf(retryErrStatus, resp.StatusCode)
 	}
 	if rt.callCount != 3 {
-		t.Fatalf("expected 3 calls, got %d", rt.callCount)
+		t.Fatalf(retryErrCalls, 3, rt.callCount)
 	}
 }
 
-func TestDoWithApplicationRetry_RetryOn503(t *testing.T) {
+func TestDoWithApplicationRetryRetryOn503(t *testing.T) {
 	rt := &testRoundTripper{
 		responses: []*http.Response{
 			makeResponse(http.StatusServiceUnavailable, nil),
@@ -53,20 +65,20 @@ func TestDoWithApplicationRetry_RetryOn503(t *testing.T) {
 	}
 	cfg := retryCfg(rt, 5, 1*time.Millisecond, 10*time.Millisecond)
 
-	req, _ := http.NewRequest(http.MethodGet, "https://api.example.com/test", nil)
+	req, _ := http.NewRequest(http.MethodGet, retryTestURL, nil)
 	resp, _, err := DoWithApplicationRetry(cfg, req)
 	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+		t.Fatalf(retryErrUnexpected, err)
 	}
 	if resp.StatusCode != http.StatusOK {
-		t.Fatalf("expected 200, got %d", resp.StatusCode)
+		t.Fatalf(retryErrStatus, resp.StatusCode)
 	}
 	if rt.callCount != 2 {
-		t.Fatalf("expected 2 calls, got %d", rt.callCount)
+		t.Fatalf(retryErrCalls, 2, rt.callCount)
 	}
 }
 
-func TestDoWithApplicationRetry_RetryOn504(t *testing.T) {
+func TestDoWithApplicationRetryRetryOn504(t *testing.T) {
 	rt := &testRoundTripper{
 		responses: []*http.Response{
 			makeResponse(http.StatusGatewayTimeout, nil),
@@ -75,20 +87,20 @@ func TestDoWithApplicationRetry_RetryOn504(t *testing.T) {
 	}
 	cfg := retryCfg(rt, 5, 1*time.Millisecond, 10*time.Millisecond)
 
-	req, _ := http.NewRequest(http.MethodGet, "https://api.example.com/test", nil)
+	req, _ := http.NewRequest(http.MethodGet, retryTestURL, nil)
 	resp, _, err := DoWithApplicationRetry(cfg, req)
 	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+		t.Fatalf(retryErrUnexpected, err)
 	}
 	if resp.StatusCode != http.StatusOK {
-		t.Fatalf("expected 200, got %d", resp.StatusCode)
+		t.Fatalf(retryErrStatus, resp.StatusCode)
 	}
 	if rt.callCount != 2 {
-		t.Fatalf("expected 2 calls, got %d", rt.callCount)
+		t.Fatalf(retryErrCalls, 2, rt.callCount)
 	}
 }
 
-func TestDoWithApplicationRetry_NoRetryOnPostFor5xx(t *testing.T) {
+func TestDoWithApplicationRetryNoRetryOnPostFor5xx(t *testing.T) {
 	rt := &testRoundTripper{
 		responses: []*http.Response{
 			makeResponse(http.StatusServiceUnavailable, nil),
@@ -98,14 +110,14 @@ func TestDoWithApplicationRetry_NoRetryOnPostFor5xx(t *testing.T) {
 	cfg := retryCfg(rt, 5, 1*time.Millisecond, 10*time.Millisecond)
 
 	body := bytes.NewBufferString("data")
-	req, _ := http.NewRequest(http.MethodPost, "https://api.example.com/test", body)
+	req, _ := http.NewRequest(http.MethodPost, retryTestURL, body)
 	req.GetBody = func() (io.ReadCloser, error) {
 		return io.NopCloser(bytes.NewBufferString("data")), nil
 	}
 
 	resp, _, err := DoWithApplicationRetry(cfg, req)
 	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+		t.Fatalf(retryErrUnexpected, err)
 	}
 	if resp.StatusCode != http.StatusServiceUnavailable {
 		t.Fatalf("expected 503 (no retry for POST), got %d", resp.StatusCode)
@@ -115,29 +127,29 @@ func TestDoWithApplicationRetry_NoRetryOnPostFor5xx(t *testing.T) {
 	}
 }
 
-func TestDoWithApplicationRetry_RetryOn429WithRetryAfter(t *testing.T) {
+func TestDoWithApplicationRetryRetryOn429WithRetryAfter(t *testing.T) {
 	rt := &testRoundTripper{
 		responses: []*http.Response{
-			makeResponse(http.StatusTooManyRequests, map[string]string{"Retry-After": "1"}),
+			makeResponse(http.StatusTooManyRequests, map[string]string{retryHeaderRA: "1"}),
 			makeResponse(http.StatusOK, nil),
 		},
 	}
 	cfg := retryCfg(rt, 5, 1*time.Millisecond, 2*time.Second)
 
-	req, _ := http.NewRequest(http.MethodGet, "https://api.example.com/test", nil)
+	req, _ := http.NewRequest(http.MethodGet, retryTestURL, nil)
 	resp, _, err := DoWithApplicationRetry(cfg, req)
 	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+		t.Fatalf(retryErrUnexpected, err)
 	}
 	if resp.StatusCode != http.StatusOK {
-		t.Fatalf("expected 200, got %d", resp.StatusCode)
+		t.Fatalf(retryErrStatus, resp.StatusCode)
 	}
 	if rt.callCount != 2 {
-		t.Fatalf("expected 2 calls, got %d", rt.callCount)
+		t.Fatalf(retryErrCalls, 2, rt.callCount)
 	}
 }
 
-func TestDoWithApplicationRetry_RetryOn429WithoutRetryAfter(t *testing.T) {
+func TestDoWithApplicationRetryRetryOn429WithoutRetryAfter(t *testing.T) {
 	rt := &testRoundTripper{
 		responses: []*http.Response{
 			makeResponse(http.StatusTooManyRequests, nil),
@@ -146,20 +158,20 @@ func TestDoWithApplicationRetry_RetryOn429WithoutRetryAfter(t *testing.T) {
 	}
 	cfg := retryCfg(rt, 5, 1*time.Millisecond, 10*time.Millisecond)
 
-	req, _ := http.NewRequest(http.MethodGet, "https://api.example.com/test", nil)
+	req, _ := http.NewRequest(http.MethodGet, retryTestURL, nil)
 	resp, _, err := DoWithApplicationRetry(cfg, req)
 	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+		t.Fatalf(retryErrUnexpected, err)
 	}
 	if resp.StatusCode != http.StatusOK {
-		t.Fatalf("expected 200, got %d", resp.StatusCode)
+		t.Fatalf(retryErrStatus, resp.StatusCode)
 	}
 	if rt.callCount != 2 {
-		t.Fatalf("expected 2 calls, got %d", rt.callCount)
+		t.Fatalf(retryErrCalls, 2, rt.callCount)
 	}
 }
 
-func TestDoWithApplicationRetry_MaxRetriesRespected(t *testing.T) {
+func TestDoWithApplicationRetryMaxRetriesRespected(t *testing.T) {
 	rt := &testRoundTripper{
 		responses: []*http.Response{
 			makeResponse(http.StatusServiceUnavailable, nil),
@@ -170,21 +182,21 @@ func TestDoWithApplicationRetry_MaxRetriesRespected(t *testing.T) {
 	}
 	cfg := retryCfg(rt, 3, 1*time.Millisecond, 10*time.Millisecond)
 
-	req, _ := http.NewRequest(http.MethodGet, "https://api.example.com/test", nil)
+	req, _ := http.NewRequest(http.MethodGet, retryTestURL, nil)
 	resp, _, err := DoWithApplicationRetry(cfg, req)
 	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+		t.Fatalf(retryErrUnexpected, err)
 	}
 	// Should return the last 503 response after exhausting retries
 	if resp.StatusCode != http.StatusServiceUnavailable {
 		t.Fatalf("expected 503 after max retries, got %d", resp.StatusCode)
 	}
 	if rt.callCount != 3 {
-		t.Fatalf("expected 3 calls (maxRetries=3), got %d", rt.callCount)
+		t.Fatalf(retryErrCalls, 3, rt.callCount)
 	}
 }
 
-func TestDoWithApplicationRetry_TransportError_NoRetry(t *testing.T) {
+func TestDoWithApplicationRetryTransportErrorNoRetry(t *testing.T) {
 	rt := &testRoundTripper{
 		errors: []error{
 			errors.New("dial tcp: connection refused"),
@@ -195,7 +207,7 @@ func TestDoWithApplicationRetry_TransportError_NoRetry(t *testing.T) {
 	}
 	cfg := retryCfg(rt, 5, 1*time.Millisecond, 10*time.Millisecond)
 
-	req, _ := http.NewRequest(http.MethodGet, "https://api.example.com/test", nil)
+	req, _ := http.NewRequest(http.MethodGet, retryTestURL, nil)
 	_, _, err := DoWithApplicationRetry(cfg, req)
 	if err == nil {
 		t.Fatalf("expected transport error, got nil")
@@ -205,7 +217,7 @@ func TestDoWithApplicationRetry_TransportError_NoRetry(t *testing.T) {
 	}
 }
 
-func TestDoWithApplicationRetry_ContextCancellationDuringBackoff(t *testing.T) {
+func TestDoWithApplicationRetryContextCancellationDuringBackoff(t *testing.T) {
 	rt := &testRoundTripper{
 		responses: []*http.Response{
 			makeResponse(http.StatusServiceUnavailable, nil),
@@ -218,13 +230,13 @@ func TestDoWithApplicationRetry_ContextCancellationDuringBackoff(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 50*time.Millisecond)
 	defer cancel()
 
-	req, _ := http.NewRequestWithContext(ctx, http.MethodGet, "https://api.example.com/test", nil)
+	req, _ := http.NewRequestWithContext(ctx, http.MethodGet, retryTestURL, nil)
 	// Long wait time so context cancels during backoff
 	_, _, _ = DoWithApplicationRetry(cfg, req)
 	// We just verify it doesn't hang — context cancellation should break out of backoff
 }
 
-func TestDoWithApplicationRetry_ImmediateReturn_On200(t *testing.T) {
+func TestDoWithApplicationRetryImmediateReturnOn200(t *testing.T) {
 	rt := &testRoundTripper{
 		responses: []*http.Response{
 			makeResponse(http.StatusOK, nil),
@@ -232,20 +244,20 @@ func TestDoWithApplicationRetry_ImmediateReturn_On200(t *testing.T) {
 	}
 	cfg := retryCfg(rt, 5, 1*time.Millisecond, 10*time.Millisecond)
 
-	req, _ := http.NewRequest(http.MethodGet, "https://api.example.com/test", nil)
+	req, _ := http.NewRequest(http.MethodGet, retryTestURL, nil)
 	resp, _, err := DoWithApplicationRetry(cfg, req)
 	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+		t.Fatalf(retryErrUnexpected, err)
 	}
 	if resp.StatusCode != http.StatusOK {
-		t.Fatalf("expected 200, got %d", resp.StatusCode)
+		t.Fatalf(retryErrStatus, resp.StatusCode)
 	}
 	if rt.callCount != 1 {
-		t.Fatalf("expected 1 call, got %d", rt.callCount)
+		t.Fatalf(retryErrCalls, 1, rt.callCount)
 	}
 }
 
-func Test_backOff_SleepsForGivenDuration(t *testing.T) {
+func TestBackOffSleepsForGivenDuration(t *testing.T) {
 	start := time.Now()
 	backOff(context.Background(), 5*time.Millisecond)
 	elapsed := time.Since(start)
@@ -257,7 +269,7 @@ func Test_backOff_SleepsForGivenDuration(t *testing.T) {
 	}
 }
 
-func Test_backOff_ZeroDuration(t *testing.T) {
+func TestBackOffZeroDuration(t *testing.T) {
 	start := time.Now()
 	backOff(context.Background(), 0)
 	elapsed := time.Since(start)
@@ -272,11 +284,11 @@ func networkError(r *http.Request) error {
 	return &url.Error{Op: "Get", URL: r.URL.String(), Err: &net.OpError{Op: "dial", Net: "tcp", Err: errors.New("connection refused")}}
 }
 
-func TestDoWithApplicationRetry_FailoverHandlesNetworkError(t *testing.T) {
+func TestDoWithApplicationRetryFailoverHandlesNetworkError(t *testing.T) {
 	callCount := 0
 	base := roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		callCount++
-		if r.URL.Host == "s1.example" {
+		if r.URL.Host == retryHostS1 {
 			return nil, networkError(r)
 		}
 		return &http.Response{StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header), Request: r}, nil
@@ -292,30 +304,30 @@ func TestDoWithApplicationRetry_FailoverHandlesNetworkError(t *testing.T) {
 			ExponentialBackoff: zeroBackoff(),
 		},
 		Servers: ServerConfigurations{
-			{URL: "https://s1.example"},
-			{URL: "https://s2.example"},
+			{URL: retryURLs1},
+			{URL: retryURLs2},
 		},
 	}
 	cfg.HTTPClient = &http.Client{Transport: NewFailoverRoundTripper(cfg, base)}
 
-	req, _ := http.NewRequest(http.MethodGet, "https://s1.example/test", nil)
+	req, _ := http.NewRequest(http.MethodGet, retryURLs1Path, nil)
 	resp, _, err := DoWithApplicationRetry(cfg, req)
 	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+		t.Fatalf(retryErrUnexpected, err)
 	}
 	if resp.StatusCode != http.StatusOK {
-		t.Fatalf("expected 200, got %d", resp.StatusCode)
+		t.Fatalf(retryErrStatus, resp.StatusCode)
 	}
 	if callCount != 2 {
 		t.Fatalf("expected 2 base transport calls (s1 fail + s2 ok), got %d", callCount)
 	}
 }
 
-func TestDoWithApplicationRetry_FailoverHandlesStatusCode(t *testing.T) {
+func TestDoWithApplicationRetryFailoverHandlesStatusCode(t *testing.T) {
 	callCount := 0
 	base := roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		callCount++
-		if r.URL.Host == "s1.example" {
+		if r.URL.Host == retryHostS1 {
 			return &http.Response{Status: "503 Service Unavailable", StatusCode: http.StatusServiceUnavailable, Body: io.NopCloser(bytes.NewBufferString("no")), Header: make(http.Header), Request: r}, nil
 		}
 		return &http.Response{StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header), Request: r}, nil
@@ -332,26 +344,26 @@ func TestDoWithApplicationRetry_FailoverHandlesStatusCode(t *testing.T) {
 			ExponentialBackoff:    zeroBackoff(),
 		},
 		Servers: ServerConfigurations{
-			{URL: "https://s1.example"},
-			{URL: "https://s2.example"},
+			{URL: retryURLs1},
+			{URL: retryURLs2},
 		},
 	}
 	cfg.HTTPClient = &http.Client{Transport: NewFailoverRoundTripper(cfg, base)}
 
-	req, _ := http.NewRequest(http.MethodGet, "https://s1.example/test", nil)
+	req, _ := http.NewRequest(http.MethodGet, retryURLs1Path, nil)
 	resp, _, err := DoWithApplicationRetry(cfg, req)
 	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+		t.Fatalf(retryErrUnexpected, err)
 	}
 	if resp.StatusCode != http.StatusOK {
-		t.Fatalf("expected 200, got %d", resp.StatusCode)
+		t.Fatalf(retryErrStatus, resp.StatusCode)
 	}
 	if callCount != 2 {
 		t.Fatalf("expected 2 base transport calls (s1 503 drained + s2 ok), got %d", callCount)
 	}
 }
 
-func TestDoWithApplicationRetry_FailoverExhausted_ReturnsError(t *testing.T) {
+func TestDoWithApplicationRetryFailoverExhaustedReturnsError(t *testing.T) {
 	callCount := 0
 	base := roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		callCount++
@@ -368,13 +380,13 @@ func TestDoWithApplicationRetry_FailoverExhausted_ReturnsError(t *testing.T) {
 			ExponentialBackoff: zeroBackoff(),
 		},
 		Servers: ServerConfigurations{
-			{URL: "https://s1.example"},
-			{URL: "https://s2.example"},
+			{URL: retryURLs1},
+			{URL: retryURLs2},
 		},
 	}
 	cfg.HTTPClient = &http.Client{Transport: NewFailoverRoundTripper(cfg, base)}
 
-	req, _ := http.NewRequest(http.MethodGet, "https://s1.example/test", nil)
+	req, _ := http.NewRequest(http.MethodGet, retryURLs1Path, nil)
 	_, _, err := DoWithApplicationRetry(cfg, req)
 	if err == nil {
 		t.Fatalf("expected error after failover exhaustion, got nil")
@@ -384,7 +396,7 @@ func TestDoWithApplicationRetry_FailoverExhausted_ReturnsError(t *testing.T) {
 	}
 }
 
-func TestDoWithApplicationRetry_NonFailoverStatusCode_PassesToAppRetry(t *testing.T) {
+func TestDoWithApplicationRetryNonFailoverStatusCodePassesToAppRetry(t *testing.T) {
 	callCount := 0
 	base := roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		callCount++
@@ -406,31 +418,31 @@ func TestDoWithApplicationRetry_NonFailoverStatusCode_PassesToAppRetry(t *testin
 			// 503 NOT in FailoverOnStatusCodes — passes through to app retry
 		},
 		Servers: ServerConfigurations{
-			{URL: "https://s1.example"},
-			{URL: "https://s2.example"},
+			{URL: retryURLs1},
+			{URL: retryURLs2},
 		},
 	}
 	cfg.HTTPClient = &http.Client{Transport: NewFailoverRoundTripper(cfg, base)}
 
-	req, _ := http.NewRequest(http.MethodGet, "https://s1.example/test", nil)
+	req, _ := http.NewRequest(http.MethodGet, retryURLs1Path, nil)
 	resp, _, err := DoWithApplicationRetry(cfg, req)
 	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+		t.Fatalf(retryErrUnexpected, err)
 	}
 	if resp.StatusCode != http.StatusOK {
-		t.Fatalf("expected 200, got %d", resp.StatusCode)
+		t.Fatalf(retryErrStatus, resp.StatusCode)
 	}
 	if callCount != 2 {
 		t.Fatalf("expected 2 base transport calls (503 pass-through + app retry 200), got %d", callCount)
 	}
 }
 
-func TestDoWithApplicationRetry_FailoverThenAppRetry(t *testing.T) {
+func TestDoWithApplicationRetryFailoverThenAppRetry(t *testing.T) {
 	callCount := 0
 	s2Calls := 0
 	base := roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		callCount++
-		if r.URL.Host == "s1.example" {
+		if r.URL.Host == retryHostS1 {
 			return nil, networkError(r)
 		}
 		// s2: first call returns 502, second returns 200
@@ -452,19 +464,19 @@ func TestDoWithApplicationRetry_FailoverThenAppRetry(t *testing.T) {
 			// 502 NOT in FailoverOnStatusCodes — passes through to app retry
 		},
 		Servers: ServerConfigurations{
-			{URL: "https://s1.example"},
-			{URL: "https://s2.example"},
+			{URL: retryURLs1},
+			{URL: retryURLs2},
 		},
 	}
 	cfg.HTTPClient = &http.Client{Transport: NewFailoverRoundTripper(cfg, base)}
 
-	req, _ := http.NewRequest(http.MethodGet, "https://s1.example/test", nil)
+	req, _ := http.NewRequest(http.MethodGet, retryURLs1Path, nil)
 	resp, _, err := DoWithApplicationRetry(cfg, req)
 	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+		t.Fatalf(retryErrUnexpected, err)
 	}
 	if resp.StatusCode != http.StatusOK {
-		t.Fatalf("expected 200, got %d", resp.StatusCode)
+		t.Fatalf(retryErrStatus, resp.StatusCode)
 	}
 	// attempt 1: s1 fail + s2 502 = 2 calls; attempt 2: s1 fail + s2 200 = 2 calls
 	if callCount != 4 {
@@ -472,13 +484,13 @@ func TestDoWithApplicationRetry_FailoverThenAppRetry(t *testing.T) {
 	}
 }
 
-func TestDoWithApplicationRetry_Failover429NotInFailoverCodes_PassesToAppRetry(t *testing.T) {
+func TestDoWithApplicationRetryFailover429NotInFailoverCodesPassesToAppRetry(t *testing.T) {
 	callCount := 0
 	base := roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		callCount++
 		if callCount == 1 {
 			h := make(http.Header)
-			h.Set("Retry-After", "0")
+			h.Set(retryHeaderRA, "0")
 			return &http.Response{Status: "429", StatusCode: http.StatusTooManyRequests, Body: io.NopCloser(bytes.NewBufferString("")), Header: h, Request: r}, nil
 		}
 		return &http.Response{StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header), Request: r}, nil
@@ -495,38 +507,38 @@ func TestDoWithApplicationRetry_Failover429NotInFailoverCodes_PassesToAppRetry(t
 			// 429 NOT in FailoverOnStatusCodes
 		},
 		Servers: ServerConfigurations{
-			{URL: "https://s1.example"},
-			{URL: "https://s2.example"},
+			{URL: retryURLs1},
+			{URL: retryURLs2},
 		},
 	}
 	cfg.HTTPClient = &http.Client{Transport: NewFailoverRoundTripper(cfg, base)}
 
-	req, _ := http.NewRequest(http.MethodGet, "https://s1.example/test", nil)
+	req, _ := http.NewRequest(http.MethodGet, retryURLs1Path, nil)
 	resp, _, err := DoWithApplicationRetry(cfg, req)
 	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+		t.Fatalf(retryErrUnexpected, err)
 	}
 	if resp.StatusCode != http.StatusOK {
-		t.Fatalf("expected 200, got %d", resp.StatusCode)
+		t.Fatalf(retryErrStatus, resp.StatusCode)
 	}
 	if callCount != 2 {
 		t.Fatalf("expected 2 base transport calls (429 pass-through + app retry 200), got %d", callCount)
 	}
 }
 
-func TestDoWithApplicationRetry_FailoverThenAppRetryOn429(t *testing.T) {
+func TestDoWithApplicationRetryFailoverThenAppRetryOn429(t *testing.T) {
 	callCount := 0
 	s2Calls := 0
 	base := roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		callCount++
-		if r.URL.Host == "s1.example" {
+		if r.URL.Host == retryHostS1 {
 			return nil, networkError(r)
 		}
 		// s2: first call returns 429, second returns 200
 		s2Calls++
 		if s2Calls == 1 {
 			h := make(http.Header)
-			h.Set("Retry-After", "0")
+			h.Set(retryHeaderRA, "0")
 			return &http.Response{Status: "429", StatusCode: http.StatusTooManyRequests, Body: io.NopCloser(bytes.NewBufferString("")), Header: h, Request: r}, nil
 		}
 		return &http.Response{StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header), Request: r}, nil
@@ -543,19 +555,19 @@ func TestDoWithApplicationRetry_FailoverThenAppRetryOn429(t *testing.T) {
 			// 429 NOT in FailoverOnStatusCodes — passes through to app retry
 		},
 		Servers: ServerConfigurations{
-			{URL: "https://s1.example"},
-			{URL: "https://s2.example"},
+			{URL: retryURLs1},
+			{URL: retryURLs2},
 		},
 	}
 	cfg.HTTPClient = &http.Client{Transport: NewFailoverRoundTripper(cfg, base)}
 
-	req, _ := http.NewRequest(http.MethodGet, "https://s1.example/test", nil)
+	req, _ := http.NewRequest(http.MethodGet, retryURLs1Path, nil)
 	resp, _, err := DoWithApplicationRetry(cfg, req)
 	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+		t.Fatalf(retryErrUnexpected, err)
 	}
 	if resp.StatusCode != http.StatusOK {
-		t.Fatalf("expected 200, got %d", resp.StatusCode)
+		t.Fatalf(retryErrStatus, resp.StatusCode)
 	}
 	// attempt 1: s1 fail + s2 429 = 2 calls; attempt 2: s1 fail + s2 200 = 2 calls
 	if callCount != 4 {
@@ -563,20 +575,20 @@ func TestDoWithApplicationRetry_FailoverThenAppRetryOn429(t *testing.T) {
 	}
 }
 
-func TestDoWithApplicationRetry_ThreeServers_FailoverChain(t *testing.T) {
+func TestDoWithApplicationRetryThreeServersFailoverChain(t *testing.T) {
 	callCount := 0
 	s2Calls := 0
 	base := roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		callCount++
 		switch r.URL.Host {
-		case "s1.example":
+		case retryHostS1:
 			return nil, networkError(r)
 		case "s2.example":
 			s2Calls++
 			if s2Calls == 1 {
 				// First s2 call: 429 (not in failover codes) — passes through to app retry
 				h := make(http.Header)
-				h.Set("Retry-After", "0")
+				h.Set(retryHeaderRA, "0")
 				return &http.Response{Status: "429", StatusCode: http.StatusTooManyRequests, Body: io.NopCloser(bytes.NewBufferString("")), Header: h, Request: r}, nil
 			}
 			// Second s2 call: 503 (in failover codes) — drained, failover continues to s3
@@ -597,20 +609,20 @@ func TestDoWithApplicationRetry_ThreeServers_FailoverChain(t *testing.T) {
 			ExponentialBackoff:    zeroBackoff(),
 		},
 		Servers: ServerConfigurations{
-			{URL: "https://s1.example"},
-			{URL: "https://s2.example"},
+			{URL: retryURLs1},
+			{URL: retryURLs2},
 			{URL: "https://s3.example"},
 		},
 	}
 	cfg.HTTPClient = &http.Client{Transport: NewFailoverRoundTripper(cfg, base)}
 
-	req, _ := http.NewRequest(http.MethodGet, "https://s1.example/test", nil)
+	req, _ := http.NewRequest(http.MethodGet, retryURLs1Path, nil)
 	resp, _, err := DoWithApplicationRetry(cfg, req)
 	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+		t.Fatalf(retryErrUnexpected, err)
 	}
 	if resp.StatusCode != http.StatusOK {
-		t.Fatalf("expected 200, got %d", resp.StatusCode)
+		t.Fatalf(retryErrStatus, resp.StatusCode)
 	}
 	// attempt 1: s1 fail + s2 429 = 2 calls
 	// attempt 2: s1 fail + s2 503 (drained) + s3 200 = 3 calls

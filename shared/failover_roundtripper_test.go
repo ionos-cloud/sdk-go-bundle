@@ -11,7 +11,22 @@ import (
 	"testing"
 )
 
-func TestFailoverRoundTripper_RoundRobin_NetworkError_FailsOverToNextServer(t *testing.T) {
+const (
+	foURLs1         = "https://s1.example"
+	foURLs2         = "https://s2.example"
+	foURLs1Path     = "https://s1.example/path"
+	foURLs1SomePath = "https://s1.example/some/path"
+	foHostS1        = "s1.example"
+	foHostS2        = "s2.example"
+	foErrUnexpReq   = "unexpected error creating request: %v"
+	foErrExpSucc    = "expected success, got error: %v"
+	foErrExp200     = "expected 200, got %d"
+	foErrExpErr     = "expected error, got success"
+	foErrUnexp      = "unexpected error: %v"
+	foErrExpOrder   = "expected [s1.example s2.example], got %v"
+)
+
+func TestFailoverRoundTripperRoundRobinNetworkErrorFailsOverToNextServer(t *testing.T) {
 	cfg := &Configuration{
 		Failover: &FailoverOptions{
 			Strategy:           FailoverRoundRobin,
@@ -21,8 +36,8 @@ func TestFailoverRoundTripper_RoundRobin_NetworkError_FailsOverToNextServer(t *t
 		},
 		MaxRetries: 10,
 		Servers: ServerConfigurations{
-			{URL: "https://s1.example"},
-			{URL: "https://s2.example"},
+			{URL: foURLs1},
+			{URL: foURLs2},
 		},
 	}
 
@@ -31,12 +46,12 @@ func TestFailoverRoundTripper_RoundRobin_NetworkError_FailsOverToNextServer(t *t
 
 	req, err := http.NewRequest(http.MethodGet, "https://s1.example/some/path?x=1", nil)
 	if err != nil {
-		t.Fatalf("unexpected error creating request: %v", err)
+		t.Fatalf(foErrUnexpReq, err)
 	}
 
 	resp, err := rt.RoundTrip(req)
 	if err != nil {
-		t.Fatalf("expected success, got error: %v", err)
+		t.Fatalf(foErrExpSucc, err)
 	}
 	if resp == nil || resp.StatusCode != http.StatusOK {
 		t.Fatalf("expected 200 response, got %+v", resp)
@@ -45,15 +60,15 @@ func TestFailoverRoundTripper_RoundRobin_NetworkError_FailsOverToNextServer(t *t
 	if len(ft.calls) != 2 {
 		t.Fatalf("expected 2 transport calls, got %d: %+v", len(ft.calls), ft.calls)
 	}
-	if ft.calls[0] != "s1.example" {
+	if ft.calls[0] != foHostS1 {
 		t.Fatalf("expected first call to s1.example, got %q", ft.calls[0])
 	}
-	if ft.calls[1] != "s2.example" {
+	if ft.calls[1] != foHostS2 {
 		t.Fatalf("expected second call to s2.example, got %q", ft.calls[1])
 	}
 }
 
-func TestFailoverRoundTripper_RoundRobin_ConnectionReset_FailsOverToNextServer(t *testing.T) {
+func TestFailoverRoundTripperRoundRobinConnectionResetFailsOverToNextServer(t *testing.T) {
 	cfg := &Configuration{
 		Failover: &FailoverOptions{
 			Strategy:           FailoverRoundRobin,
@@ -61,34 +76,34 @@ func TestFailoverRoundTripper_RoundRobin_ConnectionReset_FailsOverToNextServer(t
 			ExponentialBackoff: zeroBackoff(),
 		},
 		Servers: ServerConfigurations{
-			{URL: "https://s1.example"},
-			{URL: "https://s2.example"},
+			{URL: foURLs1},
+			{URL: foURLs2},
 		},
 	}
 
 	calls := []string{}
 	rt := NewFailoverRoundTripper(cfg, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		calls = append(calls, r.URL.Host)
-		if r.URL.Host == "s1.example" {
+		if r.URL.Host == foHostS1 {
 			return nil, connResetError(r)
 		}
 		return &http.Response{StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header), Request: r}, nil
 	}))
 
-	req, _ := http.NewRequest(http.MethodGet, "https://s1.example/path", nil)
+	req, _ := http.NewRequest(http.MethodGet, foURLs1Path, nil)
 	resp, err := rt.RoundTrip(req)
 	if err != nil {
-		t.Fatalf("expected success, got error: %v", err)
+		t.Fatalf(foErrExpSucc, err)
 	}
 	if resp.StatusCode != http.StatusOK {
-		t.Fatalf("expected 200, got %d", resp.StatusCode)
+		t.Fatalf(foErrExp200, resp.StatusCode)
 	}
-	if len(calls) != 2 || calls[0] != "s1.example" || calls[1] != "s2.example" {
-		t.Fatalf("expected [s1.example s2.example], got %v", calls)
+	if len(calls) != 2 || calls[0] != foHostS1 || calls[1] != foHostS2 {
+		t.Fatalf(foErrExpOrder, calls)
 	}
 }
 
-func TestFailoverRoundTripper_RoundRobin_IOTimeout_FailsOverToNextServer(t *testing.T) {
+func TestFailoverRoundTripperRoundRobinIOTimeoutFailsOverToNextServer(t *testing.T) {
 	cfg := &Configuration{
 		Failover: &FailoverOptions{
 			Strategy:           FailoverRoundRobin,
@@ -96,34 +111,34 @@ func TestFailoverRoundTripper_RoundRobin_IOTimeout_FailsOverToNextServer(t *test
 			ExponentialBackoff: zeroBackoff(),
 		},
 		Servers: ServerConfigurations{
-			{URL: "https://s1.example"},
-			{URL: "https://s2.example"},
+			{URL: foURLs1},
+			{URL: foURLs2},
 		},
 	}
 
 	calls := []string{}
 	rt := NewFailoverRoundTripper(cfg, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		calls = append(calls, r.URL.Host)
-		if r.URL.Host == "s1.example" {
+		if r.URL.Host == foHostS1 {
 			return nil, ioTimeoutError(r)
 		}
 		return &http.Response{StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header), Request: r}, nil
 	}))
 
-	req, _ := http.NewRequest(http.MethodGet, "https://s1.example/path", nil)
+	req, _ := http.NewRequest(http.MethodGet, foURLs1Path, nil)
 	resp, err := rt.RoundTrip(req)
 	if err != nil {
-		t.Fatalf("expected success, got error: %v", err)
+		t.Fatalf(foErrExpSucc, err)
 	}
 	if resp.StatusCode != http.StatusOK {
-		t.Fatalf("expected 200, got %d", resp.StatusCode)
+		t.Fatalf(foErrExp200, resp.StatusCode)
 	}
-	if len(calls) != 2 || calls[0] != "s1.example" || calls[1] != "s2.example" {
-		t.Fatalf("expected [s1.example s2.example], got %v", calls)
+	if len(calls) != 2 || calls[0] != foHostS1 || calls[1] != foHostS2 {
+		t.Fatalf(foErrExpOrder, calls)
 	}
 }
 
-func TestFailoverRoundTripper_DoesNotRetry_WhenMethodNotRetryable(t *testing.T) {
+func TestFailoverRoundTripperDoesNotRetryWhenMethodNotRetryable(t *testing.T) {
 	cfg := &Configuration{
 		Failover: &FailoverOptions{
 			Strategy:           FailoverRoundRobin,
@@ -131,8 +146,8 @@ func TestFailoverRoundTripper_DoesNotRetry_WhenMethodNotRetryable(t *testing.T) 
 			ExponentialBackoff: zeroBackoff(),
 		},
 		Servers: ServerConfigurations{
-			{URL: "https://s1.example"},
-			{URL: "https://s2.example"},
+			{URL: foURLs1},
+			{URL: foURLs2},
 		},
 	}
 
@@ -140,9 +155,9 @@ func TestFailoverRoundTripper_DoesNotRetry_WhenMethodNotRetryable(t *testing.T) 
 	rt := NewFailoverRoundTripper(cfg, ft)
 
 	// POST is not retryable per config
-	req, err := http.NewRequest(http.MethodPost, "https://s1.example/some/path", io.NopCloser(bytes.NewBufferString("x")))
+	req, err := http.NewRequest(http.MethodPost, foURLs1SomePath, io.NopCloser(bytes.NewBufferString("x")))
 	if err != nil {
-		t.Fatalf("unexpected error creating request: %v", err)
+		t.Fatalf(foErrUnexpReq, err)
 	}
 	// make body replayable for completeness
 	req.GetBody = func() (io.ReadCloser, error) {
@@ -157,20 +172,20 @@ func TestFailoverRoundTripper_DoesNotRetry_WhenMethodNotRetryable(t *testing.T) 
 	if len(ft.calls) != 1 {
 		t.Fatalf("expected 1 transport call, got %d: %+v", len(ft.calls), ft.calls)
 	}
-	if ft.calls[0] != "s1.example" {
+	if ft.calls[0] != foHostS1 {
 		t.Fatalf("expected call to s1.example, got %q", ft.calls[0])
 	}
 }
 
-func TestFailoverRoundTripper_PostNotRetriedByDefault(t *testing.T) {
+func TestFailoverRoundTripperPostNotRetriedByDefault(t *testing.T) {
 	cfg := &Configuration{
 		Failover: &FailoverOptions{
 			Strategy:           FailoverRoundRobin,
 			ExponentialBackoff: zeroBackoff(),
 		},
 		Servers: ServerConfigurations{
-			{URL: "https://s1.example"},
-			{URL: "https://s2.example"},
+			{URL: foURLs1},
+			{URL: foURLs2},
 		},
 	}
 
@@ -178,9 +193,9 @@ func TestFailoverRoundTripper_PostNotRetriedByDefault(t *testing.T) {
 	rt := NewFailoverRoundTripper(cfg, ft)
 
 	body := bytes.NewBufferString("data")
-	req, err := http.NewRequest(http.MethodPost, "https://s1.example/path", io.NopCloser(body))
+	req, err := http.NewRequest(http.MethodPost, foURLs1Path, io.NopCloser(body))
 	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+		t.Fatalf(foErrUnexp, err)
 	}
 	req.GetBody = func() (io.ReadCloser, error) {
 		return io.NopCloser(bytes.NewBufferString("data")), nil
@@ -196,7 +211,7 @@ func TestFailoverRoundTripper_PostNotRetriedByDefault(t *testing.T) {
 	}
 }
 
-func TestFailoverRoundTripper_FailoverOnStatusCodes(t *testing.T) {
+func TestFailoverRoundTripperFailoverOnStatusCodes(t *testing.T) {
 	cfg := &Configuration{
 		Failover: &FailoverOptions{
 			Strategy:              FailoverRoundRobin,
@@ -204,43 +219,43 @@ func TestFailoverRoundTripper_FailoverOnStatusCodes(t *testing.T) {
 			ExponentialBackoff:    zeroBackoff(),
 		},
 		Servers: ServerConfigurations{
-			{URL: "https://s1.example"},
-			{URL: "https://s2.example"},
+			{URL: foURLs1},
+			{URL: foURLs2},
 		},
 	}
 
 	calls := []string{}
 	rt := NewFailoverRoundTripper(cfg, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		calls = append(calls, r.URL.Host)
-		if r.URL.Host == "s1.example" {
+		if r.URL.Host == foHostS1 {
 			return &http.Response{Status: "503 Service Unavailable", StatusCode: http.StatusServiceUnavailable, Body: io.NopCloser(bytes.NewBufferString("no")), Header: make(http.Header), Request: r}, nil
 		}
 		return &http.Response{Status: "200 OK", StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header), Request: r}, nil
 	}))
 
-	req, err := http.NewRequest(http.MethodGet, "https://s1.example/some/path", nil)
+	req, err := http.NewRequest(http.MethodGet, foURLs1SomePath, nil)
 	if err != nil {
-		t.Fatalf("unexpected error creating request: %v", err)
+		t.Fatalf(foErrUnexpReq, err)
 	}
 
 	resp, err := rt.RoundTrip(req)
 	if err != nil {
-		t.Fatalf("expected success, got error: %v", err)
+		t.Fatalf(foErrExpSucc, err)
 	}
 	if resp.StatusCode != http.StatusOK {
-		t.Fatalf("expected 200, got %d", resp.StatusCode)
+		t.Fatalf(foErrExp200, resp.StatusCode)
 	}
-	if len(calls) != 2 || calls[0] != "s1.example" || calls[1] != "s2.example" {
+	if len(calls) != 2 || calls[0] != foHostS1 || calls[1] != foHostS2 {
 		t.Fatalf("unexpected call order: %+v", calls)
 	}
 }
 
-func TestFailoverRoundTripper_PassThrough_WhenFailoverDisabled(t *testing.T) {
+func TestFailoverRoundTripperPassThroughWhenFailoverDisabled(t *testing.T) {
 	// Failover nil
 	cfg := &Configuration{
 		Servers: ServerConfigurations{
-			{URL: "https://s1.example"},
-			{URL: "https://s2.example"},
+			{URL: foURLs1},
+			{URL: foURLs2},
 		},
 	}
 
@@ -250,17 +265,17 @@ func TestFailoverRoundTripper_PassThrough_WhenFailoverDisabled(t *testing.T) {
 		return &http.Response{StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header), Request: r}, nil
 	}))
 
-	req, err := http.NewRequest(http.MethodGet, "https://s1.example/path", nil)
+	req, err := http.NewRequest(http.MethodGet, foURLs1Path, nil)
 	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+		t.Fatalf(foErrUnexp, err)
 	}
 
 	resp, err := rt.RoundTrip(req)
 	if err != nil {
-		t.Fatalf("expected success, got error: %v", err)
+		t.Fatalf(foErrExpSucc, err)
 	}
 	if resp.StatusCode != http.StatusOK {
-		t.Fatalf("expected 200, got %d", resp.StatusCode)
+		t.Fatalf(foErrExp200, resp.StatusCode)
 	}
 	// Should be exactly 1 call (no retry)
 	if len(calls) != 1 {
@@ -268,14 +283,14 @@ func TestFailoverRoundTripper_PassThrough_WhenFailoverDisabled(t *testing.T) {
 	}
 }
 
-func TestFailoverRoundTripper_PassThrough_SingleServer(t *testing.T) {
+func TestFailoverRoundTripperPassThroughSingleServer(t *testing.T) {
 	cfg := &Configuration{
 		Failover: &FailoverOptions{
 			Strategy:           FailoverRoundRobin,
 			ExponentialBackoff: zeroBackoff(),
 		},
 		Servers: ServerConfigurations{
-			{URL: "https://s1.example"},
+			{URL: foURLs1},
 		},
 	}
 
@@ -285,24 +300,24 @@ func TestFailoverRoundTripper_PassThrough_SingleServer(t *testing.T) {
 		return &http.Response{StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header), Request: r}, nil
 	}))
 
-	req, err := http.NewRequest(http.MethodGet, "https://s1.example/path", nil)
+	req, err := http.NewRequest(http.MethodGet, foURLs1Path, nil)
 	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+		t.Fatalf(foErrUnexp, err)
 	}
 
 	resp, err := rt.RoundTrip(req)
 	if err != nil {
-		t.Fatalf("expected success, got error: %v", err)
+		t.Fatalf(foErrExpSucc, err)
 	}
 	if resp.StatusCode != http.StatusOK {
-		t.Fatalf("expected 200, got %d", resp.StatusCode)
+		t.Fatalf(foErrExp200, resp.StatusCode)
 	}
 	if len(calls) != 1 {
 		t.Fatalf("expected 1 call (single server pass-through), got %d", len(calls))
 	}
 }
 
-func TestFailoverRoundTripper_ContextCancellation(t *testing.T) {
+func TestFailoverRoundTripperContextCancellation(t *testing.T) {
 	cfg := &Configuration{
 		Failover: &FailoverOptions{
 			Strategy:           FailoverRoundRobin,
@@ -310,12 +325,14 @@ func TestFailoverRoundTripper_ContextCancellation(t *testing.T) {
 			ExponentialBackoff: zeroBackoff(),
 		},
 		Servers: ServerConfigurations{
-			{URL: "https://s1.example"},
-			{URL: "https://s2.example"},
+			{URL: foURLs1},
+			{URL: foURLs2},
 		},
 	}
 
 	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
 	callCount := 0
 	rt := NewFailoverRoundTripper(cfg, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		callCount++
@@ -324,18 +341,18 @@ func TestFailoverRoundTripper_ContextCancellation(t *testing.T) {
 		return nil, &url.Error{Op: "Get", URL: r.URL.String(), Err: &net.OpError{Op: "dial", Net: "tcp", Err: errors.New("connection refused")}}
 	}))
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, "https://s1.example/path", nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, foURLs1Path, nil)
 	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+		t.Fatalf(foErrUnexp, err)
 	}
 
 	_, err = rt.RoundTrip(req)
 	if err == nil {
-		t.Fatalf("expected error, got nil")
+		t.Fatalf(foErrExpErr)
 	}
 }
 
-func TestFailoverRoundTripper_DNSError_NotRetried(t *testing.T) {
+func TestFailoverRoundTripperDNSErrorNotRetried(t *testing.T) {
 	cfg := &Configuration{
 		Failover: &FailoverOptions{
 			Strategy:           FailoverRoundRobin,
@@ -343,35 +360,35 @@ func TestFailoverRoundTripper_DNSError_NotRetried(t *testing.T) {
 			ExponentialBackoff: zeroBackoff(),
 		},
 		Servers: ServerConfigurations{
-			{URL: "https://s1.example"},
-			{URL: "https://s2.example"},
+			{URL: foURLs1},
+			{URL: foURLs2},
 		},
 	}
 
 	calls := []string{}
 	rt := NewFailoverRoundTripper(cfg, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		calls = append(calls, r.URL.Host)
-		if r.URL.Host == "s1.example" {
+		if r.URL.Host == foHostS1 {
 			return nil, dnsNotFoundError(r)
 		}
 		return &http.Response{StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header), Request: r}, nil
 	}))
 
-	req, err := http.NewRequest(http.MethodGet, "https://s1.example/some/path", nil)
+	req, err := http.NewRequest(http.MethodGet, foURLs1SomePath, nil)
 	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+		t.Fatalf(foErrUnexp, err)
 	}
 
 	_, err = rt.RoundTrip(req)
 	if err == nil {
-		t.Fatalf("expected error, got success")
+		t.Fatalf(foErrExpErr)
 	}
 	if len(calls) != 1 {
 		t.Fatalf("expected 1 call (no failover for DNS error), got %d: %v", len(calls), calls)
 	}
 }
 
-func TestFailoverRoundTripper_MaxRetriesExhausted(t *testing.T) {
+func TestFailoverRoundTripperMaxRetriesExhausted(t *testing.T) {
 	cfg := &Configuration{
 		Failover: &FailoverOptions{
 			Strategy:           FailoverRoundRobin,
@@ -379,8 +396,8 @@ func TestFailoverRoundTripper_MaxRetriesExhausted(t *testing.T) {
 			ExponentialBackoff: zeroBackoff(),
 		},
 		Servers: ServerConfigurations{
-			{URL: "https://s1.example"},
-			{URL: "https://s2.example"},
+			{URL: foURLs1},
+			{URL: foURLs2},
 		},
 	}
 
@@ -390,9 +407,9 @@ func TestFailoverRoundTripper_MaxRetriesExhausted(t *testing.T) {
 		return nil, &url.Error{Op: "Get", URL: r.URL.String(), Err: &net.OpError{Op: "dial", Net: "tcp", Err: errors.New("connection refused")}}
 	}))
 
-	req, err := http.NewRequest(http.MethodGet, "https://s1.example/path", nil)
+	req, err := http.NewRequest(http.MethodGet, foURLs1Path, nil)
 	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+		t.Fatalf(foErrUnexp, err)
 	}
 
 	_, err = rt.RoundTrip(req)
@@ -404,7 +421,7 @@ func TestFailoverRoundTripper_MaxRetriesExhausted(t *testing.T) {
 	}
 }
 
-func TestFailoverRoundTripper_TLSCertificateError_NotRetried(t *testing.T) {
+func TestFailoverRoundTripperTLSCertificateErrorNotRetried(t *testing.T) {
 	cfg := &Configuration{
 		Failover: &FailoverOptions{
 			Strategy:           FailoverRoundRobin,
@@ -412,31 +429,31 @@ func TestFailoverRoundTripper_TLSCertificateError_NotRetried(t *testing.T) {
 			ExponentialBackoff: zeroBackoff(),
 		},
 		Servers: ServerConfigurations{
-			{URL: "https://s1.example"},
-			{URL: "https://s2.example"},
+			{URL: foURLs1},
+			{URL: foURLs2},
 		},
 	}
 
 	calls := []string{}
 	rt := NewFailoverRoundTripper(cfg, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		calls = append(calls, r.URL.Host)
-		if r.URL.Host == "s1.example" {
+		if r.URL.Host == foHostS1 {
 			return nil, tlsCertError(r)
 		}
 		return &http.Response{StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header), Request: r}, nil
 	}))
 
-	req, _ := http.NewRequest(http.MethodGet, "https://s1.example/path", nil)
+	req, _ := http.NewRequest(http.MethodGet, foURLs1Path, nil)
 	_, err := rt.RoundTrip(req)
 	if err == nil {
-		t.Fatalf("expected error, got success")
+		t.Fatalf(foErrExpErr)
 	}
 	if len(calls) != 1 {
 		t.Fatalf("expected 1 call (no failover for TLS error), got %d: %v", len(calls), calls)
 	}
 }
 
-func TestFailoverRoundTripper_RedirectError_NotRetried(t *testing.T) {
+func TestFailoverRoundTripperRedirectErrorNotRetried(t *testing.T) {
 	cfg := &Configuration{
 		Failover: &FailoverOptions{
 			Strategy:           FailoverRoundRobin,
@@ -444,31 +461,31 @@ func TestFailoverRoundTripper_RedirectError_NotRetried(t *testing.T) {
 			ExponentialBackoff: zeroBackoff(),
 		},
 		Servers: ServerConfigurations{
-			{URL: "https://s1.example"},
-			{URL: "https://s2.example"},
+			{URL: foURLs1},
+			{URL: foURLs2},
 		},
 	}
 
 	calls := []string{}
 	rt := NewFailoverRoundTripper(cfg, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		calls = append(calls, r.URL.Host)
-		if r.URL.Host == "s1.example" {
+		if r.URL.Host == foHostS1 {
 			return nil, redirectError(r)
 		}
 		return &http.Response{StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header), Request: r}, nil
 	}))
 
-	req, _ := http.NewRequest(http.MethodGet, "https://s1.example/path", nil)
+	req, _ := http.NewRequest(http.MethodGet, foURLs1Path, nil)
 	_, err := rt.RoundTrip(req)
 	if err == nil {
-		t.Fatalf("expected error, got success")
+		t.Fatalf(foErrExpErr)
 	}
 	if len(calls) != 1 {
 		t.Fatalf("expected 1 call (no failover for redirect error), got %d: %v", len(calls), calls)
 	}
 }
 
-func TestFailoverRoundTripper_DeadlineExceeded_NotRetried_WhenRetryOnTimeoutDisabled(t *testing.T) {
+func TestFailoverRoundTripperDeadlineExceededNotRetriedWhenRetryOnTimeoutDisabled(t *testing.T) {
 	cfg := &Configuration{
 		Failover: &FailoverOptions{
 			Strategy:           FailoverRoundRobin,
@@ -477,31 +494,31 @@ func TestFailoverRoundTripper_DeadlineExceeded_NotRetried_WhenRetryOnTimeoutDisa
 			ExponentialBackoff: zeroBackoff(),
 		},
 		Servers: ServerConfigurations{
-			{URL: "https://s1.example"},
-			{URL: "https://s2.example"},
+			{URL: foURLs1},
+			{URL: foURLs2},
 		},
 	}
 
 	calls := []string{}
 	rt := NewFailoverRoundTripper(cfg, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		calls = append(calls, r.URL.Host)
-		if r.URL.Host == "s1.example" {
+		if r.URL.Host == foHostS1 {
 			return nil, deadlineExceededError(r)
 		}
 		return &http.Response{StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header), Request: r}, nil
 	}))
 
-	req, _ := http.NewRequest(http.MethodGet, "https://s1.example/path", nil)
+	req, _ := http.NewRequest(http.MethodGet, foURLs1Path, nil)
 	_, err := rt.RoundTrip(req)
 	if err == nil {
-		t.Fatalf("expected error, got success")
+		t.Fatalf(foErrExpErr)
 	}
 	if len(calls) != 1 {
 		t.Fatalf("expected 1 call (no failover when RetryOnTimeout disabled), got %d: %v", len(calls), calls)
 	}
 }
 
-func TestFailoverRoundTripper_DeadlineExceeded_Retried_WhenRetryOnTimeoutEnabled(t *testing.T) {
+func TestFailoverRoundTripperDeadlineExceededRetriedWhenRetryOnTimeoutEnabled(t *testing.T) {
 	cfg := &Configuration{
 		Failover: &FailoverOptions{
 			Strategy:           FailoverRoundRobin,
@@ -510,34 +527,34 @@ func TestFailoverRoundTripper_DeadlineExceeded_Retried_WhenRetryOnTimeoutEnabled
 			ExponentialBackoff: zeroBackoff(),
 		},
 		Servers: ServerConfigurations{
-			{URL: "https://s1.example"},
-			{URL: "https://s2.example"},
+			{URL: foURLs1},
+			{URL: foURLs2},
 		},
 	}
 
 	calls := []string{}
 	rt := NewFailoverRoundTripper(cfg, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		calls = append(calls, r.URL.Host)
-		if r.URL.Host == "s1.example" {
+		if r.URL.Host == foHostS1 {
 			return nil, deadlineExceededError(r)
 		}
 		return &http.Response{StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header), Request: r}, nil
 	}))
 
-	req, _ := http.NewRequest(http.MethodGet, "https://s1.example/path", nil)
+	req, _ := http.NewRequest(http.MethodGet, foURLs1Path, nil)
 	resp, err := rt.RoundTrip(req)
 	if err != nil {
-		t.Fatalf("expected success, got error: %v", err)
+		t.Fatalf(foErrExpSucc, err)
 	}
 	if resp.StatusCode != http.StatusOK {
-		t.Fatalf("expected 200, got %d", resp.StatusCode)
+		t.Fatalf(foErrExp200, resp.StatusCode)
 	}
-	if len(calls) != 2 || calls[0] != "s1.example" || calls[1] != "s2.example" {
-		t.Fatalf("expected [s1.example s2.example], got %v", calls)
+	if len(calls) != 2 || calls[0] != foHostS1 || calls[1] != foHostS2 {
+		t.Fatalf(foErrExpOrder, calls)
 	}
 }
 
-func TestFailoverRoundTripper_DNSTemporary_NotRetried(t *testing.T) {
+func TestFailoverRoundTripperDNSTemporaryNotRetried(t *testing.T) {
 	cfg := &Configuration{
 		Failover: &FailoverOptions{
 			Strategy:           FailoverRoundRobin,
@@ -545,31 +562,31 @@ func TestFailoverRoundTripper_DNSTemporary_NotRetried(t *testing.T) {
 			ExponentialBackoff: zeroBackoff(),
 		},
 		Servers: ServerConfigurations{
-			{URL: "https://s1.example"},
-			{URL: "https://s2.example"},
+			{URL: foURLs1},
+			{URL: foURLs2},
 		},
 	}
 
 	calls := []string{}
 	rt := NewFailoverRoundTripper(cfg, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		calls = append(calls, r.URL.Host)
-		if r.URL.Host == "s1.example" {
+		if r.URL.Host == foHostS1 {
 			return nil, dnsTemporaryError(r)
 		}
 		return &http.Response{StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header), Request: r}, nil
 	}))
 
-	req, _ := http.NewRequest(http.MethodGet, "https://s1.example/path", nil)
+	req, _ := http.NewRequest(http.MethodGet, foURLs1Path, nil)
 	_, err := rt.RoundTrip(req)
 	if err == nil {
-		t.Fatalf("expected error, got success")
+		t.Fatalf(foErrExpErr)
 	}
 	if len(calls) != 1 {
 		t.Fatalf("expected 1 call (DNS errors are never retried), got %d: %v", len(calls), calls)
 	}
 }
 
-func TestFailoverRoundTripper_ContextCanceled_NotRetried(t *testing.T) {
+func TestFailoverRoundTripperContextCanceledNotRetried(t *testing.T) {
 	cfg := &Configuration{
 		Failover: &FailoverOptions{
 			Strategy:           FailoverRoundRobin,
@@ -577,24 +594,24 @@ func TestFailoverRoundTripper_ContextCanceled_NotRetried(t *testing.T) {
 			ExponentialBackoff: zeroBackoff(),
 		},
 		Servers: ServerConfigurations{
-			{URL: "https://s1.example"},
-			{URL: "https://s2.example"},
+			{URL: foURLs1},
+			{URL: foURLs2},
 		},
 	}
 
 	calls := []string{}
 	rt := NewFailoverRoundTripper(cfg, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		calls = append(calls, r.URL.Host)
-		if r.URL.Host == "s1.example" {
+		if r.URL.Host == foHostS1 {
 			return nil, context.Canceled
 		}
 		return &http.Response{StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header), Request: r}, nil
 	}))
 
-	req, _ := http.NewRequest(http.MethodGet, "https://s1.example/path", nil)
+	req, _ := http.NewRequest(http.MethodGet, foURLs1Path, nil)
 	_, err := rt.RoundTrip(req)
 	if err == nil {
-		t.Fatalf("expected error, got success")
+		t.Fatalf(foErrExpErr)
 	}
 	if !errors.Is(err, context.Canceled) {
 		t.Fatalf("expected context.Canceled, got: %v", err)
@@ -603,4 +620,3 @@ func TestFailoverRoundTripper_ContextCanceled_NotRetried(t *testing.T) {
 		t.Fatalf("expected 1 call (context cancellation is never retried), got %d: %v", len(calls), calls)
 	}
 }
-
