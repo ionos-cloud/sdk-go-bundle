@@ -569,3 +569,38 @@ func TestFailoverRoundTripper_DNSTemporary_NotRetried(t *testing.T) {
 	}
 }
 
+func TestFailoverRoundTripper_ContextCanceled_NotRetried(t *testing.T) {
+	cfg := &Configuration{
+		Failover: &FailoverOptions{
+			Strategy:           FailoverRoundRobin,
+			MaxRetries:         10,
+			ExponentialBackoff: zeroBackoff(),
+		},
+		Servers: ServerConfigurations{
+			{URL: "https://s1.example"},
+			{URL: "https://s2.example"},
+		},
+	}
+
+	calls := []string{}
+	rt := NewFailoverRoundTripper(cfg, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
+		calls = append(calls, r.URL.Host)
+		if r.URL.Host == "s1.example" {
+			return nil, context.Canceled
+		}
+		return &http.Response{StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header), Request: r}, nil
+	}))
+
+	req, _ := http.NewRequest(http.MethodGet, "https://s1.example/path", nil)
+	_, err := rt.RoundTrip(req)
+	if err == nil {
+		t.Fatalf("expected error, got success")
+	}
+	if !errors.Is(err, context.Canceled) {
+		t.Fatalf("expected context.Canceled, got: %v", err)
+	}
+	if len(calls) != 1 {
+		t.Fatalf("expected 1 call (context cancellation is never retried), got %d: %v", len(calls), calls)
+	}
+}
+

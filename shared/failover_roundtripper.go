@@ -30,8 +30,8 @@ import (
 //   - If the request carries a body, the request must have GetBody set (the SDK
 //     generates requests in a way that supports this).
 //   - For non-idempotent requests (POST, PATCH, etc.), enabling failover on
-//     timeouts can produce duplicates. This wrapper currently treats context
-//     deadline/canceled as retryable network errors, so use with care.
+//     timeouts can produce duplicates when RetryOnTimeout is set. Context
+//     cancellation always stops retries immediately.
 //
 // The request URL is rewritten by swapping scheme/host with each server URL,
 // preserving path and query.
@@ -57,8 +57,8 @@ func NewFailoverRoundTripper(cfg *Configuration, base http.RoundTripper) http.Ro
 // dispatches to a strategy-specific method based on the configured
 // FailoverStrategy:
 //
-//   - FailoverRoundRobin (with >1 server): delegates to orderedRoundTrip,
-//     which cycles through servers sequentially.
+//   - FailoverRoundRobin: delegates to orderedRoundTrip, which cycles through
+//     servers sequentially.
 //   - FailoverNone / empty / unknown: passes through to the base
 //     transport with no retry logic.
 //
@@ -110,8 +110,8 @@ func (t *FailoverRoundTripper) RoundTrip(req *http.Request) (*http.Response, err
 //     base transport without retry.
 //   - Network errors (connection refused, reset, etc.): retries with
 //     exponential backoff, cycling to the next server via order. DNS errors
-//     are never retried. Timeout errors are only retried when
-//     FailoverOptions.RetryOnTimeout is set.
+//     and context cancellation are never retried. Timeout errors are only
+//     retried when FailoverOptions.RetryOnTimeout is set.
 //   - Status codes in FailoverOnStatusCodes: drains the response body and
 //     retries against the next server. Response headers (e.g. Retry-After) are
 //     not inspected at this layer.
@@ -259,7 +259,14 @@ func isNetworkErrorRT(ctx context.Context, err error, retryOnTimeout bool) bool 
 		return false
 	}
 
-	// 4. Handle bare timeout errors if enabled.
+	// 4. Handle context cancellation as non-retriable. This is a safety measure
+	// to prevent failover retries from continuing indefinitely after the caller has
+	// given up.
+	if ctx != nil && errors.Is(err, context.Canceled) {
+		return false
+	}
+
+	// 5. Handle bare timeout errors if enabled.
 	if retryOnTimeout && ctx != nil {
 		if errors.Is(err, context.DeadlineExceeded) {
 			return true
