@@ -8,12 +8,10 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"io"
 	"net"
 	"net/http"
 	"net/url"
 	"strings"
-	"time"
 )
 
 // FailoverRoundTripper is an http.RoundTripper wrapper that retries the request
@@ -32,8 +30,8 @@ import (
 //   - If the request carries a body, the request must have GetBody set (the SDK
 //     generates requests in a way that supports this).
 //   - For non-idempotent requests (POST, PATCH, etc.), enabling failover on
-//     timeouts can produce duplicates. This wrapper currently treats context
-//     deadline/canceled as retryable network errors, so use with care.
+//     timeouts can produce duplicates when RetryOnTimeout is set. Context
+//     cancellation always stops retries immediately.
 //
 // The request URL is rewritten by swapping scheme/host with each server URL,
 // preserving path and query.
@@ -42,8 +40,9 @@ type FailoverRoundTripper struct {
 	base http.RoundTripper
 }
 
-// NewFailoverRoundTripper creates a new FailoverRoundTripper.
-// If opts is nil, it will fall back to cfg.Failover.
+// NewFailoverRoundTripper wraps base in a FailoverRoundTripper controlled by
+// cfg. When failover is inactive (nil config/Failover or strategy
+// "none"/empty), RoundTrip passes through to base with no retry overhead.
 func NewFailoverRoundTripper(cfg *Configuration, base http.RoundTripper) http.RoundTripper {
 	if base == nil {
 		base = http.DefaultTransport
@@ -54,25 +53,21 @@ func NewFailoverRoundTripper(cfg *Configuration, base http.RoundTripper) http.Ro
 	}
 }
 
-// RoundTrip implements http.RoundTripper with failover logic based on the
-// configured strategy and servers.
+// RoundTrip implements http.RoundTripper. It validates preconditions and
+// dispatches to a strategy-specific method based on the configured
+// FailoverStrategy:
+//
+//   - FailoverRoundRobin: delegates to orderedRoundTrip, which cycles through
+//     servers sequentially.
+//   - FailoverNone / empty / unknown: passes through to the base
+//     transport with no retry logic.
+//
+// New strategies extend the switch in this method — each case builds its own
+// server-selection function (or calls an entirely different method).
 //
 // This method is called by HTTPClient.Do() inside product-level callAPI. Each
 // callAPI retry triggers a fresh RoundTrip invocation that cycles through all
 // servers from the beginning.
-//
-// When the strategy is FailoverNone/empty, or there is only one server, the
-// call passes through to the base transport with no retry logic.
-//
-// With an active multi-server strategy (e.g. FailoverRoundRobin):
-//   - Network errors: retries with exponential backoff, cycling to the next
-//     server.
-//   - Status codes in FailoverOnStatusCodes: drains the response body and
-//     cycles to the next server. Response headers (e.g. Retry-After) are not
-//     inspected.
-//   - If all attempts are exhausted, returns an error (not an HTTP response).
-//     This means callAPI receives err != nil and returns immediately — its own
-//     status-code-based retry logic (for 502/503/504/429) is never reached.
 func (t *FailoverRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
 	if req == nil {
 		return nil, errors.New("nil request")
@@ -94,19 +89,46 @@ func (t *FailoverRoundTripper) RoundTrip(req *http.Request) (*http.Response, err
 		return t.base.RoundTrip(req)
 	}
 
-	bo := fo.ExponentialBackoff.NewExponentialBackoff()
-
 	servers := t.cfg.Servers
-	order := serverOrderFor(fo.Strategy, len(servers))
-	if order == nil {
-		// Unknown or disabled strategy => pass through.
+	numServers := len(servers)
+
+	switch normalizeStrategy(fo.Strategy) {
+	case normalizeStrategy(FailoverRoundRobin):
+		order := func(attempt int) int { return attempt % numServers }
+		return t.orderedRoundTrip(req, fo, servers, order)
+	default: // FailoverNone, "", or unknown
 		return t.base.RoundTrip(req)
 	}
+}
 
-	// Check if method is allowed for failover retries.
+// orderedRoundTrip is the shared retry loop for strategies that pick servers
+// deterministically by attempt index. The order function maps each attempt
+// (0, 1, 2, …) to a server index.
+//
+// Behaviour:
+//   - Non-retryable HTTP methods (e.g. POST by default): passes through to the
+//     base transport without retry.
+//   - Network errors (connection refused, reset, etc.): retries with
+//     exponential backoff, cycling to the next server via order. DNS errors
+//     and context cancellation are never retried. Timeout errors are only
+//     retried when FailoverOptions.RetryOnTimeout is set.
+//   - Status codes in FailoverOnStatusCodes: drains the response body and
+//     retries against the next server. Response headers (e.g. Retry-After) are
+//     not inspected at this layer.
+//   - All attempts exhausted: returns an error (not an HTTP response). This
+//     means callAPI receives err != nil and returns immediately — its own
+//     status-code-based retry logic (for 502/503/504/429) is never reached.
+func (t *FailoverRoundTripper) orderedRoundTrip(
+	req *http.Request,
+	fo *FailoverOptions,
+	servers ServerConfigurations,
+	order serverOrder,
+) (*http.Response, error) {
 	if !isRetryableMethod(fo, req.Method) {
 		return t.base.RoundTrip(req)
 	}
+
+	bo := fo.ExponentialBackoff.NewExponentialBackoff()
 
 	maxRetries := fo.MaxRetries
 	if maxRetries == 0 {
@@ -145,7 +167,7 @@ func (t *FailoverRoundTripper) RoundTrip(req *http.Request) (*http.Response, err
 				SdkLogger.Printf("[Failover] network error: %v; trying next server", err)
 			}
 
-			backoff(attemptReq.Context(), bo.NextBackOff())
+			backOff(attemptReq.Context(), bo.NextBackOff())
 			continue
 		}
 
@@ -157,10 +179,8 @@ func (t *FailoverRoundTripper) RoundTrip(req *http.Request) (*http.Response, err
 			SdkLogger.Printf("[Failover] status=%d triggers failover to next server", resp.StatusCode)
 		}
 		// Drain/close body to allow connection reuse.
-		if resp.Body != nil {
-			_, _ = io.Copy(io.Discard, resp.Body)
-			_ = resp.Body.Close()
-		}
+		drainBody(resp)
+		backOff(attemptReq.Context(), bo.NextBackOff())
 		lastErr = fmt.Errorf("failover status: %s", resp.Status)
 	}
 
@@ -213,16 +233,20 @@ func isNetworkErrorRT(ctx context.Context, err error, retryOnTimeout bool) bool 
 		return false
 	}
 
-	// 1. Check for other transport-level errors (connection refused, reset, etc).
+	// 1. DNS errors are non-retriable — hostname resolution failures
+	// do not benefit from failover to a different server.
+	var dnsErr *net.DNSError
+	if errors.As(err, &dnsErr) {
+		return false
+	}
+
+	// 2. Check for transport-level errors (connection refused, reset, etc).
 	var opErr *net.OpError
 	if errors.As(err, &opErr) {
 		return true
 	}
 
-	// 2. Handle url.Error cases not already caught by the typed checks above.
-	// The string-based checks are intentionally omitted: "no such host" and
-	// "connection refused" are always carried by net.DNSError / net.OpError
-	// respectively, so errors.As in block 1 already handles them.
+	// 3. Handle url.Error cases not already caught by the typed checks above.
 	// The only remaining retryable case here is DeadlineExceeded (subject to
 	// the retryOnTimeout flag). All other url.Error variants – TLS certificate
 	// failures, redirect-limit-exceeded, protocol mismatches – are non-transient
@@ -235,7 +259,14 @@ func isNetworkErrorRT(ctx context.Context, err error, retryOnTimeout bool) bool 
 		return false
 	}
 
-	// 3. Handle bare timeout errors if enabled.
+	// 4. Handle context cancellation as non-retriable. This is a safety measure
+	// to prevent failover retries from continuing indefinitely after the caller has
+	// given up.
+	if ctx != nil && errors.Is(err, context.Canceled) {
+		return false
+	}
+
+	// 5. Handle bare timeout errors if enabled.
 	if retryOnTimeout && ctx != nil {
 		if errors.Is(err, context.DeadlineExceeded) {
 			return true
@@ -243,17 +274,6 @@ func isNetworkErrorRT(ctx context.Context, err error, retryOnTimeout bool) bool 
 	}
 
 	return false
-}
-
-func backoff(ctx context.Context, t time.Duration) {
-	if ctx == nil {
-		time.Sleep(t)
-		return
-	}
-	select {
-	case <-time.After(t):
-	case <-ctx.Done():
-	}
 }
 
 func shouldFailoverOnStatus(fo *FailoverOptions, statusCode int) bool {
@@ -272,18 +292,8 @@ func shouldFailoverOnStatus(fo *FailoverOptions, statusCode int) bool {
 // Different strategies produce different orderings.
 type serverOrder func(attempt int) int
 
-// serverOrderFor returns a serverOrder for the given strategy, or nil when
-// failover should not be applied (unknown/disabled strategy, ≤1 server).
-func serverOrderFor(strategy FailoverStrategy, numServers int) serverOrder {
-	s := strings.TrimSpace(strings.ToLower(string(strategy)))
-	if s == "" || s == string(FailoverNone) || numServers <= 1 {
-		return nil
-	}
-	switch s {
-	case strings.ToLower(string(FailoverRoundRobin)):
-		// Sequential: 0, 1, 2, …
-		return func(attempt int) int { return attempt % numServers }
-	default:
-		return nil
-	}
+// normalizeStrategy returns the strategy in lower-case with surrounding
+// whitespace removed, so comparisons are case-insensitive.
+func normalizeStrategy(s FailoverStrategy) FailoverStrategy {
+	return FailoverStrategy(strings.TrimSpace(strings.ToLower(string(s))))
 }

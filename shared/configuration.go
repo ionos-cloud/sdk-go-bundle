@@ -188,7 +188,6 @@ type FailoverOptions struct {
 }
 
 // ExponentialBackoffOptions controls the backoff parameters for exponential backoff.
-// It is nested under Configuration so it can be grouped cleanly in JSON/YAML.
 // By configuring Multiplier and RandomizationFactor, it is possible to achieve a constant backoff or a linear backoff as well.
 type ExponentialBackoffOptions struct {
 	// InitialInterval is the initial interval between retries. If zero, it defaults to 500ms.
@@ -202,6 +201,33 @@ type ExponentialBackoffOptions struct {
 
 	// RandomizationFactor is the factor used to randomize the backoff intervals. If nil, it defaults to 0.5.
 	RandomizationFactor *float64 `json:"randomizationFactor,omitempty" yaml:"randomizationFactor,omitempty"`
+}
+
+// NewExponentialBackoff creates a new exponential backoff instance configured
+// with the options in b. If b is nil, defaults from cenkalti/backoff are used.
+func (b *ExponentialBackoffOptions) NewExponentialBackoff() boff.BackOff {
+	bo := boff.NewExponentialBackOff()
+	if b == nil {
+		return bo
+	}
+
+	if b.InitialInterval != 0 {
+		bo.InitialInterval = b.InitialInterval
+	}
+
+	if b.MaxInterval != 0 {
+		bo.MaxInterval = b.MaxInterval
+	}
+
+	if b.Multiplier != nil {
+		bo.Multiplier = *b.Multiplier
+	}
+
+	if b.RandomizationFactor != nil {
+		bo.RandomizationFactor = *b.RandomizationFactor
+	}
+
+	return bo
 }
 
 // Configuration stores the configuration of the API client
@@ -227,31 +253,6 @@ type Configuration struct {
 	ResponseMiddleware  ResponseMiddlewareFunction  `json:"-"`
 
 	Failover *FailoverOptions `json:"failover,omitempty"`
-}
-
-func (b *ExponentialBackoffOptions) NewExponentialBackoff() boff.BackOff {
-	bo := boff.NewExponentialBackOff()
-	if b == nil {
-		return bo
-	}
-
-	if b.InitialInterval != 0 {
-		bo.InitialInterval = b.InitialInterval
-	}
-
-	if b.MaxInterval != 0 {
-		bo.MaxInterval = b.MaxInterval
-	}
-
-	if b.Multiplier != nil {
-		bo.Multiplier = *b.Multiplier
-	}
-
-	if b.RandomizationFactor != nil {
-		bo.RandomizationFactor = *b.RandomizationFactor
-	}
-
-	return bo
 }
 
 // NewConfiguration returns a new shared.Configuration object.
