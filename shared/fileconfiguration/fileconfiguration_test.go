@@ -272,7 +272,7 @@ func TestGetLocationOverridesWithGlobalFallback_LocationNotFound_GlobalFallback(
 	assert.Equal(t, "", ep.Location)
 }
 
-func TestFailoverOptions_DeserializedFromYAML(t *testing.T) {
+func TestFailoverOptionsDeserializedFromYAML(t *testing.T) {
 	tempFile, err := os.CreateTemp("", "config-failover-*.yaml")
 	assert.NoError(t, err)
 	defer os.Remove(tempFile.Name())
@@ -311,7 +311,7 @@ failover:
 	assert.Equal(t, []int{502, 503}, cfg.Failover.FailoverOnStatusCodes)
 }
 
-func TestFailoverOptions_NilWhenNotInFile(t *testing.T) {
+func TestFailoverOptionsNilWhenNotInFile(t *testing.T) {
 	tempFile, err := os.CreateTemp("", "config-no-failover-*.yaml")
 	assert.NoError(t, err)
 	defer os.Remove(tempFile.Name())
@@ -362,14 +362,14 @@ func TestApplyFailoverToConfiguration(t *testing.T) {
 	assert.Equal(t, "GET", fileCfg.Failover.RetryableMethods[0])
 }
 
-func TestApplyFailoverToConfiguration_NilFailover(t *testing.T) {
+func TestApplyFailoverToConfigurationNilFailover(t *testing.T) {
 	fileCfg := &FileConfig{}
 	runtimeCfg := &shared.Configuration{}
 	fileCfg.ApplyFailoverToConfiguration(runtimeCfg)
 	assert.Nil(t, runtimeCfg.Failover)
 }
 
-func TestApplyFailoverToConfiguration_NilFileConfig(t *testing.T) {
+func TestApplyFailoverToConfigurationNilFileConfig(t *testing.T) {
 	var fileCfg *FileConfig
 	runtimeCfg := &shared.Configuration{}
 	fileCfg.ApplyFailoverToConfiguration(runtimeCfg)

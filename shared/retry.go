@@ -46,53 +46,23 @@ func DoWithApplicationRetry(
 	var err error
 
 	for attempt := range cfg.MaxRetries {
-		// We need to clone the request with every retry because Body closes after the request.
-		clonedRequest, cloneErr := cloneRequestForRetry(request)
-		if cloneErr != nil {
-			return nil, httpRequestTime, cloneErr
-		}
-
-		logRequest(request, attempt+1)
-
-		httpRequestStartTime := time.Now()
-		clonedRequest.Close = true
-		resp, err = cfg.HTTPClient.Do(clonedRequest)
-		httpRequestTime = time.Since(httpRequestStartTime)
+		resp, httpRequestTime, err = doRetryAttempt(cfg, request)
 		if err != nil {
 			return resp, httpRequestTime, err
 		}
 
 		logResponse(resp)
 
-		var backoffTime time.Duration
-
-		switch resp.StatusCode {
-		case http.StatusServiceUnavailable,
-			http.StatusGatewayTimeout,
-			http.StatusBadGateway:
-			if request.Method == http.MethodPost {
-				return resp, httpRequestTime, err
-			}
-			backoffTime = cfg.WaitTime
-
-		case http.StatusTooManyRequests:
-			if retryAfterSeconds := resp.Header.Get("Retry-After"); retryAfterSeconds != "" {
-				retryWait, parseErr := time.ParseDuration(retryAfterSeconds + "s")
-				if parseErr != nil {
-					return resp, httpRequestTime, parseErr
-				}
-				backoffTime = retryWait
-			} else {
-				backoffTime = cfg.WaitTime
-			}
-		default:
+		backoffTime, retryErr := retryBackoff(resp, request.Method, cfg.WaitTime)
+		if retryErr != nil {
+			return resp, httpRequestTime, retryErr
+		}
+		if backoffTime < 0 {
 			return resp, httpRequestTime, err
 		}
 
 		if attempt == cfg.MaxRetries-1 {
-			if SdkLogLevel.Satisfies(Debug) {
-				SdkLogger.Printf(" Number of maximum retries exceeded (%d retries)\n", cfg.MaxRetries)
-			}
+			LogDebug(" Number of maximum retries exceeded (%d retries)\n", cfg.MaxRetries)
 			return resp, httpRequestTime, err
 		}
 
@@ -106,6 +76,60 @@ func DoWithApplicationRetry(
 	}
 
 	return resp, httpRequestTime, err
+}
+
+// doRetryAttempt clones the request, executes it, and returns the response.
+func doRetryAttempt(cfg *Configuration, request *http.Request) (*http.Response, time.Duration, error) {
+	clonedRequest, cloneErr := cloneRequestForRetry(request)
+	if cloneErr != nil {
+		return nil, 0, cloneErr
+	}
+
+	logRequest(request, 0)
+
+	httpRequestStartTime := time.Now()
+	clonedRequest.Close = true
+	resp, err := cfg.HTTPClient.Do(clonedRequest)
+	httpRequestTime := time.Since(httpRequestStartTime)
+
+	return resp, httpRequestTime, err
+}
+
+// retryBackoff determines the backoff duration based on the response status
+// code. It returns a negative duration if the request should not be retried,
+// or a non-nil error if parsing the Retry-After header fails on 429 responses.
+func retryBackoff(resp *http.Response, method string, waitTime time.Duration) (time.Duration, error) {
+	switch resp.StatusCode {
+	case http.StatusServiceUnavailable,
+		http.StatusGatewayTimeout,
+		http.StatusBadGateway:
+		if method == http.MethodPost {
+			return -1, nil
+		}
+		return waitTime, nil
+
+	case http.StatusTooManyRequests:
+		return parseTooManyRequestsBackoff(resp, waitTime)
+
+	default:
+		return -1, nil
+	}
+}
+
+// parseTooManyRequestsBackoff reads the Retry-After header to determine
+// the backoff duration, falling back to waitTime if the header is absent.
+func parseTooManyRequestsBackoff(resp *http.Response, waitTime time.Duration) (time.Duration, error) {
+	retryAfterSeconds := resp.Header.Get("Retry-After")
+	if retryAfterSeconds == "" {
+		return waitTime, nil
+	}
+
+	retryWait, parseErr := time.ParseDuration(retryAfterSeconds + "s")
+	if parseErr != nil {
+		return -1, parseErr
+	}
+
+	return retryWait, nil
 }
 
 // drainBody discards and closes the response body so the underlying
@@ -137,11 +161,14 @@ func logRequest(request *http.Request, retryCount int) {
 }
 
 // logResponse dumps the server response at Debug level.
+// The response body is only included at Trace level to avoid leaking
+// sensitive data.
 func logResponse(resp *http.Response) {
 	if !SdkLogLevel.Satisfies(Debug) {
 		return
 	}
-	dump, err := httputil.DumpResponse(resp, true)
+	dumpBody := SdkLogLevel.Satisfies(Trace)
+	dump, err := httputil.DumpResponse(resp, dumpBody)
 	if err == nil {
 		SdkLogger.Printf("\n DumpResponse : %s\n", string(dump))
 	} else {
@@ -151,9 +178,7 @@ func logResponse(resp *http.Response) {
 
 // backOff sleeps for the given duration and respects context cancellation.
 func backOff(ctx context.Context, t time.Duration) {
-	if SdkLogLevel.Satisfies(Debug) {
-		SdkLogger.Printf(" Sleeping %s before retrying request\n", t.String())
-	}
+	LogDebug(" Sleeping %s before retrying request\n", t.String())
 	if t <= 0 {
 		return
 	}

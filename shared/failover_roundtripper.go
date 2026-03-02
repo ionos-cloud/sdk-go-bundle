@@ -59,8 +59,9 @@ func NewFailoverRoundTripper(cfg *Configuration, base http.RoundTripper) http.Ro
 //
 //   - FailoverRoundRobin: delegates to orderedRoundTrip, which cycles through
 //     servers sequentially.
-//   - FailoverNone / empty / unknown: passes through to the base
+//   - FailoverNone / empty: passes through to the base
 //     transport with no retry logic.
+//   - Unknown strategy: returns an error immediately (configuration error).
 //
 // New strategies extend the switch in this method — each case builds its own
 // server-selection function (or calls an entirely different method).
@@ -96,8 +97,10 @@ func (t *FailoverRoundTripper) RoundTrip(req *http.Request) (*http.Response, err
 	case normalizeStrategy(FailoverRoundRobin):
 		order := func(attempt int) int { return attempt % numServers }
 		return t.orderedRoundTrip(req, fo, servers, order)
-	default: // FailoverNone, "", or unknown
+	case FailoverNone, "": // Explicit "none" or empty strategy disables failover and passes through to base.
 		return t.base.RoundTrip(req)
+	default: // unknown strategy is a configuration error that we surface immediately.
+		return nil, fmt.Errorf("unknown failover strategy: %s", fo.Strategy)
 	}
 }
 
@@ -136,55 +139,58 @@ func (t *FailoverRoundTripper) orderedRoundTrip(
 	}
 	var lastErr error
 	for attempt := range maxRetries {
-		serverURL := servers[order(attempt)].URL
+		serverIndex := order(attempt)
+		serverURL := servers[serverIndex].URL
 
-		targetURL, err := url.Parse(serverURL)
+		LogDebug("[Failover] attempt=%d, serverIndex=%d, serverURL=%d, method=%s", attempt, serverIndex, serverURL, req.Method)
+
+		resp, err := t.doFailoverAttempt(req, serverURL, fo.RetryOnTimeout)
 		if err != nil {
-			return nil, fmt.Errorf("invalid server URL at Servers[%d]=%q: %w", order(attempt), serverURL, err)
-		}
-
-		attemptReq, err := cloneRequestForRetry(req)
-		if err != nil {
-			return nil, err
-		}
-
-		attemptReq.URL.Scheme = targetURL.Scheme
-		attemptReq.URL.Host = targetURL.Host
-		attemptReq.Host = targetURL.Host
-
-		if SdkLogLevel.Satisfies(Debug) {
-			SdkLogger.Printf("[Failover] attempt=%d method=%s url=%s", attempt+1, attemptReq.Method, attemptReq.URL.String())
-		}
-
-		resp, err := t.base.RoundTrip(attemptReq)
-		if err != nil {
-			lastErr = err
-			retryable := isNetworkErrorRT(attemptReq.Context(), err, fo.RetryOnTimeout)
-			if !retryable {
+			if !isNetworkErrorRT(req.Context(), err, fo.RetryOnTimeout) {
+				LogDebug("[Failover] attempt=%d failed with non-retriable error on Servers[%d]: %v", attempt, serverIndex, err)
 				return nil, err
 			}
-			if SdkLogLevel.Satisfies(Debug) {
-				SdkLogger.Printf("[Failover] network error: %v; trying next server", err)
-			}
 
-			backOff(attemptReq.Context(), bo.NextBackOff())
+			LogDebug("[Failover] attempt=%d failed with retriable error on Servers[%d]: %v", attempt, serverIndex, err)
+
+			lastErr = err
+			backOff(req.Context(), bo.NextBackOff())
 			continue
 		}
 
 		if !shouldFailoverOnStatus(fo, resp.StatusCode) {
+			LogDebug("[Failover] attempt=%d ends failover loop with status=%d on Servers[%d]=%s", attempt, resp.StatusCode, serverIndex, serverURL)
 			return resp, nil
 		}
 
-		if SdkLogLevel.Satisfies(Debug) {
-			SdkLogger.Printf("[Failover] status=%d triggers failover to next server", resp.StatusCode)
-		}
-		// Drain/close body to allow connection reuse.
+		LogDebug("[Failover] attempt=%d, status=%d triggers failover to next server", attempt, resp.StatusCode)
 		drainBody(resp)
-		backOff(attemptReq.Context(), bo.NextBackOff())
+		backOff(req.Context(), bo.NextBackOff())
 		lastErr = fmt.Errorf("failover status: %s", resp.Status)
 	}
 
 	return nil, lastErr
+}
+
+// doFailoverAttempt prepares and executes a single failover attempt against
+// the given server URL.
+func (t *FailoverRoundTripper) doFailoverAttempt(req *http.Request, serverURL string, retryOnTimeout bool) (*http.Response, error) {
+	targetURL, err := url.Parse(serverURL)
+	if err != nil {
+		return nil, fmt.Errorf("invalid server URL %q: %w", serverURL, err)
+	}
+
+	attemptReq, err := cloneRequestForRetry(req)
+	if err != nil {
+		return nil, fmt.Errorf("failed to clone request for retry: %w", err)
+	}
+
+	attemptReq.URL.Scheme = targetURL.Scheme
+	attemptReq.URL.Host = targetURL.Host
+	attemptReq.Host = targetURL.Host
+
+	LogDebug("[Failover] url=%s", attemptReq.Method, attemptReq.URL.String())
+	return t.base.RoundTrip(attemptReq)
 }
 
 func cloneRequestForRetry(req *http.Request) (*http.Request, error) {
