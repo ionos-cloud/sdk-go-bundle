@@ -197,9 +197,12 @@ func NewAPIClient(cfg *shared.Configuration) *APIClient {
 	}
 
 	// Wrap transport with failover, if configured.
-	// This keeps behaviour unchanged when FailoverStrategy is ""/"none".
-	if cfgCopy.HTTPClient != nil {
-		cfgCopy.HTTPClient.Transport = shared.NewFailoverRoundTripper(cfgCopy, cfgCopy.HTTPClient.Transport)
+	if cfgCopy.HTTPClient != nil && cfgCopy.Failover != nil {
+		serverURLs := make([]string, len(cfgCopy.Servers))
+		for i, s := range cfgCopy.Servers {
+			serverURLs[i] = s.URL
+		}
+		cfgCopy.HTTPClient.Transport = shared.NewFailoverRoundTripper(serverURLs, *cfgCopy.Failover, cfgCopy.HTTPClient.Transport)
 	}
 
 	// Create and initialize the API client
@@ -481,7 +484,7 @@ func parameterAddToHeaderOrQuery(headerOrQueryParams interface{}, keyPrefix stri
 
 // callAPI do the request.
 func (c *APIClient) callAPI(request *http.Request) (*http.Response, time.Duration, error) {
-	return shared.DoWithApplicationRetry(c.cfg,request)
+	return shared.DoWithApplicationRetry(c.cfg, request)
 }
 
 // Allow modification of underlying config for alternate implementations and testing

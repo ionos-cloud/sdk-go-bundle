@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	retryTestURL      = "https://api.example.com/test"
+	retryTestURL       = "https://api.example.com/test"
 	retryErrUnexpected = "unexpected error: %v"
 	retryErrStatus     = "expected 200, got %d"
 	retryErrCalls      = "expected %d calls, got %d"
@@ -308,7 +308,7 @@ func TestDoWithApplicationRetryFailoverHandlesNetworkError(t *testing.T) {
 			{URL: retryURLs2},
 		},
 	}
-	cfg.HTTPClient = &http.Client{Transport: NewFailoverRoundTripper(cfg, base)}
+	cfg.HTTPClient = &http.Client{Transport: NewFailoverRoundTripper([]string{retryURLs1, retryURLs2}, *cfg.Failover, base)}
 
 	req, _ := http.NewRequest(http.MethodGet, retryURLs1Path, nil)
 	resp, _, err := DoWithApplicationRetry(cfg, req)
@@ -348,7 +348,7 @@ func TestDoWithApplicationRetryFailoverHandlesStatusCode(t *testing.T) {
 			{URL: retryURLs2},
 		},
 	}
-	cfg.HTTPClient = &http.Client{Transport: NewFailoverRoundTripper(cfg, base)}
+	cfg.HTTPClient = &http.Client{Transport: NewFailoverRoundTripper([]string{retryURLs1, retryURLs2}, *cfg.Failover, base)}
 
 	req, _ := http.NewRequest(http.MethodGet, retryURLs1Path, nil)
 	resp, _, err := DoWithApplicationRetry(cfg, req)
@@ -384,7 +384,7 @@ func TestDoWithApplicationRetryFailoverExhaustedReturnsError(t *testing.T) {
 			{URL: retryURLs2},
 		},
 	}
-	cfg.HTTPClient = &http.Client{Transport: NewFailoverRoundTripper(cfg, base)}
+	cfg.HTTPClient = &http.Client{Transport: NewFailoverRoundTripper([]string{retryURLs1, retryURLs2}, *cfg.Failover, base)}
 
 	req, _ := http.NewRequest(http.MethodGet, retryURLs1Path, nil)
 	_, _, err := DoWithApplicationRetry(cfg, req)
@@ -422,7 +422,7 @@ func TestDoWithApplicationRetryNonFailoverStatusCodePassesToAppRetry(t *testing.
 			{URL: retryURLs2},
 		},
 	}
-	cfg.HTTPClient = &http.Client{Transport: NewFailoverRoundTripper(cfg, base)}
+	cfg.HTTPClient = &http.Client{Transport: NewFailoverRoundTripper([]string{retryURLs1, retryURLs2}, *cfg.Failover, base)}
 
 	req, _ := http.NewRequest(http.MethodGet, retryURLs1Path, nil)
 	resp, _, err := DoWithApplicationRetry(cfg, req)
@@ -468,7 +468,7 @@ func TestDoWithApplicationRetryFailoverThenAppRetry(t *testing.T) {
 			{URL: retryURLs2},
 		},
 	}
-	cfg.HTTPClient = &http.Client{Transport: NewFailoverRoundTripper(cfg, base)}
+	cfg.HTTPClient = &http.Client{Transport: NewFailoverRoundTripper([]string{retryURLs1, retryURLs2}, *cfg.Failover, base)}
 
 	req, _ := http.NewRequest(http.MethodGet, retryURLs1Path, nil)
 	resp, _, err := DoWithApplicationRetry(cfg, req)
@@ -511,7 +511,7 @@ func TestDoWithApplicationRetryFailover429NotInFailoverCodesPassesToAppRetry(t *
 			{URL: retryURLs2},
 		},
 	}
-	cfg.HTTPClient = &http.Client{Transport: NewFailoverRoundTripper(cfg, base)}
+	cfg.HTTPClient = &http.Client{Transport: NewFailoverRoundTripper([]string{retryURLs1, retryURLs2}, *cfg.Failover, base)}
 
 	req, _ := http.NewRequest(http.MethodGet, retryURLs1Path, nil)
 	resp, _, err := DoWithApplicationRetry(cfg, req)
@@ -559,7 +559,7 @@ func TestDoWithApplicationRetryFailoverThenAppRetryOn429(t *testing.T) {
 			{URL: retryURLs2},
 		},
 	}
-	cfg.HTTPClient = &http.Client{Transport: NewFailoverRoundTripper(cfg, base)}
+	cfg.HTTPClient = &http.Client{Transport: NewFailoverRoundTripper([]string{retryURLs1, retryURLs2}, *cfg.Failover, base)}
 
 	req, _ := http.NewRequest(http.MethodGet, retryURLs1Path, nil)
 	resp, _, err := DoWithApplicationRetry(cfg, req)
@@ -614,7 +614,7 @@ func TestDoWithApplicationRetryThreeServersFailoverChain(t *testing.T) {
 			{URL: "https://s3.example"},
 		},
 	}
-	cfg.HTTPClient = &http.Client{Transport: NewFailoverRoundTripper(cfg, base)}
+	cfg.HTTPClient = &http.Client{Transport: NewFailoverRoundTripper([]string{retryURLs1, retryURLs2, "https://s3.example"}, *cfg.Failover, base)}
 
 	req, _ := http.NewRequest(http.MethodGet, retryURLs1Path, nil)
 	resp, _, err := DoWithApplicationRetry(cfg, req)

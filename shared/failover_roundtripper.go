@@ -19,8 +19,6 @@ import (
 // network-level error or an HTTP status code listed in
 // FailoverOptions.FailoverOnStatusCodes.
 //
-// It is controlled via Configuration.FailoverStrategy.
-//
 // Notes:
 //   - Network errors trigger retries with exponential backoff, cycling to the
 //     next server.
@@ -35,21 +33,40 @@ import (
 //
 // The request URL is rewritten by swapping scheme/host with each server URL,
 // preserving path and query.
+//
+// The server URLs and options are snapshotted at construction time; subsequent
+// changes to the original slices or struct do not affect this instance.
 type FailoverRoundTripper struct {
-	cfg  *Configuration
-	base http.RoundTripper
+	serverURLs []string
+	fo         FailoverOptions
+	base       http.RoundTripper
 }
 
-// NewFailoverRoundTripper wraps base in a FailoverRoundTripper controlled by
-// cfg. When failover is inactive (nil config/Failover or strategy
-// "none"/empty), RoundTrip passes through to base with no retry overhead.
-func NewFailoverRoundTripper(cfg *Configuration, base http.RoundTripper) http.RoundTripper {
+// NewFailoverRoundTripper creates a FailoverRoundTripper that cycles through
+// serverURLs according to fo when a request fails. All slices are copied so
+// callers can safely mutate the originals. When the strategy is "none" or
+// empty, RoundTrip passes through to base with no retry overhead.
+func NewFailoverRoundTripper(serverURLs []string, fo FailoverOptions, base http.RoundTripper) http.RoundTripper {
 	if base == nil {
 		base = http.DefaultTransport
 	}
+
+	// Snapshot slices so external mutations do not affect this instance.
+	urlsCopy := make([]string, len(serverURLs))
+	copy(urlsCopy, serverURLs)
+
+	methodsCopy := make([]string, len(fo.RetryableMethods))
+	copy(methodsCopy, fo.RetryableMethods)
+	fo.RetryableMethods = methodsCopy
+
+	statusCodesCopy := make([]int, len(fo.FailoverOnStatusCodes))
+	copy(statusCodesCopy, fo.FailoverOnStatusCodes)
+	fo.FailoverOnStatusCodes = statusCodesCopy
+
 	return &FailoverRoundTripper{
-		cfg:  cfg,
-		base: base,
+		serverURLs: urlsCopy,
+		fo:         fo,
+		base:       base,
 	}
 }
 
@@ -80,27 +97,20 @@ func (t *FailoverRoundTripper) RoundTrip(req *http.Request) (*http.Response, err
 		// Be resilient if instantiated without constructor.
 		t.base = http.DefaultTransport
 	}
-	if t.cfg == nil {
-		// No config => behave like the base transport.
-		return t.base.RoundTrip(req)
-	}
 
-	fo := t.cfg.Failover
-	if fo == nil {
-		return t.base.RoundTrip(req)
-	}
+	numServers := len(t.serverURLs)
 
-	servers := t.cfg.Servers
-	numServers := len(servers)
-
-	switch normalizeStrategy(fo.Strategy) {
+	switch normalizeStrategy(t.fo.Strategy) {
 	case normalizeStrategy(FailoverRoundRobin):
+		if numServers == 0 {
+			return t.base.RoundTrip(req)
+		}
 		order := func(attempt int) int { return attempt % numServers }
-		return t.orderedRoundTrip(req, fo, servers, order)
+		return t.orderedRoundTrip(req, order)
 	case FailoverNone, "": // Explicit "none" or empty strategy disables failover and passes through to base.
 		return t.base.RoundTrip(req)
 	default: // unknown strategy is a configuration error that we surface immediately.
-		return nil, fmt.Errorf("unknown failover strategy: %s", fo.Strategy)
+		return nil, fmt.Errorf("unknown failover strategy: %s", t.fo.Strategy)
 	}
 }
 
@@ -121,12 +131,9 @@ func (t *FailoverRoundTripper) RoundTrip(req *http.Request) (*http.Response, err
 //   - All attempts exhausted: returns an error (not an HTTP response). This
 //     means callAPI receives err != nil and returns immediately — its own
 //     status-code-based retry logic (for 502/503/504/429) is never reached.
-func (t *FailoverRoundTripper) orderedRoundTrip(
-	req *http.Request,
-	fo *FailoverOptions,
-	servers ServerConfigurations,
-	order serverOrder,
-) (*http.Response, error) {
+func (t *FailoverRoundTripper) orderedRoundTrip(req *http.Request, order serverOrder) (*http.Response, error) {
+	fo := &t.fo
+
 	if !isRetryableMethod(fo, req.Method) {
 		return t.base.RoundTrip(req)
 	}
@@ -140,11 +147,11 @@ func (t *FailoverRoundTripper) orderedRoundTrip(
 	var lastErr error
 	for attempt := range maxRetries {
 		serverIndex := order(attempt)
-		serverURL := servers[serverIndex].URL
+		serverURL := t.serverURLs[serverIndex]
 
-		LogDebug("[Failover] attempt=%d, serverIndex=%d, serverURL=%d, method=%s", attempt, serverIndex, serverURL, req.Method)
+		LogDebug("[Failover] attempt=%d, serverIndex=%d, serverURL=%s, method=%s", attempt, serverIndex, serverURL, req.Method)
 
-		resp, err := t.doFailoverAttempt(req, serverURL, fo.RetryOnTimeout)
+		resp, err := t.doFailoverAttempt(req, serverURL)
 		if err != nil {
 			if !isNetworkErrorRT(req.Context(), err, fo.RetryOnTimeout) {
 				LogDebug("[Failover] attempt=%d failed with non-retriable error on Servers[%d]: %v", attempt, serverIndex, err)
@@ -174,7 +181,7 @@ func (t *FailoverRoundTripper) orderedRoundTrip(
 
 // doFailoverAttempt prepares and executes a single failover attempt against
 // the given server URL.
-func (t *FailoverRoundTripper) doFailoverAttempt(req *http.Request, serverURL string, retryOnTimeout bool) (*http.Response, error) {
+func (t *FailoverRoundTripper) doFailoverAttempt(req *http.Request, serverURL string) (*http.Response, error) {
 	targetURL, err := url.Parse(serverURL)
 	if err != nil {
 		return nil, fmt.Errorf("invalid server URL %q: %w", serverURL, err)
@@ -189,7 +196,7 @@ func (t *FailoverRoundTripper) doFailoverAttempt(req *http.Request, serverURL st
 	attemptReq.URL.Host = targetURL.Host
 	attemptReq.Host = targetURL.Host
 
-	LogDebug("[Failover] url=%s", attemptReq.Method, attemptReq.URL.String())
+	LogDebug("[Failover] method=%s url=%s", attemptReq.Method, attemptReq.URL.String())
 	return t.base.RoundTrip(attemptReq)
 }
 
