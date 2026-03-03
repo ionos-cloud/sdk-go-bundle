@@ -144,8 +144,10 @@ func (t *FailoverRoundTripper) orderedRoundTrip(req *http.Request, order serverO
 	if maxRetries == 0 {
 		maxRetries = defaultMaxRetries
 	}
+	// maxRetries in config means "number of retries", so total attempts = maxRetries + 1
 	var lastErr error
-	for attempt := range maxRetries {
+	totalAttempts := maxRetries + 1
+	for attempt := range totalAttempts {
 		serverIndex := order(attempt)
 		serverURL := t.serverURLs[serverIndex]
 
@@ -161,7 +163,10 @@ func (t *FailoverRoundTripper) orderedRoundTrip(req *http.Request, order serverO
 			LogDebug("[Failover] attempt=%d failed with retriable error on Servers[%d]: %v", attempt, serverIndex, err)
 
 			lastErr = err
-			backOff(req.Context(), bo.NextBackOff())
+			// Don't sleep if this was the last attempt
+			if attempt < totalAttempts-1 {
+				backOff(req.Context(), bo.NextBackOff())
+			}
 			continue
 		}
 
@@ -172,7 +177,10 @@ func (t *FailoverRoundTripper) orderedRoundTrip(req *http.Request, order serverO
 
 		LogDebug("[Failover] attempt=%d, status=%d triggers failover to next server", attempt, resp.StatusCode)
 		drainBody(resp)
-		backOff(req.Context(), bo.NextBackOff())
+		// Don't sleep if this was the last attempt
+		if attempt < totalAttempts-1 {
+			backOff(req.Context(), bo.NextBackOff())
+		}
 		lastErr = fmt.Errorf("failover status: %s", resp.Status)
 	}
 

@@ -391,7 +391,7 @@ func TestDoWithApplicationRetryFailoverExhaustedReturnsError(t *testing.T) {
 	if err == nil {
 		t.Fatalf("expected error after failover exhaustion, got nil")
 	}
-	if callCount != 4 {
+	if callCount != 5 {
 		t.Fatalf("expected 4 base transport calls (fo.MaxRetries=4), got %d", callCount)
 	}
 }

@@ -349,7 +349,7 @@ func TestFailoverRoundTripperMaxRetriesExhausted(t *testing.T) {
 	if err == nil {
 		t.Fatalf("expected error after exhausting retries")
 	}
-	if callCount != 2 {
+	if callCount != 3 {
 		t.Fatalf("expected 2 attempts (maxRetries=2), got %d", callCount)
 	}
 }
