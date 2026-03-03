@@ -8,6 +8,7 @@ import (
 	"gopkg.in/yaml.v3"
 
 	"github.com/ionos-cloud/sdk-go-bundle/shared"
+	"github.com/ionos-cloud/sdk-go-bundle/shared/failover"
 )
 
 // Usage:
@@ -128,7 +129,7 @@ type FileConfig struct {
 	Environments []Environment `yaml:"environments"`
 	// Failover controls transport-level endpoint failover behaviour.
 	// When set, it is applied to the runtime Configuration via ApplyFailoverToConfiguration.
-	Failover *shared.FailoverOptions `yaml:"failover,omitempty"`
+	Failover *failover.Options `yaml:"failover,omitempty"`
 }
 
 // DefaultConfigFileName returns the default file path for the loaded configuration
@@ -456,29 +457,9 @@ func (f *FileConfig) GetProductGlobalOverrides(productName string, index int) *E
 
 // GetFailoverOptions returns the failover options from the file configuration.
 // Returns nil when no failover block is defined in the config file.
-func (f *FileConfig) GetFailoverOptions() *shared.FailoverOptions {
+func (f *FileConfig) GetFailoverOptions() *failover.Options {
 	if f == nil {
 		return nil
 	}
 	return f.Failover
-}
-
-// ApplyFailoverToConfiguration copies the file-level failover settings into a
-// runtime shared.Configuration. It is a no-op when there is no failover block
-// in the file configuration or when cfg is nil.
-func (f *FileConfig) ApplyFailoverToConfiguration(cfg *shared.Configuration) {
-	if f == nil || cfg == nil || f.Failover == nil {
-		return
-	}
-	// Deep-copy so that mutating the runtime config doesn't affect the file config.
-	fo := *f.Failover
-	if len(f.Failover.RetryableMethods) > 0 {
-		fo.RetryableMethods = make([]string, len(f.Failover.RetryableMethods))
-		copy(fo.RetryableMethods, f.Failover.RetryableMethods)
-	}
-	if len(f.Failover.FailoverOnStatusCodes) > 0 {
-		fo.FailoverOnStatusCodes = make([]int, len(f.Failover.FailoverOnStatusCodes))
-		copy(fo.FailoverOnStatusCodes, f.Failover.FailoverOnStatusCodes)
-	}
-	cfg.Failover = &fo
 }

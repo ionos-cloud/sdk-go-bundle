@@ -1,4 +1,4 @@
-package shared
+package failover
 
 import (
 	"bytes"
@@ -27,15 +27,15 @@ const (
 )
 
 func TestFailoverRoundTripperRoundRobinNetworkErrorFailsOverToNextServer(t *testing.T) {
-	fo := FailoverOptions{
-		Strategy:           FailoverRoundRobin,
+	fo := Options{
+		Strategy:           RoundRobin,
 		RetryOnTimeout:     false,
 		MaxRetries:         10,
 		ExponentialBackoff: zeroBackoff(),
 	}
 
 	ft := &fakeTransport{}
-	rt := NewFailoverRoundTripper([]string{foURLs1, foURLs2}, fo, ft)
+	rt := NewRoundTripper([]Endpoint{{URL: foURLs1}, {URL: foURLs2}}, fo, ft)
 
 	req, err := http.NewRequest(http.MethodGet, "https://s1.example/some/path?x=1", nil)
 	if err != nil {
@@ -62,14 +62,14 @@ func TestFailoverRoundTripperRoundRobinNetworkErrorFailsOverToNextServer(t *test
 }
 
 func TestFailoverRoundTripperRoundRobinConnectionResetFailsOverToNextServer(t *testing.T) {
-	fo := FailoverOptions{
-		Strategy:           FailoverRoundRobin,
+	fo := Options{
+		Strategy:           RoundRobin,
 		MaxRetries:         10,
 		ExponentialBackoff: zeroBackoff(),
 	}
 
 	calls := []string{}
-	rt := NewFailoverRoundTripper([]string{foURLs1, foURLs2}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
+	rt := NewRoundTripper([]Endpoint{{URL: foURLs1}, {URL: foURLs2}}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		calls = append(calls, r.URL.Host)
 		if r.URL.Host == foHostS1 {
 			return nil, connResetError(r)
@@ -91,14 +91,14 @@ func TestFailoverRoundTripperRoundRobinConnectionResetFailsOverToNextServer(t *t
 }
 
 func TestFailoverRoundTripperRoundRobinIOTimeoutFailsOverToNextServer(t *testing.T) {
-	fo := FailoverOptions{
-		Strategy:           FailoverRoundRobin,
+	fo := Options{
+		Strategy:           RoundRobin,
 		MaxRetries:         10,
 		ExponentialBackoff: zeroBackoff(),
 	}
 
 	calls := []string{}
-	rt := NewFailoverRoundTripper([]string{foURLs1, foURLs2}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
+	rt := NewRoundTripper([]Endpoint{{URL: foURLs1}, {URL: foURLs2}}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		calls = append(calls, r.URL.Host)
 		if r.URL.Host == foHostS1 {
 			return nil, ioTimeoutError(r)
@@ -120,14 +120,14 @@ func TestFailoverRoundTripperRoundRobinIOTimeoutFailsOverToNextServer(t *testing
 }
 
 func TestFailoverRoundTripperDoesNotRetryWhenMethodNotRetryable(t *testing.T) {
-	fo := FailoverOptions{
-		Strategy:           FailoverRoundRobin,
+	fo := Options{
+		Strategy:           RoundRobin,
 		RetryableMethods:   []string{http.MethodGet},
 		ExponentialBackoff: zeroBackoff(),
 	}
 
 	ft := &fakeTransport{}
-	rt := NewFailoverRoundTripper([]string{foURLs1, foURLs2}, fo, ft)
+	rt := NewRoundTripper([]Endpoint{{URL: foURLs1}, {URL: foURLs2}}, fo, ft)
 
 	// POST is not retryable per config
 	req, err := http.NewRequest(http.MethodPost, foURLs1SomePath, io.NopCloser(bytes.NewBufferString("x")))
@@ -153,13 +153,13 @@ func TestFailoverRoundTripperDoesNotRetryWhenMethodNotRetryable(t *testing.T) {
 }
 
 func TestFailoverRoundTripperPostNotRetriedByDefault(t *testing.T) {
-	fo := FailoverOptions{
-		Strategy:           FailoverRoundRobin,
+	fo := Options{
+		Strategy:           RoundRobin,
 		ExponentialBackoff: zeroBackoff(),
 	}
 
 	ft := &fakeTransport{}
-	rt := NewFailoverRoundTripper([]string{foURLs1, foURLs2}, fo, ft)
+	rt := NewRoundTripper([]Endpoint{{URL: foURLs1}, {URL: foURLs2}}, fo, ft)
 
 	body := bytes.NewBufferString("data")
 	req, err := http.NewRequest(http.MethodPost, foURLs1Path, io.NopCloser(body))
@@ -181,14 +181,14 @@ func TestFailoverRoundTripperPostNotRetriedByDefault(t *testing.T) {
 }
 
 func TestFailoverRoundTripperFailoverOnStatusCodes(t *testing.T) {
-	fo := FailoverOptions{
-		Strategy:              FailoverRoundRobin,
+	fo := Options{
+		Strategy:              RoundRobin,
 		FailoverOnStatusCodes: []int{http.StatusServiceUnavailable},
 		ExponentialBackoff:    zeroBackoff(),
 	}
 
 	calls := []string{}
-	rt := NewFailoverRoundTripper([]string{foURLs1, foURLs2}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
+	rt := NewRoundTripper([]Endpoint{{URL: foURLs1}, {URL: foURLs2}}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		calls = append(calls, r.URL.Host)
 		if r.URL.Host == foHostS1 {
 			return &http.Response{Status: "503 Service Unavailable", StatusCode: http.StatusServiceUnavailable, Body: io.NopCloser(bytes.NewBufferString("no")), Header: make(http.Header), Request: r}, nil
@@ -216,7 +216,7 @@ func TestFailoverRoundTripperFailoverOnStatusCodes(t *testing.T) {
 func TestFailoverRoundTripperPassThroughWhenFailoverDisabled(t *testing.T) {
 	// Empty strategy disables failover.
 	calls := []string{}
-	rt := NewFailoverRoundTripper([]string{foURLs1, foURLs2}, FailoverOptions{}, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
+	rt := NewRoundTripper([]Endpoint{{URL: foURLs1}, {URL: foURLs2}}, Options{}, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		calls = append(calls, r.URL.Host)
 		return &http.Response{StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header), Request: r}, nil
 	}))
@@ -240,13 +240,13 @@ func TestFailoverRoundTripperPassThroughWhenFailoverDisabled(t *testing.T) {
 }
 
 func TestFailoverRoundTripperPassThroughSingleServer(t *testing.T) {
-	fo := FailoverOptions{
-		Strategy:           FailoverRoundRobin,
+	fo := Options{
+		Strategy:           RoundRobin,
 		ExponentialBackoff: zeroBackoff(),
 	}
 
 	calls := []string{}
-	rt := NewFailoverRoundTripper([]string{foURLs1}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
+	rt := NewRoundTripper([]Endpoint{{URL: foURLs1}}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		calls = append(calls, r.URL.Host)
 		return &http.Response{StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header), Request: r}, nil
 	}))
@@ -269,8 +269,8 @@ func TestFailoverRoundTripperPassThroughSingleServer(t *testing.T) {
 }
 
 func TestFailoverRoundTripperContextCancellation(t *testing.T) {
-	fo := FailoverOptions{
-		Strategy:           FailoverRoundRobin,
+	fo := Options{
+		Strategy:           RoundRobin,
 		MaxRetries:         10,
 		ExponentialBackoff: zeroBackoff(),
 	}
@@ -279,7 +279,7 @@ func TestFailoverRoundTripperContextCancellation(t *testing.T) {
 	defer cancel()
 
 	callCount := 0
-	rt := NewFailoverRoundTripper([]string{foURLs1, foURLs2}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
+	rt := NewRoundTripper([]Endpoint{{URL: foURLs1}, {URL: foURLs2}}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		callCount++
 		// Cancel context after first call
 		cancel()
@@ -298,14 +298,14 @@ func TestFailoverRoundTripperContextCancellation(t *testing.T) {
 }
 
 func TestFailoverRoundTripperDNSErrorNotRetried(t *testing.T) {
-	fo := FailoverOptions{
-		Strategy:           FailoverRoundRobin,
+	fo := Options{
+		Strategy:           RoundRobin,
 		RetryOnTimeout:     false,
 		ExponentialBackoff: zeroBackoff(),
 	}
 
 	calls := []string{}
-	rt := NewFailoverRoundTripper([]string{foURLs1, foURLs2}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
+	rt := NewRoundTripper([]Endpoint{{URL: foURLs1}, {URL: foURLs2}}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		calls = append(calls, r.URL.Host)
 		if r.URL.Host == foHostS1 {
 			return nil, dnsNotFoundError(r)
@@ -328,14 +328,14 @@ func TestFailoverRoundTripperDNSErrorNotRetried(t *testing.T) {
 }
 
 func TestFailoverRoundTripperMaxRetriesExhausted(t *testing.T) {
-	fo := FailoverOptions{
-		Strategy:           FailoverRoundRobin,
+	fo := Options{
+		Strategy:           RoundRobin,
 		MaxRetries:         2,
 		ExponentialBackoff: zeroBackoff(),
 	}
 
 	callCount := 0
-	rt := NewFailoverRoundTripper([]string{foURLs1, foURLs2}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
+	rt := NewRoundTripper([]Endpoint{{URL: foURLs1}, {URL: foURLs2}}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		callCount++
 		return nil, &url.Error{Op: "Get", URL: r.URL.String(), Err: &net.OpError{Op: "dial", Net: "tcp", Err: errors.New("connection refused")}}
 	}))
@@ -355,14 +355,14 @@ func TestFailoverRoundTripperMaxRetriesExhausted(t *testing.T) {
 }
 
 func TestFailoverRoundTripperTLSCertificateErrorNotRetried(t *testing.T) {
-	fo := FailoverOptions{
-		Strategy:           FailoverRoundRobin,
+	fo := Options{
+		Strategy:           RoundRobin,
 		MaxRetries:         10,
 		ExponentialBackoff: zeroBackoff(),
 	}
 
 	calls := []string{}
-	rt := NewFailoverRoundTripper([]string{foURLs1, foURLs2}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
+	rt := NewRoundTripper([]Endpoint{{URL: foURLs1}, {URL: foURLs2}}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		calls = append(calls, r.URL.Host)
 		if r.URL.Host == foHostS1 {
 			return nil, tlsCertError(r)
@@ -381,14 +381,14 @@ func TestFailoverRoundTripperTLSCertificateErrorNotRetried(t *testing.T) {
 }
 
 func TestFailoverRoundTripperRedirectErrorNotRetried(t *testing.T) {
-	fo := FailoverOptions{
-		Strategy:           FailoverRoundRobin,
+	fo := Options{
+		Strategy:           RoundRobin,
 		MaxRetries:         10,
 		ExponentialBackoff: zeroBackoff(),
 	}
 
 	calls := []string{}
-	rt := NewFailoverRoundTripper([]string{foURLs1, foURLs2}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
+	rt := NewRoundTripper([]Endpoint{{URL: foURLs1}, {URL: foURLs2}}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		calls = append(calls, r.URL.Host)
 		if r.URL.Host == foHostS1 {
 			return nil, redirectError(r)
@@ -407,15 +407,15 @@ func TestFailoverRoundTripperRedirectErrorNotRetried(t *testing.T) {
 }
 
 func TestFailoverRoundTripperDeadlineExceededNotRetriedWhenRetryOnTimeoutDisabled(t *testing.T) {
-	fo := FailoverOptions{
-		Strategy:           FailoverRoundRobin,
+	fo := Options{
+		Strategy:           RoundRobin,
 		RetryOnTimeout:     false,
 		MaxRetries:         10,
 		ExponentialBackoff: zeroBackoff(),
 	}
 
 	calls := []string{}
-	rt := NewFailoverRoundTripper([]string{foURLs1, foURLs2}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
+	rt := NewRoundTripper([]Endpoint{{URL: foURLs1}, {URL: foURLs2}}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		calls = append(calls, r.URL.Host)
 		if r.URL.Host == foHostS1 {
 			return nil, deadlineExceededError(r)
@@ -434,15 +434,15 @@ func TestFailoverRoundTripperDeadlineExceededNotRetriedWhenRetryOnTimeoutDisable
 }
 
 func TestFailoverRoundTripperDeadlineExceededRetriedWhenRetryOnTimeoutEnabled(t *testing.T) {
-	fo := FailoverOptions{
-		Strategy:           FailoverRoundRobin,
+	fo := Options{
+		Strategy:           RoundRobin,
 		RetryOnTimeout:     true,
 		MaxRetries:         10,
 		ExponentialBackoff: zeroBackoff(),
 	}
 
 	calls := []string{}
-	rt := NewFailoverRoundTripper([]string{foURLs1, foURLs2}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
+	rt := NewRoundTripper([]Endpoint{{URL: foURLs1}, {URL: foURLs2}}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		calls = append(calls, r.URL.Host)
 		if r.URL.Host == foHostS1 {
 			return nil, deadlineExceededError(r)
@@ -464,14 +464,14 @@ func TestFailoverRoundTripperDeadlineExceededRetriedWhenRetryOnTimeoutEnabled(t 
 }
 
 func TestFailoverRoundTripperDNSTemporaryNotRetried(t *testing.T) {
-	fo := FailoverOptions{
-		Strategy:           FailoverRoundRobin,
+	fo := Options{
+		Strategy:           RoundRobin,
 		MaxRetries:         10,
 		ExponentialBackoff: zeroBackoff(),
 	}
 
 	calls := []string{}
-	rt := NewFailoverRoundTripper([]string{foURLs1, foURLs2}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
+	rt := NewRoundTripper([]Endpoint{{URL: foURLs1}, {URL: foURLs2}}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		calls = append(calls, r.URL.Host)
 		if r.URL.Host == foHostS1 {
 			return nil, dnsTemporaryError(r)
@@ -490,14 +490,14 @@ func TestFailoverRoundTripperDNSTemporaryNotRetried(t *testing.T) {
 }
 
 func TestFailoverRoundTripperContextCanceledNotRetried(t *testing.T) {
-	fo := FailoverOptions{
-		Strategy:           FailoverRoundRobin,
+	fo := Options{
+		Strategy:           RoundRobin,
 		MaxRetries:         10,
 		ExponentialBackoff: zeroBackoff(),
 	}
 
 	calls := []string{}
-	rt := NewFailoverRoundTripper([]string{foURLs1, foURLs2}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
+	rt := NewRoundTripper([]Endpoint{{URL: foURLs1}, {URL: foURLs2}}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		calls = append(calls, r.URL.Host)
 		if r.URL.Host == foHostS1 {
 			return nil, context.Canceled

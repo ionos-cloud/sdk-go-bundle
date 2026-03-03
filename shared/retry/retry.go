@@ -1,6 +1,6 @@
 // IONOS Shared Libraries – Application-level retry
 
-package shared
+package retry
 
 import (
 	"context"
@@ -9,6 +9,8 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"time"
+
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
 )
 
 // DoWithApplicationRetry executes an HTTP request with application-level retry
@@ -20,10 +22,10 @@ import (
 //   - Other status codes or transport errors: returns immediately
 //   - Respects context cancellation during backoff
 //
-// # Interaction with FailoverRoundTripper
+// # Interaction with RoundTripper
 //
 // client.Do invokes the configured http.RoundTripper, which may be a
-// FailoverRoundTripper. When a multi-server FailoverStrategy is active,
+// RoundTripper. When a multi-server Strategy is active,
 // transport-level network errors and status codes listed in
 // FailoverOnStatusCodes are handled by the round tripper before this
 // function sees the response: it either receives a successful response or
@@ -32,9 +34,9 @@ import (
 // Status codes NOT in FailoverOnStatusCodes (including the 502/503/504/429
 // that this function retries on) pass through normally.
 //
-// Worst-case total attempts: Configuration.MaxRetries × FailoverOptions.MaxRetries.
+// Worst-case total attempts: Configuration.MaxRetries × Options.MaxRetries.
 func DoWithApplicationRetry(
-	cfg *Configuration,
+	cfg *shared.Configuration,
 	request *http.Request,
 ) (*http.Response, time.Duration, error) {
 	if cfg == nil {
@@ -62,7 +64,7 @@ func DoWithApplicationRetry(
 		}
 
 		if attempt == cfg.MaxRetries-1 {
-			LogDebug(" Number of maximum retries exceeded (%d retries)\n", cfg.MaxRetries)
+			shared.LogDebug(" Number of maximum retries exceeded (%d retries)\n", cfg.MaxRetries)
 			return resp, httpRequestTime, err
 		}
 
@@ -72,15 +74,30 @@ func DoWithApplicationRetry(
 		if backoffTime > cfg.MaxWaitTime {
 			backoffTime = cfg.MaxWaitTime
 		}
-		backOff(request.Context(), backoffTime)
+		BackOff(request.Context(), backoffTime)
 	}
 
 	return resp, httpRequestTime, err
 }
 
+func CloneRequestForRetry(req *http.Request) (*http.Request, error) {
+	clone := req.Clone(req.Context())
+	if req.Body != nil {
+		if req.GetBody == nil {
+			return nil, errors.New("request body is not replayable (GetBody is nil)")
+		}
+		b, err := req.GetBody()
+		if err != nil {
+			return nil, err
+		}
+		clone.Body = b
+	}
+	return clone, nil
+}
+
 // doRetryAttempt clones the request, executes it, and returns the response.
-func doRetryAttempt(cfg *Configuration, request *http.Request) (*http.Response, time.Duration, error) {
-	clonedRequest, cloneErr := cloneRequestForRetry(request)
+func doRetryAttempt(cfg *shared.Configuration, request *http.Request) (*http.Response, time.Duration, error) {
+	clonedRequest, cloneErr := CloneRequestForRetry(request)
 	if cloneErr != nil {
 		return nil, 0, cloneErr
 	}
@@ -144,41 +161,41 @@ func drainBody(resp *http.Response) {
 // logRequest dumps the outgoing request at Debug level.
 // The Authorization header is stripped unless Trace is enabled.
 func logRequest(request *http.Request, retryCount int) {
-	if !SdkLogLevel.Satisfies(Debug) {
+	if !shared.SdkLogLevel.Satisfies(shared.Debug) {
 		return
 	}
 	logReq := request.Clone(request.Context())
-	if !SdkLogLevel.Satisfies(Trace) {
+	if !shared.SdkLogLevel.Satisfies(shared.Trace) {
 		logReq.Header.Del("Authorization")
 	}
 	dump, err := httputil.DumpRequestOut(logReq, true)
 	if err == nil {
-		SdkLogger.Printf(" DumpRequestOut : %s\n", string(dump))
+		shared.SdkLogger.Printf(" DumpRequestOut : %s\n", string(dump))
 	} else {
-		SdkLogger.Printf(" DumpRequestOut err: %+v", err)
+		shared.SdkLogger.Printf(" DumpRequestOut err: %+v", err)
 	}
-	SdkLogger.Printf("\n try no: %d\n", retryCount)
+	shared.SdkLogger.Printf("\n try no: %d\n", retryCount)
 }
 
 // logResponse dumps the server response at Debug level.
 // The response body is only included at Trace level to avoid leaking
 // sensitive data.
 func logResponse(resp *http.Response) {
-	if !SdkLogLevel.Satisfies(Debug) {
+	if !shared.SdkLogLevel.Satisfies(shared.Debug) {
 		return
 	}
-	dumpBody := SdkLogLevel.Satisfies(Trace)
+	dumpBody := shared.SdkLogLevel.Satisfies(shared.Trace)
 	dump, err := httputil.DumpResponse(resp, dumpBody)
 	if err == nil {
-		SdkLogger.Printf("\n DumpResponse : %s\n", string(dump))
+		shared.SdkLogger.Printf("\n DumpResponse : %s\n", string(dump))
 	} else {
-		SdkLogger.Printf(" DumpResponse err %+v", err)
+		shared.SdkLogger.Printf(" DumpResponse err %+v", err)
 	}
 }
 
-// backOff sleeps for the given duration and respects context cancellation.
-func backOff(ctx context.Context, t time.Duration) {
-	LogDebug(" Sleeping %s before retrying request\n", t.String())
+// BackOff sleeps for the given duration and respects context cancellation.
+func BackOff(ctx context.Context, t time.Duration) {
+	shared.LogDebug(" Sleeping %s before retrying request\n", t.String())
 	if t <= 0 {
 		return
 	}

@@ -7,6 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/ionos-cloud/sdk-go-bundle/shared"
+	"github.com/ionos-cloud/sdk-go-bundle/shared/failover"
 )
 
 func TestReadConfigFromFile(t *testing.T) {
@@ -305,7 +306,7 @@ failover:
 	cfg, err := New(tempFile.Name())
 	assert.NoError(t, err)
 	assert.NotNil(t, cfg.Failover)
-	assert.Equal(t, shared.FailoverRoundRobin, cfg.Failover.Strategy)
+	assert.Equal(t, failover.RoundRobin, cfg.Failover.Strategy)
 	assert.Equal(t, []string{"GET", "PUT"}, cfg.Failover.RetryableMethods)
 	assert.True(t, cfg.Failover.RetryOnTimeout)
 	assert.Equal(t, []int{502, 503}, cfg.Failover.FailoverOnStatusCodes)
@@ -338,46 +339,8 @@ environments:
 	assert.Nil(t, cfg.GetFailoverOptions())
 }
 
-func TestApplyFailoverToConfiguration(t *testing.T) {
-	fileCfg := &FileConfig{
-		Failover: &shared.FailoverOptions{
-			Strategy:              shared.FailoverRoundRobin,
-			RetryableMethods:      []string{"GET"},
-			RetryOnTimeout:        true,
-			FailoverOnStatusCodes: []int{503},
-		},
-	}
-
-	runtimeCfg := &shared.Configuration{}
-	fileCfg.ApplyFailoverToConfiguration(runtimeCfg)
-
-	assert.NotNil(t, runtimeCfg.Failover)
-	assert.Equal(t, shared.FailoverRoundRobin, runtimeCfg.Failover.Strategy)
-	assert.Equal(t, []string{"GET"}, runtimeCfg.Failover.RetryableMethods)
-	assert.True(t, runtimeCfg.Failover.RetryOnTimeout)
-	assert.Equal(t, []int{503}, runtimeCfg.Failover.FailoverOnStatusCodes)
-
-	// Verify deep copy: mutating runtime should not affect file config.
-	runtimeCfg.Failover.RetryableMethods[0] = "POST"
-	assert.Equal(t, "GET", fileCfg.Failover.RetryableMethods[0])
-}
-
-func TestApplyFailoverToConfigurationNilFailover(t *testing.T) {
-	fileCfg := &FileConfig{}
-	runtimeCfg := &shared.Configuration{}
-	fileCfg.ApplyFailoverToConfiguration(runtimeCfg)
-	assert.Nil(t, runtimeCfg.Failover)
-}
-
-func TestApplyFailoverToConfigurationNilFileConfig(t *testing.T) {
-	var fileCfg *FileConfig
-	runtimeCfg := &shared.Configuration{}
-	fileCfg.ApplyFailoverToConfiguration(runtimeCfg)
-	assert.Nil(t, runtimeCfg.Failover)
-}
-
 func TestGetFailoverOptions(t *testing.T) {
-	fo := &shared.FailoverOptions{Strategy: shared.FailoverRoundRobin}
+	fo := &failover.Options{Strategy: failover.RoundRobin}
 	fileCfg := &FileConfig{Failover: fo}
 	assert.Equal(t, fo, fileCfg.GetFailoverOptions())
 
