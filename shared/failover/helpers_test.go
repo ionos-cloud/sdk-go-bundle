@@ -3,12 +3,15 @@ package failover
 import (
 	"bytes"
 	"context"
+	"crypto/tls"
+	"crypto/x509"
 	"errors"
 	"io"
 	"net"
 	"net/http"
 	"net/url"
 	"strconv"
+	"syscall"
 	"time"
 )
 
@@ -32,7 +35,7 @@ func (f *fakeTransport) RoundTrip(r *http.Request) (*http.Response, error) {
 	f.calls = append(f.calls, host)
 
 	if host == "s1.example" {
-		return nil, &url.Error{Op: "Get", URL: urlStr, Err: &net.OpError{Op: "dial", Net: "tcp", Err: errors.New("i/o timeout")}}
+		return nil, &url.Error{Op: "Get", URL: urlStr, Err: &net.OpError{Op: "dial", Net: "tcp", Err: syscall.ECONNREFUSED}}
 	}
 
 	return &http.Response{
@@ -77,17 +80,22 @@ func makeResponse(statusCode int, headers map[string]string) *http.Response {
 
 func connRefusedError(r *http.Request) error {
 	return &url.Error{Op: "Get", URL: r.URL.String(),
-		Err: &net.OpError{Op: "dial", Net: "tcp", Err: errors.New("connection refused")}}
+		Err: &net.OpError{Op: "dial", Net: "tcp", Err: syscall.ECONNREFUSED}}
 }
 
 func connResetError(r *http.Request) error {
 	return &url.Error{Op: "Get", URL: r.URL.String(),
-		Err: &net.OpError{Op: "read", Net: "tcp", Err: errors.New("connection reset by peer")}}
+		Err: &net.OpError{Op: "read", Net: "tcp", Err: syscall.ECONNRESET}}
 }
 
 func ioTimeoutError(r *http.Request) error {
 	return &url.Error{Op: "Get", URL: r.URL.String(),
-		Err: &net.OpError{Op: "dial", Net: "tcp", Err: errors.New("i/o timeout")}}
+		Err: &net.OpError{Op: "dial", Net: "tcp", Err: syscall.ETIMEDOUT}}
+}
+
+func unknownNetOpError(r *http.Request) error {
+	return &url.Error{Op: "Get", URL: r.URL.String(),
+		Err: &net.OpError{Op: "dial", Net: "tcp", Err: errors.New("transport internal error")}}
 }
 
 func dnsTemporaryError(r *http.Request) error {
@@ -97,8 +105,15 @@ func dnsTemporaryError(r *http.Request) error {
 }
 
 func tlsCertError(r *http.Request) error {
+	certErr := x509.UnknownAuthorityError{}
 	return &url.Error{Op: "Get", URL: r.URL.String(),
-		Err: errors.New("tls: failed to verify certificate")}
+		Err: certErr}
+}
+
+func tlsHandshakeError(r *http.Request) error {
+	handshakeErr := tls.RecordHeaderError{Msg: "first record does not look like a TLS handshake"}
+	return &url.Error{Op: "Get", URL: r.URL.String(),
+		Err: handshakeErr}
 }
 
 func redirectError(r *http.Request) error {

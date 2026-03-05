@@ -8,6 +8,7 @@ import (
 	"net"
 	"net/http"
 	"net/url"
+	"syscall"
 	"testing"
 )
 
@@ -93,6 +94,7 @@ func TestFailoverRoundTripperRoundRobinConnectionResetFailsOverToNextServer(t *t
 func TestFailoverRoundTripperRoundRobinIOTimeoutFailsOverToNextServer(t *testing.T) {
 	fo := Options{
 		Strategy:           RoundRobin,
+		RetryOnTimeout:     true,
 		MaxRetries:         10,
 		ExponentialBackoff: zeroBackoff(),
 	}
@@ -283,7 +285,7 @@ func TestFailoverRoundTripperContextCancellation(t *testing.T) {
 		callCount++
 		// Cancel context after first call
 		cancel()
-		return nil, &url.Error{Op: "Get", URL: r.URL.String(), Err: &net.OpError{Op: "dial", Net: "tcp", Err: errors.New("connection refused")}}
+		return nil, &url.Error{Op: "Get", URL: r.URL.String(), Err: &net.OpError{Op: "dial", Net: "tcp", Err: syscall.ECONNREFUSED}}
 	}))
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, foURLs1Path, nil)
@@ -337,7 +339,7 @@ func TestFailoverRoundTripperMaxRetriesExhausted(t *testing.T) {
 	callCount := 0
 	rt := NewRoundTripper([]Endpoint{{URL: foURLs1}, {URL: foURLs2}}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		callCount++
-		return nil, &url.Error{Op: "Get", URL: r.URL.String(), Err: &net.OpError{Op: "dial", Net: "tcp", Err: errors.New("connection refused")}}
+		return nil, &url.Error{Op: "Get", URL: r.URL.String(), Err: &net.OpError{Op: "dial", Net: "tcp", Err: syscall.ECONNREFUSED}}
 	}))
 
 	req, err := http.NewRequest(http.MethodGet, foURLs1Path, nil)
@@ -350,7 +352,7 @@ func TestFailoverRoundTripperMaxRetriesExhausted(t *testing.T) {
 		t.Fatalf("expected error after exhausting retries")
 	}
 	if callCount != 3 {
-		t.Fatalf("expected 2 attempts (maxRetries=2), got %d", callCount)
+		t.Fatalf("expected 3 attempts (maxRetries=2), got %d", callCount)
 	}
 }
 
@@ -380,6 +382,32 @@ func TestFailoverRoundTripperTLSCertificateErrorNotRetried(t *testing.T) {
 	}
 }
 
+func TestFailoverRoundTripperTLSHandshakeErrorNotRetried(t *testing.T) {
+	fo := Options{
+		Strategy:           RoundRobin,
+		MaxRetries:         10,
+		ExponentialBackoff: zeroBackoff(),
+	}
+
+	calls := []string{}
+	rt := NewRoundTripper([]Endpoint{{URL: foURLs1}, {URL: foURLs2}}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
+		calls = append(calls, r.URL.Host)
+		if r.URL.Host == foHostS1 {
+			return nil, tlsHandshakeError(r)
+		}
+		return &http.Response{StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header), Request: r}, nil
+	}))
+
+	req, _ := http.NewRequest(http.MethodGet, foURLs1Path, nil)
+	_, err := rt.RoundTrip(req)
+	if err == nil {
+		t.Fatalf(foErrExpErr)
+	}
+	if len(calls) != 1 {
+		t.Fatalf("expected 1 call (no failover for TLS handshake error), got %d: %v", len(calls), calls)
+	}
+}
+
 func TestFailoverRoundTripperRedirectErrorNotRetried(t *testing.T) {
 	fo := Options{
 		Strategy:           RoundRobin,
@@ -406,10 +434,10 @@ func TestFailoverRoundTripperRedirectErrorNotRetried(t *testing.T) {
 	}
 }
 
-func TestFailoverRoundTripperDeadlineExceededNotRetriedWhenRetryOnTimeoutDisabled(t *testing.T) {
+func TestFailoverRoundTripperDeadlineExceededNotRetriedEvenWhenRetryOnTimeoutEnabled(t *testing.T) {
 	fo := Options{
 		Strategy:           RoundRobin,
-		RetryOnTimeout:     false,
+		RetryOnTimeout:     true,
 		MaxRetries:         10,
 		ExponentialBackoff: zeroBackoff(),
 	}
@@ -429,14 +457,13 @@ func TestFailoverRoundTripperDeadlineExceededNotRetriedWhenRetryOnTimeoutDisable
 		t.Fatalf(foErrExpErr)
 	}
 	if len(calls) != 1 {
-		t.Fatalf("expected 1 call (no failover when RetryOnTimeout disabled), got %d: %v", len(calls), calls)
+		t.Fatalf("expected 1 call (only net.OpError is retryable), got %d: %v", len(calls), calls)
 	}
 }
 
-func TestFailoverRoundTripperDeadlineExceededRetriedWhenRetryOnTimeoutEnabled(t *testing.T) {
+func TestFailoverRoundTripperEOFNotRetried(t *testing.T) {
 	fo := Options{
 		Strategy:           RoundRobin,
-		RetryOnTimeout:     true,
 		MaxRetries:         10,
 		ExponentialBackoff: zeroBackoff(),
 	}
@@ -445,21 +472,18 @@ func TestFailoverRoundTripperDeadlineExceededRetriedWhenRetryOnTimeoutEnabled(t 
 	rt := NewRoundTripper([]Endpoint{{URL: foURLs1}, {URL: foURLs2}}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
 		calls = append(calls, r.URL.Host)
 		if r.URL.Host == foHostS1 {
-			return nil, deadlineExceededError(r)
+			return nil, io.EOF
 		}
 		return &http.Response{StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header), Request: r}, nil
 	}))
 
 	req, _ := http.NewRequest(http.MethodGet, foURLs1Path, nil)
-	resp, err := rt.RoundTrip(req)
-	if err != nil {
-		t.Fatalf(foErrExpSucc, err)
+	_, err := rt.RoundTrip(req)
+	if err == nil {
+		t.Fatalf(foErrExpErr)
 	}
-	if resp.StatusCode != http.StatusOK {
-		t.Fatalf(foErrExp200, resp.StatusCode)
-	}
-	if len(calls) != 2 || calls[0] != foHostS1 || calls[1] != foHostS2 {
-		t.Fatalf(foErrExpOrder, calls)
+	if len(calls) != 1 {
+		t.Fatalf("expected 1 call (EOF is not retryable), got %d: %v", len(calls), calls)
 	}
 }
 
@@ -515,5 +539,31 @@ func TestFailoverRoundTripperContextCanceledNotRetried(t *testing.T) {
 	}
 	if len(calls) != 1 {
 		t.Fatalf("expected 1 call (context cancellation is never retried), got %d: %v", len(calls), calls)
+	}
+}
+
+func TestFailoverRoundTripperUnknownNetOpErrorNotRetried(t *testing.T) {
+	fo := Options{
+		Strategy:           RoundRobin,
+		MaxRetries:         10,
+		ExponentialBackoff: zeroBackoff(),
+	}
+
+	calls := []string{}
+	rt := NewRoundTripper([]Endpoint{{URL: foURLs1}, {URL: foURLs2}}, fo, roundTripperFunc(func(r *http.Request) (*http.Response, error) {
+		calls = append(calls, r.URL.Host)
+		if r.URL.Host == foHostS1 {
+			return nil, unknownNetOpError(r)
+		}
+		return &http.Response{StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header), Request: r}, nil
+	}))
+
+	req, _ := http.NewRequest(http.MethodGet, foURLs1Path, nil)
+	_, err := rt.RoundTrip(req)
+	if err == nil {
+		t.Fatalf(foErrExpErr)
+	}
+	if len(calls) != 1 {
+		t.Fatalf("expected 1 call (unknown net.OpError is not retryable), got %d: %v", len(calls), calls)
 	}
 }

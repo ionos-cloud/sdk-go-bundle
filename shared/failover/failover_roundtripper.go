@@ -6,6 +6,8 @@ package failover
 
 import (
 	"context"
+	"crypto/tls"
+	"crypto/x509"
 	"errors"
 	"fmt"
 	"io"
@@ -13,6 +15,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"syscall"
 	"time"
 
 	boff "github.com/cenkalti/backoff/v5"
@@ -170,10 +173,10 @@ func (t *RoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
 // Behaviour:
 //   - Non-retryable HTTP methods (e.g. POST by default): passes through to the
 //     base transport without retry.
-//   - Network errors (connection refused, reset, etc.): retries with
-//     exponential backoff, cycling to the next server via order. DNS errors
-//     and context cancellation are never retried. Timeout errors are only
-//     retried when Options.RetryOnTimeout is set.
+//   - Network errors: retries only for an allowlist of transport errors
+//     (connection refused/reset/aborted, unreachable host/network) and timeout
+//     errors when Options.RetryOnTimeout is set. DNS errors and context
+//     cancellation are never retried.
 //   - Status codes in FailoverOnStatusCodes: drains the response body and
 //     retries against the next server. Response headers (e.g. Retry-After) are
 //     not inspected at this layer.
@@ -291,47 +294,79 @@ func isNetworkErrorRT(ctx context.Context, err error, retryOnTimeout bool) bool 
 		return false
 	}
 
-	// 1. DNS errors are non-retriable — hostname resolution failures
-	// do not benefit from failover to a different server.
+	// TLS certificate/handshake failures are deterministic configuration/protocol
+	// issues, so fail fast and do not fail over to another endpoint.
+	if isTLSFailFastError(err) {
+		return false
+	}
+
+	// If caller context is done, stop failover immediately.
+	if ctx != nil && ctx.Err() != nil {
+		return false
+	}
+
+	// DNS errors are not retried by failover.
 	var dnsErr *net.DNSError
 	if errors.As(err, &dnsErr) {
 		return false
 	}
 
-	// 2. Check for transport-level errors (connection refused, reset, etc).
+	// Only allowlisted transport-level net.OpError values are eligible for failover.
 	var opErr *net.OpError
 	if errors.As(err, &opErr) {
-		return true
-	}
-
-	// 3. Handle url.Error cases not already caught by the typed checks above.
-	// The only remaining retryable case here is DeadlineExceeded (subject to
-	// the retryOnTimeout flag). All other url.Error variants – TLS certificate
-	// failures, redirect-limit-exceeded, protocol mismatches – are non-transient
-	// and must not trigger failover.
-	var urlErr *url.Error
-	if errors.As(err, &urlErr) {
-		if errors.Is(urlErr.Err, context.DeadlineExceeded) {
-			return retryOnTimeout
-		}
-		return false
-	}
-
-	// 4. Handle context cancellation as non-retriable. This is a safety measure
-	// to prevent failover retries from continuing indefinitely after the caller has
-	// given up.
-	if ctx != nil && errors.Is(err, context.Canceled) {
-		return false
-	}
-
-	// 5. Handle bare timeout errors if enabled.
-	if retryOnTimeout && ctx != nil {
-		if errors.Is(err, context.DeadlineExceeded) {
-			return true
-		}
+		return isRetryableNetOpError(opErr, retryOnTimeout)
 	}
 
 	return false
+}
+
+func isRetryableNetOpError(opErr *net.OpError, retryOnTimeout bool) bool {
+	if opErr == nil {
+		return false
+	}
+
+	if opErr.Timeout() || errors.Is(opErr, syscall.ETIMEDOUT) {
+		return retryOnTimeout
+	}
+
+	return errors.Is(opErr, syscall.ECONNREFUSED) ||
+		errors.Is(opErr, syscall.ECONNRESET) ||
+		errors.Is(opErr, syscall.ECONNABORTED) ||
+		errors.Is(opErr, syscall.EHOSTUNREACH) ||
+		errors.Is(opErr, syscall.ENETUNREACH)
+}
+
+func isTLSFailFastError(err error) bool {
+	if err == nil {
+		return false
+	}
+
+	var certVerifyErr *tls.CertificateVerificationError
+	var unknownAuthorityErr x509.UnknownAuthorityError
+	var hostnameErr x509.HostnameError
+	var certInvalidErr x509.CertificateInvalidError
+	var systemRootsErr x509.SystemRootsError
+	var recordHeaderErr tls.RecordHeaderError
+	var alertErr tls.AlertError
+
+	switch {
+	case errors.As(err, &certVerifyErr):
+		return true
+	case errors.As(err, &unknownAuthorityErr):
+		return true
+	case errors.As(err, &hostnameErr):
+		return true
+	case errors.As(err, &certInvalidErr):
+		return true
+	case errors.As(err, &systemRootsErr):
+		return true
+	case errors.As(err, &recordHeaderErr):
+		return true
+	case errors.As(err, &alertErr):
+		return true
+	default:
+		return false
+	}
 }
 
 func shouldFailoverOnStatus(fo *Options, statusCode int) bool {
