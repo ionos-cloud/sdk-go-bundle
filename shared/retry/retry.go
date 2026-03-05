@@ -52,7 +52,7 @@ func DoWithApplicationRetry(
 		if err != nil {
 			return resp, httpRequestTime, err
 		}
-
+		shared.SdkLogger.Printf("\n try no: %d\n", attempt)
 		logResponse(resp)
 
 		backoffTime, retryErr := retryBackoff(resp, request.Method, cfg.WaitTime)
@@ -102,7 +102,7 @@ func doRetryAttempt(cfg *shared.Configuration, request *http.Request) (*http.Res
 		return nil, 0, cloneErr
 	}
 
-	logRequest(clonedRequest, 0)
+	logRequest(clonedRequest)
 
 	httpRequestStartTime := time.Now()
 	clonedRequest.Close = true
@@ -160,7 +160,7 @@ func drainBody(resp *http.Response) {
 
 // logRequest dumps the outgoing request at Debug level.
 // The Authorization header is stripped unless Trace is enabled.
-func logRequest(request *http.Request, retryCount int) {
+func logRequest(request *http.Request) {
 	if !shared.SdkLogLevel.Satisfies(shared.Debug) {
 		return
 	}
@@ -174,7 +174,6 @@ func logRequest(request *http.Request, retryCount int) {
 	} else {
 		shared.SdkLogger.Printf(" DumpRequestOut err: %+v", err)
 	}
-	shared.SdkLogger.Printf("\n try no: %d\n", retryCount)
 }
 
 // logResponse dumps the server response at Debug level.
