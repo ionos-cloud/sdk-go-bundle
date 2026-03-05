@@ -102,7 +102,7 @@ func doRetryAttempt(cfg *shared.Configuration, request *http.Request) (*http.Res
 		return nil, 0, cloneErr
 	}
 
-	logRequest(request, 0)
+	logRequest(clonedRequest, 0)
 
 	httpRequestStartTime := time.Now()
 	clonedRequest.Close = true
