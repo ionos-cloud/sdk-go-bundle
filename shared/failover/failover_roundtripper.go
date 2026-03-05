@@ -426,7 +426,10 @@ type Options struct {
 	RetryableMethods []string `json:"retryableMethods,omitempty" yaml:"retryableMethods,omitempty"`
 
 	// RetryOnTimeout controls whether failover retries should also happen when
-	// the request fails due to context cancellation/deadline exceeded.
+	// the underlying transport experiences a timeout (for example, a network
+	// timeout such as net.OpError.Timeout() / ETIMEDOUT). It does not apply to
+	// context cancellation or deadline-exceeded errors (ctx.Err() != nil), which
+	// always stop retries.
 	RetryOnTimeout bool `json:"retryOnTimeout,omitempty" yaml:"retryOnTimeout,omitempty"`
 
 	// FailoverOnStatusCodes controls whether the transport should fail over to the
