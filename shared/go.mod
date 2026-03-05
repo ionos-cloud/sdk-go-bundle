@@ -5,7 +5,6 @@ go 1.24
 require (
 	github.com/aws/aws-sdk-go v1.55.7
 	github.com/cenkalti/backoff/v5 v5.0.3
-	github.com/ionos-cloud/sdk-go-bundle/products/compute/v2 v2.0.5
 	github.com/stretchr/testify v1.10.0
 	gopkg.in/yaml.v3 v3.0.1
 )
