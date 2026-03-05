@@ -21,7 +21,6 @@ import (
 
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	awsv4 "github.com/aws/aws-sdk-go/aws/signer/v4"
-	boff "github.com/cenkalti/backoff/v5"
 )
 
 var DefaultIonosBasePath = ""
@@ -40,7 +39,7 @@ const (
 	IonosObjectStorageRegion  = "IONOS_OBJECT_STORAGE_REGION"
 	DefaultIonosServerUrl     = "https://api.ionos.com/"
 
-	defaultMaxRetries   = 3
+	DefaultMaxRetries   = 3
 	defaultWaitTime     = time.Duration(100) * time.Millisecond
 	defaultMaxWaitTime  = time.Duration(2000) * time.Millisecond
 	defaultPollInterval = 1 * time.Second
@@ -123,113 +122,6 @@ type MiddlewareFunctionWithError func(*http.Request) error
 // ResponseMiddlewareFunction provides way to implement custom middleware with errors after the response is received
 type ResponseMiddlewareFunction func(*http.Response, []byte) error
 
-// FailoverStrategy selects the endpoint failover behaviour.
-// It is a string type so it serializes nicely to JSON/YAML config files.
-//
-// Supported values:
-//   - FailoverNone ("none") or "": default behaviour (no endpoint failover)
-//   - FailoverRoundRobin ("roundRobin"): on network-level errors, retry the request against the next server in Servers
-//
-// Note: comparisons should be case-insensitive.
-type FailoverStrategy string
-
-const (
-	FailoverNone       FailoverStrategy = "none"
-	FailoverRoundRobin FailoverStrategy = "roundRobin"
-)
-
-// FailoverOptions controls transport-level endpoint failover behaviour.
-// It is nested under Configuration so it can be grouped cleanly in JSON/YAML.
-//
-// This layer only applies when a multi-server strategy is active (currently
-// only FailoverRoundRobin). With FailoverNone/empty or a single server, the
-// transport passes through directly to the base http.RoundTripper.
-//
-// # Interaction with product-level callAPI retry loop
-//
-// Product-level callAPI wraps HTTPClient.Do(), which invokes RoundTrip().
-// Each callAPI retry triggers a fresh RoundTrip() call that cycles through
-// all servers from the beginning. Worst-case total attempts:
-//
-//	callAPI.MaxRetries × FailoverOptions.MaxRetries
-//
-// # FailoverOnStatusCodes behaviour
-//
-// Status codes listed in FailoverOnStatusCodes are handled at the transport
-// level: the response body is drained, and the request is retried against the
-// next server with exponential backoff. Response headers (e.g. Retry-After)
-// are not inspected. If all servers return a listed code, RoundTrip returns an
-// error (not an HTTP response), so callAPI receives err != nil and returns
-// immediately — its own status-code retry logic is never reached.
-//
-// Status codes NOT listed here pass through as a normal HTTP response to
-// callAPI, which has its own retry logic for 502/503/504 (fixed backoff, no
-// POST retry) and 429 (honors Retry-After).
-type FailoverOptions struct {
-	Strategy FailoverStrategy `json:"strategy,omitempty" yaml:"strategy,omitempty"`
-
-	// RetryableMethods controls which HTTP methods are eligible for transport-level
-	// failover retries. If empty/nil, the default is safe/idempotent methods.
-	RetryableMethods []string `json:"retryableMethods,omitempty" yaml:"retryableMethods,omitempty"`
-
-	// RetryOnTimeout controls whether failover retries should also happen when
-	// the request fails due to context cancellation/deadline exceeded.
-	RetryOnTimeout bool `json:"retryOnTimeout,omitempty" yaml:"retryOnTimeout,omitempty"`
-
-	// FailoverOnStatusCodes controls whether the transport should fail over to the
-	// next server when it receives one of these HTTP status codes.
-	FailoverOnStatusCodes []int `json:"failoverOnStatusCodes,omitempty" yaml:"failoverOnStatusCodes,omitempty"`
-
-	// MaxRetries controls how many times the transport will attempt a request using the set strategy before giving up
-	// and returning the last error. If zero, it defaults to 3.
-	MaxRetries int `json:"maxRetries,omitempty" yaml:"maxRetries,omitempty"`
-
-	ExponentialBackoff *ExponentialBackoffOptions `json:"exponentialBackoff,omitempty" yaml:"exponentialBackoff,omitempty"`
-}
-
-// ExponentialBackoffOptions controls the backoff parameters for exponential backoff.
-// By configuring Multiplier and RandomizationFactor, it is possible to achieve a constant backoff or a linear backoff as well.
-type ExponentialBackoffOptions struct {
-	// InitialInterval is the initial interval between retries. If zero, it defaults to 500ms.
-	InitialInterval time.Duration `json:"initialInterval,omitempty" yaml:"initialInterval,omitempty"`
-
-	// MaxInterval is the maximum interval between retries. If zero, it defaults to 60s.
-	MaxInterval time.Duration `json:"maxInterval,omitempty" yaml:"maxInterval,omitempty"`
-
-	// Multiplier is the factor by which the interval increases after each retry. If nil, it defaults to 1.5.
-	Multiplier *float64 `json:"multiplier,omitempty" yaml:"multiplier,omitempty"`
-
-	// RandomizationFactor is the factor used to randomize the backoff intervals. If nil, it defaults to 0.5.
-	RandomizationFactor *float64 `json:"randomizationFactor,omitempty" yaml:"randomizationFactor,omitempty"`
-}
-
-// NewExponentialBackoff creates a new exponential backoff instance configured
-// with the options in b. If b is nil, defaults from cenkalti/backoff are used.
-func (b *ExponentialBackoffOptions) NewExponentialBackoff() boff.BackOff {
-	bo := boff.NewExponentialBackOff()
-	if b == nil {
-		return bo
-	}
-
-	if b.InitialInterval != 0 {
-		bo.InitialInterval = b.InitialInterval
-	}
-
-	if b.MaxInterval != 0 {
-		bo.MaxInterval = b.MaxInterval
-	}
-
-	if b.Multiplier != nil {
-		bo.Multiplier = *b.Multiplier
-	}
-
-	if b.RandomizationFactor != nil {
-		bo.RandomizationFactor = *b.RandomizationFactor
-	}
-
-	return bo
-}
-
 // Configuration stores the configuration of the API client
 type Configuration struct {
 	Host               string                          `json:"host,omitempty"`
@@ -251,8 +143,6 @@ type Configuration struct {
 	Middleware          MiddlewareFunction          `json:"-"`
 	MiddlewareWithError MiddlewareFunctionWithError `json:"-"`
 	ResponseMiddleware  ResponseMiddlewareFunction  `json:"-"`
-
-	Failover *FailoverOptions `json:"failover,omitempty"`
 }
 
 // NewConfiguration returns a new shared.Configuration object.
@@ -265,7 +155,7 @@ func NewConfiguration(username, password, token, hostUrl string) *Configuration 
 		Username:           username,
 		Password:           password,
 		Token:              token,
-		MaxRetries:         defaultMaxRetries,
+		MaxRetries:         DefaultMaxRetries,
 		MaxWaitTime:        defaultMaxWaitTime,
 		PollInterval:       defaultPollInterval,
 		WaitTime:           defaultWaitTime,
@@ -315,7 +205,7 @@ func NewConfigurationFromOptions(clientOptions ClientOptions) *Configuration {
 		Username:           clientOptions.Credentials.Username,
 		Password:           clientOptions.Credentials.Password,
 		Token:              clientOptions.Credentials.Token,
-		MaxRetries:         defaultMaxRetries,
+		MaxRetries:         DefaultMaxRetries,
 		MaxWaitTime:        defaultMaxWaitTime,
 		WaitTime:           defaultWaitTime,
 		Servers:            ServerConfigurations{},

@@ -1,4 +1,4 @@
-package compute_test
+package failover_test
 
 import (
 	"context"
@@ -9,12 +9,14 @@ import (
 	"testing"
 	"time"
 
-	compute "github.com/ionos-cloud/sdk-go-bundle/products/compute/v2"
+	"github.com/ionos-cloud/sdk-go-bundle/products/compute/v2"
+
 	"github.com/ionos-cloud/sdk-go-bundle/shared"
+	"github.com/ionos-cloud/sdk-go-bundle/shared/failover"
 )
 
 // minimalBackoff keeps tests fast without real waits.
-var minimalBackoff = &shared.ExponentialBackoffOptions{
+var minimalBackoff = &failover.ExponentialBackoffOptions{
 	InitialInterval: 1 * time.Millisecond,
 	MaxInterval:     10 * time.Millisecond,
 }
@@ -46,15 +48,11 @@ func deadServerURL(t *testing.T) string {
 	return "http://" + addr
 }
 
-// failoverConfig builds a Configuration with two servers and failover enabled for POST.
-func failoverConfig(server1URL, server2URL string, extraOpts func(*shared.FailoverOptions)) *shared.Configuration {
-	fo := &shared.FailoverOptions{
-		Strategy:           shared.FailoverRoundRobin,
-		RetryableMethods:   []string{http.MethodPost},
-		ExponentialBackoff: minimalBackoff,
-	}
-	if extraOpts != nil {
-		extraOpts(fo)
+// failoverConfig builds a Configuration with two servers and failover transport already wired.
+func failoverConfig(server1URL, server2URL string, fo failover.Options) *shared.Configuration {
+	endpoints := []failover.Endpoint{
+		{URL: server1URL},
+		{URL: server2URL},
 	}
 	return &shared.Configuration{
 		Username: "test-user",
@@ -63,12 +61,10 @@ func failoverConfig(server1URL, server2URL string, extraOpts func(*shared.Failov
 			{URL: server1URL},
 			{URL: server2URL},
 		},
-		Failover:   fo,
 		MaxRetries: 2,
-		// Use an explicit Transport so NewAPIClient does not fall back to
-		// DeepCopy, which loses HTTPClient and falls back to http.DefaultClient,
-		// stacking FailoverRoundTripper instances across tests.
-		HTTPClient: &http.Client{Transport: http.DefaultTransport},
+		HTTPClient: &http.Client{
+			Transport: failover.NewRoundTripper(endpoints, fo, http.DefaultTransport),
+		},
 	}
 }
 
@@ -85,7 +81,12 @@ func TestCreateDatacenter_FailoverOnNetworkError(t *testing.T) {
 	}))
 	defer server2.Close()
 
-	cfg := failoverConfig(deadServerURL(t), server2.URL, nil)
+	fo := failover.Options{
+		Strategy:           failover.RoundRobin,
+		RetryableMethods:   []string{http.MethodPost},
+		ExponentialBackoff: minimalBackoff,
+	}
+	cfg := failoverConfig(deadServerURL(t), server2.URL, fo)
 	client := compute.NewAPIClient(cfg)
 
 	props := compute.NewDatacenterPropertiesPost("de/fra")
@@ -129,9 +130,13 @@ func TestCreateDatacenter_FailoverOnServiceUnavailable(t *testing.T) {
 	}))
 	defer server2.Close()
 
-	cfg := failoverConfig(server1.URL, server2.URL, func(fo *shared.FailoverOptions) {
-		fo.FailoverOnStatusCodes = []int{http.StatusServiceUnavailable}
-	})
+	fo := failover.Options{
+		Strategy:              failover.RoundRobin,
+		RetryableMethods:      []string{http.MethodPost},
+		FailoverOnStatusCodes: []int{http.StatusServiceUnavailable},
+		ExponentialBackoff:    minimalBackoff,
+	}
+	cfg := failoverConfig(server1.URL, server2.URL, fo)
 	client := compute.NewAPIClient(cfg)
 
 	props := compute.NewDatacenterPropertiesPost("de/fra")

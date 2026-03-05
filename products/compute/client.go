@@ -34,8 +34,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ionos-cloud/sdk-go-bundle/shared"
 	"golang.org/x/oauth2"
+
+	"github.com/ionos-cloud/sdk-go-bundle/shared"
+	"github.com/ionos-cloud/sdk-go-bundle/shared/retry"
 )
 
 var (
@@ -194,12 +196,6 @@ func NewAPIClient(cfg *shared.Configuration) *APIClient {
 		httpTransport := &http.Transport{}
 		AddPinnedCert(httpTransport, pkFingerprint)
 		cfgCopy.HTTPClient.Transport = httpTransport
-	}
-
-	// Wrap transport with failover, if configured.
-	// This keeps behaviour unchanged when FailoverStrategy is ""/"none".
-	if cfgCopy.HTTPClient != nil {
-		cfgCopy.HTTPClient.Transport = shared.NewFailoverRoundTripper(cfgCopy, cfgCopy.HTTPClient.Transport)
 	}
 
 	// Create and initialize the API client
@@ -481,7 +477,7 @@ func parameterAddToHeaderOrQuery(headerOrQueryParams interface{}, keyPrefix stri
 
 // callAPI do the request.
 func (c *APIClient) callAPI(request *http.Request) (*http.Response, time.Duration, error) {
-	return shared.DoWithApplicationRetry(c.cfg,request)
+	return retry.DoWithApplicationRetry(c.cfg, request)
 }
 
 // Allow modification of underlying config for alternate implementations and testing
