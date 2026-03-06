@@ -15,4 +15,3 @@ require (
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 )
 
-replace github.com/ionos-cloud/sdk-go-bundle/shared => ../../shared
