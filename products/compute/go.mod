@@ -7,7 +7,11 @@ require (
 	golang.org/x/oauth2 v0.30.0
 )
 
+replace github.com/ionos-cloud/sdk-go-bundle/shared => ../../shared
+
 require (
 	github.com/aws/aws-sdk-go v1.55.7 // indirect
+	github.com/cenkalti/backoff/v5 v5.0.3 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 )
+

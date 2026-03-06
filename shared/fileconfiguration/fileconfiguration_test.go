@@ -7,6 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/ionos-cloud/sdk-go-bundle/shared"
+	"github.com/ionos-cloud/sdk-go-bundle/shared/failover"
 )
 
 func TestReadConfigFromFile(t *testing.T) {
@@ -270,4 +271,79 @@ func TestGetLocationOverridesWithGlobalFallback_LocationNotFound_GlobalFallback(
 	assert.NotNil(t, ep)
 	assert.Equal(t, "https://cloud.global-1", ep.Name)
 	assert.Equal(t, "", ep.Location)
+}
+
+func TestFailoverOptionsDeserializedFromYAML(t *testing.T) {
+	tempFile, err := os.CreateTemp("", "config-failover-*.yaml")
+	assert.NoError(t, err)
+	defer os.Remove(tempFile.Name())
+
+	configData := `
+version: 1.0
+currentProfile: testProfile
+profiles:
+  - name: testProfile
+    environment: testEnvironment
+    credentials:
+      token: testToken
+environments:
+  - name: testEnvironment
+    products: []
+failover:
+  strategy: roundRobin
+  retryableMethods:
+    - GET
+    - PUT
+  retryOnTimeout: true
+  failoverOnStatusCodes:
+    - 502
+    - 503
+`
+	_, err = tempFile.Write([]byte(configData))
+	assert.NoError(t, err)
+	tempFile.Close()
+
+	cfg, err := New(tempFile.Name())
+	assert.NoError(t, err)
+	assert.NotNil(t, cfg.Failover)
+	assert.Equal(t, failover.RoundRobin, cfg.Failover.Strategy)
+	assert.Equal(t, []string{"GET", "PUT"}, cfg.Failover.RetryableMethods)
+	assert.True(t, cfg.Failover.RetryOnTimeout)
+	assert.Equal(t, []int{502, 503}, cfg.Failover.FailoverOnStatusCodes)
+}
+
+func TestFailoverOptionsNilWhenNotInFile(t *testing.T) {
+	tempFile, err := os.CreateTemp("", "config-no-failover-*.yaml")
+	assert.NoError(t, err)
+	defer os.Remove(tempFile.Name())
+
+	configData := `
+version: 1.0
+currentProfile: testProfile
+profiles:
+  - name: testProfile
+    environment: testEnvironment
+    credentials:
+      token: testToken
+environments:
+  - name: testEnvironment
+    products: []
+`
+	_, err = tempFile.Write([]byte(configData))
+	assert.NoError(t, err)
+	tempFile.Close()
+
+	cfg, err := New(tempFile.Name())
+	assert.NoError(t, err)
+	assert.Nil(t, cfg.Failover)
+	assert.Nil(t, cfg.GetFailoverOptions())
+}
+
+func TestGetFailoverOptions(t *testing.T) {
+	fo := &failover.Options{Strategy: failover.RoundRobin}
+	fileCfg := &FileConfig{Failover: fo}
+	assert.Equal(t, fo, fileCfg.GetFailoverOptions())
+
+	var nilCfg *FileConfig
+	assert.Nil(t, nilCfg.GetFailoverOptions())
 }
