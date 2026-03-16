@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"gopkg.in/yaml.v3"
 
@@ -314,7 +315,7 @@ func (f *FileConfig) GetCurrentProfile() *Profile {
 		return nil
 	}
 	for _, profile := range f.Profiles {
-		if profile.Name == currentProfile {
+		if strings.EqualFold(strings.TrimSpace(profile.Name), strings.TrimSpace(currentProfile)) {
 			if shared.SdkLogLevel.Satisfies(shared.Debug) {
 				shared.SdkLogger.Printf("[DEBUG] using profile %s", profile.Name)
 			}
@@ -355,7 +356,7 @@ func (f *FileConfig) GetProductOverrides(productName string) *Product {
 			continue
 		}
 		for _, product := range environment.Products {
-			if product.Name == productName {
+			if strings.EqualFold(strings.TrimSpace(product.Name), strings.TrimSpace(productName)) {
 				return &product
 			}
 		}
@@ -422,7 +423,7 @@ func (f *FileConfig) GetProductLocationOverrides(productName, location string) *
 		return nil
 	}
 	for _, endpoint := range product.Endpoints {
-		if endpoint.Location == location {
+		if strings.EqualFold(strings.TrimSpace(endpoint.Location), strings.TrimSpace(location)) {
 			return &endpoint
 		}
 	}
