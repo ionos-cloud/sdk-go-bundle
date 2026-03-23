@@ -160,25 +160,24 @@ export IONOS_TOKEN="insert_here_token_saved_from_generate_command"
 ```
 Save the generated token and use it to authenticate:
 ```golang
-    import (
-        "context"
-        "fmt"
-        "log"
-		
-        "github.com/ionos-cloud/sdk-go-bundle/shared"
-        "github.com/ionos-cloud/sdk-go-bundle/products/compute"
-    )
+      import (
+          "context"
+          "fmt"
 
-    func TokenAuthExample() error {
-        //note: to use NewConfigurationFromEnv(), you need to previously set IONOS_TOKEN as env variables
-        authClient := shared.NewAPIClient(authApi.NewConfigurationFromEnv())
-        apiClient := compute.NewAPIClient(cfg)
-        datacenters, _, err := apiClient.DataCentersApi.DatacentersGet(context.Background()).Depth(1).Execute()
-        if err != nil {
-            return fmt.Errorf("error retrieving datacenters (%w)", err)
-        }
-        return nil
-    }
+          "github.com/ionos-cloud/sdk-go-bundle/shared"
+          "github.com/ionos-cloud/sdk-go-bundle/products/compute"
+      )
+
+      func TokenAuthExample() error {
+          //note: to use NewConfigurationFromEnv(), you need to previously set IONOS_TOKEN as env variables
+          cfg := shared.NewConfigurationFromEnv()
+          apiClient := compute.NewAPIClient(cfg)
+          datacenters, _, err := apiClient.DataCentersApi.DatacentersGet(context.Background()).Depth(1).Execute()
+          if err != nil {
+              return fmt.Errorf("error retrieving datacenters (%w)", err)
+          }
+          return nil
+      }
 ``` 
 
 ## Config File Usage
