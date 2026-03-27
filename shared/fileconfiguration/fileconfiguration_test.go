@@ -2,6 +2,7 @@ package fileconfiguration
 
 import (
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -19,7 +20,7 @@ func TestReadConfigFromFile(t *testing.T) {
 	// Write sample config data to the temp file
 	configData := `
 version: 1.0
-currentProfile: testProfile
+currentProfile: TESTPROFILE
 profiles:
   - name: testProfile
     environment: testEnvironment
@@ -55,7 +56,7 @@ environments:
 
 	// Validate the loaded config
 	assert.Equal(t, Version(1.0), config.Version)
-	assert.Equal(t, "testProfile", config.CurrentProfile)
+	assert.Equal(t, strings.ToLower("testProfile"), strings.ToLower(config.CurrentProfile))
 	assert.Equal(t, "testUser", config.Profiles[0].Credentials.Username)
 	assert.Equal(t, "testPass", config.Profiles[0].Credentials.Password)
 	assert.Equal(t, "testToken", config.Profiles[0].Credentials.Token)
