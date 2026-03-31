@@ -4,13 +4,16 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**CreatedDate** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 creation timestamp. | [optional] |
-|**CreatedBy** | Pointer to **string** |  | [optional] |
-|**CreatedByUserId** | Pointer to **string** |  | [optional] |
-|**LastModifiedDate** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 modified timestamp. | [optional] |
-|**LastModifiedBy** | Pointer to **string** |  | [optional] |
-|**LastModifiedByUserId** | Pointer to **string** |  | [optional] |
-|**State** | Pointer to [**State**](State.md) |  | [optional] |
+|**CreatedDate** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 creation timestamp. | [optional] [readonly] |
+|**CreatedBy** | Pointer to **string** | Unique name of the identity that created the resource. | [optional] [readonly] |
+|**CreatedByUserId** | Pointer to **string** | Unique id of the identity that created the resource. | [optional] [readonly] |
+|**LastModifiedDate** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 modified timestamp. | [optional] [readonly] |
+|**LastModifiedBy** | Pointer to **string** | Unique name of the identity that last modified the resource. | [optional] [readonly] |
+|**LastModifiedByUserId** | Pointer to **string** | Unique id of the identity that last modified the resource. | [optional] [readonly] |
+|**ResourceURN** | Pointer to **string** | Unique name of the resource. | [optional] [readonly] |
+|**State** | Pointer to [**PostgresClusterStates**](PostgresClusterStates.md) |  | [optional] |
+|**StatusMessage** | Pointer to **string** | A human-readable message describing the current state. Populated when &#x60;state&#x60; is &#x60;FAILED&#x60;. | [optional] [readonly] |
+|**DnsName** | Pointer to **string** | The DNS name used to access the cluster. | [optional] [readonly] |
 
 ## Methods
 
@@ -181,22 +184,47 @@ SetLastModifiedByUserId sets LastModifiedByUserId field to given value.
 
 HasLastModifiedByUserId returns a boolean if a field has been set.
 
+### GetResourceURN
+
+`func (o *ClusterMetadata) GetResourceURN() string`
+
+GetResourceURN returns the ResourceURN field if non-nil, zero value otherwise.
+
+### GetResourceURNOk
+
+`func (o *ClusterMetadata) GetResourceURNOk() (*string, bool)`
+
+GetResourceURNOk returns a tuple with the ResourceURN field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResourceURN
+
+`func (o *ClusterMetadata) SetResourceURN(v string)`
+
+SetResourceURN sets ResourceURN field to given value.
+
+### HasResourceURN
+
+`func (o *ClusterMetadata) HasResourceURN() bool`
+
+HasResourceURN returns a boolean if a field has been set.
+
 ### GetState
 
-`func (o *ClusterMetadata) GetState() State`
+`func (o *ClusterMetadata) GetState() PostgresClusterStates`
 
 GetState returns the State field if non-nil, zero value otherwise.
 
 ### GetStateOk
 
-`func (o *ClusterMetadata) GetStateOk() (*State, bool)`
+`func (o *ClusterMetadata) GetStateOk() (*PostgresClusterStates, bool)`
 
 GetStateOk returns a tuple with the State field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetState
 
-`func (o *ClusterMetadata) SetState(v State)`
+`func (o *ClusterMetadata) SetState(v PostgresClusterStates)`
 
 SetState sets State field to given value.
 
@@ -205,5 +233,55 @@ SetState sets State field to given value.
 `func (o *ClusterMetadata) HasState() bool`
 
 HasState returns a boolean if a field has been set.
+
+### GetStatusMessage
+
+`func (o *ClusterMetadata) GetStatusMessage() string`
+
+GetStatusMessage returns the StatusMessage field if non-nil, zero value otherwise.
+
+### GetStatusMessageOk
+
+`func (o *ClusterMetadata) GetStatusMessageOk() (*string, bool)`
+
+GetStatusMessageOk returns a tuple with the StatusMessage field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatusMessage
+
+`func (o *ClusterMetadata) SetStatusMessage(v string)`
+
+SetStatusMessage sets StatusMessage field to given value.
+
+### HasStatusMessage
+
+`func (o *ClusterMetadata) HasStatusMessage() bool`
+
+HasStatusMessage returns a boolean if a field has been set.
+
+### GetDnsName
+
+`func (o *ClusterMetadata) GetDnsName() string`
+
+GetDnsName returns the DnsName field if non-nil, zero value otherwise.
+
+### GetDnsNameOk
+
+`func (o *ClusterMetadata) GetDnsNameOk() (*string, bool)`
+
+GetDnsNameOk returns a tuple with the DnsName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDnsName
+
+`func (o *ClusterMetadata) SetDnsName(v string)`
+
+SetDnsName sets DnsName field to given value.
+
+### HasDnsName
+
+`func (o *ClusterMetadata) HasDnsName() bool`
+
+HasDnsName returns a boolean if a field has been set.
 
 

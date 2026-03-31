@@ -1,95 +1,25 @@
 # \ClustersApi
 
-All URIs are relative to *https://api.ionos.com/databases/postgresql*
+All URIs are relative to *https://postgresql.de-txl.ionos.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**ClusterPostgresVersionsGet**](ClustersApi.md#ClusterPostgresVersionsGet) | **Get** /clusters/{clusterId}/postgresversions | List PostgreSQL versions|
-|[**ClustersDelete**](ClustersApi.md#ClustersDelete) | **Delete** /clusters/{clusterId} | Delete a cluster|
-|[**ClustersFindById**](ClustersApi.md#ClustersFindById) | **Get** /clusters/{clusterId} | Fetch a cluster|
-|[**ClustersGet**](ClustersApi.md#ClustersGet) | **Get** /clusters | List clusters|
-|[**ClustersPatch**](ClustersApi.md#ClustersPatch) | **Patch** /clusters/{clusterId} | Patch a cluster|
-|[**ClustersPost**](ClustersApi.md#ClustersPost) | **Post** /clusters | Create a cluster|
-|[**ClustersVersionsGet**](ClustersApi.md#ClustersVersionsGet) | **Get** /clusters/{clusterId}/versions | Supported PostgreSQL versions of cluster|
-|[**PostgresVersionsGet**](ClustersApi.md#PostgresVersionsGet) | **Get** /clusters/postgresversions | List all PostgreSQL versions|
-
-
-
-## ClusterPostgresVersionsGet
-
-```go
-var result PostgresVersionList = ClusterPostgresVersionsGet(ctx, clusterId)
-                      .Execute()
-```
-
-List PostgreSQL versions
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-
-    psql "github.com/ionos-cloud/sdk-go-bundle/products/psql"
-    "github.com/ionos-cloud/sdk-go-bundle/shared"
-)
-
-func main() {
-    clusterId := "498ae72f-411f-11eb-9d07-046c59cc737e" // string | The unique ID of the cluster.
-
-    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
-    apiClient := psql.NewAPIClient(configuration)
-    resource, resp, err := apiClient.ClustersApi.ClusterPostgresVersionsGet(context.Background(), clusterId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClusterPostgresVersionsGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
-    }
-    // response from `ClusterPostgresVersionsGet`: PostgresVersionList
-    fmt.Fprintf(os.Stdout, "Response from `ClustersApi.ClusterPostgresVersionsGet`: %v\n", resource)
-}
-```
-
-### Path Parameters
-
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-|**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | **string** | The unique ID of the cluster. | |
-
-### Other Parameters
-
-Other parameters are passed through a pointer to an apiClusterPostgresVersionsGetRequest struct via the builder pattern
-
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-
-### Return type
-
-[**PostgresVersionList**](../models/PostgresVersionList.md)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
+|[**ClustersDelete**](ClustersApi.md#ClustersDelete) | **Delete** /clusters/{clusterId} | Delete Cluster|
+|[**ClustersFindById**](ClustersApi.md#ClustersFindById) | **Get** /clusters/{clusterId} | Retrieve Cluster|
+|[**ClustersGet**](ClustersApi.md#ClustersGet) | **Get** /clusters | Retrieve all Clusters|
+|[**ClustersPost**](ClustersApi.md#ClustersPost) | **Post** /clusters | Create Cluster|
+|[**ClustersPut**](ClustersApi.md#ClustersPut) | **Put** /clusters/{clusterId} | Ensure Cluster|
 
 
 
 ## ClustersDelete
 
 ```go
-var result ClusterResponse = ClustersDelete(ctx, clusterId)
+var result  = ClustersDelete(ctx, clusterId)
                       .Execute()
 ```
 
-Delete a cluster
+Delete Cluster
 
 
 
@@ -108,7 +38,7 @@ import (
 )
 
 func main() {
-    clusterId := "498ae72f-411f-11eb-9d07-046c59cc737e" // string | The unique ID of the cluster.
+    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The ID (UUID) of the Cluster.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := psql.NewAPIClient(configuration)
@@ -117,8 +47,6 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
-    // response from `ClustersDelete`: ClusterResponse
-    fmt.Fprintf(os.Stdout, "Response from `ClustersApi.ClustersDelete`: %v\n", resource)
 }
 ```
 
@@ -128,7 +56,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | **string** | The unique ID of the cluster. | |
+|**clusterId** | **string** | The ID (UUID) of the Cluster. | |
 
 ### Other Parameters
 
@@ -140,7 +68,7 @@ Other parameters are passed through a pointer to an apiClustersDeleteRequest str
 
 ### Return type
 
-[**ClusterResponse**](../models/ClusterResponse.md)
+ (empty response body)
 
 ### HTTP request headers
 
@@ -152,11 +80,11 @@ Other parameters are passed through a pointer to an apiClustersDeleteRequest str
 ## ClustersFindById
 
 ```go
-var result ClusterResponse = ClustersFindById(ctx, clusterId)
+var result ClusterRead = ClustersFindById(ctx, clusterId)
                       .Execute()
 ```
 
-Fetch a cluster
+Retrieve Cluster
 
 
 
@@ -175,7 +103,7 @@ import (
 )
 
 func main() {
-    clusterId := "498ae72f-411f-11eb-9d07-046c59cc737e" // string | The unique ID of the cluster.
+    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The ID (UUID) of the Cluster.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := psql.NewAPIClient(configuration)
@@ -184,7 +112,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersFindById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
-    // response from `ClustersFindById`: ClusterResponse
+    // response from `ClustersFindById`: ClusterRead
     fmt.Fprintf(os.Stdout, "Response from `ClustersApi.ClustersFindById`: %v\n", resource)
 }
 ```
@@ -195,7 +123,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | **string** | The unique ID of the cluster. | |
+|**clusterId** | **string** | The ID (UUID) of the Cluster. | |
 
 ### Other Parameters
 
@@ -207,7 +135,7 @@ Other parameters are passed through a pointer to an apiClustersFindByIdRequest s
 
 ### Return type
 
-[**ClusterResponse**](../models/ClusterResponse.md)
+[**ClusterRead**](../models/ClusterRead.md)
 
 ### HTTP request headers
 
@@ -219,14 +147,15 @@ Other parameters are passed through a pointer to an apiClustersFindByIdRequest s
 ## ClustersGet
 
 ```go
-var result ClusterList = ClustersGet(ctx)
-                      .Limit(limit)
+var result ClusterReadList = ClustersGet(ctx)
                       .Offset(offset)
+                      .Limit(limit)
                       .FilterName(filterName)
+                      .FilterState(filterState)
                       .Execute()
 ```
 
-List clusters
+Retrieve all Clusters
 
 
 
@@ -245,18 +174,19 @@ import (
 )
 
 func main() {
-    limit := int32(100) // int32 | The maximum number of elements to return. Use together with 'offset' for pagination. (optional) (default to 100)
-    offset := int32(200) // int32 | The first element to return. Use together with 'limit' for pagination. (optional) (default to 0)
-    filterName := "filterName_example" // string | Response filter to list only the PostgreSQL clusters that contain the specified name. The value is case insensitive and matched on the 'displayName' field.  (optional)
+    offset := int32(0) // int32 | The first element (of the total list of elements) to include in the response. Use this parameter together with the limit for pagination. (optional) (default to 0)
+    limit := int32(100) // int32 | The maximum number of elements to return. Use this parameter together with the offset for pagination. (optional) (default to 100)
+    filterName := "filterName_example" // string | Filters resources by name. It matches cluster names that contain the provided string. (optional)
+    filterState := openapiclient.PostgresClusterStates("PROVISIONING") // PostgresClusterStates | Filters resources by state. (optional)
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := psql.NewAPIClient(configuration)
-    resource, resp, err := apiClient.ClustersApi.ClustersGet(context.Background()).Limit(limit).Offset(offset).FilterName(filterName).Execute()
+    resource, resp, err := apiClient.ClustersApi.ClustersGet(context.Background()).Offset(offset).Limit(limit).FilterName(filterName).FilterState(filterState).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
-    // response from `ClustersGet`: ClusterList
+    // response from `ClustersGet`: ClusterReadList
     fmt.Fprintf(os.Stdout, "Response from `ClustersApi.ClustersGet`: %v\n", resource)
 }
 ```
@@ -272,13 +202,14 @@ Other parameters are passed through a pointer to an apiClustersGetRequest struct
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **limit** | **int32** | The maximum number of elements to return. Use together with &#39;offset&#39; for pagination. | [default to 100]|
-| **offset** | **int32** | The first element to return. Use together with &#39;limit&#39; for pagination. | [default to 0]|
-| **filterName** | **string** | Response filter to list only the PostgreSQL clusters that contain the specified name. The value is case insensitive and matched on the &#39;displayName&#39; field.  | |
+| **offset** | **int32** | The first element (of the total list of elements) to include in the response. Use this parameter together with the limit for pagination. | [default to 0]|
+| **limit** | **int32** | The maximum number of elements to return. Use this parameter together with the offset for pagination. | [default to 100]|
+| **filterName** | **string** | Filters resources by name. It matches cluster names that contain the provided string. | |
+| **filterState** | [**PostgresClusterStates**](../models/.md) | Filters resources by state. | |
 
 ### Return type
 
-[**ClusterList**](../models/ClusterList.md)
+[**ClusterReadList**](../models/ClusterReadList.md)
 
 ### HTTP request headers
 
@@ -287,85 +218,15 @@ Other parameters are passed through a pointer to an apiClustersGetRequest struct
 
 
 
-## ClustersPatch
-
-```go
-var result ClusterResponse = ClustersPatch(ctx, clusterId)
-                      .PatchClusterRequest(patchClusterRequest)
-                      .Execute()
-```
-
-Patch a cluster
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-
-    psql "github.com/ionos-cloud/sdk-go-bundle/products/psql"
-    "github.com/ionos-cloud/sdk-go-bundle/shared"
-)
-
-func main() {
-    clusterId := "498ae72f-411f-11eb-9d07-046c59cc737e" // string | The unique ID of the cluster.
-    patchClusterRequest := *openapiclient.NewPatchClusterRequest() // PatchClusterRequest | Part of the cluster which should be modified.
-
-    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
-    apiClient := psql.NewAPIClient(configuration)
-    resource, resp, err := apiClient.ClustersApi.ClustersPatch(context.Background(), clusterId).PatchClusterRequest(patchClusterRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersPatch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
-    }
-    // response from `ClustersPatch`: ClusterResponse
-    fmt.Fprintf(os.Stdout, "Response from `ClustersApi.ClustersPatch`: %v\n", resource)
-}
-```
-
-### Path Parameters
-
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-|**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | **string** | The unique ID of the cluster. | |
-
-### Other Parameters
-
-Other parameters are passed through a pointer to an apiClustersPatchRequest struct via the builder pattern
-
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **patchClusterRequest** | [**PatchClusterRequest**](../models/PatchClusterRequest.md) | Part of the cluster which should be modified. | |
-
-### Return type
-
-[**ClusterResponse**](../models/ClusterResponse.md)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-
 ## ClustersPost
 
 ```go
-var result ClusterResponse = ClustersPost(ctx)
-                      .CreateClusterRequest(createClusterRequest)
+var result ClusterRead = ClustersPost(ctx)
+                      .ClusterCreate(clusterCreate)
                       .Execute()
 ```
 
-Create a cluster
+Create Cluster
 
 
 
@@ -384,16 +245,16 @@ import (
 )
 
 func main() {
-    createClusterRequest := *openapiclient.NewCreateClusterRequest() // CreateClusterRequest | The cluster to be created.
+    clusterCreate := *openapiclient.NewClusterCreate(*openapiclient.NewClusterCreateProperties("cms-prod", *openapiclient.NewInstanceConfiguration(int32(123), int32(4), int32(4), int32(10)), *openapiclient.NewPostgresClusterConnection("5a029f4a-72e5-11ec-90d6-0242ac120003", "2", "192.168.2.101/24"), *openapiclient.NewMaintenanceWindow("59459", openapiclient.DayOfTheWeek("Sunday")), openapiclient.PostgresClusterReplicationMode("ASYNCHRONOUS"), *openapiclient.NewPostgresUser("my_dbuser", "P@ssw0rd123", "my_database"), "eu-central-3")) // ClusterCreate | Cluster to create.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := psql.NewAPIClient(configuration)
-    resource, resp, err := apiClient.ClustersApi.ClustersPost(context.Background()).CreateClusterRequest(createClusterRequest).Execute()
+    resource, resp, err := apiClient.ClustersApi.ClustersPost(context.Background()).ClusterCreate(clusterCreate).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
-    // response from `ClustersPost`: ClusterResponse
+    // response from `ClustersPost`: ClusterRead
     fmt.Fprintf(os.Stdout, "Response from `ClustersApi.ClustersPost`: %v\n", resource)
 }
 ```
@@ -409,11 +270,11 @@ Other parameters are passed through a pointer to an apiClustersPostRequest struc
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **createClusterRequest** | [**CreateClusterRequest**](../models/CreateClusterRequest.md) | The cluster to be created. | |
+| **clusterCreate** | [**ClusterCreate**](../models/ClusterCreate.md) | Cluster to create. | |
 
 ### Return type
 
-[**ClusterResponse**](../models/ClusterResponse.md)
+[**ClusterRead**](../models/ClusterRead.md)
 
 ### HTTP request headers
 
@@ -422,14 +283,15 @@ Other parameters are passed through a pointer to an apiClustersPostRequest struc
 
 
 
-## ClustersVersionsGet
+## ClustersPut
 
 ```go
-var result PostgresVersionList = ClustersVersionsGet(ctx, clusterId)
+var result ClusterRead = ClustersPut(ctx, clusterId)
+                      .ClusterEnsure(clusterEnsure)
                       .Execute()
 ```
 
-Supported PostgreSQL versions of cluster
+Ensure Cluster
 
 
 
@@ -448,17 +310,18 @@ import (
 )
 
 func main() {
-    clusterId := "498ae72f-411f-11eb-9d07-046c59cc737e" // string | The unique ID of the cluster.
+    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The ID (UUID) of the Cluster.
+    clusterEnsure := *openapiclient.NewClusterEnsure("e69b22a5-8fee-56b1-b6fb-4a07e4205ead", *openapiclient.NewCluster("cms-prod", *openapiclient.NewInstanceConfiguration(int32(123), int32(4), int32(4), int32(10)), *openapiclient.NewPostgresClusterConnection("5a029f4a-72e5-11ec-90d6-0242ac120003", "2", "192.168.2.101/24"), *openapiclient.NewMaintenanceWindow("59459", openapiclient.DayOfTheWeek("Sunday")), openapiclient.PostgresClusterReplicationMode("ASYNCHRONOUS"), "eu-central-3")) // ClusterEnsure | update Cluster
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := psql.NewAPIClient(configuration)
-    resource, resp, err := apiClient.ClustersApi.ClustersVersionsGet(context.Background(), clusterId).Execute()
+    resource, resp, err := apiClient.ClustersApi.ClustersPut(context.Background(), clusterId).ClusterEnsure(clusterEnsure).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersVersionsGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersPut``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
-    // response from `ClustersVersionsGet`: PostgresVersionList
-    fmt.Fprintf(os.Stdout, "Response from `ClustersApi.ClustersVersionsGet`: %v\n", resource)
+    // response from `ClustersPut`: ClusterRead
+    fmt.Fprintf(os.Stdout, "Response from `ClustersApi.ClustersPut`: %v\n", resource)
 }
 ```
 
@@ -468,82 +331,24 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | **string** | The unique ID of the cluster. | |
+|**clusterId** | **string** | The ID (UUID) of the Cluster. | |
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to an apiClustersVersionsGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiClustersPutRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
+| **clusterEnsure** | [**ClusterEnsure**](../models/ClusterEnsure.md) | update Cluster | |
 
 ### Return type
 
-[**PostgresVersionList**](../models/PostgresVersionList.md)
+[**ClusterRead**](../models/ClusterRead.md)
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-
-## PostgresVersionsGet
-
-```go
-var result PostgresVersionList = PostgresVersionsGet(ctx)
-                      .Execute()
-```
-
-List all PostgreSQL versions
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-
-    psql "github.com/ionos-cloud/sdk-go-bundle/products/psql"
-    "github.com/ionos-cloud/sdk-go-bundle/shared"
-)
-
-func main() {
-
-    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
-    apiClient := psql.NewAPIClient(configuration)
-    resource, resp, err := apiClient.ClustersApi.PostgresVersionsGet(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.PostgresVersionsGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
-    }
-    // response from `PostgresVersionsGet`: PostgresVersionList
-    fmt.Fprintf(os.Stdout, "Response from `ClustersApi.PostgresVersionsGet`: %v\n", resource)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to an apiPostgresVersionsGetRequest struct via the builder pattern
-
-
-### Return type
-
-[**PostgresVersionList**](../models/PostgresVersionList.md)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
