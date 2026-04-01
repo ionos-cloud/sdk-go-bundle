@@ -53,7 +53,7 @@ const (
 	RequestStatusFailed  = "FAILED"
 	RequestStatusDone    = "DONE"
 
-	Version               = "products/dbaas/psql/v3.0.0"
+	Version               = "products/dbaas/psql/v3.0.1"
 	DefaultIonosServerUrl = "https://postgresql.de-txl.ionos.com"
 	DefaultIonosBasePath  = ""
 )
@@ -118,7 +118,7 @@ func NewAPIClient(cfg *shared.Configuration) *APIClient {
 	}
 
 	if cfgCopy.UserAgent == "" {
-		cfgCopy.UserAgent = "sdk-go-bundle/products/dbaas/psql/v3.0.0"
+		cfgCopy.UserAgent = "sdk-go-bundle/products/dbaas/psql/v3.0.1"
 	}
 
 	// Initialize default values in the copied configuration
