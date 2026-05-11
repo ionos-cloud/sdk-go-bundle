@@ -731,7 +731,6 @@ ctx = context.WithValue(context.Background(), shared.ContextOperationServerVaria
 
 ```go
 var result ListObjectsV2Output = ListObjectsV2(ctx, bucket)
-                      .ListType(listType)
                       .Delimiter(delimiter)
                       .EncodingType(encodingType)
                       .MaxKeys(maxKeys)
@@ -762,7 +761,6 @@ import (
 
 func main() {
     bucket := "bucket_example" // string | 
-    listType := int32(56) // int32 | 
     delimiter := "/" // string | A delimiter is a character you use to group keys. (optional)
     encodingType := "encodingType_example" // string | Encoding type used by IONOS Object Storage to encode object keys in the response. (optional)
     maxKeys := int32(56) // int32 | Sets the maximum number of keys returned in the response. By default the operation returns up to 1000 key names. The response might contain fewer keys but will never contain more. (optional) (default to 1000)
@@ -773,7 +771,7 @@ func main() {
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := userobjectstorage.NewAPIClient(configuration)
-    resource, resp, err := apiClient.ObjectsApi.ListObjectsV2(context.Background(), bucket).ListType(listType).Delimiter(delimiter).EncodingType(encodingType).MaxKeys(maxKeys).Prefix(prefix).ContinuationToken(continuationToken).FetchOwner(fetchOwner).StartAfter(startAfter).Execute()
+    resource, resp, err := apiClient.ObjectsApi.ListObjectsV2(context.Background(), bucket).Delimiter(delimiter).EncodingType(encodingType).MaxKeys(maxKeys).Prefix(prefix).ContinuationToken(continuationToken).FetchOwner(fetchOwner).StartAfter(startAfter).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ObjectsApi.ListObjectsV2``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -798,7 +796,6 @@ Other parameters are passed through a pointer to an apiListObjectsV2Request stru
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **listType** | **int32** |  | |
 | **delimiter** | **string** | A delimiter is a character you use to group keys. | |
 | **encodingType** | **string** | Encoding type used by IONOS Object Storage to encode object keys in the response. | |
 | **maxKeys** | **int32** | Sets the maximum number of keys returned in the response. By default the operation returns up to 1000 key names. The response might contain fewer keys but will never contain more. | [default to 1000]|
