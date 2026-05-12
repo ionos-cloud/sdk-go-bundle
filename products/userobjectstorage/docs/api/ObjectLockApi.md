@@ -108,7 +108,6 @@ ctx = context.WithValue(context.Background(), shared.ContextOperationServerVaria
 
 ```go
 var result GetObjectLockConfigurationOutput = GetObjectLockConfiguration(ctx, bucket)
-                      .ObjectLock(objectLock)
                       .Execute()
 ```
 
@@ -132,11 +131,10 @@ import (
 
 func main() {
     bucket := "bucket_example" // string | 
-    objectLock := true // bool | 
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := userobjectstorage.NewAPIClient(configuration)
-    resource, resp, err := apiClient.ObjectLockApi.GetObjectLockConfiguration(context.Background(), bucket).ObjectLock(objectLock).Execute()
+    resource, resp, err := apiClient.ObjectLockApi.GetObjectLockConfiguration(context.Background(), bucket).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ObjectLockApi.GetObjectLockConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -161,7 +159,6 @@ Other parameters are passed through a pointer to an apiGetObjectLockConfiguratio
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **objectLock** | **bool** |  | |
 
 ### Return type
 
@@ -380,7 +377,6 @@ ctx = context.WithValue(context.Background(), shared.ContextOperationServerVaria
 
 ```go
 var result  = PutObjectLockConfiguration(ctx, bucket)
-                      .ObjectLock(objectLock)
                       .ContentMD5(contentMD5)
                       .PutObjectLockConfigurationRequest(putObjectLockConfigurationRequest)
                       .Execute()
@@ -406,13 +402,12 @@ import (
 
 func main() {
     bucket := "bucket_example" // string | 
-    objectLock := true // bool | 
     contentMD5 := "contentMD5_example" // string | 
     putObjectLockConfigurationRequest := *openapiclient.NewPutObjectLockConfigurationRequest() // PutObjectLockConfigurationRequest | 
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := userobjectstorage.NewAPIClient(configuration)
-    resource, resp, err := apiClient.ObjectLockApi.PutObjectLockConfiguration(context.Background(), bucket).ObjectLock(objectLock).ContentMD5(contentMD5).PutObjectLockConfigurationRequest(putObjectLockConfigurationRequest).Execute()
+    resource, resp, err := apiClient.ObjectLockApi.PutObjectLockConfiguration(context.Background(), bucket).ContentMD5(contentMD5).PutObjectLockConfigurationRequest(putObjectLockConfigurationRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ObjectLockApi.PutObjectLockConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -435,7 +430,6 @@ Other parameters are passed through a pointer to an apiPutObjectLockConfiguratio
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **objectLock** | **bool** |  | |
 | **contentMD5** | **string** |  | |
 | **putObjectLockConfigurationRequest** | [**PutObjectLockConfigurationRequest**](../models/PutObjectLockConfigurationRequest.md) |  | |
 

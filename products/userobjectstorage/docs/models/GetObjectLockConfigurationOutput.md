@@ -4,7 +4,8 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**ObjectLockConfiguration** | Pointer to [**GetObjectLockConfigurationOutputObjectLockConfiguration**](GetObjectLockConfigurationOutputObjectLockConfiguration.md) |  | [optional] |
+|**ObjectLockEnabled** | Pointer to **string** | Indicates whether Object Lock is enabled. Value is \&quot;Enabled\&quot; when enabled. | [optional] |
+|**Rule** | Pointer to [**ObjectLockRule**](ObjectLockRule.md) |  | [optional] |
 
 ## Methods
 
@@ -25,29 +26,54 @@ NewGetObjectLockConfigurationOutputWithDefaults instantiates a new GetObjectLock
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetObjectLockConfiguration
+### GetObjectLockEnabled
 
-`func (o *GetObjectLockConfigurationOutput) GetObjectLockConfiguration() GetObjectLockConfigurationOutputObjectLockConfiguration`
+`func (o *GetObjectLockConfigurationOutput) GetObjectLockEnabled() string`
 
-GetObjectLockConfiguration returns the ObjectLockConfiguration field if non-nil, zero value otherwise.
+GetObjectLockEnabled returns the ObjectLockEnabled field if non-nil, zero value otherwise.
 
-### GetObjectLockConfigurationOk
+### GetObjectLockEnabledOk
 
-`func (o *GetObjectLockConfigurationOutput) GetObjectLockConfigurationOk() (*GetObjectLockConfigurationOutputObjectLockConfiguration, bool)`
+`func (o *GetObjectLockConfigurationOutput) GetObjectLockEnabledOk() (*string, bool)`
 
-GetObjectLockConfigurationOk returns a tuple with the ObjectLockConfiguration field if it's non-nil, zero value otherwise
+GetObjectLockEnabledOk returns a tuple with the ObjectLockEnabled field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetObjectLockConfiguration
+### SetObjectLockEnabled
 
-`func (o *GetObjectLockConfigurationOutput) SetObjectLockConfiguration(v GetObjectLockConfigurationOutputObjectLockConfiguration)`
+`func (o *GetObjectLockConfigurationOutput) SetObjectLockEnabled(v string)`
 
-SetObjectLockConfiguration sets ObjectLockConfiguration field to given value.
+SetObjectLockEnabled sets ObjectLockEnabled field to given value.
 
-### HasObjectLockConfiguration
+### HasObjectLockEnabled
 
-`func (o *GetObjectLockConfigurationOutput) HasObjectLockConfiguration() bool`
+`func (o *GetObjectLockConfigurationOutput) HasObjectLockEnabled() bool`
 
-HasObjectLockConfiguration returns a boolean if a field has been set.
+HasObjectLockEnabled returns a boolean if a field has been set.
+
+### GetRule
+
+`func (o *GetObjectLockConfigurationOutput) GetRule() ObjectLockRule`
+
+GetRule returns the Rule field if non-nil, zero value otherwise.
+
+### GetRuleOk
+
+`func (o *GetObjectLockConfigurationOutput) GetRuleOk() (*ObjectLockRule, bool)`
+
+GetRuleOk returns a tuple with the Rule field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRule
+
+`func (o *GetObjectLockConfigurationOutput) SetRule(v ObjectLockRule)`
+
+SetRule sets Rule field to given value.
+
+### HasRule
+
+`func (o *GetObjectLockConfigurationOutput) HasRule() bool`
+
+HasRule returns a boolean if a field has been set.
 
 

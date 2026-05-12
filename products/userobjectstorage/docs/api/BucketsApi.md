@@ -184,7 +184,6 @@ ctx = context.WithValue(context.Background(), shared.ContextOperationServerVaria
 
 ```go
 var result GetBucketLocation200Response = GetBucketLocation(ctx, bucket)
-                      .Location(location)
                       .Execute()
 ```
 
@@ -208,11 +207,10 @@ import (
 
 func main() {
     bucket := "bucket_example" // string | 
-    location := true // bool | 
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := userobjectstorage.NewAPIClient(configuration)
-    resource, resp, err := apiClient.BucketsApi.GetBucketLocation(context.Background(), bucket).Location(location).Execute()
+    resource, resp, err := apiClient.BucketsApi.GetBucketLocation(context.Background(), bucket).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BucketsApi.GetBucketLocation``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -237,7 +235,6 @@ Other parameters are passed through a pointer to an apiGetBucketLocationRequest 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **location** | **bool** |  | |
 
 ### Return type
 

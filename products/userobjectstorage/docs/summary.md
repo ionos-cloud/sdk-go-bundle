@@ -79,7 +79,6 @@
 * [GetBucketVersioningOutput](models/GetBucketVersioningOutput.md)
 * [GetBucketWebsiteOutput](models/GetBucketWebsiteOutput.md)
 * [GetObjectLockConfigurationOutput](models/GetObjectLockConfigurationOutput.md)
-* [GetObjectLockConfigurationOutputObjectLockConfiguration](models/GetObjectLockConfigurationOutputObjectLockConfiguration.md)
 * [GetObjectOutput](models/GetObjectOutput.md)
 * [GetObjectRetentionOutput](models/GetObjectRetentionOutput.md)
 * [GetObjectTaggingOutput](models/GetObjectTaggingOutput.md)
