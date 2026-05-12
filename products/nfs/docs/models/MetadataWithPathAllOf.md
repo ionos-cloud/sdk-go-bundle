@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**NfsPath** | **string** | The path of the NFS export.  | [readonly] |
+|**NfsPath** | **string** | The path of the NFS export (currently equal to the UUID of the share). On a machine with access to the share, mount it using the following command: &#x60;mount -t nfs &lt;cluster-ip&gt;:&lt;nfs-path&gt; &lt;target-dir&gt;&#x60;  | [readonly] |
 
 ## Methods
 

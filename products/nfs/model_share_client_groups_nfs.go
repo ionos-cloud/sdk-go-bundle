@@ -3,7 +3,7 @@
  *
  * The RESTful API for managing Network File Storage.
  *
- * API version: 0.1.3
+ * API version: 0.1.6
  * Contact: support@cloud.ionos.com
  */
 
@@ -20,7 +20,7 @@ var _ MappedNullable = &ShareClientGroupsNfs{}
 
 // ShareClientGroupsNfs NFS specific configurations.
 type ShareClientGroupsNfs struct {
-	// The squash mode for the export. The squash mode can be: * `none` - No squash mode. no mapping (no_all_squash,no_root_squash). * `root-anonymous` - Map root user to anonymous uid (root_squash,anonuid=<uid>,anongid=<gid>). * `all-anonymous` - Map all users to anonymous uid (all_squash,anonuid=<uid>,anongid=<gid>).
+	// The NFS squash mode for the export can be set to: * `none` - No squash mode, no mapping. The share directory will be owned by the given UID/GID. (`no_all_squash,no_root_squash`) * `root-anonymous` - Map root user to the anonymous UID/GID. The share directory will be owned by the given UID/GID. (`root_squash,anonuid=<uid>,anongid=<gid>`) * `all-anonymous` - Map all users an internal anonymous UID/GID. The given UID/GID will be ignored. (`all_squash,anonuid=<uid>,anongid=<gid>`)
 	Squash *string `json:"squash,omitempty"`
 }
 

@@ -4,9 +4,9 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Id** | **string** | The share identifier (UUID) | |
-|**Type** | **string** | The resource type. | |
-|**Href** | **string** | The URL of the share. | |
+|**Id** | **string** | The ID (UUID) of the Share. | |
+|**Type** | **string** | The type of the resource. | |
+|**Href** | **string** | The URL of the Share. | |
 |**Metadata** | [**MetadataWithPath**](MetadataWithPath.md) |  | |
 |**Properties** | [**Share**](Share.md) |  | |
 

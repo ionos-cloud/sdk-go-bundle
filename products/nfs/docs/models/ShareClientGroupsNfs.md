@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Squash** | Pointer to **string** | The squash mode for the export. The squash mode can be: * &#x60;none&#x60; - No squash mode. no mapping (no_all_squash,no_root_squash). * &#x60;root-anonymous&#x60; - Map root user to anonymous uid (root_squash,anonuid&#x3D;&lt;uid&gt;,anongid&#x3D;&lt;gid&gt;). * &#x60;all-anonymous&#x60; - Map all users to anonymous uid (all_squash,anonuid&#x3D;&lt;uid&gt;,anongid&#x3D;&lt;gid&gt;).  | [optional] [default to "none"]|
+|**Squash** | Pointer to **string** | The NFS squash mode for the export can be set to: * &#x60;none&#x60; - No squash mode, no mapping. The share directory will be owned by the given UID/GID. (&#x60;no_all_squash,no_root_squash&#x60;) * &#x60;root-anonymous&#x60; - Map root user to the anonymous UID/GID. The share directory will be owned by the given UID/GID. (&#x60;root_squash,anonuid&#x3D;&lt;uid&gt;,anongid&#x3D;&lt;gid&gt;&#x60;) * &#x60;all-anonymous&#x60; - Map all users an internal anonymous UID/GID. The given UID/GID will be ignored. (&#x60;all_squash,anonuid&#x3D;&lt;uid&gt;,anongid&#x3D;&lt;gid&gt;&#x60;)  | [optional] [default to "none"]|
 
 ## Methods
 

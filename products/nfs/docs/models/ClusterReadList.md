@@ -4,10 +4,10 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Id** | **string** | The identifier (UUID) of the cluster. | |
+|**Id** | **string** | ID of the list of Cluster resources. | |
 |**Type** | **string** | The type of the resource. | |
-|**Href** | **string** | The URL of the cluster. | |
-|**Items** | Pointer to [**[]ClusterRead**](ClusterRead.md) | The list of cluster resources. | [optional] |
+|**Href** | **string** | The URL of the list of Cluster resources. | |
+|**Items** | Pointer to [**[]ClusterRead**](ClusterRead.md) | The list of Cluster resources. | [optional] |
 |**Offset** | **int32** | The offset specified in the request (if none was specified, the default offset is 0).  | [readonly] |
 |**Limit** | **int32** | The limit specified in the request (if none was specified, use the endpoint&#39;s default pagination limit).  | [readonly] |
 |**Links** | [**Links**](Links.md) |  | |

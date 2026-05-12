@@ -6,7 +6,7 @@ All URIs are relative to *https://nfs.de-fra.ionos.com*
 |------------- | ------------- | -------------|
 |[**ClustersSharesDelete**](SharesApi.md#ClustersSharesDelete) | **Delete** /clusters/{clusterId}/shares/{shareId} | Delete Share|
 |[**ClustersSharesFindById**](SharesApi.md#ClustersSharesFindById) | **Get** /clusters/{clusterId}/shares/{shareId} | Retrieve Share|
-|[**ClustersSharesGet**](SharesApi.md#ClustersSharesGet) | **Get** /clusters/{clusterId}/shares | Retrieve Shares|
+|[**ClustersSharesGet**](SharesApi.md#ClustersSharesGet) | **Get** /clusters/{clusterId}/shares | Retrieve all Shares|
 |[**ClustersSharesPost**](SharesApi.md#ClustersSharesPost) | **Post** /clusters/{clusterId}/shares | Create Share|
 |[**ClustersSharesPut**](SharesApi.md#ClustersSharesPut) | **Put** /clusters/{clusterId}/shares/{shareId} | Ensure Share|
 
@@ -38,8 +38,8 @@ import (
 )
 
 func main() {
-    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The identifier (UUID) of the cluster.
-    shareId := "7b1ef56d-dfc6-51fe-aff0-7af2d6747868" // string | The identifier (UUID) of the share.
+    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The ID (UUID) of the Cluster.
+    shareId := "7b1ef56d-dfc6-51fe-aff0-7af2d6747868" // string | The ID (UUID) of the Share.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := nfs.NewAPIClient(configuration)
@@ -57,8 +57,8 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | **string** | The identifier (UUID) of the cluster. | |
-|**shareId** | **string** | The identifier (UUID) of the share. | |
+|**clusterId** | **string** | The ID (UUID) of the Cluster. | |
+|**shareId** | **string** | The ID (UUID) of the Share. | |
 
 ### Other Parameters
 
@@ -105,8 +105,8 @@ import (
 )
 
 func main() {
-    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The identifier (UUID) of the cluster.
-    shareId := "7b1ef56d-dfc6-51fe-aff0-7af2d6747868" // string | The share identifier.
+    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The ID (UUID) of the Cluster.
+    shareId := "7b1ef56d-dfc6-51fe-aff0-7af2d6747868" // string | The ID (UUID) of the Share.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := nfs.NewAPIClient(configuration)
@@ -126,8 +126,8 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | **string** | The identifier (UUID) of the cluster. | |
-|**shareId** | **string** | The share identifier. | |
+|**clusterId** | **string** | The ID (UUID) of the Cluster. | |
+|**shareId** | **string** | The ID (UUID) of the Share. | |
 
 ### Other Parameters
 
@@ -157,7 +157,7 @@ var result ShareReadList = ClustersSharesGet(ctx, clusterId)
                       .Execute()
 ```
 
-Retrieve Shares
+Retrieve all Shares
 
 
 
@@ -176,8 +176,8 @@ import (
 )
 
 func main() {
-    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The identifier (UUID) of the cluster.
-    offset := int32(0) // int32 | The first element from the total list of elements to include in the response. Use this parameter together with the limit for pagination. (optional) (default to 0)
+    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The ID (UUID) of the Cluster.
+    offset := int32(0) // int32 | The first element (of the total list of elements) to include in the response. Use this parameter together with the limit for pagination. (optional) (default to 0)
     limit := int32(100) // int32 | The maximum number of elements to return. Use this parameter together with the offset for pagination. (optional) (default to 100)
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
@@ -198,7 +198,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | **string** | The identifier (UUID) of the cluster. | |
+|**clusterId** | **string** | The ID (UUID) of the Cluster. | |
 
 ### Other Parameters
 
@@ -207,7 +207,7 @@ Other parameters are passed through a pointer to an apiClustersSharesGetRequest 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **offset** | **int32** | The first element from the total list of elements to include in the response. Use this parameter together with the limit for pagination. | [default to 0]|
+| **offset** | **int32** | The first element (of the total list of elements) to include in the response. Use this parameter together with the limit for pagination. | [default to 0]|
 | **limit** | **int32** | The maximum number of elements to return. Use this parameter together with the offset for pagination. | [default to 100]|
 
 ### Return type
@@ -248,8 +248,8 @@ import (
 )
 
 func main() {
-    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The identifier (UUID) of the cluster.
-    shareCreate := *openapiclient.NewShareCreate(*openapiclient.NewShare("Name_example", []openapiclient.ShareClientGroups{*openapiclient.NewShareClientGroups()})) // ShareCreate | Share to create.
+    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The ID (UUID) of the Cluster.
+    shareCreate := *openapiclient.NewShareCreate(*openapiclient.NewShare("Share 1", []openapiclient.ShareClientGroups{*openapiclient.NewShareClientGroups()})) // ShareCreate | Share to create.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := nfs.NewAPIClient(configuration)
@@ -269,7 +269,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | **string** | The identifier (UUID) of the cluster. | |
+|**clusterId** | **string** | The ID (UUID) of the Cluster. | |
 
 ### Other Parameters
 
@@ -318,9 +318,9 @@ import (
 )
 
 func main() {
-    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The identifier (UUID) of the cluster.
-    shareId := "7b1ef56d-dfc6-51fe-aff0-7af2d6747868" // string | The identifier (UUID) of the share.
-    shareEnsure := *openapiclient.NewShareEnsure("7b1ef56d-dfc6-51fe-aff0-7af2d6747868", *openapiclient.NewShare("Name_example", []openapiclient.ShareClientGroups{*openapiclient.NewShareClientGroups()})) // ShareEnsure | Update Share
+    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The ID (UUID) of the Cluster.
+    shareId := "7b1ef56d-dfc6-51fe-aff0-7af2d6747868" // string | The ID (UUID) of the Share.
+    shareEnsure := *openapiclient.NewShareEnsure("7b1ef56d-dfc6-51fe-aff0-7af2d6747868", *openapiclient.NewShare("Share 1", []openapiclient.ShareClientGroups{*openapiclient.NewShareClientGroups()})) // ShareEnsure | update Share
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := nfs.NewAPIClient(configuration)
@@ -340,8 +340,8 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | **string** | The identifier (UUID) of the cluster. | |
-|**shareId** | **string** | The identifier (UUID) of the share. | |
+|**clusterId** | **string** | The ID (UUID) of the Cluster. | |
+|**shareId** | **string** | The ID (UUID) of the Share. | |
 
 ### Other Parameters
 
@@ -350,7 +350,7 @@ Other parameters are passed through a pointer to an apiClustersSharesPutRequest 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **shareEnsure** | [**ShareEnsure**](../models/ShareEnsure.md) | Update Share | |
+| **shareEnsure** | [**ShareEnsure**](../models/ShareEnsure.md) | update Share | |
 
 ### Return type
 

@@ -4,11 +4,11 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Name** | **string** | The directory being exported | |
-|**Quota** | Pointer to **int32** | The quota in MiB for the export. The quota can restrict the amount of data that can be stored within the export. The quota can be disabled using &#x60;0&#x60;.  | [optional] [default to 0]|
-|**Gid** | Pointer to **int32** | The group ID that will own the exported directory and be used as anongid in squash modes root-anonymous and all-anonymous.  | [optional] [default to 65534]|
-|**Uid** | Pointer to **int32** | The user ID that will own the exported directory and be used as anonuid in squash modes root-anonymous and all-anonymous.  | [optional] [default to 65534]|
-|**ClientGroups** | [**[]ShareClientGroups**](ShareClientGroups.md) | The groups of clients are the systems connecting to the Network File Storage cluster.  | |
+|**Name** | **string** | Name of the share | |
+|**Quota** | Pointer to **int32** | The quota for the export in MiB, which can limit the amount of data stored. Setting the quota to 0 will disable it.  | [optional] [default to 0]|
+|**Gid** | Pointer to **int32** | The group ID that will own the exported directory and be used as the &#x60;anongid&#x60; NFS option in squash modes &#x60;root-anonymous&#x60; and &#x60;all-anonymous&#x60;.  | [optional] [default to 65534]|
+|**Uid** | Pointer to **int32** | The user ID that will own the exported directory and be used as the &#x60;anonuid&#x60; NFS option in squash modes &#x60;root-anonymous&#x60; and &#x60;all-anonymous&#x60;.  | [optional] [default to 65534]|
+|**ClientGroups** | [**[]ShareClientGroups**](ShareClientGroups.md) | Client groups are the virtual machines connecting to the Network File Storage cluster.  | |
 
 ## Methods
 

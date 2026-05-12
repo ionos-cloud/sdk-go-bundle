@@ -3,7 +3,7 @@
  *
  * The RESTful API for managing Network File Storage.
  *
- * API version: 0.1.3
+ * API version: 0.1.6
  * Contact: support@cloud.ionos.com
  */
 
@@ -20,9 +20,9 @@ var _ MappedNullable = &MetadataWithStatusAllOf{}
 
 // MetadataWithStatusAllOf struct for MetadataWithStatusAllOf
 type MetadataWithStatusAllOf struct {
-	// The status of the resource can be one of the following:  * `AVAILABLE` - The resource exists and is healthy. * `PROVISIONING` - The resource is being created or updated. * `DESTROYING` - A delete command was issued, and the resource is being deleted. * `FAILED` - The resource failed, with details provided in `statusMessage`.
+	// The status of the resource can be one of the following: * `AVAILABLE` - The resource exists and is healthy. * `PROVISIONING` - The resource is being created or updated. * `DESTROYING` - A delete command was issued, and the resource is being deleted. * `FAILED` - The resource failed, with details provided in `statusMessage`.
 	Status string `json:"status"`
-	// The message of the failure if the status is `FAILED`.
+	// The error message when the status is `FAILED`.
 	StatusMessage *string `json:"statusMessage,omitempty"`
 }
 

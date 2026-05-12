@@ -3,7 +3,7 @@
  *
  * The RESTful API for managing Network File Storage.
  *
- * API version: 0.1.3
+ * API version: 0.1.6
  * Contact: support@cloud.ionos.com
  */
 
@@ -20,13 +20,13 @@ var _ MappedNullable = &ClusterReadListAllOf{}
 
 // ClusterReadListAllOf struct for ClusterReadListAllOf
 type ClusterReadListAllOf struct {
-	// The identifier (UUID) of the cluster.
+	// ID of the list of Cluster resources.
 	Id string `json:"id"`
 	// The type of the resource.
 	Type string `json:"type"`
-	// The URL of the cluster.
+	// The URL of the list of Cluster resources.
 	Href string `json:"href"`
-	// The list of cluster resources.
+	// The list of Cluster resources.
 	Items []ClusterRead `json:"items,omitempty"`
 }
 

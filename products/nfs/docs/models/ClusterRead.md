@@ -4,17 +4,17 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Id** | **string** | The ID (UUID) of the cluster. | |
-|**Type** | **string** | The resource type | |
-|**Href** | **string** | The URL of the cluster. | |
-|**Metadata** | [**MetadataWithStatus**](MetadataWithStatus.md) |  | |
+|**Id** | **string** | The ID (UUID) of the Cluster. | |
+|**Type** | **string** | The type of the resource. | |
+|**Href** | **string** | The URL of the Cluster. | |
+|**Metadata** | [**MetadataWithUsage**](MetadataWithUsage.md) |  | |
 |**Properties** | [**Cluster**](Cluster.md) |  | |
 
 ## Methods
 
 ### NewClusterRead
 
-`func NewClusterRead(id string, type_ string, href string, metadata MetadataWithStatus, properties Cluster, ) *ClusterRead`
+`func NewClusterRead(id string, type_ string, href string, metadata MetadataWithUsage, properties Cluster, ) *ClusterRead`
 
 NewClusterRead instantiates a new ClusterRead object
 This constructor will assign default values to properties that have it defined,
@@ -91,20 +91,20 @@ SetHref sets Href field to given value.
 
 ### GetMetadata
 
-`func (o *ClusterRead) GetMetadata() MetadataWithStatus`
+`func (o *ClusterRead) GetMetadata() MetadataWithUsage`
 
 GetMetadata returns the Metadata field if non-nil, zero value otherwise.
 
 ### GetMetadataOk
 
-`func (o *ClusterRead) GetMetadataOk() (*MetadataWithStatus, bool)`
+`func (o *ClusterRead) GetMetadataOk() (*MetadataWithUsage, bool)`
 
 GetMetadataOk returns a tuple with the Metadata field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMetadata
 
-`func (o *ClusterRead) SetMetadata(v MetadataWithStatus)`
+`func (o *ClusterRead) SetMetadata(v MetadataWithUsage)`
 
 SetMetadata sets Metadata field to given value.
 

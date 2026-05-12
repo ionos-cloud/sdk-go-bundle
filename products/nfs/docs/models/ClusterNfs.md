@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**MinVersion** | Pointer to **string** | The version of the NFS cluster, that is supported at minimum.  Currently supported version: * &#x60;4.2&#x60; - NFSv4.2  | [optional] [default to "4.2"]|
+|**MinVersion** | Pointer to **string** | The minimum version of the NFS protocol. * &#x60;4.2&#x60; - NFSv4.2  | [optional] [default to "4.2"]|
 
 ## Methods
 

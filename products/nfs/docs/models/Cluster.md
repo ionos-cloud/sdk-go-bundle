@@ -4,10 +4,11 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Name** | **string** |  | |
+|**Name** | **string** | Name of the cluster | |
 |**Connections** | [**[]ClusterConnections**](ClusterConnections.md) |  | |
 |**Nfs** | Pointer to [**ClusterNfs**](ClusterNfs.md) |  | [optional] |
-|**Size** | Pointer to **int32** | The size of the Network File Storage cluster in TiB. Note that the cluster size cannot be reduced after provisioning. This value determines the billing fees.  | [optional] [default to 2]|
+|**Size** | Pointer to **int32** | The size of the Network File Storage cluster in TiB or GiB. Note that the cluster size cannot be reduced after provisioning. This value determines the billing fees. - When &#x60;sizeUnit&#x60; is &#x60;TiB&#x60;, the allowed values are between 2 and 42. - When &#x60;sizeUnit&#x60; is &#x60;GiB&#x60;, the allowed values are between 2048 and 43008.  | [optional] [default to 2]|
+|**SizeUnit** | Pointer to **string** | The type of the size for the Network File Storage cluster which can be TiB or GiB. | [optional] [default to "TiB"]|
 
 ## Methods
 
@@ -117,5 +118,30 @@ SetSize sets Size field to given value.
 `func (o *Cluster) HasSize() bool`
 
 HasSize returns a boolean if a field has been set.
+
+### GetSizeUnit
+
+`func (o *Cluster) GetSizeUnit() string`
+
+GetSizeUnit returns the SizeUnit field if non-nil, zero value otherwise.
+
+### GetSizeUnitOk
+
+`func (o *Cluster) GetSizeUnitOk() (*string, bool)`
+
+GetSizeUnitOk returns a tuple with the SizeUnit field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSizeUnit
+
+`func (o *Cluster) SetSizeUnit(v string)`
+
+SetSizeUnit sets SizeUnit field to given value.
+
+### HasSizeUnit
+
+`func (o *Cluster) HasSizeUnit() bool`
+
+HasSizeUnit returns a boolean if a field has been set.
 
 

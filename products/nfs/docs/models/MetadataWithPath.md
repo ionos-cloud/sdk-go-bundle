@@ -11,9 +11,9 @@
 |**LastModifiedBy** | Pointer to **string** | Unique name of the identity that last modified the resource. | [optional] [readonly] |
 |**LastModifiedByUserId** | Pointer to **string** | Unique id of the identity that last modified the resource. | [optional] [readonly] |
 |**ResourceURN** | Pointer to **string** | Unique name of the resource. | [optional] [readonly] |
-|**Status** | **string** | The status of the resource can be one of the following:  * &#x60;AVAILABLE&#x60; - The resource exists and is healthy. * &#x60;PROVISIONING&#x60; - The resource is being created or updated. * &#x60;DESTROYING&#x60; - A delete command was issued, and the resource is being deleted. * &#x60;FAILED&#x60; - The resource failed, with details provided in &#x60;statusMessage&#x60;.  | [readonly] |
-|**StatusMessage** | Pointer to **string** | The message of the failure if the status is &#x60;FAILED&#x60;.  | [optional] [readonly] |
-|**NfsPath** | **string** | The path of the NFS export.  | [readonly] |
+|**Status** | **string** | The status of the resource can be one of the following: * &#x60;AVAILABLE&#x60; - The resource exists and is healthy. * &#x60;PROVISIONING&#x60; - The resource is being created or updated. * &#x60;DESTROYING&#x60; - A delete command was issued, and the resource is being deleted. * &#x60;FAILED&#x60; - The resource failed, with details provided in &#x60;statusMessage&#x60;.  | [readonly] |
+|**StatusMessage** | Pointer to **string** | The error message when the status is &#x60;FAILED&#x60;.  | [optional] [readonly] |
+|**NfsPath** | **string** | The path of the NFS export (currently equal to the UUID of the share). On a machine with access to the share, mount it using the following command: &#x60;mount -t nfs &lt;cluster-ip&gt;:&lt;nfs-path&gt; &lt;target-dir&gt;&#x60;  | [readonly] |
 
 ## Methods
 

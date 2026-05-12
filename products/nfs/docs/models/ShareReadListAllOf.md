@@ -4,10 +4,10 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Id** | **string** | The Share identifier (UUID) | |
-|**Type** | **string** | The resource type | |
-|**Href** | **string** | The URL of the Share. | |
-|**Items** | Pointer to [**[]ShareRead**](ShareRead.md) | The list of share resources. | [optional] |
+|**Id** | **string** | ID of the list of Share resources. | |
+|**Type** | **string** | The type of the resource. | |
+|**Href** | **string** | The URL of the list of Share resources. | |
+|**Items** | Pointer to [**[]ShareRead**](ShareRead.md) | The list of Share resources. | [optional] |
 
 ## Methods
 

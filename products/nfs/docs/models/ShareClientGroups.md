@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Description** | Pointer to **string** | Optional description for the clients groups.  | [optional] |
+|**Description** | Pointer to **string** | Optional description for the client group.  | [optional] |
 |**IpNetworks** | Pointer to **[]string** |  | [optional] |
 |**Hosts** | Pointer to **[]string** |  | [optional] |
 |**Nfs** | Pointer to [**ShareClientGroupsNfs**](ShareClientGroupsNfs.md) |  | [optional] |

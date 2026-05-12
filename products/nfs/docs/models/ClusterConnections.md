@@ -6,7 +6,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**DatacenterId** | **string** | The ID of the datacenter where the Network File Storage cluster is located.  | |
 |**Lan** | **string** | The LAN to which the Network File Storage cluster must be connected.  | |
-|**IpAddress** | **string** | The IP address and prefix of the Network File Storage cluster. The IP address can be either IPv4 or IPv6. The IP address has to be given with CIDR notation.  | |
+|**IpAddress** | **string** | The IP address and prefix of the Network File Storage cluster. Must be specified in CIDR notation. Both IPv4 and IPv6 addresses are supported.  | |
 
 ## Methods
 

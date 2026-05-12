@@ -4,10 +4,10 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Id** | **string** | The Share identifier (UUID) | |
-|**Type** | **string** | The resource type | |
-|**Href** | **string** | The URL of the Share. | |
-|**Items** | Pointer to [**[]ShareRead**](ShareRead.md) | The list of share resources. | [optional] |
+|**Id** | **string** | ID of the list of Share resources. | |
+|**Type** | **string** | The type of the resource. | |
+|**Href** | **string** | The URL of the list of Share resources. | |
+|**Items** | Pointer to [**[]ShareRead**](ShareRead.md) | The list of Share resources. | [optional] |
 |**Offset** | **int32** | The offset specified in the request (if none was specified, the default offset is 0).  | [readonly] |
 |**Limit** | **int32** | The limit specified in the request (if none was specified, use the endpoint&#39;s default pagination limit).  | [readonly] |
 |**Links** | [**Links**](Links.md) |  | |

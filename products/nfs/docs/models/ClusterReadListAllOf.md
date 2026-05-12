@@ -4,10 +4,10 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Id** | **string** | The identifier (UUID) of the cluster. | |
+|**Id** | **string** | ID of the list of Cluster resources. | |
 |**Type** | **string** | The type of the resource. | |
-|**Href** | **string** | The URL of the cluster. | |
-|**Items** | Pointer to [**[]ClusterRead**](ClusterRead.md) | The list of cluster resources. | [optional] |
+|**Href** | **string** | The URL of the list of Cluster resources. | |
+|**Items** | Pointer to [**[]ClusterRead**](ClusterRead.md) | The list of Cluster resources. | [optional] |
 
 ## Methods
 

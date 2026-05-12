@@ -3,7 +3,7 @@
  *
  * The RESTful API for managing Network File Storage.
  *
- * API version: 0.1.3
+ * API version: 0.1.6
  * Contact: support@cloud.ionos.com
  */
 
@@ -53,12 +53,12 @@ const (
 	RequestStatusFailed  = "FAILED"
 	RequestStatusDone    = "DONE"
 
-	Version               = "products/nfs/v2.0.1"
+	Version               = "products/nfs/v2.0.2"
 	DefaultIonosServerUrl = "https://nfs.de-fra.ionos.com"
 	DefaultIonosBasePath  = ""
 )
 
-// APIClient manages communication with the IONOS Cloud - Network File Storage API API v0.1.3
+// APIClient manages communication with the IONOS Cloud - Network File Storage API API v0.1.6
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *shared.Configuration
@@ -114,7 +114,7 @@ func NewAPIClient(cfg *shared.Configuration) *APIClient {
 	}
 
 	if cfgCopy.UserAgent == "" {
-		cfgCopy.UserAgent = "sdk-go-bundle/products/nfs/v2.0.1"
+		cfgCopy.UserAgent = "sdk-go-bundle/products/nfs/v2.0.2"
 	}
 
 	// Initialize default values in the copied configuration
@@ -126,38 +126,40 @@ func NewAPIClient(cfg *shared.Configuration) *APIClient {
 		cfgCopy.Servers = shared.ServerConfigurations{
 			{
 				URL:         "https://nfs.de-fra.ionos.com",
-				Description: "Frankfurt, Germany",
+				Description: "service endpoint for location de-fra",
 			},
 			{
 				URL:         "https://nfs.de-txl.ionos.com",
-				Description: "Berlin, Germany",
-			},
-			{
-				URL:         "https://nfs.fr-par.ionos.com",
-				Description: "Paris, France",
-			},
-			{
-				URL:         "https://nfs.gb-lhr.ionos.com",
-				Description: "London, Great Britain",
+				Description: "service endpoint for location de-txl",
 			},
 			{
 				URL:         "https://nfs.es-vit.ionos.com",
-				Description: "Logroño, Spain",
+				Description: "service endpoint for location es-vit",
 			},
 			{
-				URL:         "https://nfs.us-las.ionos.com",
-				Description: "Las Vegas, USA",
+				URL:         "https://nfs.fr-par.ionos.com",
+				Description: "service endpoint for location fr-par",
+			},
+			{
+				URL:         "https://nfs.gb-lhr.ionos.com",
+				Description: "service endpoint for location gb-lhr",
 			},
 			{
 				URL:         "https://nfs.us-ewr.ionos.com",
-				Description: "Newark, USA",
+				Description: "service endpoint for location us-ewr",
+			},
+			{
+				URL:         "https://nfs.us-las.ionos.com",
+				Description: "service endpoint for location us-las",
 			},
 			{
 				URL:         "https://nfs.us-mci.ionos.com",
-				Description: "Lenexa, USA",
+				Description: "service endpoint for location us-mci",
 			},
 		}
+		shared.LogDebug("[DEBUG] nfs: using default endpoint: %s", cfgCopy.Servers[0].URL)
 	} else {
+		shared.LogDebug("[DEBUG] nfs: server config provided with %d endpoint(s)", len(cfgCopy.Servers))
 		// If the user has provided a custom server configuration, we need to ensure that the basepath is set
 		for i := range cfgCopy.Servers {
 			if cfgCopy.Servers[i].URL != "" && !strings.HasSuffix(cfgCopy.Servers[i].URL, DefaultIonosBasePath) {
@@ -172,6 +174,11 @@ func NewAPIClient(cfg *shared.Configuration) *APIClient {
 		httpTransport := &http.Transport{}
 		AddPinnedCert(httpTransport, pkFingerprint)
 		cfgCopy.HTTPClient.Transport = httpTransport
+	}
+
+	// Log final resolved endpoints
+	for i, srv := range cfgCopy.Servers {
+		shared.LogDebug("[DEBUG] nfs: final endpoint[%d]: url=%s description=%q", i, srv.URL, srv.Description)
 	}
 
 	// Create and initialize the API client
@@ -468,6 +475,7 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, time.Duratio
 		resp, err = c.cfg.HTTPClient.Do(clonedRequest)
 		httpRequestTime = time.Since(httpRequestStartTime)
 		if err != nil {
+			shared.LogDebug("[DEBUG] nfs: request failed for %s %s: %v", clonedRequest.Method, clonedRequest.URL.Host, err)
 			return resp, httpRequestTime, err
 		}
 
@@ -487,8 +495,10 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, time.Duratio
 			http.StatusGatewayTimeout,
 			http.StatusBadGateway:
 			if request.Method == http.MethodPost {
+				shared.LogDebug("[DEBUG] nfs: received %d for POST %s, not retrying (non-idempotent)", resp.StatusCode, request.URL.String())
 				return resp, httpRequestTime, err
 			}
+			shared.LogDebug("[DEBUG] nfs: received %d for %s %s, will retry (attempt %d/%d)", resp.StatusCode, request.Method, request.URL.String(), retryCount, c.GetConfig().MaxRetries)
 			backoffTime = c.GetConfig().WaitTime
 
 		case http.StatusTooManyRequests:
@@ -498,8 +508,10 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, time.Duratio
 					return resp, httpRequestTime, err
 				}
 				backoffTime = waitTime
+				shared.LogDebug("[DEBUG] nfs: rate limited (429) for %s %s, retry-after=%ss (attempt %d/%d)", request.Method, request.URL.String(), retryAfterSeconds, retryCount, c.GetConfig().MaxRetries)
 			} else {
 				backoffTime = c.GetConfig().WaitTime
+				shared.LogDebug("[DEBUG] nfs: rate limited (429) for %s %s, using default backoff (attempt %d/%d)", request.Method, request.URL.String(), retryCount, c.GetConfig().MaxRetries)
 			}
 		default:
 			return resp, httpRequestTime, err
@@ -507,9 +519,7 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, time.Duratio
 		}
 
 		if retryCount >= c.GetConfig().MaxRetries {
-			if shared.SdkLogLevel.Satisfies(shared.Debug) {
-				shared.SdkLogger.Printf(" Number of maximum retries exceeded (%d retries)\n", c.cfg.MaxRetries)
-			}
+			shared.LogDebug("[DEBUG] nfs: retry exhausted after %d attempts for %s %s, last status=%d", retryCount, request.Method, request.URL.String(), resp.StatusCode)
 			break
 		} else {
 			c.backOff(request.Context(), backoffTime)

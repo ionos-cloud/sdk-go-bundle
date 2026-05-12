@@ -26,6 +26,8 @@
 * [MetadataWithPathAllOf](models/MetadataWithPathAllOf.md)
 * [MetadataWithStatus](models/MetadataWithStatus.md)
 * [MetadataWithStatusAllOf](models/MetadataWithStatusAllOf.md)
+* [MetadataWithUsage](models/MetadataWithUsage.md)
+* [MetadataWithUsageAllOf](models/MetadataWithUsageAllOf.md)
 * [Pagination](models/Pagination.md)
 * [Share](models/Share.md)
 * [ShareClientGroups](models/ShareClientGroups.md)

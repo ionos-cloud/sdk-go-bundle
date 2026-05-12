@@ -3,7 +3,7 @@
  *
  * The RESTful API for managing Network File Storage.
  *
- * API version: 0.1.3
+ * API version: 0.1.6
  * Contact: support@cloud.ionos.com
  */
 
@@ -20,7 +20,7 @@ var _ MappedNullable = &ShareEnsure{}
 
 // ShareEnsure struct for ShareEnsure
 type ShareEnsure struct {
-	// The share identifier (UUID).
+	// The ID (UUID) of the Share.
 	Id string `json:"id"`
 	// Metadata
 	Metadata   map[string]interface{} `json:"metadata,omitempty"`

@@ -3,7 +3,7 @@
  *
  * The RESTful API for managing Network File Storage.
  *
- * API version: 0.1.3
+ * API version: 0.1.6
  * Contact: support@cloud.ionos.com
  */
 
@@ -20,7 +20,7 @@ var _ MappedNullable = &ShareClientGroups{}
 
 // ShareClientGroups struct for ShareClientGroups
 type ShareClientGroups struct {
-	// Optional description for the clients groups.
+	// Optional description for the client group.
 	Description *string               `json:"description,omitempty"`
 	IpNetworks  []string              `json:"ipNetworks,omitempty"`
 	Hosts       []string              `json:"hosts,omitempty"`

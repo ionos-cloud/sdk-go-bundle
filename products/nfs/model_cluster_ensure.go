@@ -3,7 +3,7 @@
  *
  * The RESTful API for managing Network File Storage.
  *
- * API version: 0.1.3
+ * API version: 0.1.6
  * Contact: support@cloud.ionos.com
  */
 
@@ -20,7 +20,7 @@ var _ MappedNullable = &ClusterEnsure{}
 
 // ClusterEnsure struct for ClusterEnsure
 type ClusterEnsure struct {
-	// The identifier (UUID) of the cluster.
+	// The ID (UUID) of the Cluster.
 	Id string `json:"id"`
 	// Metadata
 	Metadata   map[string]interface{} `json:"metadata,omitempty"`

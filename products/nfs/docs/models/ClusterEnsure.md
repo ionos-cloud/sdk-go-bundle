@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Id** | **string** | The identifier (UUID) of the cluster. | |
+|**Id** | **string** | The ID (UUID) of the Cluster. | |
 |**Metadata** | Pointer to **map[string]interface{}** | Metadata | [optional] |
 |**Properties** | [**Cluster**](Cluster.md) |  | |
 

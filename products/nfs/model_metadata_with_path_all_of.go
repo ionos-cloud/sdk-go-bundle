@@ -3,7 +3,7 @@
  *
  * The RESTful API for managing Network File Storage.
  *
- * API version: 0.1.3
+ * API version: 0.1.6
  * Contact: support@cloud.ionos.com
  */
 
@@ -20,7 +20,7 @@ var _ MappedNullable = &MetadataWithPathAllOf{}
 
 // MetadataWithPathAllOf struct for MetadataWithPathAllOf
 type MetadataWithPathAllOf struct {
-	// The path of the NFS export.
+	// The path of the NFS export (currently equal to the UUID of the share). On a machine with access to the share, mount it using the following command: `mount -t nfs <cluster-ip>:<nfs-path> <target-dir>`
 	NfsPath string `json:"nfsPath"`
 }
 

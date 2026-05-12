@@ -6,7 +6,7 @@ All URIs are relative to *https://nfs.de-fra.ionos.com*
 |------------- | ------------- | -------------|
 |[**ClustersDelete**](ClustersApi.md#ClustersDelete) | **Delete** /clusters/{clusterId} | Delete Cluster|
 |[**ClustersFindById**](ClustersApi.md#ClustersFindById) | **Get** /clusters/{clusterId} | Retrieve Cluster|
-|[**ClustersGet**](ClustersApi.md#ClustersGet) | **Get** /clusters | Retrieve Clusters|
+|[**ClustersGet**](ClustersApi.md#ClustersGet) | **Get** /clusters | Retrieve all Clusters|
 |[**ClustersPost**](ClustersApi.md#ClustersPost) | **Post** /clusters | Create Cluster|
 |[**ClustersPut**](ClustersApi.md#ClustersPut) | **Put** /clusters/{clusterId} | Ensure Cluster|
 
@@ -38,7 +38,7 @@ import (
 )
 
 func main() {
-    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The identifier (UUID) of the cluster.
+    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The ID (UUID) of the Cluster.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := nfs.NewAPIClient(configuration)
@@ -56,7 +56,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | **string** | The identifier (UUID) of the cluster. | |
+|**clusterId** | **string** | The ID (UUID) of the Cluster. | |
 
 ### Other Parameters
 
@@ -103,7 +103,7 @@ import (
 )
 
 func main() {
-    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The identifier (UUID) of the cluster.
+    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The ID (UUID) of the Cluster.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := nfs.NewAPIClient(configuration)
@@ -123,7 +123,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | **string** | The identifier (UUID) of the cluster. | |
+|**clusterId** | **string** | The ID (UUID) of the Cluster. | |
 
 ### Other Parameters
 
@@ -154,7 +154,7 @@ var result ClusterReadList = ClustersGet(ctx)
                       .Execute()
 ```
 
-Retrieve Clusters
+Retrieve all Clusters
 
 
 
@@ -173,9 +173,9 @@ import (
 )
 
 func main() {
-    offset := int32(0) // int32 | The first element from the total list of elements to include in the response. Use this parameter together with the limit for pagination. (optional) (default to 0)
+    offset := int32(0) // int32 | The first element (of the total list of elements) to include in the response. Use this parameter together with the limit for pagination. (optional) (default to 0)
     limit := int32(100) // int32 | The maximum number of elements to return. Use this parameter together with the offset for pagination. (optional) (default to 100)
-    filterDatacenterId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The datacenter identifier to filter by. (optional)
+    filterDatacenterId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The datacenter ID to filter by. (optional)
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := nfs.NewAPIClient(configuration)
@@ -200,9 +200,9 @@ Other parameters are passed through a pointer to an apiClustersGetRequest struct
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **offset** | **int32** | The first element from the total list of elements to include in the response. Use this parameter together with the limit for pagination. | [default to 0]|
+| **offset** | **int32** | The first element (of the total list of elements) to include in the response. Use this parameter together with the limit for pagination. | [default to 0]|
 | **limit** | **int32** | The maximum number of elements to return. Use this parameter together with the offset for pagination. | [default to 100]|
-| **filterDatacenterId** | **string** | The datacenter identifier to filter by. | |
+| **filterDatacenterId** | **string** | The datacenter ID to filter by. | |
 
 ### Return type
 
@@ -308,7 +308,7 @@ import (
 
 func main() {
     clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The ID (UUID) of the Cluster.
-    clusterEnsure := *openapiclient.NewClusterEnsure("e69b22a5-8fee-56b1-b6fb-4a07e4205ead", *openapiclient.NewCluster("Cluster 1", []openapiclient.ClusterConnections{*openapiclient.NewClusterConnections("123e4567-e89b-12d3-a456-426614174001", "1", "10.254.64.1/24")})) // ClusterEnsure | Update Cluster
+    clusterEnsure := *openapiclient.NewClusterEnsure("e69b22a5-8fee-56b1-b6fb-4a07e4205ead", *openapiclient.NewCluster("Cluster 1", []openapiclient.ClusterConnections{*openapiclient.NewClusterConnections("123e4567-e89b-12d3-a456-426614174001", "1", "10.254.64.1/24")})) // ClusterEnsure | update Cluster
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := nfs.NewAPIClient(configuration)
@@ -337,7 +337,7 @@ Other parameters are passed through a pointer to an apiClustersPutRequest struct
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **clusterEnsure** | [**ClusterEnsure**](../models/ClusterEnsure.md) | Update Cluster | |
+| **clusterEnsure** | [**ClusterEnsure**](../models/ClusterEnsure.md) | update Cluster | |
 
 ### Return type
 

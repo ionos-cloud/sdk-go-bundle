@@ -4,8 +4,8 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Status** | **string** | The status of the resource can be one of the following:  * &#x60;AVAILABLE&#x60; - The resource exists and is healthy. * &#x60;PROVISIONING&#x60; - The resource is being created or updated. * &#x60;DESTROYING&#x60; - A delete command was issued, and the resource is being deleted. * &#x60;FAILED&#x60; - The resource failed, with details provided in &#x60;statusMessage&#x60;.  | [readonly] |
-|**StatusMessage** | Pointer to **string** | The message of the failure if the status is &#x60;FAILED&#x60;.  | [optional] [readonly] |
+|**Status** | **string** | The status of the resource can be one of the following: * &#x60;AVAILABLE&#x60; - The resource exists and is healthy. * &#x60;PROVISIONING&#x60; - The resource is being created or updated. * &#x60;DESTROYING&#x60; - A delete command was issued, and the resource is being deleted. * &#x60;FAILED&#x60; - The resource failed, with details provided in &#x60;statusMessage&#x60;.  | [readonly] |
+|**StatusMessage** | Pointer to **string** | The error message when the status is &#x60;FAILED&#x60;.  | [optional] [readonly] |
 
 ## Methods
 

@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Id** | **string** | The share identifier (UUID). | |
+|**Id** | **string** | The ID (UUID) of the Share. | |
 |**Metadata** | Pointer to **map[string]interface{}** | Metadata | [optional] |
 |**Properties** | [**Share**](Share.md) |  | |
 
