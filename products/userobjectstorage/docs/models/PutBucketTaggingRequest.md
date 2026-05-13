@@ -4,13 +4,13 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Tagging** | [**PutBucketTaggingRequestTagging**](PutBucketTaggingRequestTagging.md) |  | |
+|**TagSet** | [**[]Tag**](Tag.md) | Contains the tag set. | |
 
 ## Methods
 
 ### NewPutBucketTaggingRequest
 
-`func NewPutBucketTaggingRequest(tagging PutBucketTaggingRequestTagging, ) *PutBucketTaggingRequest`
+`func NewPutBucketTaggingRequest(tagSet []Tag, ) *PutBucketTaggingRequest`
 
 NewPutBucketTaggingRequest instantiates a new PutBucketTaggingRequest object
 This constructor will assign default values to properties that have it defined,
@@ -25,24 +25,24 @@ NewPutBucketTaggingRequestWithDefaults instantiates a new PutBucketTaggingReques
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetTagging
+### GetTagSet
 
-`func (o *PutBucketTaggingRequest) GetTagging() PutBucketTaggingRequestTagging`
+`func (o *PutBucketTaggingRequest) GetTagSet() []Tag`
 
-GetTagging returns the Tagging field if non-nil, zero value otherwise.
+GetTagSet returns the TagSet field if non-nil, zero value otherwise.
 
-### GetTaggingOk
+### GetTagSetOk
 
-`func (o *PutBucketTaggingRequest) GetTaggingOk() (*PutBucketTaggingRequestTagging, bool)`
+`func (o *PutBucketTaggingRequest) GetTagSetOk() (*[]Tag, bool)`
 
-GetTaggingOk returns a tuple with the Tagging field if it's non-nil, zero value otherwise
+GetTagSetOk returns a tuple with the TagSet field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetTagging
+### SetTagSet
 
-`func (o *PutBucketTaggingRequest) SetTagging(v PutBucketTaggingRequestTagging)`
+`func (o *PutBucketTaggingRequest) SetTagSet(v []Tag)`
 
-SetTagging sets Tagging field to given value.
+SetTagSet sets TagSet field to given value.
 
 
 

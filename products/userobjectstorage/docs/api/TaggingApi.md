@@ -17,7 +17,6 @@ All URIs are relative to *https://s3.eu-central-1.ionoscloud.com*
 
 ```go
 var result  = DeleteBucketTagging(ctx, bucket)
-                      .Tagging(tagging)
                       .Execute()
 ```
 
@@ -41,11 +40,10 @@ import (
 
 func main() {
     bucket := "bucket_example" // string | 
-    tagging := true // bool | 
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := userobjectstorage.NewAPIClient(configuration)
-    resource, resp, err := apiClient.TaggingApi.DeleteBucketTagging(context.Background(), bucket).Tagging(tagging).Execute()
+    resource, resp, err := apiClient.TaggingApi.DeleteBucketTagging(context.Background(), bucket).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TaggingApi.DeleteBucketTagging``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -68,7 +66,6 @@ Other parameters are passed through a pointer to an apiDeleteBucketTaggingReques
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **tagging** | **bool** |  | |
 
 ### Return type
 
@@ -192,7 +189,6 @@ ctx = context.WithValue(context.Background(), shared.ContextOperationServerVaria
 
 ```go
 var result GetBucketTaggingOutput = GetBucketTagging(ctx, bucket)
-                      .Tagging(tagging)
                       .Execute()
 ```
 
@@ -216,11 +212,10 @@ import (
 
 func main() {
     bucket := "bucket_example" // string | 
-    tagging := true // bool | 
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := userobjectstorage.NewAPIClient(configuration)
-    resource, resp, err := apiClient.TaggingApi.GetBucketTagging(context.Background(), bucket).Tagging(tagging).Execute()
+    resource, resp, err := apiClient.TaggingApi.GetBucketTagging(context.Background(), bucket).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TaggingApi.GetBucketTagging``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -245,7 +240,6 @@ Other parameters are passed through a pointer to an apiGetBucketTaggingRequest s
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **tagging** | **bool** |  | |
 
 ### Return type
 
@@ -369,7 +363,6 @@ ctx = context.WithValue(context.Background(), shared.ContextOperationServerVaria
 
 ```go
 var result  = PutBucketTagging(ctx, bucket)
-                      .Tagging(tagging)
                       .PutBucketTaggingRequest(putBucketTaggingRequest)
                       .ContentMD5(contentMD5)
                       .Execute()
@@ -395,13 +388,12 @@ import (
 
 func main() {
     bucket := "bucket_example" // string | 
-    tagging := true // bool | 
-    putBucketTaggingRequest := *openapiclient.NewPutBucketTaggingRequest(*openapiclient.NewPutBucketTaggingRequestTagging()) // PutBucketTaggingRequest | 
+    putBucketTaggingRequest := *openapiclient.NewPutBucketTaggingRequest([]openapiclient.Tag{*openapiclient.NewTag("Key_example", "Value_example")}) // PutBucketTaggingRequest | 
     contentMD5 := "contentMD5_example" // string |  (optional)
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := userobjectstorage.NewAPIClient(configuration)
-    resource, resp, err := apiClient.TaggingApi.PutBucketTagging(context.Background(), bucket).Tagging(tagging).PutBucketTaggingRequest(putBucketTaggingRequest).ContentMD5(contentMD5).Execute()
+    resource, resp, err := apiClient.TaggingApi.PutBucketTagging(context.Background(), bucket).PutBucketTaggingRequest(putBucketTaggingRequest).ContentMD5(contentMD5).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TaggingApi.PutBucketTagging``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -424,7 +416,6 @@ Other parameters are passed through a pointer to an apiPutBucketTaggingRequest s
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **tagging** | **bool** |  | |
 | **putBucketTaggingRequest** | [**PutBucketTaggingRequest**](../models/PutBucketTaggingRequest.md) |  | |
 | **contentMD5** | **string** |  | |
 
@@ -460,7 +451,7 @@ ctx = context.WithValue(context.Background(), shared.ContextOperationServerVaria
 ```go
 var result map[string]interface{} = PutObjectTagging(ctx, bucket, key)
                       .Tagging(tagging)
-                      .PutBucketTaggingRequest(putBucketTaggingRequest)
+                      .PutObjectTaggingRequest(putObjectTaggingRequest)
                       .VersionId(versionId)
                       .ContentMD5(contentMD5)
                       .Execute()
@@ -488,13 +479,13 @@ func main() {
     bucket := "bucket_example" // string | 
     key := "key_example" // string | Name of the object key.
     tagging := true // bool | 
-    putBucketTaggingRequest := *openapiclient.NewPutBucketTaggingRequest(*openapiclient.NewPutBucketTaggingRequestTagging()) // PutBucketTaggingRequest | 
+    putObjectTaggingRequest := *openapiclient.NewPutObjectTaggingRequest(*openapiclient.NewPutObjectTaggingRequestTagging()) // PutObjectTaggingRequest | 
     versionId := "versionId_example" // string | The versionId of the object that the tag-set will be added to. (optional)
     contentMD5 := "contentMD5_example" // string |  (optional)
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := userobjectstorage.NewAPIClient(configuration)
-    resource, resp, err := apiClient.TaggingApi.PutObjectTagging(context.Background(), bucket, key).Tagging(tagging).PutBucketTaggingRequest(putBucketTaggingRequest).VersionId(versionId).ContentMD5(contentMD5).Execute()
+    resource, resp, err := apiClient.TaggingApi.PutObjectTagging(context.Background(), bucket, key).Tagging(tagging).PutObjectTaggingRequest(putObjectTaggingRequest).VersionId(versionId).ContentMD5(contentMD5).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TaggingApi.PutObjectTagging``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
@@ -521,7 +512,7 @@ Other parameters are passed through a pointer to an apiPutObjectTaggingRequest s
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **tagging** | **bool** |  | |
-| **putBucketTaggingRequest** | [**PutBucketTaggingRequest**](../models/PutBucketTaggingRequest.md) |  | |
+| **putObjectTaggingRequest** | [**PutObjectTaggingRequest**](../models/PutObjectTaggingRequest.md) |  | |
 | **versionId** | **string** | The versionId of the object that the tag-set will be added to. | |
 | **contentMD5** | **string** |  | |
 
