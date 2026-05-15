@@ -1,9 +1,9 @@
-module github.com/ionos-cloud/sdk-go-bundle/products/dbaas/psql/v3
+module github.com/ionos-cloud/sdk-go-bundle/products/dbaas/psql/v2
 
 go 1.24
 
 require (
-	github.com/ionos-cloud/sdk-go-bundle/shared v0.1.6
+	github.com/ionos-cloud/sdk-go-bundle/shared v0.1.10
 	golang.org/x/oauth2 v0.30.0
 )
 

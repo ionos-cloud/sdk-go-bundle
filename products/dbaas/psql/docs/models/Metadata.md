@@ -4,13 +4,13 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**CreatedDate** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 creation timestamp. | [optional] [readonly] |
-|**CreatedBy** | Pointer to **string** | Unique name of the identity that created the resource. | [optional] [readonly] |
-|**CreatedByUserId** | Pointer to **string** | Unique id of the identity that created the resource. | [optional] [readonly] |
-|**LastModifiedDate** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 modified timestamp. | [optional] [readonly] |
-|**LastModifiedBy** | Pointer to **string** | Unique name of the identity that last modified the resource. | [optional] [readonly] |
-|**LastModifiedByUserId** | Pointer to **string** | Unique id of the identity that last modified the resource. | [optional] [readonly] |
-|**ResourceURN** | Pointer to **string** | Unique name of the resource. | [optional] [readonly] |
+|**CreatedBy** | Pointer to **string** | The URN of an IAM user. | [optional] |
+|**CreatedByUserId** | Pointer to **string** | The ID of an IAM user. | [optional] |
+|**CreatedDate** | Pointer to [**time.Time**](time.Time.md) | An ISO 8601 timestamp. | [optional] |
+|**LastModifiedBy** | Pointer to **string** | The URN of an IAM user. | [optional] |
+|**LastModifiedByUserId** | Pointer to **string** | The ID of an IAM user. | [optional] |
+|**LastModifiedDate** | Pointer to [**time.Time**](time.Time.md) | An ISO 8601 timestamp. | [optional] |
+|**ResourceURN** | Pointer to **string** | The URN of the resource. | [optional] |
 
 ## Methods
 
@@ -30,31 +30,6 @@ will change when the set of required properties is changed
 NewMetadataWithDefaults instantiates a new Metadata object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetCreatedDate
-
-`func (o *Metadata) GetCreatedDate() time.Time`
-
-GetCreatedDate returns the CreatedDate field if non-nil, zero value otherwise.
-
-### GetCreatedDateOk
-
-`func (o *Metadata) GetCreatedDateOk() (*time.Time, bool)`
-
-GetCreatedDateOk returns a tuple with the CreatedDate field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreatedDate
-
-`func (o *Metadata) SetCreatedDate(v time.Time)`
-
-SetCreatedDate sets CreatedDate field to given value.
-
-### HasCreatedDate
-
-`func (o *Metadata) HasCreatedDate() bool`
-
-HasCreatedDate returns a boolean if a field has been set.
 
 ### GetCreatedBy
 
@@ -106,30 +81,30 @@ SetCreatedByUserId sets CreatedByUserId field to given value.
 
 HasCreatedByUserId returns a boolean if a field has been set.
 
-### GetLastModifiedDate
+### GetCreatedDate
 
-`func (o *Metadata) GetLastModifiedDate() time.Time`
+`func (o *Metadata) GetCreatedDate() time.Time`
 
-GetLastModifiedDate returns the LastModifiedDate field if non-nil, zero value otherwise.
+GetCreatedDate returns the CreatedDate field if non-nil, zero value otherwise.
 
-### GetLastModifiedDateOk
+### GetCreatedDateOk
 
-`func (o *Metadata) GetLastModifiedDateOk() (*time.Time, bool)`
+`func (o *Metadata) GetCreatedDateOk() (*time.Time, bool)`
 
-GetLastModifiedDateOk returns a tuple with the LastModifiedDate field if it's non-nil, zero value otherwise
+GetCreatedDateOk returns a tuple with the CreatedDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetLastModifiedDate
+### SetCreatedDate
 
-`func (o *Metadata) SetLastModifiedDate(v time.Time)`
+`func (o *Metadata) SetCreatedDate(v time.Time)`
 
-SetLastModifiedDate sets LastModifiedDate field to given value.
+SetCreatedDate sets CreatedDate field to given value.
 
-### HasLastModifiedDate
+### HasCreatedDate
 
-`func (o *Metadata) HasLastModifiedDate() bool`
+`func (o *Metadata) HasCreatedDate() bool`
 
-HasLastModifiedDate returns a boolean if a field has been set.
+HasCreatedDate returns a boolean if a field has been set.
 
 ### GetLastModifiedBy
 
@@ -180,6 +155,31 @@ SetLastModifiedByUserId sets LastModifiedByUserId field to given value.
 `func (o *Metadata) HasLastModifiedByUserId() bool`
 
 HasLastModifiedByUserId returns a boolean if a field has been set.
+
+### GetLastModifiedDate
+
+`func (o *Metadata) GetLastModifiedDate() time.Time`
+
+GetLastModifiedDate returns the LastModifiedDate field if non-nil, zero value otherwise.
+
+### GetLastModifiedDateOk
+
+`func (o *Metadata) GetLastModifiedDateOk() (*time.Time, bool)`
+
+GetLastModifiedDateOk returns a tuple with the LastModifiedDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastModifiedDate
+
+`func (o *Metadata) SetLastModifiedDate(v time.Time)`
+
+SetLastModifiedDate sets LastModifiedDate field to given value.
+
+### HasLastModifiedDate
+
+`func (o *Metadata) HasLastModifiedDate() bool`
+
+HasLastModifiedDate returns a boolean if a field has been set.
 
 ### GetResourceURN
 

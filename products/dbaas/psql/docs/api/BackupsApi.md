@@ -1,22 +1,25 @@
 # \BackupsApi
 
-All URIs are relative to *https://postgresql.de-txl.ionos.com*
+All URIs are relative to *https://api.ionos.com/databases/postgresql*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**BackupsFindById**](BackupsApi.md#BackupsFindById) | **Get** /backups/{backupId} | Retrieve Backup|
-|[**BackupsGet**](BackupsApi.md#BackupsGet) | **Get** /backups | Retrieve all Backups|
+|[**ClusterBackupsGet**](BackupsApi.md#ClusterBackupsGet) | **Get** /clusters/{clusterId}/backups | List backups of cluster|
+|[**ClustersBackupsFindById**](BackupsApi.md#ClustersBackupsFindById) | **Get** /clusters/backups/{backupId} | Fetch a cluster backup|
+|[**ClustersBackupsGet**](BackupsApi.md#ClustersBackupsGet) | **Get** /clusters/backups | List cluster backups|
 
 
 
-## BackupsFindById
+## ClusterBackupsGet
 
 ```go
-var result BackupRead = BackupsFindById(ctx, backupId)
+var result ClusterBackupList = ClusterBackupsGet(ctx, clusterId)
+                      .Limit(limit)
+                      .Offset(offset)
                       .Execute()
 ```
 
-Retrieve Backup
+List backups of cluster
 
 
 
@@ -35,17 +38,19 @@ import (
 )
 
 func main() {
-    backupId := "45ca67fb-8b07-5783-9c97-2d35acceb084" // string | The ID (UUID) of the Backup.
+    clusterId := "498ae72f-411f-11eb-9d07-046c59cc737e" // string | The unique ID of the cluster.
+    limit := int32(100) // int32 | The maximum number of elements to return. Use together with 'offset' for pagination. (optional) (default to 100)
+    offset := int32(200) // int32 | The first element to return. Use together with 'limit' for pagination. (optional) (default to 0)
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := psql.NewAPIClient(configuration)
-    resource, resp, err := apiClient.BackupsApi.BackupsFindById(context.Background(), backupId).Execute()
+    resource, resp, err := apiClient.BackupsApi.ClusterBackupsGet(context.Background(), clusterId).Limit(limit).Offset(offset).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BackupsApi.BackupsFindById``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BackupsApi.ClusterBackupsGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
-    // response from `BackupsFindById`: BackupRead
-    fmt.Fprintf(os.Stdout, "Response from `BackupsApi.BackupsFindById`: %v\n", resource)
+    // response from `ClusterBackupsGet`: ClusterBackupList
+    fmt.Fprintf(os.Stdout, "Response from `BackupsApi.ClusterBackupsGet`: %v\n", resource)
 }
 ```
 
@@ -55,19 +60,21 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**backupId** | **string** | The ID (UUID) of the Backup. | |
+|**clusterId** | **string** | The unique ID of the cluster. | |
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to an apiBackupsFindByIdRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiClusterBackupsGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
+| **limit** | **int32** | The maximum number of elements to return. Use together with &#39;offset&#39; for pagination. | [default to 100]|
+| **offset** | **int32** | The first element to return. Use together with &#39;limit&#39; for pagination. | [default to 0]|
 
 ### Return type
 
-[**BackupRead**](../models/BackupRead.md)
+[**ClusterBackupList**](../models/ClusterBackupList.md)
 
 ### HTTP request headers
 
@@ -76,17 +83,14 @@ Other parameters are passed through a pointer to an apiBackupsFindByIdRequest st
 
 
 
-## BackupsGet
+## ClustersBackupsFindById
 
 ```go
-var result BackupReadList = BackupsGet(ctx)
-                      .Offset(offset)
-                      .Limit(limit)
-                      .FilterClusterId(filterClusterId)
+var result BackupResponse = ClustersBackupsFindById(ctx, backupId)
                       .Execute()
 ```
 
-Retrieve all Backups
+Fetch a cluster backup
 
 
 
@@ -105,19 +109,87 @@ import (
 )
 
 func main() {
-    offset := int32(0) // int32 | The first element (of the total list of elements) to include in the response. Use this parameter together with the limit for pagination. (optional) (default to 0)
-    limit := int32(100) // int32 | The maximum number of elements to return. Use this parameter together with the offset for pagination. (optional) (default to 100)
-    filterClusterId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Filter backups by cluster Id. (optional)
+    backupId := "498ae72f-411f-11eb-9d07-046c59cc737e-4oymiqu-12" // string | The unique ID of the backup.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := psql.NewAPIClient(configuration)
-    resource, resp, err := apiClient.BackupsApi.BackupsGet(context.Background()).Offset(offset).Limit(limit).FilterClusterId(filterClusterId).Execute()
+    resource, resp, err := apiClient.BackupsApi.ClustersBackupsFindById(context.Background(), backupId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BackupsApi.BackupsGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BackupsApi.ClustersBackupsFindById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
-    // response from `BackupsGet`: BackupReadList
-    fmt.Fprintf(os.Stdout, "Response from `BackupsApi.BackupsGet`: %v\n", resource)
+    // response from `ClustersBackupsFindById`: BackupResponse
+    fmt.Fprintf(os.Stdout, "Response from `BackupsApi.ClustersBackupsFindById`: %v\n", resource)
+}
+```
+
+### Path Parameters
+
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+|**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
+|**backupId** | **string** | The unique ID of the backup. | |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to an apiClustersBackupsFindByIdRequest struct via the builder pattern
+
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+
+### Return type
+
+[**BackupResponse**](../models/BackupResponse.md)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+
+## ClustersBackupsGet
+
+```go
+var result ClusterBackupList = ClustersBackupsGet(ctx)
+                      .Limit(limit)
+                      .Offset(offset)
+                      .Execute()
+```
+
+List cluster backups
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+
+    psql "github.com/ionos-cloud/sdk-go-bundle/products/psql"
+    "github.com/ionos-cloud/sdk-go-bundle/shared"
+)
+
+func main() {
+    limit := int32(100) // int32 | The maximum number of elements to return. Use together with 'offset' for pagination. (optional) (default to 100)
+    offset := int32(200) // int32 | The first element to return. Use together with 'limit' for pagination. (optional) (default to 0)
+
+    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
+    apiClient := psql.NewAPIClient(configuration)
+    resource, resp, err := apiClient.BackupsApi.ClustersBackupsGet(context.Background()).Limit(limit).Offset(offset).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BackupsApi.ClustersBackupsGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
+    }
+    // response from `ClustersBackupsGet`: ClusterBackupList
+    fmt.Fprintf(os.Stdout, "Response from `BackupsApi.ClustersBackupsGet`: %v\n", resource)
 }
 ```
 
@@ -127,18 +199,17 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to an apiBackupsGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiClustersBackupsGetRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **offset** | **int32** | The first element (of the total list of elements) to include in the response. Use this parameter together with the limit for pagination. | [default to 0]|
-| **limit** | **int32** | The maximum number of elements to return. Use this parameter together with the offset for pagination. | [default to 100]|
-| **filterClusterId** | **string** | Filter backups by cluster Id. | |
+| **limit** | **int32** | The maximum number of elements to return. Use together with &#39;offset&#39; for pagination. | [default to 100]|
+| **offset** | **int32** | The first element to return. Use together with &#39;limit&#39; for pagination. | [default to 0]|
 
 ### Return type
 
-[**BackupReadList**](../models/BackupReadList.md)
+[**ClusterBackupList**](../models/ClusterBackupList.md)
 
 ### HTTP request headers
 
