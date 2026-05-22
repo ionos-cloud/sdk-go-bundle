@@ -245,7 +245,7 @@ import (
 )
 
 func main() {
-    clusterCreate := *openapiclient.NewClusterCreate(*openapiclient.NewClusterCreateProperties("cms-prod", *openapiclient.NewInstanceConfiguration(int32(123), int32(4), int32(4), int32(10)), *openapiclient.NewPostgresClusterConnection("5a029f4a-72e5-11ec-90d6-0242ac120003", "2", "192.168.2.101/24"), *openapiclient.NewMaintenanceWindow("59459", openapiclient.DayOfTheWeek("Sunday")), openapiclient.PostgresClusterReplicationMode("ASYNCHRONOUS"), *openapiclient.NewPostgresUser("my_dbuser", "P@ssw0rd123", "my_database"), "eu-central-3")) // ClusterCreate | Cluster to create.
+    clusterCreate := *openapiclient.NewClusterCreate(*openapiclient.NewClusterCreateProperties("cms-prod", "16", *openapiclient.NewInstanceConfiguration(int32(123), int32(4), int32(4), int32(10)), *openapiclient.NewPostgresClusterConnection("5a029f4a-72e5-11ec-90d6-0242ac120003", "2", "192.168.2.101/24"), *openapiclient.NewMaintenanceWindow("16:30:59", openapiclient.DayOfTheWeek("Sunday")), openapiclient.PostgresClusterReplicationMode("ASYNCHRONOUS"), *openapiclient.NewPostgresUser("my_dbuser", "P@ssw0rd123", "my_database"), *openapiclient.NewClusterBackup("eu-central-3", int32(90)))) // ClusterCreate | Cluster to create.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := psql.NewAPIClient(configuration)
@@ -311,7 +311,7 @@ import (
 
 func main() {
     clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The ID (UUID) of the Cluster.
-    clusterEnsure := *openapiclient.NewClusterEnsure("e69b22a5-8fee-56b1-b6fb-4a07e4205ead", *openapiclient.NewCluster("cms-prod", *openapiclient.NewInstanceConfiguration(int32(123), int32(4), int32(4), int32(10)), *openapiclient.NewPostgresClusterConnection("5a029f4a-72e5-11ec-90d6-0242ac120003", "2", "192.168.2.101/24"), *openapiclient.NewMaintenanceWindow("59459", openapiclient.DayOfTheWeek("Sunday")), openapiclient.PostgresClusterReplicationMode("ASYNCHRONOUS"), "eu-central-3")) // ClusterEnsure | update Cluster
+    clusterEnsure := *openapiclient.NewClusterEnsure("e69b22a5-8fee-56b1-b6fb-4a07e4205ead", *openapiclient.NewCluster("cms-prod", "16", *openapiclient.NewInstanceConfiguration(int32(123), int32(4), int32(4), int32(10)), *openapiclient.NewPostgresClusterConnection("5a029f4a-72e5-11ec-90d6-0242ac120003", "2", "192.168.2.101/24"), *openapiclient.NewMaintenanceWindow("16:30:59", openapiclient.DayOfTheWeek("Sunday")), openapiclient.PostgresClusterReplicationMode("ASYNCHRONOUS"), *openapiclient.NewClusterBackup("eu-central-3", int32(90)))) // ClusterEnsure | update Cluster
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := psql.NewAPIClient(configuration)

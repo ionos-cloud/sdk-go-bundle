@@ -6,23 +6,23 @@
 |------------ | ------------- | ------------- | -------------|
 |**Name** | **string** | The name of your PostgreSQL cluster. Must be 63 characters or less and must begin and end with an alphanumeric character (&#x60;[a-z0-9A-Z]&#x60;) with dashes (&#x60;-&#x60;), underscores (&#x60;_&#x60;), dots (&#x60;.&#x60;), and alphanumerics between.  | |
 |**Description** | Pointer to **string** | Human-readable description for the cluster. | [optional] |
-|**Version** | Pointer to **string** | The PostgreSQL version for the cluster. | [optional] |
+|**Version** | **string** | The PostgreSQL version for the cluster. | |
 |**Instances** | [**InstanceConfiguration**](InstanceConfiguration.md) |  | |
 |**Connection** | [**PostgresClusterConnection**](PostgresClusterConnection.md) |  | |
 |**MaintenanceWindow** | [**MaintenanceWindow**](MaintenanceWindow.md) |  | |
 |**ReplicationMode** | [**PostgresClusterReplicationMode**](PostgresClusterReplicationMode.md) |  | |
 |**Credentials** | Pointer to [**PostgresUser**](PostgresUser.md) |  | [optional] |
 |**ConnectionPooler** | Pointer to **string** | Defines how database connections are managed and reused. Default value is DISABLED. DISABLED: No connection pooling is used. Each request opens a new connection, which is closed immediately after use. It ensures isolation but may impact performance due to frequent connection setup and teardown. TRANSACTION: Connections are pooled and reused for the duration of a transaction. Once the transaction completes, the connection is returned to the pool. This mode balances efficiency with transactional integrity. SESSION: Connections are retained for the entire session and reused across multiple transactions. Offers the highest performance by minimizing connection overhead, but may tie up resources longer.  | [optional] |
-|**RestoreFromBackup** | Pointer to [**PostgresClusterFromBackup**](PostgresClusterFromBackup.md) |  | [optional] |
-|**BackupLocation** | **string** | The Object Storage location where the backup will be created. The BackupLocations provides a list of supported locations.  | |
-|**LogsEnabled** | Pointer to **bool** | Allows or disallows the collection and reporting of logs for this cluster&#39;s observability. | [optional] [default to false]|
-|**MetricsEnabled** | Pointer to **bool** | Allows or disallows the collection and reporting of metrics for this cluster&#39;s observability. | [optional] [default to false]|
+|**RestoreFromBackup** | Pointer to [**ClusterRestoreFromBackup**](ClusterRestoreFromBackup.md) |  | [optional] |
+|**LogsEnabled** | Pointer to **bool** | Allows or disallows the collection and reporting of logs for this cluster&#39;s observability. If the observability service is not activated on the contract, this setting is accepted but has no effect; log collection will not be enabled until the observability service is activated.  | [optional] [default to false]|
+|**MetricsEnabled** | Pointer to **bool** | Allows or disallows the collection and reporting of metrics for this cluster&#39;s observability. If the observability service is not activated on the contract, this setting is accepted but has no effect; metric collection will not be enabled until the observability service is activated.  | [optional] [default to false]|
+|**Backup** | [**ClusterBackup**](ClusterBackup.md) |  | |
 
 ## Methods
 
 ### NewCluster
 
-`func NewCluster(name string, instances InstanceConfiguration, connection PostgresClusterConnection, maintenanceWindow MaintenanceWindow, replicationMode PostgresClusterReplicationMode, backupLocation string, ) *Cluster`
+`func NewCluster(name string, version string, instances InstanceConfiguration, connection PostgresClusterConnection, maintenanceWindow MaintenanceWindow, replicationMode PostgresClusterReplicationMode, backup ClusterBackup, ) *Cluster`
 
 NewCluster instantiates a new Cluster object
 This constructor will assign default values to properties that have it defined,
@@ -101,11 +101,6 @@ and a boolean to check if the value has been set.
 
 SetVersion sets Version field to given value.
 
-### HasVersion
-
-`func (o *Cluster) HasVersion() bool`
-
-HasVersion returns a boolean if a field has been set.
 
 ### GetInstances
 
@@ -239,20 +234,20 @@ HasConnectionPooler returns a boolean if a field has been set.
 
 ### GetRestoreFromBackup
 
-`func (o *Cluster) GetRestoreFromBackup() PostgresClusterFromBackup`
+`func (o *Cluster) GetRestoreFromBackup() ClusterRestoreFromBackup`
 
 GetRestoreFromBackup returns the RestoreFromBackup field if non-nil, zero value otherwise.
 
 ### GetRestoreFromBackupOk
 
-`func (o *Cluster) GetRestoreFromBackupOk() (*PostgresClusterFromBackup, bool)`
+`func (o *Cluster) GetRestoreFromBackupOk() (*ClusterRestoreFromBackup, bool)`
 
 GetRestoreFromBackupOk returns a tuple with the RestoreFromBackup field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRestoreFromBackup
 
-`func (o *Cluster) SetRestoreFromBackup(v PostgresClusterFromBackup)`
+`func (o *Cluster) SetRestoreFromBackup(v ClusterRestoreFromBackup)`
 
 SetRestoreFromBackup sets RestoreFromBackup field to given value.
 
@@ -261,26 +256,6 @@ SetRestoreFromBackup sets RestoreFromBackup field to given value.
 `func (o *Cluster) HasRestoreFromBackup() bool`
 
 HasRestoreFromBackup returns a boolean if a field has been set.
-
-### GetBackupLocation
-
-`func (o *Cluster) GetBackupLocation() string`
-
-GetBackupLocation returns the BackupLocation field if non-nil, zero value otherwise.
-
-### GetBackupLocationOk
-
-`func (o *Cluster) GetBackupLocationOk() (*string, bool)`
-
-GetBackupLocationOk returns a tuple with the BackupLocation field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetBackupLocation
-
-`func (o *Cluster) SetBackupLocation(v string)`
-
-SetBackupLocation sets BackupLocation field to given value.
-
 
 ### GetLogsEnabled
 
@@ -331,5 +306,25 @@ SetMetricsEnabled sets MetricsEnabled field to given value.
 `func (o *Cluster) HasMetricsEnabled() bool`
 
 HasMetricsEnabled returns a boolean if a field has been set.
+
+### GetBackup
+
+`func (o *Cluster) GetBackup() ClusterBackup`
+
+GetBackup returns the Backup field if non-nil, zero value otherwise.
+
+### GetBackupOk
+
+`func (o *Cluster) GetBackupOk() (*ClusterBackup, bool)`
+
+GetBackupOk returns a tuple with the Backup field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBackup
+
+`func (o *Cluster) SetBackup(v ClusterBackup)`
+
+SetBackup sets Backup field to given value.
+
 
 

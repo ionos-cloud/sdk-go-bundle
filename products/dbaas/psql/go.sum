@@ -4,8 +4,8 @@ github.com/aws/aws-sdk-go v1.55.7/go.mod h1:eRwEWoyTWFMVYVQzKMNHWP5/RV4xIUGMQfXQ
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/golang/protobuf v1.2.0 h1:P3YflyNX/ehuJFLhxviNdFxQPkGK5cDcApsge1SqnvM=
 github.com/golang/protobuf v1.2.0/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5yJMmIC1U=
-github.com/ionos-cloud/sdk-go-bundle/shared v0.1.6 h1:mN5ZC7dTGD0SpEmbGJwa9QBStF0DvV1O9tp2nakLCo0=
-github.com/ionos-cloud/sdk-go-bundle/shared v0.1.6/go.mod h1:E5MtZ15l6L5wn7JmjL5ccSvGcX5Dk7G8s882X1ZH6dM=
+github.com/ionos-cloud/sdk-go-bundle/shared v0.1.10 h1:xIrMhDfT4Nym3LSZX5i7qFwtPM7/S0/FuSl8lJrC3VI=
+github.com/ionos-cloud/sdk-go-bundle/shared v0.1.10/go.mod h1:R/vPCwxsYxk4pcfA2Ew7Pf1fCkzmPaROxYKgnhh0wpg=
 github.com/jmespath/go-jmespath v0.4.0 h1:BEgLn5cpjn8UN1mAw4NjwDrS35OdebyEtFe+9YPoQUg=
 github.com/jmespath/go-jmespath v0.4.0/go.mod h1:T8mJZnbsbmF+m6zOOFylbeCJqk5+pHWvzYPziyZiYoo=
 github.com/jmespath/go-jmespath/internal/testify v1.5.1/go.mod h1:L3OGu8Wl2/fWfCI6z80xFu9LTZmf1ZRjMHUOPmWr69U=
