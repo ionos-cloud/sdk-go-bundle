@@ -19,8 +19,8 @@ var _ MappedNullable = &GetByContractResponseHitsHitsSourceEventParamError{}
 
 // GetByContractResponseHitsHitsSourceEventParamError Details of the error response returned for a given activity.
 type GetByContractResponseHitsHitsSourceEventParamError struct {
-	// HTTP error code for the given activity.
-	HttpStatus *string `json:"httpStatus,omitempty"`
+	// HTTP status code for the given activity.
+	HttpStatus *int32 `json:"httpStatus,omitempty"`
 	// An array of error messages corresponding to the given activity.
 	Messages []GetByContractResponseHitsHitsSourceEventParamErrorMessages `json:"messages,omitempty"`
 }
@@ -44,9 +44,9 @@ func NewGetByContractResponseHitsHitsSourceEventParamErrorWithDefaults() *GetByC
 }
 
 // GetHttpStatus returns the HttpStatus field value if set, zero value otherwise.
-func (o *GetByContractResponseHitsHitsSourceEventParamError) GetHttpStatus() string {
+func (o *GetByContractResponseHitsHitsSourceEventParamError) GetHttpStatus() int32 {
 	if o == nil || IsNil(o.HttpStatus) {
-		var ret string
+		var ret int32
 		return ret
 	}
 	return *o.HttpStatus
@@ -54,7 +54,7 @@ func (o *GetByContractResponseHitsHitsSourceEventParamError) GetHttpStatus() str
 
 // GetHttpStatusOk returns a tuple with the HttpStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetByContractResponseHitsHitsSourceEventParamError) GetHttpStatusOk() (*string, bool) {
+func (o *GetByContractResponseHitsHitsSourceEventParamError) GetHttpStatusOk() (*int32, bool) {
 	if o == nil || IsNil(o.HttpStatus) {
 		return nil, false
 	}
@@ -70,8 +70,8 @@ func (o *GetByContractResponseHitsHitsSourceEventParamError) HasHttpStatus() boo
 	return false
 }
 
-// SetHttpStatus gets a reference to the given string and assigns it to the HttpStatus field.
-func (o *GetByContractResponseHitsHitsSourceEventParamError) SetHttpStatus(v string) {
+// SetHttpStatus gets a reference to the given int32 and assigns it to the HttpStatus field.
+func (o *GetByContractResponseHitsHitsSourceEventParamError) SetHttpStatus(v int32) {
 	o.HttpStatus = &v
 }
 
