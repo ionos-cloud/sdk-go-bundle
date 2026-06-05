@@ -25,7 +25,7 @@ type UtilizationMeter struct {
 	ResourceId NullableString            `json:"resourceId,omitempty"`
 	ServerId   NullableString            `json:"serverId,omitempty"`
 	Name       *string                   `json:"name,omitempty"`
-	Type       *ResourceType             `json:"type,omitempty"`
+	Type       *string                   `json:"type,omitempty"`
 	From       *IonosTime                `json:"from,omitempty"`
 	To         *IonosTime                `json:"to,omitempty"`
 	Exists     NullableBool              `json:"exists,omitempty"`
@@ -204,9 +204,9 @@ func (o *UtilizationMeter) SetName(v string) {
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
-func (o *UtilizationMeter) GetType() ResourceType {
+func (o *UtilizationMeter) GetType() string {
 	if o == nil || IsNil(o.Type) {
-		var ret ResourceType
+		var ret string
 		return ret
 	}
 	return *o.Type
@@ -214,7 +214,7 @@ func (o *UtilizationMeter) GetType() ResourceType {
 
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UtilizationMeter) GetTypeOk() (*ResourceType, bool) {
+func (o *UtilizationMeter) GetTypeOk() (*string, bool) {
 	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
@@ -230,8 +230,8 @@ func (o *UtilizationMeter) HasType() bool {
 	return false
 }
 
-// SetType gets a reference to the given ResourceType and assigns it to the Type field.
-func (o *UtilizationMeter) SetType(v ResourceType) {
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *UtilizationMeter) SetType(v string) {
 	o.Type = &v
 }
 

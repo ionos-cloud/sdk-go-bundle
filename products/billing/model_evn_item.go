@@ -21,16 +21,16 @@ var _ MappedNullable = &EvnItem{}
 
 // EvnItem struct for EvnItem
 type EvnItem struct {
-	ResourceType         *ResourceType `json:"resourceType,omitempty"`
-	ResourceUUID         *string       `json:"resourceUUID,omitempty"`
-	IntervalMin          *int32        `json:"intervalMin,omitempty"`
-	IntervalDivisor      *int32        `json:"intervalDivisor,omitempty"`
-	From                 *IonosTime    `json:"from,omitempty"`
-	To                   *IonosTime    `json:"to,omitempty"`
-	ItemStub             *string       `json:"itemStub,omitempty"`
-	Value                *float32      `json:"value,omitempty"`
-	ValueDivisor         *int32        `json:"valueDivisor,omitempty"`
-	AdditionalParameters *string       `json:"additionalParameters,omitempty"`
+	ResourceType         *string    `json:"resourceType,omitempty"`
+	ResourceUUID         *string    `json:"resourceUUID,omitempty"`
+	IntervalMin          *int32     `json:"intervalMin,omitempty"`
+	IntervalDivisor      *int32     `json:"intervalDivisor,omitempty"`
+	From                 *IonosTime `json:"from,omitempty"`
+	To                   *IonosTime `json:"to,omitempty"`
+	ItemStub             *string    `json:"itemStub,omitempty"`
+	Value                *float32   `json:"value,omitempty"`
+	ValueDivisor         *int32     `json:"valueDivisor,omitempty"`
+	AdditionalParameters *string    `json:"additionalParameters,omitempty"`
 }
 
 // NewEvnItem instantiates a new EvnItem object
@@ -52,9 +52,9 @@ func NewEvnItemWithDefaults() *EvnItem {
 }
 
 // GetResourceType returns the ResourceType field value if set, zero value otherwise.
-func (o *EvnItem) GetResourceType() ResourceType {
+func (o *EvnItem) GetResourceType() string {
 	if o == nil || IsNil(o.ResourceType) {
-		var ret ResourceType
+		var ret string
 		return ret
 	}
 	return *o.ResourceType
@@ -62,7 +62,7 @@ func (o *EvnItem) GetResourceType() ResourceType {
 
 // GetResourceTypeOk returns a tuple with the ResourceType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EvnItem) GetResourceTypeOk() (*ResourceType, bool) {
+func (o *EvnItem) GetResourceTypeOk() (*string, bool) {
 	if o == nil || IsNil(o.ResourceType) {
 		return nil, false
 	}
@@ -78,8 +78,8 @@ func (o *EvnItem) HasResourceType() bool {
 	return false
 }
 
-// SetResourceType gets a reference to the given ResourceType and assigns it to the ResourceType field.
-func (o *EvnItem) SetResourceType(v ResourceType) {
+// SetResourceType gets a reference to the given string and assigns it to the ResourceType field.
+func (o *EvnItem) SetResourceType(v string) {
 	o.ResourceType = &v
 }
 

@@ -35,7 +35,6 @@
 * [ProductUnitCost](models/ProductUnitCost.md)
 * [ProductsGet200Response](models/ProductsGet200Response.md)
 * [ProfilesGet200Response](models/ProfilesGet200Response.md)
-* [ResourceType](models/ResourceType.md)
 * [Traffic](models/Traffic.md)
 * [TrafficEntry](models/TrafficEntry.md)
 * [TrafficMetadata](models/TrafficMetadata.md)

@@ -35,7 +35,7 @@ type ApiUtilizationDailyFindByDateRequest struct {
 	date       string
 	dc         *string
 	resource   *string
-	type_      *ResourceType
+	type_      *string
 }
 
 func (r ApiUtilizationDailyFindByDateRequest) Dc(dc string) ApiUtilizationDailyFindByDateRequest {
@@ -46,7 +46,7 @@ func (r ApiUtilizationDailyFindByDateRequest) Resource(resource string) ApiUtili
 	r.resource = &resource
 	return r
 }
-func (r ApiUtilizationDailyFindByDateRequest) Type_(type_ ResourceType) ApiUtilizationDailyFindByDateRequest {
+func (r ApiUtilizationDailyFindByDateRequest) Type_(type_ string) ApiUtilizationDailyFindByDateRequest {
 	r.type_ = &type_
 	return r
 }
@@ -225,7 +225,7 @@ type ApiUtilizationFindByPeriodRequest struct {
 	period     string
 	dc         *string
 	resource   *string
-	type_      *ResourceType
+	type_      *string
 }
 
 func (r ApiUtilizationFindByPeriodRequest) Dc(dc string) ApiUtilizationFindByPeriodRequest {
@@ -236,7 +236,7 @@ func (r ApiUtilizationFindByPeriodRequest) Resource(resource string) ApiUtilizat
 	r.resource = &resource
 	return r
 }
-func (r ApiUtilizationFindByPeriodRequest) Type_(type_ ResourceType) ApiUtilizationFindByPeriodRequest {
+func (r ApiUtilizationFindByPeriodRequest) Type_(type_ string) ApiUtilizationFindByPeriodRequest {
 	r.type_ = &type_
 	return r
 }
@@ -414,7 +414,7 @@ type ApiUtilizationGetRequest struct {
 	contract   int32
 	dc         *string
 	resource   *string
-	type_      *ResourceType
+	type_      *string
 }
 
 func (r ApiUtilizationGetRequest) Dc(dc string) ApiUtilizationGetRequest {
@@ -425,7 +425,7 @@ func (r ApiUtilizationGetRequest) Resource(resource string) ApiUtilizationGetReq
 	r.resource = &resource
 	return r
 }
-func (r ApiUtilizationGetRequest) Type_(type_ ResourceType) ApiUtilizationGetRequest {
+func (r ApiUtilizationGetRequest) Type_(type_ string) ApiUtilizationGetRequest {
 	r.type_ = &type_
 	return r
 }

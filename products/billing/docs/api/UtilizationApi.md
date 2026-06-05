@@ -43,7 +43,7 @@ func main() {
     date := "2025-09-15" // string | Date of interest in format YYYY-MM-DD
     dc := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Filter out by particular VDC UUID (or \"Bucket\" UUID for non-vdc related resources) (optional)
     resource := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Filter out by particular resource UUID (e.g.VM UUID, NIC UUID) (optional)
-    type_ := openapiclient.ResourceType("SERVER") // ResourceType | Filter out by particular type of items (optional)
+    type_ := "type__example" // string | Filter out by particular type of items (optional)
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := billing.NewAPIClient(configuration)
@@ -75,7 +75,7 @@ Other parameters are passed through a pointer to an apiUtilizationDailyFindByDat
 |------------- | ------------- | ------------- | -------------|
 | **dc** | **string** | Filter out by particular VDC UUID (or \&quot;Bucket\&quot; UUID for non-vdc related resources) | |
 | **resource** | **string** | Filter out by particular resource UUID (e.g.VM UUID, NIC UUID) | |
-| **type_** | [**ResourceType**](../models/.md) | Filter out by particular type of items | |
+| **type_** | **string** | Filter out by particular type of items | |
 
 ### Return type
 
@@ -121,7 +121,7 @@ func main() {
     period := "2020-01" // string | Period of interest in format YYYY-MM
     dc := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Filter out by particular VDC UUID (or \"Bucket\" UUID for non-vdc related resources) (optional)
     resource := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Filter out by particular resource UUID (e.g.VM UUID, NIC UUID) (optional)
-    type_ := openapiclient.ResourceType("SERVER") // ResourceType | Filter out by particular type of items (optional)
+    type_ := "type__example" // string | Filter out by particular type of items (optional)
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := billing.NewAPIClient(configuration)
@@ -153,7 +153,7 @@ Other parameters are passed through a pointer to an apiUtilizationFindByPeriodRe
 |------------- | ------------- | ------------- | -------------|
 | **dc** | **string** | Filter out by particular VDC UUID (or \&quot;Bucket\&quot; UUID for non-vdc related resources) | |
 | **resource** | **string** | Filter out by particular resource UUID (e.g.VM UUID, NIC UUID) | |
-| **type_** | [**ResourceType**](../models/.md) | Filter out by particular type of items | |
+| **type_** | **string** | Filter out by particular type of items | |
 
 ### Return type
 
@@ -198,7 +198,7 @@ func main() {
     contract := int32(56) // int32 | Contract number
     dc := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Filter out by particular VDC UUID (or \"Bucket\" UUID for non-vdc related resources) (optional)
     resource := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Filter out by particular resource UUID (e.g.VM UUID, NIC UUID) (optional)
-    type_ := openapiclient.ResourceType("SERVER") // ResourceType | Filter out by particular type of items (optional)
+    type_ := "type__example" // string | Filter out by particular type of items (optional)
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := billing.NewAPIClient(configuration)
@@ -229,7 +229,7 @@ Other parameters are passed through a pointer to an apiUtilizationGetRequest str
 |------------- | ------------- | ------------- | -------------|
 | **dc** | **string** | Filter out by particular VDC UUID (or \&quot;Bucket\&quot; UUID for non-vdc related resources) | |
 | **resource** | **string** | Filter out by particular resource UUID (e.g.VM UUID, NIC UUID) | |
-| **type_** | [**ResourceType**](../models/.md) | Filter out by particular type of items | |
+| **type_** | **string** | Filter out by particular type of items | |
 
 ### Return type
 

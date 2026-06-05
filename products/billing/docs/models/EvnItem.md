@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**ResourceType** | Pointer to [**ResourceType**](ResourceType.md) |  | [optional] |
+|**ResourceType** | Pointer to **string** |  | [optional] |
 |**ResourceUUID** | Pointer to **string** |  | [optional] |
 |**IntervalMin** | Pointer to **int32** |  | [optional] |
 |**IntervalDivisor** | Pointer to **int32** |  | [optional] |
@@ -36,20 +36,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetResourceType
 
-`func (o *EvnItem) GetResourceType() ResourceType`
+`func (o *EvnItem) GetResourceType() string`
 
 GetResourceType returns the ResourceType field if non-nil, zero value otherwise.
 
 ### GetResourceTypeOk
 
-`func (o *EvnItem) GetResourceTypeOk() (*ResourceType, bool)`
+`func (o *EvnItem) GetResourceTypeOk() (*string, bool)`
 
 GetResourceTypeOk returns a tuple with the ResourceType field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResourceType
 
-`func (o *EvnItem) SetResourceType(v ResourceType)`
+`func (o *EvnItem) SetResourceType(v string)`
 
 SetResourceType sets ResourceType field to given value.
 

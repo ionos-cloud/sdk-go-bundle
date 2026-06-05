@@ -8,7 +8,7 @@
 |**ResourceId** | Pointer to **NullableString** |  | [optional] |
 |**ServerId** | Pointer to **NullableString** |  | [optional] |
 |**Name** | Pointer to **string** |  | [optional] |
-|**Type** | Pointer to [**ResourceType**](ResourceType.md) |  | [optional] |
+|**Type** | Pointer to **string** |  | [optional] |
 |**From** | Pointer to [**time.Time**](time.Time.md) |  | [optional] |
 |**To** | Pointer to [**time.Time**](time.Time.md) |  | [optional] |
 |**Exists** | Pointer to **NullableBool** |  | [optional] |
@@ -158,20 +158,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetType
 
-`func (o *UtilizationMeter) GetType() ResourceType`
+`func (o *UtilizationMeter) GetType() string`
 
 GetType returns the Type field if non-nil, zero value otherwise.
 
 ### GetTypeOk
 
-`func (o *UtilizationMeter) GetTypeOk() (*ResourceType, bool)`
+`func (o *UtilizationMeter) GetTypeOk() (*string, bool)`
 
 GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetType
 
-`func (o *UtilizationMeter) SetType(v ResourceType)`
+`func (o *UtilizationMeter) SetType(v string)`
 
 SetType sets Type field to given value.
 
