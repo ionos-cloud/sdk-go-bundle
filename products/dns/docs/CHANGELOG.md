@@ -2,9 +2,15 @@
 
 ## 2.2.3 (June, 2026)
 
+### Features:
+
+- Updated to DNS API version 1.18.0
+- Added 409 Conflict error handling for record create (`POST`) and update (`PUT`) operations
+- Added debug logging for endpoint resolution, request failures, retry logic, and rate limiting
+
 ### Fixes:
 
-- Fixed IP address fields in reverse records and secondary zones to use `string` type instead of `AnyOf` wrapper
+- Fixed version and user-agent strings (removed path prefix, e.g. `products/dns/v2.2.2` → `2.2.3`)
 
 ## 2.2.2 (January, 2026)
 
