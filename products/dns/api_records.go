@@ -3,7 +3,7 @@
  *
  * Cloud DNS service helps IONOS Cloud customers to automate DNS Zone and Record management.
  *
- * API version: 1.17.0
+ * API version: 1.18.0
  * Contact: support@cloud.ionos.com
  */
 
@@ -1100,6 +1100,15 @@ func (a *RecordsApiService) ZonesRecordsPostExecute(r ApiZonesRecordsPostRequest
 			}
 			newErr.SetModel(v)
 		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.SetError(err.Error())
+				return localVarReturnValue, localVarAPIResponse, newErr
+			}
+			newErr.SetModel(v)
+		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v Error
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -1282,6 +1291,15 @@ func (a *RecordsApiService) ZonesRecordsPutExecute(r ApiZonesRecordsPutRequest) 
 			newErr.SetModel(v)
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.SetError(err.Error())
+				return localVarReturnValue, localVarAPIResponse, newErr
+			}
+			newErr.SetModel(v)
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
 			var v Error
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
