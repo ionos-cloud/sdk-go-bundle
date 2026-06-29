@@ -5,7 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**Algorithm** | **string** |  | |
-|**Hash** | **string** |  | |
+|**Hash** | **string** | The hex-encoded hash of the password. Must be exactly 64 lowercase hexadecimal characters (the standard output of SHA-256). Note: base64-encoded SHA-256 hashes (44 characters) are not accepted.  | |
 
 ## Methods
 

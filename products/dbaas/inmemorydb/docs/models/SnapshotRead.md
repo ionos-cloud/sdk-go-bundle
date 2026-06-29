@@ -7,14 +7,14 @@
 |**Id** | **string** | The ID (UUID) of the Snapshot. | |
 |**Type** | **string** | The type of the resource. | |
 |**Href** | **string** | The URL of the Snapshot. | |
-|**Metadata** | [**SnapshotMetadata**](SnapshotMetadata.md) |  | |
-|**Properties** | **map[string]interface{}** | A point in time snapshot of a In-Memory DB replica set.  | |
+|**Metadata** | **map[string]interface{}** |  | [readonly] |
+|**Properties** | [**Snapshot**](Snapshot.md) |  | |
 
 ## Methods
 
 ### NewSnapshotRead
 
-`func NewSnapshotRead(id string, type_ string, href string, metadata SnapshotMetadata, properties map[string]interface{}, ) *SnapshotRead`
+`func NewSnapshotRead(id string, type_ string, href string, metadata map[string]interface{}, properties Snapshot, ) *SnapshotRead`
 
 NewSnapshotRead instantiates a new SnapshotRead object
 This constructor will assign default values to properties that have it defined,
@@ -91,40 +91,40 @@ SetHref sets Href field to given value.
 
 ### GetMetadata
 
-`func (o *SnapshotRead) GetMetadata() SnapshotMetadata`
+`func (o *SnapshotRead) GetMetadata() map[string]interface{}`
 
 GetMetadata returns the Metadata field if non-nil, zero value otherwise.
 
 ### GetMetadataOk
 
-`func (o *SnapshotRead) GetMetadataOk() (*SnapshotMetadata, bool)`
+`func (o *SnapshotRead) GetMetadataOk() (*map[string]interface{}, bool)`
 
 GetMetadataOk returns a tuple with the Metadata field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMetadata
 
-`func (o *SnapshotRead) SetMetadata(v SnapshotMetadata)`
+`func (o *SnapshotRead) SetMetadata(v map[string]interface{})`
 
 SetMetadata sets Metadata field to given value.
 
 
 ### GetProperties
 
-`func (o *SnapshotRead) GetProperties() map[string]interface{}`
+`func (o *SnapshotRead) GetProperties() Snapshot`
 
 GetProperties returns the Properties field if non-nil, zero value otherwise.
 
 ### GetPropertiesOk
 
-`func (o *SnapshotRead) GetPropertiesOk() (*map[string]interface{}, bool)`
+`func (o *SnapshotRead) GetPropertiesOk() (*Snapshot, bool)`
 
 GetPropertiesOk returns a tuple with the Properties field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProperties
 
-`func (o *SnapshotRead) SetProperties(v map[string]interface{})`
+`func (o *SnapshotRead) SetProperties(v Snapshot)`
 
 SetProperties sets Properties field to given value.
 
