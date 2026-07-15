@@ -61,7 +61,7 @@ type ImageProperties struct {
 	Public *bool `json:"public,omitempty"`
 	// List of image aliases mapped for this image
 	ImageAliases []string `json:"imageAliases,omitempty"`
-	// List of features required by this image.
+	// The list of features required by this image. If `SEV-SNP` is part of this list, then the image supports Confidential Computing.
 	RequiredFeatures []string `json:"requiredFeatures,omitempty"`
 	// Cloud init compatibility.
 	CloudInit *string `json:"cloudInit,omitempty"`

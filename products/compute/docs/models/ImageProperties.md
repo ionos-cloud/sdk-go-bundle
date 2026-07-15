@@ -25,7 +25,7 @@
 |**ImageType** | Pointer to **string** | The image type. | [optional] [readonly] |
 |**Public** | Pointer to **bool** | Indicates whether the image is part of a public repository. | [optional] [readonly] |
 |**ImageAliases** | Pointer to **[]string** | List of image aliases mapped for this image | [optional] [readonly] |
-|**RequiredFeatures** | Pointer to **[]string** | List of features required by this image. | [optional] [readonly] |
+|**RequiredFeatures** | Pointer to **[]string** | The list of features required by this image. If &#x60;SEV-SNP&#x60; is part of this list, then the image supports Confidential Computing. | [optional] [readonly] |
 |**CloudInit** | Pointer to **string** | Cloud init compatibility. | [optional] |
 
 ## Methods
