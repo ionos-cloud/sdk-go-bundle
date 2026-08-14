@@ -4,14 +4,14 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Username** | **string** | The username for the initial In-Memory DB user. Some system usernames are restricted (e.g. &#x60;\&quot;admin\&quot;&#x60;, &#x60;\&quot;standby\&quot;&#x60;).  | |
-|**Password** | Pointer to [**UserPassword**](UserPassword.md) |  | [optional] |
+|**Username** | **string** | The username for the In-Memory DB user. Must be 2–16 characters and may only contain alphanumeric characters ([A-Za-z0-9]) and underscores (_). Restricted usernames (for example, admin, standby) are not allowed.  | |
+|**Password** | [**HashedPassword**](HashedPassword.md) |  | |
 
 ## Methods
 
 ### NewUser
 
-`func NewUser(username string, ) *User`
+`func NewUser(username string, password HashedPassword, ) *User`
 
 NewUser instantiates a new User object
 This constructor will assign default values to properties that have it defined,
@@ -48,27 +48,22 @@ SetUsername sets Username field to given value.
 
 ### GetPassword
 
-`func (o *User) GetPassword() UserPassword`
+`func (o *User) GetPassword() HashedPassword`
 
 GetPassword returns the Password field if non-nil, zero value otherwise.
 
 ### GetPasswordOk
 
-`func (o *User) GetPasswordOk() (*UserPassword, bool)`
+`func (o *User) GetPasswordOk() (*HashedPassword, bool)`
 
 GetPasswordOk returns a tuple with the Password field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPassword
 
-`func (o *User) SetPassword(v UserPassword)`
+`func (o *User) SetPassword(v HashedPassword)`
 
 SetPassword sets Password field to given value.
 
-### HasPassword
-
-`func (o *User) HasPassword() bool`
-
-HasPassword returns a boolean if a field has been set.
 
 

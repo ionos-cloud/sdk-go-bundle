@@ -4,11 +4,12 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**ClusterId** | Pointer to **string** | The unique ID of the cluster that was backed up. | [optional] |
-|**Location** | Pointer to **string** | The S3 location where the backups will be stored. | [optional] |
-|**EarliestRecoveryTargetTime** | Pointer to [**time.Time**](time.Time.md) | The oldest available timestamp to which you can restore. | [optional] |
-|**Size** | Pointer to **int32** | Size of all base backups in MiB. This is at least the sum of all base backup sizes.  | [optional] |
-|**BaseBackups** | Pointer to [**[]BaseBackup**](BaseBackup.md) |  | [optional] |
+|**ClusterId** | Pointer to **string** | The unique identifier of the cluster this backup belongs to. | [optional] |
+|**ClusterName** | Pointer to **string** | The name of the MariaDB cluster this backup belongs to. | [optional] [readonly] |
+|**MariadbClusterVersion** | Pointer to **string** | The MariaDB version of the cluster at backup time. | [optional] |
+|**EarliestRecoveryTargetTime** | Pointer to [**time.Time**](time.Time.md) | The earliest point in time to which the cluster can be restored from this backup. | [optional] |
+|**LatestRecoveryTargetTime** | Pointer to [**NullableTime**](time.Time.md) | The latest possible point in time to which the cluster can be restored. If the backup can be restored up to the current time, this field will be null.  | [optional] |
+|**Location** | Pointer to **string** | The Object Storage location where the backup will be created. The BackupLocations provides a list of supported locations.  | [optional] |
 
 ## Methods
 
@@ -54,30 +55,55 @@ SetClusterId sets ClusterId field to given value.
 
 HasClusterId returns a boolean if a field has been set.
 
-### GetLocation
+### GetClusterName
 
-`func (o *Backup) GetLocation() string`
+`func (o *Backup) GetClusterName() string`
 
-GetLocation returns the Location field if non-nil, zero value otherwise.
+GetClusterName returns the ClusterName field if non-nil, zero value otherwise.
 
-### GetLocationOk
+### GetClusterNameOk
 
-`func (o *Backup) GetLocationOk() (*string, bool)`
+`func (o *Backup) GetClusterNameOk() (*string, bool)`
 
-GetLocationOk returns a tuple with the Location field if it's non-nil, zero value otherwise
+GetClusterNameOk returns a tuple with the ClusterName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetLocation
+### SetClusterName
 
-`func (o *Backup) SetLocation(v string)`
+`func (o *Backup) SetClusterName(v string)`
 
-SetLocation sets Location field to given value.
+SetClusterName sets ClusterName field to given value.
 
-### HasLocation
+### HasClusterName
 
-`func (o *Backup) HasLocation() bool`
+`func (o *Backup) HasClusterName() bool`
 
-HasLocation returns a boolean if a field has been set.
+HasClusterName returns a boolean if a field has been set.
+
+### GetMariadbClusterVersion
+
+`func (o *Backup) GetMariadbClusterVersion() string`
+
+GetMariadbClusterVersion returns the MariadbClusterVersion field if non-nil, zero value otherwise.
+
+### GetMariadbClusterVersionOk
+
+`func (o *Backup) GetMariadbClusterVersionOk() (*string, bool)`
+
+GetMariadbClusterVersionOk returns a tuple with the MariadbClusterVersion field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMariadbClusterVersion
+
+`func (o *Backup) SetMariadbClusterVersion(v string)`
+
+SetMariadbClusterVersion sets MariadbClusterVersion field to given value.
+
+### HasMariadbClusterVersion
+
+`func (o *Backup) HasMariadbClusterVersion() bool`
+
+HasMariadbClusterVersion returns a boolean if a field has been set.
 
 ### GetEarliestRecoveryTargetTime
 
@@ -104,54 +130,64 @@ SetEarliestRecoveryTargetTime sets EarliestRecoveryTargetTime field to given val
 
 HasEarliestRecoveryTargetTime returns a boolean if a field has been set.
 
-### GetSize
+### GetLatestRecoveryTargetTime
 
-`func (o *Backup) GetSize() int32`
+`func (o *Backup) GetLatestRecoveryTargetTime() time.Time`
 
-GetSize returns the Size field if non-nil, zero value otherwise.
+GetLatestRecoveryTargetTime returns the LatestRecoveryTargetTime field if non-nil, zero value otherwise.
 
-### GetSizeOk
+### GetLatestRecoveryTargetTimeOk
 
-`func (o *Backup) GetSizeOk() (*int32, bool)`
+`func (o *Backup) GetLatestRecoveryTargetTimeOk() (*time.Time, bool)`
 
-GetSizeOk returns a tuple with the Size field if it's non-nil, zero value otherwise
+GetLatestRecoveryTargetTimeOk returns a tuple with the LatestRecoveryTargetTime field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSize
+### SetLatestRecoveryTargetTime
 
-`func (o *Backup) SetSize(v int32)`
+`func (o *Backup) SetLatestRecoveryTargetTime(v time.Time)`
 
-SetSize sets Size field to given value.
+SetLatestRecoveryTargetTime sets LatestRecoveryTargetTime field to given value.
 
-### HasSize
+### HasLatestRecoveryTargetTime
 
-`func (o *Backup) HasSize() bool`
+`func (o *Backup) HasLatestRecoveryTargetTime() bool`
 
-HasSize returns a boolean if a field has been set.
+HasLatestRecoveryTargetTime returns a boolean if a field has been set.
 
-### GetBaseBackups
+### SetLatestRecoveryTargetTimeNil
 
-`func (o *Backup) GetBaseBackups() []BaseBackup`
+`func (o *Backup) SetLatestRecoveryTargetTimeNil(b bool)`
 
-GetBaseBackups returns the BaseBackups field if non-nil, zero value otherwise.
+ SetLatestRecoveryTargetTimeNil sets the value for LatestRecoveryTargetTime to be an explicit nil
 
-### GetBaseBackupsOk
+### UnsetLatestRecoveryTargetTime
+`func (o *Backup) UnsetLatestRecoveryTargetTime()`
 
-`func (o *Backup) GetBaseBackupsOk() (*[]BaseBackup, bool)`
+UnsetLatestRecoveryTargetTime ensures that no value is present for LatestRecoveryTargetTime, not even an explicit nil
+### GetLocation
 
-GetBaseBackupsOk returns a tuple with the BaseBackups field if it's non-nil, zero value otherwise
+`func (o *Backup) GetLocation() string`
+
+GetLocation returns the Location field if non-nil, zero value otherwise.
+
+### GetLocationOk
+
+`func (o *Backup) GetLocationOk() (*string, bool)`
+
+GetLocationOk returns a tuple with the Location field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetBaseBackups
+### SetLocation
 
-`func (o *Backup) SetBaseBackups(v []BaseBackup)`
+`func (o *Backup) SetLocation(v string)`
 
-SetBaseBackups sets BaseBackups field to given value.
+SetLocation sets Location field to given value.
 
-### HasBaseBackups
+### HasLocation
 
-`func (o *Backup) HasBaseBackups() bool`
+`func (o *Backup) HasLocation() bool`
 
-HasBaseBackups returns a boolean if a field has been set.
+HasLocation returns a boolean if a field has been set.
 
 

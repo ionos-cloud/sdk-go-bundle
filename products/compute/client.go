@@ -25,6 +25,7 @@ import (
 	"mime/multipart"
 	"net"
 	"net/http"
+	"net/http/httputil"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -34,10 +35,8 @@ import (
 	"strings"
 	"time"
 
-	"golang.org/x/oauth2"
-
 	"github.com/ionos-cloud/sdk-go-bundle/shared"
-	"github.com/ionos-cloud/sdk-go-bundle/shared/retry"
+	"golang.org/x/oauth2"
 )
 
 var (
@@ -53,7 +52,7 @@ const (
 	RequestStatusFailed  = "FAILED"
 	RequestStatusDone    = "DONE"
 
-	Version               = "products/compute/v2.0.5"
+	Version               = "products/compute/v2.0.7"
 	DefaultIonosServerUrl = "https://api.ionos.com/cloudapi/v6"
 	DefaultIonosBasePath  = "/cloudapi/v6"
 )
@@ -166,7 +165,7 @@ func NewAPIClient(cfg *shared.Configuration) *APIClient {
 	}
 
 	if cfgCopy.UserAgent == "" {
-		cfgCopy.UserAgent = "sdk-go-bundle/products/compute/v2.0.5"
+		cfgCopy.UserAgent = "sdk-go-bundle/products/compute/v2.0.7"
 	}
 
 	// Initialize default values in the copied configuration
@@ -181,7 +180,9 @@ func NewAPIClient(cfg *shared.Configuration) *APIClient {
 				Description: "No description provided",
 			},
 		}
+		shared.LogDebug("[DEBUG] compute: using default endpoint: %s", cfgCopy.Servers[0].URL)
 	} else {
+		shared.LogDebug("[DEBUG] compute: server config provided with %d endpoint(s)", len(cfgCopy.Servers))
 		// If the user has provided a custom server configuration, we need to ensure that the basepath is set
 		for i := range cfgCopy.Servers {
 			if cfgCopy.Servers[i].URL != "" && !strings.HasSuffix(cfgCopy.Servers[i].URL, DefaultIonosBasePath) {
@@ -196,6 +197,11 @@ func NewAPIClient(cfg *shared.Configuration) *APIClient {
 		httpTransport := &http.Transport{}
 		AddPinnedCert(httpTransport, pkFingerprint)
 		cfgCopy.HTTPClient.Transport = httpTransport
+	}
+
+	// Log final resolved endpoints
+	for i, srv := range cfgCopy.Servers {
+		shared.LogDebug("[DEBUG] compute: final endpoint[%d]: url=%s description=%q", i, srv.URL, srv.Description)
 	}
 
 	// Create and initialize the API client
@@ -477,7 +483,128 @@ func parameterAddToHeaderOrQuery(headerOrQueryParams interface{}, keyPrefix stri
 
 // callAPI do the request.
 func (c *APIClient) callAPI(request *http.Request) (*http.Response, time.Duration, error) {
-	return retry.DoWithApplicationRetry(c.cfg, request)
+	retryCount := 0
+
+	var resp *http.Response
+	var httpRequestTime time.Duration
+	var err error
+
+	for {
+
+		retryCount++
+
+		/* we need to clone the request with every retry time because Body closes after the request */
+		var clonedRequest *http.Request = request.Clone(request.Context())
+		if request.Body != nil {
+			clonedRequest.Body, err = request.GetBody()
+			if err != nil {
+				return nil, httpRequestTime, err
+			}
+		}
+
+		if shared.SdkLogLevel.Satisfies(shared.Debug) {
+			logRequest := request.Clone(request.Context())
+
+			// Remove the Authorization header if Debug is enabled (but not in Trace mode)
+			if !shared.SdkLogLevel.Satisfies(shared.Trace) {
+				logRequest.Header.Del("Authorization")
+			}
+
+			dump, err := httputil.DumpRequestOut(logRequest, true)
+			if err == nil {
+				shared.SdkLogger.Printf(" DumpRequestOut : %s\n", string(dump))
+			} else {
+				shared.SdkLogger.Printf(" DumpRequestOut err: %+v", err)
+			}
+			shared.SdkLogger.Printf("\n try no: %d\n", retryCount)
+		}
+
+		httpRequestStartTime := time.Now()
+		clonedRequest.Close = true
+		resp, err = c.cfg.HTTPClient.Do(clonedRequest)
+		httpRequestTime = time.Since(httpRequestStartTime)
+		if err != nil {
+			shared.LogDebug("[DEBUG] compute: request failed for %s %s: %v", clonedRequest.Method, clonedRequest.URL.Host, err)
+			return resp, httpRequestTime, err
+		}
+
+		if shared.SdkLogLevel.Satisfies(shared.Debug) {
+			dump, err := httputil.DumpResponse(resp, true)
+			if err == nil {
+				shared.SdkLogger.Printf("\n DumpResponse : %s\n", string(dump))
+			} else {
+				shared.SdkLogger.Printf(" DumpResponse err %+v", err)
+			}
+		}
+
+		var backoffTime time.Duration
+
+		switch resp.StatusCode {
+		case http.StatusInternalServerError:
+			// Only retry 500s on GET to avoid retrying potentially
+			// non-idempotent requests.
+			if request.Method != http.MethodGet {
+				return resp, httpRequestTime, err
+			}
+			shared.LogDebug("[DEBUG] compute: received %d for %s %s, will retry (attempt %d/%d)", resp.StatusCode, request.Method, request.URL.String(), retryCount, c.GetConfig().MaxRetries)
+			backoffTime = c.GetConfig().WaitTime
+		case http.StatusServiceUnavailable,
+			http.StatusGatewayTimeout,
+			http.StatusBadGateway:
+			if request.Method == http.MethodPost {
+				shared.LogDebug("[DEBUG] compute: received %d for POST %s, not retrying (non-idempotent)", resp.StatusCode, request.URL.String())
+				return resp, httpRequestTime, err
+			}
+			shared.LogDebug("[DEBUG] compute: received %d for %s %s, will retry (attempt %d/%d)", resp.StatusCode, request.Method, request.URL.String(), retryCount, c.GetConfig().MaxRetries)
+			backoffTime = c.GetConfig().WaitTime
+
+		case http.StatusTooManyRequests:
+			if retryAfterSeconds := resp.Header.Get("Retry-After"); retryAfterSeconds != "" {
+				waitTime, err := time.ParseDuration(retryAfterSeconds + "s")
+				if err != nil {
+					return resp, httpRequestTime, err
+				}
+				backoffTime = waitTime
+				shared.LogDebug("[DEBUG] compute: rate limited (429) for %s %s, retry-after=%ss (attempt %d/%d)", request.Method, request.URL.String(), retryAfterSeconds, retryCount, c.GetConfig().MaxRetries)
+			} else {
+				backoffTime = c.GetConfig().WaitTime
+				shared.LogDebug("[DEBUG] compute: rate limited (429) for %s %s, using default backoff (attempt %d/%d)", request.Method, request.URL.String(), retryCount, c.GetConfig().MaxRetries)
+			}
+		default:
+			return resp, httpRequestTime, err
+
+		}
+
+		if retryCount >= c.GetConfig().MaxRetries {
+			shared.LogDebug("[DEBUG] compute: retry exhausted after %d attempts for %s %s, last status=%d", retryCount, request.Method, request.URL.String(), resp.StatusCode)
+			break
+		} else {
+			_, _ = io.Copy(io.Discard, resp.Body)
+			_ = resp.Body.Close()
+			c.backOff(request.Context(), backoffTime)
+		}
+	}
+
+	return resp, httpRequestTime, err
+}
+
+func (c *APIClient) backOff(ctx context.Context, t time.Duration) {
+	if t > c.GetConfig().MaxWaitTime {
+		t = c.GetConfig().MaxWaitTime
+	}
+	if shared.SdkLogLevel.Satisfies(shared.Debug) {
+		shared.SdkLogger.Printf(" Sleeping %s before retrying request\n", t.String())
+	}
+	if t <= 0 {
+		return
+	}
+	timer := time.NewTimer(t)
+	defer timer.Stop()
+
+	select {
+	case <-ctx.Done():
+	case <-timer.C:
+	}
 }
 
 // Allow modification of underlying config for alternate implementations and testing

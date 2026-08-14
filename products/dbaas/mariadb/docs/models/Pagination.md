@@ -4,16 +4,15 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Offset** | Pointer to **int32** | The offset specified in the request (if none was specified, the default offset is 0).  | [optional] [default to 0]|
-|**Limit** | Pointer to **int32** | The limit specified in the request (if none was specified, the default limit is 100).  | [optional] [default to 100]|
-|**Total** | Pointer to **int32** | The total number of elements matching the request (without pagination).  | [optional] [default to 0]|
-|**Links** | Pointer to [**PaginationLinks**](PaginationLinks.md) |  | [optional] |
+|**Offset** | **int32** | The offset specified in the request (if none was specified, the default offset is 0).  | [readonly] |
+|**Limit** | **int32** | The limit specified in the request (if none was specified, use the endpoint&#39;s default pagination limit).  | [readonly] |
+|**Links** | [**Links**](Links.md) |  | |
 
 ## Methods
 
 ### NewPagination
 
-`func NewPagination() *Pagination`
+`func NewPagination(offset int32, limit int32, links Links, ) *Pagination`
 
 NewPagination instantiates a new Pagination object
 This constructor will assign default values to properties that have it defined,
@@ -47,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetOffset sets Offset field to given value.
 
-### HasOffset
-
-`func (o *Pagination) HasOffset() bool`
-
-HasOffset returns a boolean if a field has been set.
 
 ### GetLimit
 
@@ -72,60 +66,25 @@ and a boolean to check if the value has been set.
 
 SetLimit sets Limit field to given value.
 
-### HasLimit
-
-`func (o *Pagination) HasLimit() bool`
-
-HasLimit returns a boolean if a field has been set.
-
-### GetTotal
-
-`func (o *Pagination) GetTotal() int32`
-
-GetTotal returns the Total field if non-nil, zero value otherwise.
-
-### GetTotalOk
-
-`func (o *Pagination) GetTotalOk() (*int32, bool)`
-
-GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTotal
-
-`func (o *Pagination) SetTotal(v int32)`
-
-SetTotal sets Total field to given value.
-
-### HasTotal
-
-`func (o *Pagination) HasTotal() bool`
-
-HasTotal returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *Pagination) GetLinks() PaginationLinks`
+`func (o *Pagination) GetLinks() Links`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *Pagination) GetLinksOk() (*PaginationLinks, bool)`
+`func (o *Pagination) GetLinksOk() (*Links, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *Pagination) SetLinks(v PaginationLinks)`
+`func (o *Pagination) SetLinks(v Links)`
 
 SetLinks sets Links field to given value.
 
-### HasLinks
-
-`func (o *Pagination) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
 
 

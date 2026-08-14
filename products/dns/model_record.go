@@ -3,7 +3,7 @@
  *
  * Cloud DNS service helps IONOS Cloud customers to automate DNS Zone and Record management.
  *
- * API version: 1.17.0
+ * API version: 1.18.0
  * Contact: support@cloud.ionos.com
  */
 
@@ -43,6 +43,8 @@ func NewRecord(name string, type_ RecordType, content string) *Record {
 	this.Content = content
 	var ttl int32 = 3600
 	this.Ttl = &ttl
+	var priority int32 = 3600
+	this.Priority = &priority
 	var enabled bool = true
 	this.Enabled = &enabled
 
@@ -56,6 +58,8 @@ func NewRecordWithDefaults() *Record {
 	this := Record{}
 	var ttl int32 = 3600
 	this.Ttl = &ttl
+	var priority int32 = 3600
+	this.Priority = &priority
 	var enabled bool = true
 	this.Enabled = &enabled
 	return &this

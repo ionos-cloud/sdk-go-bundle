@@ -8,7 +8,7 @@
 |**Type** | [**RecordType**](RecordType.md) |  | |
 |**Content** | **string** |  | |
 |**Ttl** | Pointer to **int32** | Time to live for the record, recommended 3600. | [optional] [default to 3600]|
-|**Priority** | Pointer to **int32** | Priority value is between 0 and 65535. Priority is mandatory for MX, SRV and URI record types and ignored for all other types. | [optional] |
+|**Priority** | Pointer to **int32** | Priority value is between 0 and 65535. Priority is mandatory for MX, SRV and URI record types and ignored for all other types. | [optional] [default to 3600]|
 |**Enabled** | Pointer to **bool** | When true - the record is visible for lookup. | [optional] [default to true]|
 
 ## Methods

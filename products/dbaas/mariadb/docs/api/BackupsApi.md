@@ -1,23 +1,22 @@
 # \BackupsApi
 
-All URIs are relative to *https://mariadb.de-txl.ionos.com*
+All URIs are relative to *https://mariadb.de-txl.ionos.com/v2*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**BackupsFindById**](BackupsApi.md#BackupsFindById) | **Get** /backups/{backupId} | Fetch backups|
-|[**BackupsGet**](BackupsApi.md#BackupsGet) | **Get** /backups | List of backups.|
-|[**ClusterBackupsGet**](BackupsApi.md#ClusterBackupsGet) | **Get** /clusters/{clusterId}/backups | List backups of cluster|
+|[**BackupsFindById**](BackupsApi.md#BackupsFindById) | **Get** /backups/{backupId} | Retrieve Backup|
+|[**BackupsGet**](BackupsApi.md#BackupsGet) | **Get** /backups | Retrieve all Backups|
 
 
 
 ## BackupsFindById
 
 ```go
-var result BackupResponse = BackupsFindById(ctx, backupId)
+var result BackupRead = BackupsFindById(ctx, backupId)
                       .Execute()
 ```
 
-Fetch backups
+Retrieve Backup
 
 
 
@@ -36,7 +35,7 @@ import (
 )
 
 func main() {
-    backupId := "498ae72f-411f-11eb-9d07-046c59cc737e" // string | The unique ID of the backup.
+    backupId := "45ca67fb-8b07-5783-9c97-2d35acceb084" // string | The ID (UUID) of the Backup.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := mariadb.NewAPIClient(configuration)
@@ -45,7 +44,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `BackupsApi.BackupsFindById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
-    // response from `BackupsFindById`: BackupResponse
+    // response from `BackupsFindById`: BackupRead
     fmt.Fprintf(os.Stdout, "Response from `BackupsApi.BackupsFindById`: %v\n", resource)
 }
 ```
@@ -56,7 +55,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**backupId** | **string** | The unique ID of the backup. | |
+|**backupId** | **string** | The ID (UUID) of the Backup. | |
 
 ### Other Parameters
 
@@ -68,7 +67,7 @@ Other parameters are passed through a pointer to an apiBackupsFindByIdRequest st
 
 ### Return type
 
-[**BackupResponse**](../models/BackupResponse.md)
+[**BackupRead**](../models/BackupRead.md)
 
 ### HTTP request headers
 
@@ -80,13 +79,14 @@ Other parameters are passed through a pointer to an apiBackupsFindByIdRequest st
 ## BackupsGet
 
 ```go
-var result BackupList = BackupsGet(ctx)
-                      .Limit(limit)
+var result BackupReadList = BackupsGet(ctx)
                       .Offset(offset)
+                      .Limit(limit)
+                      .FilterClusterId(filterClusterId)
                       .Execute()
 ```
 
-List of backups.
+Retrieve all Backups
 
 
 
@@ -105,17 +105,18 @@ import (
 )
 
 func main() {
-    limit := int32(100) // int32 | The maximum number of elements to return. Use together with 'offset' for pagination. (optional) (default to 100)
-    offset := int32(200) // int32 | The first element to return. Use together with 'limit' for pagination. (optional) (default to 0)
+    offset := int32(0) // int32 | The first element (of the total list of elements) to include in the response. Use this parameter together with the limit for pagination. (optional) (default to 0)
+    limit := int32(100) // int32 | The maximum number of elements to return. Use this parameter together with the offset for pagination. (optional) (default to 100)
+    filterClusterId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The ID (UUID) of the cluster to filter backups by. (optional)
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := mariadb.NewAPIClient(configuration)
-    resource, resp, err := apiClient.BackupsApi.BackupsGet(context.Background()).Limit(limit).Offset(offset).Execute()
+    resource, resp, err := apiClient.BackupsApi.BackupsGet(context.Background()).Offset(offset).Limit(limit).FilterClusterId(filterClusterId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BackupsApi.BackupsGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
-    // response from `BackupsGet`: BackupList
+    // response from `BackupsGet`: BackupReadList
     fmt.Fprintf(os.Stdout, "Response from `BackupsApi.BackupsGet`: %v\n", resource)
 }
 ```
@@ -131,85 +132,13 @@ Other parameters are passed through a pointer to an apiBackupsGetRequest struct 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **limit** | **int32** | The maximum number of elements to return. Use together with &#39;offset&#39; for pagination. | [default to 100]|
-| **offset** | **int32** | The first element to return. Use together with &#39;limit&#39; for pagination. | [default to 0]|
+| **offset** | **int32** | The first element (of the total list of elements) to include in the response. Use this parameter together with the limit for pagination. | [default to 0]|
+| **limit** | **int32** | The maximum number of elements to return. Use this parameter together with the offset for pagination. | [default to 100]|
+| **filterClusterId** | **string** | The ID (UUID) of the cluster to filter backups by. | |
 
 ### Return type
 
-[**BackupList**](../models/BackupList.md)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-
-## ClusterBackupsGet
-
-```go
-var result BackupList = ClusterBackupsGet(ctx, clusterId)
-                      .Limit(limit)
-                      .Offset(offset)
-                      .Execute()
-```
-
-List backups of cluster
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-
-    mariadb "github.com/ionos-cloud/sdk-go-bundle/products/mariadb"
-    "github.com/ionos-cloud/sdk-go-bundle/shared"
-)
-
-func main() {
-    clusterId := "498ae72f-411f-11eb-9d07-046c59cc737e" // string | The unique ID of the cluster.
-    limit := int32(100) // int32 | The maximum number of elements to return. Use together with 'offset' for pagination. (optional) (default to 100)
-    offset := int32(200) // int32 | The first element to return. Use together with 'limit' for pagination. (optional) (default to 0)
-
-    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
-    apiClient := mariadb.NewAPIClient(configuration)
-    resource, resp, err := apiClient.BackupsApi.ClusterBackupsGet(context.Background(), clusterId).Limit(limit).Offset(offset).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BackupsApi.ClusterBackupsGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
-    }
-    // response from `ClusterBackupsGet`: BackupList
-    fmt.Fprintf(os.Stdout, "Response from `BackupsApi.ClusterBackupsGet`: %v\n", resource)
-}
-```
-
-### Path Parameters
-
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-|**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | **string** | The unique ID of the cluster. | |
-
-### Other Parameters
-
-Other parameters are passed through a pointer to an apiClusterBackupsGetRequest struct via the builder pattern
-
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **limit** | **int32** | The maximum number of elements to return. Use together with &#39;offset&#39; for pagination. | [default to 100]|
-| **offset** | **int32** | The first element to return. Use together with &#39;limit&#39; for pagination. | [default to 0]|
-
-### Return type
-
-[**BackupList**](../models/BackupList.md)
+[**BackupReadList**](../models/BackupReadList.md)
 
 ### HTTP request headers
 
