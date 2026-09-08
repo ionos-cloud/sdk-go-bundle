@@ -125,7 +125,6 @@ body is drained and closed, then the request goes to the next server. Response
 headers (e.g. `Retry-After`) are *not* inspected at this layer.
 
 ## What never triggers a failover
-cred
 | Case                                                       | Why                                                                                                                                                                                                                                                                                                      |
 |------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | DNS errors (`*net.DNSError`)                               | Indicate misconfiguration, not a server being down.                                                                                                                                                                                                                                                      |
