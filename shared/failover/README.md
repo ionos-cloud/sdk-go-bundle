@@ -110,11 +110,11 @@ syscall errnos:
 | `syscall.ENETUNREACH`                   | The whole target network is unreachable.                                         | always                           |
 | `opErr.Timeout()` / `syscall.ETIMEDOUT` | Connection or I/O timed out.                                                     | only when `RetryOnTimeout: true` |
 
-All five of the non-timeout errnos mean the request never got a reply from that
-endpoint, so retrying it against the next server is safe even for methods with
-side effects. Timeouts are gated behind `RetryOnTimeout` precisely because they
-are ambiguous: the server may have received and applied the request before the
-deadline expired.
+These errors often mean that no reply was received from that endpoint, but
+they do not prove the server did not process the request (for example, a
+connection reset can happen after the request is applied). Retrying
+non-idempotent methods can therefore duplicate side effects; keep the default
+idempotent method allowlist unless the API is known to make retries safe.
 
 Matching is done with `errors.Is`, so wrapped errors are detected — see
 `isRetryableNetOpError`. An errno that arrives *not* wrapped in a `*net.OpError`
