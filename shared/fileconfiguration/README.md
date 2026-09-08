@@ -24,7 +24,7 @@ profiles := fileconfiguration.ReadProfilesFromFile()     // profiles only, never
 | `New(path)` | Empty `path` → `DefaultConfigFileName()`. Errors if the file is missing, unreadable, empty, or invalid YAML. |
 | `NewFromEnv()` | `New(os.Getenv("IONOS_CONFIG_FILE"))` — falls back to the default path when the variable is unset. |
 | `DefaultConfigFileName()` | `$HOME/.ionos/config`; errors if the home directory can't be determined. |
-| `ReadProfilesFromFile()` | Best-effort read of just the `currentProfile` + `profiles` keys. Returns `nil` on any problem instead of an error — for listing profiles in a UI. |
+| `ReadProfilesFromFile()` | Best-effort read of just the `currentProfile` + `profiles` keys. Returns `nil` when the config path is unavailable or the file cannot be read; YAML unmarshal errors are ignored. |
 
 ### Environment variables
 
