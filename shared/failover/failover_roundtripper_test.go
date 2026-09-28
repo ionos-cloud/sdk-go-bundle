@@ -3,10 +3,12 @@ package failover
 import (
 	"bytes"
 	"context"
+	"encoding/pem"
 	"errors"
 	"io"
 	"net"
 	"net/http"
+	"net/http/httptest"
 	"net/url"
 	"syscall"
 	"testing"
@@ -180,6 +182,126 @@ func TestFailoverRoundTripperPostNotRetriedByDefault(t *testing.T) {
 	if len(ft.calls) != 1 {
 		t.Fatalf("expected 1 transport call (no retry for POST), got %d", len(ft.calls))
 	}
+}
+
+// A non-retryable method (POST) must be sent through the first endpoint's own
+// transport, so its SkipTLSVerify setting is honored. The default base transport
+// rejects the server's self-signed certificate, so success proves the endpoint
+// transport was used rather than defaultBase.
+func TestFailoverRoundTripperNonRetryableMethodUsesSkipTLSTransport(t *testing.T) {
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	}))
+	defer server.Close()
+
+	fo := Options{Strategy: RoundRobin, ExponentialBackoff: zeroBackoff()}
+	rt := NewRoundTripper([]Endpoint{{URL: server.URL, SkipTLSVerify: true}}, fo, http.DefaultTransport)
+
+	req, err := http.NewRequest(http.MethodPost, server.URL+"/path", io.NopCloser(bytes.NewBufferString("data")))
+	if err != nil {
+		t.Fatalf(foErrUnexpReq, err)
+	}
+	req.GetBody = func() (io.ReadCloser, error) { return io.NopCloser(bytes.NewBufferString("data")), nil }
+
+	resp, err := rt.RoundTrip(req)
+	if err != nil {
+		t.Fatalf(foErrExpSucc, err)
+	}
+	if resp.StatusCode != http.StatusOK {
+		t.Fatalf(foErrExp200, resp.StatusCode)
+	}
+	_ = resp.Body.Close()
+}
+
+// Same guarantee via a custom CA: the first endpoint's transport trusts the
+// server certificate through CertificateAuthData, while defaultBase does not.
+func TestFailoverRoundTripperNonRetryableMethodUsesCustomCATransport(t *testing.T) {
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	}))
+	defer server.Close()
+
+	caPEM := pem.EncodeToMemory(&pem.Block{Type: "CERTIFICATE", Bytes: server.Certificate().Raw})
+
+	fo := Options{Strategy: RoundRobin, ExponentialBackoff: zeroBackoff()}
+	rt := NewRoundTripper([]Endpoint{{URL: server.URL, CertificateAuthData: string(caPEM)}}, fo, http.DefaultTransport)
+
+	req, err := http.NewRequest(http.MethodPost, server.URL+"/path", io.NopCloser(bytes.NewBufferString("data")))
+	if err != nil {
+		t.Fatalf(foErrUnexpReq, err)
+	}
+	req.GetBody = func() (io.ReadCloser, error) { return io.NopCloser(bytes.NewBufferString("data")), nil }
+
+	resp, err := rt.RoundTrip(req)
+	if err != nil {
+		t.Fatalf(foErrExpSucc, err)
+	}
+	if resp.StatusCode != http.StatusOK {
+		t.Fatalf(foErrExp200, resp.StatusCode)
+	}
+	_ = resp.Body.Close()
+}
+
+// A non-retryable request with a non-replayable body (GetBody == nil) must still be
+// sent once. The single-attempt path passes the request through unmodified, so it must
+// not require replayability the way the retry loop does.
+func TestFailoverRoundTripperNonRetryableMethodAllowsNonReplayableBody(t *testing.T) {
+	fo := Options{Strategy: RoundRobin, ExponentialBackoff: zeroBackoff()}
+
+	var called bool
+	base := roundTripperFunc(func(r *http.Request) (*http.Response, error) {
+		called = true
+		return &http.Response{StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header)}, nil
+	})
+	rt := NewRoundTripper([]Endpoint{{URL: foURLs1}, {URL: foURLs2}}, fo, base)
+
+	// POST is not retryable by default; give it a body with no GetBody (non-replayable).
+	req, err := http.NewRequest(http.MethodPost, foURLs1Path, io.NopCloser(bytes.NewBufferString("data")))
+	if err != nil {
+		t.Fatalf(foErrUnexpReq, err)
+	}
+	req.GetBody = nil
+
+	resp, err := rt.RoundTrip(req)
+	if err != nil {
+		t.Fatalf("expected non-replayable POST to pass through, got error: %v", err)
+	}
+	if !called {
+		t.Fatal("expected the transport to be called")
+	}
+	if resp.StatusCode != http.StatusOK {
+		t.Fatalf(foErrExp200, resp.StatusCode)
+	}
+	_ = resp.Body.Close()
+}
+
+// A non-retryable request whose incoming host is not one of the endpoints must be
+// retargeted to the first configured endpoint, just like a failover attempt.
+func TestFailoverRoundTripperNonRetryableMethodRetargetsToFirstEndpoint(t *testing.T) {
+	fo := Options{Strategy: RoundRobin, ExponentialBackoff: zeroBackoff()}
+
+	var gotHost string
+	base := roundTripperFunc(func(r *http.Request) (*http.Response, error) {
+		gotHost = r.URL.Host
+		return &http.Response{StatusCode: http.StatusOK, Body: io.NopCloser(bytes.NewBufferString("ok")), Header: make(http.Header)}, nil
+	})
+	rt := NewRoundTripper([]Endpoint{{URL: foURLs1}, {URL: foURLs2}}, fo, base)
+
+	// Incoming request points at a host that is NOT one of the endpoints.
+	req, err := http.NewRequest(http.MethodPost, "https://original.example/path", io.NopCloser(bytes.NewBufferString("data")))
+	if err != nil {
+		t.Fatalf(foErrUnexpReq, err)
+	}
+	req.GetBody = nil
+
+	resp, err := rt.RoundTrip(req)
+	if err != nil {
+		t.Fatalf(foErrExpSucc, err)
+	}
+	if gotHost != foHostS1 {
+		t.Fatalf("expected request retargeted to %s, got %s", foHostS1, gotHost)
+	}
+	_ = resp.Body.Close()
 }
 
 func TestFailoverRoundTripperFailoverOnStatusCodes(t *testing.T) {
