@@ -4,10 +4,10 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Name** | **string** | The name of the Network Load Balancer. | |
-|**ListenerLan** | **int32** | ID of the listening LAN (inbound). | |
+|**Name** | Pointer to **string** | The name of the Network Load Balancer. | [optional] |
+|**ListenerLan** | Pointer to **int32** | ID of the listening LAN (inbound). | [optional] |
 |**Ips** | Pointer to **[]string** | Collection of the Network Load Balancer IP addresses. (Inbound and outbound) IPs of the listenerLan must be customer-reserved IPs for public Load Balancers, and private IPs for private Load Balancers. | [optional] |
-|**TargetLan** | **int32** | ID of the balanced private target LAN (outbound). | |
+|**TargetLan** | Pointer to **int32** | ID of the balanced private target LAN (outbound). | [optional] |
 |**LbPrivateIps** | Pointer to **[]string** | Collection of private IP addresses with subnet mask of the Network Load Balancer. IPs must contain a valid subnet mask. If no IP is provided, the system will generate an IP with /24 subnet. | [optional] |
 |**CentralLogging** | Pointer to **bool** | Turn logging on and off for this product. Default value is &#39;false&#39;. | [optional] |
 |**LoggingFormat** | Pointer to **string** | Specifies the format of the logs. | [optional] |
@@ -16,7 +16,7 @@
 
 ### NewNetworkLoadBalancerProperties
 
-`func NewNetworkLoadBalancerProperties(name string, listenerLan int32, targetLan int32, ) *NetworkLoadBalancerProperties`
+`func NewNetworkLoadBalancerProperties() *NetworkLoadBalancerProperties`
 
 NewNetworkLoadBalancerProperties instantiates a new NetworkLoadBalancerProperties object
 This constructor will assign default values to properties that have it defined,
@@ -50,6 +50,11 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+### HasName
+
+`func (o *NetworkLoadBalancerProperties) HasName() bool`
+
+HasName returns a boolean if a field has been set.
 
 ### GetListenerLan
 
@@ -70,6 +75,11 @@ and a boolean to check if the value has been set.
 
 SetListenerLan sets ListenerLan field to given value.
 
+### HasListenerLan
+
+`func (o *NetworkLoadBalancerProperties) HasListenerLan() bool`
+
+HasListenerLan returns a boolean if a field has been set.
 
 ### GetIps
 
@@ -115,6 +125,11 @@ and a boolean to check if the value has been set.
 
 SetTargetLan sets TargetLan field to given value.
 
+### HasTargetLan
+
+`func (o *NetworkLoadBalancerProperties) HasTargetLan() bool`
+
+HasTargetLan returns a boolean if a field has been set.
 
 ### GetLbPrivateIps
 

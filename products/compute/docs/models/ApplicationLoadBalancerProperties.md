@@ -4,10 +4,10 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Name** | **string** | The Application Load Balancer name. | |
-|**ListenerLan** | **int32** | The ID of the listening (inbound) LAN. | |
+|**Name** | Pointer to **string** | The Application Load Balancer name. | [optional] |
+|**ListenerLan** | Pointer to **int32** | The ID of the listening (inbound) LAN. | [optional] |
 |**Ips** | Pointer to **[]string** | Collection of the Application Load Balancer IP addresses. (Inbound and outbound) IPs of the &#39;listenerLan&#39; are customer-reserved public IPs for the public load balancers, and private IPs for the private load balancers. | [optional] |
-|**TargetLan** | **int32** | The ID of the balanced private target LAN (outbound). | |
+|**TargetLan** | Pointer to **int32** | The ID of the balanced private target LAN (outbound). | [optional] |
 |**LbPrivateIps** | Pointer to **[]string** | Collection of private IP addresses with the subnet mask of the Application Load Balancer. IPs must contain valid a subnet mask. If no IP is provided, the system will generate an IP with /24 subnet. | [optional] |
 |**CentralLogging** | Pointer to **bool** | Turn logging on and off for this product. Default value is &#39;false&#39;. | [optional] |
 |**LoggingFormat** | Pointer to **string** | Specifies the format of the logs. | [optional] |
@@ -16,7 +16,7 @@
 
 ### NewApplicationLoadBalancerProperties
 
-`func NewApplicationLoadBalancerProperties(name string, listenerLan int32, targetLan int32, ) *ApplicationLoadBalancerProperties`
+`func NewApplicationLoadBalancerProperties() *ApplicationLoadBalancerProperties`
 
 NewApplicationLoadBalancerProperties instantiates a new ApplicationLoadBalancerProperties object
 This constructor will assign default values to properties that have it defined,
@@ -50,6 +50,11 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+### HasName
+
+`func (o *ApplicationLoadBalancerProperties) HasName() bool`
+
+HasName returns a boolean if a field has been set.
 
 ### GetListenerLan
 
@@ -70,6 +75,11 @@ and a boolean to check if the value has been set.
 
 SetListenerLan sets ListenerLan field to given value.
 
+### HasListenerLan
+
+`func (o *ApplicationLoadBalancerProperties) HasListenerLan() bool`
+
+HasListenerLan returns a boolean if a field has been set.
 
 ### GetIps
 
@@ -115,6 +125,11 @@ and a boolean to check if the value has been set.
 
 SetTargetLan sets TargetLan field to given value.
 
+### HasTargetLan
+
+`func (o *ApplicationLoadBalancerProperties) HasTargetLan() bool`
+
+HasTargetLan returns a boolean if a field has been set.
 
 ### GetLbPrivateIps
 

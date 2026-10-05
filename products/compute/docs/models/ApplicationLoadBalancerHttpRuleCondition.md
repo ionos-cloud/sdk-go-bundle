@@ -5,7 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**Type** | **string** | The HTTP rule condition type. | |
-|**Condition** | **string** | The matching rule for the HTTP rule condition attribute; this parameter is mandatory for &#39;HEADER&#39;, &#39;PATH&#39;, &#39;QUERY&#39;, &#39;METHOD&#39;, &#39;HOST&#39;, and &#39;COOKIE&#39; types. It must be &#39;null&#39; if the type is &#39;SOURCE_IP&#39;. | |
+|**Condition** | Pointer to **string** | The matching rule for the HTTP rule condition attribute; this parameter is mandatory for &#39;HEADER&#39;, &#39;PATH&#39;, &#39;QUERY&#39;, &#39;METHOD&#39;, &#39;HOST&#39;, and &#39;COOKIE&#39; types. It must be &#39;null&#39; if the type is &#39;SOURCE_IP&#39;. | [optional] |
 |**Negate** | Pointer to **bool** | Specifies whether the condition should be negated; the default value is &#39;FALSE&#39;. | [optional] |
 |**Key** | Pointer to **string** | The key can only be set when the HTTP rule condition type is &#39;COOKIES&#39;, &#39;HEADER&#39;, or &#39;QUERY&#39;. For the type &#39;PATH&#39;, &#39;METHOD&#39;, &#39;HOST&#39;, or &#39;SOURCE_IP&#39; the value must be &#39;null&#39;. | [optional] |
 |**Value** | Pointer to **string** | This parameter is mandatory for the conditions &#39;CONTAINS&#39;, &#39;EQUALS&#39;, &#39;MATCHES&#39;, &#39;STARTS_WITH&#39;, &#39;ENDS_WITH&#39;, or if the type is &#39;SOURCE_IP&#39;. Specify a valid CIDR. If the condition is &#39;EXISTS&#39;, the value must be &#39;null&#39;. | [optional] |
@@ -14,7 +14,7 @@
 
 ### NewApplicationLoadBalancerHttpRuleCondition
 
-`func NewApplicationLoadBalancerHttpRuleCondition(type_ string, condition string, ) *ApplicationLoadBalancerHttpRuleCondition`
+`func NewApplicationLoadBalancerHttpRuleCondition(type_ string, ) *ApplicationLoadBalancerHttpRuleCondition`
 
 NewApplicationLoadBalancerHttpRuleCondition instantiates a new ApplicationLoadBalancerHttpRuleCondition object
 This constructor will assign default values to properties that have it defined,
@@ -68,6 +68,11 @@ and a boolean to check if the value has been set.
 
 SetCondition sets Condition field to given value.
 
+### HasCondition
+
+`func (o *ApplicationLoadBalancerHttpRuleCondition) HasCondition() bool`
+
+HasCondition returns a boolean if a field has been set.
 
 ### GetNegate
 

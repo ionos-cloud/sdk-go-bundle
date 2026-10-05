@@ -4,14 +4,14 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**MinNodeCount** | **int32** | The minimum number of working nodes that the managed node pool can scale must be &gt;&#x3D; 1 and &gt;&#x3D; nodeCount. Required if autoScaling is specified. | |
-|**MaxNodeCount** | **int32** | The maximum number of worker nodes that the managed node pool can scale in. Must be &gt;&#x3D; minNodeCount and must be &gt;&#x3D; nodeCount. Required if autoScaling is specified. | |
+|**MinNodeCount** | Pointer to **NullableInt32** | The minimum number of working nodes that the managed node pool can scale must be &gt;&#x3D; 1 and &gt;&#x3D; nodeCount. Required if autoScaling is specified. | [optional] |
+|**MaxNodeCount** | Pointer to **NullableInt32** | The maximum number of worker nodes that the managed node pool can scale in. Must be &gt;&#x3D; minNodeCount and must be &gt;&#x3D; nodeCount. Required if autoScaling is specified. | [optional] |
 
 ## Methods
 
 ### NewKubernetesAutoScaling
 
-`func NewKubernetesAutoScaling(minNodeCount int32, maxNodeCount int32, ) *KubernetesAutoScaling`
+`func NewKubernetesAutoScaling() *KubernetesAutoScaling`
 
 NewKubernetesAutoScaling instantiates a new KubernetesAutoScaling object
 This constructor will assign default values to properties that have it defined,
@@ -45,7 +45,22 @@ and a boolean to check if the value has been set.
 
 SetMinNodeCount sets MinNodeCount field to given value.
 
+### HasMinNodeCount
 
+`func (o *KubernetesAutoScaling) HasMinNodeCount() bool`
+
+HasMinNodeCount returns a boolean if a field has been set.
+
+### SetMinNodeCountNil
+
+`func (o *KubernetesAutoScaling) SetMinNodeCountNil(b bool)`
+
+ SetMinNodeCountNil sets the value for MinNodeCount to be an explicit nil
+
+### UnsetMinNodeCount
+`func (o *KubernetesAutoScaling) UnsetMinNodeCount()`
+
+UnsetMinNodeCount ensures that no value is present for MinNodeCount, not even an explicit nil
 ### GetMaxNodeCount
 
 `func (o *KubernetesAutoScaling) GetMaxNodeCount() int32`
@@ -65,5 +80,20 @@ and a boolean to check if the value has been set.
 
 SetMaxNodeCount sets MaxNodeCount field to given value.
 
+### HasMaxNodeCount
 
+`func (o *KubernetesAutoScaling) HasMaxNodeCount() bool`
+
+HasMaxNodeCount returns a boolean if a field has been set.
+
+### SetMaxNodeCountNil
+
+`func (o *KubernetesAutoScaling) SetMaxNodeCountNil(b bool)`
+
+ SetMaxNodeCountNil sets the value for MaxNodeCount to be an explicit nil
+
+### UnsetMaxNodeCount
+`func (o *KubernetesAutoScaling) UnsetMaxNodeCount()`
+
+UnsetMaxNodeCount ensures that no value is present for MaxNodeCount, not even an explicit nil
 
