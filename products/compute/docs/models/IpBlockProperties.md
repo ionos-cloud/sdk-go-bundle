@@ -5,8 +5,8 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**Ips** | Pointer to **[]string** | Collection of IPs, associated with the IP Block. | [optional] [readonly] |
-|**Location** | **string** | Location of that IP block. Property cannot be modified after it is created (disallowed in update requests). | |
-|**Size** | **int32** | The size of the IP block. | |
+|**Location** | Pointer to **string** | Location of that IP block. Property cannot be modified after it is created (disallowed in update requests). | [optional] |
+|**Size** | Pointer to **int32** | The size of the IP block. | [optional] |
 |**Name** | Pointer to **string** | The name of the  resource. | [optional] |
 |**IpConsumers** | Pointer to [**[]IpConsumer**](IpConsumer.md) | Read-Only attribute. Lists consumption detail for an individual IP | [optional] [readonly] |
 
@@ -14,7 +14,7 @@
 
 ### NewIpBlockProperties
 
-`func NewIpBlockProperties(location string, size int32, ) *IpBlockProperties`
+`func NewIpBlockProperties() *IpBlockProperties`
 
 NewIpBlockProperties instantiates a new IpBlockProperties object
 This constructor will assign default values to properties that have it defined,
@@ -73,6 +73,11 @@ and a boolean to check if the value has been set.
 
 SetLocation sets Location field to given value.
 
+### HasLocation
+
+`func (o *IpBlockProperties) HasLocation() bool`
+
+HasLocation returns a boolean if a field has been set.
 
 ### GetSize
 
@@ -93,6 +98,11 @@ and a boolean to check if the value has been set.
 
 SetSize sets Size field to given value.
 
+### HasSize
+
+`func (o *IpBlockProperties) HasSize() bool`
+
+HasSize returns a boolean if a field has been set.
 
 ### GetName
 

@@ -271,7 +271,7 @@ import (
 
 func main() {
     ipblockId := "ipblockId_example" // string | The unique ID of the IP block.
-    ipblock := *openapiclient.NewIpBlockProperties("us/las", int32(5)) // IpBlockProperties | The properties of the IP block to be updated.
+    ipblock := *openapiclient.NewIpBlockProperties() // IpBlockProperties | The properties of the IP block to be updated.
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
@@ -349,7 +349,7 @@ import (
 )
 
 func main() {
-    ipblock := *openapiclient.NewIpBlock(*openapiclient.NewIpBlockProperties("us/las", int32(5))) // IpBlock | The IP block to be reserved.
+    ipblock := *openapiclient.NewIpBlock(*openapiclient.NewIpBlockProperties()) // IpBlock | The IP block to be reserved.
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
@@ -424,7 +424,7 @@ import (
 
 func main() {
     ipblockId := "ipblockId_example" // string | The unique ID of the IP block.
-    ipblock := *openapiclient.NewIpBlock(*openapiclient.NewIpBlockProperties("us/las", int32(5))) // IpBlock | The modified IP block.
+    ipblock := *openapiclient.NewIpBlock(*openapiclient.NewIpBlockProperties()) // IpBlock | The modified IP block.
     pretty := true // bool | Controls whether the response is pretty-printed (with indentations and new lines). (optional) (default to true)
     depth := int32(56) // int32 | Controls the detail depth of the response objects.  GET /datacenters/[ID]  - depth=0: Only direct properties are included; children (servers and other elements) are not included.  - depth=1: Direct properties and children references are included.  - depth=2: Direct properties and children properties are included.  - depth=3: Direct properties and children properties and children's children are included.  - depth=... and so on (optional) (default to 0)
     xContractNumber := int32(56) // int32 | Users with multiple contracts must provide the contract number, for which all API requests are to be executed. (optional)
