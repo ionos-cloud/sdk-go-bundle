@@ -3,13 +3,10 @@ package fileconfiguration
 import (
 	"errors"
 	"fmt"
-	"math"
-	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
 
-	boff "github.com/cenkalti/backoff/v5"
 	"gopkg.in/yaml.v3"
 
 	"github.com/ionos-cloud/sdk-go-bundle/shared"
@@ -511,16 +508,16 @@ func (f *FileConfig) Validate() error {
 	if f == nil {
 		return nil
 	}
-	var problems []error
-	problems = append(problems, f.validateProfilesAndEnvironments()...)
-	problems = append(problems, f.validateProducts()...)
-	problems = append(problems, f.validateFailover()...)
-	return errors.Join(problems...)
+	return errors.Join(
+		f.validateProfilesAndEnvironments(),
+		f.validateProducts(),
+		f.Failover.Validate(),
+	)
 }
 
 // validateProfilesAndEnvironments checks that environment and profile names are unique,
 // and that currentProfile and each profile's environment point to entries that exist.
-func (f *FileConfig) validateProfilesAndEnvironments() []error {
+func (f *FileConfig) validateProfilesAndEnvironments() error {
 	var problems []error
 
 	// Check for duplicate environment names.
@@ -556,13 +553,13 @@ func (f *FileConfig) validateProfilesAndEnvironments() []error {
 		}
 	}
 
-	return problems
+	return errors.Join(problems...)
 }
 
 // validateProducts checks, for every product in every environment, that it is a known
 // product, has at least one endpoint, has no empty endpoint names, and is not declared
 // more than once within the same environment.
-func (f *FileConfig) validateProducts() []error {
+func (f *FileConfig) validateProducts() error {
 	var problems []error
 
 	for _, env := range f.Environments {
@@ -609,87 +606,5 @@ func (f *FileConfig) validateProducts() []error {
 		}
 	}
 
-	return problems
-}
-
-// httpMethods lists the HTTP methods accepted in failover.retryableMethods.
-var httpMethods = []string{
-	http.MethodGet, http.MethodHead, http.MethodPost, http.MethodPut,
-	http.MethodPatch, http.MethodDelete, http.MethodConnect, http.MethodOptions, http.MethodTrace,
-}
-
-func isHTTPMethod(method string) bool {
-	method = strings.ToUpper(strings.TrimSpace(method))
-	for _, m := range httpMethods {
-		if m == method {
-			return true
-		}
-	}
-	return false
-}
-
-// validateFailover checks the failover block, when present, for a supported strategy
-// and non-negative numeric parameters.
-func (f *FileConfig) validateFailover() []error {
-	if f.Failover == nil {
-		return nil
-	}
-
-	var problems []error
-
-	switch failover.NormalizeStrategy(f.Failover.Strategy) {
-	case failover.NormalizeStrategy(failover.None),
-		failover.NormalizeStrategy(failover.RoundRobin),
-		"":
-	default:
-		problems = append(problems, fmt.Errorf(
-			"invalid failover strategy %q, supported values are %q, %q or an empty value",
-			f.Failover.Strategy, failover.None, failover.RoundRobin,
-		))
-	}
-
-	// Every retryableMethods entry must be a valid HTTP method.
-	for _, method := range f.Failover.RetryableMethods {
-		if !isHTTPMethod(method) {
-			problems = append(problems, fmt.Errorf(
-				"invalid failover retryableMethods entry %q, supported values are %s",
-				method, strings.Join(httpMethods, ", "),
-			))
-		}
-	}
-
-	if f.Failover.MaxRetries < 0 {
-		problems = append(problems, fmt.Errorf("failover maxRetries must be >= 0, got %d", f.Failover.MaxRetries))
-	}
-
-	if b := f.Failover.ExponentialBackoff; b != nil {
-		if b.InitialInterval < 0 {
-			problems = append(problems, fmt.Errorf("failover exponentialBackoff.initialInterval must be >= 0, got %s", b.InitialInterval))
-		}
-		if b.MaxInterval < 0 {
-			problems = append(problems, fmt.Errorf("failover exponentialBackoff.maxInterval must be >= 0, got %s", b.MaxInterval))
-		}
-		if b.Multiplier != nil && (math.IsNaN(*b.Multiplier) || math.IsInf(*b.Multiplier, 0) || *b.Multiplier <= 0) {
-			problems = append(problems, fmt.Errorf("failover exponentialBackoff.multiplier must be > 0, got %v", *b.Multiplier))
-		}
-		if b.RandomizationFactor != nil && (math.IsNaN(*b.RandomizationFactor) || *b.RandomizationFactor < 0 || *b.RandomizationFactor > 1) {
-			problems = append(problems, fmt.Errorf("failover exponentialBackoff.randomizationFactor must be between 0 and 1, got %v", *b.RandomizationFactor))
-		}
-		// Resolve zero values to the library defaults and make sure the initial interval does not exceed the maximum.
-		if b.InitialInterval >= 0 && b.MaxInterval >= 0 {
-			initialInterval := b.InitialInterval
-			if initialInterval == 0 {
-				initialInterval = boff.DefaultInitialInterval
-			}
-			maxInterval := b.MaxInterval
-			if maxInterval == 0 {
-				maxInterval = boff.DefaultMaxInterval
-			}
-			if initialInterval > maxInterval {
-				problems = append(problems, fmt.Errorf("failover exponentialBackoff.initialInterval (%s) must not be greater than maxInterval (%s)", initialInterval, maxInterval))
-			}
-		}
-	}
-
-	return problems
+	return errors.Join(problems...)
 }
