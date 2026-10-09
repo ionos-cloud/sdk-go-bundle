@@ -14,7 +14,7 @@ import (
 func TestNewRejectsSemanticallyInvalidConfig(t *testing.T) {
 	tempFile, err := os.CreateTemp("", "config.yaml")
 	assert.NoError(t, err)
-	defer os.Remove(tempFile.Name())
+	defer func() { _ = os.Remove(tempFile.Name()) }()
 
 	// Syntactically valid YAML, but the cloud product mixes a global and a
 	// location-based endpoint, which Validate rejects.
@@ -37,7 +37,7 @@ environments:
 `
 	_, err = tempFile.Write([]byte(configData))
 	assert.NoError(t, err)
-	tempFile.Close()
+	assert.NoError(t, tempFile.Close())
 
 	config, err := New(tempFile.Name())
 	assert.Nil(t, config)
