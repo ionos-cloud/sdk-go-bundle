@@ -32,7 +32,7 @@ environments:
   - name: testEnvironment
     certificateAuthData: testCertData
     products:
-      - name: testProduct
+      - name: mariadb
         endpoints: 
           - location: de/fra
             name: mariadb.de-fra.ionos.com
@@ -62,7 +62,7 @@ environments:
 	assert.Equal(t, "testToken", config.Profiles[0].Credentials.Token)
 	assert.Equal(t, "testEnvironment", config.Environments[0].Name)
 	assert.Equal(t, "testCertData", config.Environments[0].CertificateAuthData)
-	assert.Equal(t, "testProduct", config.Environments[0].Products[0].Name)
+	assert.Equal(t, "mariadb", config.Environments[0].Products[0].Name)
 }
 
 func TestDefaultLoadedConfigFileName(t *testing.T) {
@@ -92,7 +92,7 @@ environments:
   - name: testEnvironment
     certificateAuthData: testCertData
     products:
-      - name: testProduct
+      - name: mariadb
         endpoints: 
           - location: de/fra
             name: mariadb.de-fra.ionos.com
@@ -347,4 +347,20 @@ func TestGetFailoverOptions(t *testing.T) {
 
 	var nilCfg *FileConfig
 	assert.Nil(t, nilCfg.GetFailoverOptions())
+}
+
+func TestGetProductOverrides_EnvironmentMatchIsCaseInsensitive(t *testing.T) {
+	t.Setenv(shared.IonosCurrentProfileEnvVar, "")
+	cfg := &FileConfig{
+		CurrentProfile: "p",
+		Profiles:       []Profile{{Name: "p", Environment: "PROD"}}, // differs in case from the environment name
+		Environments: []Environment{{
+			Name:     "prod",
+			Products: []Product{{Name: Cloud, Endpoints: []Endpoint{{Name: "https://api.example.com"}}}},
+		}},
+	}
+
+	prod := cfg.GetProductOverrides(Cloud)
+	assert.NotNil(t, prod, "cloud overrides should resolve despite the PROD/prod case mismatch")
+	assert.Equal(t, Cloud, prod.Name)
 }
