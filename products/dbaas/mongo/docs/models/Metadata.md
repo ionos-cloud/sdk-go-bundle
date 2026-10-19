@@ -4,14 +4,13 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**CreatedDate** | Pointer to [**time.Time**](time.Time.md) | The date the resource was created. | [optional] |
-|**CreatedBy** | Pointer to **string** | The user who created the resource. | [optional] |
-|**CreatedByUserId** | Pointer to **string** | The ID of the user who created the resource. | [optional] |
-|**LastModifiedDate** | Pointer to [**time.Time**](time.Time.md) | The date the resource was last modified. | [optional] |
-|**LastModifiedBy** | Pointer to **string** | The last user who modified the resource. | [optional] |
-|**LastModifiedByUserId** | Pointer to **string** | The ID of the user who last modified the resource. | [optional] |
-|**State** | Pointer to [**State**](State.md) |  | [optional] |
-|**Health** | Pointer to [**Health**](Health.md) |  | [optional] |
+|**CreatedDate** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 creation timestamp. | [optional] [readonly] |
+|**CreatedBy** | Pointer to **string** | Unique name of the identity that created the resource. | [optional] [readonly] |
+|**CreatedByUserId** | Pointer to **string** | Unique id of the identity that created the resource. | [optional] [readonly] |
+|**LastModifiedDate** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 modified timestamp. | [optional] [readonly] |
+|**LastModifiedBy** | Pointer to **string** | Unique name of the identity that last modified the resource. | [optional] [readonly] |
+|**LastModifiedByUserId** | Pointer to **string** | Unique id of the identity that last modified the resource. | [optional] [readonly] |
+|**ResourceURN** | Pointer to **string** | Unique name of the resource. | [optional] [readonly] |
 
 ## Methods
 
@@ -182,54 +181,29 @@ SetLastModifiedByUserId sets LastModifiedByUserId field to given value.
 
 HasLastModifiedByUserId returns a boolean if a field has been set.
 
-### GetState
+### GetResourceURN
 
-`func (o *Metadata) GetState() State`
+`func (o *Metadata) GetResourceURN() string`
 
-GetState returns the State field if non-nil, zero value otherwise.
+GetResourceURN returns the ResourceURN field if non-nil, zero value otherwise.
 
-### GetStateOk
+### GetResourceURNOk
 
-`func (o *Metadata) GetStateOk() (*State, bool)`
+`func (o *Metadata) GetResourceURNOk() (*string, bool)`
 
-GetStateOk returns a tuple with the State field if it's non-nil, zero value otherwise
+GetResourceURNOk returns a tuple with the ResourceURN field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetState
+### SetResourceURN
 
-`func (o *Metadata) SetState(v State)`
+`func (o *Metadata) SetResourceURN(v string)`
 
-SetState sets State field to given value.
+SetResourceURN sets ResourceURN field to given value.
 
-### HasState
+### HasResourceURN
 
-`func (o *Metadata) HasState() bool`
+`func (o *Metadata) HasResourceURN() bool`
 
-HasState returns a boolean if a field has been set.
-
-### GetHealth
-
-`func (o *Metadata) GetHealth() Health`
-
-GetHealth returns the Health field if non-nil, zero value otherwise.
-
-### GetHealthOk
-
-`func (o *Metadata) GetHealthOk() (*Health, bool)`
-
-GetHealthOk returns a tuple with the Health field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetHealth
-
-`func (o *Metadata) SetHealth(v Health)`
-
-SetHealth sets Health field to given value.
-
-### HasHealth
-
-`func (o *Metadata) HasHealth() bool`
-
-HasHealth returns a boolean if a field has been set.
+HasResourceURN returns a boolean if a field has been set.
 
 

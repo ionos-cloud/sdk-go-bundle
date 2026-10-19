@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**Time** | **string** |  | |
+|**Time** | **string** | Start of the maintenance window in UTC time. | |
 |**DayOfTheWeek** | [**DayOfTheWeek**](DayOfTheWeek.md) |  | |
 
 ## Methods

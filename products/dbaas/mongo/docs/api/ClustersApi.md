@@ -1,26 +1,25 @@
 # \ClustersApi
 
-All URIs are relative to *https://api.ionos.com/databases/mongodb*
+All URIs are relative to *https://mongodb.gb-bhx.ionos.com/v2*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**ClustersDelete**](ClustersApi.md#ClustersDelete) | **Delete** /clusters/{clusterId} | Delete a Cluster|
-|[**ClustersFindById**](ClustersApi.md#ClustersFindById) | **Get** /clusters/{clusterId} | Get a cluster by id|
-|[**ClustersGet**](ClustersApi.md#ClustersGet) | **Get** /clusters | Get Clusters|
-|[**ClustersPatch**](ClustersApi.md#ClustersPatch) | **Patch** /clusters/{clusterId} | Patch a cluster|
-|[**ClustersPost**](ClustersApi.md#ClustersPost) | **Post** /clusters | Create a Cluster|
-|[**ClustersVersionsGet**](ClustersApi.md#ClustersVersionsGet) | **Get** /clusters/{clusterId}/versions | Get available MongoDB versions for this cluster|
+|[**ClustersDelete**](ClustersApi.md#ClustersDelete) | **Delete** /clusters/{clusterId} | Delete Cluster|
+|[**ClustersFindById**](ClustersApi.md#ClustersFindById) | **Get** /clusters/{clusterId} | Retrieve Cluster|
+|[**ClustersGet**](ClustersApi.md#ClustersGet) | **Get** /clusters | Retrieve all Clusters|
+|[**ClustersPost**](ClustersApi.md#ClustersPost) | **Post** /clusters | Create Cluster|
+|[**ClustersPut**](ClustersApi.md#ClustersPut) | **Put** /clusters/{clusterId} | Ensure Cluster|
 
 
 
 ## ClustersDelete
 
 ```go
-var result ClusterResponse = ClustersDelete(ctx, clusterId)
+var result  = ClustersDelete(ctx, clusterId)
                       .Execute()
 ```
 
-Delete a Cluster
+Delete Cluster
 
 
 
@@ -39,7 +38,7 @@ import (
 )
 
 func main() {
-    clusterId := "clusterId_example" // string | The unique ID of the cluster.
+    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The ID (UUID) of the Cluster.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := mongo.NewAPIClient(configuration)
@@ -48,8 +47,6 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersDelete``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
-    // response from `ClustersDelete`: ClusterResponse
-    fmt.Fprintf(os.Stdout, "Response from `ClustersApi.ClustersDelete`: %v\n", resource)
 }
 ```
 
@@ -59,7 +56,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | **string** | The unique ID of the cluster. | |
+|**clusterId** | **string** | The ID (UUID) of the Cluster. | |
 
 ### Other Parameters
 
@@ -71,7 +68,7 @@ Other parameters are passed through a pointer to an apiClustersDeleteRequest str
 
 ### Return type
 
-[**ClusterResponse**](../models/ClusterResponse.md)
+ (empty response body)
 
 ### HTTP request headers
 
@@ -83,11 +80,11 @@ Other parameters are passed through a pointer to an apiClustersDeleteRequest str
 ## ClustersFindById
 
 ```go
-var result ClusterResponse = ClustersFindById(ctx, clusterId)
+var result ClusterRead = ClustersFindById(ctx, clusterId)
                       .Execute()
 ```
 
-Get a cluster by id
+Retrieve Cluster
 
 
 
@@ -106,7 +103,7 @@ import (
 )
 
 func main() {
-    clusterId := "clusterId_example" // string | The unique ID of the cluster.
+    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The ID (UUID) of the Cluster.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := mongo.NewAPIClient(configuration)
@@ -115,7 +112,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersFindById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
-    // response from `ClustersFindById`: ClusterResponse
+    // response from `ClustersFindById`: ClusterRead
     fmt.Fprintf(os.Stdout, "Response from `ClustersApi.ClustersFindById`: %v\n", resource)
 }
 ```
@@ -126,7 +123,7 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | **string** | The unique ID of the cluster. | |
+|**clusterId** | **string** | The ID (UUID) of the Cluster. | |
 
 ### Other Parameters
 
@@ -138,7 +135,7 @@ Other parameters are passed through a pointer to an apiClustersFindByIdRequest s
 
 ### Return type
 
-[**ClusterResponse**](../models/ClusterResponse.md)
+[**ClusterRead**](../models/ClusterRead.md)
 
 ### HTTP request headers
 
@@ -150,14 +147,16 @@ Other parameters are passed through a pointer to an apiClustersFindByIdRequest s
 ## ClustersGet
 
 ```go
-var result ClusterList = ClustersGet(ctx)
-                      .Limit(limit)
+var result ClusterReadList = ClustersGet(ctx)
                       .Offset(offset)
+                      .Limit(limit)
                       .FilterName(filterName)
+                      .FilterState(filterState)
+                      .FilterEdition(filterEdition)
                       .Execute()
 ```
 
-Get Clusters
+Retrieve all Clusters
 
 
 
@@ -176,18 +175,20 @@ import (
 )
 
 func main() {
-    limit := int32(100) // int32 | The maximum number of elements to return. Use together with 'offset' for pagination. (optional) (default to 100)
-    offset := int32(200) // int32 | The first element to return. Use together with 'limit' for pagination. (optional) (default to 0)
-    filterName := "filterName_example" // string | Response filter to list only the MongoDB clusters that contain the specified name. The value is case insensitive and matched on the 'displayName' field.  (optional)
+    offset := int32(0) // int32 | The first element (of the total list of elements) to include in the response. Use this parameter together with the limit for pagination. (optional) (default to 0)
+    limit := int32(100) // int32 | The maximum number of elements to return. Use this parameter together with the offset for pagination. (optional) (default to 100)
+    filterName := "filterName_example" // string | Filters resources by name. It matches cluster names that contain the provided string. (optional)
+    filterState := openapiclient.MongoClusterStates("PROVISIONING") // MongoClusterStates | Filters resources by state. (optional)
+    filterEdition := openapiclient.MongoEdition("ENTERPRISE") // MongoEdition | Filters resources by edition. (optional)
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := mongo.NewAPIClient(configuration)
-    resource, resp, err := apiClient.ClustersApi.ClustersGet(context.Background()).Limit(limit).Offset(offset).FilterName(filterName).Execute()
+    resource, resp, err := apiClient.ClustersApi.ClustersGet(context.Background()).Offset(offset).Limit(limit).FilterName(filterName).FilterState(filterState).FilterEdition(filterEdition).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersGet``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
-    // response from `ClustersGet`: ClusterList
+    // response from `ClustersGet`: ClusterReadList
     fmt.Fprintf(os.Stdout, "Response from `ClustersApi.ClustersGet`: %v\n", resource)
 }
 ```
@@ -203,13 +204,15 @@ Other parameters are passed through a pointer to an apiClustersGetRequest struct
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **limit** | **int32** | The maximum number of elements to return. Use together with &#39;offset&#39; for pagination. | [default to 100]|
-| **offset** | **int32** | The first element to return. Use together with &#39;limit&#39; for pagination. | [default to 0]|
-| **filterName** | **string** | Response filter to list only the MongoDB clusters that contain the specified name. The value is case insensitive and matched on the &#39;displayName&#39; field.  | |
+| **offset** | **int32** | The first element (of the total list of elements) to include in the response. Use this parameter together with the limit for pagination. | [default to 0]|
+| **limit** | **int32** | The maximum number of elements to return. Use this parameter together with the offset for pagination. | [default to 100]|
+| **filterName** | **string** | Filters resources by name. It matches cluster names that contain the provided string. | |
+| **filterState** | [**MongoClusterStates**](../models/.md) | Filters resources by state. | |
+| **filterEdition** | [**MongoEdition**](../models/.md) | Filters resources by edition. | |
 
 ### Return type
 
-[**ClusterList**](../models/ClusterList.md)
+[**ClusterReadList**](../models/ClusterReadList.md)
 
 ### HTTP request headers
 
@@ -218,85 +221,15 @@ Other parameters are passed through a pointer to an apiClustersGetRequest struct
 
 
 
-## ClustersPatch
-
-```go
-var result ClusterResponse = ClustersPatch(ctx, clusterId)
-                      .PatchClusterRequest(patchClusterRequest)
-                      .Execute()
-```
-
-Patch a cluster
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-
-    mongo "github.com/ionos-cloud/sdk-go-bundle/products/mongo"
-    "github.com/ionos-cloud/sdk-go-bundle/shared"
-)
-
-func main() {
-    clusterId := "clusterId_example" // string | The unique ID of the cluster.
-    patchClusterRequest := *openapiclient.NewPatchClusterRequest() // PatchClusterRequest | Part of the cluster which should be modified.
-
-    configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
-    apiClient := mongo.NewAPIClient(configuration)
-    resource, resp, err := apiClient.ClustersApi.ClustersPatch(context.Background(), clusterId).PatchClusterRequest(patchClusterRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersPatch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
-    }
-    // response from `ClustersPatch`: ClusterResponse
-    fmt.Fprintf(os.Stdout, "Response from `ClustersApi.ClustersPatch`: %v\n", resource)
-}
-```
-
-### Path Parameters
-
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-|**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | **string** | The unique ID of the cluster. | |
-
-### Other Parameters
-
-Other parameters are passed through a pointer to an apiClustersPatchRequest struct via the builder pattern
-
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **patchClusterRequest** | [**PatchClusterRequest**](../models/PatchClusterRequest.md) | Part of the cluster which should be modified. | |
-
-### Return type
-
-[**ClusterResponse**](../models/ClusterResponse.md)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-
 ## ClustersPost
 
 ```go
-var result ClusterResponse = ClustersPost(ctx)
-                      .CreateClusterRequest(createClusterRequest)
+var result ClusterRead = ClustersPost(ctx)
+                      .ClusterCreate(clusterCreate)
                       .Execute()
 ```
 
-Create a Cluster
+Create Cluster
 
 
 
@@ -315,16 +248,16 @@ import (
 )
 
 func main() {
-    createClusterRequest := *openapiclient.NewCreateClusterRequest() // CreateClusterRequest | The cluster to be created.
+    clusterCreate := *openapiclient.NewClusterCreate(openapiclient.ClusterCreate_properties{BusinessClusterCreate: openapiclient.NewBusinessClusterCreate("cms-prod", "7", *openapiclient.NewMongoClusterConnection("5a029f4a-72e5-11ec-90d6-0242ac120003", "2", []string{"192.168.2.101/24"}), *openapiclient.NewMaintenanceWindow("59459", openapiclient.DayOfTheWeek("Sunday")), *openapiclient.NewMongoUser("my_db_user", "my_database"), openapiclient.MongoEdition("ENTERPRISE"), "dcd31531-3ac8-11eb-9feb-046c59cc737e", int32(3), *openapiclient.NewClusterSnapshot("eu-south-2", int32(90)))}) // ClusterCreate | Cluster to create.
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := mongo.NewAPIClient(configuration)
-    resource, resp, err := apiClient.ClustersApi.ClustersPost(context.Background()).CreateClusterRequest(createClusterRequest).Execute()
+    resource, resp, err := apiClient.ClustersApi.ClustersPost(context.Background()).ClusterCreate(clusterCreate).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
-    // response from `ClustersPost`: ClusterResponse
+    // response from `ClustersPost`: ClusterRead
     fmt.Fprintf(os.Stdout, "Response from `ClustersApi.ClustersPost`: %v\n", resource)
 }
 ```
@@ -340,11 +273,11 @@ Other parameters are passed through a pointer to an apiClustersPostRequest struc
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **createClusterRequest** | [**CreateClusterRequest**](../models/CreateClusterRequest.md) | The cluster to be created. | |
+| **clusterCreate** | [**ClusterCreate**](../models/ClusterCreate.md) | Cluster to create. | |
 
 ### Return type
 
-[**ClusterResponse**](../models/ClusterResponse.md)
+[**ClusterRead**](../models/ClusterRead.md)
 
 ### HTTP request headers
 
@@ -353,14 +286,15 @@ Other parameters are passed through a pointer to an apiClustersPostRequest struc
 
 
 
-## ClustersVersionsGet
+## ClustersPut
 
 ```go
-var result MongoDBVersionList = ClustersVersionsGet(ctx, clusterId)
+var result ClusterRead = ClustersPut(ctx, clusterId)
+                      .ClusterEnsure(clusterEnsure)
                       .Execute()
 ```
 
-Get available MongoDB versions for this cluster
+Ensure Cluster
 
 
 
@@ -379,17 +313,18 @@ import (
 )
 
 func main() {
-    clusterId := "clusterId_example" // string | The unique ID of the cluster.
+    clusterId := "e69b22a5-8fee-56b1-b6fb-4a07e4205ead" // string | The ID (UUID) of the Cluster.
+    clusterEnsure := *openapiclient.NewClusterEnsure("e69b22a5-8fee-56b1-b6fb-4a07e4205ead", openapiclient.Cluster{BusinessCluster: openapiclient.NewBusinessCluster("cms-prod", "7", *openapiclient.NewMongoClusterConnection("5a029f4a-72e5-11ec-90d6-0242ac120003", "2", []string{"192.168.2.101/24"}), *openapiclient.NewMaintenanceWindow("59459", openapiclient.DayOfTheWeek("Sunday")), openapiclient.MongoEdition("ENTERPRISE"), "dcd31531-3ac8-11eb-9feb-046c59cc737e", int32(3), *openapiclient.NewClusterSnapshot("eu-south-2", int32(90)))}) // ClusterEnsure | update Cluster
 
     configuration := shared.NewConfiguration("USERNAME", "PASSWORD", "TOKEN", "HOST_URL")
     apiClient := mongo.NewAPIClient(configuration)
-    resource, resp, err := apiClient.ClustersApi.ClustersVersionsGet(context.Background(), clusterId).Execute()
+    resource, resp, err := apiClient.ClustersApi.ClustersPut(context.Background(), clusterId).ClusterEnsure(clusterEnsure).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersVersionsGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ClustersApi.ClustersPut``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", resp)
     }
-    // response from `ClustersVersionsGet`: MongoDBVersionList
-    fmt.Fprintf(os.Stdout, "Response from `ClustersApi.ClustersVersionsGet`: %v\n", resource)
+    // response from `ClustersPut`: ClusterRead
+    fmt.Fprintf(os.Stdout, "Response from `ClustersApi.ClustersPut`: %v\n", resource)
 }
 ```
 
@@ -399,23 +334,24 @@ func main() {
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 |**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.|
-|**clusterId** | **string** | The unique ID of the cluster. | |
+|**clusterId** | **string** | The ID (UUID) of the Cluster. | |
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to an apiClustersVersionsGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to an apiClustersPutRequest struct via the builder pattern
 
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
+| **clusterEnsure** | [**ClusterEnsure**](../models/ClusterEnsure.md) | update Cluster | |
 
 ### Return type
 
-[**MongoDBVersionList**](../models/MongoDBVersionList.md)
+[**ClusterRead**](../models/ClusterRead.md)
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
