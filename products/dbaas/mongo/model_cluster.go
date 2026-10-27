@@ -36,44 +36,62 @@ func EnterpriseClusterAsCluster(v *EnterpriseCluster) Cluster {
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *Cluster) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into BusinessCluster
-	err = json.Unmarshal(data, &dst.BusinessCluster)
-	if err == nil {
-		jsonBusinessCluster, _ := json.Marshal(dst.BusinessCluster)
-		if string(jsonBusinessCluster) == "{}" { // empty struct
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = json.Unmarshal(data, &jsonDict)
+	if err != nil {
+		return fmt.Errorf("Failed to unmarshal JSON into map for the discrimintor lookup.")
+	}
+
+	// check if the discriminator value is 'BUSINESS'
+	if jsonDict["edition"] == "BUSINESS" {
+		// try to unmarshal JSON data into BusinessCluster
+		err = json.Unmarshal(data, &dst.BusinessCluster)
+		if err == nil {
+			return nil // data stored in dst.BusinessCluster, return on the first match
+		} else {
 			dst.BusinessCluster = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Cluster as BusinessCluster: %s", err.Error())
 		}
-	} else {
-		dst.BusinessCluster = nil
 	}
 
-	// try to unmarshal data into EnterpriseCluster
-	err = json.Unmarshal(data, &dst.EnterpriseCluster)
-	if err == nil {
-		jsonEnterpriseCluster, _ := json.Marshal(dst.EnterpriseCluster)
-		if string(jsonEnterpriseCluster) == "{}" { // empty struct
+	// check if the discriminator value is 'BusinessCluster'
+	if jsonDict["edition"] == "BusinessCluster" {
+		// try to unmarshal JSON data into BusinessCluster
+		err = json.Unmarshal(data, &dst.BusinessCluster)
+		if err == nil {
+			return nil // data stored in dst.BusinessCluster, return on the first match
+		} else {
+			dst.BusinessCluster = nil
+			return fmt.Errorf("Failed to unmarshal Cluster as BusinessCluster: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'ENTERPRISE'
+	if jsonDict["edition"] == "ENTERPRISE" {
+		// try to unmarshal JSON data into EnterpriseCluster
+		err = json.Unmarshal(data, &dst.EnterpriseCluster)
+		if err == nil {
+			return nil // data stored in dst.EnterpriseCluster, return on the first match
+		} else {
 			dst.EnterpriseCluster = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal Cluster as EnterpriseCluster: %s", err.Error())
 		}
-	} else {
-		dst.EnterpriseCluster = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.BusinessCluster = nil
-		dst.EnterpriseCluster = nil
-
-		return fmt.Errorf("Data matches more than one schema in oneOf(Cluster)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("Data failed to match schemas in oneOf(Cluster)")
+	// check if the discriminator value is 'EnterpriseCluster'
+	if jsonDict["edition"] == "EnterpriseCluster" {
+		// try to unmarshal JSON data into EnterpriseCluster
+		err = json.Unmarshal(data, &dst.EnterpriseCluster)
+		if err == nil {
+			return nil // data stored in dst.EnterpriseCluster, return on the first match
+		} else {
+			dst.EnterpriseCluster = nil
+			return fmt.Errorf("Failed to unmarshal Cluster as EnterpriseCluster: %s", err.Error())
+		}
 	}
+
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON

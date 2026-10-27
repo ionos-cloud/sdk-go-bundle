@@ -36,44 +36,62 @@ func EnterpriseClusterCreateAsClusterCreateProperties(v *EnterpriseClusterCreate
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *ClusterCreateProperties) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into BusinessClusterCreate
-	err = json.Unmarshal(data, &dst.BusinessClusterCreate)
-	if err == nil {
-		jsonBusinessClusterCreate, _ := json.Marshal(dst.BusinessClusterCreate)
-		if string(jsonBusinessClusterCreate) == "{}" { // empty struct
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = json.Unmarshal(data, &jsonDict)
+	if err != nil {
+		return fmt.Errorf("Failed to unmarshal JSON into map for the discrimintor lookup.")
+	}
+
+	// check if the discriminator value is 'BUSINESS'
+	if jsonDict["edition"] == "BUSINESS" {
+		// try to unmarshal JSON data into BusinessClusterCreate
+		err = json.Unmarshal(data, &dst.BusinessClusterCreate)
+		if err == nil {
+			return nil // data stored in dst.BusinessClusterCreate, return on the first match
+		} else {
 			dst.BusinessClusterCreate = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal ClusterCreateProperties as BusinessClusterCreate: %s", err.Error())
 		}
-	} else {
-		dst.BusinessClusterCreate = nil
 	}
 
-	// try to unmarshal data into EnterpriseClusterCreate
-	err = json.Unmarshal(data, &dst.EnterpriseClusterCreate)
-	if err == nil {
-		jsonEnterpriseClusterCreate, _ := json.Marshal(dst.EnterpriseClusterCreate)
-		if string(jsonEnterpriseClusterCreate) == "{}" { // empty struct
+	// check if the discriminator value is 'BusinessClusterCreate'
+	if jsonDict["edition"] == "BusinessClusterCreate" {
+		// try to unmarshal JSON data into BusinessClusterCreate
+		err = json.Unmarshal(data, &dst.BusinessClusterCreate)
+		if err == nil {
+			return nil // data stored in dst.BusinessClusterCreate, return on the first match
+		} else {
+			dst.BusinessClusterCreate = nil
+			return fmt.Errorf("Failed to unmarshal ClusterCreateProperties as BusinessClusterCreate: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'ENTERPRISE'
+	if jsonDict["edition"] == "ENTERPRISE" {
+		// try to unmarshal JSON data into EnterpriseClusterCreate
+		err = json.Unmarshal(data, &dst.EnterpriseClusterCreate)
+		if err == nil {
+			return nil // data stored in dst.EnterpriseClusterCreate, return on the first match
+		} else {
 			dst.EnterpriseClusterCreate = nil
-		} else {
-			match++
+			return fmt.Errorf("Failed to unmarshal ClusterCreateProperties as EnterpriseClusterCreate: %s", err.Error())
 		}
-	} else {
-		dst.EnterpriseClusterCreate = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.BusinessClusterCreate = nil
-		dst.EnterpriseClusterCreate = nil
-
-		return fmt.Errorf("Data matches more than one schema in oneOf(ClusterCreateProperties)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("Data failed to match schemas in oneOf(ClusterCreateProperties)")
+	// check if the discriminator value is 'EnterpriseClusterCreate'
+	if jsonDict["edition"] == "EnterpriseClusterCreate" {
+		// try to unmarshal JSON data into EnterpriseClusterCreate
+		err = json.Unmarshal(data, &dst.EnterpriseClusterCreate)
+		if err == nil {
+			return nil // data stored in dst.EnterpriseClusterCreate, return on the first match
+		} else {
+			dst.EnterpriseClusterCreate = nil
+			return fmt.Errorf("Failed to unmarshal ClusterCreateProperties as EnterpriseClusterCreate: %s", err.Error())
+		}
 	}
+
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON

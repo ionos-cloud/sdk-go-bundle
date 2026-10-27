@@ -53,7 +53,7 @@ const (
 	RequestStatusFailed  = "FAILED"
 	RequestStatusDone    = "DONE"
 
-	Version               = "products/dbaas/mongo/v3.0.0"
+	Version               = "products/dbaas/mongo/v3.0.1"
 	DefaultIonosServerUrl = "https://mongodb.gb-bhx.ionos.com/v2"
 	DefaultIonosBasePath  = "/v2"
 )
@@ -120,7 +120,7 @@ func NewAPIClient(cfg *shared.Configuration) *APIClient {
 	}
 
 	if cfgCopy.UserAgent == "" {
-		cfgCopy.UserAgent = "sdk-go-bundle/products/dbaas/mongo/v3.0.0"
+		cfgCopy.UserAgent = "sdk-go-bundle/products/dbaas/mongo/v3.0.1"
 	}
 
 	// Initialize default values in the copied configuration
